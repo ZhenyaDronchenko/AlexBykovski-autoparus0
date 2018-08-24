@@ -1,0 +1,410 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd,
+  ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary, time, mark, audio, video
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+{
+  display: block;
+}
+
+body
+{
+  line-height: 1;
+}
+
+ol, ul
+{
+  list-style: none;
+}
+
+blockquote, q
+{
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after
+{
+  content: '';
+  content: none;
+}
+
+table
+{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*, body{
+        -webkit-text-size-adjust: none;
+}
+
+/*  ===========================  КОНЕЦ  RESETA  =====================================  */
+
+/*  ===========================  НАЧАЛО ХЕДЕРА  =====================================  */
+
+/* ===================== hamburger ===================== */
+
+.gamburger {
+    border: solid 3px black;
+    width: 60px;
+    height: 0;
+    margin: 11px;
+    display: block;
+    border-radius: 30px;
+    transition-duration: 0.5s;
+  }
+  
+  #hamburger {
+    position: relative;
+  }
+  
+  #hamChild {
+    outline: solid 0px red;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+  }
+  
+  #hamChild:hover {
+    cursor: pointer;
+  }
+  
+  hamChild:hover #g-1{
+    transform: rotate(45deg);
+    transform-origin: 12px 10px;
+  }
+  
+  hamChild:hover #g-2{
+    opacity: 0;
+    transform: scaleX(-1);
+  }
+  
+  hamChild:hover #g-3{
+    transform: rotate(-45deg);
+    transform-origin: 12px -4px;
+  }
+  
+  /* ============= классы ============= */
+  
+  .g1 {
+    transform: rotate(45deg);
+    transform-origin: 12px 10px;
+  }
+  
+  .g2 {
+    opacity: 0;
+    transform: scaleX(-1);
+  }
+  
+  .g3 {
+    transform: rotate(-45deg);
+    transform-origin: 12px -4px;
+  }
+  
+  /* ===================== hamburger-end ===================== */
+  
+  body {
+    font-family: 'Comfortaa', cursive;
+  }
+  
+  
+  wrapper {
+      max-width: 1920px;
+      display: flex;
+      outline: solid 0px gray;
+  }
+  
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  #hatWrapp {
+      display: flex;
+      outline: solid 0px gray;
+  }
+  #hatWrapp > div{
+      flex-grow: 1;
+      outline: solid 0px gray;
+  }
+  
+  #logo {
+      color: #222533;
+      font-size: 70px;
+      font-weight: bold;
+      margin: 20px;
+  }
+  
+  #menu {
+    z-index: 2;
+  }
+  
+  #menu > div {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+  #menu div ul li {
+    margin: 12px;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  #menu div ul li a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  #menu > div:first-child {
+    justify-content: flex-end;
+    margin-right: 0px;
+  }
+  
+  #menu > div:last-child {
+    justify-content: flex-start;
+    margin-left: 0px;
+  }
+  
+  /* ============= классы ============= */
+  
+  .m1 {
+    display: flex;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    transition: max-height 1.5s;
+    overflow: hidden;
+    max-height: 700px;
+    width: 100%;
+    background-color: white;
+    }
+  
+    .m01 {
+        display: flex;
+        transition: max-height 0.7s;
+        max-height: 0;
+        width: 100%;
+        background-color: white;
+        overflow: hidden;
+      }
+
+/*  ===========================  КОНЕЦ  ХЕДЕРА  =====================================  */
+
+/*  ===========================  НАЧАЛО ФУТЕРА  =====================================  */
+
+#footer {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    border-top: solid 2px black;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+}
+
+#footer > div {
+    margin: 0 auto;
+}
+
+/* ================= иконические шрифты ================= */
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Предпочтительный размер иконок */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased; /* Поддержка всеми WebKit браузерами */
+    text-rendering: optimizeLegibility; /* Поддержка Safari и Chrome */
+    -moz-osx-font-smoothing: grayscale;  /* Поддержка Firefox. */
+    font-feature-settings: 'liga'; /* Поддержка IE. */
+  }
+  
+  .material-icons.md-36 {font-size: 36px;}
+
+/*  ===========================  КОНЕЦ  ФУТЕРА  =====================================  */
+
+/* ================= МЕДИАЗАПРОСЫ ================= */
+
+/* ================= хедер/футер+ ================= */
+
+
+@media only all and (max-width: 1200px) {
+
+    #menu div ul li {
+      margin: 8px;
+      font-size: 28px;
+    }
+  
+  }
+  
+  @media only all and (max-width: 960px) {
+  
+    #menu div ul li {
+      margin: 8px;
+      font-size: 22px;
+    }
+  
+  }
+
+  @media only all and (max-width: 770px) {
+  
+    #menu div ul li {
+      margin: 8px;
+      font-size: 18px;
+    }
+
+  }
+  
+  @media only all and (max-width: 750px) {
+  
+    #logo {
+      font-size: 50px;
+      margin: 20px;
+  }
+  }
+  
+  @media only all and (max-width: 650px) {
+  
+    #logo {
+      font-size: 50px;
+      margin: 20px;
+  }
+  
+  #menu-01, #menu-02 {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #menu-01 div:first-child, #menu-02 div:first-child {
+    margin-bottom: -10px;
+  }
+  
+  #menu div ul li {
+    margin: 10px;
+    font-size: 22px;
+  }
+
+  }
+  
+  @media only all and (max-width: 500px) {
+  
+    #hamChild {
+      top: 5px;
+      right: 5px;
+    }
+  
+    #logo {
+      font-size: 50px;
+      margin: 5px;
+  }
+  
+  #menu {
+    flex-direction: column;
+    margin-top: 8px;
+  }
+  
+  #menu > div:first-child {
+    justify-content: flex-start;
+    margin: 0;
+  }
+  
+  #menu > div:last-child {
+    justify-content: flex-start;
+    margin: 0;
+  }
+  
+  #menu div ul li:last-child {
+    margin-bottom: 0;
+  }
+  
+  #menu div:last-child {
+    margin-bottom: 8px;
+  }
+  
+  #menu-01 div:last-child {
+    margin-bottom: 0;
+  }
+  
+  #menu-01 div:first-child, #menu-02 div:first-child {
+    margin-bottom: 0;
+  }
+  
+  }
+  
+  @media only all and (max-width: 420px) {
+  
+    #logo {
+      font-size: 40px;
+      margin: 10px 5px 5px 10px;
+  }
+  
+    .gamburger {
+      border: solid 2px black;
+      width: 40px;
+      height: 0;
+      margin: 8px;
+      display: block;
+      border-radius: 30px;
+      transition-duration: 0.5s;
+    }
+    
+    #hamburger {
+      position: relative;
+    }
+    
+    #hamChild {
+      outline: solid 0px red;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+    
+    #hamChild:hover {
+      cursor: pointer;
+    }
+  
+    .g1 {
+      transform: rotate(45deg);
+      transform-origin: 12px 18px;
+    }
+    
+    
+    .g3 {
+      transform: rotate(-45deg);
+      transform-origin: 12px -14px;
+    }
+    
+  }
+
+  @media only all and (max-width: 350px) {
+
+    #logo {
+      font-size: 34px;
+      margin: 10px 5px 5px 10px;
+      letter-spacing: -1px;
+  }
+
+  }
+
+/* ================= хедер/футер- ================= */

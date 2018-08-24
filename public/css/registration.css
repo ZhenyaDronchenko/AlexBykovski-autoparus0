@@ -1,0 +1,79 @@
+
+#registrationForm {
+  border: 1px solid black;
+  border-radius: 15px;
+  max-width: 400px;
+  margin: 10px auto;
+  text-align: center;
+  position: relative;
+}
+
+.inputF2 {
+  width: 80%;
+  height: 32px;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+  background: white;
+  color: black;
+}
+
+#reg {
+  display: block;
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+#registrationForm input {
+  font-weight: bolder;
+  font-family: 'Comfortaa', cursive;
+}
+
+#registrationForm > button {
+  border: 1px solid black;
+  border-radius: 10px;
+  background: white;
+  margin: 10px 0;
+  font-size: 1.1em;
+  font-family: 'Comfortaa', cursive;
+  letter-spacing: 1px;
+  font-weight: bolder;
+  padding: 6px 20px;
+  transition-duration: 0.2s;
+}
+
+#registrationForm > button:hover {
+  border: 1px solid black;
+  border-radius: 10px;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+/* ================= МЕДИАЗАПРОСЫ ================= */
+  
+  @media only all and (max-width: 500px) {
+  
+  #registrationForm {
+    margin: 10px 7%;
+  }
+
+  #registrationForm > button {
+    margin: 10px 0;
+    font-size: 1em;
+    letter-spacing: 0;
+    font-weight: bolder;
+    padding: 5px 15px;
+    transition-duration: 0.2s;
+  }
+
+  }
+
+
+
+
+  
+
+

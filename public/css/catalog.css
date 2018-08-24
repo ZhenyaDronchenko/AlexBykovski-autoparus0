@@ -1,0 +1,127 @@
+
+#cContent {
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+#cContent h1, #cContent h2 {
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    margin: 10px auto;
+}
+    
+#firstText, #secondText {
+    margin: 20px auto;
+}
+
+#brandSelect {
+    text-align: center;
+    font-size: 1.1em;
+    margin: 10px auto;
+}
+
+#brandSelect select {
+    width: 200px;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+#brandSelect select:hover {
+    cursor: pointer;
+}
+
+#showAll {
+    max-width: 200px;
+    text-align: center;
+    margin: 10px auto 20px auto;
+    font-style: oblique;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: white;
+    font-size: 1.1em;
+    font-family: 'Comfortaa', cursive;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    padding: 6px 10px;
+    transition-duration: 0.2s;
+}
+
+#showAll:hover {
+    border: 1px solid black;
+    border-radius: 10px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+#brandImg {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.showLess {
+    max-height: 265px;
+}
+
+.showMoreBrands {
+    max-height: auto;
+}
+
+#brandImg div {
+    width: 82px;
+    height: 82px;
+    border: solid 1px silver;
+    margin: 2px;
+    flex-grow: 1;
+}
+
+
+
+/* ================= МЕДИАЗАПРОСЫ ================= */
+
+@media only all and (max-width: 430px) {
+
+    #brandSelect select {
+        width: auto;
+        border: solid 1px black;
+        border-radius: 5px;
+        padding: 3px;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+
+
+    #brandSelect {
+        text-align: center;
+        font-size: 1em;
+        margin: 10px auto;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

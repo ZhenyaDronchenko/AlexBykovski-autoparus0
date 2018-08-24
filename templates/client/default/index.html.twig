@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article id='content'>
+        <div id='search'>
+            <form id='firstForm' action="" method="get">
+                <input class='form1' name="s" placeholder="Поиск.." type="search">
+                <button class='mainButton' type="submit"></button>
+            </form>
+            <a href='{{ path("show_catalog") }}'><span>последовательный поиск</span></a>
+        </div>
+        <div id='tagline'>
+            <h1>Автопарус &mdash; движение &mdash; жизнь!</h1>
+            <h1>Вперед &nbsp; под &nbsp; парусом!</h1>
+        </div>
+    </article>
+{% endblock %}

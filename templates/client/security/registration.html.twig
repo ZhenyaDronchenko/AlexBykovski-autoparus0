@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link type='text/css' rel='stylesheet' href='css/registration.css'>
+{% endblock %}
+
+{% block body %}
+    <article id=''>
+
+        <form id='registrationForm' action="" method="get">
+            <span id='reg'>Регистрация</span>
+            <input class='inputF2' name="userName" placeholder="Ваше имя" maxlength="40" type="text"><br/><br/>
+            <input class='inputF2' name="userEmail" placeholder="Ваш e-mail" maxlength="40" type="text"><br/><br/>
+            <input class='inputF2' name="userPhone" placeholder="Ваш телефон" maxlength="40" type="text"><br/><br/>
+
+            <input class='inputF2' name="userPassword" placeholder="Придумайте пароль" maxlength="40" type="password"><br/><br/>
+            <input class='inputF2' name="confirmUserPassword" placeholder="Повторите пароль" maxlength="40" type="password"><br/><br/>
+
+            <span>Capcha</span><br/><br/>
+            <button type="submit">Зарегистрироваться</button><br/><br/>
+        </form>
+        <br/><br/><br/><br/>
+
+    </article>
+{% endblock %}

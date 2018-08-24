@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type='text/css' rel='stylesheet' href='css/style.css'>
+        <link type='text/css' rel='stylesheet' href='css/common.css'>
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <title>{% block title %}Автопарус{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <script async src='js/script.js'></script>
+    </head>
+    <body>
+        <div id='wrapper'>
+            <header id='header'>
+                <div id='hatWrapp'>
+                    <div id='logo'>
+                        <h1><a href="{{ path("homepage") }}" title='На главную'>Автопарус</a></h1>
+                    </div>
+                    <div id='hamburger'>
+                        <div id='hamChild' onclick='menuActive()'>
+                            <span id='g-1' class='gamburger'></span>
+                            <span id='g-2' class='gamburger'></span>
+                            <span id='g-3' class='gamburger'></span>
+                        </div>
+                    </div>
+                </div>
+                <nav id='menu' class='m01'>
+                    <div id='menu-01'>
+                        <div>
+                            <ul>
+                                <li><a href="{{ path("show_catalog") }}">Каталог</a></li>
+                                <li><a href='#'>О нас</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul>
+                                <li><a href="{{ path("login") }}">Вход</a></li>
+                                <li><a href="{{ path("registration") }}">Регистрация</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id='menu-02'>
+                        <div>
+                            <ul>
+                                <li><a href='#'>Пользователям</a></li>
+                                <li><a href='#'>Продавцам</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul>
+                                <li><a href='#'>Новости</a></li>
+                                <li><a href='#'>Обратная связь</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            {% block body %}{% endblock %}
+            <footer id='footer'>
+                <div>
+                    <a href="{{ path("homepage") }}" title='На главную'>
+                        <i class="material-icons md-48 md-36">home</i>
+                    </a>
+                </div>
+                <div id='secondMenu' onclick='secondMenu()'>
+                    <a href='#' title='Открыть меню'>
+                        <i class="material-icons md-36">menu</i>
+                    </a>
+                </div>
+                <div>
+                    <a>
+                        <i class="material-icons md-36"> help</i>
+                    </a>
+                </div>
+                <div>
+                    <a>
+                        <i class="material-icons md-36">search</i>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path("homepage") }}">
+                        <i class="material-icons md-36">store_mall_directory</i>
+                    </a>
+                </div>
+                <div>
+                    <a>
+                        <i class="material-icons md-36">person</i>
+                    </a>
+                </div>
+            </footer>
+
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

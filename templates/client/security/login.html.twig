@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link type='text/css' rel='stylesheet' href='css/login.css'>
+{% endblock %}
+
+{% block body %}
+    <article id=''>
+
+        <form id='loginForm' action="" method="get">
+            <span>Вход на Автопарус</span><br/>
+            <span>e-mail или телефон</span><br/>
+            <input class='inputF' name="emailOrPhone" placeholder="" maxlength="40" type="text"><br/>
+            <span>пароль / password</span><br/>
+            <input class='inputF' name="password" placeholder="" maxlength="40" type="password"><br/>
+            <button type="submit">Войти</button><br/>
+            <div><input name="rememberPassword" value="yes" type="checkbox"> <span>Запомнить пароль</span></div>
+            <a href="{{ path("forgot_password") }}"><span id='forget'>Забыли пароль?</span></a>
+            <a href={{ path("registration") }}><span id='regButton'>Регистрация</span></a>
+        </form>
+        <br/><br/><br/><br/>
+
+    </article>
+{% endblock %}
