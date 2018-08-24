@@ -8,13 +8,13 @@
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
+        "symfony/dotenv": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
         "symfony/security-bundle": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*",
         "symfony/profiler-pack": "^1.0",
         "symfony/web-server-bundle": "*"
     },
