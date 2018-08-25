@@ -47,13 +47,21 @@ class ForgotPasswordSender
         $this->sendEmail($forgotPassword);
     }
 
-    protected function createForgotPassword($user)
+    protected function createForgotPassword(User $user)
     {
         $code = md5($this->generator->generateNumberWordCode(8));
 
-        $forgotPassword = new ForgotPassword($code, $user);
+        if($user->getForgotPassword()){
+            $forgotPassword = $user->getForgotPassword();
 
-        $this->em->persist($forgotPassword);
+            $forgotPassword->setCode($code);
+        }
+        else{
+            $forgotPassword = new ForgotPassword($code, $user);
+
+            $this->em->persist($forgotPassword);
+        }
+
         $this->em->flush();
 
         return $forgotPassword;

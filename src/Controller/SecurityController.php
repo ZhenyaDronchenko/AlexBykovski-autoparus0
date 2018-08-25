@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Buyer;
+use App\Entity\ForgotPassword;
 use App\Entity\User;
 use App\Form\Type\ForgotPasswordType;
+use App\Form\Type\RecoveryPasswordType;
 use App\Form\Type\RegistrationType;
 use App\Sender\ForgotPasswordSender;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -85,10 +87,7 @@ class SecurityController extends Controller
                 $sender->createAndSendForgotPassword($user);
                 $form = $this->createForm(ForgotPasswordType::class);
 
-                return $this->render('client/security/forgot-password.html.twig', [
-                    "form" => $form->createView(),
-                    "send" => true,
-                ]);
+                return $this->redirectToRoute('success_recovery_password');
             }
         }
 
@@ -100,9 +99,38 @@ class SecurityController extends Controller
     /**
      * @Route("/recovery-password", name="recovery_password")
      */
-    public function recoveryPasswordAction(Request $request)
+    public function recoveryPasswordAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
+        $code = $request->query->get("code");
+        $em = $this->getDoctrine()->getManager();
+
+        $forgotPassword = $em->getRepository(ForgotPassword::class)->findOneBy(["code" => $code]);
+
+        if(!($forgotPassword instanceof ForgotPassword)){
+            return $this->render('client/security/recovery-password.html.twig', [
+                "incorrectCode" => true,
+            ]);
+        }
+
+        $form = $this->createForm(RecoveryPasswordType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $forgotPassword->getUser();
+            $password = $form->get("password")->getData();
+
+            $encodedPassword = $encoder->encodePassword($user, $password);
+            $user->setPassword($encodedPassword);
+
+            $em->remove($forgotPassword);
+            $em->flush();
+
+            return $this->redirectToRoute('login');
+        }
+
         return $this->render('client/security/recovery-password.html.twig', [
+            "form" => $form->createView(),
         ]);
     }
 
