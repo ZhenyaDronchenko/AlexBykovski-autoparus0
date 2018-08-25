@@ -18,6 +18,7 @@
                 <div id='hatWrapp'>
                     <div id='logo'>
                         <h1><a href="{{ path("homepage") }}" title='На главную'>Автопарус</a></h1>
+                        {{ app.user == null ? "" : app.user.email }}
                     </div>
                     <div id='hamburger'>
                         <div id='hamChild' onclick='menuActive()'>

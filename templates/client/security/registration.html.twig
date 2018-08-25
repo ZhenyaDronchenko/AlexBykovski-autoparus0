@@ -7,17 +7,40 @@
 {% block body %}
     <article id=''>
 
-        <form id='registrationForm' action="" method="get">
+        <form id='registrationForm' action="{{ path("registration") }}" method="post" novalidate enctype="multipart/form-data">
+            {{ form_widget(form._token) }}
             <span id='reg'>Регистрация</span>
-            <input class='inputF2' name="userName" placeholder="Ваше имя" maxlength="40" type="text"><br/><br/>
-            <input class='inputF2' name="userEmail" placeholder="Ваш e-mail" maxlength="40" type="text"><br/><br/>
-            <input class='inputF2' name="userPhone" placeholder="Ваш телефон" maxlength="40" type="text"><br/><br/>
-
-            <input class='inputF2' name="userPassword" placeholder="Придумайте пароль" maxlength="40" type="password"><br/><br/>
-            <input class='inputF2' name="confirmUserPassword" placeholder="Повторите пароль" maxlength="40" type="password"><br/><br/>
-
-            <span>Capcha</span><br/><br/>
-            <button type="submit">Зарегистрироваться</button><br/><br/>
+            {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "maxlength" : "40", "class" : "inputF2" }}) }}
+            <div class="form-error-message">
+                {{ form_errors(form.name) }}
+            </div>
+            <br/><br/>
+            {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "maxlength" : "40", "class" : "inputF2" }}) }}
+            <div class="form-error-message">
+                {{ form_errors(form.email) }}
+            </div>
+            <br/><br/>
+            {{ form_widget(form.phone, {attr: {"placeholder": "Ваш телефон", "maxlength" : "40", "class" : "inputF2" }}) }}
+            <div class="form-error-message">
+                {{ form_errors(form.phone) }}
+            </div>
+            <br/><br/>
+            {{ form_widget(form.password.first, {attr: {"placeholder": "Придумайте пароль", "maxlength" : "40", "class" : "inputF2" }}) }}
+            <div class="form-error-message">
+                {{ form_errors(form.password.first) }}
+            </div>
+            <br/><br/>
+            {{ form_widget(form.password.second, {attr: {"placeholder": "Повторите пароль", "maxlength" : "40", "class" : "inputF2" }}) }}
+            <div class="form-error-message">
+                {{ form_errors(form.password.second) }}
+            </div>
+            <br/><br/>
+            {{ form_widget(form.captcha, {attr: {"placeholder": "Введите код с картинки", "class" : "inputF2"}}) }}
+            <div class="form-error-message">
+                {{ form_errors(form.captcha) }}
+            </div>
+            <br/><br/>
+            {{ form_widget(form.submit, {attr: {label: 'Зарегистрироваться'}}) }}
         </form>
         <br/><br/><br/><br/>
 
