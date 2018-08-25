@@ -77,7 +77,7 @@ class ForgotPasswordSender
 
         $message = (new \Swift_Message('Восстановление пароля'))
             ->setFrom($forgotPassword->getUser()->getEmail())
-            ->setTo('bykovski.free@gmail.com')
+            ->setTo('mr2@tut.by')
             ->setBody(
                 "Для восстановления пароля перейдите по ссылке: " . $link
             );
