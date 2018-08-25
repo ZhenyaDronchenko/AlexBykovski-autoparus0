@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
@@ -27,6 +28,7 @@ class SecurityController extends Controller
             $password = $encoder->encodePassword($buyer, $buyer->getPassword());
             $buyer->setPassword($password);
             $buyer->setUsername($buyer->getEmail());
+            $buyer->setEnabled(true);
 
             $em->persist($buyer);
             $em->flush();
@@ -42,10 +44,20 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
-        return $this->render('client/security/login.html.twig', [
-        ]);
+        if ($this->getUser()) {
+            return $this->redirectToRoute('homepage');
+        }
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        return $this->render(
+            'client/security/login.html.twig',
+            [
+                'error'         => $error,
+            ]
+        );
     }
 
     /**
