@@ -33,6 +33,15 @@ services:
         class: App\Security\User\UserProvider
         arguments: ['@doctrine.orm.entity_manager']
 
+    app.generator.password_generator:
+        class:  App\Generator\PasswordGenerator
+        arguments: []
+
+    app.sender.forgot_password:
+        class:  App\Sender\ForgotPasswordSender
+        arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router']
+        public: true
+
 fos_user:
     db_driver: orm
     firewall_name: main

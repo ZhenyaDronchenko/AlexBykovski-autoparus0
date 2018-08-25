@@ -1,3 +1,9 @@
+#swiftmailer:
+#    url: '%env(MAILER_URL)%'
+#    spool: { type: 'memory' }
+
+
 swiftmailer:
-    url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
+    url: 'gmail://bykovski.free@gmail.com:15397715@localhost?encryption=tls&auth_mode=oauth'
+    spool: { type: memory }
+    #sender_address: "info@lucky-deal.ru"

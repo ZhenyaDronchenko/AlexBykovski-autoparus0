@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Buyer;
+use App\Entity\User;
+use App\Form\Type\ForgotPasswordType;
 use App\Form\Type\RegistrationType;
+use App\Sender\ForgotPasswordSender;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -63,9 +67,33 @@ class SecurityController extends Controller
     /**
      * @Route("/forgot-password", name="forgot_password")
      */
-    public function forgotPasswordAction(Request $request)
+    public function forgotPasswordAction(Request $request, ForgotPasswordSender $sender)
     {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ForgotPasswordType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $email = $form->get("email")->getData();
+            $user = $em->getRepository(User::class)->findOneBy(["email" => $email]);
+
+            if(!($user instanceof User)){
+                $form->get("email")->addError(new FormError("Пользователь с такими данными не найден, проверьте верно ли Вы ввели e-mail"));
+            }
+            else{
+                $sender->createAndSendForgotPassword($user);
+                $form = $this->createForm(ForgotPasswordType::class);
+
+                return $this->render('client/security/forgot-password.html.twig', [
+                    "form" => $form->createView(),
+                    "send" => true,
+                ]);
+            }
+        }
+
         return $this->render('client/security/forgot-password.html.twig', [
+            "form" => $form->createView(),
         ]);
     }
 

@@ -54,6 +54,14 @@ abstract class User extends BaseUser
      */
     private $createdAt;
 
+    /**
+     * @var ForgotPassword|null
+     *
+     * One User has One ForgotPassword.
+     * @ORM\OneToOne(targetEntity="ForgotPassword", mappedBy="user")
+     */
+    private $forgotPassword;
+
     public function __construct()
     {
         parent::__construct();
@@ -123,5 +131,21 @@ abstract class User extends BaseUser
     public function setPhone(?string $phone): void
     {
         $this->phone = $phone;
+    }
+
+    /**
+     * @return ForgotPassword|null
+     */
+    public function getForgotPassword(): ?ForgotPassword
+    {
+        return $this->forgotPassword;
+    }
+
+    /**
+     * @param ForgotPassword|null $forgotPassword
+     */
+    public function setForgotPassword(?ForgotPassword $forgotPassword): void
+    {
+        $this->forgotPassword = $forgotPassword;
     }
 }
