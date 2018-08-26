@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,7 @@ class CatalogController extends Controller
     public function showCatalogAction(Request $request)
     {
         return $this->render('client/catalog/catalog.html.twig', [
+            'brands' => $this->getDoctrine()->getRepository(Brand::class)->findBy(["active" => true])
         ]);
     }
 

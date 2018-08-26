@@ -52,6 +52,12 @@ services:
         arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router']
         public: true
 
+    App\Twig\ImageUrlExtension:
+        class: App\Twig\ImageUrlExtension
+        arguments: ['%upload_image_directory%']
+        tags:
+            - { name: twig.extension }
+
 fos_user:
     db_driver: orm
     firewall_name: main

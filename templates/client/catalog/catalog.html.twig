@@ -14,76 +14,35 @@
         </div>
 
         <div id='brandSelect'>
-            <span>Марка (Brand):</span>  <select>
-                                            <option>Audi</option>
-                                            <option>Mercedes</option>
-                                            <option>BMW</option>
-                                            <option>Volkswagen</option>
-                                            <option>Renault</option>
-                                        </select>
+            <span>Марка (Brand):</span>
+            <select>
+                {% for brand in brands %}
+                    <option>{{ brand.name }}</option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class='showLess' id='brandImg'>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            {% for brand in brands%}
+                <div>
+                    <img style="width: 100px; height: 100px" src="{{ image_url(brand.logo) }}"/>
+                </div>
+            {% endfor %}
+            {% for brand in brands%}
+                <div>
+                    <img style="width: 100px; height: 100px" src="{{ image_url(brand.logo) }}"/>
+                </div>
+            {% endfor %}
+            {% for brand in brands%}
+                <div>
+                    <img style="width: 100px; height: 100px" src="{{ image_url(brand.logo) }}"/>
+                </div>
+            {% endfor %}
+            {% for brand in brands%}
+                <div>
+                    <img style="width: 100px; height: 100px" src="{{ image_url(brand.logo) }}"/>
+                </div>
+            {% endfor %}
         </div>
 
         <div onclick='toggleShow()' id='showAll'>Показать все &gt;&gt;&gt;</div>
