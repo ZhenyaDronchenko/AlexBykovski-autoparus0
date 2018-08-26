@@ -19,3 +19,10 @@ services:
         tags:
             - { name: sonata.admin, group: Марка, manager_type: orm, label: Марка }
         public: true
+
+    admin.catalog.catalog_general:
+        class: App\Admin\CatalogGeneralPageAdmin
+        arguments: [~, App\Entity\CatalogGeneralPage, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор марки }
+        public: true
