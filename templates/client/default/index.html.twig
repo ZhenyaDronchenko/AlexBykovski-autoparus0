@@ -10,8 +10,8 @@
             <a href='{{ path("show_catalog") }}'><span>последовательный поиск</span></a>
         </div>
         <div id='tagline'>
+            {{ homePage.description | raw }}
             <h1>Автопарус &mdash; движение &mdash; жизнь!</h1>
-            <h1>Вперед &nbsp; под &nbsp; парусом!</h1>
         </div>
     </article>
 {% endblock %}

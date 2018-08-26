@@ -1,0 +1,7 @@
+services:
+    admin.general.main_page:
+        class: App\Admin\MainPageAdmin
+        arguments: [~, App\Entity\MainPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
+        public: true

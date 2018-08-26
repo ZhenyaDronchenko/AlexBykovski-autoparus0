@@ -71,6 +71,9 @@
     "egulias/email-validator": {
         "version": "2.1.5"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "1.1.0"
+    },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
