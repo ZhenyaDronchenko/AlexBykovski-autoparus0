@@ -26,7 +26,7 @@ class CityAdmin extends AbstractAdmin
             'choices'  => City::$types,
             'expanded' => true,
         ]);
-        $formMapper->add('text', CKEditorType::class, ['label' => 'Описание']);
+        $formMapper->add('text', CKEditorType::class, ['label' => '[TEXTCITY]']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

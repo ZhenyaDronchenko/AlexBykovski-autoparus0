@@ -8,6 +8,8 @@ imports:
 
 parameters:
     locale: 'ru'
+    upload_directory: '%kernel.project_dir%/public/images'
+    upload_image_directory: '/images/'
 
 services:
     # default configuration for services in *this* file
@@ -32,6 +34,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    app.file_upload:
+        class:  App\Upload\FileUpload
+        arguments: ['@images_filesystem']
+        public: true
+
     app.security.user_provider:
         class: App\Security\User\UserProvider
         arguments: ['@doctrine.orm.entity_manager']
@@ -57,3 +64,14 @@ gregwar_captcha:
     web_path: "%kernel.root_dir%/../public"
     invalid_message: "Неправильный код. Попробуйте ещё раз"
     background_color: [255, 255, 255]
+
+knp_gaufrette:
+    adapters:
+        local_storage:
+            local:
+                directory: '%upload_directory%'
+
+    filesystems:
+        bar:
+            adapter:    local_storage
+            alias:      images_filesystem

@@ -12,3 +12,10 @@ services:
         tags:
             - { name: sonata.admin, group: Город, manager_type: orm, label: Город }
         public: true
+
+    admin.brand.brand:
+        class: App\Admin\BrandAdmin
+        arguments: [~, App\Entity\Brand, ~, "@app.file_upload", '%upload_image_directory%', '@router']
+        tags:
+            - { name: sonata.admin, group: Марка, manager_type: orm, label: Марка }
+        public: true
