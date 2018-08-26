@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MainPage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,10 @@ class DefaultController extends Controller
      */
     public function showHomePageAction(Request $request)
     {
+        $homePage = $this->getDoctrine()->getRepository(MainPage::class)->findAll()[0];
+
         return $this->render('client/default/index.html.twig', [
+            "homePage" => $homePage
         ]);
     }
 }

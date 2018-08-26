@@ -52,7 +52,13 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
     {
-        if ($this->getUser()) {
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            if($user->hasRole(User::ROLE_ADMIN)){
+                return $this->redirectToRoute('sonata_admin_dashboard');
+            }
+
             return $this->redirectToRoute('homepage');
         }
 

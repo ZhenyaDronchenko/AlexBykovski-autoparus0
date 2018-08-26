@@ -13,12 +13,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="role", type="string")
- * @ORM\DiscriminatorMap({"ROLE_SELLER" = "Seller", "ROLE_BUYER" = "Buyer"})
+ * @ORM\DiscriminatorMap({"ROLE_SELLER" = "Seller", "ROLE_BUYER" = "Buyer", "ROLE_ADMIN" = "Admin"})
  */
 abstract class User extends BaseUser
 {
     const ROLE_SELLER = "ROLE_SELLER";
     const ROLE_BUYER = "ROLE_BUYER";
+    const ROLE_ADMIN = "ROLE_ADMIN";
 
     /**
      * @var integer
