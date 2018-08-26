@@ -5,3 +5,10 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
         public: true
+
+    admin.city.city:
+        class: App\Admin\CityAdmin
+        arguments: [~, App\Entity\City, ~]
+        tags:
+            - { name: sonata.admin, group: Город, manager_type: orm, label: Город }
+        public: true

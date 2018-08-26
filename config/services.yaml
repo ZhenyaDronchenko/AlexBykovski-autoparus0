@@ -7,7 +7,7 @@ imports:
     - { resource: ./packages/admin_blocks.yaml }
 
 parameters:
-    locale: 'en'
+    locale: 'ru'
 
 services:
     # default configuration for services in *this* file
