@@ -16,7 +16,7 @@ final class Version20180826143107 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE main_page (id INT AUTO_INCREMENT NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('INSERT INTO `main_page` () VALUES ()');
+        $this->addSql('INSERT INTO `main_page` (`description`) VALUES ("")');
     }
 
     public function down(Schema $schema) : void
