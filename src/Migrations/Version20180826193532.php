@@ -16,7 +16,7 @@ final class Version20180826193532 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE catalog_general_page (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, headline1 VARCHAR(255) NOT NULL, text1 LONGTEXT NOT NULL, headline2 VARCHAR(255) NOT NULL, text2 LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('INSERT INTO `catalog_general_page` () VALUES ()');
+        $this->addSql('INSERT INTO `catalog_general_page` (`title`, `description`, `headline1`, `text1`, `headline2`, `text2`) VALUES ("", "", "", "", "", "")');
     }
 
     public function down(Schema $schema) : void
