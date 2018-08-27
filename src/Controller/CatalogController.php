@@ -18,9 +18,14 @@ class CatalogController extends Controller
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
+        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
+        $popularBrands = array_filter($allBrands, function(Brand $brand){
+            return $brand->isPopular();
+        });
 
         return $this->render('client/catalog/catalog.html.twig', [
-            'brands' => $em->getRepository(Brand::class)->findBy(["active" => true]),
+            'allBrands' => $allBrands,
+            'popularBrands' => $popularBrands,
             'page' => $em->getRepository(CatalogGeneralPage::class)->findAll()[0]
         ]);
     }
