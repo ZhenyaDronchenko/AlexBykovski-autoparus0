@@ -15,13 +15,12 @@
         <script async src='js/script.js'></script>
     </head>
     <body>
-    {{ '{{ 1 + 1 }}' }}
         <div id='wrapper'>
             <header id='header'>
                 <div id='hatWrapp'>
                     <div id='logo'>
                         <h1><a href="{{ path("homepage") }}" title='На главную'>Автопарус</a></h1>
-                        {{ app.user == null ? "" : app.user.email }}
+                        {#{{ app.user == null ? "" : app.user.email }}#}
                     </div>
                     <div id='hamburger'>
                         <div id='hamChild' onclick='menuActive()'>
