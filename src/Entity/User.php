@@ -6,10 +6,16 @@ use DateTime;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ *
+ * @UniqueEntity(
+ *     "email",
+ *     message="Этот email уже зарегистрирован."
+ * )
  *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="role", type="string")
