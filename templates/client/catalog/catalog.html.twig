@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}
-    <article id='cContent'>
+    <article id='cContent' ng-init="showAll = false;">
 
         <h1>{{ page.headline1 }}</h1>
 
@@ -19,21 +19,26 @@
         <div id='brandSelect'>
             <span>Марка (Brand):</span>
             <select>
-                {% for brand in brands %}
+                {% for brand in allBrands %}
                     <option>{{ brand.name }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <div class='showLess' id='brandImg'>
-            {% for brand in brands%}
-                <div>
-                    <img style="width: 100px; height: 100px" src="{{ image_url(brand.logo) }}"/>
-                </div>
+        <div class='row brand-img' ng-hide="showAll">
+            {% for brand in popularBrands%}
+                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo) }}"/>
             {% endfor %}
         </div>
 
-        <div onclick='toggleShow()' id='showAll'>Показать все &gt;&gt;&gt;</div>
+        <div class='row brand-img' ng-show="showAll">
+            {% for brand in allBrands%}
+                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo) }}"/>
+            {% endfor %}
+        </div>
+
+        <div class="show-all" ng-click="showAll = true" ng-hide="showAll">Показать все &gt;&gt;&gt;</div>
+        <div class="show-all" ng-click="showAll = false" ng-show="showAll">&lt;&lt;&lt; Скрыть</div>
 
         <h2>{{ page.headline2 }}</h2>
 

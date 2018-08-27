@@ -56,35 +56,6 @@ function secondMenu() {
     }
 }
 
-function toggleShow() {
-
-    var showBrandElem = document.getElementById('showAll');
-    showBrandElem.onclick = toggleShow;
-
-    var toggle2 = even_odd(n2);
-
-    if (toggle2 == true) {
-
-        var toggleButton = document.getElementById('brandImg');
-        toggleButton.className = 'showLess';
-
-        showBrandElem.textContent = 'Показать все >>>';
-
-    }
-
-    else {
-
-       var toggleButton = document.getElementById('brandImg');
-       toggleButton.className = 'showMoreBrands';
-
-       showBrandElem.textContent = '<<< Скрыть';
-
-    }
-
-    n2 += 1;
-
-}
-
 
 
 
