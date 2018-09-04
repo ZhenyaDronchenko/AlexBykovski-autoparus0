@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type='text/css' rel='stylesheet' href='css/breadcrumbs-style.css'>
+<link type='text/css' rel='stylesheet' href='css/common.css'>
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<title>Автопарус</title>
+<script async src='js/script.js' ></script>
+</head>
+<body>
+    <div id='wrapper'>
+
+        <header id='header'>
+            <div id='hatWrapp'>
+                <div id='logo'>
+                    <h1><a href='http://www.autoparus.by/' title='На главную'>Автопарус</a></h1>
+                </div>
+                 <div id='hamburger'>
+                        <div id='hamChild' onclick='menuActive()'>
+                            <span id='g-1' class='gamburger'></span>
+                            <span id='g-2' class='gamburger'></span>
+                            <span id='g-3' class='gamburger'></span>
+                        </div>
+                 </div>
+            </div>
+            <nav id='menu' class='m01'>
+                <div id='menu-01'>
+                    <div>
+                        <ul>
+                          <li><a href='catalog.html'>Каталог</a></li>
+                          <li><a href='#'>О нас</a></li>
+                        </ul> 
+                    </div>
+                    <div>
+                         <ul>
+                            <li><a href='login.html'>Вход</a></li>
+                            <li><a href='registration.html'>Регистрация</a></li>
+                        </ul> 
+                    </div>
+                </div>
+                <div id='menu-02'>
+                    <div>
+                        <ul>
+                            <li><a href='#'>Пользователям</a></li>
+                            <li><a href='#'>Продавцам</a></li>
+                        </ul> 
+                    </div>
+                    <div>
+                       <ul>
+                            <li><a href='#'>Новости</a></li>
+                            <li><a href='#'>Обратная связь</a></li>
+                        </ul> 
+                    </div> 
+                </div>
+            </nav>
+        </header>
+
+        <article id=''>
+            <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                <ul class='' id="breadcrumbs-one">
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="Главная" href="https://www.autoparus.by">
+                                <span itemprop="name">Главная</span>
+                                <meta itemprop="position" content="1">
+                            </a>
+                        </span>
+                    </li>
+                    <li class='dotdotdot' onclick='dotClick()'>... /</li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранный город" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранный город</span>
+                                <meta itemprop="position" content="2">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранная марка" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранная марка</span>
+                                <meta itemprop="position" content="3">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранная модель" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранная модель</span>
+                                <meta itemprop="position" content="4">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="год" href="https://www.autoparus.by">
+                                <span itemprop="name">год</span>
+                                <meta itemprop="position" content="5">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранная запчаст" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранная запчасть</span>
+                                <meta itemprop="position" content="6">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранный тип двигателя" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранный тип двигателя</span>
+                                <meta itemprop="position" content="7">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранный объем" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранный объем</span>
+                                <meta itemprop="position" content="8">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="выбранное состояние 3/2" href="https://www.autoparus.by">
+                                <span itemprop="name">выбранное состояние 3/2</span>
+                                <meta itemprop="position" content="9">
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" title="только в наличи" href='#' class="current">
+                                <span itemprop="name">только в наличии</span>
+                                <meta itemprop="position" content="10">
+                            </a>
+                        </span>
+                    </li>
+                    </ul>
+            </div>
+            <br/><br/><br/><br/>
+        </article>
+
+        <footer id='footer'>
+            <div>
+                <a href='http://www.autoparus.by/' title='На главную'>
+                    <i class="material-icons md-48 md-36">home</i>
+                </a>
+            </div>
+            <div id='secondMenu' onclick='secondMenu()'>
+                <a href='#' title='Открыть меню'>
+                    <i class="material-icons md-36">menu</i>
+                </a>
+            </div>
+            <div>
+                <a href='breadcrumbs.html'>
+                    <i class="material-icons md-36"> help</i>
+                </a>
+            </div>
+            <div>
+                <a href='cities.html'>
+                    <i class="material-icons md-36">search</i>
+                </a>
+            </div>
+            <div>
+                <a href='index.html'>
+                    <i class="material-icons md-36">store_mall_directory</i> 
+                </a>
+            </div>
+            <div>
+                <a>
+                    <i class="material-icons md-36">person</i>
+                </a>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>

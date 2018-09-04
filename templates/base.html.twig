@@ -6,6 +6,7 @@
         <meta name="description" content="{% block meta_description %}Автопарус{% endblock %}">
         <link type='text/css' rel='stylesheet' href='css/style.css'>
         <link type='text/css' rel='stylesheet' href='css/common.css'>
+        <link type='text/css' rel='stylesheet' href='css/breadcrumbs-style.css'>
         <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -39,8 +40,13 @@
                         </div>
                         <div>
                             <ul>
-                                <li><a href="{{ path("login") }}">Вход</a></li>
-                                <li><a href="{{ path("registration") }}">Регистрация</a></li>
+                                {% if app.user %}
+                                    <li><a href="{{ logout_path("main") }}">Выход</a></li>
+                                    <li><a href="">Личный кабинет</a></li>
+                                {% else %}
+                                    <li><a href="{{ path("login") }}">Вход</a></li>
+                                    <li><a href="{{ path("registration") }}">Регистрация</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
