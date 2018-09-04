@@ -20,4 +20,16 @@ class DefaultController extends Controller
             "homePage" => $homePage
         ]);
     }
+
+    /**
+     * @Route("/tmp", name="tmp")
+     */
+    public function showBreadCrumbsAction(Request $request)
+    {
+        $homePage = $this->getDoctrine()->getRepository(MainPage::class)->findAll()[0];
+
+        return $this->render('client/breadcrumbs.html.twig', [
+            "homePage" => $homePage
+        ]);
+    }
 }

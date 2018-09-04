@@ -9,20 +9,33 @@ use App\Form\Type\ForgotPasswordType;
 use App\Form\Type\RecoveryPasswordType;
 use App\Form\Type\RegistrationType;
 use App\Sender\ForgotPasswordSender;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
      * @Route("/registration", name="registration")
      */
-    public function registrationAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function registrationAction(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        TokenStorageInterface $tokenStorage
+    )
     {
+        if($this->getUser()){
+            return $this->redirectToRoute("homepage");
+        }
+
         $em = $this->getDoctrine()->getManager();
         $buyer = new Buyer();
 
@@ -39,7 +52,11 @@ class SecurityController extends Controller
             $em->persist($buyer);
             $em->flush();
 
-            return $this->redirectToRoute("login");
+            $token = new UsernamePasswordToken($buyer, null, 'main', $buyer->getRoles());
+            $tokenStorage->setToken($token);
+            $request->getSession()->set('_security_main', serialize($token));
+
+            return $this->redirectToRoute("homepage");
         }
 
         return $this->render('client/security/registration.html.twig', [
@@ -48,6 +65,8 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
      * @Route("/login", name="login")
      */
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
@@ -73,6 +92,8 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
      * @Route("/forgot-password", name="forgot_password")
      */
     public function forgotPasswordAction(Request $request, ForgotPasswordSender $sender)
@@ -103,6 +124,8 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
      * @Route("/recovery-password", name="recovery_password")
      */
     public function recoveryPasswordAction(Request $request, UserPasswordEncoderInterface $encoder)
@@ -112,7 +135,7 @@ class SecurityController extends Controller
 
         $forgotPassword = $em->getRepository(ForgotPassword::class)->findOneBy(["code" => $code]);
 
-        if(!($forgotPassword instanceof ForgotPassword)){
+        if(!($forgotPassword instanceof ForgotPassword) || $forgotPassword->isExpiredCode()){
             return $this->render('client/security/recovery-password.html.twig', [
                 "incorrectCode" => true,
             ]);
@@ -141,6 +164,8 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
      * @Route("/success-recovery-password", name="success_recovery_password")
      */
     public function successRecoveryPasswordAction(Request $request)
