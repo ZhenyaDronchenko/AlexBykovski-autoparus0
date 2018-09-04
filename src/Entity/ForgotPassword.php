@@ -118,4 +118,11 @@ class ForgotPassword
     {
         $this->user = $user;
     }
+
+    public function isExpiredCode()
+    {
+       $monthBack = new DateTime("-1 month");
+
+       return $monthBack > $this->createdAt;
+    }
 }
