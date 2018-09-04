@@ -22,6 +22,9 @@
                         <h1><a href="{{ path("homepage") }}" title='На главную'>Автопарус</a></h1>
                         {#{{ app.user == null ? "" : app.user.email }}#}
                     </div>
+                    {% if app.user %}
+                        <span>Вы вошли как: <a href="">{{ app.user.name }}</a> | <a href="{{ logout_path("main") }}">Выход</a></span>
+                    {% endif %}
                     <div id='hamburger'>
                         <div id='hamChild' onclick='menuActive()'>
                             <span id='g-1' class='gamburger'></span>
