@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -21,8 +23,16 @@ class SecurityController extends Controller
     /**
      * @Route("/registration", name="registration")
      */
-    public function registrationAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function registrationAction(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        TokenStorageInterface $tokenStorage
+    )
     {
+        if($this->getUser()){
+            return $this->redirectToRoute("homepage");
+        }
+
         $em = $this->getDoctrine()->getManager();
         $buyer = new Buyer();
 
@@ -39,7 +49,11 @@ class SecurityController extends Controller
             $em->persist($buyer);
             $em->flush();
 
-            return $this->redirectToRoute("login");
+            $token = new UsernamePasswordToken($buyer, null, 'main', $buyer->getRoles());
+            $tokenStorage->setToken($token);
+            $request->getSession()->set('_security_main', serialize($token));
+
+            return $this->redirectToRoute("homepage");
         }
 
         return $this->render('client/security/registration.html.twig', [
