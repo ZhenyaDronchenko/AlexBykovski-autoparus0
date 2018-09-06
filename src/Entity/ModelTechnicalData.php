@@ -42,8 +42,8 @@ class ModelTechnicalData
      * Many ModelTechnicalDatum have Many EngineTypes.
      * @ORM\ManyToMany(targetEntity="EngineType")
      * @ORM\JoinTable(name="model_datum_engine_types",
-     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="engine_type_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="engine_type_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $engineTypes; // Entity
@@ -54,8 +54,8 @@ class ModelTechnicalData
      * Many ModelTechnicalDatum have Many DriveTypes.
      * @ORM\ManyToMany(targetEntity="DriveType")
      * @ORM\JoinTable(name="model_datum_drive_types",
-     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="drive_type_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="drive_type_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $driveTypes; // Entity
@@ -66,8 +66,8 @@ class ModelTechnicalData
      * Many ModelTechnicalDatum have Many GearBoxTypes.
      * @ORM\ManyToMany(targetEntity="GearBoxType")
      * @ORM\JoinTable(name="model_datum_gear_box_types",
-     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="gear_box_type_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="gear_box_type_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $gearBoxTypes; // Entity
@@ -78,8 +78,8 @@ class ModelTechnicalData
      * Many ModelTechnicalDatum have Many Engines.
      * @ORM\ManyToMany(targetEntity="Engine", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="model_datum_engines",
-     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="engine_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="engine_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $engines; // Entity
@@ -90,8 +90,8 @@ class ModelTechnicalData
      * Many ModelTechnicalDatum have Many VehicleTypes.
      * @ORM\ManyToMany(targetEntity="VehicleType")
      * @ORM\JoinTable(name="model_datum_vehicle_types",
-     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="vehicle_type_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="vehicle_type_id", referencedColumnName="id", onDelete="CASCADE")}
      *      )
      */
     private $vehicleTypes; // Entity
@@ -100,7 +100,7 @@ class ModelTechnicalData
      * @var VehicleCategory|null
      *
      * @ORM\ManyToOne(targetEntity="VehicleCategory")
-     * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $vehicleCategory; // Entity
 
