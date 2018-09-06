@@ -104,6 +104,17 @@ class BrandAdmin extends AbstractAdmin
         $this->uploadFiles($this->getForm(), $brand);
     }
 
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+
+        $query->select('b')
+            ->from(Brand::class, 'b')
+            ->orderBy("b.name", "ASC");
+
+        return $query;
+    }
+
     protected function uploadFiles(Form $form, Brand $brand){
         $image = $form->get('imageFile')->getData();
 
