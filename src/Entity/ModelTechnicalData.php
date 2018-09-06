@@ -76,7 +76,7 @@ class ModelTechnicalData
      * @var Collection
      *
      * Many ModelTechnicalDatum have Many Engines.
-     * @ORM\ManyToMany(targetEntity="Engine")
+     * @ORM\ManyToMany(targetEntity="Engine", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="model_datum_engines",
      *      joinColumns={@ORM\JoinColumn(name="model_technical_data_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="engine_id", referencedColumnName="id")}
@@ -283,5 +283,11 @@ class ModelTechnicalData
     public function setModel(Model $model): void
     {
         $this->model = $model;
+    }
+
+    public function getEnginesByType($type){
+        return array_filter($this->engines->getValues(), function(Engine $item) use ($type){
+            return $item->getType() == $type;
+        });
     }
 }

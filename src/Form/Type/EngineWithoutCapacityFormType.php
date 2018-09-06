@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EngineFormType extends AbstractType
+class EngineWithoutCapacityFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,13 +18,6 @@ class EngineFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => "engine-capacity-field-1"
-                ]
-            ])
-            ->add('capacity', TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'class' => "engine-capacity-field-2",
                 ]
             ]);
     }

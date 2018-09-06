@@ -73,7 +73,7 @@ class Model
      * @var ModelTechnicalData
      *
      * One Model has One ModelTechnicalData.
-     * @ORM\OneToOne(targetEntity="ModelTechnicalData", mappedBy="model")
+     * @ORM\OneToOne(targetEntity="ModelTechnicalData", mappedBy="model", cascade={"persist", "remove"})
      */
     private $technicalData;
 
@@ -92,6 +92,7 @@ class Model
     public function __construct()
     {
         $this->technicalData = new ModelTechnicalData();
+        $this->technicalData->setModel($this);
     }
 
     /**

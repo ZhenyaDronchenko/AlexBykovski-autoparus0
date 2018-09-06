@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Engine
 {
+    const PETROL_TYPE = "бензин";
+    const DIESEL_TYPE = "дизель";
+    const HYBRID_TYPE = "гибрид";
+    const ELECTRIC_TYPE = "электро";
+
     /**
      * @var integer
      *
@@ -26,7 +31,7 @@ class Engine
     private $type;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string")
      */
@@ -72,17 +77,17 @@ class Engine
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param null|string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }

@@ -9,8 +9,12 @@
     padding-bottom : 70px
 }
 
-.label-relative-top-year-to{
-    margin-top: 5px;
+/*.label-relative-top-year-to{*/
+    /*margin-top: 5px;*/
+/*}*/
+
+.vehicle-type-label{
+    width: 100%;
 }
 
 .year-from-text{
@@ -56,5 +60,5 @@
 }
 
 .electric-engine-capacity-container .engine-capacity-field-2{
-    display: none;
+    opacity: 0;
 }
