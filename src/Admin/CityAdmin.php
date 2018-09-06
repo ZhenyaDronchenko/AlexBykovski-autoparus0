@@ -32,10 +32,16 @@ class CityAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', 'text', ['label' => 'name', 'sortable' => false]);
-//            ->add('_action', null, [
-//                'actions' => [
-//                    'edit' => [],
-//                ]
-//            ]);
+    }
+
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+
+        $query->select('c')
+            ->from(City::class, 'c')
+            ->orderBy("c.name", "ASC");
+
+        return $query;
     }
 }

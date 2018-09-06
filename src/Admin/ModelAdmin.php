@@ -282,7 +282,8 @@ class ModelAdmin extends AbstractAdmin
         $query->select('m')
             ->from(Model::class, 'm')
             ->where('m.brand = :brand')
-            ->setParameter('brand', $brand);
+            ->setParameter('brand', $brand)
+            ->orderBy("m.name", "ASC");
 
         return $query;
     }
