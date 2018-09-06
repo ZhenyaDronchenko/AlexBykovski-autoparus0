@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <div>
+        <a href="{{ path("admin_app_brand_model_list", {"id" : object.id}) }}"><strong>{{ object.models | length }}</strong></a>
+    </div>
+{% endblock %}

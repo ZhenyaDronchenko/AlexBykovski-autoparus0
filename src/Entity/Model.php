@@ -58,9 +58,9 @@ class Model
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="boolean", options={"default" : true})
      */
-    private $isPopular = 0;
+    private $isPopular = 1;
 
     /**
      * @var string|null

@@ -3,6 +3,7 @@
 namespace App\Admin;
 
 use App\Entity\Brand;
+use App\Entity\Model;
 use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -85,6 +86,12 @@ class BrandAdmin extends AbstractAdmin
         $listMapper->addIdentifier('active', 'boolean', [
             'label' => 'Активная', 'sortable' => false
         ]);
+
+        $listMapper->addIdentifier('modelsCount', 'string', [
+            'label' => 'Модели',
+            'sortable' => false,
+            'template' => 'admin/brand/models_count.html.twig'
+        ]);
     }
 
     public function prePersist($brand)
@@ -107,9 +114,9 @@ class BrandAdmin extends AbstractAdmin
         }
     }
 
-    protected function addLinkRemoveLogo(Brand $brand)
+    protected function addLinkRemoveLogo(Model $model)
     {
-        $link = $this->router->generate("admin_remove_brand_logo", ["id" => $brand->getId()]);
+        $link = $this->router->generate("admin_remove_model_logo", ["id" => $model->getId()]);
 
         return "<a href='" . $link . "'>Удалить лого</a>";
     }

@@ -1,0 +1,60 @@
+.form-group.year-from-group{
+    width: 20%;
+    float : left;
+}
+
+.form-group.year-to-group{
+    width : 80%;
+    float : left;
+    padding-bottom : 70px
+}
+
+.label-relative-top-year-to{
+    margin-top: 5px;
+}
+
+.year-from-text{
+    float: left;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.year-to-text{
+    float: left;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.checkboxes-in-one-line li div label{
+    margin-left: auto;
+}
+
+.checkboxes-after-label li div label span{
+    margin-right: 10px;
+}
+
+.engine-capacity-container-form-group{
+    width: 23.5%;
+    float: left;
+}
+
+.engine-capacity-general-title{
+    width: 6%;
+    float: left;
+    font-weight: bold;
+}
+
+.engine-capacity-field-1{
+    float: left;
+    width: 60%;
+}
+
+.engine-capacity-field-2{
+    float: left;
+    width: 25%;
+    margin-left: 5px;
+}
+
+.electric-engine-capacity-container .engine-capacity-field-2{
+    display: none;
+}

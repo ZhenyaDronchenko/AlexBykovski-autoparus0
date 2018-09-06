@@ -97,7 +97,7 @@ class ModelTechnicalData
     private $vehicleTypes; // Entity
 
     /**
-     * @var VehicleCategory
+     * @var VehicleCategory|null
      *
      * @ORM\ManyToOne(targetEntity="VehicleCategory")
      * @ORM\JoinColumn(name="vehicle_category_id", referencedColumnName="id")
@@ -254,17 +254,17 @@ class ModelTechnicalData
     }
 
     /**
-     * @return VehicleCategory
+     * @return VehicleCategory|null
      */
-    public function getVehicleCategory(): VehicleCategory
+    public function getVehicleCategory(): ?VehicleCategory
     {
         return $this->vehicleCategory;
     }
 
     /**
-     * @param VehicleCategory $vehicleCategory
+     * @param VehicleCategory|null $vehicleCategory
      */
-    public function setVehicleCategory(VehicleCategory $vehicleCategory): void
+    public function setVehicleCategory(?VehicleCategory $vehicleCategory): void
     {
         $this->vehicleCategory = $vehicleCategory;
     }
