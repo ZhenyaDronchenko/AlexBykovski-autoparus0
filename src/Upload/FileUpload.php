@@ -9,6 +9,7 @@ class FileUpload
 {
     const GENERAL = 'general';
     const BRAND = 'brand';
+    const MODEL = 'model';
     const TMP = 'tmp';
 
     private static $allowedMimeTypes = array(

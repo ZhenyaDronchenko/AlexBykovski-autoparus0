@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -74,6 +76,22 @@ class Brand
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $active = 0;
+
+    /**
+     * @var Collection
+     *
+     * One Brand has Many Models.
+     * @ORM\OneToMany(targetEntity="Model", mappedBy="brand")
+     */
+    private $models;
+
+    /**
+     * Brand constructor.
+     */
+    public function __construct()
+    {
+        $this->models = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -217,5 +235,21 @@ class Brand
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getModels(): Collection
+    {
+        return $this->models;
+    }
+
+    /**
+     * @param Collection $models
+     */
+    public function setModels(Collection $models): void
+    {
+        $this->models = $models;
     }
 }

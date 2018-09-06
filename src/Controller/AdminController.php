@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
+use App\Entity\Model;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +20,30 @@ class AdminController extends Controller
      *
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function makeStakeAction(Request $request, Brand $brand)
+    public function removeBrandLogoAction(Request $request, Brand $brand)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
         $brand->setLogo(null);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin-remove-model-logo/{id}", name="admin_remove_model_logo")
+     *
+     * @ParamConverter("model", class="App:Model", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removeModelLogoAction(Request $request, Model $model)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $model->setLogo(null);
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
