@@ -28,13 +28,17 @@ services:
         tags:
             - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Модель, show_in_dashboard: false }
         public: true
-#        calls:
-#                - [ setTemplate, [edit, 'admin/model/edit.html.twig']]
-#                - [ setTemplate, [create, 'admin/model/edit.html.twig']]
 
     admin.catalog.catalog_general:
         class: App\Admin\CatalogGeneralPageAdmin
         arguments: [~, App\Entity\CatalogGeneralPage, ~]
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор марки }
+        public: true
+
+    admin.spare_part.spare_part:
+        class: App\Admin\SparePartAdmin
+        arguments: [~, App\Entity\SparePart, ~, "@app.file_upload", '%upload_image_directory%', '@router']
+        tags:
+            - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть }
         public: true
