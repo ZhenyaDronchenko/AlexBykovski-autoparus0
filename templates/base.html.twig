@@ -40,7 +40,7 @@
                         <div>
                             <ul>
                                 {% if app.user %}
-                                    {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13]%}
+                                    {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
                                     <li><a href="{{ logout_path("main") }}">Выход</a></li>
                                     {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
                                         <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
