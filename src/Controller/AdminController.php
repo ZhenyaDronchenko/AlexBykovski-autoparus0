@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Entity\Model;
+use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,4 +50,21 @@ class AdminController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
+    /**
+     * @Route("/admin-remove-spare-part-logo/{id}", name="admin_remove_spare_part_logo")
+     *
+     * @ParamConverter("sparePart", class="App:SparePart", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removeSparePartLogoAction(Request $request, SparePart $sparePart)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $sparePart->setLogo(null);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
 }

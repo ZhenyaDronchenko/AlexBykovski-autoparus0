@@ -125,9 +125,9 @@ class BrandAdmin extends AbstractAdmin
         }
     }
 
-    protected function addLinkRemoveLogo(Model $model)
+    protected function addLinkRemoveLogo(Brand $brand)
     {
-        $link = $this->router->generate("admin_remove_model_logo", ["id" => $model->getId()]);
+        $link = $this->router->generate("admin_remove_brand_logo", ["id" => $brand->getId()]);
 
         return "<a href='" . $link . "'>Удалить лого</a>";
     }
