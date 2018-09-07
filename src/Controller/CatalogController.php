@@ -23,7 +23,7 @@ class CatalogController extends Controller
             return $brand->isPopular();
         });
 
-        return $this->render('client/catalog/catalog.html.twig', [
+        return $this->render('client/catalog/brand/catalog.html.twig', [
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
             'page' => $em->getRepository(CatalogGeneralPage::class)->findAll()[0]
