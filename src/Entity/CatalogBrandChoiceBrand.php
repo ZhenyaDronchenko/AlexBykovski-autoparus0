@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="catalog_general_page")
+ * @ORM\Table(name="catalog_brand_choice_brand")
  */
-class CatalogGeneralPage
+class CatalogBrandChoiceBrand
 {
     /**
      * @var integer

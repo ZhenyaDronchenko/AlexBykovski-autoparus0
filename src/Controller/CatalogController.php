@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
-use App\Entity\CatalogGeneralPage;
+use App\Entity\CatalogBrandChoiceBrand;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ class CatalogController extends Controller
         return $this->render('client/catalog/brand/catalog.html.twig', [
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
-            'page' => $em->getRepository(CatalogGeneralPage::class)->findAll()[0]
+            'page' => $em->getRepository(CatalogBrandChoiceBrand::class)->findAll()[0]
         ]);
     }
 

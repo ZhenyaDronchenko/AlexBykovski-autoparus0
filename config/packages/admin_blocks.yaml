@@ -32,9 +32,9 @@ services:
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
 
-    admin.catalog.catalog_general:
-        class: App\Admin\CatalogGeneralPageAdmin
-        arguments: [~, App\Entity\CatalogGeneralPage, ~]
+    admin.catalog.catalog_brand.brand:
+        class: App\Admin\CatalogBrandChoiceBrandAdmin
+        arguments: [~, App\Entity\CatalogBrandChoiceBrand, ~]
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор марки }
         public: true

@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class CatalogGeneralPageAdmin extends AbstractAdmin
+class CatalogBrandChoiceBrandAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
