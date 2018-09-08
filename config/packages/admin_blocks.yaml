@@ -10,7 +10,7 @@ services:
         class: App\Admin\CityAdmin
         arguments: [~, App\Entity\City, ~]
         tags:
-            - { name: sonata.admin, group: Город, manager_type: orm, label: Город }
+            - { name: sonata.admin, group: Город, manager_type: orm, label: Город, on_top: true}
         public: true
 
     admin.brand.brand:
@@ -20,7 +20,8 @@ services:
             - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Марка }
         public: true
         calls:
-                - [ addChild, ['@admin.brand.models', 'brand']]
+            - [ addChild, ['@admin.brand.models', 'brand']]
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
 
     admin.brand.models:
         class: App\Admin\ModelAdmin
@@ -28,6 +29,8 @@ services:
         tags:
             - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Модель, show_in_dashboard: false }
         public: true
+        calls:
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
 
     admin.catalog.catalog_general:
         class: App\Admin\CatalogGeneralPageAdmin
@@ -40,5 +43,7 @@ services:
         class: App\Admin\SparePartAdmin
         arguments: [~, App\Entity\SparePart, ~, "@app.file_upload", '%upload_image_directory%', '@router']
         tags:
-            - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть }
+            - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть, on_top: true, class: "RRRRRRRRR" }
         public: true
+        calls:
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]

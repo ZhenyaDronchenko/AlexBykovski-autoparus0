@@ -22,6 +22,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -34,6 +35,9 @@ use Symfony\Component\Validator\Constraints\Count;
 
 class ModelAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = "All";
+    protected $pagerType = "simple";
+
     protected $uploader = null;
 
     private $helper;
@@ -279,11 +283,9 @@ class ModelAdmin extends AbstractAdmin
         $brand = $this->em->getRepository(Brand::class)->find($this->getRequest()->get("id"));
         $query = parent::createQuery($context);
 
-        $query->select('m')
-            ->from(Model::class, 'm')
-            ->where('m.brand = :brand')
+        $query->where($query->getRootAlias() . '.brand = :brand')
             ->setParameter('brand', $brand)
-            ->orderBy("m.name", "ASC");
+            ->orderBy($query->getRootAlias() . ".name", "ASC");
 
         return $query;
     }
@@ -345,5 +347,9 @@ class ModelAdmin extends AbstractAdmin
         $technicalData->setEngines($collection);
 
         $this->em->flush();
+    }
+
+    public function configureRoutes(RouteCollection $collection) {
+        $collection->remove('export');
     }
 }

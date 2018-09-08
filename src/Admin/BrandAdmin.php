@@ -3,13 +3,13 @@
 namespace App\Admin;
 
 use App\Entity\Brand;
-use App\Entity\Model;
 use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,6 +18,9 @@ use Symfony\Component\Routing\RouterInterface;
 
 class BrandAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = "All";
+    protected $pagerType = "simple";
+
     protected $uploader = null;
 
     private $helper;
@@ -83,8 +86,12 @@ class BrandAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', TextType::class, ['label' => 'Название', 'sortable' => false]);
+        $listMapper->addIdentifier('url', TextType::class, ['label' => 'URL', 'sortable' => false]);
         $listMapper->addIdentifier('active', 'boolean', [
             'label' => 'Активная', 'sortable' => false
+        ]);
+        $listMapper->addIdentifier('popular', 'boolean', [
+            'label' => 'Популярная', 'sortable' => false
         ]);
 
         $listMapper->addIdentifier('modelsCount', 'string', [
@@ -108,9 +115,7 @@ class BrandAdmin extends AbstractAdmin
     {
         $query = parent::createQuery($context);
 
-        $query->select('b')
-            ->from(Brand::class, 'b')
-            ->orderBy("b.name", "ASC");
+        $query->orderBy($query->getRootAlias().'.name', 'ASC');
 
         return $query;
     }
@@ -130,5 +135,9 @@ class BrandAdmin extends AbstractAdmin
         $link = $this->router->generate("admin_remove_brand_logo", ["id" => $brand->getId()]);
 
         return "<a href='" . $link . "'>Удалить лого</a>";
+    }
+
+    public function configureRoutes(RouteCollection $collection) {
+        $collection->remove('export');
     }
 }

@@ -7,8 +7,10 @@ use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,6 +19,10 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SparePartAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+    protected $pagerType = "simple";
+    protected $maxPageLinks = 192;
+
     protected $uploader = null;
 
     private $helper;
@@ -83,6 +89,7 @@ class SparePartAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', 'text', ['label' => 'name', 'sortable' => false]);
+        $listMapper->addIdentifier('popular', 'boolean', ['label' => 'Популяраня', 'sortable' => false]);
     }
 
     public function prePersist($sparePart)
@@ -99,9 +106,7 @@ class SparePartAdmin extends AbstractAdmin
     {
         $query = parent::createQuery($context);
 
-        $query->select('b')
-            ->from(SparePart::class, 'b')
-            ->orderBy("b.name", "ASC");
+        $query->orderBy($query->getRootAlias().'.name', 'ASC');
 
         return $query;
     }
@@ -121,5 +126,9 @@ class SparePartAdmin extends AbstractAdmin
         $link = $this->router->generate("admin_remove_spare_part_logo", ["id" => $sparePart->getId()]);
 
         return "<a href='" . $link . "'>Удалить лого</a>";
+    }
+
+    public function configureRoutes(RouteCollection $collection) {
+        $collection->remove('export');
     }
 }
