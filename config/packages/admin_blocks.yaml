@@ -32,6 +32,7 @@ services:
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
 
+# 1st from Brand
     admin.catalog.catalog_brand.brand:
         class: App\Admin\CatalogBrandChoiceBrandAdmin
         arguments: [~, App\Entity\CatalogBrandChoiceBrand, ~]
@@ -47,3 +48,19 @@ services:
         public: true
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
+
+# 1st from City
+    admin.catalog.catalog_city.city:
+        class: App\Admin\CatalogCityChoiceCityAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceCity, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор города }
+        public: true
+
+# 2nd from City
+    admin.catalog.catalog_city.brand:
+        class: App\Admin\CatalogCityChoiceBrandAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceBrand, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор марки }
+        public: true
