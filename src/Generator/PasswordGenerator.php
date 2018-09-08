@@ -47,7 +47,7 @@ class PasswordGenerator
      *
      * @return string
      */
-    protected function getUniqueCode ($count, $chars){
+    public function getUniqueCode ($count, $chars){
         $code = '';
         $size = strlen ( $chars ) - 1;
 
