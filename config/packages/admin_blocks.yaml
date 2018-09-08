@@ -15,7 +15,7 @@ services:
 
     admin.brand.brand:
         class: App\Admin\BrandAdmin
-        arguments: [~, App\Entity\Brand, ~, "@app.file_upload", '%upload_image_directory%', '@router']
+        arguments: [~, App\Entity\Brand, 'App\Admin\Controller\BrandAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
         tags:
             - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Марка }
         public: true
