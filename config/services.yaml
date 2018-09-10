@@ -58,6 +58,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    App\Twig\ShowCodeExtension:
+        class: App\Twig\ShowCodeExtension
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
+
 fos_user:
     db_driver: orm
     firewall_name: main
