@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="head_body")
+ * @ORM\Table(name="head_code")
  */
-class HeadBody
+class HeadCode
 {
     /**
      * @var integer

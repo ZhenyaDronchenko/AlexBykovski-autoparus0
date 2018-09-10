@@ -2,17 +2,17 @@
 
 namespace App\Admin;
 
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BodyCodeAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('code', CKEditorType::class, ['label' => 'Код']);
+        $formMapper->add('code', TextareaType::class, ['label' => 'Код']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

@@ -13,6 +13,7 @@
         <title>{% block title %}Автопарус{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <script async src='js/script.js'></script>
+        {{ show_code("head") | raw }}
     </head>
     <body>
         <div id='wrapper'>
@@ -110,5 +111,6 @@
         <script src='bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
         <script src='js/general-settings.js'></script>
         {% block javascripts %}{% endblock %}
+        {{ show_code("body") | raw }}
     </body>
 </html>
