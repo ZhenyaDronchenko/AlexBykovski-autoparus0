@@ -4,15 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="{% block meta_description %}Автопарус{% endblock %}">
-        <link type='text/css' rel='stylesheet' href='css/style.css'>
-        <link type='text/css' rel='stylesheet' href='css/common.css'>
-        <link type='text/css' rel='stylesheet' href='css/breadcrumbs-style.css'>
+        <link type='text/css' rel='stylesheet' href='/css/style.css'>
+        <link type='text/css' rel='stylesheet' href='/css/common.css'>
+        <link type='text/css' rel='stylesheet' href='/css/breadcrumbs-style.css'>
         <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <title>{% block title %}Автопарус{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <script async src='js/script.js'></script>
+        <script async src='/js/script.js'></script>
     </head>
     <body>
         <div id='wrapper'>
@@ -33,7 +33,7 @@
                     <div id='menu-01'>
                         <div>
                             <ul>
-                                <li><a href="{{ path("show_catalog") }}">Каталог</a></li>
+                                <li><a href="{{ path("show_brand_catalog_choice_brand") }}">Каталог</a></li>
                                 <li><a href='#'>О нас</a></li>
                             </ul>
                         </div>
@@ -105,10 +105,10 @@
             </footer>
 
         </div>
-        <script src='bower-components/angular/angular.min.js'></script>
-        <script src='bower-components/jquery/dist/jquery.min.js'></script>
-        <script src='bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
-        <script src='js/general-settings.js'></script>
+        <script src='/bower-components/angular/angular.min.js'></script>
+        <script src='/bower-components/jquery/dist/jquery.min.js'></script>
+        <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
+        <script src='/js/general-settings.js'></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
