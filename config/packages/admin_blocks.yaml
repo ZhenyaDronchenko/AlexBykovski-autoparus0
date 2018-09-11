@@ -1,3 +1,6 @@
+imports:
+    - { resource: ./admin_blocks/city_catalog.yaml }
+
 services:
     admin.general.main_page:
         class: App\Admin\MainPageAdmin
@@ -48,22 +51,6 @@ services:
         public: true
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
-
-# 1st from City
-    admin.catalog.catalog_city.city:
-        class: App\Admin\CatalogCityChoiceCityAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceCity, ~]
-        tags:
-            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор города }
-        public: true
-
-# 2nd from City
-    admin.catalog.catalog_city.brand:
-        class: App\Admin\CatalogCityChoiceBrandAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceBrand, ~]
-        tags:
-            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор марки }
-        public: true
 
     admin.add_code.head:
         class: App\Admin\HeadCodeAdmin
