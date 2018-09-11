@@ -10,6 +10,8 @@ parameters:
     locale: 'ru'
     upload_directory: '%kernel.project_dir%/public/images'
     upload_image_directory: '/images/'
+    robots_txt_file_path: '%kernel.project_dir%/public/robots.txt'
+    site_map_xml_file_path: '%kernel.project_dir%/public/stat_sitemap.xml'
 
 services:
     # default configuration for services in *this* file
@@ -55,6 +57,12 @@ services:
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension
         arguments: ['%upload_image_directory%']
+        tags:
+            - { name: twig.extension }
+
+    App\Twig\ShowCodeExtension:
+        class: App\Twig\ShowCodeExtension
+        arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: twig.extension }
 

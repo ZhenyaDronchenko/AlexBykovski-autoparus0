@@ -64,3 +64,31 @@ services:
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор марки }
         public: true
+
+    admin.add_code.head:
+        class: App\Admin\HeadCodeAdmin
+        arguments: [~, App\Entity\HeadCode, ~]
+        tags:
+            - { name: sonata.admin, group: Добавление кода, manager_type: orm, label: В head }
+        public: true
+
+    admin.add_code.body:
+        class: App\Admin\BodyCodeAdmin
+        arguments: [~, App\Entity\BodyCode, ~]
+        tags:
+            - { name: sonata.admin, group: Добавление кода, manager_type: orm, label: В body }
+        public: true
+
+    admin.file.robots_txt:
+        class: App\Admin\RobotsTxtAdmin
+        arguments: [~, App\Entity\FileChangeTmp, ~, '%robots_txt_file_path%']
+        tags:
+            - { name: sonata.admin, group: Редактирование файлов, manager_type: orm, label: Редактор robots.txt }
+        public: true
+
+    admin.file.site_map_xml:
+        class: App\Admin\SiteMapXmlAdmin
+        arguments: [~, App\Entity\FileChangeTmp, ~, '%site_map_xml_file_path%']
+        tags:
+            - { name: sonata.admin, group: Редактирование файлов, manager_type: orm, label: Статический sitemap }
+        public: true
