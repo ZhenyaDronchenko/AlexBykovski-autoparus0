@@ -4,11 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="catalog_general_page")
- */
-class CatalogGeneralPage
+abstract class CatalogPageOne
 {
     /**
      * @var integer
@@ -17,49 +13,49 @@ class CatalogGeneralPage
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string")
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string")
      */
-    private $description;
+    protected $description;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string")
      */
-    private $headline1;
+    protected $headline1;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="text")
      */
-    private $text1;
+    protected $text1;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string")
      */
-    private $headline2;
+    protected $headline2;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="text")
      */
-    private $text2;
+    protected $text2;
 
     /**
      * @return int

@@ -1,0 +1,88 @@
+services:
+# 1st from City
+    admin.catalog.catalog_city.city:
+        class: App\Admin\Catalog\City\CatalogCityChoiceCityAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceCity, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор города }
+        public: true
+
+# 2nd from City
+    admin.catalog.catalog_city.brand:
+        class: App\Admin\Catalog\City\CatalogCityChoiceBrandAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceBrand, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор марки }
+        public: true
+
+# 3rd from City
+    admin.catalog.catalog_city.model:
+        class: App\Admin\Catalog\City\CatalogCityChoiceModelAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceModel, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор модели }
+        public: true
+
+# 4rd from City
+    admin.catalog.catalog_city.year:
+        class: App\Admin\Catalog\City\CatalogCityChoiceYearAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceYear, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор года }
+        public: true
+
+# 5rd from City
+    admin.catalog.catalog_city.spare_part:
+        class: App\Admin\Catalog\City\CatalogCityChoiceSparePartAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceSparePart, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор запчасти }
+        public: true
+
+# 6rd from City
+    admin.catalog.catalog_city.engine_type:
+        class: App\Admin\Catalog\City\CatalogCityChoiceEngineTypeAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceEngineType, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор типа ДВС }
+        public: true
+
+# 7rd from City
+    admin.catalog.catalog_city.engine_capacity:
+        class: App\Admin\Catalog\City\CatalogCityChoiceEngineCapacityAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceEngineCapacity, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор объёма ДВС }
+        public: true
+
+# 8rd from City
+    admin.catalog.catalog_city.body_type:
+        class: App\Admin\Catalog\City\CatalogCityChoiceBodyTypeAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceBodyType, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор типа кузова }
+        public: true
+
+# 9rd from City
+    admin.catalog.catalog_city.spare_part_status:
+        class: App\Admin\Catalog\City\CatalogCityChoiceSparePartStatusAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceSparePartStatus, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор состояния запчасти }
+        public: true
+
+# 10rd from City
+    admin.catalog.catalog_city.in_stock:
+        class: App\Admin\Catalog\City\CatalogCityChoiceInStockAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceInStock, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор "Только в наличии" }
+        public: true
+
+# 11rd from City
+    admin.catalog.catalog_city.final_page:
+        class: App\Admin\Catalog\City\CatalogCityChoiceFinalPageAdmin
+        arguments: [~, App\Entity\CatalogCityChoiceFinalPage, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Финальная страница }
+        public: true
