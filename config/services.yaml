@@ -10,6 +10,8 @@ parameters:
     locale: 'ru'
     upload_directory: '%kernel.project_dir%/public/images'
     upload_image_directory: '/images/'
+    robots_txt_file_path: '%kernel.project_dir%/public/robots.txt'
+    site_map_xml_file_path: '%kernel.project_dir%/public/stat_sitemap.xml'
 
 services:
     # default configuration for services in *this* file
