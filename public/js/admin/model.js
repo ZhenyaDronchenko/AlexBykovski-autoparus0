@@ -35,7 +35,7 @@ $(document).ready(function (ev) {
     //engine capacity
     $.each($(".engine-capacity-container"), function(ind, item){
         if(ind == 0){
-            $(item).parents("div.form-group").before($("<div class='engine-capacity-general-title'>Объём: </div>"))
+            $(item).parents("div.form-group").before($("<div class='engine-capacity-general-title'>Название [ENGINE_NAME] и Объём [ENGINE_CAPACITY]: </div>"))
         }
 
         $(item).parents("div.form-group").addClass("engine-capacity-container-form-group");

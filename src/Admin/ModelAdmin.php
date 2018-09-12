@@ -98,13 +98,13 @@ class ModelAdmin extends AbstractAdmin
         $formMapper->add('modelRu', TextType::class, ['label' => 'Модель на Русском [RUMODEL]', 'required' => true]);
 
         $formMapper->add('technicalData.yearFrom', IntegerType::class, [
-            'label' => 'Годы выпуска:',
-            'required' => true,
+            'label' => 'Годы выпуска',
+            'required' => false,
             'attr' => ['class' => 'model-year-from'],
             ]);
         $formMapper->add('technicalData.yearTo', IntegerType::class, [
-            'label' => " ",
-            'required' => true,
+            'label' => "[YEAR]:",
+            'required' => false,
             'attr' => ['class' => 'model-year-to simple-width-field'],
         ]);
         $formMapper->add('imageFile', FileType::class, [
@@ -116,7 +116,7 @@ class ModelAdmin extends AbstractAdmin
         $formMapper->add('popular', CheckboxType::class, ['label' => 'Популярная модель', 'required' => false]);
         $formMapper->add('technicalData.engineTypes',  EntityType::class,
             [
-                'label' => 'Тип ДВС',
+                'label' => 'Тип ДВС [ENGINE_TYPE]:',
                 'class' => EngineType::class,
                 'choice_label' => 'type',
                 'multiple' => true,
@@ -136,7 +136,7 @@ class ModelAdmin extends AbstractAdmin
         );
         $formMapper->add('technicalData.driveTypes',  EntityType::class,
             [
-                'label' => 'Тип Привода',
+                'label' => 'Тип Привода [DRIVE_TYPE]:',
                 'class' => DriveType::class,
                 'choice_label' => 'type',
                 'multiple' => true,
@@ -155,7 +155,7 @@ class ModelAdmin extends AbstractAdmin
         );
         $formMapper->add('technicalData.gearBoxTypes',  EntityType::class,
             [
-                'label' => 'Тип КПП',
+                'label' => 'Тип КПП [GEAR_TYPE]:',
                 'class' => GearBoxType::class,
                 'choice_label' => 'type',
                 'multiple' => true,
@@ -226,7 +226,7 @@ class ModelAdmin extends AbstractAdmin
         ]);
         $formMapper->add('technicalData.vehicleTypes',  EntityType::class,
             [
-                'label' => 'Тип транспортного средства',
+                'label' => 'Тип транспортного средства [BODY_TYPE]:',
                 'class' => VehicleType::class,
                 'choice_label' => 'type',
                 'multiple' => true,
