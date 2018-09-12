@@ -6,10 +6,8 @@ $(document).ready(function (ev) {
         return false;
     }
 
-    let fromText = "<div class='year-from-text'>c </div>";
-    let toText = "<div class='year-to-text'>по </div>";
+    let toText = "<div class='year-to-text'> &mdash; </div>";
 
-    yearFrom.before($(fromText));
     yearTo.before($(toText));
 
     yearFrom.parents(".form-group").addClass("year-from-group");
@@ -37,7 +35,7 @@ $(document).ready(function (ev) {
     //engine capacity
     $.each($(".engine-capacity-container"), function(ind, item){
         if(ind == 0){
-            $(item).parents("div.form-group").before($("<div class='engine-capacity-general-title'>Объём: </div>"))
+            $(item).parents("div.form-group").before($("<div class='engine-capacity-general-title'>Название [ENGINE_NAME] и Объём [ENGINE_CAPACITY]: </div>"))
         }
 
         $(item).parents("div.form-group").addClass("engine-capacity-container-form-group");

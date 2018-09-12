@@ -1,32 +1,29 @@
 .form-group.year-from-group{
-    width: 20%;
+    width: 110px;
     float : left;
 }
 
 .form-group.year-to-group{
-    width : 80%;
+    width: -webkit-calc(100% - 110px);
+    width:    -moz-calc(100% - 110px);
+    width:         calc(100% - 110px);
     float : left;
     padding-bottom : 70px
 }
 
-/*.label-relative-top-year-to{*/
-    /*margin-top: 5px;*/
-/*}*/
+.form-group.year-to-group .model-year-to{
+    width : 110px;
+}
 
 .vehicle-type-label{
     width: 100%;
-}
-
-.year-from-text{
-    float: left;
-    font-size: 20px;
-    margin-right: 10px;
 }
 
 .year-to-text{
     float: left;
     font-size: 20px;
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 .checkboxes-in-one-line li div label{
@@ -38,12 +35,12 @@
 }
 
 .engine-capacity-container-form-group{
-    width: 23.5%;
+    width: 20%;
     float: left;
 }
 
 .engine-capacity-general-title{
-    width: 6%;
+    width: 20%;
     float: left;
     font-weight: bold;
 }
