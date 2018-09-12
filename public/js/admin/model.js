@@ -6,10 +6,8 @@ $(document).ready(function (ev) {
         return false;
     }
 
-    let fromText = "<div class='year-from-text'>c </div>";
-    let toText = "<div class='year-to-text'>по </div>";
+    let toText = "<div class='year-to-text'> &mdash; </div>";
 
-    yearFrom.before($(fromText));
     yearTo.before($(toText));
 
     yearFrom.parents(".form-group").addClass("year-from-group");

@@ -100,7 +100,7 @@ class ModelAdmin extends AbstractAdmin
         $formMapper->add('technicalData.yearFrom', IntegerType::class, [
             'label' => 'Годы выпуска:',
             'required' => true,
-            'attr' => ['class' => 'model-year-from simple-width-field'],
+            'attr' => ['class' => 'model-year-from'],
             ]);
         $formMapper->add('technicalData.yearTo', IntegerType::class, [
             'label' => " ",
@@ -248,7 +248,7 @@ class ModelAdmin extends AbstractAdmin
         );
         $formMapper->add('technicalData.vehicleCategory',  EntityType::class,
             [
-                'label' => 'Тип транспортного средства',
+                'label' => 'Категория транспортного средства',
                 'class' => VehicleCategory::class,
                 'choice_label' => 'category',
                 'multiple' => false,
