@@ -1,0 +1,14 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    <table>
+        <tbody>
+    {% for car in object.cars %}
+        <tr>
+            <td>{{ car.brand.name }} / </td>
+            <td>{{ car.model.name }}</td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

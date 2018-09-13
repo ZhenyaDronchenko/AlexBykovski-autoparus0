@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,14 +68,38 @@ abstract class User extends BaseUser
      *
      * One User has One ForgotPassword.
      * @ORM\OneToOne(targetEntity="ForgotPassword", mappedBy="user")
+     * @ORM\Column(type="string")
      */
     private $forgotPassword;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var Collection
+     *
+     * One User has Many UserCars.
+     * @ORM\OneToMany(targetEntity="UserCar", mappedBy="user")
+     */
+    private $cars;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isHelper = 0;
 
     public function __construct()
     {
         parent::__construct();
         // your own logic
         $this->createdAt = new DateTime();
+        $this->cars = new ArrayCollection();
     }
 
     /**
@@ -154,5 +180,53 @@ abstract class User extends BaseUser
     public function setForgotPassword(?ForgotPassword $forgotPassword): void
     {
         $this->forgotPassword = $forgotPassword;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param null|string $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCars(): Collection
+    {
+        return $this->cars;
+    }
+
+    /**
+     * @param Collection $cars
+     */
+    public function setCars(Collection $cars): void
+    {
+        $this->cars = $cars;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHelper(): bool
+    {
+        return $this->isHelper;
+    }
+
+    /**
+     * @param bool $isHelper
+     */
+    public function setIsHelper(bool $isHelper): void
+    {
+        $this->isHelper = $isHelper;
     }
 }

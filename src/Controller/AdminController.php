@@ -5,15 +5,40 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends Controller
 {
+    /**
+     * @Route("/authorize-as-user/{id}", name="admin_authorize_as_user")
+     *
+     * @ParamConverter("user", class="App:User", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function authorizeAdminAsUserAction(
+        Request $request,
+        User $user,
+        UserPasswordEncoderInterface $encoder,
+        TokenStorageInterface $tokenStorage
+    )
+    {
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $tokenStorage->setToken($token);
+        $request->getSession()->set('_security_main', serialize($token));
+
+        return $this->redirectToRoute("homepage");
+    }
+
     /**
      * @Route("/admin-remove-brand-logo/{id}", name="admin_remove_brand_logo")
      *

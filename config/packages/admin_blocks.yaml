@@ -79,3 +79,10 @@ services:
         tags:
             - { name: sonata.admin, group: Редактирование файлов, manager_type: orm, label: Статический sitemap }
         public: true
+
+    admin.user.users:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Пользователи, on_top: true }
+        public: true
