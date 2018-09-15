@@ -68,7 +68,6 @@ abstract class User extends BaseUser
      *
      * One User has One ForgotPassword.
      * @ORM\OneToOne(targetEntity="ForgotPassword", mappedBy="user")
-     * @ORM\Column(type="string")
      */
     private $forgotPassword;
 
