@@ -1,5 +1,6 @@
 imports:
     - { resource: ./admin_blocks/city_catalog.yaml }
+    - { resource: ./admin_blocks/brand_catalog.yaml }
 
 services:
     admin.general.main_page:
@@ -34,14 +35,6 @@ services:
         public: true
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
-
-# 1st from Brand
-    admin.catalog.catalog_brand.brand:
-        class: App\Admin\CatalogBrandChoiceBrandAdmin
-        arguments: [~, App\Entity\CatalogBrandChoiceBrand, ~]
-        tags:
-            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор марки }
-        public: true
 
     admin.spare_part.spare_part:
         class: App\Admin\SparePartAdmin
