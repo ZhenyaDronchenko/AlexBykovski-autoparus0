@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin;
+namespace App\Admin\Catalog\Brand;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class CatalogBrandChoiceBrandAdmin extends AbstractAdmin
+class CatalogBrandChoiceModelAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -23,7 +23,7 @@ class CatalogBrandChoiceBrandAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('id', 'text', ['label' => 'ID', 'sortable' => false])
+        $listMapper
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
