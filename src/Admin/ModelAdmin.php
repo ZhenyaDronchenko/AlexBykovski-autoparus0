@@ -255,12 +255,17 @@ class ModelAdmin extends AbstractAdmin
                 'expanded' => true,
             ]
         );
+        $formMapper->add('active', CheckboxType::class, ['label' => 'Активная', 'required' => false]);
         $formMapper->add('text', CKEditorType::class, ['label' => '[TEXTMODEL]', 'required' => false]);
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name', TextType::class, ['label' => 'Название', 'sortable' => false]);
+        $listMapper->addIdentifier('isActive', 'boolean', ['label' => 'Активная', 'sortable' => false]);
+        $listMapper->addIdentifier('isPopular', 'boolean', ['label' => 'Популярная', 'sortable' => false]);
+        $listMapper->addIdentifier('url', TextType::class, ['label' => 'URL', 'sortable' => false]);
+        $listMapper->addIdentifier('years', TextType::class, ['label' => 'Года', 'sortable' => false, 'template' => 'admin/model/years.html.twig']);
     }
 
     public function prePersist($model)
@@ -351,5 +356,34 @@ class ModelAdmin extends AbstractAdmin
 
     public function configureRoutes(RouteCollection $collection) {
         $collection->remove('export');
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+
+        unset($actions["delete"]);
+
+        $actions['set_active'] = [
+            'label'            => 'Сделать активными',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        $actions['set_inactive'] = [
+            'label'            => 'Сделать не активными',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        $actions['set_popular'] = [
+            'label'            => 'Сделать популярными',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        $actions['set_unpopular'] = [
+            'label'            => 'Снять популярность',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        return $actions;
     }
 }
