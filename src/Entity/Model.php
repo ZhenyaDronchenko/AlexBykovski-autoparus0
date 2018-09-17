@@ -87,6 +87,13 @@ class Model
     private $brand;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $active = 0;
+
+    /**
      * Model constructor.
      */
     public function __construct()
@@ -253,5 +260,21 @@ class Model
     public function setBrand(Brand $brand): void
     {
         $this->brand = $brand;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 }
