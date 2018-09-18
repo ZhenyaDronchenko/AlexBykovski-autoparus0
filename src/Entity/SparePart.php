@@ -430,4 +430,31 @@ class SparePart
 
         return $this->conditions;
     }
+
+    public function isHasUsed()
+    {
+        return $this->isHasCondition(SparePartCondition::USED_DESCRIPTION);
+    }
+
+    public function isHasNew()
+    {
+        return $this->isHasCondition(SparePartCondition::NEW_DESCRIPTION);
+    }
+
+    public function isHasRebuilt()
+    {
+        return $this->isHasCondition(SparePartCondition::REBUILT_DESCRIPTION);
+    }
+
+    public function isHasCondition($conditionSearch)
+    {
+        /** @var SparePartCondition $condition */
+        foreach ($this->conditions as $condition){
+            if($condition->getDescription() === $conditionSearch){
+                return $condition->isActive();
+            }
+        }
+
+        return false;
+    }
 }
