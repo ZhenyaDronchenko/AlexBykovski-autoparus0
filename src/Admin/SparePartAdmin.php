@@ -3,15 +3,16 @@
 namespace App\Admin;
 
 use App\Entity\SparePart;
+use App\Form\Type\SparePartConditionFormType;
 use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
@@ -76,6 +77,15 @@ class SparePartAdmin extends AbstractAdmin
         $formMapper->add('alternativeName4', TextType::class, ['label' => 'Альтернативное название запчасти 4 [ZAP4]']);
         $formMapper->add('alternativeName5', TextType::class, ['label' => 'Альтернативное название запчасти 5 [ZAP5]']);
         $formMapper->add('popular', CheckboxType::class, ['label' => 'Популярная запчасть', 'required' => false]);
+        $formMapper->add('conditions', CollectionType::class, [
+            'label' => 'Состояния запчасти [ZAP_CONDITION]',
+            'entry_type' => SparePartConditionFormType::class,
+            'required' => false,
+            'attr' => [
+                "class" => "spare-part-conditions-container"
+            ],
+            'allow_add' => false
+        ]);
         $formMapper->add(
             'imageFile',
             FileType::class,
@@ -90,6 +100,10 @@ class SparePartAdmin extends AbstractAdmin
     {
         $listMapper->addIdentifier('name', 'text', ['label' => 'name', 'sortable' => false]);
         $listMapper->addIdentifier('popular', 'boolean', ['label' => 'Популяраня', 'sortable' => false]);
+        $listMapper->addIdentifier('active', 'boolean', ['label' => 'Активная', 'sortable' => false]);
+        $listMapper->addIdentifier('isHasUsed', 'boolean', ['label' => 'БУ', 'sortable' => false]);
+        $listMapper->addIdentifier('isHasNew', 'boolean', ['label' => 'Новая', 'sortable' => false]);
+        $listMapper->addIdentifier('isHasRebuilt', 'boolean', ['label' => 'Восстановленная', 'sortable' => false]);
     }
 
     public function prePersist($sparePart)
@@ -130,5 +144,34 @@ class SparePartAdmin extends AbstractAdmin
 
     public function configureRoutes(RouteCollection $collection) {
         $collection->remove('export');
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+
+        unset($actions["delete"]);
+
+        $actions['set_active'] = [
+            'label'            => 'Сделать активными',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        $actions['set_inactive'] = [
+            'label'            => 'Сделать не активными',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        $actions['set_popular'] = [
+            'label'            => 'Сделать популярными',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        $actions['set_unpopular'] = [
+            'label'            => 'Снять популярность',
+            'ask_confirmation' => true // If true, a confirmation will be asked before performing the action
+        ];
+
+        return $actions;
     }
 }

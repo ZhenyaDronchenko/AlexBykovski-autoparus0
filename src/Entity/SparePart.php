@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -123,6 +125,24 @@ class SparePart
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $active = 1;
+
+    /**
+     * @var Collection
+     *
+     * One SparePart has Many SparePartCondition.
+     * @ORM\OneToMany(targetEntity="SparePartCondition", mappedBy="sparePart", cascade={"persist", "remove"})
+     */
+    private $conditions;
+
+    /**
+     * SparePart constructor.
+     */
+    public function __construct()
+    {
+        $this->conditions = new ArrayCollection();
+
+        $this->createDefaultConditions();
+    }
 
     /**
      * @return int|null
@@ -378,5 +398,63 @@ class SparePart
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getConditions(): Collection
+    {
+        return $this->conditions;
+    }
+
+    /**
+     * @param Collection $conditions
+     */
+    public function setConditions(Collection $conditions): void
+    {
+        $this->conditions = $conditions;
+    }
+
+    public function createDefaultConditions()
+    {
+        $condition1 = new SparePartCondition();
+        $condition2 = new SparePartCondition();
+        $condition3 = new SparePartCondition();
+
+        $condition1->setConditionDetails(SparePartCondition::USED_DESCRIPTION, SparePartCondition::USED_CONDITION, SparePartCondition::SINGLE_USED_ADJECTIVE, SparePartCondition::PLURAL_USED_ADJECTIVE, $this);
+        $condition2->setConditionDetails(SparePartCondition::NEW_DESCRIPTION, SparePartCondition::NEW_CONDITION, SparePartCondition::SINGLE_NEW_ADJECTIVE, SparePartCondition::SINGLE_NEW_ADJECTIVE, $this);
+        $condition3->setConditionDetails(SparePartCondition::REBUILT_DESCRIPTION, SparePartCondition::REBUILT_CONDITION, SparePartCondition::SINGLE_REBUILT_ADJECTIVE, SparePartCondition::PLURAL_REBUILT_ADJECTIVE, $this, false);
+
+        $this->setConditions(new ArrayCollection([$condition1, $condition2, $condition3]));
+
+        return $this->conditions;
+    }
+
+    public function isHasUsed()
+    {
+        return $this->isHasCondition(SparePartCondition::USED_DESCRIPTION);
+    }
+
+    public function isHasNew()
+    {
+        return $this->isHasCondition(SparePartCondition::NEW_DESCRIPTION);
+    }
+
+    public function isHasRebuilt()
+    {
+        return $this->isHasCondition(SparePartCondition::REBUILT_DESCRIPTION);
+    }
+
+    public function isHasCondition($conditionSearch)
+    {
+        /** @var SparePartCondition $condition */
+        foreach ($this->conditions as $condition){
+            if($condition->getDescription() === $conditionSearch){
+                return $condition->isActive();
+            }
+        }
+
+        return false;
     }
 }

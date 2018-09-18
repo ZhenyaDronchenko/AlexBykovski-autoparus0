@@ -39,7 +39,7 @@ services:
 
     admin.spare_part.spare_part:
         class: App\Admin\SparePartAdmin
-        arguments: [~, App\Entity\SparePart, ~, "@app.file_upload", '%upload_image_directory%', '@router']
+        arguments: [~, App\Entity\SparePart, 'App\Admin\Controller\SparePartAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
         tags:
             - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть, on_top: true, class: "RRRRRRRRR" }
         public: true

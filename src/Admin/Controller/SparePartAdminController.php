@@ -3,28 +3,29 @@
 namespace App\Admin\Controller;
 
 use App\Entity\Brand;
+use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class BrandAdminController extends CRUDController
+class SparePartAdminController extends CRUDController
 {
     public function batchActionSetActive(ProxyQueryInterface $selectedModelQuery)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $selectedBrands = $selectedModelQuery->execute();
+        $selectedSpareParts = $selectedModelQuery->execute();
 
-        /** @var Brand $brand */
-        foreach ($selectedBrands as $brand){
-            $brand->setActive(true);
+        /** @var SparePart $sparePart */
+        foreach ($selectedSpareParts as $sparePart){
+            $sparePart->setActive(true);
         }
 
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные марки теперь активны'));
+        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные запчасти теперь активны'));
 
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
     }
@@ -34,16 +35,16 @@ class BrandAdminController extends CRUDController
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $selectedBrands = $selectedModelQuery->execute();
+        $selectedSpareParts = $selectedModelQuery->execute();
 
-        /** @var Brand $brand */
-        foreach ($selectedBrands as $brand){
-            $brand->setActive(false);
+        /** @var SparePart $sparePart */
+        foreach ($selectedSpareParts as $sparePart){
+            $sparePart->setActive(false);
         }
 
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные марки теперь неактивны'));
+        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные запчасти теперь неактивны'));
 
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
     }
@@ -53,16 +54,16 @@ class BrandAdminController extends CRUDController
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $selectedBrands = $selectedModelQuery->execute();
+        $selectedSpareParts = $selectedModelQuery->execute();
 
-        /** @var Brand $brand */
-        foreach ($selectedBrands as $brand){
-            $brand->setPopular(true);
+        /** @var SparePart $sparePart */
+        foreach ($selectedSpareParts as $sparePart){
+            $sparePart->setPopular(true);
         }
 
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные марки теперь популярны'));
+        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные запчасти теперь популярны'));
 
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
     }
@@ -72,16 +73,16 @@ class BrandAdminController extends CRUDController
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $selectedBrands = $selectedModelQuery->execute();
+        $selectedSpareParts = $selectedModelQuery->execute();
 
-        /** @var Brand $brand */
-        foreach ($selectedBrands as $brand){
-            $brand->setPopular(false);
+        /** @var SparePart $sparePart */
+        foreach ($selectedSpareParts as $sparePart){
+            $sparePart->setPopular(false);
         }
 
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные марки теперь не популярны'));
+        $this->get('session')->getFlashBag()->add('sonata_flash_success',  sprintf('Выбранные запчасти теперь не популярны'));
 
         return new RedirectResponse($this->admin->generateUrl('list', $this->admin->getFilterParameters()));
     }
