@@ -1,0 +1,43 @@
+services:
+# 1st from Brand
+    admin.catalog.catalog_brand.brand:
+        class: App\Admin\Catalog\Brand\CatalogBrandChoiceBrandAdmin
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceBrand, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор марки }
+        public: true
+# 2nd from Brand
+    admin.catalog.catalog_brand.model:
+        class: App\Admin\Catalog\Brand\CatalogBrandChoiceModelAdmin
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceModel, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор модели }
+        public: true
+# 3rd from Brand
+    admin.catalog.catalog_brand.spare_part:
+        class: App\Admin\Catalog\Brand\CatalogBrandChoiceSparePartAdmin
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор запчасти }
+        public: true
+# 4th from Brand
+    admin.catalog.catalog_brand.city:
+        class: App\Admin\Catalog\Brand\CatalogBrandChoiceCityAdmin
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceCity, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор города }
+        public: true
+# 5th from Brand
+    admin.catalog.catalog_brand.in_stock:
+        class: App\Admin\Catalog\Brand\CatalogBrandChoiceInStockAdmin
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceInStock, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор усл. "Только в наличии" }
+        public: true
+# 6th from Brand
+    admin.catalog.catalog_brand.final_page:
+        class: App\Admin\Catalog\Brand\CatalogBrandChoiceFinalPageAdmin
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceFinalPage, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Финальная страница }
+        public: true
