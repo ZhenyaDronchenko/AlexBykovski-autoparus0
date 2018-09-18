@@ -7,8 +7,10 @@ sonata_admin:
         extra_stylesheets:
             - 'css/admin/general.css'
             - 'css/admin/model.css'
+            - 'css/admin/spare-part.css'
         extra_javascripts:
             - 'js/admin/model.js'
+            - 'js/admin/spare-part.js'
 
 sonata_block:
     blocks:
