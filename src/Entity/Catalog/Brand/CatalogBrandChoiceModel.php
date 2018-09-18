@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Catalog\Brand;
 
+use App\Entity\Catalog\CatalogPageOne;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -1,6 +1,7 @@
 imports:
     - { resource: ./admin_blocks/city_catalog.yaml }
     - { resource: ./admin_blocks/brand_catalog.yaml }
+    - { resource: ./admin_blocks/spare_part_catalog.yaml }
 
 services:
     admin.general.main_page:

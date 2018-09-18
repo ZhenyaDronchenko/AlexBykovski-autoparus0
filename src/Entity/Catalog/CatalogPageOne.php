@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Catalog;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class CatalogPageTwo
+abstract class CatalogPageOne
 {
     /**
      * @var integer
@@ -56,13 +56,6 @@ class CatalogPageTwo
      * @ORM\Column(type="text")
      */
     protected $text2;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="text")
-     */
-    protected $text3;
 
     /**
      * @return int
@@ -174,21 +167,5 @@ class CatalogPageTwo
     public function setText2(?string $text2): void
     {
         $this->text2 = $text2;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getText3(): ?string
-    {
-        return $this->text3;
-    }
-
-    /**
-     * @param null|string $text3
-     */
-    public function setText3(?string $text3): void
-    {
-        $this->text3 = $text3;
     }
 }

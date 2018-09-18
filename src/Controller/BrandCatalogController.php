@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Brand;
-use App\Entity\CatalogBrandChoiceBrand;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
