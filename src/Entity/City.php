@@ -58,6 +58,13 @@ class City
     private $type;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $active = 0;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(type="text")
@@ -158,5 +165,26 @@ class City
     public function setText(?string $text): void
     {
         $this->text = $text;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    public function getTypeTranslate()
+    {
+        return array_flip(self::$types)[$this->type];
     }
 }
