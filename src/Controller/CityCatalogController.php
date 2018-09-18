@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Brand;
-use App\Entity\CatalogCityChoiceCity;
+use App\Entity\Catalog\City\CatalogCityChoiceCity;
 use App\Entity\City;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

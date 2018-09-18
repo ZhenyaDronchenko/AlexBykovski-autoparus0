@@ -2,7 +2,7 @@ services:
 # 1st from City
     admin.catalog.catalog_city.city:
         class: App\Admin\Catalog\City\CatalogCityChoiceCityAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceCity, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceCity, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор города }
         public: true
@@ -10,7 +10,7 @@ services:
 # 2nd from City
     admin.catalog.catalog_city.brand:
         class: App\Admin\Catalog\City\CatalogCityChoiceBrandAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceBrand, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceBrand, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор марки }
         public: true
@@ -18,7 +18,7 @@ services:
 # 3rd from City
     admin.catalog.catalog_city.model:
         class: App\Admin\Catalog\City\CatalogCityChoiceModelAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceModel, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceModel, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор модели }
         public: true
@@ -26,7 +26,7 @@ services:
 # 4rd from City
     admin.catalog.catalog_city.year:
         class: App\Admin\Catalog\City\CatalogCityChoiceYearAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceYear, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceYear, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор года }
         public: true
@@ -34,7 +34,7 @@ services:
 # 5rd from City
     admin.catalog.catalog_city.spare_part:
         class: App\Admin\Catalog\City\CatalogCityChoiceSparePartAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceSparePart, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceSparePart, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор запчасти }
         public: true
@@ -42,7 +42,7 @@ services:
 # 6rd from City
     admin.catalog.catalog_city.engine_type:
         class: App\Admin\Catalog\City\CatalogCityChoiceEngineTypeAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceEngineType, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceEngineType, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор типа ДВС }
         public: true
@@ -50,7 +50,7 @@ services:
 # 7rd from City
     admin.catalog.catalog_city.engine_capacity:
         class: App\Admin\Catalog\City\CatalogCityChoiceEngineCapacityAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceEngineCapacity, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceEngineCapacity, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор объёма ДВС }
         public: true
@@ -58,7 +58,7 @@ services:
 # 8rd from City
     admin.catalog.catalog_city.body_type:
         class: App\Admin\Catalog\City\CatalogCityChoiceBodyTypeAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceBodyType, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceBodyType, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор типа кузова }
         public: true
@@ -66,7 +66,7 @@ services:
 # 9rd from City
     admin.catalog.catalog_city.spare_part_status:
         class: App\Admin\Catalog\City\CatalogCityChoiceSparePartStatusAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceSparePartStatus, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceSparePartStatus, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор состояния запчасти }
         public: true
@@ -74,7 +74,7 @@ services:
 # 10rd from City
     admin.catalog.catalog_city.in_stock:
         class: App\Admin\Catalog\City\CatalogCityChoiceInStockAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceInStock, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceInStock, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор "Только в наличии" }
         public: true
@@ -82,7 +82,7 @@ services:
 # 11rd from City
     admin.catalog.catalog_city.final_page:
         class: App\Admin\Catalog\City\CatalogCityChoiceFinalPageAdmin
-        arguments: [~, App\Entity\CatalogCityChoiceFinalPage, ~]
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceFinalPage, ~]
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Финальная страница }
         public: true
