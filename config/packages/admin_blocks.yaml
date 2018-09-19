@@ -13,7 +13,7 @@ services:
 
     admin.city.city:
         class: App\Admin\CityAdmin
-        arguments: [~, App\Entity\City, ~]
+        arguments: [~, App\Entity\City, 'App\Admin\Controller\CityAdminController']
         tags:
             - { name: sonata.admin, group: Город, manager_type: orm, label: Город, on_top: true}
         public: true
