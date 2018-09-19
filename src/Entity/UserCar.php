@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,18 +20,16 @@ class UserCar
     private $id;
 
     /**
-     * @var Brand
+     * @var string|null
      *
-     * @ORM\ManyToOne(targetEntity="Brand")
-     * @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $brand;
 
     /**
-     * @var Model
+     * @var string|null
      *
-     * @ORM\ManyToOne(targetEntity="Model")
-     * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $model;
 
@@ -61,33 +58,33 @@ class UserCar
     }
 
     /**
-     * @return Brand
+     * @return null|string
      */
-    public function getBrand(): Brand
+    public function getBrand(): ?string
     {
         return $this->brand;
     }
 
     /**
-     * @param Brand $brand
+     * @param null|string $brand
      */
-    public function setBrand(Brand $brand): void
+    public function setBrand(?string $brand): void
     {
         $this->brand = $brand;
     }
 
     /**
-     * @return Model
+     * @return null|string
      */
-    public function getModel(): Model
+    public function getModel(): ?string
     {
         return $this->model;
     }
 
     /**
-     * @param Model $model
+     * @param null|string $model
      */
-    public function setModel(Model $model): void
+    public function setModel(?string $model): void
     {
         $this->model = $model;
     }
