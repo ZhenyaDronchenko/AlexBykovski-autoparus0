@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+{% block body %}
+    <main class="container" ng-init="showAll = false;">
+        <section class="catalog1">
+            <h1 class="catalog1-title">{{ page.headline1 }}</h1>
+
+            <div class=catalog1-text>
+                {{ page.text1 | raw }}
+            </div>
+
+            <div class='parts-search'>
+                <form class='catalog1form' action="" method="get">
+
+                    <input class='form5' name="search" placeholder="Наименование запчасти" type="search" >
+
+                </form>
+            </div>
+
+            <ul class='showMoreModel' id='brandImg3' ng-show="showAll">
+                {% for sparePart in allSpareParts %}
+                    <li><a href='#'>{{ sparePart.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <ul class='showMoreModel' id='brandImg3' ng-hide="showAll">
+                {% for sparePart in popularSpareParts %}
+                    <li><a href='#'>{{ sparePart.name }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div id='showAll3' ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div id='showAll3' ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+
+            <h2 class='catalog1-subtitle'>{{ page.headline2 }}</h2>
+
+            <p class='catalog1-text-b'>{{ page.text2 | raw }}</p>
+
+        </section>
+
+    </main>
+{% endblock %}

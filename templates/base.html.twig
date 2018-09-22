@@ -12,8 +12,8 @@
               rel="stylesheet">
         <title>{% block title %}Автопарус{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel='stylesheet' href='css/normalize-new.min.css'>
-        <link rel='stylesheet' href='css/style-new.css'>
+        <link rel='stylesheet' href='/css/normalize-new.min.css'>
+        <link rel='stylesheet' href='/css/style-new.css'>
         {{ show_code("head") | raw }}
     </head>
     <body>
@@ -38,7 +38,7 @@
                         <div>
                             <ul>
                                 <li><a href="{{ path("show_brand_catalog_choice_brand") }}">Каталог</a></li>
-                                <li><a href='#'>О нас</a></li>
+                                <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
                             </ul>
                         </div>
                         <div>
@@ -121,7 +121,7 @@
                             <div>
                                 <ul>
                                     <li><a href='{{ path("show_brand_catalog_choice_brand") }}'>Каталог</a></li>
-                                    <li><a href=''>О нас</a></li>
+                                    <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
                                 </ul>
                             </div>
                             <div>
@@ -153,7 +153,7 @@
         <script src='/bower-components/jquery/dist/jquery.min.js'></script>
         <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
         <script src='/js/general-settings.js'></script>
-        <script async src='js/script-new.js' ></script>
+        <script async src='/js/script-new.js' ></script>
         {% block javascripts %}{% endblock %}
         {{ show_code("body") | raw }}
     </body>
