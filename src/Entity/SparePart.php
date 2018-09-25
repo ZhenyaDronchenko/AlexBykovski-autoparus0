@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SparePartRepository")
  * @ORM\Table(name="spare_part")
  */
 class SparePart
@@ -456,5 +456,13 @@ class SparePart
         }
 
         return false;
+    }
+
+    public function toSearchArray()
+    {
+        return [
+            "label" => $this->name,
+            "value" => $this->url,
+        ];
     }
 }

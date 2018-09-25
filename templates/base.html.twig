@@ -1,41 +1,45 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="autoparusApp">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="{% block meta_description %}Автопарус{% endblock %}">
-        <link type='text/css' rel='stylesheet' href='/css/style.css'>
-        <link type='text/css' rel='stylesheet' href='/css/common.css'>
-        <link type='text/css' rel='stylesheet' href='/css/breadcrumbs-style.css'>
-        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="author" content="">
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&amp;subset=cyrillic" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
         <title>{% block title %}Автопарус{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <script async src='/js/script.js'></script>
+        <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
+        <link rel='stylesheet' href='/css/normalize-new.min.css'>
+        <link rel='stylesheet' href='/css/style-new.css'>
         {{ show_code("head") | raw }}
     </head>
     <body>
-        <div id='wrapper'>
-            <header id='header'>
-                <div id='hatWrapp'>
-                    <div id='logo'>
-                        <h1><a href="{{ path("homepage") }}" title='На главную'>Автопарус</a></h1>
-                    </div>
-                    <div id='hamburger'>
-                        <div id='hamChild' onclick='menuActive()'>
-                            <span id='g-1' class='gamburger'></span>
-                            <span id='g-2' class='gamburger'></span>
-                            <span id='g-3' class='gamburger'></span>
-                        </div>
+        <header class="header">
+            <div class='hatWrapp container'>
+                <div>
+                    <a class='logo' href='{{ path("homepage") }}' title='На главную'>Автопарус</a>
+                </div>
+                <div class='hamburger'>
+                    <div class='hamChild' onclick='menuActive()'>
+                        <span id='g-1' class='gamburger'></span>
+                        <span id='g-2' class='gamburger'></span>
+                        <span id='g-3' class='gamburger'></span>
                     </div>
                 </div>
-                <nav id='menu' class='m01'>
-                    <div id='menu-01'>
+            </div>
+
+            <div class="container">
+
+                <nav id='menu' class='m01 '>
+                    <div class='menu-01'>
                         <div>
                             <ul>
                                 <li><a href="{{ path("show_brand_catalog_choice_brand") }}">Каталог</a></li>
-                                <li><a href='#'>О нас</a></li>
+                                <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
                             </ul>
                         </div>
                         <div>
@@ -55,7 +59,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div id='menu-02'>
+                    <div class='menu-02'>
                         <div>
                             <ul>
                                 <li><a href='#'>Пользователям</a></li>
@@ -70,46 +74,92 @@
                         </div>
                     </div>
                 </nav>
-            </header>
-            {% block body %}{% endblock %}
-            <footer id='footer'>
-                <div>
-                    <a href="{{ path("homepage") }}" title='На главную'>
-                        <i class="material-icons md-48 md-36">home</i>
-                    </a>
-                </div>
-                <div id='secondMenu' onclick='secondMenu()'>
-                    <a href='#' title='Открыть меню'>
-                        <i class="material-icons md-36">menu</i>
-                    </a>
-                </div>
-                <div>
-                    <a>
-                        <i class="material-icons md-36"> help</i>
-                    </a>
-                </div>
-                <div>
-                    <a>
-                        <i class="material-icons md-36">search</i>
-                    </a>
-                </div>
-                <div>
-                    <a href="{{ path("homepage") }}">
-                        <i class="material-icons md-36">store_mall_directory</i>
-                    </a>
-                </div>
-                <div>
-                    <a href="{{ app.user ? "" : path("login") }}">
-                        <i class="material-icons md-36">person</i>
-                    </a>
-                </div>
-            </footer>
 
-        </div>
+            </div>
+
+        </header>
+
+        {% block body %}{% endblock %}
+
+        <footer class='footer'>
+            <div class="container">
+                <div class="footer-wrapper">
+                    <div>
+                        <a class="material-icons md-48 md-36" href='{{ path("homepage") }}' title='На главную'>
+                            <i class="material-icons md-48 md-36">home</i>
+                        </a>
+                    </div>
+                    <div id='secondMenu' class='hamChild-1' onclick='secondMenu()'>
+                        <span id='g-11' class='gamburger1'></span>
+                        <span id='g-21' class='gamburger1'></span>
+                        <span id='g-31' class='gamburger1'></span>
+                    </div>
+                    <div>
+                        {#<a class="material-icons md-36" href='breadcrumbs.html'>#}
+                        <a class="material-icons md-36" href=''>
+                            <i class="material-icons md-36">help_outline</i>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="material-icons md-36" href='{{ path("show_city_catalog_choice_city") }}'>
+                            <i class="material-icons md-36">search</i>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="material-icons md-36" href="{{ path("homepage") }}">
+                            <i class="material-icons md-36">store_mall_directory</i>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="material-icons md-36" href=''>
+                            <i class="material-icons md-36">person</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-inner">
+                    <nav id='menu1' class='m011'>
+                        <div class='menu-011'>
+                            <div>
+                                <ul>
+                                    <li><a href='{{ path("show_brand_catalog_choice_brand") }}'>Каталог</a></li>
+                                    <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><a href='{{ path("login") }}'>Вход</a></li>
+                                    <li><a href='{{ path("registration") }}'>Регистрация</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class='menu-021'>
+                            <div>
+                                <ul>
+                                    <li><a href=''>Пользователям</a></li>
+                                    <li><a href=''>Продавцам</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><a href=''>Новости</a></li>
+                                    <li><a href=''>Обратная связь</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </footer>
         <script src='/bower-components/angular/angular.min.js'></script>
         <script src='/bower-components/jquery/dist/jquery.min.js'></script>
+        <script src='/bower-components/jquery-ui/jquery-ui.min.js'></script>
         <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
         <script src='/js/general-settings.js'></script>
+        <script async src='/js/script-new.js' ></script>
+        <script src='/js/client/app.js' ></script>
+        <script src='/js/client/service/autocomplete-spare-part.js' ></script>
+        <script src='/js/client/directive/autocomplete-autoparus.js' ></script>
+
         {% block javascripts %}{% endblock %}
         {{ show_code("body") | raw }}
     </body>
