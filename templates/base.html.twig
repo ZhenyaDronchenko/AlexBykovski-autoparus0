@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="autoparusApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,7 @@
               rel="stylesheet">
         <title>{% block title %}Автопарус{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
         <link rel='stylesheet' href='/css/normalize-new.min.css'>
         <link rel='stylesheet' href='/css/style-new.css'>
         {{ show_code("head") | raw }}
@@ -151,9 +152,14 @@
         </footer>
         <script src='/bower-components/angular/angular.min.js'></script>
         <script src='/bower-components/jquery/dist/jquery.min.js'></script>
+        <script src='/bower-components/jquery-ui/jquery-ui.min.js'></script>
         <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
         <script src='/js/general-settings.js'></script>
         <script async src='/js/script-new.js' ></script>
+        <script src='/js/client/app.js' ></script>
+        <script src='/js/client/service/autocomplete-spare-part.js' ></script>
+        <script src='/js/client/directive/autocomplete-autoparus.js' ></script>
+
         {% block javascripts %}{% endblock %}
         {{ show_code("body") | raw }}
     </body>
