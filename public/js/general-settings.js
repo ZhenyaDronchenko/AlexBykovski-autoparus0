@@ -3,13 +3,13 @@ $(function(){
 });
 
 
-$(document).ready(function(){
-    $(".set-backgroud-url").each(function(index, item){
-        let url = $(item).attr("data-url");
-        let background = $(item).css("background");
-        background = background.substring(0, background.indexOf(" / "));
-        background = background.replace("none ", "").replace("scroll ", "");
-
-        $(item).css("background", "url(" + url + ")" + " " + background);
-    });
-});
+// $(document).ready(function(){
+//     $(".set-backgroud-url").each(function(index, item){
+//         let url = $(item).attr("data-url");
+//         let background = $(item).css("background");
+//         background = background.substring(0, background.indexOf(" / "));
+//         background = background.replace("none ", "").replace("scroll ", "");
+//
+//         $(item).css("background", "url(" + url + ")" + " " + background);
+//     });
+// });

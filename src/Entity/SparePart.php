@@ -12,6 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SparePart
 {
+    static $variables = [
+        "[ZAP]" => "getName",
+        "[URLZAP]" => "getUrl",
+        "[VINZAP]" => "getNameAccusative",
+        "[TVORZAP]" => "getNameInstrumental",
+        "[RODZAP]" => "getNameGenitive",
+        "[ZAPS]" => "getNamePlural",
+        "[ZAP1]" => "getAlternativeName1",
+        "[ZAP2]" => "getAlternativeName2",
+        "[ZAP3]" => "getAlternativeName3",
+        "[ZAP4]" => "getAlternativeName4",
+        "[ZAP5]" => "getAlternativeName5",
+        "[TEXTZAP]" => "getText"
+    ];
+
     /**
      * @var integer|null
      *
@@ -464,5 +479,14 @@ class SparePart
             "label" => $this->name,
             "value" => $this->url,
         ];
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }
