@@ -19,12 +19,12 @@
 
             <ul class='showMoreModel' id='brandImg3' ng-show="showAll">
                 {% for sparePart in allSpareParts %}
-                    <li><a href='#'>{{ sparePart.name }}</a></li>
+                    <li><a href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'>{{ sparePart.name }}</a></li>
                 {% endfor %}
             </ul>
             <ul class='showMoreModel' id='brandImg3' ng-hide="showAll">
                 {% for sparePart in popularSpareParts %}
-                    <li><a href='#'>{{ sparePart.name }}</a></li>
+                    <li><a href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'>{{ sparePart.name }}</a></li>
                 {% endfor %}
             </ul>
 

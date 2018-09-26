@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
+use App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/zapchasti")
@@ -27,13 +30,37 @@ class SparePartCatalogController extends Controller
             return $sparePart->isPopular();
         });
 
-//        var_dump(count($popularSpareParts));
-//        var_dump(count($allSpareParts));die;
-
         return $this->render('client/catalog/spare-part/choice-spare-part.html.twig', [
             'allSpareParts' => $allSpareParts,
             'popularSpareParts' => $popularSpareParts,
             'page' => $em->getRepository(CatalogSparePartChoiceSparePart::class)->findAll()[0]
+        ]);
+    }
+
+    /**
+     * @Route("/{url}", name="show_spare_part_catalog_choice_brand")
+     */
+    public function showCatalogChoiceBrandAction(Request $request, $url)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $url]);
+
+        if(!$sparePart){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
+
+        $popularBrands = array_filter($allBrands, function(Brand $brand){
+            return $brand->isPopular();
+        });
+
+        return $this->render('client/catalog/spare-part/choice-brand.html.twig', [
+            'allBrands' => $allBrands,
+            'popularBrands' => $popularBrands,
+            'page' => $em->getRepository(CatalogSparePartChoiceBrand::class)->findAll()[0]
         ]);
     }
 }

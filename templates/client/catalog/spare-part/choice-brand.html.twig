@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+{% block body %}
+    <main class="container"  ng-init="showAll = false;">
+        <section class="marka">
+            <h1 class="marka-title">{{ page.headline1 }}</h1>
+            <div class="marka-text">{{ page.text1 | raw }}</div>
+
+            <div class='marka-search'>
+                <form class='markaform' action="" method="get">
+                    <input class='form6' name="search" placeholder="Марка авто:" type="search" >
+                </form>
+            </div>
+
+            <ul class='showMoreModel' id='brandImg4' ng-show="showAll">
+                {% for brand in allBrands %}
+                    <li><a class="marka-link mers set-backgroud-url" href='#' data-url="{{ image_url(brand.logo) }}">{{ brand.name }} ({{ brand.brandRu }})</a></li>
+                {% endfor %}
+            </ul>
+            <ul class='showMoreModel' id='brandImg4' ng-hide="showAll">
+                {% for brand in popularBrands %}
+                    <li><a class="marka-link mers set-backgroud-url" href='#' data-url="{{ image_url(brand.logo) }}">{{ brand.name }} ({{ brand.brandRu }})</a></li>
+                {% endfor %}
+            </ul>
+
+            <div id='showAll4' ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div id='showAll4' ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+
+            <h2 class='marka-subtitle'>{{ page.headline2 }}</h2>
+
+            <div class='marka-text-b'>{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+{% endblock %}
