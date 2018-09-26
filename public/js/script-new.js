@@ -248,34 +248,6 @@ function toggleShow2() {
 
 }
 
-function toggleShow4() {
-
-    var showPartsElem = document.getElementById('showAll4');
-    showPartsElem.onclick = toggleShow4;
-
-    var toggle2 = even_odd(n2);
-
-    if (toggle2 == true) {
-
-        var toggleButton = document.getElementById('brandImg4');
-        toggleButton.className = 'showLess4';
-
-        showPartsElem.textContent = '>>>>>>>';
-
-    }
-
-    else {
-
-       var toggleButton = document.getElementById('brandImg4');
-       toggleButton.className = 'showMoreModel';
-
-       showPartsElem.textContent = '<<<<<<<';
-
-    }
-
-    n2 += 1;
-
-}
 function toggleShow5() {
 
     var showPartsElem = document.getElementById('showAll5');

@@ -1,7 +1,8 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.directive("autoСompleteAutoparus",["AutoCompleteResource", function(AutoCompleteResource){
+    autoparusApp.directive("autoСompleteAutoparus",["$window", "AutoCompleteResource",
+        function($window, AutoCompleteResource){
         return{
             restrict: 'A',
             link: function(scope, element, attrs)
@@ -14,7 +15,7 @@
                     },
                     minLength: 1,
                     select: function( event, ui ) {
-                        console.log( "Selected: " + ui.item.value);
+                        $window.location.href = '/zapchasti/' + ui.item.value;
                     },
                     classes: {
                         "ui-autocomplete": "spare-part-first-autocomplete",

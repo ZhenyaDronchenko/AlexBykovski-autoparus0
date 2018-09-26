@@ -4054,7 +4054,7 @@ display: -webkit-box;
           transition-duration: 0.2s;
 }
 .mers{
-  background: url("../img/icon-mers-1.png") 263px 6px  no-repeat;
+  background: 263px 6px  no-repeat;
 }
 
 .marka-link:hover {
@@ -4152,8 +4152,7 @@ display: -webkit-box;
             transition-duration: 0.2s;
 }
 .mers{
-  
-  background: url("../img/icon-mers-1.png") 245px 6px  no-repeat;
+  background: 245px 6px  no-repeat;
 }
 
 .marka-subtitle {
@@ -4236,8 +4235,7 @@ display: -webkit-box;
   margin-bottom: 5px;
 }
 .mers{
-  
-  background: url("../img/icon-mers-1.png") 263px 6px  no-repeat;
+  background: 263px 6px  no-repeat;
 }
 }
 
