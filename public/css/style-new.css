@@ -4051,6 +4051,11 @@ display: -webkit-box;
     -o-transition-duration: 0.2s;
     transition-duration: 0.2s;
 }
+
+.marka-link span{
+    padding-left: 10px;
+}
+
 .marka-link img {
     width: 30px;
     height: 30px;
