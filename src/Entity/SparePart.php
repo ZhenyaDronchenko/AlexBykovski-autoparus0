@@ -477,7 +477,8 @@ class SparePart
     {
         return [
             "label" => $this->name,
-            "value" => $this->url,
+            "value" => $this->name,
+            "url" => $this->url,
         ];
     }
 

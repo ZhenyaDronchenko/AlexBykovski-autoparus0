@@ -13,7 +13,10 @@
             <div class='parts-search'>
                 <form class='catalog1form' action="" method="get">
 
-                    <input id="spare-part-first-autocomplete" class="form5" type="search" auto-сomplete-autoparus name="search" placeholder="Наименование запчасти">
+                    <input id="spare-part-autocomplete" class="form5" type="search"
+                           auto-сomplete-autoparus add-url="{{ path("show_spare_part_catalog_choice_spare_part") }}"
+                           method-search="searchSpareParts" identifier-field="spare-part-autocomplete"
+                           name="search" placeholder="Наименование запчасти">
                 </form>
             </div>
 

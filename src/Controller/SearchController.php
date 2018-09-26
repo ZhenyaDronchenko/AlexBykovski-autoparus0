@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,5 +36,28 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedSpareParts);
+    }
+
+    /**
+     * @Route("/brand")
+     */
+    public function searchBrand(Request $request)
+    {
+        $text = $request->query->get("text");
+
+        if(!is_string($text) || strlen($text) < 1){
+            return new JsonResponse([]);
+        }
+
+        $brands = $this->getDoctrine()->getRepository(Brand::class)->searchByText($text);
+
+        $parsedBrands= [];
+
+        /** @var Brand $brand */
+        foreach ($brands as $brand){
+            $parsedBrands[] = $brand->toSearchArray();
+        }
+
+        return new JsonResponse($parsedBrands);
     }
 }

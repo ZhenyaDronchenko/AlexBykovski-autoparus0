@@ -7,23 +7,31 @@
             restrict: 'A',
             link: function(scope, element, attrs)
             {
+                let addUrl = attrs.addUrl;
+                let method = attrs.methodSearch;
+                let identifier = attrs.identifierField;
+
+                $( element ).val("");
+
                 $( element ).autocomplete({
                     source: function( request, response ) {
-                        AutoCompleteResource.searchSpareParts(request.term).then(function(spareParts){
-                            response(spareParts);
+                        AutoCompleteResource[method](request.term).then(function(items){
+                            response(items);
                         });
                     },
                     minLength: 1,
-                    select: function( event, ui ) {
-                        $window.location.href = '/zapchasti/' + ui.item.value;
-                    },
                     classes: {
-                        "ui-autocomplete": "spare-part-first-autocomplete",
+                        "ui-autocomplete": identifier,
                     },
                     open: function(){
-                        $('.ui-autocomplete.spare-part-first-autocomplete').css('width', $("#spare-part-first-autocomplete").width() + 10 + 'px'); // HERE
+                        $('.ui-autocomplete.' + identifier).css('width', $('#' + identifier).width() + 10 + 'px'); // HERE
                     }
-                } );
+                })
+                .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                    return $( "<li class='ui-menu-item'>" )
+                        .append( "<a class='ui-menu-item-wrapper' href='" + addUrl + item.url + "'>" + item.label + "</a></div>" )
+                        .appendTo( ul );
+                };
 
             }
         };

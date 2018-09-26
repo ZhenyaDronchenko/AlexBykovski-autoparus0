@@ -9,7 +9,10 @@
 
             <div class='marka-search'>
                 <form class='markaform' action="" method="get">
-                    <input class='form6' name="search" placeholder="Марка авто:" type="search" >
+                    <input id="brand-autocomplete" class='form6' name="search"
+                           auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                           method-search="searchBrands" identifier-field="brand-autocomplete"
+                           placeholder="Марка авто:" type="search" >
                 </form>
             </div>
 
