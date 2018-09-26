@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart;
 use App\Entity\SparePart;
+use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +41,7 @@ class SparePartCatalogController extends Controller
     /**
      * @Route("/{url}", name="show_spare_part_catalog_choice_brand")
      */
-    public function showCatalogChoiceBrandAction(Request $request, $url)
+    public function showCatalogChoiceBrandAction(Request $request, $url, VariableTransformer $transformer)
     {
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $url]);
@@ -57,10 +58,12 @@ class SparePartCatalogController extends Controller
             return $brand->isPopular();
         });
 
+        $page = $em->getRepository(CatalogSparePartChoiceBrand::class)->findAll()[0];
+
         return $this->render('client/catalog/spare-part/choice-brand.html.twig', [
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
-            'page' => $em->getRepository(CatalogSparePartChoiceBrand::class)->findAll()[0]
+            'page' => $transformer->transformPage($page, [$sparePart])
         ]);
     }
 }

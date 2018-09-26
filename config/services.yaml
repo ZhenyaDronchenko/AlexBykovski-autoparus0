@@ -54,6 +54,11 @@ services:
         arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router']
         public: true
 
+    app.transformer.variable:
+        class:  App\Transformer\VariableTransformer
+        arguments: []
+        public: true
+
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension
         arguments: ['%upload_image_directory%']

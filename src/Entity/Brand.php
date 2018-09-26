@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\BrandRepository")
  * @ORM\Table(name="brand")
  */
 class Brand
@@ -251,5 +251,14 @@ class Brand
     public function setModels(Collection $models): void
     {
         $this->models = $models;
+    }
+
+    public function toSearchArray()
+    {
+        return [
+            "label" => $this->name,
+            "value" => $this->name,
+            "url" => $this->url,
+        ];
     }
 }
