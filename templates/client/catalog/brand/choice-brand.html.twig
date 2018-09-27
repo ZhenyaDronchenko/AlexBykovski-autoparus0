@@ -25,13 +25,13 @@
             </select>
         </div>
 
-        <div class='row brand-img' ng-hide="showAll">
+        <div class='showMoreBrands' ng-hide="showAll">
             {% for brand in popularBrands%}
                 <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo) }}"/>
             {% endfor %}
         </div>
 
-        <div class='row brand-img' ng-show="showAll">
+        <div class='showMoreBrands' ng-show="showAll">
             {% for brand in allBrands%}
                 <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo) }}"/>
             {% endfor %}
