@@ -18,12 +18,12 @@
 
             <ul class='showMoreModel' id='brandImg4' ng-show="showAll">
                 {% for brand in allBrands %}
-                    <li><a class="marka-link" href='#'><span>{{ brand.name }}</span> <img src="{{ image_url(brand.logo) }}" alt="марка"></a></li>
+                    <li><a class="marka-link" href='{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'><span>{{ brand.name }}</span> <img src="{{ image_url(brand.logo) }}" alt="{{ brand.brandEn }}" title="{{ sparePart.name }} для {{ brand.name }}"></a></li>
                 {% endfor %}
             </ul>
             <ul class='showMoreModel' id='brandImg4' ng-hide="showAll">
                 {% for brand in popularBrands %}
-                    <li><a class="marka-link" href='#'><span>{{ brand.name }}</span> <img src="{{ image_url(brand.logo) }}" alt="марка"></a></li>
+                    <li><a class="marka-link" href='{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'><span>{{ brand.name }}</span> <img src="{{ image_url(brand.logo) }}" alt="{{ brand.brandEn }}" title="{{ sparePart.name }} для {{ brand.name }}"></a></li>
                 {% endfor %}
             </ul>
 
