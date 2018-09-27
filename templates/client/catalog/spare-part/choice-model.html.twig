@@ -20,8 +20,7 @@
 
             <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
                 {% for model in allModels %}
-                    <li>
-                        <a class="mod-link mod-link-line" href='#'>
+                    <li><a class="mod-link mod-link-line" href='#'>
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
                             <img src="{{ image_url(model.logo) }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                         </a>
