@@ -24,7 +24,7 @@ class ImportModelsCommand extends ContainerAwareCommand
 {
     const BRANDS_FILE_PATH = "/public/import/brands.csv";
     const MODELS_FILE_PATH = "/public/import/models.csv";
-    const IMAGE_URL = "https://d4d.by/mini_img.php?src=/images/logo/%s&w=300&h=200";
+    const IMAGE_URL = "https://d4d.by/mini_img.php?src=/images/logo/%s&w=300&h=200&zc=2&q=100";
     const SYMBOLS_FOR_NAME_FILE = "abcdeifghijklmnopqrstyz0123456789";
 
     static $needBrandKeys = ["id", "name"];
@@ -162,22 +162,23 @@ class ImportModelsCommand extends ContainerAwareCommand
                 $model = $em->getRepository(Model::class)->findOneBy(["name" => $modelArray["name"]]);
 
                 if(!($model instanceof Model)){
-                    $model = new Model();
+//                    $model = new Model();
+                    continue;
                 }
 
-                $model->setName($modelArray["name"]);
-                $model->setModelEn($modelArray["name_en"]);
-                $model->setModelRu($modelArray["name_ru"]);
-                $model->setUrl($modelArray["url"]);
+//                $model->setName($modelArray["name"]);
+//                $model->setModelEn($modelArray["name_en"]);
+//                $model->setModelRu($modelArray["name_ru"]);
+//                $model->setUrl($modelArray["url"]);
                 $model->setLogo($modelArray["logo"]);
-                $model->setText($modelArray["text2"]);
-                $model->getTechnicalData()->setYearFrom($modelArray["start_year"]);
-                $model->getTechnicalData()->setYearTo($modelArray["end_year"]);
-                $model->setText($modelArray["text2"]);
-                $model->setBrand($brand);
-                $model->setActive(true);
+//                $model->setText($modelArray["text2"]);
+//                $model->getTechnicalData()->setYearFrom($modelArray["start_year"]);
+//                $model->getTechnicalData()->setYearTo($modelArray["end_year"]);
+//                $model->setText($modelArray["text2"]);
+//                $model->setBrand($brand);
+//                $model->setActive(true);
 
-                $em->persist($model);
+                //$em->persist($model);
             }
         }
 
