@@ -10,12 +10,13 @@
                 let addUrl = attrs.addUrl;
                 let method = attrs.methodSearch;
                 let identifier = attrs.identifierField;
+                let requestParams = angular.fromJson(attrs.requestParameters);
 
                 $( element ).val("");
 
                 $( element ).autocomplete({
                     source: function( request, response ) {
-                        AutoCompleteResource[method](request.term).then(function(items){
+                        AutoCompleteResource[method](request.term, requestParams).then(function(items){
                             response(items);
                         });
                     },

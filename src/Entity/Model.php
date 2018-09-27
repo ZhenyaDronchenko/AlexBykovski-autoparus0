@@ -6,7 +6,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")
  * @ORM\Table(name="model")
  */
 class Model
@@ -276,5 +276,14 @@ class Model
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    public function toSearchArray()
+    {
+        return [
+            "label" => $this->name,
+            "value" => $this->name,
+            "url" => $this->url,
+        ];
     }
 }

@@ -12,6 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Brand
 {
+    static $variables = [
+        "[BRAND]" => "getName",
+        "[URLBRAND]" => "getUrl",
+        "[ENBRAND]" => "getBrandEn",
+        "[RUBRAND]" => "getBrandRu",
+        "[TEXTBRAND]" => "getText",
+    ];
+
     /**
      * @var integer
      *
@@ -260,5 +268,14 @@ class Brand
             "value" => $this->name,
             "url" => $this->url,
         ];
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }
