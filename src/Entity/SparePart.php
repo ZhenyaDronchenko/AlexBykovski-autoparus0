@@ -438,7 +438,7 @@ class SparePart
         $condition3 = new SparePartCondition();
 
         $condition1->setConditionDetails(SparePartCondition::USED_DESCRIPTION, SparePartCondition::USED_CONDITION, SparePartCondition::SINGLE_USED_ADJECTIVE, SparePartCondition::PLURAL_USED_ADJECTIVE, $this);
-        $condition2->setConditionDetails(SparePartCondition::NEW_DESCRIPTION, SparePartCondition::NEW_CONDITION, SparePartCondition::SINGLE_NEW_ADJECTIVE, SparePartCondition::SINGLE_NEW_ADJECTIVE, $this);
+        $condition2->setConditionDetails(SparePartCondition::NEW_DESCRIPTION, SparePartCondition::NEW_CONDITION, SparePartCondition::SINGLE_NEW_ADJECTIVE, SparePartCondition::PLURAL_NEW_ADJECTIVE, $this);
         $condition3->setConditionDetails(SparePartCondition::REBUILT_DESCRIPTION, SparePartCondition::REBUILT_CONDITION, SparePartCondition::SINGLE_REBUILT_ADJECTIVE, SparePartCondition::PLURAL_REBUILT_ADJECTIVE, $this, false);
 
         $this->setConditions(new ArrayCollection([$condition1, $condition2, $condition3]));
