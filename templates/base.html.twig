@@ -11,10 +11,9 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
         <title>{% block title %}Автопарус{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
         <link rel='stylesheet' href='/css/normalize-new.min.css'>
-        <link rel='stylesheet' href='/css/style-new.css'>
+        {% block stylesheets %}{% endblock %}
         {{ show_code("head") | raw }}
     </head>
     <body>
@@ -50,7 +49,7 @@
                                     {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
                                         <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
                                     {% else %}
-                                        <li><a href="">{{ userName }}</a></li>
+                                        <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
                                     {% endif %}
                                 {% else %}
                                     <li><a href="{{ path("login") }}">Вход</a></li>
@@ -111,7 +110,8 @@
                         </a>
                     </div>
                     <div>
-                        <a class="material-icons md-36" href=''>
+                        {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
+                        <a class="material-icons md-36" href='{{ path(personLink) }}'>
                             <i class="material-icons md-36">person</i>
                         </a>
                     </div>
@@ -127,8 +127,18 @@
                             </div>
                             <div>
                                 <ul>
-                                    <li><a href='{{ path("login") }}'>Вход</a></li>
-                                    <li><a href='{{ path("registration") }}'>Регистрация</a></li>
+                                    {% if app.user %}
+                                        {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
+                                        <li><a href="{{ logout_path("main") }}">Выход</a></li>
+                                        {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
+                                            <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                                        {% else %}
+                                            <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li><a href="{{ path("login") }}">Вход</a></li>
+                                        <li><a href="{{ path("registration") }}">Регистрация</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>

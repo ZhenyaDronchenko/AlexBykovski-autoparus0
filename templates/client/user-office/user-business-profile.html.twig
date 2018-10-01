@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/user-business-profile.css'>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="choice">
+            <div class="choice-block container">
+                <a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a>
+                <a class="icon" href="#"><i class="fa fa-suitcase"></i>  Business</a>
+                <a class="icon" href="#"><i class="fa fa-camera"></i>  Фотогалерея </a>
+                <a class="icon icon-plus" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="container">
+            <form class="business-block" action="#" method="">
+                <p class="profil-title">Редактировать бизнес профиль</p>
+                <ul class="business-option">
+                    <li class="filter-option">
+                        <input class="visually-hidden filter-input filter-input-checkbox" type="checkbox" value="seller" id="seller">
+                        <label for="seller">Авторазборка, магазин, продавец
+                            (товары, запчасти, тюнинг) </label>
+                    </li>
+                    <li class="filter-option">
+                        <input class="visually-hidden filter-input filter-input-checkbox" type="checkbox" value="avtoservis" id="avtoservis">
+                        <label for="avtoservis">СТО, автосервис, шиномонтаж
+                            (услиги, ремонт, обслуживание) </label>
+                    </li>
+                    <li class="filter-option">
+                        <input class="visually-hidden filter-input filter-input-checkbox" type="checkbox" value="news" id="news">
+                        <label for="news">Новости, блоги, статьи</label>
+                    </li>
+                </ul>
+
+                <div class="business-choice">
+                    <input class="choice-input choice-unp" type="text" name="unp" placeholder="УНП" pattern="[0-9]{5,10}">
+                    <input class="choice-input" type="text" name="fname" placeholder="Полное название ИП, Организации">
+                    <input class="choice-input" type="text" name="adress" placeholder="Адрес">
+                </div>
+                <div class="time">
+                    <p class="time-text">Время работы</p>
+                    <div class="df">
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="one">
+                            <label for="one">Пн</label>
+                        </div>
+
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="two">
+                            <label for="two">Вт</label>
+                        </div>
+
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="three">
+                            <label for="three">Ср</label>
+                        </div>
+
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="for">
+                            <label for="for">Чт</label>
+                        </div>
+
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="five">
+                            <label for="five">Пт</label>
+                        </div>
+
+                    </div>
+                    <div class="time-m">
+                        <label for="appt-time">С:</label>
+                        <input class="time_work" type="time" id="appt-time" name="appt-time"
+                               min="0:00" max="24:00">
+                        <label for="appt-time">По:</label>
+                        <input class="time_work" type="time" id="appt-time" name="appt-time"
+                               min="0:00" max="24:00">
+                    </div>
+                    <div class="df">
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="six">
+                            <label for="six">Сб</label>
+                        </div>
+                        <div class="time_new_mk">
+                            <input class="visually-hidden filter-input checkbox-custom" type="checkbox" value="seller" id="seven">
+                            <label for="seven">Вс</label>
+                        </div>
+                    </div>
+                    <div class="time-w">
+                        <label for="appt-time">С:</label>
+                        <input class="time_work" type="time" id="appt-time" name="appt-time"
+                               min="0:00" max="24:00">
+                        <label for="appt-time">По:</label>
+                        <input class="time_work" type="time" id="appt-time" name="appt-time"
+                               min="0:00" max="24:00">
+                    </div>
+                </div>
+                <fieldset>
+                    <legend class="profil-title">Способы оплаты</legend>
+                    <ul class="filter-list">
+                        <li class="filter-option">
+                            <input class="visually-hidden filter-input filter-input-checkbox" type="checkbox"  name="product" id="cash">
+                            <label for="cash">Наличные деньги</label>
+                        </li>
+                        <li class="filter-option ">
+                            <input class="visually-hidden filter-input filter-input-checkbox" type="checkbox" name="product" id="noncash">
+                            <label for="noncash"> Безналичный расчет </label>
+                        </li>
+                        <li class="filter-option">
+                            <input class="visually-hidden filter-input filter-input-checkbox" type="checkbox" name="product" id="card">
+                            <label for="card">Кредитная карта</label>
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="profil-title">Доставка</legend>
+                    <ul class="filter-items">
+                        <li class="filter-option">
+                            <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" value="yes" id="filter-yes">
+                            <label for="filter-yes">Да</label>
+                        </li>
+                        <li class="filter-option ">
+                            <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" value="no" id="filter-no">
+                            <label for="filter-no">Нет</label>
+                        </li>
+                    </ul>
+                </fieldset>
+                <button type="submit" class="btn-filter">Сохранить</button>
+            </form>
+        </div>
+    </main>
+{% endblock %}
