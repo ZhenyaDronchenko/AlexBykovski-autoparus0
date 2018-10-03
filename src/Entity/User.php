@@ -228,4 +228,14 @@ abstract class User extends BaseUser
     {
         $this->isHelper = $isHelper;
     }
+
+    public function isBuyer()
+    {
+        return $this->hasRole(User::ROLE_BUYER);
+    }
+
+    public function isSeller()
+    {
+        return $this->hasRole(User::ROLE_SELLER);
+    }
 }

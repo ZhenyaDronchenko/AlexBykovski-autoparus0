@@ -13,25 +13,25 @@
                         <img src="{{ image_url("../img/userfoto.jpg") }}" alt="Автолюбители" class="foto-user">
                         <a href="#" class="user-link"> + </a>
                     </div>
-                    <a class="user-name">Сергей 1375</a>
+                    <a class="user-name">{{ app.user.name }}</a>
 
                 </div>
 
                 <div class="user-about">
-                    <a href="#" class="button">Редактировать профиль <i class="fa fa-check" aria-hidden="true"></i></a>
-                    <a class="user-avto">Toyota Avensis 2002</a>
-                    <a class="user-avto">Yamaha vx 1900 2009</a>
-                    <a class="user-avto">Honda CRF 450 2014</a>
+                    <a href="{{ path("show_user_base_profile") }}" class="button">Редактировать профиль <i class="fa fa-check" aria-hidden="true"></i></a>
+                    {#<a class="user-avto">Toyota Avensis 2002</a>#}
+                    {#<a class="user-avto">Yamaha vx 1900 2009</a>#}
+                    {#<a class="user-avto">Honda CRF 450 2014</a>#}
 
                 </div>
 
                 <div class="user-edit">
-                    <a class="user-company">ООО "Суперавтозапчасть"</a>
-                    <a href="#" class="button button-rdc">Редактировать бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
+                    {#<a class="user-company">ООО "Суперавтозапчасть"</a>#}
+                    <a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ app.user.isBuyer() ? "Создать" : "Редактировать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
                     <div class="btn-block">
-                        <a class="user-btn">Товары</a>
-                        <a class="user-btn">Услуги</a>
-                        <a class="user-btn">Статьи</a>
+                        {#<a class="user-btn">Товары</a>#}
+                        {#<a class="user-btn">Услуги</a>#}
+                        {#<a class="user-btn">Статьи</a>#}
                     </div>
                 </div>
             </div>
