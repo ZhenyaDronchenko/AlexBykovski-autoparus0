@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand;
+use App\Entity\Catalog\SparePart\CatalogSparePartChoiceCity;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceModel;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart;
+use App\Entity\City;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Transformer\VariableTransformer;
@@ -103,6 +105,43 @@ class SparePartCatalogController extends Controller
             'page' => $transformer->transformPage($page, [$sparePart, $brand]),
             'brand' => $brand,
             'sparePart' => $sparePart,
+        ]);
+    }
+
+    /**
+     * @Route("/{urlSP}/{urlBrand}/{urlModel}/", name="show_spare_part_catalog_choice_city")
+     */
+    public function showCatalogChoiceCityAction(Request $request, $urlSP, $urlBrand, $urlModel, VariableTransformer $transformer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $isAllModels = $urlModel === CatalogSparePartChoiceModel::ALL_MODELS_URL;
+        $model = $isAllModels ? $urlModel : $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) || !($model instanceof Model) && !$isAllModels){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $capitals = $em->getRepository(City::class)->findBy(
+            ["type" => City::CAPITAL_TYPE],
+            ["name" => "ASC"]
+        );
+
+        $othersCities = $em->getRepository(City::class)->findBy(
+            ["type" => [City::REGIONAL_CITY_TYPE, City::OTHERS_TYPE]],
+            ["name" => "ASC"]
+        );
+
+        $page = $em->getRepository(CatalogSparePartChoiceCity::class)->findAll()[0];
+        $transformParameters = $model instanceof Model ? [$sparePart, $brand, $model] : [$sparePart, $brand];
+
+        return $this->render('client/catalog/spare-part/choice-city.html.twig', [
+            'capitals' => $capitals,
+            'otherCities' => $othersCities,
+            'page' => $transformer->transformPage($page, $transformParameters),
         ]);
     }
 }

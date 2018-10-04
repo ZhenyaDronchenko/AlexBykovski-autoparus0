@@ -11,6 +11,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Model
 {
+    static $variables = [
+        "[MODEL]" => "getName",
+        "[URLMODEL]" => "getUrl",
+        "[ENMODEL]" => "getModelEn",
+        "[RUMODEL]" => "getModelRu",
+//        "[YEAR]" => "",
+//        "[ENGINE_TYPE]" => "",
+//        "[DRIVE_TYPE]" => "",
+//        "[GEAR_TYPE]" => "",
+//        "[ENGINE_NAME]" => "",
+//        "[ENGINE_CAPACITY]" => "",
+//        "[BODY_TYPE]" => "",
+        "[TEXTMODEL]" => "getText",
+    ];
+
     /**
      * @var integer|null
      *
@@ -285,5 +300,14 @@ class Model
             "value" => $this->name,
             "url" => $this->url,
         ];
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }
