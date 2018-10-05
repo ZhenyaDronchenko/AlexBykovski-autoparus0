@@ -5,9 +5,9 @@
 {% block body %}
     <main class="container">
         <div class="main-search">
-            <form class="firstform" action="#" method="get">
-                <input class="form1" name="search" placeholder="Поиск..." type="search">
-                <button class="mainbutton mbt" type="submit"></button>
+            <form class="firstform" action="" method="get">
+                <input id="target-voice-input" class="form1" name="search" placeholder="Поиск..." type="search">
+                <button type="button" id="trigger-voice-input" class="mainbutton mbt" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input"></button>
                 <a class="search-link" href="{{ homePage.middleLink ? homePage.middleLink }}"><span>{{ homePage.middleText }}</span></a>
             </form>
 
