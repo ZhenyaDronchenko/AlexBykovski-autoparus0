@@ -133,7 +133,10 @@ class SparePartCatalogController extends Controller
         );
 
         $othersCities = $em->getRepository(City::class)->findBy(
-            ["type" => [City::REGIONAL_CITY_TYPE, City::OTHERS_TYPE]],
+            [
+                "type" => [City::REGIONAL_CITY_TYPE, City::OTHERS_TYPE],
+                "active" => true,
+            ],
             ["name" => "ASC"]
         );
 
