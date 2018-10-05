@@ -86,13 +86,15 @@
         <footer class="footer">
             <div class="container">
                 <nav class="navigation">
-                    <div class="sail">
-                        <img src="/img/windsurfing.png" alt="Парус">
-                        <img src="/img/windsurfing.png" alt="Парус">
-                        <img src="/img/windsurfing.png" alt="Парус">
-                        <img src="/img/windsurfing.png" alt="Парус">
-                        <img src="/img/windsurfing.png" alt="Парус">
-                    </div>
+                    {% if app.request.attributes.get('_route') == "homepage" %}
+                        <div class="sail">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                        </div>
+                    {% endif %}
                     <ul class="navigation-block">
                         <li><a href="{{ path("homepage") }}"><img src="/img/home.png" alt="icon"></a></li>
                         <li><a href="{{ app.user ? "" : path("registration") }}"><img src="/img/engine.png" alt="icon"></a></li>
