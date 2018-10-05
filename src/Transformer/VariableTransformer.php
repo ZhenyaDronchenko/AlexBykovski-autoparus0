@@ -34,7 +34,7 @@ class VariableTransformer
             $string = $parameter->replaceVariables($string);
         }
 
-        return $string;
+        return preg_replace('/\[.+\]/', '', $string);
     }
 
     protected function transformCatalogPageOne(CatalogPageOne $catalogPageOne, $parameters)

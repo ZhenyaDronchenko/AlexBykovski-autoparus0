@@ -11,5 +11,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CatalogSparePartChoiceModel extends CatalogPageOne
 {
-
+    const ALL_MODELS_URL = "all_models";
 }

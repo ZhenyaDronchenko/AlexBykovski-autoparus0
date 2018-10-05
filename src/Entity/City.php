@@ -2,14 +2,22 @@
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\VariableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="city")
  */
-class City
+class City implements VariableInterface
 {
+    static $variables = [
+        "[CITY]" => "getName",
+        "[URLCITY]" => "getUrl",
+        "[INCITY]" => "getPrepositional",
+        "[TEXTCITY]" => "getText",
+    ];
+
     const CAPITAL_TYPE = "CAPITAL";
     const REGIONAL_CITY_TYPE = "REGIONAL_CITY";
     const OTHERS_TYPE = "OTHERS";
@@ -186,5 +194,14 @@ class City
     public function getTypeTranslate()
     {
         return array_flip(self::$types)[$this->type];
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }

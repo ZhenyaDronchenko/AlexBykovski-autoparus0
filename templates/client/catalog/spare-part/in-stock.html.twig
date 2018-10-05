@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/in-stock.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <h1 class="parts-title">{{ page.headline1 }}</h1>
+        <div class=parts-text>
+            {{ page.text1 | raw }}
+        </div>
+        <div class="stock">
+            <a href="{{ path("show_spare_part_catalog_final_page", app.request.attributes.get('_route_params')) }}">Только в наличии!</a>
+        </div>
+        <section class="condition-description">
+            <h2 class="condition-description__title">
+                {{ page.text3 | raw }}
+            </h2>
+        </section>
+        <h2 class='parts-subtitle'>{{ page.headline2 }}</h2>
+        <div class='parts-text-b'>{{ page.text2 | raw }}</div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/catalog/spare-part/in-stock.js"></script>
+{% endblock %}
