@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceCity;
+use App\Entity\Catalog\SparePart\CatalogSparePartChoiceInStock;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceModel;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart;
 use App\Entity\City;
@@ -141,6 +142,34 @@ class SparePartCatalogController extends Controller
         return $this->render('client/catalog/spare-part/choice-city.html.twig', [
             'capitals' => $capitals,
             'otherCities' => $othersCities,
+            'page' => $transformer->transformPage($page, $transformParameters),
+        ]);
+    }
+
+    /**
+     * @Route("/{urlSP}/{urlBrand}/{urlModel}/{urlCity}", name="show_spare_part_catalog_in_stock")
+     */
+    public function showCatalogInStockAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $isAllModels = $urlModel === CatalogSparePartChoiceModel::ALL_MODELS_URL;
+        $model = $isAllModels ? $urlModel : $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
+            !($model instanceof Model) && !$isAllModels || !($city instanceof City)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository(CatalogSparePartChoiceInStock::class)->findAll()[0];
+        $transformParameters = $model instanceof Model ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $city];
+
+        return $this->render('client/catalog/spare-part/in-stock.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
         ]);
     }

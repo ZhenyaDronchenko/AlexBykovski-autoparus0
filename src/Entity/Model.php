@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 
+use App\Entity\Interfaces\VariableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")
  * @ORM\Table(name="model")
  */
-class Model
+class Model implements VariableInterface
 {
     static $variables = [
         "[MODEL]" => "getName",
