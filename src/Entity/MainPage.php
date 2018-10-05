@@ -21,6 +21,19 @@ class MainPage
      */
     private $id;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text")
+     */
+    private $text;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string")
+     */
+    private $title;
 
     /**
      * @var string|null
@@ -28,6 +41,20 @@ class MainPage
      * @ORM\Column(type="string")
      */
     private $description;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string")
+     */
+    private $middleText;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string")
+     */
+    private $middleLink;
 
     /**
      * @return int
@@ -61,4 +88,67 @@ class MainPage
         $this->description = $description;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param null|string $text
+     */
+    public function setText(?string $text): void
+    {
+        $this->text = $text;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param null|string $title
+     */
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMiddleText(): ?string
+    {
+        return $this->middleText;
+    }
+
+    /**
+     * @param null|string $middleText
+     */
+    public function setMiddleText(?string $middleText): void
+    {
+        $this->middleText = $middleText;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMiddleLink(): ?string
+    {
+        return $this->middleLink;
+    }
+
+    /**
+     * @param null|string $middleLink
+     */
+    public function setMiddleLink(?string $middleLink): void
+    {
+        $this->middleLink = $middleLink;
+    }
 }
