@@ -7,7 +7,12 @@ var n4 = 1;
 
 
 function even_odd(num) {
-    return num % 2 !== 0;
+    if (num % 2 == 0) {
+        return false;
+    }
+    else {
+        return true;
+    }  
 }
 
 function menuActive() {
@@ -243,6 +248,92 @@ function toggleShow2() {
 
 }
 
+function toggleShow3() {
+
+    var showPartsElem = document.getElementById('showAll3');
+    showPartsElem.onclick = toggleShow3;
+
+    var toggle2 = even_odd(n2);
+
+    if (toggle2 == true) {
+
+        var toggleButton = document.getElementById('brandImg3');
+        toggleButton.className = 'showLess3';
+
+        showPartsElem.textContent = '>>>>>>>';
+
+    }
+
+    else {
+
+       var toggleButton = document.getElementById('brandImg3');
+       toggleButton.className = 'showMoreModel';
+
+       showPartsElem.textContent = '<<<<<<<';
+
+    }
+
+    n2 += 1;
+
+}
+function toggleShow4() {
+
+    var showPartsElem = document.getElementById('showAll4');
+    showPartsElem.onclick = toggleShow4;
+
+    var toggle2 = even_odd(n2);
+
+    if (toggle2 == true) {
+
+        var toggleButton = document.getElementById('brandImg4');
+        toggleButton.className = 'showLess4';
+
+        showPartsElem.textContent = '>>>>>>>';
+
+    }
+
+    else {
+
+       var toggleButton = document.getElementById('brandImg4');
+       toggleButton.className = 'showMoreModel';
+
+       showPartsElem.textContent = '<<<<<<<';
+
+    }
+
+    n2 += 1;
+
+}
+function toggleShow5() {
+
+    var showPartsElem = document.getElementById('showAll5');
+    showPartsElem.onclick = toggleShow5;
+
+    var toggle2 = even_odd(n2);
+
+    if (toggle2 == true) {
+
+        var toggleButton = document.getElementById('brandImg5');
+        toggleButton.className = 'showLess5';
+
+        showPartsElem.textContent = '>>>>>>>';
+
+    }
+
+    else {
+
+       var toggleButton = document.getElementById('brandImg5');
+       toggleButton.className = 'showMoreModel';
+
+       showPartsElem.textContent = '<<<<<<<';
+
+    }
+
+    n2 += 1;
+
+}
+
+
 function citiesHideShow() {
 
     var citiesElem = document.getElementById('hiddenCities');
@@ -261,3 +352,7 @@ function citiesHideShow() {
     n3 += 1;
 
 }
+
+
+
+
