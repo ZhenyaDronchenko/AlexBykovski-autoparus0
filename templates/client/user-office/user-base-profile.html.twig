@@ -18,34 +18,10 @@
         <div class="container">
             <div class="profil-form">
                 <div class="profil-wpapper">
-                    <form id="personal-data-form" method="post" novalidate enctype="multipart/form-data" ng-controller="PersonalDataCtrl as personData" ng-init="init('#personal-data-form', '')">
-                        <fieldset class="personal">
-                            <legend class="profil-title">Персональные данные</legend>
-                            <ul class="profil-list">
-                                <li class="profil-option">
-                                    <label for="name">Имя</label>
-                                    <input class="first-part" type="text" name="name" placeholder="Евгений" id="name">
-                                </li>
-                                <li class="profil-option">
-                                    <label for="tel">Телефон </label>
-                                    <input class="first-part" type="tel" name="phone-number" placeholder="+375-29-636-69-11" id="tel" pattern="\+375\-[0-9]{2}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}">
-                                </li>
-                                <li class="profil-option">
-                                    <label for="email">E-mail </label>
-                                    <input class="first-part" type="email" name="email-address" placeholder="d4d@tut.by" id="email">
-                                </li>
-                                <li class="profil-option">
-                                    <label for="country">Страна </label>
-                                    <input class="first-part" type="text" name="country" placeholder="Беларусь" id="country">
-                                </li>
-                                <li class="profil-option">
-                                    <label for="city">Город </label>
-                                    <input class="first-part" type="text" name="city" placeholder="Минск" id="city">
-                                </li>
-                            </ul>
-                        </fieldset>
-                        <button class="btn-filter">Подтвердить</button>
-                    </form>
+                    <div ng-bind-html="personData.formText"
+                         ng-controller="PersonalDataCtrl as personData"
+                         ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')"></div>
+                    {#{% include('/client/user-office/base-profile/personal-data.html.twig') with {"formPersonal" : formPersonal} %}#}
 
                     <form>
                         <fieldset class="car">

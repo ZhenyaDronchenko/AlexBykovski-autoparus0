@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="role", type="string")
- * @ORM\DiscriminatorMap({"ROLE_BUYER" = "App\Entity\Client\Client", "ROLE_ADMIN" = "Admin"})
+ * @ORM\DiscriminatorMap({"ROLE_CLIENT" = "App\Entity\Client\Client", "ROLE_ADMIN" = "Admin"})
  */
 abstract class User extends BaseUser
 {

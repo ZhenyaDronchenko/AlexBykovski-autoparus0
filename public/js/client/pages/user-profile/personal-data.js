@@ -372,4 +372,23 @@ function citiesHideShow1() {
 
 }
 
+ $('document').ready(function(){
+     $('.profil-business').click(function(){
+         var value = $(this).html();
+         if(value == 'Создать бизнес профиль'){
+             $(this).html('Свернуть бизнес профиль');
+             $('.business-block').show();
+         } else {
+             $(this).html('Создать бизнес профиль');
+             $('.business-block').hide();
+             return;
+         }
+     });
+     $('.moreinfo').click(function() {
+         var moreinfo = '<span>-----------------------</span><div class="moreinfoblock">' + $('.moreinfoblock').html() + '</div>';
+         console.log(moreinfo);
+         $(this).before(moreinfo);
+     })
+ })
+
 

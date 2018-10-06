@@ -31,7 +31,7 @@ final class Version20181006100518 extends AbstractMigration
                     SELECT id FROM client');
 
         $this->addSql('UPDATE user 
-                    SET role="ROLE_CLIENT", roles=\'a:1:{i:0;s:11:"ROLE_CLIENT";}\'
+                    SET role="ROLE_CLIENT", roles=\'a:2:{i:0;s:11:"ROLE_CLIENT";i:1;s:10:"ROLE_BUYER";}\'
                     WHERE role="ROLE_BUYER"');
 
         $this->addSql('DROP TABLE buyer');

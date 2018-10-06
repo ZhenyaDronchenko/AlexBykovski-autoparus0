@@ -1,0 +1,37 @@
+<form id="personal-data-form" method="post" novalidate enctype="multipart/form-data">
+    {{ form_widget(form._token) }}
+    <fieldset class="personal">
+        <legend class="profil-title">Персональные данные</legend>
+        <ul class="profil-list">
+            <li class="profil-option">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {attr: {"placeholder": "Евгений"}}) }}
+                {{ form_errors(form.name) }}
+            </li>
+            <li class="profil-option">
+                {{ form_label(form.phone) }}
+                {{ form_widget(form.phone, {attr: {"placeholder": "+375-29-636-69-11"}}) }}
+                {{ form_errors(form.phone) }}
+            </li>
+            <li class="profil-option">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {attr: {"placeholder": "d4d@tut.by"}}) }}
+                {{ form_errors(form.email) }}
+            </li>
+            <li class="profil-option">
+                {{ form_label(form.country) }}
+                {{ form_widget(form.country, {attr: {"placeholder": "Беларусь"}}) }}
+                {{ form_errors(form.country) }}
+            </li>
+            <li class="profil-option">
+                {{ form_label(form.city) }}
+                {{ form_widget(form.city, {attr: {"placeholder": "Минск"}}) }}
+                {{ form_errors(form.city) }}
+            </li>
+        </ul>
+    </fieldset>
+    {{ form_widget(form.submit) }}
+    {% if isValid %}
+        <div >Подтверждение принято</div>
+    {% endif %}
+</form>

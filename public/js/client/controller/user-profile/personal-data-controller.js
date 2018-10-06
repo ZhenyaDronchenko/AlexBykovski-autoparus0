@@ -3,149 +3,69 @@
 
     autoparusApp.controller('PersonalDataCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
         let self = this;
-        let form = null;
+        let formSelector = null;
         let url = null;
         this.formText = "";
 
         console.log("in controller");
 
-        this.init = function(formSelector, editUrl){
-            form = $(formSelector);
+        function init(formSelectorS, editUrl){
+            formSelector = formSelectorS;
             url = editUrl;
-        };
 
-        // function request(url, data, callback) {
-        //     $http({
-        //         method: 'POST',
-        //         headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
-        //         url: url,
-        //         data: data
-        //     }).then(function (response) {
-        //         callback.call($scope, response);
-        //     }, function (response) {
-        //         console.log("error");
-        //     });
-        // }
+            sendForm();
+        }
 
-        // function showLoginPopup() {
-        //     request("/login-user", null, function (response) {
-        //         setForm(response.data);
-        //
-        //         if(method === "login") {
-        //             openPopup();
-        //         }
-        //
-        //         handleLogin();
-        //     });
-        // }
+        function request(url, data, callback) {
+            $http({
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
+                url: url,
+                data: data
+            }).then(function (response) {
+                callback.call($scope, response);
+            }, function (response) {
+                console.log("error");
+            });
+        }
 
-        // function handleLogin(){
-        //     $(loginSelector).ready(function(){
-        //
-        //         var formEvents = $.data($(this).get(0), 'events');
-        //         var isExistSubmitHandler = !!(formEvents && formEvents.submit);
-        //
-        //         if(!isExistSubmitHandler){
-        //             $(loginSelector).off().on("submit", function(e) {
-        //                 e.preventDefault();
-        //                 var data = $(loginSelector).serialize();
-        //
-        //                 angular.element(loginSelector).find("button[type=submit]").prop("disabled", true);
-        //
-        //                 request("/login-user", data, function (response) {
-        //                     if(response.data.success){
-        //                         if(response.data.redirect){
-        //                             location.href = response.data.redirect;
-        //
-        //                             return true;
-        //                         }
-        //
-        //                         $rootScope.$broadcast('user-logged-in', {user: response.data.user});
-        //                         closePopup();
-        //                         self.loginForm = "";
-        //
-        //                         return true;
-        //                     }
-        //                     else{
-        //                         setForm(response.data);
-        //                     }
-        //
-        //                     $(loginSelector).find("button[type=submit]").prop("disabled", false);
-        //                     handleLogin();
-        //                 });
-        //
-        //                 return false;
-        //             });
-        //         }
-        //     });
-        // }
+        function handleForm(){
+            $(formSelector).ready(function(){
+                $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
+                let formEvents = $.data($(this).get(0), 'events');
+                let isExistSubmitHandler = !!(formEvents && formEvents.submit);
 
-        // function openPopup(){
-        //     $.magnificPopup.open({
-        //         items: {
-        //             src: "#login-modal"
-        //         },
-        //
-        //         type: 'inline',
-        //
-        //         fixedContentPos: false,
-        //         fixedBgPos: true,
-        //
-        //         overflowY: 'auto',
-        //
-        //         closeBtnInside: true,
-        //         preloader: false,
-        //
-        //         removalDelay: 1000,
-        //
-        //         mainClass: 'mfp-zoom-in',
-        //         callbacks: {
-        //             afterClose: function() {
-        //                 if(isForgotPassword){
-        //                     $rootScope.$broadcast('forgot-password-link-click');
-        //                     isForgotPassword = false;
-        //                 }
-        //             }
-        //         }
-        //     });
-        // }
+                if(!isExistSubmitHandler){
+                    $(formSelector).off().on("submit", function(e) {
+                        e.preventDefault();
 
-        // function closePopup(){
-        //     $.magnificPopup.close();
-        // }
+                        sendForm();
 
-        // function setForm(data){
-        //     if(method === "login"){
-        //         self.loginForm = $sce.trustAsHtml(data);
-        //         self.loginRegisterForm = "";
-        //     }
-        //     else{
-        //         self.loginForm = "";
-        //         self.loginRegisterForm = $sce.trustAsHtml(data);
-        //     }
-        // }
+                        return false;
+                    });
+                }
+            });
+        }
 
-        // function clickLinkForgotPassword(){
-        //     isForgotPassword = true;
-        //
-        //     closePopup();
-        // }
+        function sendForm() {
+            let data = $(formSelector).serialize();
 
-        // $rootScope.$on('open-login-modal', function(){
-        //     if(method === "login") {
-        //         showLoginPopup();
-        //     }
-        // });
+            $(formSelector).find("button[type=submit]").prop("disabled", true);
 
-        // $rootScope.$on('open-registration-modal', function(){
-        //     if(method === "registration") {
-        //         showLoginPopup();
-        //     }
-        // });
+            request(url, data, function (response) {
+                console.log(response);
+                if(response.data.success){
 
-        // $("body").on("click", "#linkForgotPassword", function(){
-        //     clickLinkForgotPassword();
-        // });
+                }
+
+                self.formText = $sce.trustAsHtml(response.data);
+                handleForm();
+
+                $(formSelector).find("button[type=submit]").prop("disabled", false);
+            });
+        }
+
+        this.init = init;
 
     }]);
 })(window.autoparusApp);
