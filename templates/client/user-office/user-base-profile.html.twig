@@ -17,100 +17,104 @@
 
         <div class="container">
             <div class="profil-form">
-                <form  class="profil-wpapper" action="#" method="">
-                    <fieldset class="personal">
-                        <legend class="profil-title">Персональные данные</legend>
-                        <ul class="profil-list">
-                            <li class="profil-option">
-                                <label for="name">Имя</label>
-                                <input class="first-part" type="text" name="name" placeholder="Евгений" id="name">
-                            </li>
-                            <li class="profil-option">
-                                <label for="tel">Телефон </label>
-                                <input class="first-part" type="tel" name="phone-number" placeholder="+375-29-636-69-11" id="tel" pattern="\+375\-[0-9]{2}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}">
-                            </li>
-                            <li class="profil-option">
-                                <label for="email">E-mail </label>
-                                <input class="first-part" type="email" name="email-address" placeholder="d4d@tut.by" id="email">
-                            </li>
-                            <li class="profil-option">
-                                <label for="country">Страна </label>
-                                <input class="first-part" type="text" name="country" placeholder="Беларусь" id="country">
-                            </li>
-                            <li class="profil-option">
-                                <label for="city">Город </label>
-                                <input class="first-part" type="text" name="city" placeholder="Минск" id="city">
-                            </li>
-                        </ul>
-                    </fieldset>
-                    <button class="btn-filter">Подтвердить</button>
+                <div class="profil-wpapper">
+                    <form id="personal-data-form" method="post" novalidate enctype="multipart/form-data" ng-controller="PersonalDataCtrl as personData" ng-init="init('#personal-data-form', '')">
+                        <fieldset class="personal">
+                            <legend class="profil-title">Персональные данные</legend>
+                            <ul class="profil-list">
+                                <li class="profil-option">
+                                    <label for="name">Имя</label>
+                                    <input class="first-part" type="text" name="name" placeholder="Евгений" id="name">
+                                </li>
+                                <li class="profil-option">
+                                    <label for="tel">Телефон </label>
+                                    <input class="first-part" type="tel" name="phone-number" placeholder="+375-29-636-69-11" id="tel" pattern="\+375\-[0-9]{2}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}">
+                                </li>
+                                <li class="profil-option">
+                                    <label for="email">E-mail </label>
+                                    <input class="first-part" type="email" name="email-address" placeholder="d4d@tut.by" id="email">
+                                </li>
+                                <li class="profil-option">
+                                    <label for="country">Страна </label>
+                                    <input class="first-part" type="text" name="country" placeholder="Беларусь" id="country">
+                                </li>
+                                <li class="profil-option">
+                                    <label for="city">Город </label>
+                                    <input class="first-part" type="text" name="city" placeholder="Минск" id="city">
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <button class="btn-filter">Подтвердить</button>
+                    </form>
 
-                    <fieldset class="car">
-                        <legend class="profil-title">Авто - Мото</legend>
-                        <ul class="moreinfoblock">
-                            <li class="profil-option">
-                                <span class="name">Марка</span>
-                                <select class="name-select">
-                                    <option>Выбрать</option>
-                                    <option>Mersedes-Benz</option>
-                                    <option>Toyota</option>
-                                    <option>Honda</option>
-                                    <option>BMW</option>
-                                </select>
-                            </li>
-                            <li class="profil-option">
-                                <span class="name">Модель</span>
-                                <select class="name-select">
-                                    <option>Выбрать</option>
-                                    <option>Corolla Verso R20</option>
-                                    <option>Yaris Verso P10</option>
-                                    <option>Corolla Verso R20</option>
-                                    <option>Corolla Verso R20</option>
-                                </select>
-                            </li>
-                            <li class="profil-option">
-                                <span class="name">год</span>
-                                <select class="name-select">
-                                    <option>Выбрать</option>
-                                    <option>2000</option>
-                                    <option>2001</option>
-                                    <option>2001</option>
-                                    <option>2001</option>
-                                </select>
-                            </li>
-                            <li class="profil-option">
-                                <span class="name">Тип Кузова</span>
-                                <select class="name-select">
-                                    <option>Выбрать</option>
-                                    <option>универсал</option>
-                                    <option>хэтчбек</option>
-                                    <option>седан</option>
-                                    <option>купе</option>
-                                </select>
-                            </li>
-                            <li class="profil-option">
-                                <span class="name">Тип ДВС</span>
-                                <select class="name-select">
-                                    <option>Выбрать</option>
-                                    <option>Электродвигатель</option>
-                                    <option>бензин</option>
-                                    <option>дизель</option>
-                                </select>
-                            </li>
-                            <li class="profil-option">
-                                <span class="name">Объем</span>
-                                <select class="name-select">
-                                    <option>Выбрать</option>
-                                    <option>1500</option>
-                                    <option>2000</option>
-                                    <option>2500</option>
-                                </select>
-                            </li>
-                        </ul>
-                        <button class="moreinfo"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
-                    </fieldset>
-                    <button type="submit" class="btn-filter">Сохранить</button>
-                </form>
+                    <form>
+                        <fieldset class="car">
+                            <legend class="profil-title">Авто - Мото</legend>
+                            <ul class="moreinfoblock">
+                                <li class="profil-option">
+                                    <span class="name">Марка</span>
+                                    <select class="name-select">
+                                        <option>Выбрать</option>
+                                        <option>Mersedes-Benz</option>
+                                        <option>Toyota</option>
+                                        <option>Honda</option>
+                                        <option>BMW</option>
+                                    </select>
+                                </li>
+                                <li class="profil-option">
+                                    <span class="name">Модель</span>
+                                    <select class="name-select">
+                                        <option>Выбрать</option>
+                                        <option>Corolla Verso R20</option>
+                                        <option>Yaris Verso P10</option>
+                                        <option>Corolla Verso R20</option>
+                                        <option>Corolla Verso R20</option>
+                                    </select>
+                                </li>
+                                <li class="profil-option">
+                                    <span class="name">год</span>
+                                    <select class="name-select">
+                                        <option>Выбрать</option>
+                                        <option>2000</option>
+                                        <option>2001</option>
+                                        <option>2001</option>
+                                        <option>2001</option>
+                                    </select>
+                                </li>
+                                <li class="profil-option">
+                                    <span class="name">Тип Кузова</span>
+                                    <select class="name-select">
+                                        <option>Выбрать</option>
+                                        <option>универсал</option>
+                                        <option>хэтчбек</option>
+                                        <option>седан</option>
+                                        <option>купе</option>
+                                    </select>
+                                </li>
+                                <li class="profil-option">
+                                    <span class="name">Тип ДВС</span>
+                                    <select class="name-select">
+                                        <option>Выбрать</option>
+                                        <option>Электродвигатель</option>
+                                        <option>бензин</option>
+                                        <option>дизель</option>
+                                    </select>
+                                </li>
+                                <li class="profil-option">
+                                    <span class="name">Объем</span>
+                                    <select class="name-select">
+                                        <option>Выбрать</option>
+                                        <option>1500</option>
+                                        <option>2000</option>
+                                        <option>2500</option>
+                                    </select>
+                                </li>
+                            </ul>
+                            <button class="moreinfo"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
+                        </fieldset>
+                        <button type="submit" class="btn-filter">Сохранить</button>
+                    </form>
+                </div>
 
                 <div class="business">
                     <div class="title-wrapper">
@@ -235,4 +239,9 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/pages/user-profile/personal-data.js' ></script>
+    <script src='/js/client/controller/user-profile/personal-data-controller.js' ></script>
 {% endblock %}

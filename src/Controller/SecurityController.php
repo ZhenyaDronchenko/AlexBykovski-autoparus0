@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Buyer;
+use App\Entity\Client\Client;
 use App\Entity\ForgotPassword;
 use App\Entity\User;
 use App\Form\Type\ForgotPasswordType;
@@ -37,22 +37,22 @@ class SecurityController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $buyer = new Buyer();
+        $client = new Client();
 
-        $form = $this->createForm(RegistrationType::class, $buyer);
+        $form = $this->createForm(RegistrationType::class, $client);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $password = $encoder->encodePassword($buyer, $buyer->getPassword());
-            $buyer->setPassword($password);
-            $buyer->setUsername($buyer->getEmail());
-            $buyer->setEnabled(true);
+            $password = $encoder->encodePassword($client, $client->getPassword());
+            $client->setPassword($password);
+            $client->setUsername($client->getEmail());
+            $client->setEnabled(true);
 
-            $em->persist($buyer);
+            $em->persist($client);
             $em->flush();
 
-            $token = new UsernamePasswordToken($buyer, null, 'main', $buyer->getRoles());
+            $token = new UsernamePasswordToken($client, null, 'main', $client->getRoles());
             $tokenStorage->setToken($token);
             $request->getSession()->set('_security_main', serialize($token));
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Client;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,18 +20,55 @@ class SellerCompany
     private $id;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
     private $unp;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
     private $companyName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isSeller = 0;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isService = 0;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isNews = 0;
+
+    /**
+     * @var SellerCompanyWorkflow
+     *
+     * One SellerCompany has One SellerCompanyWorkflow.
+     * @ORM\OneToOne(targetEntity="SellerCompanyWorkflow", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="workflow_id", referencedColumnName="id")
+     */
+    private $workflow;
 
     /**
      * @return int
@@ -79,5 +116,21 @@ class SellerCompany
     public function setCompanyName(?string $companyName): void
     {
         $this->companyName = $companyName;
+    }
+
+    /**
+     * @return SellerCompanyWorkflow
+     */
+    public function getWorkflow(): SellerCompanyWorkflow
+    {
+        return $this->workflow;
+    }
+
+    /**
+     * @param SellerCompanyWorkflow $workflow
+     */
+    public function setWorkflow(SellerCompanyWorkflow $workflow): void
+    {
+        $this->workflow = $workflow;
     }
 }
