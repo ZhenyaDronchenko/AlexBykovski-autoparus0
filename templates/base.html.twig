@@ -13,7 +13,10 @@
         <title>{% block title %}Автопарус{% endblock %}</title>
         <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
         <link rel='stylesheet' href='/css/normalize-new.min.css'>
-        {% block stylesheets %}{% endblock %}
+        <link rel='stylesheet' href='/css/base-style.css'>
+        {% block stylesheets %}
+            <link rel='stylesheet' href='/css/style-new.css'>
+        {% endblock %}
         {{ show_code("head") | raw }}
     </head>
     <body>
@@ -80,95 +83,55 @@
 
         {% block body %}{% endblock %}
 
-        <footer class='footer'>
+        <footer class="footer">
             <div class="container">
-                <div class="footer-wrapper">
-                    <div>
-                        <a class="material-icons md-48 md-36" href='{{ path("homepage") }}' title='На главную'>
-                            <i class="material-icons md-48 md-36">home</i>
-                        </a>
-                    </div>
-                    <div id='secondMenu' class='hamChild-1' onclick='secondMenu()'>
-                        <span id='g-11' class='gamburger1'></span>
-                        <span id='g-21' class='gamburger1'></span>
-                        <span id='g-31' class='gamburger1'></span>
-                    </div>
-                    <div>
-                        {#<a class="material-icons md-36" href='breadcrumbs.html'>#}
-                        <a class="material-icons md-36" href=''>
-                            <i class="material-icons md-36">help_outline</i>
-                        </a>
-                    </div>
-                    <div>
-                        <a class="material-icons md-36" href='{{ path("show_city_catalog_choice_city") }}'>
-                            <i class="material-icons md-36">search</i>
-                        </a>
-                    </div>
-                    <div>
-                        <a class="material-icons md-36" href="{{ path("homepage") }}">
-                            <i class="material-icons md-36">store_mall_directory</i>
-                        </a>
-                    </div>
-                    <div>
-                        {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
-                        <a class="material-icons md-36" href='{{ path(personLink) }}'>
-                            <i class="material-icons md-36">person</i>
-                        </a>
-                    </div>
-                </div>
-                <div class="menu-inner">
-                    <nav id='menu1' class='m011'>
-                        <div class='menu-011'>
-                            <div>
-                                <ul>
-                                    <li><a href='{{ path("show_brand_catalog_choice_brand") }}'>Каталог</a></li>
-                                    <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Запчасти</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    {% if app.user %}
-                                        {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
-                                        <li><a href="{{ logout_path("main") }}">Выход</a></li>
-                                        {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                            <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
-                                        {% else %}
-                                            <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
-                                        {% endif %}
-                                    {% else %}
-                                        <li><a href="{{ path("login") }}">Вход</a></li>
-                                        <li><a href="{{ path("registration") }}">Регистрация</a></li>
-                                    {% endif %}
-                                </ul>
-                            </div>
+                <nav class="navigation">
+                    {% if app.request.attributes.get('_route') == "homepage" %}
+                        <div class="sail">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
+                            <img src="/img/windsurfing.png" alt="Парус">
                         </div>
-                        <div class='menu-021'>
-                            <div>
-                                <ul>
-                                    <li><a href=''>Пользователям</a></li>
-                                    <li><a href=''>Продавцам</a></li>
-                                </ul>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li><a href=''>Новости</a></li>
-                                    <li><a href=''>Обратная связь</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    {% endif %}
+                    <ul class="navigation-block">
+                        <li><a href="{{ path("homepage") }}"><img src="/img/home.png" alt="icon"></a></li>
+                        <li><a href="{{ app.user ? "" : path("registration") }}"><img src="/img/engine.png" alt="icon"></a></li>
+                        <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}"><img src="/img/image.png" alt="icon"></a></li>
+                        <li><a href=""><img src="/img/search.png" alt="icon"></a></li>
+                        <li><a href="{{ path("show_brand_catalog_choice_brand") }}"><img src="/img/avto.png" alt="icon"></a></li>
+                        <li><a href="{{ path("show_city_catalog_choice_city") }}"><img src="/img/shop.png" alt="icon"></a></li>
+                        <li>
+                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
+                            <a href="{{ path(personLink) }}"><img class="img-last" src="/img/component.png" alt="icon"></a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="wrapper-list">
+                    <ul class="navigation-list">
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                        <li><a href="#"><img src="/img/toyota.png" alt="icon"></a></li>
+                    </ul>
                 </div>
             </div>
         </footer>
+
         <script src='/bower-components/angular/angular.min.js'></script>
         <script src='/bower-components/jquery/dist/jquery.min.js'></script>
         <script src='/bower-components/jquery-ui/jquery-ui.min.js'></script>
         <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
         <script src='/js/general-settings.js'></script>
-        <script async src='/js/script-new.js' ></script>
+        <script src='/js/script-new.js' ></script>
         <script src='/js/client/app.js' ></script>
         <script src='/js/client/service/autocomplete-spare-part.js' ></script>
         <script src='/js/client/directive/autocomplete-autoparus.js' ></script>
+        <script src='/js/client/directive/voice-input.js' ></script>
 
         {% block javascripts %}{% endblock %}
         {{ show_code("body") | raw }}

@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container" ng-init="showAll = false;">
         <section class="mod">
             <h1 class="mod-title">{{ page.headline1 }}</h1>
@@ -15,17 +16,17 @@
             <div class='mod-search'>
                 <form class='modform' action="" method="get">
                     <input id="model-autocomplete" class='form7' name="search"
-                           auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                           auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
                            method-search="searchModels" identifier-field="model-autocomplete"
                            request-parameters='{"brand": "{{ brand.url }}"}'
                            placeholder="Модель авто:" type="search" >
                 </form>
-                <a href="#" class="mod-avto">Все модели {{ brand.name }}</a>
+                <a href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : constant('App\\Entity\\Catalog\\SparePart\\CatalogSparePartChoiceModel::ALL_MODELS_URL')}|merge(routeParams)) }}" class="mod-avto">Все модели {{ brand.name }}</a>
             </div>
 
             <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
                 {% for model in allModels %}
-                    <li><a class="mod-link mod-link-line" href='#'>
+                    <li><a class="mod-link mod-link-line" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
                             <img src="{{ image_url(model.logo) }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                         </a>
@@ -35,7 +36,7 @@
             <ul class='showMoreModel' id='brandImg5' ng-hide="showAll">
                 {% for model in popularModels %}
                     <li>
-                        <a class="mod-link mod-link-line" href='#'>
+                        <a class="mod-link mod-link-line" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
                             <img src="{{ image_url(model.logo) }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                         </a>

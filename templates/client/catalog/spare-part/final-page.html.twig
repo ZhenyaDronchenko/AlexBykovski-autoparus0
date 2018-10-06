@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/final-page.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section>
+            <h1 class="parts-title">{{ page.headline1 }}</h1>
+            <div class=parts-text>
+                {{ page.text1 | raw }}
+            </div>
+            <section class="finish-description">
+                <h2 class="finish-description__title">
+                    {{ page.text3 | raw }}
+                </h2>
+            </section>
+            <h2 class='parts-subtitle'>{{ page.headline2 }}</h2>
+            <div class='parts-text-b'>{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/catalog/spare-part/final-page.js"></script>
+{% endblock %}

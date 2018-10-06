@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{ homePage.title }}{% endblock %}
+{% block meta_description %}{{ homePage.description }}{% endblock %}
 
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/style-new.css'>
@@ -6,13 +8,14 @@
 
 {% block body %}
     <main class="container">
-        <div class='main-search'>
-            <form class='firstForm' action="" method="get">
-                <input class='form1' name="s" placeholder="Поиск.." type="search">
-                <button class='mainButton' type="submit"></button>
+        <div class="main-search">
+            <form class="firstform" action="" method="get">
+                <input id="target-voice-input" class="form1" name="search" placeholder="Поиск..." type="search">
+                <button type="button" id="trigger-voice-input" class="mainbutton mbt" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input"></button>
+                <a class="search-link" href="{{ homePage.middleLink ? homePage.middleLink }}"><span>{{ homePage.middleText }}</span></a>
             </form>
-            <a class="search-link" href='{{ path("show_brand_catalog_choice_brand") }}'><span>последовательный поиск</span></a>
+
         </div>
-        <h1 class='tagline-title'>{{ homePage.description | raw }}</h1>
+        <h1 class='tagline-title'>{{ homePage.text | raw }}</h1>
     </main>
 {% endblock %}
