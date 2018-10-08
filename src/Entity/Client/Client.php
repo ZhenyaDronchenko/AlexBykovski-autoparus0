@@ -174,6 +174,6 @@ class Client extends User
 
     public function removeCar(UserCar $car)
     {
-        $this->cars->removeElement($cag);
+        $this->cars->removeElement($car);
     }
 }

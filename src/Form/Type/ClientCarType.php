@@ -105,32 +105,32 @@ class ClientCarType extends AbstractType
                     ->add('brand', ChoiceType::class, [
                         'label' => "Марка",
                         'choices' => $this->provider->getAllBrands(),
-                        'attr' => ["class" => "name-select"]
+                        'attr' => ["class" => "name-select car-form-choice-brand"]
                     ])
                     ->add('model', ChoiceType::class, [
                         'label' => "Модель",
                         'choices' => $this->provider->getModels($object->getBrand()),
-                        'attr' => ["class" => "name-select"]
+                        'attr' => ["class" => "name-select car-form-choice-model"]
                     ])
                     ->add('year', ChoiceType::class, [
                         'label' => "Год",
                         'choices' => $this->provider->getYears($object->getModel()),
-                        'attr' => ["class" => "name-select"]
+                        'attr' => ["class" => "name-select car-form-choice-year"]
                     ])
                     ->add('vehicle', ChoiceType::class, [
                         'label' => "Тип Кузова",
                         'choices' => $this->provider->getVehicleTypes($object->getModel()),
-                        'attr' => ["class" => "name-select"]
+                        'attr' => ["class" => "name-select car-form-choice-vehicle"]
                     ])
                     ->add('engineType', ChoiceType::class, [
                         'label' => "Тип ДВС",
                         'choices' => $this->provider->getEngineTypes($object->getModel()),
-                        'attr' => ["class" => "name-select"]
+                        'attr' => ["class" => "name-select car-form-choice-engine-type"]
                     ])
                     ->add('capacity', ChoiceType::class, [
                         'label' => "Объём",
                         'choices' => $this->provider->getCapacities($object->getModel(), $object->getEngineType()),
-                        'attr' => ["class" => "name-select"]
+                        'attr' => ["class" => "name-select car-form-choice-capacity"]
                     ]);
             });
         }

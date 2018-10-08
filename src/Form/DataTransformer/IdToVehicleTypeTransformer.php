@@ -49,7 +49,6 @@ class IdToVehicleTypeTransformer implements DataTransformerInterface
         $vehicleType = $this->em->getRepository(VehicleType::class)->find($id);
 
         if($vehicleType instanceof VehicleType){
-            var_dump("should be good");
             return $vehicleType;
         }
 

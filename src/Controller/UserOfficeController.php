@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Entity\Client\UserCar;
+use App\Entity\EngineType;
+use App\Entity\Model;
 use App\Entity\User;
 use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
+use App\Provider\Form\ClientCarProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -130,5 +135,62 @@ class UserOfficeController extends Controller
             "form" => $form->createView(),
             "isValid" => $isValid
         ]);
+    }
+
+    /**
+     * @Route("/get-models-by-brand", name="get_models_by_brand")
+     */
+    public function getModelsByBrandAction(Request $request, ClientCarProvider $provider){
+        $brandId = $request->query->get("brand");
+
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->find($brandId);
+
+        return new JsonResponse($provider->getModels($brand));
+    }
+
+    /**
+     * @Route("/get-years-by-model", name="get_years_by_model")
+     */
+    public function getYearsByModelAction(Request $request, ClientCarProvider $provider){
+        $modelId = $request->query->get("model");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+
+        return new JsonResponse($provider->getYears($model));
+    }
+
+    /**
+     * @Route("/get-vehicles-by-model", name="get_vehicles_by_model")
+     */
+    public function getVehiclesByModelAction(Request $request, ClientCarProvider $provider){
+        $modelId = $request->query->get("model");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+
+        return new JsonResponse($provider->getVehicleTypes($model));
+    }
+
+    /**
+     * @Route("/get-engine-types-by-model", name="get_engine_types_by_model")
+     */
+    public function getEngineTypesByModelAction(Request $request, ClientCarProvider $provider){
+        $modelId = $request->query->get("model");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+
+        return new JsonResponse($provider->getEngineTypes($model));
+    }
+
+    /**
+     * @Route("/get-capacities-by-model-engine-type", name="get_capacities_by_model_engine_type")
+     */
+    public function getCapacitiesByModelEngineTypeAction(Request $request, ClientCarProvider $provider){
+        $modelId = $request->query->get("model");
+        $engineTypeId = $request->query->get("engine_type");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeId);
+
+        return new JsonResponse($provider->getCapacities($model, $engineType));
     }
 }

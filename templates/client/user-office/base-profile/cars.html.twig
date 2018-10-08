@@ -1,6 +1,6 @@
 <div id="car-prototype-container" style="display: none;">
     {% set prototype = form.cars.vars.prototype %}
-    <ul class="moreinfoblock">
+    <ul class="moreinfoblock car-container">
         <li class="profil-option">
             <span class="name">{{ prototype.brand.vars.label }}</span>
             {{ form_widget(prototype.brand) }}
@@ -38,30 +38,33 @@
     </fieldset>
     <div id="cars-container">
     {% for car in form.cars %}
-        <ul class="moreinfoblock">
+        {% set isChosenBrand = car.brand.vars.value %}
+        {% set isChosenModel = car.model.vars.value %}
+        {% set isChosenEngineType = car.engineType.vars.value %}
+        <ul class="moreinfoblock car-container">
             <li class="profil-option">
                 <span class="name">{{ car.brand.vars.label }}</span>
                 {{ form_widget(car.brand) }}
             </li>
             <li class="profil-option">
                 <span class="name">{{ car.model.vars.label }}</span>
-                {{ form_widget(car.model) }}
+                {{ form_widget(car.model, {attr: {"disabled" :  not isChosenBrand}}) }}
             </li>
             <li class="profil-option">
                 <span class="name">{{ car.year.vars.label }}</span>
-                {{ form_widget(car.year) }}
+                {{ form_widget(car.year, {attr: {"disabled" :  not isChosenModel}}) }}
             </li>
             <li class="profil-option">
                 <span class="name">{{ car.vehicle.vars.label }}</span>
-                {{ form_widget(car.vehicle) }}
+                {{ form_widget(car.vehicle, {attr: {"disabled" :  not isChosenModel}}) }}
             </li>
             <li class="profil-option">
                 <span class="name">{{ car.engineType.vars.label }}</span>
-                {{ form_widget(car.engineType) }}
+                {{ form_widget(car.engineType, {attr: {"disabled" :  not isChosenModel}}) }}
             </li>
             <li class="profil-option">
                 <span class="name">{{ car.capacity.vars.label }}</span>
-                {{ form_widget(car.capacity) }}
+                {{ form_widget(car.capacity, {attr: {"disabled" :  not isChosenModel and not isChosenEngineType}}) }}
             </li>
             <li class="profil-option">
                 <button type="button" class="moreinfo remove-car-button"><i class="fa fa-minus" aria-hidden="true"></i>   Удалить</button>
@@ -69,8 +72,6 @@
         </ul>
     {% endfor %}
     </div>
-    {% if form.cars | length < 5 %}
-        <button id="add-new-car-button" type="button" class="moreinfo"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
-    {% endif %}
+    <button id="add-new-car-button" type="button" class="moreinfo" style="{{ form.cars | length < 5 ? "" : "display: none;" }}"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
     {{ form_widget(form.submit) }}
 </form>
