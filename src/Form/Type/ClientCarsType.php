@@ -21,8 +21,8 @@ class ClientCarsType extends AbstractType
             ->add('cars', CollectionType::class, [
                 'label' => false,
                 'entry_type' => ClientCarType::class,
-                'allow_add' => !$options["isFormSubmitted"],
-                'allow_delete' => !$options["isFormSubmitted"],
+                'allow_add' => true,
+                'allow_delete' => true,
                 'prototype_name' => '__index__',
                 'by_reference' => false,
                 'entry_options'  => [

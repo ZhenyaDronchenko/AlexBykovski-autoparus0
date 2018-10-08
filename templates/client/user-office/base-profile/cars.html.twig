@@ -7,23 +7,23 @@
         </li>
         <li class="profil-option">
             <span class="name">{{ prototype.model.vars.label }}</span>
-            {{ form_widget(prototype.model) }}
+            {{ form_widget(prototype.model, {attr: {"disabled" :  true}}) }}
         </li>
         <li class="profil-option">
             <span class="name">{{ prototype.year.vars.label }}</span>
-            {{ form_widget(prototype.year) }}
+            {{ form_widget(prototype.year, {attr: {"disabled" :  true}}) }}
         </li>
         <li class="profil-option">
             <span class="name">{{ prototype.vehicle.vars.label }}</span>
-            {{ form_widget(prototype.vehicle) }}
+            {{ form_widget(prototype.vehicle, {attr: {"disabled" :  true}}) }}
         </li>
         <li class="profil-option">
             <span class="name">{{ prototype.engineType.vars.label }}</span>
-            {{ form_widget(prototype.engineType) }}
+            {{ form_widget(prototype.engineType, {attr: {"disabled" :  true}}) }}
         </li>
         <li class="profil-option">
             <span class="name">{{ prototype.capacity.vars.label }}</span>
-            {{ form_widget(prototype.capacity) }}
+            {{ form_widget(prototype.capacity, {attr: {"disabled" :  true}}) }}
         </li>
         <li class="profil-option">
             <button type="button" class="moreinfo remove-car-button"><i class="fa fa-minus" aria-hidden="true"></i>Удалить</button>
