@@ -14,6 +14,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ClientCarType extends AbstractType
 {
@@ -67,7 +69,11 @@ class ClientCarType extends AbstractType
             ->add('brand', ChoiceType::class, [
                 'label' => "Марка",
                 'choices' => $this->provider->getAllBrands(),
-                'attr' => ["class" => "name-select"]
+                'attr' => ["class" => "name-select"],
+                'constraints' => [
+                    new NotNull(['message' => 'Выберите марку']),
+                    new NotBlank(['message' => 'Выберите марку']),
+                ],
             ])
             ->add('model', ChoiceType::class, [
                 'label' => "Модель",
@@ -105,7 +111,11 @@ class ClientCarType extends AbstractType
                     ->add('brand', ChoiceType::class, [
                         'label' => "Марка",
                         'choices' => $this->provider->getAllBrands(),
-                        'attr' => ["class" => "name-select car-form-choice-brand"]
+                        'attr' => ["class" => "name-select car-form-choice-brand"],
+                        'constraints' => [
+                            new NotNull(['message' => 'Выберите марку']),
+                            new NotBlank(['message' => 'Выберите марку']),
+                        ],
                     ])
                     ->add('model', ChoiceType::class, [
                         'label' => "Модель",

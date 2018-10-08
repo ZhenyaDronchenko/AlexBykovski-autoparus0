@@ -1,37 +1,57 @@
-<form id="personal-data-form" method="post" novalidate enctype="multipart/form-data">
+<form id="personal-data-form" class="profil-user" method="post" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
     <fieldset class="personal">
         <legend class="profil-title">Персональные данные</legend>
         <ul class="profil-list">
             <li class="profil-option">
                 {{ form_label(form.name) }}
-                {{ form_widget(form.name, {attr: {"placeholder": "Евгений"}}) }}
-                {{ form_errors(form.name) }}
+                <div class="wrapper-form">
+                    {{ form_widget(form.name, {attr: {"placeholder": "Евгений"}}) }}
+                    {% for key, error in form.name.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </li>
             <li class="profil-option">
                 {{ form_label(form.phone) }}
-                {{ form_widget(form.phone, {attr: {"placeholder": "+375-29-636-69-11"}}) }}
-                {{ form_errors(form.phone) }}
+                <div class="wrapper-form">
+                    {{ form_widget(form.phone, {attr: {"placeholder": "+375-29-636-69-11"}}) }}
+                    {% for key, error in form.phone.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </li>
             <li class="profil-option">
                 {{ form_label(form.email) }}
-                {{ form_widget(form.email, {attr: {"placeholder": "d4d@tut.by"}}) }}
-                {{ form_errors(form.email) }}
+                <div class="wrapper-form">
+                    {{ form_widget(form.email, {attr: {"placeholder": "d4d@tut.by"}}) }}
+                    {% for key, error in form.email.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </li>
             <li class="profil-option">
                 {{ form_label(form.country) }}
-                {{ form_widget(form.country, {attr: {"placeholder": "Беларусь"}}) }}
-                {{ form_errors(form.country) }}
+                <div class="wrapper-form">
+                    {{ form_widget(form.country, {attr: {"placeholder": "Беларусь"}}) }}
+                    {% for key, error in form.country.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </li>
             <li class="profil-option">
                 {{ form_label(form.city) }}
-                {{ form_widget(form.city, {attr: {"placeholder": "Минск"}}) }}
-                {{ form_errors(form.city) }}
+                <div class="wrapper-form">
+                    {{ form_widget(form.city, {attr: {"placeholder": "Минск"}}) }}
+                    {% for key, error in form.city.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </li>
         </ul>
     </fieldset>
     {{ form_widget(form.submit) }}
     {% if isValid %}
-        <div >Подтверждение принято</div>
+        <span class="check check-on">Подтверждение принято</span>
     {% endif %}
 </form>
