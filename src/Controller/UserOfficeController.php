@@ -93,23 +93,35 @@ class UserOfficeController extends Controller
      */
     public function editCarsAction(Request $request)
     {
+        ini_set('xdebug.var_display_max_depth', '10');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Client $client */
         $client = $this->getUser();
+        $isValid = false;
+        $isFormSubmitted = array_key_exists("client_cars", $_POST);
+        $originalCars = new ArrayCollection();
 
-        $isFormSubmitted = !array_key_exists("client_cars", $_POST);
+        foreach ($client->getCars() as $car) {
+            $originalCars->add($car);
+        }
 
         $form = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => $isFormSubmitted]);
 
         $form->handleRequest($request);
 
-        $isValid = false;
         if($form->isSubmitted() && $form->isValid()){
-            var_dump("123123");
             $isValid = true;
 
-            //$em->flush();
+            foreach ($originalCars as $car) {
+                if (false === $client->getCars()->contains($car)) {
+                    $em->remove($car);
+                }
+            }
+
+            $em->flush();
+
+            $em->refresh($client);
         }
 
         $form = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);

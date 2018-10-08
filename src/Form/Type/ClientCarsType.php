@@ -25,6 +25,9 @@ class ClientCarsType extends AbstractType
                 'allow_delete' => !$options["isFormSubmitted"],
                 'prototype_name' => '__index__',
                 'by_reference' => false,
+                'entry_options'  => [
+                    'isFormSubmitted' => $options["isFormSubmitted"],
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => "Сохранить",

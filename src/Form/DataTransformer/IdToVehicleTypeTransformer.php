@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class TypeToVehicleTypeTransformer implements DataTransformerInterface
+class IdToVehicleTypeTransformer implements DataTransformerInterface
 {
     private $em;
 
@@ -18,7 +18,7 @@ class TypeToVehicleTypeTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms an object (vehicleType) to a string (type).
+     * Transforms an object (vehicleType) to a string (id).
      *
      * @param  VehicleType|null vehicleType
      *
@@ -27,34 +27,35 @@ class TypeToVehicleTypeTransformer implements DataTransformerInterface
     public function transform($vehicleType)
     {
         if ($vehicleType instanceof VehicleType) {
-            return $vehicleType->getType();
+            return (string)$vehicleType->getId();
         }
 
         return null;
     }
 
     /**
-     * Transforms a string (type) to an object (vehicleType).
+     * Transforms a string (id) to an object (vehicleType).
      *
-     * @param  string $type
+     * @param  string $id
      * @return VehicleType|null
      * @throws TransformationFailedException if object (vehicleType) is not found.
      */
-    public function reverseTransform($type)
+    public function reverseTransform($id)
     {
-        if (!$type) {
+        if (!$id) {
             return null;
         }
 
-        $vehicleType = $this->em->getRepository(VehicleType::class)->findOneBy(["type" => $type]);
+        $vehicleType = $this->em->getRepository(VehicleType::class)->find($id);
 
         if($vehicleType instanceof VehicleType){
+            var_dump("should be good");
             return $vehicleType;
         }
 
         throw new TransformationFailedException(sprintf(
-            'A vehicleType with type "%s" does not exist!',
-            $type
+            'A vehicleType with id "%s" does not exist!',
+            $id
         ));
     }
 }

@@ -59,23 +59,23 @@ services:
         arguments: []
         public: true
 
-    app.form.transformer.name_to_brand:
-        class:  App\Form\DataTransformer\NameToBrandTransformer
+    app.form.transformer.id_to_brand:
+        class:  App\Form\DataTransformer\IdToBrandTransformer
         arguments: []
         public: true
 
-    app.form.transformer.name_to_model:
-        class:  App\Form\DataTransformer\NameToModelTransformer
+    app.form.transformer.id_to_model:
+        class:  App\Form\DataTransformer\IdToModelTransformer
         arguments: []
         public: true
 
-    app.form.transformer.type_to_vehicle_type:
-        class:  App\Form\DataTransformer\TypeToVehicleTypeTransformer
+    app.form.transformer.id_to_vehicle_type:
+        class:  App\Form\DataTransformer\IdToVehicleTypeTransformer
         arguments: []
         public: true
 
-    app.form.transformer.type_to_engine_type:
-        class:  App\Form\DataTransformer\TypeToEngineTypeTransformer
+    app.form.transformer.id_to_engine_type:
+        class:  App\Form\DataTransformer\IdToEngineTypeTransformer
         arguments: []
         public: true
 
@@ -98,7 +98,7 @@ services:
 
     app.form.client_cars_type:
         class: App\Form\Type\ClientCarsType
-        arguments: ["@app.provider.form.client_car_provider", "@app.form.transformer.name_to_brand", "@app.form.transformer.name_to_model", "@app.form.transformer.type_to_vehicle_type", "@app.form.transformer.type_to_engine_type"]
+        arguments: ["@app.provider.form.client_car_provider", "@app.form.transformer.id_to_brand", "@app.form.transformer.id_to_model", "@app.form.transformer.id_to_vehicle_type", "@app.form.transformer.id_to_engine_type"]
         tags:
             - { name: form.type }
 

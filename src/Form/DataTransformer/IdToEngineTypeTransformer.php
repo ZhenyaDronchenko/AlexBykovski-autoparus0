@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class TypeToEngineTypeTransformer implements DataTransformerInterface
+class IdToEngineTypeTransformer implements DataTransformerInterface
 {
     private $em;
 
@@ -19,7 +19,7 @@ class TypeToEngineTypeTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms an object (engineType) to a string (type).
+     * Transforms an object (engineType) to a string (id).
      *
      * @param  EngineType|null engineType
      *
@@ -28,34 +28,34 @@ class TypeToEngineTypeTransformer implements DataTransformerInterface
     public function transform($engineType)
     {
         if ($engineType instanceof EngineType) {
-            return $engineType->getType();
+            return (string)$engineType->getId();
         }
 
         return null;
     }
 
     /**
-     * Transforms a string (type) to an object (engineType).
+     * Transforms a string (id) to an object (engineType).
      *
      * @param  string $type
      * @return EngineType|null
      * @throws TransformationFailedException if object (engineType) is not found.
      */
-    public function reverseTransform($type)
+    public function reverseTransform($id)
     {
-        if (!$type) {
+        if (!$id) {
             return null;
         }
 
-        $engineType = $this->em->getRepository(EngineType::class)->findOneBy(["type" => $type]);
+        $engineType = $this->em->getRepository(EngineType::class)->find($id);
 
         if($engineType instanceof EngineType){
             return $engineType;
         }
 
         throw new TransformationFailedException(sprintf(
-            'A engineType with type "%s" does not exist!',
-            $type
+            'A engineType with id "%s" does not exist!',
+            $id
         ));
     }
 }

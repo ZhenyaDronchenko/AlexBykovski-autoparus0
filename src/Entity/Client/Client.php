@@ -33,7 +33,7 @@ class Client extends User
      * @var Collection
      *
      * One User has Many UserCars.
-     * @ORM\OneToMany(targetEntity="UserCar", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="UserCar", mappedBy="client", cascade={"persist"})
      */
     private $cars;
 
@@ -167,6 +167,8 @@ class Client extends User
     {
         if (!$this->cars->contains($car)) {
             $this->cars->add($car);
+
+            $car->setClient($this);
         }
     }
 

@@ -7,6 +7,7 @@ use App\Entity\Engine;
 use App\Entity\EngineType;
 use App\Entity\Model;
 use App\Entity\VehicleType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ClientCarProvider
@@ -33,32 +34,52 @@ class ClientCarProvider
         $choices = ["Выбрать" => ''];
 
         foreach ($brands as $brand){
-            $choices[$brand["name"]] = $brand["name"];
+            $choices[$brand["name"]] = $brand["id"];
         }
 
         return $choices;
     }
 
-    public function getModels($brand)
+    public function getModels($brand, $isAll = false)
     {
         $choices = ["Выбрать" => ''];
 
-        if($brand instanceof Brand){
-            $brands = $this->em->getRepository(Model::class)->findModelNamesByBrand($brand, true);
+        if($isAll){
+            $models = $this->em->getRepository(Model::class)->findAllModelNames();
 
-            foreach ($brands as $brand){
-                $choices[$brand["name"]] = $brand["name"];
+            foreach ($models as $model) {
+                $choices[$model["name"]] = $model["id"];
+            }
+        }
+        else {
+            if (is_string($brand)) {
+                $brand = $this->em->getRepository(Brand::class)->find($brand);
+            }
+
+            if ($brand instanceof Brand) {
+                $models = $this->em->getRepository(Model::class)->findModelNamesByBrand($brand, true);
+
+                foreach ($models as $model) {
+                    $choices[$model["name"]] = $model["id"];
+                }
             }
         }
 
         return $choices;
     }
 
-    public function getYears($model)
+    public function getYears($model, $isAll = false)
     {
         $choices = ["Выбрать" => 0];
 
-        if($model instanceof Model &&
+        if($isAll){
+            $currYear = (int)(new DateTime())->format("Y");
+
+            foreach (range($currYear - 1000, $currYear + 1000) as $year){
+                $choices[$year] = $year;
+            }
+        }
+        elseif($model instanceof Model &&
             ($from = $model->getTechnicalData()->getYearFrom()) && ($to = $model->getTechnicalData()->getYearTo()) &&
             $to > $from){
 
@@ -70,49 +91,71 @@ class ClientCarProvider
         return $choices;
     }
 
-    public function getVehicleTypes($model)
+    public function getVehicleTypes($model, $isAll = false)
     {
         $choices = ["Выбрать" => ''];
 
-        if($model instanceof Model){
+        if($isAll){
+            $vehicleTypes = $this->em->getRepository(VehicleType::class)->findAllVehicleTypes();
+
+            foreach ($vehicleTypes as $vehicleType) {
+                $choices[$vehicleType["type"]] = $vehicleType["id"];
+            }
+        }
+        elseif($model instanceof Model) {
             /** @var VehicleType $vehicleType */
-            foreach ($model->getTechnicalData()->getVehicleTypes() as $vehicleType){
-                $choices[$vehicleType->getType()] = $vehicleType->getType();
+            foreach ($model->getTechnicalData()->getVehicleTypes() as $vehicleType) {
+                $choices[$vehicleType->getType()] = $vehicleType->getId();
             }
         }
 
         return $choices;
     }
 
-    public function getEngineTypes($model)
+    public function getEngineTypes($model, $isAll = false)
     {
         $choices = ["Выбрать" => ''];
 
-        if($model instanceof Model){
+        if($isAll){
+            $engineTypes = $this->em->getRepository(EngineType::class)->findAllEngineTypes();
+
+            foreach ($engineTypes as $engineType) {
+                $choices[$engineType["type"]] = $engineType["id"];
+            }
+        }
+        elseif($model instanceof Model){
             /** @var EngineType $engineType */
             foreach ($model->getTechnicalData()->getEngineTypes() as $engineType){
-                $choices[$engineType->getType()] = $engineType->getType();
+                $choices[$engineType->getType()] = (string)$engineType->getId();
             }
         }
 
         return $choices;
     }
 
-    public function getCapacities($model, $engineType)
+    public function getCapacities($model, $engineType, $isAll = false)
     {
         $choices = [];
 
-        if($model instanceof Model && $engineType instanceof EngineType){
+        if($isAll){
+            $engines = $this->em->getRepository(Engine::class)->findAllCapacities();
+
+            /** @var Engine $engine */
+            foreach ($engines as $engine){
+                $choices[(string)$engine["capacity"]] = (string)$engine["capacity"];
+            }
+        }
+        elseif($model instanceof Model && $engineType instanceof EngineType){
 
             /** @var Engine $engine */
             foreach ($model->getTechnicalData()->getEnginesByType($engineType->getType()) as $engine){
-                $choices[$engine->getCapacity()] = $engine->getCapacity();
+                $choices[(string)$engine->getCapacity()] = (string)$engine->getCapacity();
             }
 
-            sort($choices);
+            asort($choices);
         }
 
-        array_unshift($choices, ["Выбрать" => '']);
+        $choices = array_merge(["Выбрать" => ''], $choices);
 
         return $choices;
     }

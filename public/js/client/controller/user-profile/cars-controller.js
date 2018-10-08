@@ -1,8 +1,7 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('CarsCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
-        let self = this;
+    autoparusApp.controller('CarsCtrl', ['$scope', '$http', function($scope, $http) {
         let formSelector = null;
         let url = null;
 

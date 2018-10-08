@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class NameToModelTransformer implements DataTransformerInterface
+class IdToModelTransformer implements DataTransformerInterface
 {
     private $em;
 
@@ -18,7 +18,7 @@ class NameToModelTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms an object (model) to a string (name).
+     * Transforms an object (model) to a string (id).
      *
      * @param  Model|null $model
      *
@@ -27,34 +27,34 @@ class NameToModelTransformer implements DataTransformerInterface
     public function transform($model)
     {
         if ($model instanceof Model) {
-            return $model->getName();
+            return $model->getId();
         }
 
         return null;
     }
 
     /**
-     * Transforms a string (name) to an object (model).
+     * Transforms a string (id) to an object (model).
      *
-     * @param  string $name
+     * @param  string $id
      * @return Model|null
-     * @throws TransformationFailedException if object (brand) is not found.
+     * @throws TransformationFailedException if object (model) is not found.
      */
-    public function reverseTransform($name)
+    public function reverseTransform($id)
     {
-        if (!$name) {
+        if (!$id) {
             return null;
         }
 
-        $model = $this->em->getRepository(Model::class)->findOneBy(["name" => $name]);
+        $model = $this->em->getRepository(Model::class)->find($id);
 
         if($model instanceof Model){
             return $model;
         }
 
         throw new TransformationFailedException(sprintf(
-            'A model with name "%s" does not exist!',
-            $name
+            'A model with id "%s" does not exist!',
+            $id
         ));
     }
 }

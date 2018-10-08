@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\EngineTypeRepository")
  * @ORM\Table(name="engine_type")
  */
 class EngineType
@@ -56,5 +56,10 @@ class EngineType
     public function setType(string $type): void
     {
         $this->type = $type;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->id;
     }
 }
