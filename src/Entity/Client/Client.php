@@ -162,4 +162,16 @@ class Client extends User
     {
         $this->isHelper = $isHelper;
     }
+
+    public function addCar(UserCar $car)
+    {
+        if (!$this->cars->contains($car)) {
+            $this->cars->add($car);
+        }
+    }
+
+    public function removeCar(UserCar $car)
+    {
+        $this->cars->removeElement($cag);
+    }
 }

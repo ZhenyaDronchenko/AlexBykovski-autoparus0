@@ -1,7 +1,8 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('PersonalDataCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
+    autoparusApp.controller('CarsCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
+        let self = this;
         let formSelector = null;
         let url = null;
 
@@ -27,7 +28,6 @@
 
         function handleForm(){
             $(formSelector).ready(function(){
-                $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
                 let formEvents = $.data($(this).get(0), 'events');
                 let isExistSubmitHandler = !!(formEvents && formEvents.submit);
 
@@ -40,6 +40,8 @@
                         return false;
                     });
                 }
+
+                initPrototype();
             });
         }
 
@@ -53,10 +55,51 @@
 
                 }
 
-                $("#form-personal-data-container").html(response.data);
+                $("#form-cars-container").html(response.data);
                 handleForm();
 
                 $(formSelector).find("button[type=submit]").prop("disabled", false);
+            });
+        }
+        
+        function initPrototype() {
+            jQuery(document).ready(function() {
+                let collectionHolder = $("#cars-container");
+                let addTagButton = $("#add-new-car-button");
+
+                collectionHolder.data('index', collectionHolder.find('ul').length);
+
+                addTagButton.click(function(e) {
+                    if(collectionHolder.find('ul').length < 5) {
+                        addCarForm(collectionHolder);
+                    }
+                });
+
+                updateRemoveButtons();
+
+                if(!collectionHolder.find('ul').length) {
+                    addTagButton.trigger("click");
+                }
+            });
+        }
+
+        function addCarForm(collectionHolder) {
+            let prototype = $("#car-prototype-container").html();
+            let index = collectionHolder.data('index');
+            let newForm = prototype;
+
+            newForm = newForm.replace(/__index__/g, index);
+
+            collectionHolder.data('index', index + 1);
+
+            $("#cars-container").append(newForm);
+
+            updateRemoveButtons();
+        }
+
+        function updateRemoveButtons() {
+            $(".remove-car-button").on('click', function(e) {
+                $(this).parents("ul.moreinfoblock").remove();
             });
         }
 

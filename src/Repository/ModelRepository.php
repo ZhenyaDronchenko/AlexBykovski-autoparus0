@@ -32,4 +32,26 @@ class ModelRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param Brand $brand
+     * @param boolean $isSort
+     *
+     * @return array
+     */
+    public function findModelNamesByBrand(Brand $brand, $isSort = false)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m.name')
+            ->where("m.brand = :brand")
+            ->setParameter("brand", $brand);
+
+        if($isSort){
+            $qb->orderBy("br.name", "ASC");
+        }
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

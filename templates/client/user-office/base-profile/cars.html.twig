@@ -1,0 +1,76 @@
+<div id="car-prototype-container" style="display: none;">
+    {% set prototype = form.cars.vars.prototype %}
+    <ul class="moreinfoblock">
+        <li class="profil-option">
+            <span class="name">{{ prototype.brand.vars.label }}</span>
+            {{ form_widget(prototype.brand) }}
+        </li>
+        <li class="profil-option">
+            <span class="name">{{ prototype.model.vars.label }}</span>
+            {{ form_widget(prototype.model) }}
+        </li>
+        <li class="profil-option">
+            <span class="name">{{ prototype.year.vars.label }}</span>
+            {{ form_widget(prototype.year) }}
+        </li>
+        <li class="profil-option">
+            <span class="name">{{ prototype.vehicle.vars.label }}</span>
+            {{ form_widget(prototype.vehicle) }}
+        </li>
+        <li class="profil-option">
+            <span class="name">{{ prototype.engineType.vars.label }}</span>
+            {{ form_widget(prototype.engineType) }}
+        </li>
+        <li class="profil-option">
+            <span class="name">{{ prototype.capacity.vars.label }}</span>
+            {{ form_widget(prototype.capacity) }}
+        </li>
+        <li class="profil-option">
+            <button type="button" class="moreinfo remove-car-button"><i class="fa fa-minus" aria-hidden="true"></i>Удалить</button>
+        </li>
+    </ul>
+</div>
+
+<form id="cars-form" method="post" novalidate enctype="multipart/form-data">
+    {{ form_widget(form._token) }}
+    <fieldset class="car">
+        <legend class="profil-title">Авто - Мото</legend>
+    </fieldset>
+    <div id="cars-container">
+    {% for car in form.cars %}
+        <ul class="moreinfoblock">
+            <li class="profil-option">
+                <span class="name">{{ car.brand.vars.label }}</span>
+                {{ form_widget(car.brand) }}
+            </li>
+            <li class="profil-option">
+                <span class="name">{{ car.model.vars.label }}</span>
+                {{ form_widget(car.model) }}
+            </li>
+            <li class="profil-option">
+                <span class="name">{{ car.year.vars.label }}</span>
+                {{ form_widget(car.year) }}
+            </li>
+            <li class="profil-option">
+                <span class="name">{{ car.vehicle.vars.label }}</span>
+                {{ form_widget(car.vehicle) }}
+            </li>
+            <li class="profil-option">
+                <span class="name">{{ car.engineType.vars.label }}</span>
+                {{ form_widget(car.engineType) }}
+            </li>
+            <li class="profil-option">
+                <span class="name">{{ car.capacity.vars.label }}</span>
+                {{ form_widget(car.capacity) }}
+            </li>
+            <li class="profil-option">
+                <button type="button" class="moreinfo remove-car-button"><i class="fa fa-minus" aria-hidden="true"></i>   Удалить</button>
+            </li>
+        </ul>
+    {% endfor %}
+    </div>
+    {% if form.cars | length < 5 %}
+        <button id="add-new-car-button" type="button" class="moreinfo"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
+    {% endif %}
+    {{ form_widget(form.submit) }}
+</form>

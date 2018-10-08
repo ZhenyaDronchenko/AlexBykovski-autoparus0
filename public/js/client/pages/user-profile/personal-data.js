@@ -384,11 +384,6 @@ function citiesHideShow1() {
              return;
          }
      });
-     $('.moreinfo').click(function() {
-         var moreinfo = '<span>-----------------------</span><div class="moreinfoblock">' + $('.moreinfoblock').html() + '</div>';
-         console.log(moreinfo);
-         $(this).before(moreinfo);
-     })
- })
+ });
 
 

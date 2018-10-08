@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Client\Client;
+use App\Entity\Client\UserCar;
 use App\Entity\User;
+use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +36,15 @@ class UserOfficeController extends Controller
      */
     public function editUserBaseProfileAction(Request $request)
     {
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        $formPersonalData = $this->createForm(PersonalDataType::class, $client);
+        $formCars = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
+
         return $this->render('client/user-office/user-base-profile.html.twig', [
+            "formPersonalData" => $formPersonalData->createView(),
+            "formCars" => $formCars->createView(),
         ]);
     }
 
@@ -51,7 +62,7 @@ class UserOfficeController extends Controller
     /**
      * @Route("/edit-personal-data", name="edit_user_personal_data")
      */
-    public function editPersonalData(Request $request)
+    public function editPersonalDataAction(Request $request)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -72,6 +83,38 @@ class UserOfficeController extends Controller
         }
 
         return $this->render('client/user-office/base-profile/personal-data.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => $isValid
+        ]);
+    }
+
+    /**
+     * @Route("/edit-cars", name="edit_user_cars")
+     */
+    public function editCarsAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        $isFormSubmitted = !array_key_exists("client_cars", $_POST);
+
+        $form = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => $isFormSubmitted]);
+
+        $form->handleRequest($request);
+
+        $isValid = false;
+        if($form->isSubmitted() && $form->isValid()){
+            var_dump("123123");
+            $isValid = true;
+
+            //$em->flush();
+        }
+
+        $form = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
+
+        return $this->render('client/user-office/base-profile/cars.html.twig', [
             "form" => $form->createView(),
             "isValid" => $isValid
         ]);

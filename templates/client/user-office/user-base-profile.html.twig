@@ -18,78 +18,16 @@
         <div class="container">
             <div class="profil-form">
                 <div class="profil-wpapper">
-                    <div ng-bind-html="personData.formText"
-                         ng-controller="PersonalDataCtrl as personData"
-                         ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')"></div>
-                    {#{% include('/client/user-office/base-profile/personal-data.html.twig') with {"formPersonal" : formPersonal} %}#}
+                    <div id="form-personal-data-container" ng-controller="PersonalDataCtrl as personData"
+                         ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')">
+                        {% include('/client/user-office/base-profile/personal-data.html.twig') with {"form" : formPersonalData, 'isValid' : false} %}
+                    </div>
 
-                    <form>
-                        <fieldset class="car">
-                            <legend class="profil-title">Авто - Мото</legend>
-                            <ul class="moreinfoblock">
-                                <li class="profil-option">
-                                    <span class="name">Марка</span>
-                                    <select class="name-select">
-                                        <option>Выбрать</option>
-                                        <option>Mersedes-Benz</option>
-                                        <option>Toyota</option>
-                                        <option>Honda</option>
-                                        <option>BMW</option>
-                                    </select>
-                                </li>
-                                <li class="profil-option">
-                                    <span class="name">Модель</span>
-                                    <select class="name-select">
-                                        <option>Выбрать</option>
-                                        <option>Corolla Verso R20</option>
-                                        <option>Yaris Verso P10</option>
-                                        <option>Corolla Verso R20</option>
-                                        <option>Corolla Verso R20</option>
-                                    </select>
-                                </li>
-                                <li class="profil-option">
-                                    <span class="name">год</span>
-                                    <select class="name-select">
-                                        <option>Выбрать</option>
-                                        <option>2000</option>
-                                        <option>2001</option>
-                                        <option>2001</option>
-                                        <option>2001</option>
-                                    </select>
-                                </li>
-                                <li class="profil-option">
-                                    <span class="name">Тип Кузова</span>
-                                    <select class="name-select">
-                                        <option>Выбрать</option>
-                                        <option>универсал</option>
-                                        <option>хэтчбек</option>
-                                        <option>седан</option>
-                                        <option>купе</option>
-                                    </select>
-                                </li>
-                                <li class="profil-option">
-                                    <span class="name">Тип ДВС</span>
-                                    <select class="name-select">
-                                        <option>Выбрать</option>
-                                        <option>Электродвигатель</option>
-                                        <option>бензин</option>
-                                        <option>дизель</option>
-                                    </select>
-                                </li>
-                                <li class="profil-option">
-                                    <span class="name">Объем</span>
-                                    <select class="name-select">
-                                        <option>Выбрать</option>
-                                        <option>1500</option>
-                                        <option>2000</option>
-                                        <option>2500</option>
-                                    </select>
-                                </li>
-                            </ul>
-                            <button class="moreinfo"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
-                        </fieldset>
-                        <button type="submit" class="btn-filter">Сохранить</button>
-                    </form>
+                    <div id="form-cars-container"
+                         ng-controller="CarsCtrl as cars"
+                         ng-init="cars.init('#cars-form', '{{ path("edit_user_cars") }}')">
+                        {% include('/client/user-office/base-profile/cars.html.twig') with {"form" : formCars, 'isValid' : false} %}
+                    </div>
                 </div>
 
                 <div class="business">
@@ -220,4 +158,5 @@
 {% block javascripts %}
     <script src='/js/client/pages/user-profile/personal-data.js' ></script>
     <script src='/js/client/controller/user-profile/personal-data-controller.js' ></script>
+    <script src='/js/client/controller/user-profile/cars-controller.js' ></script>
 {% endblock %}

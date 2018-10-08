@@ -24,7 +24,7 @@ class UserCar
     private $id;
 
     /**
-     * @var Brand
+     * @var Brand|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Brand")
      * @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
@@ -94,17 +94,17 @@ class UserCar
     }
 
     /**
-     * @return Brand
+     * @return Brand|null
      */
-    public function getBrand(): Brand
+    public function getBrand(): ?Brand
     {
         return $this->brand;
     }
 
     /**
-     * @param Brand $brand
+     * @param Brand|null $brand
      */
-    public function setBrand(Brand $brand): void
+    public function setBrand(?Brand $brand): void
     {
         $this->brand = $brand;
     }
