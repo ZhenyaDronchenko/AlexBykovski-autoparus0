@@ -13,7 +13,7 @@ services:
 
     admin.city.city:
         class: App\Admin\CityAdmin
-        arguments: [~, App\Entity\City, 'App\Admin\Controller\CityAdminController']
+        arguments: [~, App\Entity\City, 'App\Admin\Controller\CityAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
         tags:
             - { name: sonata.admin, group: Город, manager_type: orm, label: Город, on_top: true}
         public: true

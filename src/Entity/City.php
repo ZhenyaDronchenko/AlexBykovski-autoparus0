@@ -80,6 +80,13 @@ class City implements VariableInterface
     private $text;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $logo;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -189,6 +196,22 @@ class City implements VariableInterface
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param null|string $logo
+     */
+    public function setLogo(?string $logo): void
+    {
+        $this->logo = $logo;
     }
 
     public function getTypeTranslate()
