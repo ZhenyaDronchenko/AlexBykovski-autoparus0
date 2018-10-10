@@ -2,21 +2,13 @@
 
 namespace App\Command;
 
-
-use App\Entity\Admin;
 use App\Entity\Brand;
-use App\Entity\Buyer;
-use App\Entity\Model;
-use App\Entity\Seller;
-use App\Entity\SparePart;
-use App\Entity\User;
+use App\Entity\Model;;
 use App\Generator\PasswordGenerator;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 use League\Csv\Statement;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

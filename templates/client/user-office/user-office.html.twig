@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/user-office.css'>
+{% endblock %}
+
+{% block body %}
+    <section class="profil">
+        {% set isSeller = app.user.isSeller() %}
+        <div class="container">
+            <div class="heading">
+                <div class="user-info">
+                    <div class="user-logo">
+                        <img src="{{ image_url("../img/userfoto.jpg") }}" alt="Автолюбители" class="foto-user">
+                        <a href="#" class="user-link"> + </a>
+                    </div>
+                    <a class="user-name">{{ app.user.name }}</a>
+
+                </div>
+
+                <div class="user-about">
+                    <a href="{{ path("show_user_base_profile") }}" class="button">Редактировать профиль <i class="fa fa-check" aria-hidden="true"></i></a>
+                    {% for car in app.user.cars %}
+                        <a class="user-avto">{{ car.brand.name }} {{ car.model.name }} {{ car.year ? car.year : '' }}</a>
+                    {% endfor %}
+
+                </div>
+
+                <div class="user-edit">
+                    {% if isSeller %}
+                        <a class="user-company">{{ app.user.sellerData.sellerCompany.companyName }}</a>
+                    {% endif %}
+                    <a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
+                    <div class="btn-block">
+                        {% if isSeller %}
+                            {% if app.user.sellerData.sellerCompany.isSeller %}
+                                <a class="user-btn">Товары</a>
+                            {% endif %}
+                            {% if app.user.sellerData.sellerCompany.isService %}
+                                <a class="user-btn">Услуги</a>
+                            {% endif %}
+                            {% if app.user.sellerData.sellerCompany.isNews %}
+                                <a class="user-btn">Статьи</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="choice">
+        <div class="choice-block container">
+            <a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i>
+            </a>
+            <a class="icon" href="#"><i class="fa fa-suitcase"></i>  Business</a>
+            <a class="icon" href="#"><i class="fa fa-camera"></i>  Фотогалерея </a>
+            <a class="icon icon-plus" href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="items">
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+                <div class="user-item">
+                    <div class="foto"><img src="{{ image_url("../img/Amazinr.jpg") }}" alt="Автолюбители" class="foto-users"></div>
+                    <p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>
+                    <a class="more" href="#"> >>>>>>> </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

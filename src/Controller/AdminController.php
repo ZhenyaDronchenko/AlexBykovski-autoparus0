@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
+use App\Entity\City;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\User;
@@ -88,6 +89,24 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sparePart->setLogo(null);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin-remove-city-logo/{id}", name="admin_remove_city_logo")
+     *
+     * @ParamConverter("city", class="App:City", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removeCityLogoAction(Request $request, City $city)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $city->setLogo(null);
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));

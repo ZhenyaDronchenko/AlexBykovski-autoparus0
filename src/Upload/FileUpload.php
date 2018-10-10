@@ -10,6 +10,7 @@ class FileUpload
     const GENERAL = 'general';
     const BRAND = 'brand';
     const MODEL = 'model';
+    const CITY = 'city';
     const SPARE_PART = 'spare_part';
     const TMP = 'tmp';
 

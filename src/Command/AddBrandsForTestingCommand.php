@@ -2,13 +2,7 @@
 
 namespace App\Command;
 
-
-use App\Entity\Admin;
-use App\Entity\Brand;
-use App\Entity\Buyer;
-use App\Entity\Seller;
 use App\Entity\SparePart;
-use App\Entity\User;
 use App\Generator\PasswordGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

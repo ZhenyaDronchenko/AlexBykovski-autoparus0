@@ -21,13 +21,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="role", type="string")
- * @ORM\DiscriminatorMap({"ROLE_SELLER" = "Seller", "ROLE_BUYER" = "Buyer", "ROLE_ADMIN" = "Admin"})
+ * @ORM\DiscriminatorMap({"ROLE_CLIENT" = "App\Entity\Client\Client", "ROLE_ADMIN" = "Admin"})
  */
 abstract class User extends BaseUser
 {
     const ROLE_SELLER = "ROLE_SELLER";
     const ROLE_BUYER = "ROLE_BUYER";
     const ROLE_ADMIN = "ROLE_ADMIN";
+    const ROLE_CLIENT = "ROLE_CLIENT";
 
     /**
      * @var integer
@@ -71,34 +72,11 @@ abstract class User extends BaseUser
      */
     private $forgotPassword;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $city;
-
-    /**
-     * @var Collection
-     *
-     * One User has Many UserCars.
-     * @ORM\OneToMany(targetEntity="UserCar", mappedBy="user")
-     */
-    private $cars;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", options={"default" : false})
-     */
-    private $isHelper = 0;
-
     public function __construct()
     {
         parent::__construct();
         // your own logic
         $this->createdAt = new DateTime();
-        $this->cars = new ArrayCollection();
     }
 
     /**
@@ -182,50 +160,20 @@ abstract class User extends BaseUser
     }
 
     /**
-     * @return null|string
-     */
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param null|string $city
-     */
-    public function setCity(?string $city): void
-    {
-        $this->city = $city;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCars(): Collection
-    {
-        return $this->cars;
-    }
-
-    /**
-     * @param Collection $cars
-     */
-    public function setCars(Collection $cars): void
-    {
-        $this->cars = $cars;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isHelper(): bool
-    {
-        return $this->isHelper;
-    }
-
-    /**
      * @param bool $isHelper
      */
     public function setIsHelper(bool $isHelper): void
     {
         $this->isHelper = $isHelper;
+    }
+
+    public function isBuyer()
+    {
+        return $this->hasRole(User::ROLE_BUYER);
+    }
+
+    public function isSeller()
+    {
+        return $this->hasRole(User::ROLE_SELLER);
     }
 }

@@ -22,4 +22,17 @@ class BrandRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllOnlyField($field, $isSort = false)
+    {
+        $qb = $this->createQueryBuilder('br')
+            ->select('br.id, br.' . $field);
+
+        if($isSort){
+            $qb->orderBy("br.name", "ASC");
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

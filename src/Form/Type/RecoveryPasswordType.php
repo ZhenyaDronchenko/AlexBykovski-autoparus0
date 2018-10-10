@@ -2,7 +2,7 @@
 
 namespace App\Form\Type;
 
-use App\Entity\Buyer;
+use App\Entity\Client\Client;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -35,7 +35,7 @@ class RecoveryPasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Buyer::class,
+            'data_class' => Client::class,
             'validation_groups' => [],
         ]);
     }

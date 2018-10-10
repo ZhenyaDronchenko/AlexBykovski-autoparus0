@@ -59,6 +59,31 @@ services:
         arguments: []
         public: true
 
+    app.form.transformer.id_to_brand:
+        class:  App\Form\DataTransformer\IdToBrandTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_model:
+        class:  App\Form\DataTransformer\IdToModelTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_vehicle_type:
+        class:  App\Form\DataTransformer\IdToVehicleTypeTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_engine_type:
+        class:  App\Form\DataTransformer\IdToEngineTypeTransformer
+        arguments: []
+        public: true
+
+    app.provider.form.client_car_provider:
+        class:  App\Provider\Form\ClientCarProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension
         arguments: ['%upload_image_directory%']
@@ -70,6 +95,12 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: twig.extension }
+
+    app.form.client_cars_type:
+        class: App\Form\Type\ClientCarsType
+        arguments: ["@app.provider.form.client_car_provider", "@app.form.transformer.id_to_brand", "@app.form.transformer.id_to_model", "@app.form.transformer.id_to_vehicle_type", "@app.form.transformer.id_to_engine_type"]
+        tags:
+            - { name: form.type }
 
 fos_user:
     db_driver: orm

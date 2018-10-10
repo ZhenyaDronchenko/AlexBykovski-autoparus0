@@ -4,8 +4,7 @@ namespace App\Command;
 
 
 use App\Entity\Admin;
-use App\Entity\Buyer;
-use App\Entity\Seller;
+use App\Entity\Client\Client;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -59,15 +58,14 @@ class CreateUserCommand extends ContainerAwareCommand
     }
     /**
      * @param $role
-     * @return Admin|Seller|Buyer
+     * @return Admin|Client
      * @throws \Exception
      */
     private function createUser($role)
     {
         switch ($role) {
             case User::ROLE_ADMIN: return new Admin();
-            case User::ROLE_SELLER: return new Seller();
-            case User::ROLE_BUYER: return new Buyer();
+            case User::ROLE_CLIENT: return new Client();
             default: throw new \Exception('Unsupported role '. $role);
         }
     }

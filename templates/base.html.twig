@@ -52,7 +52,7 @@
                                     {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
                                         <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
                                     {% else %}
-                                        <li><a href="">{{ userName }}</a></li>
+                                        <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
                                     {% endif %}
                                 {% else %}
                                     <li><a href="{{ path("login") }}">Вход</a></li>
@@ -102,7 +102,10 @@
                         <li><a href=""><img src="/img/search.png" alt="icon"></a></li>
                         <li><a href="{{ path("show_brand_catalog_choice_brand") }}"><img src="/img/avto.png" alt="icon"></a></li>
                         <li><a href="{{ path("show_city_catalog_choice_city") }}"><img src="/img/shop.png" alt="icon"></a></li>
-                        <li><a href="{{ app.user ? "" : "" }}"><img class="img-last" src="/img/component.png" alt="icon"></a></li>
+                        <li>
+                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
+                            <a href="{{ path(personLink) }}"><img class="img-last" src="/img/component.png" alt="icon"></a>
+                        </li>
                     </ul>
                 </nav>
                 <div class="wrapper-list">

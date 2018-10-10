@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/style-new.css'>
+{% endblock %}
+
 {% block body %}
     <main class="container"  ng-init="showAll = false;">
         <section class="marka">

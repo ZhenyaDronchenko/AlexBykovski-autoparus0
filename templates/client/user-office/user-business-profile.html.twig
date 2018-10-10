@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/user-business-profile.css'>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="choice">
+            <div class="choice-block container">
+                <a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a>
+                <a class="icon" href="#"><i class="fa fa-suitcase"></i>  Business</a>
+                <a class="icon" href="#"><i class="fa fa-camera"></i>  Фотогалерея </a>
+                <a class="icon icon-plus" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="container">
+            {% include('/client/user-office/base-profile/business-profile.html.twig') with {"form" : form, 'isValid' : isValid, 'direct' : true} %}
+        </div>
+    </main>
+{% endblock %}
