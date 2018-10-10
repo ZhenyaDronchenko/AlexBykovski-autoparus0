@@ -6,6 +6,7 @@
 
 {% block body %}
     <section class="profil">
+        {% set isSeller = app.user.isSeller() %}
         <div class="container">
             <div class="heading">
                 <div class="user-info">
@@ -19,19 +20,29 @@
 
                 <div class="user-about">
                     <a href="{{ path("show_user_base_profile") }}" class="button">Редактировать профиль <i class="fa fa-check" aria-hidden="true"></i></a>
-                    {#<a class="user-avto">Toyota Avensis 2002</a>#}
-                    {#<a class="user-avto">Yamaha vx 1900 2009</a>#}
-                    {#<a class="user-avto">Honda CRF 450 2014</a>#}
+                    {% for car in app.user.cars %}
+                        <a class="user-avto">{{ car.brand.name }} {{ car.model.name }} {{ car.year ? car.year : '' }}</a>
+                    {% endfor %}
 
                 </div>
 
                 <div class="user-edit">
-                    {#<a class="user-company">ООО "Суперавтозапчасть"</a>#}
-                    <a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ app.user.isBuyer() ? "Создать" : "Редактировать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
+                    {% if isSeller %}
+                        <a class="user-company">{{ app.user.sellerData.sellerCompany.companyName }}</a>
+                    {% endif %}
+                    <a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
                     <div class="btn-block">
-                        {#<a class="user-btn">Товары</a>#}
-                        {#<a class="user-btn">Услуги</a>#}
-                        {#<a class="user-btn">Статьи</a>#}
+                        {% if isSeller %}
+                            {% if app.user.sellerData.sellerCompany.isSeller %}
+                                <a class="user-btn">Товары</a>
+                            {% endif %}
+                            {% if app.user.sellerData.sellerCompany.isService %}
+                                <a class="user-btn">Услуги</a>
+                            {% endif %}
+                            {% if app.user.sellerData.sellerCompany.isNews %}
+                                <a class="user-btn">Статьи</a>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

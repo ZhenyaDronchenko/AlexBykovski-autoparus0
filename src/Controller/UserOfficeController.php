@@ -9,6 +9,7 @@ use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
 use App\Entity\EngineType;
 use App\Entity\Model;
+use App\Entity\User;
 use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
 use App\Form\Type\SellerCompanyType;
@@ -68,13 +69,17 @@ class UserOfficeController extends Controller
 
     /**
      * @Route("/business-profile", name="show_user_business_office")
-     *
-     * @Security("has_role('ROLE_SELLER')")
      */
     public function editUserBusinessOfficeAction(Request $request)
     {
-        return $this->render('client/user-office/user-business-profile.html.twig', [
-        ]);
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        if(!$client->hasRole(User::ROLE_SELLER)){
+            return $this->redirectToRoute("show_user_office");
+        }
+
+        return $this->render('client/user-office/user-business-profile.html.twig', $this->handleBusinessForm($request));
     }
 
     /**

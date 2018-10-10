@@ -1,4 +1,7 @@
-<form id="user-business-profile" class="business-block" style="display: block;" method="post" novalidate enctype="multipart/form-data">
+<form id="user-business-profile" class="business-block" {{ direct is defined and direct ? "action=" ~ path("show_user_business_office") ~ "" : '' }} style="display: block;" method="post" novalidate enctype="multipart/form-data">
+    {% if direct is defined and direct %}
+        <p class="profil-title">Редактировать бизнес профиль</p>
+    {% endif %}
     {{ form_widget(form._token) }}
     <div class="business-wrapper">
         <ul class="business-option">
