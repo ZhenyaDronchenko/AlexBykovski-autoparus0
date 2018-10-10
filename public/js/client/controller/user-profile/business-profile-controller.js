@@ -1,7 +1,7 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('BusinessProfileCtrl', ['$scope', '$http', function($scope, $http) {
+    autoparusApp.controller('BusinessProfileCtrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
         let formSelector = null;
         let url = null;
 
@@ -49,7 +49,7 @@
 
             request(url, data, function (response) {
                 if(response.data.success){
-
+                    return $window.location.href = response.data.redirect;
                 }
 
                 $("#form-business-profile-container").html(response.data);

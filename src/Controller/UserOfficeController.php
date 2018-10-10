@@ -7,10 +7,8 @@ use App\Entity\Client\Client;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
-use App\Entity\Client\UserCar;
 use App\Entity\EngineType;
 use App\Entity\Model;
-use App\Entity\User;
 use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
 use App\Form\Type\SellerCompanyType;
@@ -158,6 +156,13 @@ class UserOfficeController extends Controller
     public function editBusinessProfileAction(Request $request)
     {
         $parameters = $this->handleBusinessForm($request);
+
+        if($parameters["isValid"]){
+            return new JsonResponse([
+                "success" => true,
+                "redirect" => $this->generateUrl("show_user_office")
+            ]);
+        }
 
         return $this->render('client/user-office/base-profile/business-profile.html.twig', $parameters);
     }
