@@ -30,20 +30,6 @@ class SellerData
     private $sellerCompany;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", options={"default" : false})
-     */
-    private $isServiceStation = 0;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", options={"default" : false})
-     */
-    private $isNews = 0;
-
-    /**
      * @var Client
      *
      * One SellerData has One Client.
@@ -53,10 +39,12 @@ class SellerData
     private $client;
 
     /**
+     * @param Client $client
      * SellerData constructor.
      */
-    public function __construct()
+    public function __construct($client)
     {
+        $this->client = $client;
         $this->client->addRole(User::ROLE_SELLER);
         $this->sellerCompany = new SellerCompany();
     }
@@ -91,38 +79,6 @@ class SellerData
     public function setSellerCompany(?SellerCompany $sellerCompany): void
     {
         $this->sellerCompany = $sellerCompany;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isServiceStation(): bool
-    {
-        return $this->isServiceStation;
-    }
-
-    /**
-     * @param bool $isServiceStation
-     */
-    public function setIsServiceStation(bool $isServiceStation): void
-    {
-        $this->isServiceStation = $isServiceStation;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNews(): bool
-    {
-        return $this->isNews;
-    }
-
-    /**
-     * @param bool $isNews
-     */
-    public function setIsNews(bool $isNews): void
-    {
-        $this->isNews = $isNews;
     }
 
     /**

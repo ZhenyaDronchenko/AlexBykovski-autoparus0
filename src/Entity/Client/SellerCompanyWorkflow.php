@@ -4,6 +4,7 @@ namespace App\Entity\Client;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -21,6 +22,11 @@ class SellerCompanyWorkflow
     private $id;
 
     /**
+     * @Assert\Expression(
+     *     "this.isMondayWork() or this.isTuesdayWork() or this.isWednesdayWork() or this.isThursdayWork() or this.isFridayWork() or this.isSaturdayWork() or this.isSundayWork()",
+     *     message="Выберите хотя бы один рабочий день"
+     * )
+     *
      * @var boolean
      *
      * @ORM\Column(type="boolean")
@@ -70,34 +76,59 @@ class SellerCompanyWorkflow
     private $isSundayWork = 0;
 
     /**
+     * @Assert\Expression(
+     *     "((this.isMondayWork() or this.isTuesdayWork() or this.isWednesdayWork() or this.isThursdayWork() or this.isFridayWork()) and this.getWeekDaysStartAt()) or (!this.isMondayWork() and !this.isTuesdayWork() and !this.isWednesdayWork() and !this.isThursdayWork() and !this.isFridayWork())",
+     *     message="Заполните начало рабочего времени для будних дней"
+     * )
+     *
      * @var DateTime|null
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $weekDaysStartAt;
 
     /**
+     * @Assert\Expression(
+     *     "((this.isMondayWork() or this.isTuesdayWork() or this.isWednesdayWork() or this.isThursdayWork() or this.isFridayWork()) and this.getWeekDaysEndAt()) or (!this.isMondayWork() and !this.isTuesdayWork() and !this.isWednesdayWork() and !this.isThursdayWork() and !this.isFridayWork())",
+     *     message="Заполните конец рабочего времени для будних дней"
+     * )
+     *
      * @var DateTime|null
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $weekDaysEndAt;
 
     /**
+     * @Assert\Expression(
+     *     "((this.isSaturdayWork() or this.isSundayWork()) and this.getWeekendStartAt()) or (!this.isSaturdayWork() and !this.isSundayWork())",
+     *     message="Заполните начало рабочего времени для выходных дней"
+     * )
+     *
      * @var DateTime|null
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $weekendStartAt;
 
     /**
+     * @Assert\Expression(
+     *     "((this.isSaturdayWork() or this.isSundayWork()) and this.getWeekendStartAt()) or (!this.isSaturdayWork() and !this.isSundayWork())",
+     *     message="Заполните конец рабочего времени для выходных дней"
+     * )
+     *
      * @var DateTime|null
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $weekendEndAt;
 
     /**
+     * @Assert\Expression(
+     *     "this.isCash() or this.isCashless() or this.isCreditCard()",
+     *     message="Выберите хотя бы один вариант"
+     * )
+     *
      * @var boolean
      *
      * @ORM\Column(type="boolean")

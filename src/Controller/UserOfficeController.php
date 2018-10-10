@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Client\SellerCompany;
+use App\Entity\Client\SellerCompanyWorkflow;
+use App\Entity\Client\SellerData;
 use App\Entity\Client\UserCar;
 use App\Entity\EngineType;
 use App\Entity\Model;
 use App\Entity\User;
 use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
+use App\Form\Type\SellerCompanyType;
 use App\Provider\Form\ClientCarProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,12 +48,23 @@ class UserOfficeController extends Controller
         /** @var Client $client */
         $client = $this->getUser();
 
+        if($client->isSeller()){
+            $sellerCompany = $client->getSellerData()->getSellerCompany();
+        }
+        else{
+            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
+            $sellerCompany = new SellerCompany();
+            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
+        }
+
         $formPersonalData = $this->createForm(PersonalDataType::class, $client);
         $formCars = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
+        $formBusiness = $this->createForm(SellerCompanyType::class, $sellerCompany);
 
         return $this->render('client/user-office/user-base-profile.html.twig', [
             "formPersonalData" => $formPersonalData->createView(),
             "formCars" => $formCars->createView(),
+            "formBusiness" => $formBusiness->createView(),
         ]);
     }
 
@@ -138,6 +153,16 @@ class UserOfficeController extends Controller
     }
 
     /**
+     * @Route("/edit-business-profile", name="edit_user_business_profile")
+     */
+    public function editBusinessProfileAction(Request $request)
+    {
+        $parameters = $this->handleBusinessForm($request);
+
+        return $this->render('client/user-office/base-profile/business-profile.html.twig', $parameters);
+    }
+
+    /**
      * @Route("/get-models-by-brand", name="get_models_by_brand")
      */
     public function getModelsByBrandAction(Request $request, ClientCarProvider $provider){
@@ -192,5 +217,50 @@ class UserOfficeController extends Controller
         $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeId);
 
         return new JsonResponse($provider->getCapacities($model, $engineType));
+    }
+
+    private function handleBusinessForm(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        if($client->isSeller()){
+            $sellerCompany = $client->getSellerData()->getSellerCompany();
+        }
+        else{
+            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
+            $sellerCompany = new SellerCompany();
+            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
+        }
+
+        $form = $this->createForm(SellerCompanyType::class, $sellerCompany);
+
+        $form->handleRequest($request);
+
+        $isValid = false;
+
+        if($form->isSubmitted() && $form->isValid()){
+            $isValid = true;
+
+            if(!$client->isSeller()){
+                $sellerData = new SellerData($client);
+                $sellerData->setClient($client);
+                $sellerData->setSellerCompany($sellerCompany);
+                $client->setSellerData($sellerData);
+
+                $em->persist($sellerCompany);
+                $em->persist($sellerData);
+                $em->persist($sellerCompany->getWorkflow());
+            }
+
+            $em->flush();
+        }
+
+        return [
+            "form" => $form->createView(),
+            "isValid" => $isValid
+        ];
     }
 }

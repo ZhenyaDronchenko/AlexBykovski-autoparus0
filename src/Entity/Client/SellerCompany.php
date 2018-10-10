@@ -3,6 +3,7 @@
 namespace App\Entity\Client;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -20,27 +21,32 @@ class SellerCompany
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $unp;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $companyName;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     private $address;
 
     /**
+     * @Assert\Expression(
+     *     "this.isSeller() or this.isService() or this.isNews()",
+     *     message="Выберите хотя бы одно значение"
+     * )
+     *
      * @var boolean
      *
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -62,6 +68,8 @@ class SellerCompany
     private $isNews = 0;
 
     /**
+     * @Assert\Valid()
+     *
      * @var SellerCompanyWorkflow
      *
      * One SellerCompany has One SellerCompanyWorkflow.
@@ -132,5 +140,69 @@ class SellerCompany
     public function setWorkflow(SellerCompanyWorkflow $workflow): void
     {
         $this->workflow = $workflow;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param null|string $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSeller(): bool
+    {
+        return $this->isSeller;
+    }
+
+    /**
+     * @param bool $isSeller
+     */
+    public function setIsSeller(bool $isSeller): void
+    {
+        $this->isSeller = $isSeller;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isService(): bool
+    {
+        return $this->isService;
+    }
+
+    /**
+     * @param bool $isService
+     */
+    public function setIsService(bool $isService): void
+    {
+        $this->isService = $isService;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNews(): bool
+    {
+        return $this->isNews;
+    }
+
+    /**
+     * @param bool $isNews
+     */
+    public function setIsNews(bool $isNews): void
+    {
+        $this->isNews = $isNews;
     }
 }

@@ -373,15 +373,16 @@ function citiesHideShow1() {
 }
 
  $('document').ready(function(){
+     let baseLabel = $('.profil-business').html();
+
      $('.profil-business').click(function(){
-         var value = $(this).html();
-         if(value == 'Создать бизнес профиль'){
+         $
+         if($(this).html() === baseLabel){
              $(this).html('Свернуть бизнес профиль');
-             $('.business-block').show();
+             $('#form-business-profile-container').show();
          } else {
-             $(this).html('Создать бизнес профиль');
-             $('.business-block').hide();
-             return;
+             $(this).html(baseLabel);
+             $('#form-business-profile-container').hide();
          }
      });
  });
