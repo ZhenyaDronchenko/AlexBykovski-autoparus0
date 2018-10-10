@@ -116,7 +116,6 @@ class UserOfficeController extends Controller
      */
     public function editCarsAction(Request $request)
     {
-        ini_set('xdebug.var_display_max_depth', '10');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Client $client */
