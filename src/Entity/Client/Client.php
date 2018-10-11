@@ -58,6 +58,21 @@ class Client extends User
      */
     private $isHelper = 0;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @var Gallery
+     *
+     * One Client has One Gallery.
+     * @ORM\OneToOne(targetEntity="Gallery", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $gallery;
+
     public function __construct()
     {
         parent::__construct();
@@ -65,6 +80,7 @@ class Client extends User
         $this->addRole(User::ROLE_CLIENT);
         $this->cars = new ArrayCollection();
         $this->buyerData = new BuyerData($this);
+        $this->gallery = new Gallery($this);
     }
 
     /**
@@ -175,5 +191,37 @@ class Client extends User
     public function removeCar(UserCar $car)
     {
         $this->cars->removeElement($car);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param null|string $photo
+     */
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return Gallery
+     */
+    public function getGallery(): Gallery
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * @param Gallery $gallery
+     */
+    public function setGallery(Gallery $gallery): void
+    {
+        $this->gallery = $gallery;
     }
 }
