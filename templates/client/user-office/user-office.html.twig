@@ -21,7 +21,7 @@
                 <div class="user-about">
                     <a href="{{ path("show_user_base_profile") }}" class="button">Редактировать профиль <i class="fa fa-check" aria-hidden="true"></i></a>
                     {% for car in app.user.cars %}
-                        <a class="user-avto">{{ car.brand.name }} {{ car.model.name }} {{ car.year ? car.year : '' }}</a>
+                        <a class="user-avto">{{ car.brand.name }} {{ car.model ? car.model.name : '' }} {{ car.year ? car.year : '' }}</a>
                     {% endfor %}
 
                 </div>
