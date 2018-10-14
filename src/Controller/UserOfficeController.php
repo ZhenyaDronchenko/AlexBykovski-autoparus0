@@ -14,6 +14,7 @@ use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
 use App\Form\Type\SellerCompanyType;
 use App\Provider\Form\ClientCarProvider;
+use App\Upload\FileUpload;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -218,7 +219,8 @@ class UserOfficeController extends Controller
     /**
      * @Route("/get-capacities-by-model-engine-type", name="get_capacities_by_model_engine_type")
      */
-    public function getCapacitiesByModelEngineTypeAction(Request $request, ClientCarProvider $provider){
+    public function getCapacitiesByModelEngineTypeAction(Request $request, ClientCarProvider $provider)
+    {
         $modelId = $request->query->get("model");
         $engineTypeId = $request->query->get("engine_type");
 
@@ -226,6 +228,32 @@ class UserOfficeController extends Controller
         $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeId);
 
         return new JsonResponse($provider->getCapacities($model, $engineType));
+    }
+
+    /**
+     * @Route("/upload-user-photo-ajax", name="get_capacities_by_model_engine_type")
+     */
+    public function uploadUserPhotoAjaxAction(Request $request)
+    {
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+
+        $file = $request->files->get("file");
+
+        $uploader->setFolder(FileUpload::USER);
+
+        $path = $uploader->upload($file);
+
+        $client->setPhoto($path);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse([
+            "success" => true,
+            "path" => '/images/' . $path,
+        ]);
     }
 
     private function handleBusinessForm(Request $request)

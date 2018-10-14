@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/cropper/dist/cropper.min.css'>
     <link rel='stylesheet' href='/css/user-office/user-office.css'>
 {% endblock %}
 
@@ -10,9 +11,10 @@
         <div class="container">
             <div class="heading">
                 <div class="user-info">
-                    <div class="user-logo">
-                        <img src="{{ image_url("../img/userfoto.jpg") }}" alt="Автолюбители" class="foto-user">
-                        <a href="#" class="user-link"> + </a>
+                    <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" action-method="">
+                        <img id="user-photo" src="{{ app.user.photo ? image_url(app.user.photo) : image_url("../img/userfoto.jpg") }}" alt="Автолюбители" class="foto-user">
+                        <a href="" id="user-photo-link" class="user-link"> + </a>
+                        <input id="user-photo-input" type="file" style="display: none">
                     </div>
                     <a class="user-name">{{ app.user.name }}</a>
 
@@ -115,4 +117,15 @@
             </div>
         </div>
     </section>
+
+    <div id="dialog-cropper-container" title="Корректировка изображения">
+        <div id="image-preview-container">
+            <img src="" style="display: none">
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/cropper/dist/cropper.min.js'></script>
+    <script src='/js/client/directive/user-upload-link.js'></script>
 {% endblock %}
