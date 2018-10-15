@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.getImage() %}
+        <span class="label label-success">есть</span>
+    {% else %}
+        <span class="label label-danger">нет</span>
+    {% endif %}
+{% endblock %}

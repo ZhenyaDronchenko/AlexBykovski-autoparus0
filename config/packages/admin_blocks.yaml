@@ -80,3 +80,10 @@ services:
         tags:
             - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Пользователи, on_top: true }
         public: true
+
+    admin.default_image.default_image:
+        class: App\Admin\DefaultImageAdmin
+        arguments: [~, App\Entity\DefaultImage, ~, "@app.file_upload", '%upload_image_directory%']
+        tags:
+            - { name: sonata.admin, group: Каталог изображений, manager_type: orm, label: Каталог изображений, on_top: true}
+        public: true
