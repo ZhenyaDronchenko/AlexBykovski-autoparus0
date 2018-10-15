@@ -14,6 +14,7 @@ class FileUpload
     const SPARE_PART = 'spare_part';
     const TMP = 'tmp';
     const USER = 'user';
+    const DEFAULT_IMAGE = "default";
 
     private static $allowedMimeTypes = array(
         'image/jpeg',
@@ -39,13 +40,19 @@ class FileUpload
         return $this->folder ?: $folder = self::GENERAL;
     }
 
-    public function upload(UploadedFile $file, $blob = null)
+    public function upload(UploadedFile $file, $blob = null, $path = null)
     {
         if (!in_array($file->getClientMimeType(), self::$allowedMimeTypes)) {
             throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
         }
 
-        $filename = sprintf('%s/%s/%s/%s.%s', $this->getFolder(), date('Y'), date('m'), uniqid(), $file->getClientOriginalExtension());
+        if(is_null($path)){
+            $filename = sprintf('%s/%s/%s/%s.%s', $this->getFolder(), date('Y'), date('m'), uniqid(), $file->getClientOriginalExtension());
+        }
+        else{
+            $filename = $path;
+        }
+
         $adapter = $this->filesystem->getAdapter();
 
         if($blob){

@@ -28,13 +28,13 @@
 
         <div class='showMoreBrands' ng-hide="showAll">
             {% for brand in popularBrands%}
-                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo) }}"/>
+                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo, "brand") }}"/>
             {% endfor %}
         </div>
 
         <div class='showMoreBrands' ng-show="showAll">
             {% for brand in allBrands%}
-                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo) }}"/>
+                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo, "brand") }}"/>
             {% endfor %}
         </div>
 

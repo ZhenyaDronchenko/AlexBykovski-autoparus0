@@ -86,7 +86,7 @@ services:
 
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension
-        arguments: ['%upload_image_directory%']
+        arguments: ['%upload_image_directory%', '@doctrine.orm.entity_manager']
         tags:
             - { name: twig.extension }
 

@@ -12,7 +12,7 @@
             <div class="heading">
                 <div class="user-info">
                     <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" action-method="">
-                        <img id="user-photo" src="{{ app.user.photo ? image_url(app.user.photo) : image_url("../img/userfoto.jpg") }}" alt="Автолюбители" class="foto-user">
+                        <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
                         <a href="" id="user-photo-link" class="user-link"> + </a>
                         <input id="user-photo-input" type="file" style="display: none">
                     </div>
