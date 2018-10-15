@@ -28,7 +28,7 @@
                 {% for model in allModels %}
                     <li><a class="mod-link mod-link-line" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
-                            <img src="{{ image_url(model.logo) }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
+                            <img src="{{ image_url(model.logo, "model") }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                         </a>
                     </li>
                 {% endfor %}
@@ -38,7 +38,7 @@
                     <li>
                         <a class="mod-link mod-link-line" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
-                            <img src="{{ image_url(model.logo) }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
+                            <img src="{{ image_url(model.logo, "model") }}" alt="{{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                         </a>
                     </li>
                 {% endfor %}
