@@ -19,8 +19,6 @@ class DefaultImageAdmin extends AbstractAdmin
 
     private $helper;
 
-    private $imagesRoot;
-
     public function __construct(
         string $code,
         string $class,
@@ -31,7 +29,6 @@ class DefaultImageAdmin extends AbstractAdmin
     {
         parent::__construct($code, $class, $baseControllerName);
         $this->uploader = $uploader;
-        $this->imagesRoot = $_SERVER["DOCUMENT_ROOT"] . $uploadDirectory;
 
         $this->uploader->setFolder(FileUpload::DEFAULT_IMAGE);
         $this->helper = new AdminHelper($uploadDirectory);
@@ -85,11 +82,6 @@ class DefaultImageAdmin extends AbstractAdmin
 
         if($image){
             $uploadPath = $defaultImage->getImage() ?: null;
-
-            if(file_exists($this->imagesRoot . $uploadPath)){
-                unlink($this->imagesRoot . $uploadPath);
-            }
-
 
             $path = $this->uploader->upload($image, null, $uploadPath);
 
