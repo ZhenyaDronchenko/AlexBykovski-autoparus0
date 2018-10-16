@@ -41,6 +41,13 @@ class DefaultImage
     private $image;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $imagePath;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -86,5 +93,21 @@ class DefaultImage
     public function setImage(?string $image): void
     {
         $this->image = $image;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param null|string $imagePath
+     */
+    public function setImagePath(?string $imagePath): void
+    {
+        $this->imagePath = $imagePath;
     }
 }
