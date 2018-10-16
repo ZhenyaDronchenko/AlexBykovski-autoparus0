@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Admin;
+namespace App\Admin\Phone;
 
-use App\Entity\SparePart;
-use App\Form\Type\SparePartConditionFormType;
+use App\Entity\Phone\PhoneSparePart;
 use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -18,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Routing\RouterInterface;
 
-class SparePartAdmin extends AbstractAdmin
+class PhoneSparePartAdmin extends AbstractAdmin
 {
     protected $maxPerPage = 192;
     protected $pagerType = "simple";
@@ -43,7 +42,7 @@ class SparePartAdmin extends AbstractAdmin
         parent::__construct($code, $class, $baseControllerName);
         $this->uploader = $uploader;
 
-        $this->uploader->setFolder(FileUpload::SPARE_PART);
+        $this->uploader->setFolder(FileUpload::PHONE_SPARE_PART);
         $this->helper = new AdminHelper($uploadDirectory);
 
         $this->router = $router;
@@ -52,7 +51,7 @@ class SparePartAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $isEditAction = $this->isCurrentRoute('edit');
-        /** @var SparePart $sparePart */
+        /** @var PhoneSparePart $sparePart */
         $sparePart = $this->getSubject();
         $helpLogo = $isEditAction && $sparePart->getLogo() ? $this->helper->getImagesHelp([$sparePart->getLogo()]) : "";
 
@@ -60,39 +59,34 @@ class SparePartAdmin extends AbstractAdmin
             $helpLogo .= $this->addLinkRemoveLogo($sparePart);
         }
 
-        $formMapper->add('name', TextType::class, ['label' => 'Название запчасти [ZAP]']);
+        $formMapper->add('name', TextType::class, ['label' => 'Название запчасти [TELZAP]']);
         $formMapper->add('url', TextType::class, [
-            'label' => 'URL запчасти [URLZAP]',
+            'label' => 'URL запчасти [URLTELZAP]',
             'attr' => [
                 'style' => 'text-transform: lowercase'
             ]
         ]);
-        $formMapper->add('nameAccusative', TextType::class, ['label' => 'Запчасть в падеже (кого, что) [VINZAP]']);
-        $formMapper->add('nameInstrumental', TextType::class, ['label' => 'Запчасть в падеже (кем, чем) [TVORZAP]']);
-        $formMapper->add('nameGenitive', TextType::class, ['label' => 'Запчасть в падеже (кого, чего) [RODZAP]']);
-        $formMapper->add('namePlural', TextType::class, ['label' => 'Запчасть во множ. числе [ZAPS]']);
-        $formMapper->add('alternativeName1', TextType::class, ['label' => 'Альтернативное название запчасти 1 [ZAP1]']);
-        $formMapper->add('alternativeName2', TextType::class, ['label' => 'Альтернативное название запчасти 2 [ZAP2]']);
-        $formMapper->add('alternativeName3', TextType::class, ['label' => 'Альтернативное название запчасти 3 [ZAP3]']);
-        $formMapper->add('alternativeName4', TextType::class, ['label' => 'Альтернативное название запчасти 4 [ZAP4]']);
-        $formMapper->add('alternativeName5', TextType::class, ['label' => 'Альтернативное название запчасти 5 [ZAP5]']);
-        $formMapper->add('popular', CheckboxType::class, ['label' => 'Популярная запчасть', 'required' => false]);
-        $formMapper->add('conditions', CollectionType::class, [
-            'label' => 'Состояния запчасти [ZAP_CONDITION]',
-            'entry_type' => SparePartConditionFormType::class,
-            'required' => false,
-            'attr' => [
-                "class" => "spare-part-conditions-container"
-            ],
-            'allow_add' => false
-        ]);
+        $formMapper->add('nameAccusative', TextType::class, ['label' => 'Запчасть в падеже (кого, что) [VINTELZAP]']);
+        $formMapper->add('nameGenitive', TextType::class, ['label' => 'Запчасть в падеже (кого, чего) [RODTELZAP]']);
+        $formMapper->add('alternativeName1', TextType::class, ['label' => 'Альтернативное название запчасти 1 [TELZAP1]']);
+        $formMapper->add('alternativeName2', TextType::class, ['label' => 'Альтернативное название запчасти 2 [TELZAP2]']);
+        $formMapper->add('popular', CheckboxType::class, ['label' => 'Популярная', 'required' => false]);
+
         $formMapper->add(
             'imageFile',
             FileType::class,
             ['label' => 'Логотип', 'required' => !$sparePart->getLogo(), 'mapped' => false],
             ["help" => $helpLogo]);
 
-        $formMapper->add('text', CKEditorType::class, ['label' => '[TEXTZAP]']);
+        $formMapper->add('malfunction1', TextType::class, ['label' => 'Неисправность [TELMALFUNCTION1]']);
+        $formMapper->add('malfunction2', TextType::class, ['label' => 'Неисправность [TELMALFUNCTION2]']);
+        $formMapper->add('text1', CKEditorType::class, ['label' => '[TEXTTELZAP1]']);
+        $formMapper->add('text2', CKEditorType::class, ['label' => '[TEXTTELZAP2]']);
+        $formMapper->add('text3', CKEditorType::class, ['label' => '[TEXTTELZAP3]']);
+
+        $formMapper->add('work', TextType::class, ['label' => 'Работа, связанная с запчастью [TELZAPRAB]']);
+        $formMapper->add('actionWork', TextType::class, ['label' => 'Сделать работу с запчастью [TELZAPRABSDEL]']);
+
         $formMapper->add('active', CheckboxType::class, ['label' => 'Активная', 'required' => false]);
     }
 
@@ -101,9 +95,6 @@ class SparePartAdmin extends AbstractAdmin
         $listMapper->addIdentifier('name', 'text', ['label' => 'name', 'sortable' => false]);
         $listMapper->addIdentifier('popular', 'boolean', ['label' => 'Популяраня', 'sortable' => false]);
         $listMapper->addIdentifier('active', 'boolean', ['label' => 'Активная', 'sortable' => false]);
-        $listMapper->addIdentifier('isHasUsed', 'boolean', ['label' => 'БУ', 'sortable' => false]);
-        $listMapper->addIdentifier('isHasNew', 'boolean', ['label' => 'Новая', 'sortable' => false]);
-        $listMapper->addIdentifier('isHasRebuilt', 'boolean', ['label' => 'Восстановленная', 'sortable' => false]);
     }
 
     public function prePersist($sparePart)
@@ -125,7 +116,7 @@ class SparePartAdmin extends AbstractAdmin
         return $query;
     }
 
-    protected function uploadFiles(Form $form, SparePart $sparePart){
+    protected function uploadFiles(Form $form, PhoneSparePart $sparePart){
         $image = $form->get('imageFile')->getData();
 
         if($image){
@@ -135,9 +126,9 @@ class SparePartAdmin extends AbstractAdmin
         }
     }
 
-    protected function addLinkRemoveLogo(SparePart $sparePart)
+    protected function addLinkRemoveLogo(PhoneSparePart $sparePart)
     {
-        $link = $this->router->generate("admin_remove_spare_part_logo", ["id" => $sparePart->getId()]);
+        $link = $this->router->generate("admin_remove_phone_spare_part_logo", ["id" => $sparePart->getId()]);
 
         return "<a href='" . $link . "'>Удалить лого</a>";
     }

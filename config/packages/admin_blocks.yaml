@@ -2,6 +2,7 @@ imports:
     - { resource: ./admin_blocks/city_catalog.yaml }
     - { resource: ./admin_blocks/brand_catalog.yaml }
     - { resource: ./admin_blocks/spare_part_catalog.yaml }
+    - { resource: ./admin_blocks/phone/general.yaml }
 
 services:
     admin.general.main_page:
@@ -22,7 +23,7 @@ services:
         class: App\Admin\BrandAdmin
         arguments: [~, App\Entity\Brand, 'App\Admin\Controller\BrandAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
         tags:
-            - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Марка }
+            - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Марка, on_top: true }
         public: true
         calls:
             - [ addChild, ['@admin.brand.models', 'brand']]
@@ -41,7 +42,7 @@ services:
         class: App\Admin\SparePartAdmin
         arguments: [~, App\Entity\SparePart, 'App\Admin\Controller\SparePartAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
         tags:
-            - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть, on_top: true, class: "RRRRRRRRR" }
+            - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть, on_top: true }
         public: true
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
