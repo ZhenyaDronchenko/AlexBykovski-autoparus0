@@ -81,11 +81,11 @@ class DefaultImageAdmin extends AbstractAdmin
         $image = $form->get('imageFile')->getData();
 
         if($image){
-            $uploadPath = $defaultImage->getImage() ?: null;
+            $uploadPath = $defaultImage->getImagePath() ?: null;
 
             $path = $this->uploader->upload($image, null, $uploadPath);
 
-            $defaultImage->setImage($path);
+            $defaultImage->setImage($path . "?" . rand(1, 100));
         }
     }
 
