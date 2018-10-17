@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Model;
+use App\Entity\Phone\PhoneBrand;
+use App\Entity\Phone\PhoneModel;
+use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -107,6 +110,60 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $city->setLogo(null);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin-remove-phone-brand-logo/{id}", name="admin_remove_phone_brand_logo")
+     *
+     * @ParamConverter("brand", class="App\Entity\Phone\PhoneBrand", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removePhoneBrandLogoAction(Request $request, PhoneBrand $brand)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $brand->setLogo(null);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin-remove-phone-model-logo/{id}", name="admin_remove_phone_model_logo")
+     *
+     * @ParamConverter("model", class="App\Entity\Phone\PhoneModel", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removePhoneModelLogoAction(Request $request, PhoneModel $model)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $model->setLogo(null);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin-remove-phone-spare-part-logo/{id}", name="admin_remove_phone_spare_part_logo")
+     *
+     * @ParamConverter("sparePart", class="App\Entity\Phone\PhoneSparePart", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removePhoneSparePartLogoAction(Request $request, PhoneSparePart $sparePart)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $sparePart->setLogo(null);
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));

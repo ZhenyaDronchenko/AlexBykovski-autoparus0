@@ -1,0 +1,28 @@
+services:
+    admin.phone.general.phone_brand:
+        class: App\Admin\Phone\PhoneBrandAdmin
+        arguments: [~, App\Entity\Phone\PhoneBrand, 'App\Admin\Controller\Phone\PhoneBrandAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
+        tags:
+            - { name: sonata.admin, group: Телефон: Марка/Модели, manager_type: orm, label: Марка, on_top: true }
+        public: true
+        calls:
+            - [ addChild, ['@admin.phone.general.phone_model', 'brand']]
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
+
+    admin.phone.general.phone_model:
+        class: App\Admin\Phone\PhoneModelAdmin
+        arguments: [~, App\Entity\Phone\PhoneModel, 'App\Admin\Controller\Phone\PhoneModelAdminController', "@app.file_upload", '%upload_image_directory%', '@router', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Телефон: Марка/Модели, manager_type: orm, label: Модель, show_in_dashboard: false }
+        public: true
+        calls:
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
+
+    admin.phone.general.phone_spare_part:
+        class: App\Admin\Phone\PhoneSparePartAdmin
+        arguments: [~, App\Entity\Phone\PhoneSparePart, 'App\Admin\Controller\Phone\PhoneSparePartAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
+        tags:
+            - { name: sonata.admin, group: Телефон: Запчасть, manager_type: orm, label: Запчасть, on_top: true }
+        public: true
+        calls:
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
