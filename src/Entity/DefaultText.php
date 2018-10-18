@@ -2,21 +2,15 @@
 
 namespace App\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="default_image")
+ * @ORM\Table(name="default_text")
  */
-class DefaultImage
+class DefaultText
 {
-    static $defaultImages = [
-        "brand" => 1,
-        "model" => 2,
-        "site_logo_50*50" => 3,
-        "site_logo_500*500" => 4,
-        "user" => 5,
-    ];
     /**
      * @var integer
      *
@@ -38,14 +32,14 @@ class DefaultImage
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $image;
+    private $headline;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $imagePath;
+    private $text;
 
     /**
      * @return int
@@ -82,32 +76,32 @@ class DefaultImage
     /**
      * @return null|string
      */
-    public function getImage(): ?string
+    public function getHeadline(): ?string
     {
-        return $this->image;
+        return $this->headline;
     }
 
     /**
-     * @param null|string $image
+     * @param null|string $headline
      */
-    public function setImage(?string $image): void
+    public function setHeadline(?string $headline): void
     {
-        $this->image = $image;
+        $this->headline = $headline;
     }
 
     /**
      * @return null|string
      */
-    public function getImagePath(): ?string
+    public function getText(): ?string
     {
-        return $this->imagePath;
+        return $this->text;
     }
 
     /**
-     * @param null|string $imagePath
+     * @param null|string $text
      */
-    public function setImagePath(?string $imagePath): void
+    public function setText(?string $text): void
     {
-        $this->imagePath = $imagePath;
+        $this->text = $text;
     }
 }

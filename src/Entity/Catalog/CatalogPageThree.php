@@ -1,22 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Catalog;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="default_image")
- */
-class DefaultImage
+abstract class CatalogPageThree
 {
-    static $defaultImages = [
-        "brand" => 1,
-        "model" => 2,
-        "site_logo_50*50" => 3,
-        "site_logo_500*500" => 4,
-        "user" => 5,
-    ];
     /**
      * @var integer
      *
@@ -24,28 +13,35 @@ class DefaultImage
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
-    private $description;
+    protected $title;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
-    private $image;
+    protected $description;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text")
      */
-    private $imagePath;
+    protected $text1;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text")
+     */
+    protected $text2;
 
     /**
      * @return int
@@ -61,6 +57,22 @@ class DefaultImage
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param null|string $title
+     */
+    public function setTitle(?string $title): void
+    {
+        $this->title = $title;
     }
 
     /**
@@ -82,32 +94,32 @@ class DefaultImage
     /**
      * @return null|string
      */
-    public function getImage(): ?string
+    public function getText1(): ?string
     {
-        return $this->image;
+        return $this->text1;
     }
 
     /**
-     * @param null|string $image
+     * @param null|string $text1
      */
-    public function setImage(?string $image): void
+    public function setText1(?string $text1): void
     {
-        $this->image = $image;
+        $this->text1 = $text1;
     }
 
     /**
      * @return null|string
      */
-    public function getImagePath(): ?string
+    public function getText2(): ?string
     {
-        return $this->imagePath;
+        return $this->text2;
     }
 
     /**
-     * @param null|string $imagePath
+     * @param null|string $text2
      */
-    public function setImagePath(?string $imagePath): void
+    public function setText2(?string $text2): void
     {
-        $this->imagePath = $imagePath;
+        $this->text2 = $text2;
     }
 }

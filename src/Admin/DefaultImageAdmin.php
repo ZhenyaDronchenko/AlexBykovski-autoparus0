@@ -8,6 +8,7 @@ use App\Upload\FileUpload;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
@@ -80,12 +81,17 @@ class DefaultImageAdmin extends AbstractAdmin
         $image = $form->get('imageFile')->getData();
 
         if($image){
-            $uploadPath = $defaultImage->getImage() ?: null;
+            $uploadPath = $defaultImage->getImagePath() ?: null;
 
             $path = $this->uploader->upload($image, null, $uploadPath);
 
-            $defaultImage->setImage($path);
+            $defaultImage->setImage($path . "?" . rand(1, 100));
         }
+    }
+
+    public function configureRoutes(RouteCollection $collection)
+    {
+        $collection->remove('delete');
     }
 
     public function getBatchActions()

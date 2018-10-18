@@ -16,6 +16,10 @@ class FileUpload
     const USER = 'user';
     const DEFAULT_IMAGE = "default";
 
+    const PHONE_BRAND = 'phone_brand';
+    const PHONE_MODEL = 'phone_model';
+    const PHONE_SPARE_PART = 'phone_spare_part';
+
     private static $allowedMimeTypes = array(
         'image/jpeg',
         'image/jpg',
