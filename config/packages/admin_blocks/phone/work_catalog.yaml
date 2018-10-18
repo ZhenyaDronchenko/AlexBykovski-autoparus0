@@ -1,0 +1,40 @@
+services:
+# 1st from Work
+    admin.phone_catalog.work.work:
+        class: App\Admin\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneWorkAdmin
+        arguments: [~, App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneWork, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог ремонта Тел, manager_type: orm, label: Выбор работы Тел }
+        public: true
+
+# 2nd from Work
+    admin.phone_catalog.work.brand:
+        class: App\Admin\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneBrandAdmin
+        arguments: [~, App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneBrand, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог ремонта Тел, manager_type: orm, label: Выбор марки Тел }
+        public: true
+
+# 3rd from Work
+    admin.phone_catalog.work.model:
+        class: App\Admin\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneModelAdmin
+        arguments: [~, App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneModel, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог ремонта Тел, manager_type: orm, label: Выбор модели Тел }
+        public: true
+
+# 4th from Work
+    admin.phone_catalog.work.city:
+        class: App\Admin\Phone\Catalog\Work\CatalogPhoneWorkChoiceCityAdmin
+        arguments: [~, App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoiceCity, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог ремонта Тел, manager_type: orm, label: Выбор города }
+        public: true
+
+# 5th from Work
+    admin.phone_catalog.work.final_page:
+        class: App\Admin\Phone\Catalog\Work\CatalogPhoneWorkFinalPageAdmin
+        arguments: [~, App\Entity\Phone\Catalog\Work\CatalogPhoneWorkFinalPage, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог ремонта Тел, manager_type: orm, label: Финальная страница }
+        public: true

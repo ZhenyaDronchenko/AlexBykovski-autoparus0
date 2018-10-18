@@ -1,3 +1,9 @@
+imports:
+    - { resource: ./reason_malfunction_catalog.yaml }
+    - { resource: ./selling_catalog.yaml }
+    - { resource: ./spare_part_catalog.yaml }
+    - { resource: ./work_catalog.yaml }
+
 services:
     admin.phone.general.phone_brand:
         class: App\Admin\Phone\PhoneBrandAdmin

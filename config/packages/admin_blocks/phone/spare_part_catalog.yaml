@@ -1,0 +1,40 @@
+services:
+# 1st from SparePart
+    admin.phone_catalog.spare_part.brand:
+        class: App\Admin\Phone\Catalog\SparePart\CatalogPhoneSparePartChoicePhoneBrandAdmin
+        arguments: [~, App\Entity\Phone\Catalog\SparePart\CatalogPhoneSparePartChoicePhoneBrand, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от запчасти Тел, manager_type: orm, label: Выбор марки Тел }
+        public: true
+
+# 2nd from SparePart
+    admin.phone_catalog.spare_part.model:
+        class: App\Admin\Phone\Catalog\SparePart\CatalogPhoneSparePartChoicePhoneModelAdmin
+        arguments: [~, App\Entity\Phone\Catalog\SparePart\CatalogPhoneSparePartChoicePhoneModel, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от запчасти Тел, manager_type: orm, label: Выбор модели Тел }
+        public: true
+
+# 3rd from SparePart
+    admin.phone_catalog.spare_part.spare_part:
+        class: App\Admin\Phone\Catalog\SparePart\CatalogPhoneSparePartChoicePhoneSparePartAdmin
+        arguments: [~, App\Entity\Phone\Catalog\SparePart\CatalogPhoneSparePartChoicePhoneSparePart, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от запчасти Тел, manager_type: orm, label: Выбор запчасти Тел }
+        public: true
+
+# 4th from SparePart
+    admin.phone_catalog.spare_part.city:
+        class: App\Admin\Phone\Catalog\SparePart\CatalogPhoneSparePartChoiceCityAdmin
+        arguments: [~, App\Entity\Phone\Catalog\SparePart\CatalogPhoneSparePartChoiceCity, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от запчасти Тел, manager_type: orm, label: Выбор города Тел }
+        public: true
+
+# 5th from SparePart
+    admin.phone_catalog.spare_part.final_page:
+        class: App\Admin\Phone\Catalog\SparePart\CatalogPhoneSparePartFinalPageAdmin
+        arguments: [~, App\Entity\Phone\Catalog\SparePart\CatalogPhoneSparePartFinalPage, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог от запчасти Тел, manager_type: orm, label: Финальная страница }
+        public: true

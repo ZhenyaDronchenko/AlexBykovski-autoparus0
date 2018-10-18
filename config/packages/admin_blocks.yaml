@@ -88,3 +88,10 @@ services:
         tags:
             - { name: sonata.admin, group: Каталог изображений, manager_type: orm, label: Каталог изображений, on_top: true}
         public: true
+
+    admin.default_text.default_text:
+        class: App\Admin\DefaultTextAdmin
+        arguments: [~, App\Entity\DefaultText, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог текстов, manager_type: orm, label: Каталог текстов, on_top: true}
+        public: true

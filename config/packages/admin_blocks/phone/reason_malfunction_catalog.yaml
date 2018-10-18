@@ -1,0 +1,32 @@
+services:
+# 1st from Reason Malfunction
+    admin.phone_catalog.reason_malfunction.reason_malfunction:
+        class: App\Admin\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionChoicePhoneReasonMalfunctionAdmin
+        arguments: [~, App\Entity\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionChoicePhoneReasonMalfunction, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог поломок Тел, manager_type: orm, label: Причины поломки }
+        public: true
+
+# 2nd from Reason Malfunction
+    admin.phone_catalog.reason_malfunction.brand:
+        class: App\Admin\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionChoicePhoneBrandAdmin
+        arguments: [~, App\Entity\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionChoicePhoneBrand, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог поломок Тел, manager_type: orm, label: Выбор марки }
+        public: true
+
+# 3rd from Reason Malfunction
+    admin.phone_catalog.reason_malfunction.model:
+        class: App\Admin\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionChoicePhoneModelAdmin
+        arguments: [~, App\Entity\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionChoicePhoneModel, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог поломок Тел, manager_type: orm, label: Выбор модели }
+        public: true
+
+# 4th from Reason Malfunction
+    admin.phone_catalog.reason_malfunction.final_page:
+        class: App\Admin\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionFinalPageAdmin
+        arguments: [~, App\Entity\Phone\Catalog\ReasonMalfunction\CatalogPhoneReasonMalfunctionFinalPage, ~]
+        tags:
+            - { name: sonata.admin, group: Каталог поломок Тел, manager_type: orm, label: Финальная страница }
+        public: true
