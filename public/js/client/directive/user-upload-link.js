@@ -29,35 +29,31 @@
                     let previewImage = $("#image-preview-container img");
                     fileName = e.target.files[0].name;
 
-                    addImagePreview(e.target.files[0], function(data){
-                        previewImage.attr("src", data);
+                    compress(e.target.files[0], function(file){
+                        workAfterCompress(file);
+                    });
 
-                        if(cropper){
-                            cropper.cropper("destroy");
+                    function workAfterCompress(file) {
+                        addImagePreview(file, function(data){
+                            previewImage.attr("src", data);
 
-                            cropper = null;
-                        }
+                            if(cropper){
+                                cropper.cropper("destroy");
 
+                                cropper = null;
+                            }
+
+                            addDialog();
+                        });
+                    }
+
+                    function addDialog() {
                         $( "#dialog-cropper-container" ).dialog({
                             modal: true,
                             closeOnEscape: false,
                             open: function(event, ui) {
                                 $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                                previewImage.cropper({
-                                    aspectRatio: 3 / 2,
-                                    crop: function(event) {
-                                        // console.log(event.detail.x);
-                                        // console.log(event.detail.y);
-                                        // console.log(event.detail.width);
-                                        // console.log(event.detail.height);
-                                        // console.log(event.detail.rotate);
-                                        // console.log(event.detail.scaleX);
-                                        // console.log(event.detail.scaleY);
-                                    },
-                                    built: function () {
-                                        cropper = $(this);
-                                    }
-                                });
+                                addCropper();
                             },
                             width: dialogContentSize,
                             height: dialogContentSize,
@@ -66,35 +62,46 @@
                                     $( this ).dialog( "close" );
                                 },
                                 "Сохранить": function() {
-                                    let self = this;
-
-                                    let imageData = previewImage.cropper("getCroppedCanvas");
-                                    imageData.toBlob((blob) => {
-                                        const formData = new FormData();
-
-                                        formData.append('file', blob, (new Date()).getTime() + '_large_' + fileName);
-
-                                        $.ajax('/user-office/upload-user-photo-ajax', {
-                                            method: "POST",
-                                            data: formData,
-                                            processData: false,
-                                            contentType: false,
-                                            success(data) {
-                                                if(data.success) {
-                                                    $("#user-photo").attr("src", data.path);
-                                                }
-
-                                                $( self ).dialog( "close" );
-                                            },
-                                            error(data) {
-                                                console.error('Upload error');
-                                            },
-                                        });
-                                    });
+                                    processCroppedImage(this);
                                 }
                             }
                         });
-                    });
+                    }
+
+                    function addCropper() {
+                        previewImage.cropper({
+                            aspectRatio: 3 / 2,
+                            built: function () {
+                                cropper = $(this);
+                            }
+                        });
+                    }
+
+                    function processCroppedImage(dialogInstance) {
+                        let imageData = previewImage.cropper("getCroppedCanvas");
+                        imageData.toBlob((blob) => {
+                            const formData = new FormData();
+
+                            formData.append('file', blob, (new Date()).getTime() + '_large_' + fileName);
+
+                            $.ajax('/user-office/upload-user-photo-ajax', {
+                                method: "POST",
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success(data) {
+                                    if(data.success) {
+                                        $("#user-photo").attr("src", data.path);
+                                    }
+
+                                    $( dialogInstance ).dialog( "close" );
+                                },
+                                error(data) {
+                                    console.error('Upload error');
+                                },
+                            });
+                        });
+                    }
                 });
             }
         };

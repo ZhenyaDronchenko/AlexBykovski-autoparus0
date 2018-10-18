@@ -35,3 +35,35 @@ function addImagePreview(file, callback) {
         reader.readAsDataURL(file);
     }
 }
+
+function compress(file, callback) {
+    const fileName = file.name;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = event => {
+        const img = new Image();
+        img.src = event.target.result;
+
+        img.onload = () => {
+            const width = 900 > img.width ? img.width : 900;
+            const height = 600 > img.height ? img.height : 600;
+
+            const elem = document.createElement('canvas');
+            elem.width = width;
+            elem.height = height;
+            const ctx = elem.getContext('2d');
+            // img.width and img.height will give the original dimensions
+            ctx.drawImage(img, 0, 0, width, height);
+            ctx.canvas.toBlob((blob) => {
+                const file = new File([blob], fileName, {
+                    type: 'image/jpeg',
+                    lastModified: Date.now()
+                });
+
+                callback(file);
+
+            }, 'image/jpeg', 1);
+        };
+        reader.onerror = error => console.log(error);
+    };
+}
