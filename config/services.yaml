@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 imports:
     - { resource: ./packages/admin_blocks.yaml }
+    - { resource: ./packages/services/twig.yaml }
 
 parameters:
     locale: 'ru'
@@ -84,23 +85,17 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         public: true
 
-    App\Twig\ImageUrlExtension:
-        class: App\Twig\ImageUrlExtension
-        arguments: ['%upload_image_directory%', '@doctrine.orm.entity_manager']
-        tags:
-            - { name: twig.extension }
-
-    App\Twig\ShowCodeExtension:
-        class: App\Twig\ShowCodeExtension
-        arguments: ['@doctrine.orm.entity_manager']
-        tags:
-            - { name: twig.extension }
-
     app.form.client_cars_type:
         class: App\Form\Type\ClientCarsType
         arguments: ["@app.provider.form.client_car_provider", "@app.form.transformer.id_to_brand", "@app.form.transformer.id_to_model", "@app.form.transformer.id_to_vehicle_type", "@app.form.transformer.id_to_engine_type"]
         tags:
             - { name: form.type }
+
+    App\Twig\ImageUrlExtension:
+        class: App\Twig\ImageUrlExtension
+        arguments: ['%upload_image_directory%', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
 
 fos_user:
     db_driver: orm

@@ -172,6 +172,14 @@ class UserOfficeController extends Controller
     }
 
     /**
+     * @Route("/product-categories", name="user_profile_product_categories")
+     */
+    public function showProductCategoriesAction(Request $request)
+    {
+        return $this->render('client/user-office/seller-services/product-categories.html.twig', []);
+    }
+
+    /**
      * @Route("/get-models-by-brand", name="get_models_by_brand")
      */
     public function getModelsByBrandAction(Request $request, ClientCarProvider $provider){

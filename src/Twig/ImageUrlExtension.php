@@ -21,7 +21,7 @@ class ImageUrlExtension extends Twig_Extension
      * @param string $additionalPath
      * @param EntityManagerInterface $em
      */
-    public function __construct($additionalPath, EntityManagerInterface $em)
+    public function __construct(string $additionalPath, EntityManagerInterface $em)
     {
         $this->additionalPath = $additionalPath;
         $this->em = $em;
@@ -29,9 +29,9 @@ class ImageUrlExtension extends Twig_Extension
 
     public function getFunctions()
     {
-        return array(
+        return [
             new Twig_Function('image_url', [$this, 'imageUrlCreator']),
-        );
+        ];
     }
 
     public function imageUrlCreator($url, $defaultImageType = null)
