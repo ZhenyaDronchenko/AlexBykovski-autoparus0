@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Entity\Model;
+use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -85,5 +86,28 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedModels);
+    }
+
+    /**
+     * @Route("/phone/work", name="search_phone_work_autocomplete")
+     */
+    public function searchPhoneWorkAction(Request $request)
+    {
+        $text = $request->query->get("text");
+
+        if(!is_string($text) || strlen($text) < 1){
+            return new JsonResponse([]);
+        }
+
+        $spareParts = $this->getDoctrine()->getRepository(PhoneSparePart::class)->searchByWorkText($text);
+
+        $parsedSpareParts = [];
+
+        /** @var PhoneSparePart $sparePart */
+        foreach ($spareParts as $sparePart){
+            $parsedSpareParts[] = $sparePart->toWorkSearchArray();
+        }
+
+        return new JsonResponse($parsedSpareParts);
     }
 }
