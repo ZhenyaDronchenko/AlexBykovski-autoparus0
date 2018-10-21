@@ -1,0 +1,18 @@
+services:
+    App\Twig\ShowCodeExtension:
+        class: App\Twig\ShowCodeExtension
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
+
+    App\Twig\DefaultImageExtension:
+        class: App\Twig\DefaultImageExtension
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
+
+    App\Twig\DefaultTextExtension:
+        class: App\Twig\DefaultTextExtension
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
