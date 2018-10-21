@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Brand;
 use App\Entity\Model;
+use App\Entity\Phone\PhoneBrand;
+use App\Entity\Phone\PhoneModel;
 use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
@@ -109,5 +111,53 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedSpareParts);
+    }
+
+    /**
+     * @Route("/phone/brand", name="search_phone_brand_autocomplete")
+     */
+    public function searchPhoneBrandAction(Request $request)
+    {
+        $text = $request->query->get("text");
+
+        if(!is_string($text) || strlen($text) < 1){
+            return new JsonResponse([]);
+        }
+
+        $brands = $this->getDoctrine()->getRepository(PhoneBrand::class)->searchByText($text);
+
+        $parsedBrands= [];
+
+        /** @var PhoneBrand $brand */
+        foreach ($brands as $brand){
+            $parsedBrands[] = $brand->toSearchArray();
+        }
+
+        return new JsonResponse($parsedBrands);
+    }
+
+    /**
+     * @Route("/phone/model/{urlBrand}", name="search_phone_model_autocomplete")
+     */
+    public function searchPhoneModelAction(Request $request, $urlBrand)
+    {
+        $text = $request->query->get("text");
+
+        $brand = $this->getDoctrine()->getRepository(PhoneBrand::class)->findOneBy(["url" => $urlBrand]);
+
+        if(!is_string($text) || strlen($text) < 1 || !($brand instanceof PhoneBrand)){
+            return new JsonResponse([]);
+        }
+
+        $models = $this->getDoctrine()->getRepository(PhoneModel::class)->searchByText($text, $brand);
+
+        $parsedModels= [];
+
+        /** @var PhoneModel $model */
+        foreach ($models as $model){
+            $parsedModels[] = $model->toSearchArray();
+        }
+
+        return new JsonResponse($parsedModels);
     }
 }
