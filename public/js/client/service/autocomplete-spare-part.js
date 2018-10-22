@@ -6,6 +6,10 @@
         let API_URL_BRAND = '/search/brand?text=';
         let API_URL_MODEL = '/search/model/';
 
+        let API_URL_PHONE_WORK = '/search/phone/work?text=';
+        let API_URL_PHONE_BRAND = '/search/phone/brand?text=';
+        let API_URL_PHONE_MODEL = '/search/phone/model/';
+
         this.searchSpareParts = function(term) {
             return search(API_URL_SPARE_PARTS + term);
         };
@@ -16,6 +20,18 @@
 
         this.searchModels = function(term, parameters) {
             return search(API_URL_MODEL + parameters.brand + "?text=" + term);
+        };
+
+        this.searchPhoneWork = function(term) {
+            return search(API_URL_PHONE_WORK + term);
+        };
+
+        this.searchPhoneBrands = function(term) {
+            return search(API_URL_PHONE_BRAND + term);
+        };
+
+        this.searchPhoneModels = function(term, parameters) {
+            return search(API_URL_PHONE_MODEL + parameters.brand + "?text=" + term);
         };
 
         function search(url) {

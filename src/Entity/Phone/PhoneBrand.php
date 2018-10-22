@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PhoneBrandRepository")
  * @ORM\Table(name="phone_brand")
  */
 class PhoneBrand implements VariableInterface
