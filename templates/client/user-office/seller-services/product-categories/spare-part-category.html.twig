@@ -36,16 +36,16 @@
             </ul>
         </div>
 
-        <section class="ads">
-            <h1 class="ads-title">{{ default_text(1).headline }}</h1>
-            <ul class="ads-block">
-                <li><a class="ads-link" href='#'><span>Добавить объявление о продаже товара, автозапчасти</span><img src="{{ image_url(default_image(23).image) }}" alt="лого"></a></li>
-                <li><a class="ads-link" href='#'><span>Добавить общее объявление о продаже автозапчастей</span><img src="{{ image_url(default_image(24).image) }}" alt="лого"></a></li>
-                <li><a class="ads-link" href='#'><span>Импортировать прайслист автозапчастей, товаров</span><img src="{{ image_url(default_image(25).image) }}" alt="лого"></a></li>
-                <li><a class="ads-link" href='#'><span>Посмотреть поданные объявления в разделе автозапчасти</span><img src="{{ image_url(default_image(26).image) }}" alt="лого"></a></li>
+        <section class="items">
+            <h1 class="items-title">{{ default_text(1).headline }}</h1>
+            <ul class="items-block">
+                <li><a class="items-link-link" href='#'><span>Добавить объявление о продаже товара, автозапчасти</span><img src="{{ image_url(default_image(23).image) }}" alt="лого"></a></li>
+                <li><a class="items-link-link" href='#'><span>Добавить общее объявление о продаже автозапчастей</span><img src="{{ image_url(default_image(24).image) }}" alt="лого"></a></li>
+                <li><a class="items-link-link" href='#'><span>Импортировать прайслист автозапчастей, товаров</span><img src="{{ image_url(default_image(25).image) }}" alt="лого"></a></li>
+                <li><a class="items-link-link" href='#'><span>Посмотреть поданные объявления в разделе автозапчасти</span><img src="{{ image_url(default_image(26).image) }}" alt="лого"></a></li>
 
             </ul>
-            <p class='ads-text'>{{ default_text(1).text | raw }}</p>
+            <p class='items-link-text'>{{ default_text(1).text | raw }}</p>
         </section>
     </main>
 {% endblock %}

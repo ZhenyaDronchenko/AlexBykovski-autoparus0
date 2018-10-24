@@ -538,12 +538,12 @@ ul{
 
 
 /*mod*/
-.ads {
+.items {
   padding-bottom: 60px;
   
 
 }
-.ads-title {
+.items-title {
   margin: 0;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -552,13 +552,13 @@ ul{
   line-height: 34px;
 
 }
-.ads-text {
+.items-text {
   margin: 0;
   font-size: 16px;
   line-height: 18px;
 }
 
-.ads-block {
+.items-block {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -569,12 +569,12 @@ ul{
   overflow: hidden; 
 }
 
-.ads-block li {
+.items-block li {
   margin: 10px  auto;
     width: 43%;
 }
 
-.ads-link{
+.items-link{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -588,7 +588,7 @@ ul{
           transition-duration: 0.2s;
 }
 
-.ads-link span {
+.items-link span {
   width: 73%;
   font-weight: 700;
   font-size: 20px;
@@ -597,12 +597,12 @@ ul{
   letter-spacing: 1px;
 }
 
-.ads-link img {
+.items-link img {
   width: 120px;
   height: 80px;
 }
 
-.ads-link:hover {
+.items-link:hover {
   border: 1px solid #d22856;
   color: #d22856;
   cursor: pointer;
@@ -614,10 +614,10 @@ ul{
   .container {
     width: auto; 
   }
-  .ads {
+  .items {
     padding-bottom: 50px;
   }
-  .ads-title {
+  .items-title {
     margin: 0;
     margin-bottom: 0px;
     margin-top: 5px;
@@ -626,30 +626,30 @@ ul{
     line-height: 24px;
   }
  
-.ads-text {
+.items-text {
   font-size: 12px;
   line-height: 14px;
 }
 
-.ads-block {
+.items-block {
     margin-bottom: 5px;
   }
 
-.ads-block li {
+.items-block li {
   margin: 5px auto; 
   width: 100%; 
 }
-.ads-link {
+.items-link {
   min-height: 60px;
   padding-left: 7px;
 }
-.ads-link span{
+.items-link span{
   width: 71%;
   font-size: 12px;
   line-height: 14px;
   
 }
-.ads-link img {
+.items-link img {
   width: 90px;
   height: 60px;
 }
@@ -662,7 +662,7 @@ ul{
     padding-bottom: 45px;
   }
 
-.ads-title {
+.items-title {
   margin-bottom: 0;
   margin-top: 5px;
   text-align: center;
@@ -670,26 +670,26 @@ ul{
   line-height: 24px;
 
 }
-.ads-block li {
+.items-block li {
   margin: 5px auto; 
   width: 435px;
 }
-.ads-link {
+.items-link {
   min-height: 60px;
   padding-left: 10px;
 }
 
-.ads-link span{
+.items-link span{
   font-size: 16px;
   line-height: 18px;
 }
 
-.ads-link img {
+.items-link img {
   width: 90px;
   height: 60px;
 }
 
-.ads-text {
+.items-text {
   margin-top: 10px;
   font-size: 14px;
   line-height: 16px;
@@ -701,7 +701,7 @@ ul{
   .container {
     width: auto; }
 
-.ads-title {
+.items-title {
   margin-bottom: 0;
   margin-top: 5px;
   text-align: center;
@@ -709,14 +709,14 @@ ul{
   line-height: 24px;
 
 }
-.ads-block li {
+.items-block li {
   margin: 10px  auto;
     width: 48%;
 }
-.ads-block  {
+.items-block  {
   margin-bottom: 10px;
 }
-.ads-link{
+.items-link{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -730,7 +730,7 @@ ul{
           transition-duration: 0.2s;
 }
 
-.ads-link span {
+.items-link span {
   width: 73%;
   font-weight: 700;
   font-size: 15px;
@@ -738,7 +738,7 @@ ul{
   color: #000000;
   letter-spacing: 1px;
 }
-.ads-link img {
+.items-link img {
   width: 90px;
   height: 60px;
 }
