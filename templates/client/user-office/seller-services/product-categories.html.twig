@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Страница выбора категории товара для подачи или редактирования товара или товарной группы{% endblock %}
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/user-office/product-categories.css'>
 {% endblock %}
@@ -28,9 +29,9 @@
         </div>
 
         <section class="product">
-            <h1 class="product-title">Категории товаров</h1>
+            <h1 class="product-title">{{ default_text(1).headline }}</h1>
             <ul class="product-block">
-                <li><a class="product-link" href='#'><span>Автозапчасти (автотовары) товары для автомобилей</span><img src="{{ image_url(default_image(15).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href="{{ path("user_profile_product_categories_spare_part") }}"><span>Автозапчасти (автотовары) товары для автомобилей</span><img src="{{ image_url(default_image(15).image) }}" alt="лого"></a></li>
                 <li><a class="product-link" href='#'><span>Автомобили (легковые, грузовые, спецтехника)</span><img src="{{ image_url(default_image(16).image) }}" alt="лого"></a></li>
                 <li><a class="product-link" href='#'><span>Мотзапчасти (мототовары) товары для мототехники</span><img src="{{ image_url(default_image(17).image) }}" alt="лого"></a></li>
                 <li><a class="product-link" href='#'><span>Мотоциклы, гидроциклы, снегоходы</span><img src="{{ image_url(default_image(18).image) }}" alt="лого"></a></li>
