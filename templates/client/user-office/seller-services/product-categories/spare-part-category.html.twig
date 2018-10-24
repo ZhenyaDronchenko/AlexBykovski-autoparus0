@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Страница выбора типа подачи объявлений для товара или товарной группы{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part-category.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul id="breadcrumbs-one">
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="Главная" href="{{ path("show_user_office") }}">
+                      <span itemprop="name">{{ app.user.name }}</span>
+                      <meta itemprop="position" content="1">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories") }}">
+                      <span itemprop="name">товары</span>
+                      <meta itemprop="position" content="1">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="запчасть" href='' class="current">
+                      <span itemprop="name">автозапчасти</span>
+                      <meta itemprop="position" content="4">
+                  </a>
+              </span>
+                </li>
+            </ul>
+        </div>
+
+        <section class="ads">
+            <h1 class="ads-title">{{ default_text(1).headline }}</h1>
+            <ul class="ads-block">
+                <li><a class="ads-link" href='#'><span>Добавить объявление о продаже товара, автозапчасти</span><img src="{{ image_url(default_image(23).image) }}" alt="лого"></a></li>
+                <li><a class="ads-link" href='#'><span>Добавить общее объявление о продаже автозапчастей</span><img src="{{ image_url(default_image(24).image) }}" alt="лого"></a></li>
+                <li><a class="ads-link" href='#'><span>Импортировать прайслист автозапчастей, товаров</span><img src="{{ image_url(default_image(25).image) }}" alt="лого"></a></li>
+                <li><a class="ads-link" href='#'><span>Посмотреть поданные объявления в разделе автозапчасти</span><img src="{{ image_url(default_image(26).image) }}" alt="лого"></a></li>
+
+            </ul>
+            <p class='ads-text'>{{ default_text(1).text | raw }}</p>
+        </section>
+    </main>
+{% endblock %}
