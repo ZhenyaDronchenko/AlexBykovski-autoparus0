@@ -14,7 +14,7 @@ class PhoneBrandRepository extends EntityRepository
     {
         return $this->createQueryBuilder('phbr')
             ->select('phbr')
-            ->where("phbr.name LIKE :text")
+            ->where("phbr.brandEn LIKE :text")
             ->andWhere("phbr.active = :trueValue")
             ->setParameter("trueValue", true)
             ->setParameter("text", '%' . $text . '%')
