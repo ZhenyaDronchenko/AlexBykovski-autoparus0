@@ -3,6 +3,7 @@ imports:
     - { resource: ./admin_blocks/brand_catalog.yaml }
     - { resource: ./admin_blocks/spare_part_catalog.yaml }
     - { resource: ./admin_blocks/phone/general.yaml }
+    - { resource: ./admin_blocks/user.yaml }
 
 services:
     admin.general.main_page:
@@ -73,13 +74,6 @@ services:
         arguments: [~, App\Entity\FileChangeTmp, ~, '%site_map_xml_file_path%']
         tags:
             - { name: sonata.admin, group: Редактирование файлов, manager_type: orm, label: Статический sitemap }
-        public: true
-
-    admin.user.users:
-        class: App\Admin\UserAdmin
-        arguments: [~, App\Entity\User, ~]
-        tags:
-            - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Пользователи, on_top: true }
         public: true
 
     admin.default_image.default_image:

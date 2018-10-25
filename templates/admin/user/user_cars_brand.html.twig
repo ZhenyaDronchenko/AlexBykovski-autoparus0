@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% for car in object.cars %}
+        <div style="text-align: right">{{ car.brand.name }}</div>
+    {% endfor %}
+{% endblock %}
