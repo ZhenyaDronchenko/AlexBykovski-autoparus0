@@ -72,7 +72,7 @@ class PhoneSparePartCatalogController extends Controller
         /** @var CatalogPhoneSparePartChoicePhoneModel $page */
         $page = $em->getRepository(CatalogPhoneSparePartChoicePhoneModel::class)->findAll()[0];
 
-        $page->setReturnButtonText($transformer->transformPage($page->getReturnButtonText(), [$parameters]));
+        $page->setReturnButtonText($transformer->transformPage($page->getReturnButtonText(), $parameters));
         $page->setReturnButtonLink($transformer->transformPage($page->getReturnButtonLink(), $parameters));
 
         return $this->render('client/phone/catalog/spare-part/choice-model.html.twig', [
