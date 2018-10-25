@@ -15,8 +15,11 @@ class CatalogPhoneSparePartFinalPageAdmin extends AbstractAdmin
     {
         $formMapper->add('title', TextType::class, ['label' => 'title']);
         $formMapper->add('description', TextType::class, ['label' => 'description']);
+        $formMapper->add('returnButtonText', TextType::class, ['label' => 'НАЗВАНИЕ ВОЗВРАТНОЙ КНОПКИ']);
+        $formMapper->add('returnButtonLink', TextType::class, ['label' => 'АДРЕС НАПРАВЛЕНИЯ ВОЗВРАТНОЙ КНОПКИ']);
         $formMapper->add('text1', CKEditorType::class, ['label' => 'Заголовок 1 и текст к нему']);
         $formMapper->add('text2', CKEditorType::class, ['label' => 'Заголовок 2 и текст к нему']);
+        $formMapper->add('text3', CKEditorType::class, ['label' => 'Текст 3']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

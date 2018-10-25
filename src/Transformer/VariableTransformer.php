@@ -2,6 +2,7 @@
 
 namespace App\Transformer;
 
+use App\Entity\Catalog\CatalogPageFour;
 use App\Entity\Catalog\CatalogPageOne;
 use App\Entity\Catalog\CatalogPageThree;
 use App\Entity\Catalog\CatalogPageTwo;
@@ -23,6 +24,9 @@ class VariableTransformer
         }
         else if($object instanceof CatalogPageThree){
             return $this->transformCatalogPageThree($cloneObject, $parameters);
+        }
+        else if($object instanceof CatalogPageFour){
+            return $this->transformCatalogPageFour($cloneObject, $parameters);
         }
 
         return $cloneObject;
@@ -74,5 +78,16 @@ class VariableTransformer
         $catalogPageThree->setText2($this->transformString($catalogPageThree->getText2(), $parameters));
 
         return $catalogPageThree;
+    }
+
+    protected function transformCatalogPageFour(CatalogPageFour $catalogPageFour, $parameters)
+    {
+        $catalogPageFour->setTitle($this->transformString($catalogPageFour->getTitle(), $parameters));
+        $catalogPageFour->setDescription($this->transformString($catalogPageFour->getDescription(), $parameters));
+        $catalogPageFour->setText1($this->transformString($catalogPageFour->getText1(), $parameters));
+        $catalogPageFour->setText2($this->transformString($catalogPageFour->getText2(), $parameters));
+        $catalogPageFour->setText3($this->transformString($catalogPageFour->getText3(), $parameters));
+
+        return $catalogPageFour;
     }
 }
