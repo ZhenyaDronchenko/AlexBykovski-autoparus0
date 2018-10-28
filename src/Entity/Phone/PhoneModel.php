@@ -6,7 +6,7 @@ use App\Entity\Interfaces\VariableInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PhoneModelRepository")
  * @ORM\Table(name="phone_model")
  */
 class PhoneModel implements VariableInterface

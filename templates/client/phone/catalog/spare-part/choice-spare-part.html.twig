@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/style-new.css'>
+{% endblock %}
+
+{% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container" ng-init="showAll = false;">
+        <section class="catalog1">
+            <div class=catalog1-text>
+                {{ page.text1 | raw }}
+            </div>
+
+            <div class='parts-search' id="search-autocomplete-container">
+                <form class='catalog1form' action="" method="get">
+
+                    <input id="work-autocomplete" class="form5" type="search"
+                           auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
+                           method-search="searchPhoneWork" identifier-field="work-autocomplete"
+                           name="search" placeholder="Наименование запчасти">
+                </form>
+            </div>
+
+            <ul class='showMoreModel' id='brandImg3' ng-show="showAll">
+                {% for sparePart in allSpareParts %}
+                    <li><a href='{{ path("show_phone_spare_part_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}'>{{ sparePart.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <ul class='showMoreModel' id='brandImg3' ng-hide="showAll">
+                {% for sparePart in popularSpareParts %}
+                    <li><a href='{{ path("show_phone_spare_part_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}'>{{ sparePart.name }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div id='showAll3' ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div id='showAll3' ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+
+            <p class='catalog1-text-b'>{{ page.text2 | raw }}</p>
+
+        </section>
+
+    </main>
+{% endblock %}

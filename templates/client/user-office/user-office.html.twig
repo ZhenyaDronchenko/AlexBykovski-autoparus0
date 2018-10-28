@@ -36,7 +36,7 @@
                     <div class="btn-block">
                         {% if isSeller %}
                             {% if app.user.sellerData.sellerCompany.isSeller %}
-                                <a class="user-btn">Товары</a>
+                                <a class="user-btn" href="{{ path("user_profile_product_categories") }}">Товары</a>
                             {% endif %}
                             {% if app.user.sellerData.sellerCompany.isService %}
                                 <a class="user-btn">Услуги</a>

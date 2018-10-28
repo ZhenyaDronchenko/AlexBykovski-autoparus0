@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PhoneSparePartRepository")
  * @ORM\Table(name="phone_spare_part")
  */
 class PhoneSparePart implements VariableInterface
@@ -428,6 +428,15 @@ class PhoneSparePart implements VariableInterface
         return [
             "label" => $this->name,
             "value" => $this->name,
+            "url" => $this->url,
+        ];
+    }
+
+    public function toWorkSearchArray()
+    {
+        return [
+            "label" => $this->work,
+            "value" => $this->work,
             "url" => $this->url,
         ];
     }

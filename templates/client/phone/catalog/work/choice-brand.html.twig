@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/style-new.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container"  ng-init="showAll = false;">
+        <section class="marka">
+            <div class="marka-text">{{ page.text1 | raw }}</div>
+
+            <div class='marka-search'>
+                <form class='markaform' action="" method="get">
+                    <input id="brand-autocomplete" class='form6' name="search"
+                           auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                           method-search="searchPhoneBrands" identifier-field="brand-autocomplete"
+                           placeholder="Марка телефона:" type="search" >
+                </form>
+            </div>
+
+            <ul class='showMoreModel' id='brandImg4' ng-show="showAll">
+                {% for brand in allBrands %}
+                    <li><a class="marka-link" href='{{ path("show_phone_work_catalog_choice_phone_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'><span>{{ brand.brandEn }}</span> <img src="{{ image_url(brand.logo) }}" alt="{{ brand.brandEn }}" title="{{ sparePart.work }} для {{ brand.name }}"></a></li>
+                {% endfor %}
+            </ul>
+            <ul class='showMoreModel' id='brandImg4' ng-hide="showAll">
+                {% for brand in popularBrands %}
+                    <li><a class="marka-link" href='{{ path("show_phone_work_catalog_choice_phone_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'><span>{{ brand.brandEn }}</span> <img src="{{ image_url(brand.logo) }}" alt="{{ brand.brandEn }}" title="{{ sparePart.work }} для {{ brand.name }}"></a></li>
+                {% endfor %}
+            </ul>
+
+            <div id='showAll4' ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div id='showAll4' ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+
+            <div class='marka-text-b'>{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+{% endblock %}

@@ -17,6 +17,7 @@ class CatalogPhoneSparePartChoiceCityAdmin extends AbstractAdmin
         $formMapper->add('description', TextType::class, ['label' => 'description']);
         $formMapper->add('text1', CKEditorType::class, ['label' => 'Заголовок 1 и текст к нему']);
         $formMapper->add('text2', CKEditorType::class, ['label' => 'Заголовок 2 и текст к нему']);
+        $formMapper->add('text3', CKEditorType::class, ['label' => 'Текст 3']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

@@ -1,0 +1,14 @@
+services:
+    admin.users.buyer:
+        class: App\Admin\User\BuyerAdmin
+        arguments: [~, App\Entity\Client\Client, ~]
+        tags:
+            - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Покупатели }
+        public: true
+
+    admin.users.seller:
+        class: App\Admin\User\SellerAdmin
+        arguments: [~, App\Entity\Client\Client, ~]
+        tags:
+            - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Продавцы }
+        public: true

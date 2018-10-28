@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Страница выбора категории товара для подачи или редактирования товара или товарной группы{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/product-categories.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul id="breadcrumbs-one">
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="Главная" href="{{ path("show_user_office") }}">
+                      <span itemprop="name">{{ app.user.name }}</span>
+                      <meta itemprop="position" content="1">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="запчасть" href="" class="current">
+                      <span itemprop="name">товары</span>
+                      <meta itemprop="position" content="4">
+                  </a>
+              </span>
+                </li>
+            </ul>
+        </div>
+
+        <section class="product">
+            <h1 class="product-title">{{ default_text(1).headline }}</h1>
+            <ul class="product-block">
+                <li><a class="product-link" href="{{ path("user_profile_product_categories_spare_part") }}"><span>Автозапчасти (автотовары) товары для автомобилей</span><img src="{{ image_url(default_image(15).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href='#'><span>Автомобили (легковые, грузовые, спецтехника)</span><img src="{{ image_url(default_image(16).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href='#'><span>Мотзапчасти (мототовары) товары для мототехники</span><img src="{{ image_url(default_image(17).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href='#'><span>Мотоциклы, гидроциклы, снегоходы</span><img src="{{ image_url(default_image(18).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href='#'><span>Запчасти для смартфонов, мобильных телефонов</span><img src="{{ image_url(default_image(19).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href='#'><span>Смартфоны, мобильные телефоны</span><img src="{{ image_url(default_image(20).image) }}" alt="лого"></a></li>
+                <li><a class="product-link" href='#'><span>Спортивные товары. Спорт инвентарь</span><img src="{{ image_url(default_image(21).image) }}" alt="лого"></a></li>
+            </ul>
+            <p class='product-text'>{{ default_text(1).text | raw }}</p>
+        </section>
+    </main>
+{% endblock %}
