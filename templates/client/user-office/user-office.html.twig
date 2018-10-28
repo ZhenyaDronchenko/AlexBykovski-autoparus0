@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/bower-components/cropper/dist/cropper.min.css'>
+    <link rel='stylesheet' href='/bower-components/Jcrop/css/Jcrop.min.css'>
     <link rel='stylesheet' href='/css/user-office/user-office.css'>
 {% endblock %}
 
@@ -17,7 +17,6 @@
                         <input id="user-photo-input" type="file" style="display: none">
                     </div>
                     <a class="user-name">{{ app.user.name }}</a>
-
                 </div>
 
                 <div class="user-about">
@@ -126,6 +125,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src='/bower-components/cropper/dist/cropper.min.js'></script>
+    <script src='/bower-components/Jcrop/js/Jcrop.min.js'></script>
     <script src='/js/client/directive/user-upload-link.js'></script>
 {% endblock %}
