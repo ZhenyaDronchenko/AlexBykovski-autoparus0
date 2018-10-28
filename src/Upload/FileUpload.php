@@ -13,6 +13,7 @@ class FileUpload
     const CITY = 'city';
     const SPARE_PART = 'spare_part';
     const TMP = 'tmp';
+    const USER = 'user';
     const DEFAULT_IMAGE = "default";
 
     const PHONE_BRAND = 'phone_brand';
