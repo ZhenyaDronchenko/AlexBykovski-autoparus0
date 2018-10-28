@@ -17,7 +17,7 @@
                 });
 
                 let dialogContentSize = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
-                let cropperContentSize = window.innerWidth > window.innerHeight ? window.innerHeight * 0.7 : window.innerWidth * 0.7;
+                let cropperContentSize = dialogContentSize;
 
                 $("#dialog-cropper-container").width(dialogContentSize);
                 $("#dialog-cropper-container").height(dialogContentSize);
@@ -74,6 +74,8 @@
                             const trueSize = getJCropTrueSize(data["width"], data["height"], cropperContentSize);
                             const trueWidth = trueSize[0];
                             const trueHeight = trueSize[1];
+                            $("#dialog-cropper-container").width(trueWidth);
+                            $("#dialog-cropper-container").height(trueHeight);
 
                             previewImage.Jcrop({
                                 aspectRatio: 3 / 2,
