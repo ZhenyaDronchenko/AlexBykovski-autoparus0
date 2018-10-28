@@ -23,8 +23,6 @@
                 $("#image-preview-container").width(cropperContentSize);
                 $("#image-preview-container").height(cropperContentSize);
 
-                let cropper = null;
-
                 input.change(function(e){
                     let previewImage = $("#image-preview-container img");
                     fileName = e.target.files[0].name;
@@ -36,12 +34,6 @@
                     function workAfterCompress(file) {
                         addImagePreview(file, function(data){
                             previewImage.attr("src", data);
-
-                            if(cropper){
-                                cropper.cropper("destroy");
-
-                                cropper = null;
-                            }
 
                             addDialog();
                         });
@@ -69,11 +61,10 @@
                     }
 
                     function addCropper() {
+                        previewImage.cropper("destroy");
+
                         previewImage.cropper({
                             aspectRatio: 3 / 2,
-                            built: function () {
-                                cropper = $(this);
-                            }
                         });
                     }
 
@@ -82,7 +73,7 @@
                         imageData.toBlob((blob) => {
                             const formData = new FormData();
 
-                            formData.append('file', blob, (new Date()).getTime() + '_large_' + fileName);
+                            formData.append('file', blob, (new Date()).getTime() + fileName);
 
                             $.ajax('/user-office/upload-user-photo-ajax', {
                                 method: "POST",
