@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserOffice;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
@@ -170,6 +170,14 @@ class UserOfficeController extends Controller
         }
 
         return $this->render('client/user-office/base-profile/business-profile.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/product-categories", name="user_profile_product_categories")
+     */
+    public function showProductCategoriesAction(Request $request)
+    {
+        return $this->render('client/user-office/seller-services/product-categories.html.twig', []);
     }
 
     /**

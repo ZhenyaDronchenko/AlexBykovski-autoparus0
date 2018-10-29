@@ -8,7 +8,7 @@ imports:
     - { resource: ./packages/services/twig.yaml }
 
 parameters:
-    locale: 'ru'
+    locale: 'en'
     upload_directory: '%kernel.project_dir%/public/images'
     upload_image_directory: '/images/'
     robots_txt_file_path: '%kernel.project_dir%/public/robots.txt'

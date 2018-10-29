@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Массовое добавление товаров{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-group-products.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <ul id="breadcrumbs">
+            <li><a class="user-link user-link--icon"  href="{{ path("show_user_office") }}">
+                    <span class="user-name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon"></a>
+            </li>
+            <li class="more" onclick='dotClick()'><a>/  ...  </a></li>
+            <li><a class="link" href="{{ path("user_profile_product_categories") }}">/ товары </a></li>
+            <li><a class="link" href="{{ path("user_profile_product_categories_spare_part") }}">/ автозапчасти </a></li>
+            <li><a class="current">/ добавление товаров группой</a></li>
+        </ul>
+
+        <section class="choice">
+            <div class="block-title">
+                <h1 class="choice-title">Массовое добавление товаров</h1>
+                <a class="link-help"><img src="/img/help.png" alt="Подсказка"></a>
+            </div>
+            <div class="podskazka-m">
+                <div class="close-m">x</div>
+                <h2>{{ default_text(3).headline }}</h2>
+                {{ default_text(3).text | raw }}
+            </div>
+            <form action="#" class="choice-form1">
+                <div class="form-reg">
+                    <fieldset class="mk_choice">
+                        <legend class="profil-title">Укажите состояние предлагаемых Вами запчастей (товаров)</legend>
+                        <ul class="filter-list">
+                            <li class="filter-option">
+                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group1" id="by_items">
+                                <label for="by_items">БУ запчасти (товары)</label>
+                            </li>
+                            <li class="filter-option ">
+                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group1" id="new_items">
+                                <label for="new_items">Новые товары (запчасти)</label>
+                            </li>
+                            <li class="filter-option">
+                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group1" id="restore_items">
+                                <label for="restore_items">Восстановленные</label>
+                            </li>
+                        </ul>
+                    </fieldset>
+
+                    <fieldset class="mk_choice">
+                        <legend class="profil-title">Отметьте наличие запчастей (товаров)</legend>
+                        <ul class="filter-list">
+                            <li class="filter-option">
+                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" id="presence">
+                                <label for="presence">Работаем по наличию</label>
+                            </li>
+                            <li class="filter-option ">
+                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" id="unorder">
+                                <label for="unorder">Работаем под заказ</label>
+                            </li>
+                            <li class="filter-option ">
+                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" id="define">
+                                <label for="define">Необходимо уточнение наличия товара</label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </div>
+
+                <div class="marka-block">
+                    <h2 class="profil-title">Выберите марку или условие "Все марки"</h2>
+                    <div class="choice-marka">
+                        <select class="name-select">
+                            <option>Сделайте выбор</option>
+                            <option>Все марки</option>
+                            <option>BMW</option>
+                            <option>Mersedes-Benz</option>
+                            <option>Honda</option>
+                        </select>
+                        <a class="link-help"><img src="/img/help.png" alt="Подсказка"></a>
+                    </div>
+                    <div class="podskazka">
+                        <div class="close">x</div>
+                        <h2>{{ default_text(4).headline }}</h2>
+                        {{ default_text(4).text | raw }}
+                    </div>
+                </div>
+
+                <div class="choice-new">
+                    <fieldset>
+                        <legend class="button">Отметить все модели Mersedes-Benz</legend>
+                        <ul class="filter-mark">
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W168">
+                                <label for="W168">A-KLASSE (1997-2003) W168</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W176">
+                                <label for="W176">A-KLASSE (2004-2011) W176</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W169">
+                                <label for="W169">A-KLASSE (2012-2018) W169</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W161">
+                                <label for="W161">A-KLASSE (2012-2018) W169</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W162">
+                                <label for="W162">A-KLASSE (2012-2018) W169</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W163">
+                                <label for="W163">A-KLASSE (2012-2018) W169</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W164">
+                                <label for="W164">A-KLASSE (2012-2018) W169</label>
+                            </li>
+
+                            <li class="filter-option filter-option--size">
+                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W447">
+                                <label for="W447">MIxTO (2014-2018) W447</label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <div class="block-btn">
+                        <button type="submit" class="btn">Подтвердить выбранное</button>
+                        <span>Подтверждение принято</span>
+                    </div>
+                </div>
+            </form>
+
+
+            <form action="#" class="choice-form2">
+                <b class="profil-title">Отметьте предлагаемые Вами запчасти или товары для выбранных марок-моделей</b>
+                <fieldset>
+                    <legend class="button-m button-left">Отметить все запчасти (товары)</legend>
+                    <ul class="filter-list">
+                        <li class="filter-option">
+                            <input class="visually-hidden filter-input filter-input-checkbox checkbox_cl" type="checkbox"  id="android">
+                            <label for="android">Андроид автомагнитолы, навигация (мультимедийные системы автомобиля)</label>
+                        </li>
+
+                        <li class="filter-option">
+                            <input class="visually-hidden filter-input filter-input-checkbox checkbox_cl" type="checkbox"  id="app">
+                            <label for="app">Амортизатор подвески передний правый (передняя правая стопка)</label>
+                        </li>
+
+                        <li class="filter-option">
+                            <input class="visually-hidden filter-input filter-input-checkbox checkbox_cl" type="checkbox"  id="ekt">
+                            <label for="ekt">Электромагнитный клапан турбины</label>
+                        </li>
+                    </ul>
+                </fieldset>
+                <p class="comment">
+                    <span>Коментарий к группе товаров:</span>
+                    <textarea rows="3" name="text"></textarea></p>
+                <div class="block-btn">
+                    <button type="submit" class="btn">Подтвердить и сохранить</button>
+                    <span>Объявление сохранено</span>
+                </div>
+            </form>
+
+            <div class="btn-list">
+                <button type="submit" class="btn btn-product">Добавить еще группу товаров</button>
+                <button type="submit" class="btn btn-product">Просмотреть поданное товары</button>
+            </div>
+            <h2 class="subtitle">{{ default_text(5).headline }}</h2>
+            <div class="subtext">{{ default_text(5).text | raw }}</div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/pages/user-profile/product-categories/spare-part/add-group-products.js'></script>
+{% endblock %}
