@@ -39,6 +39,14 @@ class SellerData
     private $client;
 
     /**
+     * @var SellerAdvertDetail
+     *
+     * One SellerData has One SellerAdvertDetail.
+     * @ORM\OneToOne(targetEntity="SellerAdvertDetail", mappedBy="sellerData", cascade={"persist", "remove"})
+     */
+    private $advertDetail;
+
+    /**
      * @param Client $client
      * SellerData constructor.
      */
@@ -95,5 +103,21 @@ class SellerData
     public function setClient(Client $client): void
     {
         $this->client = $client;
+    }
+
+    /**
+     * @return SellerAdvertDetail
+     */
+    public function getAdvertDetail(): SellerAdvertDetail
+    {
+        return $this->advertDetail;
+    }
+
+    /**
+     * @param SellerAdvertDetail $advertDetail
+     */
+    public function setAdvertDetail(SellerAdvertDetail $advertDetail): void
+    {
+        $this->advertDetail = $advertDetail;
     }
 }
