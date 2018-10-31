@@ -72,10 +72,7 @@ class SparePartGeneralAdvertType extends AbstractType
         }
 
         $brand = $options["brand"] ? $options["brand"] : $advert->getBrand();
-        //var_dump($brand instanceof Brand);
-        //var_dump($this->provider->getModels($brand));
 
-        //var_dump($this->provider->getBrands($usedBrands, $isAllUsed));die;
         $builder
             ->add('condition', ChoiceType::class, [
                 'required' => false,

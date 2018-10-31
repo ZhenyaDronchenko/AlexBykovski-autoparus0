@@ -24,8 +24,6 @@
                     }
 
                     ProviderCarsData.getModels(val).then(function(models){
-                        console.log(models);
-
                         listModels.html("");
                         let index = 0;
 
