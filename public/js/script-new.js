@@ -15,36 +15,37 @@ function even_odd(num) {
     }  
 }
 
-function menuActive() {
+ function menuActive() {
 
-    var toggle = even_odd(n);
+     var toggle = even_odd(n);
 
-    if (toggle == true) {
-        var gamElem1 = document.getElementById('g-1');
-    gamElem1.className = 'gamburger g1';
-    var gamElem2 = document.getElementById('g-2');
-    gamElem2.className = 'gamburger g2';
-    var gamElem3 = document.getElementById('g-3');
-    gamElem3.className = 'gamburger g3';
+     if (toggle == true) {
+         var gamElem1 = document.getElementById('g-1');
+         gamElem1.className = 'gamburger g1';
+         var gamElem2 = document.getElementById('g-2');
+         gamElem2.className = 'gamburger g2';
+         var gamElem3 = document.getElementById('g-3');
+         gamElem3.className = 'gamburger g3';
 
-    var menuElem = document.getElementById('menu');
-    menuElem.className = 'm1';
-    }
+         var menuElem = document.getElementById('menu');
+         menuElem.className = 'nav1';
+     }
 
-    else {
-        var gamElem1 = document.getElementById('g-1');
-        gamElem1.className = 'gamburger';
-        var gamElem2 = document.getElementById('g-2');
-        gamElem2.className = 'gamburger';
-        var gamElem3 = document.getElementById('g-3');
-        gamElem3.className = 'gamburger';
-    
-        var menuElem = document.getElementById('menu');
-        menuElem.className = 'm01';
-    }
+     else {
+         var gamElem1 = document.getElementById('g-1');
+         gamElem1.className = 'gamburger';
+         var gamElem2 = document.getElementById('g-2');
+         gamElem2.className = 'gamburger';
+         var gamElem3 = document.getElementById('g-3');
+         gamElem3.className = 'gamburger';
 
-    n += 1;
-}
+         var menuElem = document.getElementById('menu');
+         menuElem.className = 'nav';
+     }
+
+     n += 1;
+ }
+
 function even_odd1(num) {
     if (num % 2 == 0) {
         return false;
@@ -152,16 +153,6 @@ function text1ShowHide() {
     n4 +=1;
 
 }
-
-function dotClick() {
-    var elemLi = document.getElementById('breadcrumbs-one');
-    elemLi.className = 'opened';
-}
-
-
-
-
-
 
 function toggleShow() {
 
@@ -353,6 +344,7 @@ function citiesHideShow() {
 
 }
 
-
-
-
+ function dotClick() {
+     var elemLi = document.getElementById('breadcrumbs');
+     elemLi.className = 'opened';
+ }

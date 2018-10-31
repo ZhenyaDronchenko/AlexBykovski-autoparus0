@@ -20,65 +20,48 @@
         {{ show_code("head") | raw }}
     </head>
     <body>
-        <header class="header">
-            <div class='hatWrapp container'>
-                <div>
-                    <a class='logo' href='{{ path("homepage") }}' title='На главную'>Автопарус</a>
-                </div>
-                <div class='hamburger'>
-                    <div class='hamChild' onclick='menuActive()'>
-                        <span id='g-1' class='gamburger'></span>
-                        <span id='g-2' class='gamburger'></span>
-                        <span id='g-3' class='gamburger'></span>
-                    </div>
+        <header class="container">
+            <div class="header">
+                <a class="header-logo" href='{{ path("homepage") }}' title='На главную'>Автопарус</a>
+                <div class="burger" onclick='menuActive()'>
+                    <span id='g-1' class='gamburger'></span>
+                    <span id='g-2' class='gamburger'></span>
+                    <span id='g-3' class='gamburger'></span>
                 </div>
             </div>
 
-            <div class="container">
-
-                <nav id='menu' class='m01 '>
-                    <div class='menu-01'>
-                        <div>
-                            <ul>
-                                <li><a href="{{ path("show_brand_catalog_choice_brand") }}">Каталог</a></li>
-                                <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Запчасти</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul>
-                                {% if app.user %}
-                                    {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
-                                    <li><a href="{{ logout_path("main") }}">Выход</a></li>
-                                    {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                        <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
-                                    {% else %}
-                                        <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
-                                    {% endif %}
-                                {% else %}
-                                    <li><a href="{{ path("login") }}">Вход</a></li>
-                                    <li><a href="{{ path("registration") }}">Регистрация</a></li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class='menu-02'>
-                        <div>
-                            <ul>
-                                <li><a href='#'>Пользователям</a></li>
-                                <li><a href='#'>Продавцам</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul>
-                                <li><a href="{{ path("show_phone_spare_part_catalog_choice_phone_brand") }}">Phone Запчасти</a></li>
-                                <li><a href="{{ path("show_phone_work_catalog_choice_work") }}">Phone Pемонт</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
-            </div>
-
+            <nav id='menu' class="nav">
+                <div class='nav-block'>
+                    <ul class='nav-list'>
+                        <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Auto Запчасти</a></li>
+                        <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Auto Каталог</a></li>
+                    </ul>
+                    <ul class='nav-list'>
+                        {% if app.user %}
+                            {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
+                            <li><a href="{{ logout_path("main") }}">Выход</a></li>
+                            {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
+                                <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                            {% else %}
+                                <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{{ path("login") }}">Вход</a></li>
+                            <li><a href="{{ path("registration") }}">Регистрация</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class='nav-block'>
+                    <ul class='nav-list'>
+                        <li><a href='#'>Пользователям</a></li>
+                        <li class='item'><a href='#'>Продавцам</a></li>
+                    </ul>
+                    <ul class='nav-list'>
+                        <li><a href="{{ path("show_phone_spare_part_catalog_choice_phone_brand") }}">Phone Запчасти</a></li>
+                        <li><a href="{{ path("show_phone_work_catalog_choice_work") }}">Phone Ремонт</a></li>
+                    </ul>
+                </div>
+            </nav>
         </header>
 
         {% block body %}{% endblock %}

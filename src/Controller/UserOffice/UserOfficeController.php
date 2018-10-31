@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\UserOffice;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
@@ -173,6 +174,14 @@ class UserOfficeController extends Controller
     }
 
     /**
+     * @Route("/product-categories", name="user_profile_product_categories")
+     */
+    public function showProductCategoriesAction(Request $request)
+    {
+        return $this->render('client/user-office/seller-services/product-categories.html.twig', []);
+    }
+
+    /**
      * @Route("/get-models-by-brand", name="get_models_by_brand")
      */
     public function getModelsByBrandAction(Request $request, ClientCarProvider $provider){
@@ -287,6 +296,11 @@ class UserOfficeController extends Controller
                 $sellerData->setSellerCompany($sellerCompany);
                 $client->setSellerData($sellerData);
 
+                $sellerAdvertDetail = new SellerAdvertDetail();
+                $sellerAdvertDetail->setSellerData($sellerData);
+                $sellerData->setAdvertDetail($sellerAdvertDetail);
+
+                $em->persist($sellerAdvertDetail);
                 $em->persist($sellerCompany);
                 $em->persist($sellerData);
                 $em->persist($sellerCompany->getWorkflow());
