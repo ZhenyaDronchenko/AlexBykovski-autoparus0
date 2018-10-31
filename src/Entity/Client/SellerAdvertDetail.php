@@ -3,6 +3,7 @@
 namespace App\Entity\Client;
 
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +28,7 @@ class SellerAdvertDetail
      *
      * One SellerAdvertDetail has One SellerData.
      * @ORM\OneToOne(targetEntity="SellerData", inversedBy="advertDetail")
-     * @ORM\JoinColumn(name="seller_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="seller_data_id", referencedColumnName="id")
      */
     private $sellerData;
 
@@ -93,5 +94,22 @@ class SellerAdvertDetail
     public function setAutoSparePartGeneralAdverts(Collection $autoSparePartGeneralAdverts): void
     {
         $this->autoSparePartGeneralAdverts = $autoSparePartGeneralAdverts;
+    }
+
+    public function getAutoSparePartGeneralAdvertsBrands($isOnlyIds = false)
+    {
+        $brands = [];
+
+        /** @var AutoSparePartGeneralAdvert $advert */
+        foreach ($this->autoSparePartGeneralAdverts as $advert){
+            if($isOnlyIds){
+                $brands[] = $advert->getBrand() ? $advert->getBrand()->getId() : null;
+            }
+            else{
+                $brands[] = $advert->getBrand();
+            }
+        }
+
+        return $brands;
     }
 }

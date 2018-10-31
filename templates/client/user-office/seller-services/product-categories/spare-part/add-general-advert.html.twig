@@ -27,147 +27,115 @@
                 <h2>{{ default_text(3).headline }}</h2>
                 {{ default_text(3).text | raw }}
             </div>
-            <form action="#" class="choice-form1">
-                <div class="form-reg">
-                    <fieldset class="mk_choice">
-                        <legend class="profil-title">Укажите состояние предлагаемых Вами запчастей (товаров)</legend>
-                        <ul class="filter-list">
-                            <li class="filter-option">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group1" id="by_items">
-                                <label for="by_items">БУ запчасти (товары)</label>
-                            </li>
-                            <li class="filter-option ">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group1" id="new_items">
-                                <label for="new_items">Новые товары (запчасти)</label>
-                            </li>
-                            <li class="filter-option">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group1" id="restore_items">
-                                <label for="restore_items">Восстановленные</label>
-                            </li>
-                        </ul>
-                    </fieldset>
+            <form id='registrationForm' action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate enctype="multipart/form-data">
+                {{ form_widget(form._token) }}
+                <div class="choice-form1">
+                    <div class="form-reg">
+                        <fieldset class="mk_choice">
+                            <legend class="profil-title">Укажите состояние предлагаемых Вами запчастей (товаров)</legend>
+                            <ul class="filter-list">
+                                {% for choice in form.condition %}
+                                    <li class="filter-option">
+                                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                                        {{ form_label(choice) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% for key, error in form.condition.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                        </fieldset>
 
-                    <fieldset class="mk_choice">
-                        <legend class="profil-title">Отметьте наличие запчастей (товаров)</legend>
-                        <ul class="filter-list">
-                            <li class="filter-option">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" id="presence">
-                                <label for="presence">Работаем по наличию</label>
-                            </li>
-                            <li class="filter-option ">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" id="unorder">
-                                <label for="unorder">Работаем под заказ</label>
-                            </li>
-                            <li class="filter-option ">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" id="define">
-                                <label for="define">Необходимо уточнение наличия товара</label>
-                            </li>
-                        </ul>
-                    </fieldset>
+                        <fieldset class="mk_choice">
+                            <legend class="profil-title">Отметьте наличие запчастей (товаров)</legend>
+                            <ul class="filter-list">
+                                {% for choice in form.stockType %}
+                                    <li class="filter-option">
+                                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                                        {{ form_label(choice) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% for key, error in form.stockType.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+
+                    <div class="marka-block">
+                        <h2 class="profil-title">Выберите марку или условие "Все марки"</h2>
+                        <div class="choice-marka">
+                            {{ form_widget(form.brand, {attr: {class: "name-select form-brand-select"}}) }}
+                            {% for key, error in form.brand.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                            <a class="link-help"><img src="/img/help.png" alt="Подсказка"></a>
+                        </div>
+                        <div class="podskazka">
+                            <div class="close">x</div>
+                            <h2>{{ default_text(4).headline }}</h2>
+                            {{ default_text(4).text | raw }}
+                        </div>
+                    </div>
+
+                    <div class="choice-new">
+                        <fieldset id="model-fieldset" get-models-by-brand brand-select=".form-brand-select" container-model="#model-container" list-models="#list-models" legend-element="#chosen-brand-name">
+                            <legend id="chosen-brand-name" class="button" style="display: {{ form.models | length ? 'block' : 'none' }}">Отметить все модели <span>{{ form.brand.vars.help }}</span></legend>
+                            <ul id="list-models" class="filter-mark">
+                                {% for choice in form.models %}
+                                    <li class="filter-option filter-option--size">
+                                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-checkbox checkbox" }}) }}
+                                        {{ form_label(choice) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <div id="model-container" style="display: none">
+                                <li class="filter-option filter-option--size">
+                                    <input type="checkbox" id="spare_part_general_advert_models___index__" name="spare_part_general_advert[models][]" class="visually-hidden filter-input filter-input-checkbox checkbox">
+                                    <label for="spare_part_general_advert_models___index__"></label>
+                                </li>
+                            </div>
+                            {% for key, error in form.models.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                        </fieldset>
+                        <div class="block-btn">
+                            {{ form_widget(form.submitGeneral) }}
+                            {% if validButton == "submitGeneral" %}
+                                <span>Подтверждение принято</span>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
 
-                <div class="marka-block">
-                    <h2 class="profil-title">Выберите марку или условие "Все марки"</h2>
-                    <div class="choice-marka">
-                        <select class="name-select">
-                            <option>Сделайте выбор</option>
-                            <option>Все марки</option>
-                            <option>BMW</option>
-                            <option>Mersedes-Benz</option>
-                            <option>Honda</option>
-                        </select>
-                        <a class="link-help"><img src="/img/help.png" alt="Подсказка"></a>
-                    </div>
-                    <div class="podskazka">
-                        <div class="close">x</div>
-                        <h2>{{ default_text(4).headline }}</h2>
-                        {{ default_text(4).text | raw }}
-                    </div>
-                </div>
-
-                <div class="choice-new">
+                <div class="choice-form2">
+                    <b class="profil-title">Отметьте предлагаемые Вами запчасти или товары для выбранных марок-моделей</b>
                     <fieldset>
-                        <legend class="button">Отметить все модели Mersedes-Benz</legend>
-                        <ul class="filter-mark">
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W168">
-                                <label for="W168">A-KLASSE (1997-2003) W168</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W176">
-                                <label for="W176">A-KLASSE (2004-2011) W176</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W169">
-                                <label for="W169">A-KLASSE (2012-2018) W169</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W161">
-                                <label for="W161">A-KLASSE (2012-2018) W169</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W162">
-                                <label for="W162">A-KLASSE (2012-2018) W169</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W163">
-                                <label for="W163">A-KLASSE (2012-2018) W169</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W164">
-                                <label for="W164">A-KLASSE (2012-2018) W169</label>
-                            </li>
-
-                            <li class="filter-option filter-option--size">
-                                <input class="visually-hidden filter-input filter-input-checkbox checkbox" type="checkbox"  id="W447">
-                                <label for="W447">MIxTO (2014-2018) W447</label>
-                            </li>
+                        <legend class="button-m button-left">Отметить все запчасти (товары)</legend>
+                        {% for key, error in form.spareParts.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        <ul class="filter-list">
+                            {% for choice in form.spareParts %}
+                                <li class="filter-option">
+                                    {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-checkbox checkbox_cl" }}) }}
+                                    {{ form_label(choice) }}
+                                </li>
+                            {% endfor %}
                         </ul>
                     </fieldset>
+                    <p class="comment">
+                        <span>Комментарий к группе товаров:</span>
+                        {{ form_widget(form.comment, {attr: {"rows": "3"}}) }}
+                    </p>
                     <div class="block-btn">
-                        <button type="submit" class="btn">Подтвердить выбранное</button>
-                        <span>Подтверждение принято</span>
+                        {{ form_widget(form.submitSparePart) }}
+                        {% if validButton == "submitSparePart" %}
+                            <span>Объявление сохранено</span>
+                        {% endif %}
                     </div>
                 </div>
             </form>
-
-
-            <form action="#" class="choice-form2">
-                <b class="profil-title">Отметьте предлагаемые Вами запчасти или товары для выбранных марок-моделей</b>
-                <fieldset>
-                    <legend class="button-m button-left">Отметить все запчасти (товары)</legend>
-                    <ul class="filter-list">
-                        <li class="filter-option">
-                            <input class="visually-hidden filter-input filter-input-checkbox checkbox_cl" type="checkbox"  id="android">
-                            <label for="android">Андроид автомагнитолы, навигация (мультимедийные системы автомобиля)</label>
-                        </li>
-
-                        <li class="filter-option">
-                            <input class="visually-hidden filter-input filter-input-checkbox checkbox_cl" type="checkbox"  id="app">
-                            <label for="app">Амортизатор подвески передний правый (передняя правая стопка)</label>
-                        </li>
-
-                        <li class="filter-option">
-                            <input class="visually-hidden filter-input filter-input-checkbox checkbox_cl" type="checkbox"  id="ekt">
-                            <label for="ekt">Электромагнитный клапан турбины</label>
-                        </li>
-                    </ul>
-                </fieldset>
-                <p class="comment">
-                    <span>Коментарий к группе товаров:</span>
-                    <textarea rows="3" name="text"></textarea></p>
-                <div class="block-btn">
-                    <button type="submit" class="btn">Подтвердить и сохранить</button>
-                    <span>Объявление сохранено</span>
-                </div>
-            </form>
-
             <div class="btn-list">
                 <button type="submit" class="btn btn-product">Добавить еще группу товаров</button>
                 <button type="submit" class="btn btn-product">Просмотреть поданное товары</button>
@@ -180,4 +148,6 @@
 
 {% block javascripts %}
     <script src='/js/client/pages/user-profile/product-categories/spare-part/add-group-products.js'></script>
+    <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>
+    <script src='/js/client/directive/user-profile/auto-spare-part-advert/get-models-by-brand-directive.js'></script>
 {% endblock %}

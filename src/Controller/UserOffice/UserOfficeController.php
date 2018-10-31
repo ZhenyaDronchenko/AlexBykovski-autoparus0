@@ -4,6 +4,7 @@ namespace App\Controller\UserOffice;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
@@ -295,6 +296,11 @@ class UserOfficeController extends Controller
                 $sellerData->setSellerCompany($sellerCompany);
                 $client->setSellerData($sellerData);
 
+                $sellerAdvertDetail = new SellerAdvertDetail();
+                $sellerAdvertDetail->setSellerData($sellerData);
+                $sellerData->setAdvertDetail($sellerAdvertDetail);
+
+                $em->persist($sellerAdvertDetail);
                 $em->persist($sellerCompany);
                 $em->persist($sellerData);
                 $em->persist($sellerCompany->getWorkflow());

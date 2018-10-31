@@ -29,10 +29,22 @@ class BrandRepository extends EntityRepository
             ->select('br.id, br.' . $field);
 
         if($isSort){
-            $qb->orderBy("br.name", "ASC");
+            $qb->orderBy("br." . $field, "ASC");
         }
 
         return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function findAllForAdvert($exceptBrandIds)
+    {
+        $qb = $this->createQueryBuilder('br');
+
+        return $qb
+            ->select('br.id, br.brandEn')
+            ->where($qb->expr()->notIn('br.id', $exceptBrandIds))
+            ->orderBy("br.brandEn", "ASC")
+            ->getQuery()
             ->getResult();
     }
 }

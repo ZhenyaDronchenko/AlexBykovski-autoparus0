@@ -27,7 +27,7 @@ class AutoSparePartGeneralAdvert
     ];
 
     /**
-     * @var integer
+     * @var integer|null
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -36,21 +36,22 @@ class AutoSparePartGeneralAdvert
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="condition_type", type="string")
      */
     private $condition;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string")
      */
     private $stockType;
 
+    // if it null and isBrandAdded = 1 - it means "all brands"
     /**
-     * @var Brand|null
+     * @var Brand|null|string
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Brand")
      * @ORM\JoinColumn(name="brand_id", referencedColumnName="id", nullable=true)
@@ -82,6 +83,13 @@ class AutoSparePartGeneralAdvert
     private $spareParts;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="comment_advert", type="text", nullable=true)
+     */
+    private $comment;
+
+    /**
      * @var SellerAdvertDetail
      *
      * Many Features have One SellerAdvertDetail.
@@ -91,76 +99,87 @@ class AutoSparePartGeneralAdvert
     private $sellerAdvertDetail;
 
     /**
-     * AutoSparePartGeneralAdvert constructor.
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
-    public function __construct()
+    private $isBrandAdded = 0;
+
+    /**
+     * AutoSparePartGeneralAdvert constructor.
+     *
+     * @param SellerAdvertDetail $advertDetail
+     */
+    public function __construct(SellerAdvertDetail $advertDetail)
     {
+        $this->sellerAdvertDetail = $advertDetail;
         $this->models = new ArrayCollection();
         $this->spareParts = new ArrayCollection();
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      */
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCondition(): string
+    public function getCondition(): ?string
     {
         return $this->condition;
     }
 
     /**
-     * @param string $condition
+     * @param null|string $condition
      */
-    public function setCondition(string $condition): void
+    public function setCondition(?string $condition): void
     {
         $this->condition = $condition;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getStockType(): string
+    public function getStockType(): ?string
     {
         return $this->stockType;
     }
 
     /**
-     * @param string $stockType
+     * @param null|string $stockType
      */
-    public function setStockType(string $stockType): void
+    public function setStockType(?string $stockType): void
     {
         $this->stockType = $stockType;
     }
 
     /**
-     * @return Brand|null
+     * @return Brand|null|string
      */
-    public function getBrand(): ?Brand
+    public function getBrand()
     {
         return $this->brand;
     }
 
     /**
-     * @param Brand|null $brand
+     * @param Brand|null|string $brand
      */
-    public function setBrand(?Brand $brand): void
+    public function setBrand($brand): void
     {
         $this->brand = $brand;
+        $this->isBrandAdded = true;
     }
 
     /**
@@ -209,5 +228,37 @@ class AutoSparePartGeneralAdvert
     public function setSellerAdvertDetail(SellerAdvertDetail $sellerAdvertDetail): void
     {
         $this->sellerAdvertDetail = $sellerAdvertDetail;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param null|string $comment
+     */
+    public function setComment(?string $comment): void
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBrandAdded(): bool
+    {
+        return $this->isBrandAdded;
+    }
+
+    /**
+     * @param bool $isBrandAdded
+     */
+    public function setIsBrandAdded(bool $isBrandAdded): void
+    {
+        $this->isBrandAdded = $isBrandAdded;
     }
 }

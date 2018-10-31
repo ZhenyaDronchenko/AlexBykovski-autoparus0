@@ -22,4 +22,13 @@ class SparePartRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllForAdvert()
+    {
+        return $this->createQueryBuilder('spp')
+            ->select('spp.id, spp.name')
+            ->orderBy("spp.name", "ASC")
+            ->getQuery()
+            ->getResult();
+    }
 }
