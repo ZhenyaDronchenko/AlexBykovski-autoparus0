@@ -68,4 +68,8 @@ class AutoAdvertDataProvider
 
         return $choices;
     }
+
+    public function getBrandById($id){
+        return $this->em->getRepository(Brand::class)->find($id);
+    }
 }

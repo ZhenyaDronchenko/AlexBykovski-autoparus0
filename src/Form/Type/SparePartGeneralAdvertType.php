@@ -73,6 +73,13 @@ class SparePartGeneralAdvertType extends AbstractType
 
         $brand = $options["brand"] ? $options["brand"] : $advert->getBrand();
 
+        $choicesBrand = $this->provider->getBrands($usedBrands, $isAllUsed);
+
+        if(!$brand && count($choicesBrand)){
+            $brand = $this->provider->getBrandById(array_values($choicesBrand)[0]);
+            $advert->setBrand($brand);
+        }
+
         $builder
             ->add('condition', ChoiceType::class, [
                 'required' => false,
@@ -90,7 +97,7 @@ class SparePartGeneralAdvertType extends AbstractType
             ])
             ->add('brand', ChoiceType::class, [
                 'label' => false,
-                'choices' => $this->provider->getBrands($usedBrands, $isAllUsed),
+                'choices' => $choicesBrand,
                 'help' => $brand ? $brand->getBrandEn() : null
             ])
             ->add('models', ChoiceType::class, [
@@ -98,6 +105,7 @@ class SparePartGeneralAdvertType extends AbstractType
                 'choices' => $this->provider->getModels($brand),
                 'expanded' => true,
                 'multiple' => true,
+                'empty_data' => false,
             ])
             ->add('spareParts', ChoiceType::class, [
                 'label' => false,

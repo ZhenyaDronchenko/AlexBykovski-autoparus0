@@ -64,7 +64,7 @@ class SparePartCategoryController extends Controller
                 if(!$advert->getStockType()){
                     $form->get("stockType")->addError(new FormError("Выберите вариант"));
                 }
-                if($advert->getBrand() instanceof Brand && !$advert->getModels()->count()){
+                if($advert->getBrand() instanceof Brand && !$advert->getModels()->count() && $advert->getBrand()->getModels()->count()){
                     $form->get("models")->addError(new FormError("Выберите хотя бы 1 модель"));
                 }
             }
