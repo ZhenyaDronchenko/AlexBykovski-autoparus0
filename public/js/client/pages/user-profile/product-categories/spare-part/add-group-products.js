@@ -49,17 +49,20 @@ function menuActive() {
 $('document').ready(function(){
     $('.podskazka').hide();
     $('.choice-new .button').click(function(){
-        var value = $(this).html();
-        if(value == 'Отметить все модели Mersedes-Benz'){
-            $(this).html('Снять выбор всех моделей Mersedes-Benz');
-            $('input.checkbox').prop('checked', true);
+        let value = $(this).html();
+
+        if(value.indexOf('Отметить все модели') > -1){
+            $(this).find("span.first-span").html("Снять выбор всех моделей");
+            $('input.checkbox.model-checkbox').prop('checked', true);
         } else{
-            $(this).html('Отметить все модели Mersedes-Benz');
-            $('input.checkbox').prop('checked', false);
+            $(this).find("span.first-span").html("Отметить все модели");
+            $('input.checkbox.model-checkbox').prop('checked', false);
         }
-    })
+    });
+
     $('.button-m').click(function(){
-        var value = $(this).html();
+        let value = $(this).html();
+
         if(value == 'Отметить все запчасти (товары)'){
             $(this).html('Снять выбор запчастей (товаров)');
             $('input.checkbox_cl').prop('checked', true);
@@ -67,13 +70,15 @@ $('document').ready(function(){
             $(this).html('Отметить все запчасти (товары)');
             $('input.checkbox_cl').prop('checked', false);
         }
-    })
+    });
+
     $('.choice-marka a').click(function(){
         $('.podskazka').show();
         $('.close').click(function(){
             $('.podskazka').hide();
         })
-    })
+    });
+
     $('.block-title a').click(function(){
         $('.podskazka-m').show();
         $('.close-m').click(function(){
@@ -81,7 +86,7 @@ $('document').ready(function(){
         })
     })
 
-})
+});
 
 function dotClick() {
     var elemLi = document.getElementById('breadcrumbs');

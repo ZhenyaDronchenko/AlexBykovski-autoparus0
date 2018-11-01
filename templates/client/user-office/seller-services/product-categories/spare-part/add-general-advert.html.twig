@@ -80,11 +80,11 @@
 
                     <div class="choice-new">
                         <fieldset id="model-fieldset" get-models-by-brand brand-select=".form-brand-select" container-model="#model-container" list-models="#list-models" legend-element="#chosen-brand-name">
-                            <legend id="chosen-brand-name" class="button" style="display: {{ form.models | length ? 'block' : 'none' }}">Отметить все модели <span>{{ form.brand.vars.help }}</span></legend>
+                            <legend id="chosen-brand-name" class="button" style="display: {{ form.models | length ? 'block' : 'none' }}"><span class="first-span">Отметить все модели</span> <span class="second-span">{{ form.brand.vars.help }}</span></legend>
                             <ul id="list-models" class="filter-mark">
                                 {% for choice in form.models %}
                                     <li class="filter-option filter-option--size">
-                                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-checkbox checkbox" }}) }}
+                                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-checkbox checkbox model-checkbox" }}) }}
                                         {{ form_label(choice) }}
                                     </li>
                                 {% endfor %}
