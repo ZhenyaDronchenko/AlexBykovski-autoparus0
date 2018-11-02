@@ -2,7 +2,9 @@
 
 {% block title %}Страница просмотра добавленных обьявлений{% endblock %}
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/jquery-modal/jquery.modal.min.css'>
     <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/list-adverts.css'>
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/delete-general-advert.css'>
 {% endblock %}
 
 {% block body %}
@@ -17,7 +19,7 @@
             <li><a class="current">/ добавленные объявления (товары)</a></li>
         </ul>
 
-        <section class="product-user">
+        <section class="product-user" ng-init="modalAdvert = null;">
             <h1 class="product-title">{{ default_text(6).headline }}</h1>
             <h2 class="product-subtitle">Объявления добавленные группой</h2>
             {% for advert in generalAdverts %}
@@ -26,7 +28,7 @@
                         <b>{{ advert.brand ? advert.brand.brandEn : "Все марки - Все модели" }}</b>
                         <div class="tool">
                             <a href="{{ path("user_profile_product_categories_spare_part_edit_general_advert", {"id": advert.id}) }}" class="tool-rdc"><span class="item-1">Редактировать</span><img src="/img/crayon-b.png" alt="Редактировать"></a>
-                            <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="/img/delete-b.png" alt="Удалить"></a>
+                            <a href="#delete-advert-modal" rel="modal:open" class="tool-close" ng-click="modalAdvert = {{ advert.id }}"><span class="item-1">Удалить</span><img src="/img/delete-b.png" alt="Удалить"></a>
                         </div>
                     </div>
                     <div class="wrapper">
@@ -89,4 +91,10 @@
             </div>
         </section>
     </main>
+
+    {% include('/client/user-office/seller-services/product-categories/spare-part/delete-general-advert.html.twig') %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/jquery-modal/jquery.modal.min.js'></script>
 {% endblock %}

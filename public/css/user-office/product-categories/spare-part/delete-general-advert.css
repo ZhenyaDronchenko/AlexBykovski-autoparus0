@@ -1,0 +1,169 @@
+.container-modal {
+    width: 900px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.container-modal .close-modal{
+    display: none !important;
+}
+
+    /*  DEL  */
+.del {
+    margin-top: 150px;
+    padding: 15px 20px;
+    border: 7px solid #efefef ;
+}
+
+.del-title {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 26px;
+    line-height: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #000000;
+    text-decoration: underline;
+}
+
+.del-subtitle {
+    margin: 0;
+    margin-bottom: 15px;
+    font-size: 26px;
+    line-height: 28px;
+    font-weight: 700;
+    text-align: center;
+    color: #000000;
+}
+
+.del-btn {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+.del-btn li {
+    margin-bottom: 15px;
+}
+.btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 240px;
+    padding: 10px;
+    border: 2px solid #cccccc;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #000000;
+    font-size: 20px;
+    line-height: 22px;
+    font-weight: 700;
+}
+.btn:hover {
+    background-color:  #ededed;
+
+}
+.btn img {
+    width: 24px;
+    height: 24px;
+}
+.btn-del {
+    border: 2px solid #d22856;
+}
+
+.btn-edit {
+    border: 2px solid green;
+}
+
+.del-text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+}
+@media (max-width: 481px) {
+    .container-modal {
+        width: auto;
+    }
+    .del {
+        margin-top: 50px;
+        padding: 15px 10px;
+        border: 5px solid #efefef ;
+    }
+
+    .del-title {
+        margin: 0;
+        margin-bottom: 10px;
+        font-size: 20px;
+        line-height: 22px;
+    }
+
+    .del-subtitle {
+        margin-bottom: 15px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .del-btn {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+    .del-btn li {
+        margin-bottom: 0;
+    }
+    .btn {
+        width: 200px;
+        padding: 7px;
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .btn img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .del-btn .btn-o {
+        margin: 10px auto;
+    }
+    .btn-edit {
+        margin-left: auto;
+    }
+    .del-text {
+        font-size: 14px;
+        line-height: 16px;
+
+    }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .container-modal {
+        width: auto;
+    }
+    .del-btn {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .del-btn li {
+        margin-bottom: 0;
+    }
+    .del-btn .btn-o {
+        margin: 10px auto;
+    }
+    .btn-edit {
+        margin-left: auto;
+    }
+
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container-modal {
+        width: auto;
+    }
+    .del-btn {
+        margin-bottom: 0;
+    }
+}
+/*  DEL END  */

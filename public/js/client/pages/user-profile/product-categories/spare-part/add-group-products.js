@@ -16,6 +16,7 @@ function even_odd(num) {
 }
 
 $('document').ready(function(){
+    let main = $("main.container");
     $('.podskazka').hide();
     $('.choice-new .button').click(function(){
         let value = $(this).html();
@@ -32,7 +33,7 @@ $('document').ready(function(){
     $('.button-m').click(function(){
         let value = $(this).html();
 
-        if(value == 'Отметить все запчасти (товары)'){
+        if(value === 'Отметить все запчасти (товары)'){
             $(this).html('Снять выбор запчастей (товаров)');
             $('input.checkbox_cl').prop('checked', true);
         } else{
@@ -53,7 +54,11 @@ $('document').ready(function(){
         $('.close-m').click(function(){
             $('.podskazka-m').hide();
         })
-    })
+    });
+
+    if(main.attr("redirect-page")){
+       window.location.href = main.attr("redirect-page");
+    }
 
 });
 
