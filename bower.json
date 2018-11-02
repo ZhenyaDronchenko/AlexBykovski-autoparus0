@@ -20,6 +20,7 @@
     "jquery.maskedinput": "^1.4.1",
     "jquery-ui": "^1.12.1",
     "cropper": "^4.0.0",
-    "Jcrop": "^2.0.4"
+    "Jcrop": "^2.0.4",
+    "jquery-modal": "^0.9.1"
   }
 }

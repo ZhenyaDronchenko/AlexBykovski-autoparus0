@@ -15,38 +15,8 @@ function even_odd(num) {
     }
 }
 
-function menuActive() {
-
-    var toggle = even_odd(n);
-
-    if (toggle == true) {
-        var gamElem1 = document.getElementById('g-1');
-        gamElem1.className = 'gamburger g1';
-        var gamElem2 = document.getElementById('g-2');
-        gamElem2.className = 'gamburger g2';
-        var gamElem3 = document.getElementById('g-3');
-        gamElem3.className = 'gamburger g3';
-
-        var menuElem = document.getElementById('menu');
-        menuElem.className = 'nav1';
-    }
-
-    else {
-        var gamElem1 = document.getElementById('g-1');
-        gamElem1.className = 'gamburger';
-        var gamElem2 = document.getElementById('g-2');
-        gamElem2.className = 'gamburger';
-        var gamElem3 = document.getElementById('g-3');
-        gamElem3.className = 'gamburger';
-
-        var menuElem = document.getElementById('menu');
-        menuElem.className = 'nav';
-    }
-
-    n += 1;
-}
-
 $('document').ready(function(){
+    let main = $("main.container");
     $('.podskazka').hide();
     $('.choice-new .button').click(function(){
         let value = $(this).html();
@@ -63,7 +33,7 @@ $('document').ready(function(){
     $('.button-m').click(function(){
         let value = $(this).html();
 
-        if(value == 'Отметить все запчасти (товары)'){
+        if(value === 'Отметить все запчасти (товары)'){
             $(this).html('Снять выбор запчастей (товаров)');
             $('input.checkbox_cl').prop('checked', true);
         } else{
@@ -84,7 +54,11 @@ $('document').ready(function(){
         $('.close-m').click(function(){
             $('.podskazka-m').hide();
         })
-    })
+    });
+
+    if(main.attr("redirect-page")){
+       window.location.href = main.attr("redirect-page");
+    }
 
 });
 

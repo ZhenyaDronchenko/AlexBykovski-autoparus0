@@ -14,16 +14,28 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AutoSparePartGeneralAdvert
 {
-    const CONDITIONS = [
+    const CONDITIONS_FORM = [
         "used" => "БУ запчасти (товары)",
         "new" => "Новые товары (запчасти)",
         "rebuilt" => "Восстановленные",
     ];
 
-    const STOCK_TYPES = [
+    const STOCK_TYPES_FORM = [
         "in_stock" => "Работаем по наличию",
         "under_order" => "Работаем под заказ",
         "check_availability" => "Необходимо уточнение наличия товара",
+    ];
+
+    const CONDITIONS_CLIENT_VIEW = [
+        "used" => "БУ",
+        "new" => "Новые",
+        "rebuilt" => "Восстановленные",
+    ];
+
+    const STOCK_TYPES_CLIENT_VIEW = [
+        "in_stock" => "В наличии",
+        "under_order" => "На заказ",
+        "check_availability" => "Наличие под вопросом",
     ];
 
     /**
@@ -260,5 +272,15 @@ class AutoSparePartGeneralAdvert
     public function setIsBrandAdded(bool $isBrandAdded): void
     {
         $this->isBrandAdded = $isBrandAdded;
+    }
+
+    public function getStockTypeView()
+    {
+        return self::STOCK_TYPES_CLIENT_VIEW[$this->stockType];
+    }
+
+    public function getConditionTypeView()
+    {
+        return self::CONDITIONS_CLIENT_VIEW[$this->condition];
     }
 }

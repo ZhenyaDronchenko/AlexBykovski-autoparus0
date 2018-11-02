@@ -1,4 +1,4 @@
- 'use strict'
+'use strict';
 
 var n = 1;
 var n2 = 2;
