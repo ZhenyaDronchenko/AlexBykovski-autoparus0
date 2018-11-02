@@ -30,6 +30,24 @@ class SparePartCategoryController extends Controller
     }
 
     /**
+     * @Route("/list-adverts", name="user_profile_product_categories_spare_part_list_adverts")
+     */
+    public function showListAdvertsAction(Request $request)
+    {
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findBy([
+            "sellerAdvertDetail" => $client->getSellerData()->getAdvertDetail()
+        ]);
+
+        return $this->render('client/user-office/seller-services/product-categories/spare-part/list-adverts.html.twig', [
+            "generalAdverts" => $generalAdverts,
+        ]);
+    }
+
+    /**
      * @Route("/add-general-advert/new", name="user_profile_product_categories_spare_part_add_general_advert")
      * @Route("/edit-general-advert/{id}", name="user_profile_product_categories_spare_part_edit_general_advert")
      *

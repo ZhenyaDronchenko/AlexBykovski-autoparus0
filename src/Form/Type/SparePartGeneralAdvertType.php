@@ -83,14 +83,14 @@ class SparePartGeneralAdvertType extends AbstractType
         $builder
             ->add('condition', ChoiceType::class, [
                 'required' => false,
-                'choices' => array_flip(AutoSparePartGeneralAdvert::CONDITIONS),
+                'choices' => array_flip(AutoSparePartGeneralAdvert::CONDITIONS_FORM),
                 'expanded' => true,
                 'multiple' => false,
                 'placeholder' => false,
             ])
             ->add('stockType', ChoiceType::class, [
                 'required' => false,
-                'choices' => array_flip(AutoSparePartGeneralAdvert::STOCK_TYPES),
+                'choices' => array_flip(AutoSparePartGeneralAdvert::STOCK_TYPES_FORM),
                 'expanded' => true,
                 'multiple' => false,
                 'placeholder' => false,

@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li><a class="items-link" href='#'><span>Импортировать прайслист автозапчастей, товаров</span><img src="{{ image_url(default_image(25).image) }}" alt="лого"></a></li>
-                <li><a class="items-link" href='#'><span>Посмотреть поданные объявления в разделе автозапчасти</span><img src="{{ image_url(default_image(26).image) }}" alt="лого"></a></li>
+                <li><a class="items-link" href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}"><span>Посмотреть поданные объявления в разделе автозапчасти</span><img src="{{ image_url(default_image(26).image) }}" alt="лого"></a></li>
 
             </ul>
             <p class='items-link-text'>{{ default_text(2).text | raw }}</p>
