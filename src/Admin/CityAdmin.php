@@ -71,8 +71,9 @@ class CityAdmin extends AbstractAdmin
             FileType::class,
             ['label' => 'Логотип', 'required' => !$city->getLogo(), 'mapped' => false],
             ["help" => $helpLogo]);
-        $formMapper->add('active', CheckboxType::class, ['label' => 'Активный', 'required' => false]);
         $formMapper->add('text', CKEditorType::class, ['label' => '[TEXTCITY]']);
+        $formMapper->add('active', CheckboxType::class, ['label' => 'Активный', 'required' => false]);
+        $formMapper->add('urlConnectBamper', TextType::class, ['label' => 'URL для коннекта с bamper.by', 'required' => false]);
     }
 
     protected function configureListFields(ListMapper $listMapper)

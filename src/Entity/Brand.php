@@ -95,6 +95,13 @@ class Brand implements VariableInterface
     private $models;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string")
+     */
+    private $urlConnectBamper;
+
+    /**
      * Brand constructor.
      */
     public function __construct()
@@ -283,5 +290,21 @@ class Brand implements VariableInterface
     public function __toString()
     {
         return (string)$this->id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamper(): ?string
+    {
+        return $this->urlConnectBamper;
+    }
+
+    /**
+     * @param null|string $urlConnectBamper
+     */
+    public function setUrlConnectBamper(?string $urlConnectBamper): void
+    {
+        $this->urlConnectBamper = $urlConnectBamper;
     }
 }
