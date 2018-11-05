@@ -81,6 +81,7 @@ class BrandAdmin extends AbstractAdmin
             ["help" => $helpLogo]);
         $formMapper->add('text', CKEditorType::class, ['label' => '[TEXTBRAND]', 'required' => false]);
         $formMapper->add('active', CheckboxType::class, ['label' => 'Активная', 'required' => false]);
+        $formMapper->add('urlConnectBamper', TextType::class, ['label' => 'URL для коннекта с bamper.by', 'required' => false]);
     }
 
     protected function configureListFields(ListMapper $listMapper)
