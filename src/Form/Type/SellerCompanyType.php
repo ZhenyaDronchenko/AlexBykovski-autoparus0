@@ -20,43 +20,32 @@ class SellerCompanyType extends AbstractType
             ->add('isSeller', CheckboxType::class, [
                 'required' => false,
                 'label' => "Авторазборка, магазин, продавец<br>(товары, запчасти, тюнинг)",
-                'attr' => ['class' => "visually-hidden filter-input filter-input-checkbox"],
             ])
             ->add('isService', CheckboxType::class, [
                 'required' => false,
                 'label' => "СТО, автосервис, шиномонтаж<br>(услиги, ремонт, обслуживание)",
-                'attr' => ['class' => "visually-hidden filter-input filter-input-checkbox"],
             ])
             ->add('isNews', CheckboxType::class, [
                 'required' => false,
                 'label' => "Новости, блоги, статьи",
-                'attr' => ['class' => "visually-hidden filter-input filter-input-checkbox"],
             ])
             ->add('unp', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'attr' => ['class' => "choice-input choice-unp",],
                 'constraints' => new NotNull(['message' =>'Заполните поле']),
             ])
             ->add('companyName', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'attr' => ['class' => "choice-input",],
                 'constraints' => new NotNull(['message' =>'Заполните поле']),
             ])
             ->add('address', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'attr' => ['class' => "choice-input",],
                 'constraints' => new NotNull(['message' =>'Заполните поле']),
             ])
             ->add('workflow', SellerCompanyWorkflowType::class)
-            ->add('submit', SubmitType::class, [
-                'label' => "Сохранить",
-                'attr' => [
-                    "class" => "btn-filter"
-                ]
-            ])
+            ->add('submit', SubmitType::class, [])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

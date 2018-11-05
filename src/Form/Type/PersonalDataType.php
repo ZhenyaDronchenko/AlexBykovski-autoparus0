@@ -20,25 +20,16 @@ class PersonalDataType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true,
                 'label' => "Имя",
-                'attr' => [
-                    'class' => "first-part"
-                ],
                 'constraints' => new NotBlank(['message' =>'Заполните поле']),
             ])
             ->add('phone', TextType::class, [
                 'required' => true,
                 'label' => "Телефон",
-                'attr' => [
-                    'class' => "first-part phone-profile",
-                ],
                 'constraints' => new NotBlank(['message' =>'Заполните поле']),
             ])
             ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => "E-mail",
-                'attr' => [
-                    'class' => "first-part",
-                ],
                 'constraints' => [
                     new NotBlank(['message' =>'Заполните поле']),
                     new Email(['message' =>'Некорректный email'])

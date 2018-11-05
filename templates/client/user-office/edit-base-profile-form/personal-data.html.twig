@@ -3,10 +3,10 @@
     <fieldset class="personal">
         <legend class="profil-title">Персональные данные</legend>
         <ul class="profil-list">
-            <li class="profil-option">
+            <li class="profil-option profil-option--1">
                 {{ form_label(form.name) }}
                 <div class="wrapper-form">
-                    {{ form_widget(form.name, {attr: {"placeholder": "Евгений"}}) }}
+                    {{ form_widget(form.name, {attr: {"placeholder": "Евгений", class: "first-part"}}) }}
                     {% for key, error in form.name.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}
@@ -15,16 +15,16 @@
             <li class="profil-option">
                 {{ form_label(form.phone) }}
                 <div class="wrapper-form">
-                    {{ form_widget(form.phone, {attr: {"placeholder": "+375-29-636-69-11"}}) }}
+                    {{ form_widget(form.phone, {attr: {"placeholder": "+375-29-636-69-11", class: "first-part phone-profile"}}) }}
                     {% for key, error in form.phone.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}
                 </div>
             </li>
-            <li class="profil-option">
+            <li class="profil-option profil-option--2">
                 {{ form_label(form.email) }}
                 <div class="wrapper-form">
-                    {{ form_widget(form.email, {attr: {"placeholder": "d4d@tut.by"}}) }}
+                    {{ form_widget(form.email, {attr: {"placeholder": "d4d@tut.by", class: "first-part"}}) }}
                     {% for key, error in form.email.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}
@@ -33,16 +33,16 @@
             <li class="profil-option">
                 {{ form_label(form.country) }}
                 <div class="wrapper-form">
-                    {{ form_widget(form.country, {attr: {"placeholder": "Беларусь"}}) }}
+                    {{ form_widget(form.country, {attr: {"placeholder": "Беларусь", class: "first-part"}}) }}
                     {% for key, error in form.country.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}
                 </div>
             </li>
-            <li class="profil-option">
+            <li class="profil-option profil-option--2">
                 {{ form_label(form.city) }}
                 <div class="wrapper-form">
-                    {{ form_widget(form.city, {attr: {"placeholder": "Минск"}}) }}
+                    {{ form_widget(form.city, {attr: {"placeholder": "Минск", class: "first-part"}}) }}
                     {% for key, error in form.city.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}
@@ -50,7 +50,7 @@
             </li>
         </ul>
     </fieldset>
-    {{ form_widget(form.submit) }}
+    {{ form_widget(form.submit, {attr: {"label": "Подтвердить", class: "btn-filter"}}) }}
     {% if isValid %}
         <span class="check check-on">Подтверждение принято</span>
     {% endif %}

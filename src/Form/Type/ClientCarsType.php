@@ -29,12 +29,7 @@ class ClientCarsType extends AbstractType
                     'isFormSubmitted' => $options["isFormSubmitted"],
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => "Сохранить",
-                'attr' => [
-                    "class" => "btn-filter"
-                ]
-            ])
+            ->add('submit', SubmitType::class, [])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

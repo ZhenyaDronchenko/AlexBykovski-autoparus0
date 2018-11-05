@@ -49,6 +49,8 @@
 
             request(url, data, function (response) {
                 if(response.data.success){
+                    $("#success-submit-message").show();
+
                     return $window.location.href = response.data.redirect;
                 }
 

@@ -108,7 +108,7 @@
 
         function updateRemoveButtons() {
             $(".remove-car-button").on('click', function(e) {
-                $(this).parents("ul.moreinfoblock").remove();
+                $(this).parents("ul.car-container").remove();
 
                 if($("#cars-container").find('ul').length < 5) {
                     $("#add-new-car-button").show();
