@@ -43,27 +43,28 @@ table
 }
 
 /*  HEADER  */
-.header {
+.hatWrapp {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
-    align-items: center;
 }
 
-.header-logo {
+.logo {
     margin: 15px 0;
     color: #d22856;
     font-size: 70px;
-    line-height: 74px;
     font-weight: 700;
+
 }
 
-.header-logo:hover {
+.logo:hover {
     color: #000000;
 }
 
-.burger {
-    padding-top: 5px;
-}
+/* ===================== hamburger ===================== */
 
 .gamburger {
     border: solid 3px black;
@@ -77,7 +78,17 @@ table
     transition-duration: 0.5s;
 }
 
-.burger:hover {
+.hamburger {
+    position: relative;
+}
+
+.hamChild {
+    position: absolute;
+    top: 20px;
+    right: 0;
+}
+
+.hamChild:hover {
     cursor: pointer;
 }
 
@@ -106,7 +117,116 @@ table
     transform-origin: 12px -4px;
 }
 
-.nav1 {
+
+/* ===================== hamburger ===================== */
+
+.gamburger1 {
+    border: solid 2px black;
+    width: 33px;
+    height: 0;
+    margin: 5px;
+    display: block;
+    border-radius: 30px;
+    -webkit-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+
+
+
+.hamChild-1 a:hover {
+    cursor: pointer;
+}
+
+
+
+.g11 {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 6px 12px;
+    -ms-transform-origin: 6px 12px;
+    transform-origin: 6px 12px;
+}
+
+.g21 {
+    opacity: 0;
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.g31 {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin: 12px -4px;
+    -ms-transform-origin: 12px -4px;
+    transform-origin: 12px -4px;
+}
+
+
+.menu-inner {
+    position: relative;
+}
+
+
+#menu1 {
+    z-index: 2;
+    position: absolute;
+    top: -143px;
+    right: 0px;
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+#menu1 > div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+#menu1 div ul li {
+    margin: 10px 0;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#menu1 div ul li a {
+    color: black;
+    text-decoration: none;
+
+}
+
+#menu1 div ul li a:hover {
+
+    color: #d22856;
+}
+
+#menu1 > div:first-child {
+;
+    margin-right: 0px;
+}
+
+#menu1 > div:last-child {
+
+    margin-left: 0px;
+}
+.menu-wrapper {
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}
+
+/* ============= классы ============= */
+
+.m11 {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -121,7 +241,85 @@ table
     background-color: white;
 }
 
-.nav {
+.m011 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transition: max-height 0.7s;
+    -o-transition: max-height 0.7s;
+    transition: max-height 0.7s;
+    max-height: 0;
+    width: 100%;
+    background-color: white;
+    overflow: hidden;
+}
+/* ===================== hamburger-end ===================== */
+
+#menu {
+    z-index: 2;
+}
+
+#menu > div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+#menu div ul li {
+    margin: 10px 0;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#menu div ul li a {
+    color: black;
+    text-decoration: none;
+
+}
+
+#menu div ul li a:hover {
+
+    color: #d22856;
+}
+
+#menu > div:first-child {
+;
+    margin-right: 0px;
+}
+
+#menu > div:last-child {
+
+    margin-left: 0px;
+}
+.menu-wrapper {
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+}
+
+/* ============= классы ============= */
+
+.m1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-top: solid 2px black;
+    border-bottom: solid 2px black;
+    -webkit-transition: max-height 1.5s;
+    -o-transition: max-height 1.5s;
+    transition: max-height 1.5s;
+    overflow: hidden;
+    max-height: 700px;
+    width: auto;
+    background-color: white;
+}
+
+.m01 {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -134,50 +332,21 @@ table
     overflow: hidden;
 }
 
-
-#menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.nav-block {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-}
-
-.nav-block li {
-    margin: 10px 0;
-}
-
-.nav-block a {
-    color: #000000;
-    font-size: 27px;
-    line-height: 30px;
-    font-weight: 700;
-    text-align: center;
-}
-
-.nav-block a:hover {
-    color: #d22856;
-}
-
-@media (max-width: 480px) {
+@media (max-width: 575px) {
     .container {
         width: auto;
     }
 
-    .header-logo {
+    .logo {
         font-size: 32px;
-        line-height: 36px;
         letter-spacing: -1px;
+
+
+    }
+    .hamChild {
+
+        top: 5px;
+
     }
 
     .gamburger {
@@ -185,11 +354,18 @@ table
         width: 40px;
         height: 0;
         margin: 8px;
+        display: block;
+        border-radius: 30px;
+        -webkit-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
+        transition-duration: 0.5s;
     }
 
     .hamburger {
         position: relative;
     }
+
+
 
     .hamChild:hover {
         cursor: pointer;
@@ -204,6 +380,7 @@ table
         transform-origin: 12px 18px;
     }
 
+
     .g3 {
         -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
@@ -213,69 +390,181 @@ table
         transform-origin: 12px -14px;
     }
 
-    .nav-block li {
-        margin: 5px 0;
+    #menu > div {
+        display: block;
     }
 
-    .burger {
-        padding-top: 0;
-    }
-    .nav-block a {
-        font-size: 22px;
-        line-height: 24px;
-    }
-    .nav-block {
-        flex-direction: column;
-    }
-    #menu .item {
-        margin-bottom: 5px;
+    #menu { display: block;
+
     }
 
+    .menu-01, .menu-02 {
+        display: block;
+    }
 
-}
+    #menu div ul li {
+        margin: 30px 0;
+        font-size: 24px;
+    }
 
-@media (min-width: 481px) and (max-width: 767px) {
-    .container {
-        width: auto;
+    #menu > div:first-child {
+
+        margin: 0;
     }
-    .nav-block li {
-        margin: 7px 0;
+
+    #menu > div:last-child {
+
+        margin: 0;
     }
-    .header-logo {
-        margin: 10px 0;
-        font-size: 54px;
-        line-height: 60px;
-        letter-spacing: -1px;
+
+    #menu div ul li:last-child {
+        margin-bottom: 0;
     }
-    .burger {
-        padding-top: 0;
+
+    #menu div:last-child {
+        margin-bottom: 8px;
     }
-    .nav-block a {
-        font-size: 22px;
+
+    .menu-01 div:last-child {
+        margin-bottom: 0;
     }
-    .nav-block {
-        flex-direction: column;
+
+    .menu-01 div:first-child, .menu-02 div:first-child {
+        margin-bottom: 0;
     }
-    #menu .item {
+
+    #menu1 > div {
+        display: block;
+    }
+
+    #menu1 { display: block;
+        top: -479px;
+        right: 0px;
+
+    }
+    .menu-011, .menu-021 {
+        display: block;
+    }
+    #menu1 div ul li {
+        margin: 30px 0;
+        font-size: 24px;
+    }
+    #menu1 > div:first-child {
+
+        margin: 0;
+    }
+
+    #menu1 > div:last-child {
+
+        margin: 0;
+    }
+
+    #menu1 div ul li:last-child {
+        margin-bottom: 0;
+    }
+
+    #menu1 div:last-child {
+        margin-bottom: 8px;
+    }
+
+    .menu-011 div:last-child {
+        margin-bottom: 0;
+    }
+
+    .menu-011 div:first-child, .menu-02 div:first-child {
         margin-bottom: 0;
     }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 576px) and (max-width: 767px) {
     .container {
         width: auto; }
 
-    .nav-block a {
-        font-size: 26px;
+    .hamChild {
+        top: 20px;
     }
-    .nav-block {
+    .menu-01, .menu-02 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
         flex-direction: column;
     }
-    #menu .item {
-        margin-bottom: 0;
+
+    .menu-01 div:first-child, .menu-02 div:first-child {
+        margin-bottom: -10px;
+    }
+
+    #menu div ul li {
+        margin: 10px;
+        font-size: 22px;
+    }
+    .menu-011, .menu-021 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .menu-011 div:first-child, .menu-021 div:first-child {
+        margin-bottom: -10px;
+    }
+
+    #menu1 div ul li {
+        margin: 10px;
+        font-size: 22px;
+    }
+    #menu1 {
+        top: -181px;
+        right: 0px;
     }
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        width: auto; }
+
+    .hamChild {
+        top: 20px;
+    }
+
+    #menu div ul li {
+        margin: 8px;
+        font-size: 20px;
+    }
+    #menu1 div ul li {
+        margin: 8px;
+        font-size: 20px;
+
+    }
+    #menu1 {
+        top: -107px;
+        right: 0px;
+    }
+}
+
+
+@media (min-width: 992px) and  (max-width: 1199px) {
+
+    #menu div ul li {
+        margin: 8px;
+        font-size: 28px;
+    }
+    #menu1 div ul li {
+        margin: 8px;
+        font-size: 28px;
+    }
+
+    #menu1 {
+        top: -123px;
+        right: 0px;
+    }
+}
 /*header END*/
 
   /*ХЛЕБНЫЕ КРОШКИ*/
@@ -3206,7 +3495,7 @@ padding: 10px 20px;
 /*  FOOTER */
 
 .footer {
-     position: fixed;
+    position: fixed;
     border-top: solid 2px black;
     bottom: 0;
     left: 0;
@@ -3215,63 +3504,63 @@ padding: 10px 20px;
 }
 
 .footer-wrapper {
-display: -webkit-box;
+    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-   
-    
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+
+
 }
 .footer a {
-  color: #000000
+    color: #000000
 }
 
 .footer a:hover {
-  color: #d22856;
+    color: #d22856;
 }
 
 .material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
 
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
 
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
 
-  /* Support for IE. */
-  font-feature-settings: 'liga';
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
-  
-  .material-icons.md-36 {font-size: 36px;}
 
-  /* fallback */
+.material-icons.md-36 {font-size: 36px;}
+
+/* fallback */
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url('https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
 }
 
-@media (max-width: 575px) {
-  .container {
-    width: auto; 
-  }
-  .material-icons.md-36 {font-size: 32px;}
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+    }
+    .material-icons.md-36 {font-size: 32px;}
 }
 
 /*  FOOTER END */

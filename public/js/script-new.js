@@ -12,47 +12,46 @@ function even_odd(num) {
     }
     else {
         return true;
-    }  
+    }
 }
 
- function menuActive() {
+function menuActive() {
 
-     var toggle = even_odd(n);
+    var toggle = even_odd(n);
 
-     if (toggle == true) {
-         var gamElem1 = document.getElementById('g-1');
-         gamElem1.className = 'gamburger g1';
-         var gamElem2 = document.getElementById('g-2');
-         gamElem2.className = 'gamburger g2';
-         var gamElem3 = document.getElementById('g-3');
-         gamElem3.className = 'gamburger g3';
+    if (toggle == true) {
+        var gamElem1 = document.getElementById('g-1');
+        gamElem1.className = 'gamburger g1';
+        var gamElem2 = document.getElementById('g-2');
+        gamElem2.className = 'gamburger g2';
+        var gamElem3 = document.getElementById('g-3');
+        gamElem3.className = 'gamburger g3';
 
-         var menuElem = document.getElementById('menu');
-         menuElem.className = 'nav1';
-     }
+        var menuElem = document.getElementById('menu');
+        menuElem.className = 'm1';
+    }
 
-     else {
-         var gamElem1 = document.getElementById('g-1');
-         gamElem1.className = 'gamburger';
-         var gamElem2 = document.getElementById('g-2');
-         gamElem2.className = 'gamburger';
-         var gamElem3 = document.getElementById('g-3');
-         gamElem3.className = 'gamburger';
+    else {
+        var gamElem1 = document.getElementById('g-1');
+        gamElem1.className = 'gamburger';
+        var gamElem2 = document.getElementById('g-2');
+        gamElem2.className = 'gamburger';
+        var gamElem3 = document.getElementById('g-3');
+        gamElem3.className = 'gamburger';
 
-         var menuElem = document.getElementById('menu');
-         menuElem.className = 'nav';
-     }
+        var menuElem = document.getElementById('menu');
+        menuElem.className = 'm01';
+    }
 
-     n += 1;
- }
-
+    n += 1;
+}
 function even_odd1(num) {
     if (num % 2 == 0) {
         return false;
     }
     else {
         return true;
-    }  
+    }
 }
 function secondMenu() {
 
@@ -60,14 +59,14 @@ function secondMenu() {
 
     if (toggle == true) {
         var gamElem1 = document.getElementById('g-11');
-    gamElem1.className = 'gamburger1 g11';
-    var gamElem2 = document.getElementById('g-21');
-    gamElem2.className = 'gamburger1 g21';
-    var gamElem3 = document.getElementById('g-31');
-    gamElem3.className = 'gamburger1 g31';
+        gamElem1.className = 'gamburger1 g11';
+        var gamElem2 = document.getElementById('g-21');
+        gamElem2.className = 'gamburger1 g21';
+        var gamElem3 = document.getElementById('g-31');
+        gamElem3.className = 'gamburger1 g31';
 
-    var menuElem = document.getElementById('menu1');
-    menuElem.className = 'm11';
+        var menuElem = document.getElementById('menu1');
+        menuElem.className = 'm11';
     }
 
     else {
@@ -77,7 +76,7 @@ function secondMenu() {
         gamElem2.className = 'gamburger1';
         var gamElem3 = document.getElementById('g-31');
         gamElem3.className = 'gamburger1';
-    
+
         var menuElem = document.getElementById('menu1');
         menuElem.className = 'm011';
     }
