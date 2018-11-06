@@ -79,6 +79,20 @@ class SellerCompany
     private $workflow;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $activityDescription;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $additionalPhone;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -204,5 +218,37 @@ class SellerCompany
     public function setIsNews(bool $isNews): void
     {
         $this->isNews = $isNews;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getActivityDescription(): ?string
+    {
+        return $this->activityDescription;
+    }
+
+    /**
+     * @param null|string $activityDescription
+     */
+    public function setActivityDescription(?string $activityDescription): void
+    {
+        $this->activityDescription = $activityDescription;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAdditionalPhone(): ?string
+    {
+        return $this->additionalPhone;
+    }
+
+    /**
+     * @param null|string $additionalPhone
+     */
+    public function setAdditionalPhone(?string $additionalPhone): void
+    {
+        $this->additionalPhone = $additionalPhone;
     }
 }

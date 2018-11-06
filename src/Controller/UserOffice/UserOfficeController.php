@@ -74,14 +74,7 @@ class UserOfficeController extends Controller
      */
     public function editUserBusinessOfficeAction(Request $request)
     {
-        /** @var Client $client */
-        $client = $this->getUser();
-
-        if(!$client->hasRole(User::ROLE_SELLER)){
-            return $this->redirectToRoute("show_user_office");
-        }
-
-        return $this->render('client/user-office/user-business-profile.html.twig', $this->handleBusinessForm($request));
+        return $this->render('client/user-office/user-business-profile.html.twig', $this->handleBusinessForm($request, true));
     }
 
     /**
@@ -265,7 +258,7 @@ class UserOfficeController extends Controller
         ]);
     }
 
-    private function handleBusinessForm(Request $request)
+    private function handleBusinessForm(Request $request, $isFullForm = false)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -281,7 +274,7 @@ class UserOfficeController extends Controller
             $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
         }
 
-        $form = $this->createForm(SellerCompanyType::class, $sellerCompany);
+        $form = $this->createForm(SellerCompanyType::class, $sellerCompany, ["isFullForm" => $isFullForm]);
 
         $form->handleRequest($request);
 

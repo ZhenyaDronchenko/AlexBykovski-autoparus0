@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <main>
+    <main class="container">
         <div class="choice">
-            <div class="choice-block container">
+            <div class="choice-block">
                 <a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a>
                 <a class="icon" href="#"><i class="fa fa-suitcase"></i>  Business</a>
                 <a class="icon" href="#"><i class="fa fa-camera"></i>  Фотогалерея </a>
@@ -15,8 +15,194 @@
             </div>
         </div>
 
-        <div class="container">
-            {% include('/client/user-office/base-profile/business-profile.html.twig') with {"form" : form, 'isValid' : isValid, 'direct' : true} %}
-        </div>
+        <ul id="breadcrumbs">
+            <li><a class="user-link user-link--icon"  href="{{ path("show_user_office") }}">
+                    <span class="user-name">{{ app.user.name }}</span><img class="user-icon" src="/img/shop.png" alt="icon"></a>
+            </li>
+            <li><a class="current">/ бизнес профиль</a></li>
+        </ul>
+
+        <section class="business">
+            <form class="business-form" action="{{ path("show_user_business_office") }}" method="post" novalidate enctype="multipart/form-data">
+                {{ form_widget(form._token) }}
+                <h1 class="business-title">Редактор бизнес профиля</h1>
+                <div class="business-block">
+                    <ul class="business-option">
+                        <li class="filter-option">
+                            {{ form_widget(form.isSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            <label for="{{ form.isSeller.vars.id }}">{{ form.isSeller.vars.label | raw }}</label>
+                        </li>
+                        <li class="filter-option">
+                            {{ form_widget(form.isService, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            <label for="{{ form.isService.vars.id }}">{{ form.isService.vars.label | raw }}</label>
+                        </li>
+                        <li class="filter-option">
+                            {{ form_widget(form.isNews, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            <label for="{{ form.isNews.vars.id }}">{{ form.isNews.vars.label | raw }}</label>
+                        </li>
+                    </ul>
+                    {% for key, error in form.isSeller.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                    <div class="business-option">
+                        {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input"}}) }}
+                        {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input choice-unp"}}) }}
+                        {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}
+                        {% for key, error in form.address.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <h2 class="time-text">Время работы</h2>
+                <div class="time">
+                    <div class="time-wrapper time-wrapper--border">
+                        <div class="time-block">
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isMondayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isMondayWork) }}
+                            </div>
+
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isTuesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isTuesdayWork) }}
+                            </div>
+
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isWednesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isWednesdayWork) }}
+                            </div>
+
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isThursdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isThursdayWork) }}
+                            </div>
+
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isFridayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isFridayWork) }}
+                            </div>
+                        </div>
+
+                        <div class="time-m">
+                            {{ form_widget(form.workflow.weekDaysStartAt, {attr: {class: "time_work"}}) }}
+
+                            {{ form_label(form.workflow.weekDaysEndAt) }}
+                            {{ form_widget(form.workflow.weekDaysEndAt, {attr: {class: "time_work"}}) }}
+                        </div>
+                    </div>
+                    <div class="time-wrapper">
+                        <div class="time-block">
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isSaturdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isSaturdayWork) }}
+                            </div>
+                            <div class="time_new_mk">
+                                {{ form_widget(form.workflow.isSundayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                {{ form_label(form.workflow.isSundayWork) }}
+                            </div>
+                        </div>
+                        <div class="time-w">
+                            {{ form_widget(form.workflow.weekendStartAt, {attr: {class: "time_work"}}) }}
+
+                            {{ form_label(form.workflow.weekendEndAt) }}
+                            {{ form_widget(form.workflow.weekendEndAt, {attr: {class: "time_work"}}) }}
+                        </div>
+
+                        {% for key, error in form.workflow.isMondayWork.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekendStartAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekendEndAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <fieldset class="pay">
+                    <legend class="pay-title">Способы оплаты</legend>
+                    <ul class="pay-block">
+                        <li class="pay-option">
+                            {{ form_widget(form.workflow.isCash, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            {{ form_label(form.workflow.isCash) }}
+                        </li>
+                        <li class="pay-option">
+                            {{ form_widget(form.workflow.isCashless, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            {{ form_label(form.workflow.isCashless) }}
+                        </li>
+                        <li class="pay-option">
+                            {{ form_widget(form.workflow.isCreditCard, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            {{ form_label(form.workflow.isCreditCard) }}
+                        </li>
+                    </ul>
+                    {% for key, error in form.workflow.isCash.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </fieldset>
+
+                <fieldset class="delivery">
+                    <legend class="delivery-title">Доставка</legend>
+                    <ul class="delivery-block">
+                        {% for choice in form.workflow.delivery %}
+                            <li class="delivery-option">
+                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                                {{ form_label(choice) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="delivery-text">
+                        <span>Варианты доставки:</span>
+                        {{ form_widget(form.workflow.deliveryDetail, {attr: {"rows": "2" }}) }}
+                    </div>
+                </fieldset>
+
+                <fieldset class="delivery">
+                    <legend class="delivery-title">Гарантия</legend>
+                    <ul class="delivery-block">
+                        {% for choice in form.workflow.guarantee %}
+                            <li class="delivery-option">
+                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                                {{ form_label(choice) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="delivery-text">
+                        <span>Гарантийные условия:</span>
+                        {{ form_widget(form.workflow.guaranteeDetail, {attr: {"rows": "2" }}) }}
+                    </div>
+                </fieldset>
+                <div class="info">
+                    <h2 class="info-title">О Вашей деятельности</h2>
+                    {{ form_widget(form.activityDescription, {attr: {"rows": "3" }}) }}
+                </div>
+                <div class="phone">
+                    {{ form_label(form.additionalPhone) }}
+                    {{ form_widget(form.additionalPhone, {attr: {class: "phone-mask"}}) }}
+                </div>
+                <div class="business-btn">
+                    {{ form_widget(form.submit, {attr: {class: "btn-filter", label: "Сохранить" }}) }}
+                    {% if isValid %}
+                        <span class="check check-on">Сохранение принято</span>
+                    {% endif %}
+                </div>
+            </form>
+            <p class="subtext">тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога текстовтект из каталога ткстов </p>
+        </section>
+
     </main>
 {% endblock %}

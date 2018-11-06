@@ -29,49 +29,49 @@ class SellerCompanyWorkflow
      *
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isMondayWork = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isTuesdayWork = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isWednesdayWork = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isThursdayWork = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isFridayWork = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isSaturdayWork = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isSundayWork = 0;
 
@@ -131,30 +131,51 @@ class SellerCompanyWorkflow
      *
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isCash = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isCashless = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $isCreditCard = 0;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $delivery = 0;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $deliveryDetail;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $guarantee = 0;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $guaranteeDetail;
 
     /**
      * @return int
@@ -410,5 +431,53 @@ class SellerCompanyWorkflow
     public function setDelivery(bool $delivery): void
     {
         $this->delivery = $delivery;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDeliveryDetail(): ?string
+    {
+        return $this->deliveryDetail;
+    }
+
+    /**
+     * @param null|string $deliveryDetail
+     */
+    public function setDeliveryDetail(?string $deliveryDetail): void
+    {
+        $this->deliveryDetail = $deliveryDetail;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGuarantee(): bool
+    {
+        return $this->guarantee;
+    }
+
+    /**
+     * @param bool $guarantee
+     */
+    public function setGuarantee(bool $guarantee): void
+    {
+        $this->guarantee = $guarantee;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getGuaranteeDetail(): ?string
+    {
+        return $this->guaranteeDetail;
+    }
+
+    /**
+     * @param null|string $guaranteeDetail
+     */
+    public function setGuaranteeDetail(?string $guaranteeDetail): void
+    {
+        $this->guaranteeDetail = $guaranteeDetail;
     }
 }

@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,8 @@ class SellerCompanyWorkflowType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $isFullForm = $options["isFullForm"];
+
         $builder
             ->add('isMondayWork', CheckboxType::class, [
                 'required' => false,
@@ -89,12 +92,30 @@ class SellerCompanyWorkflowType extends AbstractType
                 'placeholder' => false,
             ])
         ;
+
+        if($isFullForm){
+            $builder
+                ->add('deliveryDetail', TextareaType::class, ['required' => false])
+                ->add('guarantee', ChoiceType::class, [
+                    'required' => false,
+                    'choices' => [
+                        "Да" => true,
+                        "Нет" => false,
+                    ],
+                    'expanded' => true,
+                    'multiple' => false,
+                    'placeholder' => false,
+                ])
+                ->add('guaranteeDetail', TextareaType::class, ['required' => false])
+                ;
+        }
     }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => SellerCompanyWorkflow::class,
             'validation_groups' => [],
+            'isFullForm' => false,
         ]);
     }
 }
