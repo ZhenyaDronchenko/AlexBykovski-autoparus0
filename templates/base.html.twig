@@ -50,9 +50,9 @@
                                     {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
                                     <li><a href="{{ logout_path("main") }}">Выход</a></li>
                                     {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                        <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                                        <li><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
                                     {% else %}
-                                        <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                                        <li><a class="inverse-color" href="{{ path("show_user_office") }}">{{ userName }}</a></li>
                                     {% endif %}
                                 {% else %}
                                     <li><a href="{{ path("login") }}">Вход</a></li>
@@ -122,7 +122,7 @@
                     </div>
                     <div>
                         {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
-                        <a class="material-icons md-36" href='{{ path(personLink) }}'>
+                        <a class="material-icons md-36 {{ app.user ? "inverse-color" : "" }}" href='{{ path(personLink) }}'>
                             <i class="material-icons md-36">person</i>
                         </a>
                     </div>
@@ -142,9 +142,9 @@
                                         {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
                                         <li><a href="{{ logout_path("main") }}">Выход</a></li>
                                         {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                            <li><a href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                                            <li><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
                                         {% else %}
-                                            <li><a href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                                            <li><a class="inverse-color" href="{{ path("show_user_office") }}">{{ userName }}</a></li>
                                         {% endif %}
                                     {% else %}
                                         <li><a href="{{ path("login") }}">Вход</a></li>

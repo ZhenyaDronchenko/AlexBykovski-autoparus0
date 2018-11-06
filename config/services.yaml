@@ -118,6 +118,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    app.security.login_success_handler:
+        class: App\Security\Authentication\Handler\LoginSuccessHandler
+        arguments:  ['@router']
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
 fos_user:
     db_driver: orm
     firewall_name: main

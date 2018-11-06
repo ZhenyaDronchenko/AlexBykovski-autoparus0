@@ -198,6 +198,14 @@ table {
     color: #d22856;
 }
 
+#menu1 div ul li a.inverse-color {
+    color: #d22856;
+}
+
+#menu1 div ul li a.inverse-color:hover {
+    color: #000000
+}
+
 #menu1 > div:first-child {
 ;
     margin-right: 0px;
@@ -274,6 +282,14 @@ table {
 #menu div ul li a:hover {
 
     color: #d22856;
+}
+
+#menu div ul li a.inverse-color {
+    color: #d22856;
+}
+
+#menu div ul li a.inverse-color:hover {
+    color: #000000
 }
 
 #menu > div:first-child {
@@ -814,12 +830,21 @@ table {
 
 
 }
+
 .footer a {
     color: #000000
 }
 
 .footer a:hover {
     color: #d22856;
+}
+
+.footer a.inverse-color {
+    color: #d22856;
+}
+
+.footer a.inverse-color:hover {
+    color: #000000
 }
 
 .material-icons {
