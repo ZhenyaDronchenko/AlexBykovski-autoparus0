@@ -87,6 +87,13 @@ class City implements VariableInterface
     private $logo;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $urlConnectBamper;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -212,6 +219,22 @@ class City implements VariableInterface
     public function setLogo(?string $logo): void
     {
         $this->logo = $logo;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamper(): ?string
+    {
+        return $this->urlConnectBamper;
+    }
+
+    /**
+     * @param null|string $urlConnectBamper
+     */
+    public function setUrlConnectBamper(?string $urlConnectBamper): void
+    {
+        $this->urlConnectBamper = $urlConnectBamper;
     }
 
     public function getTypeTranslate()

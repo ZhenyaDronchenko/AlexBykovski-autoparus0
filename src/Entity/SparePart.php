@@ -151,6 +151,13 @@ class SparePart implements VariableInterface
     private $conditions;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $urlConnectBamper;
+
+    /**
      * SparePart constructor.
      */
     public function __construct()
@@ -490,5 +497,21 @@ class SparePart implements VariableInterface
         }
 
         return $string;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamper(): ?string
+    {
+        return $this->urlConnectBamper;
+    }
+
+    /**
+     * @param null|string $urlConnectBamper
+     */
+    public function setUrlConnectBamper(?string $urlConnectBamper): void
+    {
+        $this->urlConnectBamper = $urlConnectBamper;
     }
 }

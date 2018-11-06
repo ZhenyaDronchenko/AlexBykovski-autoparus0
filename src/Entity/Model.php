@@ -110,6 +110,13 @@ class Model implements VariableInterface
     private $active = 0;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $urlConnectBamper;
+
+    /**
      * Model constructor.
      */
     public function __construct()
@@ -315,5 +322,21 @@ class Model implements VariableInterface
     public function __toString()
     {
         return (string)$this->id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamper(): ?string
+    {
+        return $this->urlConnectBamper;
+    }
+
+    /**
+     * @param null|string $urlConnectBamper
+     */
+    public function setUrlConnectBamper(?string $urlConnectBamper): void
+    {
+        $this->urlConnectBamper = $urlConnectBamper;
     }
 }
