@@ -28,7 +28,7 @@ function menuActive() {
         gamElem3.className = 'gamburger g3';
 
         var menuElem = document.getElementById('menu');
-        menuElem.className = 'm1';
+        menuElem.className = 'nav1';
     }
 
     else {
@@ -40,45 +40,7 @@ function menuActive() {
         gamElem3.className = 'gamburger';
 
         var menuElem = document.getElementById('menu');
-        menuElem.className = 'm01';
-    }
-
-    n += 1;
-}
-function even_odd1(num) {
-    if (num % 2 == 0) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}
-function secondMenu() {
-
-    var toggle = even_odd1(n);
-
-    if (toggle == true) {
-        var gamElem1 = document.getElementById('g-11');
-        gamElem1.className = 'gamburger1 g11';
-        var gamElem2 = document.getElementById('g-21');
-        gamElem2.className = 'gamburger1 g21';
-        var gamElem3 = document.getElementById('g-31');
-        gamElem3.className = 'gamburger1 g31';
-
-        var menuElem = document.getElementById('menu1');
-        menuElem.className = 'm11';
-    }
-
-    else {
-        var gamElem1 = document.getElementById('g-11');
-        gamElem1.className = 'gamburger1';
-        var gamElem2 = document.getElementById('g-21');
-        gamElem2.className = 'gamburger1';
-        var gamElem3 = document.getElementById('g-31');
-        gamElem3.className = 'gamburger1';
-
-        var menuElem = document.getElementById('menu1');
-        menuElem.className = 'm011';
+        menuElem.className = 'nav';
     }
 
     n += 1;

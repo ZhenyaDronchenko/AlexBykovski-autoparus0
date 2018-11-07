@@ -1,77 +1,56 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
 {% block stylesheets %}
-    <link rel='stylesheet' href='/css/style-new.css'>
-    <link rel='stylesheet' href='/css/cities.css'>
+    <link rel='stylesheet' href='/css/catalog/auto/city/choose-city.css'>
 {% endblock %}
 
 {% block body %}
-    <article id='aWrapp'>
+    <main class="container" ng-init="showAll = false;">
+        <ul id="breadcrumbs">
+            <li><a class="user-link user-link--icon"  href="{{ path("homepage") }}">
+                    <span class="user-name">Главная </span><img class="user-icon" src="/img/home.png" alt="icon"></a>
+            </li>
+            <li><a class="current">/ Последовательный каталог</a></li>
+        </ul>
 
-        <h1>Заголовок H1 из админки</h1>
-        <div id='contentWrapp'>
-                <div id='cities'>
-                    <div id='cButtons'>
-                        <div id='cB1'>
-                            <div><span>МИНСК</span></div>
-                            <div><span>Витебск</span></div>
-                            <div><span>Гомель</span></div>
-                        </div>
-                        <div id='cB2'>
-                            <div><span>Брест</span></div>
-                            <div><span>Гродно</span></div>
-                            <div><span>Могилев</span></div>
-                        </div>
-                    </div>
-                    <div id='hiddenCities'>
-                        <div id='hC1'>
-                            <ul>
-                                <li><a href='#'>Барановичи</a></li>
-                                <li><a href='#'>Береза</a></li>
-                                <li><a href='#'>Бешенковичи</a></li>
-                                <li><a href='#'>Борисов</a></li>
-                                <li><a href='#'>Быхов</a></li>
-                                <li><a href='#'>Вилейка</a></li>
-                            </ul>
-                        </div>
-                        <div id='hC2'>
-                            <ul>
-                                <li><a href='#'>Барань</a></li>
-                                <li><a href='#'>Березино</a></li>
-                                <li><a href='#'>Бобруйск</a></li>
-                                <li><a href='#'>Брагин</a></li>
-                                <li><a href='#'>Василевичи</a></li>
-                                <li><a href='#'>Волковыск</a></li>
-                            </ul>
-                        </div>
-                        <div id='hC3'>
-                            <ul>
-                                <li><a href='#'>Белоозерск</a></li>
-                                <li><a href='#'>Березовка</a></li>
-                                <li><a href='#'>Богушевск</a></li>
-                                <li><a href='#'>Браслав</a></li>
-                                <li><a href='#'>Ветка</a></li>
-                                <li><a href='#'>Воложин</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id='showButton' onclick=''>Показать все >>></div>
+        <section class="city">
+            <h1 class="city-title">{{ page.headline1 }}</h1>
+            <div class=city-desc>
+                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
+                <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
+            </div>
+            <div class="city-block">
+                <div class="city-wrapper" ng-init="showAll = false">
+                    <ul class="city-show" id='brandImg5'>
+                        <li><a class="city-link" href=''><img src="{{ image_url(capital.logo) }}" alt="{{ capital.name }}" title="Автозапчасти в {{ capital.prepositional }}">Минск</a></li>
+                        {% for city in regionalCities %}
+                            <li><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}">{{ city.name }}</a></li>
+                        {% endfor %}
+                        {% for city in othersCities%}
+                            <li ng-show="showAll"><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}">{{ city.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <div ng-click='showAll = true' ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+                    <div ng-click='showAll = false' ng-show="showAll" id='showAll5'>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
                 </div>
-
-                <div id='firstText'>
-                    <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-                    <span id='allText'>>>></span>
+                <div class="city-list">
+                    <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
+                    <div class='city-subtext'>{{ page.text2 | raw }}</div>
+                    <a href="{{ page.returnButtonLink }}" class="city-btn">{{ page.returnButtonText }}</a>
                 </div>
-
-                <div id='secondText'>
-
-                    <h2>Заголовок H2 из админки</h2>
-
-                    <p>текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, </p>
+            </div>
+            <div class="wrapper-icon">
+                <div class="city-items">
+                    <ul class="city-icon">
+                        {% for brand in brands %}
+                            <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: "dvs", urlBrand: brand.url}) }}"><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="Двигатели для автомобилей {{ brand.brandEn }}"></a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
-        </div>
-
-
-        <br/><br/><br/><br/>
-    </article>
+            </div>
+        </section>
+    </main>
 {% endblock %}

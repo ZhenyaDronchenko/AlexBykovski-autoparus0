@@ -29,7 +29,6 @@ class SellerCompanyType extends AbstractType
         $this->em = $em;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $isFullForm = $options["isFullForm"];
