@@ -12,7 +12,7 @@
             <div class="heading">
                 <div class="profil-items">
                     <div class="user-info user-info--line">
-                        <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" action-method="">
+                        <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" img-selector="#user-photo" action-url="{{ path("user_office_upload_user_photo_ajax") }}">
                             <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
                             <a href="" id="user-photo-link" class="user-link"> + </a>
                             <input id="user-photo-input" type="file" style="display: none">
@@ -30,9 +30,10 @@
                 <div class="profil-items">
                     <div class="user-info">
                         {% if isSeller %}
-                            <div class="user-logo">
-                                <img src="/img/userfoto.jpg" alt="Автолюбители" class="foto-user">
-                                <a href="#" class="user-link"> + </a>
+                            <div class="user-logo" user-upload-link link-selector="#business-profile-photo-link" input-selector="#business-profile-photo-input" img-selector="#business-profile-photo" action-url="{{ path("user_office_upload_business_profile_photo_ajax") }}">
+                                <img id="business-profile-photo" src="{{ image_url(app.user.sellerData.photo, "user") }}" alt="Автолюбители" class="foto-user">
+                                <a id="business-profile-photo-link" href="#" class="user-link"> + </a>
+                                <input id="business-profile-photo-input" type="file" style="display: none">
                             </div>
                         {% endif %}
 

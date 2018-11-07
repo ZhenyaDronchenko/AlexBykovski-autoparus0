@@ -8,7 +8,8 @@
             {
                 let link = $(attrs.linkSelector);
                 let input = $(attrs.inputSelector);
-                let method = $(attrs.actionMethod);
+                let imgPhoto = $(attrs.imgSelector);
+                let uploadUrl = attrs.actionUrl;
                 let fileName = "";
                 let jCropApi = null;
 
@@ -93,14 +94,14 @@
 
                             formData.append('file', file, (new Date()).getTime() + fileName);
 
-                            $.ajax('/user-office/upload-user-photo-ajax', {
+                            $.ajax(uploadUrl, {
                                 method: "POST",
                                 data: formData,
                                 processData: false,
                                 contentType: false,
                                 success(data) {
                                     if(data.success) {
-                                        $("#user-photo").attr("src", data.path);
+                                        imgPhoto.attr("src", data.path);
                                     }
 
                                     $( dialogInstance ).dialog( "close" );
