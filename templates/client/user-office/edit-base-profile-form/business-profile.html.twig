@@ -22,16 +22,31 @@
         </div>
         <div class="business-choice">
             <div class="choice-wrapper">
+                {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input choice-unp"}}) }}
+                {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <div class="choice-wrapper">
                 {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input"}}) }}
                 {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
                     <span class="check">{{ error.message }}</span>
                 {% endfor %}
             </div>
-            <div class="choice-wrapper">
-                {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input choice-unp"}}) }}
-                {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
-                    <span class="check">{{ error.message }}</span>
-                {% endfor %}
+            <div class="choice-wrapper" style="">
+                <div style="width: 40%; float: left;">Беларусь, </div>
+                {{ form_widget(form.city, {attr: {class: "choice-input", style: "border-bottom: none; width: 60%; float: left; margin-bottom: 3px;"}}) }}
+
+                <div style="width: 40%; float: left;">
+                    {% if form.city.vars.errors.form.getErrors(true) | length %}
+                        <span class="check"></span>
+                    {% endif %}
+                </div>
+                <div style="width: 60%; float: left;">
+                    {% for key, error in form.city.vars.errors.form.getErrors(true)%}
+                        <span class="check">{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </div>
             <div class="choice-wrapper">
                 {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}

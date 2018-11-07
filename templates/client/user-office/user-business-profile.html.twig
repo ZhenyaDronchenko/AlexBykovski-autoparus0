@@ -54,25 +54,24 @@
                             <span class="check">{{ error.message }}</span>
                         {% endfor %}
                         <div>
-                            <div style="width: 8%; float: left;">РБ, </div>
-                            <div style="width: 42%; float: left;">{{ form_widget(form.city, {attr: {class: "choice-input", style: "width: 90%; border-bottom: none; float: left;"}}) }}<div style="width: 10%; float: left;"> , </div></div>
-                            <div style="width: 50%; float: left;">{{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}</div>
-                        </div>
-
-                        <div>
-                            <div style="width: 8%; float: left;"></div>
-                            <div style="width: 42%; float: left;">
-                                <span class="check"></span>
+                            <div style="width: 40%; float: left;">Беларусь, </div>
+                            {{ form_widget(form.city, {attr: {class: "choice-input", style: "border-bottom: none; width: 60%; float: left;"}}) }}
+                            <div style="width: 40%; float: left;">
+                                {% if form.city.vars.errors.form.getErrors(true) | length %}
+                                    <span class="check"></span>
+                                {% endif %}
+                            </div>
+                            <div style="width: 60%; float: left;">
                                 {% for key, error in form.city.vars.errors.form.getErrors(true)%}
                                     <span class="check">{{ error.message }}</span>
                                 {% endfor %}
                             </div>
-                            <div style="width: 50%; float: left;">
-                                <span class="check"></span>
-                                {% for key, error in form.address.vars.errors.form.getErrors(true)%}
-                                    <span class="check">{{ error.message }}</span>
-                                {% endfor %}
-                            </div>
+                        </div>
+                        <div>
+                            {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}
+                            {% for key, error in form.address.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
