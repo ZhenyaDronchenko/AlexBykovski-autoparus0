@@ -74,14 +74,7 @@ class UserOfficeController extends Controller
      */
     public function editUserBusinessOfficeAction(Request $request)
     {
-        /** @var Client $client */
-        $client = $this->getUser();
-
-        if(!$client->hasRole(User::ROLE_SELLER)){
-            return $this->redirectToRoute("show_user_office");
-        }
-
-        return $this->render('client/user-office/user-business-profile.html.twig', $this->handleBusinessForm($request));
+        return $this->render('client/user-office/user-business-profile.html.twig', $this->handleBusinessForm($request, true));
     }
 
     /**
@@ -107,7 +100,7 @@ class UserOfficeController extends Controller
             $em->flush();
         }
 
-        return $this->render('client/user-office/base-profile/personal-data.html.twig', [
+        return $this->render('client/user-office/edit-base-profile-form/personal-data.html.twig', [
             "form" => $form->createView(),
             "isValid" => $isValid
         ]);
@@ -150,7 +143,7 @@ class UserOfficeController extends Controller
 
         $form = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
 
-        return $this->render('client/user-office/base-profile/cars.html.twig', [
+        return $this->render('client/user-office/edit-base-profile-form/cars.html.twig', [
             "form" => $form->createView(),
             "isValid" => $isValid
         ]);
@@ -170,7 +163,7 @@ class UserOfficeController extends Controller
             ]);
         }
 
-        return $this->render('client/user-office/base-profile/business-profile.html.twig', $parameters);
+        return $this->render('client/user-office/edit-base-profile-form/business-profile.html.twig', $parameters);
     }
 
     /**
@@ -240,7 +233,7 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/upload-user-photo-ajax", name="get_capacities_by_model_engine_type")
+     * @Route("/upload-user-photo-ajax", name="user_office_upload_user_photo_ajax")
      */
     public function uploadUserPhotoAjaxAction(Request $request)
     {
@@ -265,7 +258,7 @@ class UserOfficeController extends Controller
         ]);
     }
 
-    private function handleBusinessForm(Request $request)
+    private function handleBusinessForm(Request $request, $isFullForm = false)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -281,7 +274,7 @@ class UserOfficeController extends Controller
             $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
         }
 
-        $form = $this->createForm(SellerCompanyType::class, $sellerCompany);
+        $form = $this->createForm(SellerCompanyType::class, $sellerCompany, ["isFullForm" => $isFullForm]);
 
         $form->handleRequest($request);
 

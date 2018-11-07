@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <main>
+    <main class="container">
         <div class="choice">
             <div class="choice-block container">
                 <a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a>
@@ -15,36 +15,46 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="profil-form">
-                <div class="profil-wpapper">
-                    <div id="form-personal-data-container" ng-controller="PersonalDataCtrl as personData"
-                         ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')">
-                        {% include('/client/user-office/base-profile/personal-data.html.twig') with {"form" : formPersonalData, 'isValid' : false} %}
-                    </div>
+        <ul id="breadcrumbs">
+            <li><a class="user-link user-link--icon" href="{{ path("show_user_office") }}">
+                    <span class="user-name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon"></a>
+            </li>
+            <li><a class="current">/ редактор персональных данных</a></li>
+        </ul>
 
-                    <div id="form-cars-container"
-                         ng-controller="CarsCtrl as cars"
-                         ng-init="cars.init('#cars-form', '{{ path("edit_user_cars") }}')">
-                        {% include('/client/user-office/base-profile/cars.html.twig') with {"form" : formCars, 'isValid' : false} %}
-                    </div>
+        <div class="profil-form">
+            <div class="profil-wpapper">
+                <div id="form-personal-data-container" ng-controller="PersonalDataCtrl as personData"
+                     ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')">
+                    {% include('/client/user-office/edit-base-profile-form/personal-data.html.twig') with {"form" : formPersonalData, 'isValid' : false} %}
                 </div>
 
-                <div class="business">
-                    <div class="title-wrapper">
-                        <button class="profil-business">{{ app.user.isSeller ? "Редактировать" : "Создать" }} бизнес профиль</button>
-                        <a class="profil-link" href="#">
-                            <i class="fa fa-question-circle" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div id="form-business-profile-container" style="display: none"
-                         ng-controller="BusinessProfileCtrl as business"
-                         ng-init="business.init('#user-business-profile', '{{ path("edit_user_business_profile") }}')">
-                        {% include('/client/user-office/base-profile/business-profile.html.twig') with {"form" : formBusiness, 'isValid' : false} %}
-                    </div>
+                <div id="form-cars-container"
+                     ng-controller="CarsCtrl as cars"
+                     ng-init="cars.init('#cars-form', '{{ path("edit_user_cars") }}')">
+                    {% include('/client/user-office/edit-base-profile-form/cars.html.twig') with {"form" : formCars, 'isValid' : false} %}
                 </div>
             </div>
+
+            <div class="business">
+                <div class="title-wrapper">
+                    <button class="profil-business">Создать бизнес профиль</button>
+                    <a class="link-help help-link-business-profile"><img src="/img/help.png" alt="Подсказка"></a>
+                </div>
+                <div class="podskazka-m">
+                    <div class="close-m">x</div>
+                    <h2>{{ default_text(13).headline }}</h2>
+                    {{ default_text(13).text | raw }}
+                </div>
+                <div id="form-business-profile-container" style="display: none"
+                     ng-controller="BusinessProfileCtrl as business"
+                     ng-init="business.init('#user-business-profile', '{{ path("edit_user_business_profile") }}')">
+                    {% include('/client/user-office/edit-base-profile-form/business-profile.html.twig') with {"form" : formBusiness, 'isValid' : false} %}
+                </div>
+            </div>
+            <div class="subtext">{{ default_text(11).text | raw }}</div>
         </div>
+
     </main>
 {% endblock %}
 

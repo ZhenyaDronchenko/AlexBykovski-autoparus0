@@ -22,7 +22,7 @@ security:
                 login_path: login
                 check_path: login
                 username_parameter: _username
-                default_target_path: /
+                success_handler: app.security.login_success_handler
 
             logout:
                 path: /logout

@@ -1,0 +1,151 @@
+<form id="user-business-profile" class="business-block" style="display: block;" method="post" novalidate enctype="multipart/form-data">
+    {{ form_widget(form._token) }}
+    <div class="business-items">
+        <div class="business-wrapper">
+            <ul class="business-option">
+                <li class="filter-option">
+                    {{ form_widget(form.isSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                    <label for="{{ form.isSeller.vars.id }}">{{ form.isSeller.vars.label | raw }}</label>
+                </li>
+                <li class="filter-option">
+                    {{ form_widget(form.isService, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                    <label for="{{ form.isService.vars.id }}">{{ form.isService.vars.label | raw }}</label>
+                </li>
+                <li class="filter-option">
+                    {{ form_widget(form.isNews, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                    <label for="{{ form.isNews.vars.id }}">{{ form.isNews.vars.label | raw }}</label>
+                </li>
+            </ul>
+            {% for key, error in form.isSeller.vars.errors.form.getErrors(true)%}
+                <span class="check">{{ error.message }}</span>
+            {% endfor %}
+        </div>
+        <div class="business-choice">
+            <div class="choice-wrapper">
+                {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input"}}) }}
+                {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <div class="choice-wrapper">
+                {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input choice-unp"}}) }}
+                {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <div class="choice-wrapper">
+                {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}
+                {% for key, error in form.address.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <h2 class="time-text">Время работы</h2>
+    <div class="time">
+        <div class="time-wrapper time-wrapper--border">
+            <div class="time-block">
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isMondayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isMondayWork) }}
+                </div>
+
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isTuesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isTuesdayWork) }}
+                </div>
+
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isWednesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isWednesdayWork) }}
+                </div>
+
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isThursdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isThursdayWork) }}
+                </div>
+
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isFridayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isFridayWork) }}
+                </div>
+            </div>
+
+            <div class="time-m">
+                {{ form_widget(form.workflow.weekDaysStartAt, {attr: {class: "time_work"}}) }}
+
+                {{ form_label(form.workflow.weekDaysEndAt) }}
+                {{ form_widget(form.workflow.weekDaysEndAt, {attr: {class: "time_work"}}) }}
+            </div>
+        </div>
+        <div class="time-wrapper">
+            <div class="time-block">
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isSaturdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isSaturdayWork) }}
+                </div>
+                <div class="time_new_mk">
+                    {{ form_widget(form.workflow.isSundayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                    {{ form_label(form.workflow.isSundayWork) }}
+                </div>
+            </div>
+            <div class="time-w">
+                {{ form_widget(form.workflow.weekendStartAt, {attr: {class: "time_work"}}) }}
+
+                {{ form_label(form.workflow.weekendEndAt) }}
+                {{ form_widget(form.workflow.weekendEndAt, {attr: {class: "time_work"}}) }}
+            </div>
+
+            {% for key, error in form.workflow.isMondayWork.vars.errors.form.getErrors(true)%}
+                <span class="check">{{ error.message }}</span>
+            {% endfor %}
+            {% for key, error in form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true)%}
+                <span class="check">{{ error.message }}</span>
+            {% endfor %}
+            {% for key, error in form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true)%}
+                <span class="check">{{ error.message }}</span>
+            {% endfor %}
+            {% for key, error in form.workflow.weekendStartAt.vars.errors.form.getErrors(true)%}
+                <span class="check">{{ error.message }}</span>
+            {% endfor %}
+            {% for key, error in form.workflow.weekendEndAt.vars.errors.form.getErrors(true)%}
+                <span class="check">{{ error.message }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <fieldset class="pay">
+        <legend class="pay-title">Способы оплаты</legend>
+        <ul class="pay-block">
+            <li class="pay-option">
+                {{ form_widget(form.workflow.isCash, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                {{ form_label(form.workflow.isCash) }}
+            </li>
+            <li class="pay-option">
+                {{ form_widget(form.workflow.isCashless, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                {{ form_label(form.workflow.isCashless) }}
+            </li>
+            <li class="pay-option">
+                {{ form_widget(form.workflow.isCreditCard, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                {{ form_label(form.workflow.isCreditCard) }}
+            </li>
+        </ul>
+        {% for key, error in form.workflow.isCash.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+    </fieldset>
+
+    <fieldset class="delivery">
+        <legend class="delivery-title">Доставка</legend>
+        <ul class="delivery-block">
+            {% for choice in form.workflow.delivery %}
+                <li class="delivery-option">
+                    {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                    {{ form_label(choice) }}
+                </li>
+            {% endfor %}
+        </ul>
+    </fieldset>
+    {{ form_widget(form.submit, {attr: {class: "btn-filter", label: "Сохранить" }}) }}
+    <span id="success-submit-message" class="check check-on" style="display: none">Сохранение принято</span>
+</form>
