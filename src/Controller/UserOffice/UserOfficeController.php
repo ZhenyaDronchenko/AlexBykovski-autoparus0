@@ -258,6 +258,32 @@ class UserOfficeController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/upload-business-profile-photo-ajax", name="user_office_upload_business_profile_photo_ajax")
+     */
+    public function uploadBusinessProfilePhotoAjaxAction(Request $request)
+    {
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+
+        $file = $request->files->get("file");
+
+        $uploader->setFolder(FileUpload::BUSINESS_PROFILE);
+
+        $path = $uploader->upload($file);
+
+        $client->getSellerData()->setPhoto($path);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse([
+            "success" => true,
+            "path" => '/images/' . $path,
+        ]);
+    }
+
     private function handleBusinessForm(Request $request, $isFullForm = false)
     {
         /** @var EntityManagerInterface $em */

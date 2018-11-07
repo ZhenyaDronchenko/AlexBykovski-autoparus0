@@ -47,6 +47,13 @@ class SellerData
     private $advertDetail;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $photo;
+
+    /**
      * @param Client $client
      * SellerData constructor.
      */
@@ -119,5 +126,21 @@ class SellerData
     public function setAdvertDetail(SellerAdvertDetail $advertDetail): void
     {
         $this->advertDetail = $advertDetail;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param null|string $photo
+     */
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
     }
 }

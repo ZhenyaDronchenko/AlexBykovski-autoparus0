@@ -14,6 +14,7 @@ class FileUpload
     const SPARE_PART = 'spare_part';
     const TMP = 'tmp';
     const USER = 'user';
+    const BUSINESS_PROFILE = 'business_profile';
     const DEFAULT_IMAGE = "default";
 
     const PHONE_BRAND = 'phone_brand';
