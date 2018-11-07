@@ -39,6 +39,13 @@ class SellerCompany
      *
      * @ORM\Column(type="string")
      */
+    private $city;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string")
+     */
     private $address;
 
     /**
@@ -91,6 +98,14 @@ class SellerCompany
      * @ORM\Column(type="string", nullable=true)
      */
     private $additionalPhone;
+
+    /**
+     * @var SellerData
+     *
+     * One SellerCompany has One SellerData.
+     * @ORM\OneToOne(targetEntity="SellerData", mappedBy="sellerCompany")
+     */
+    private $sellerData;
 
     /**
      * @return int
@@ -250,5 +265,37 @@ class SellerCompany
     public function setAdditionalPhone(?string $additionalPhone): void
     {
         $this->additionalPhone = $additionalPhone;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param null|string $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return SellerData
+     */
+    public function getSellerData(): SellerData
+    {
+        return $this->sellerData;
+    }
+
+    /**
+     * @param SellerData $sellerData
+     */
+    public function setSellerData(SellerData $sellerData): void
+    {
+        $this->sellerData = $sellerData;
     }
 }

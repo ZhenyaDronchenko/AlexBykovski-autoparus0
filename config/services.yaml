@@ -6,6 +6,7 @@
 imports:
     - { resource: ./packages/admin_blocks.yaml }
     - { resource: ./packages/services/twig.yaml }
+    - { resource: ./packages/forms.yaml }
 
 parameters:
     locale: 'ru'
@@ -99,18 +100,6 @@ services:
         class:  App\Provider\Form\AutoAdvertDataProvider
         arguments: ['@doctrine.orm.entity_manager']
         public: true
-
-    app.form.client_cars_type:
-        class: App\Form\Type\ClientCarsType
-        arguments: ["@app.provider.form.client_car_provider", "@app.form.transformer.id_to_brand", "@app.form.transformer.id_to_model", "@app.form.transformer.id_to_vehicle_type", "@app.form.transformer.id_to_engine_type"]
-        tags:
-            - { name: form.type }
-
-    app.form.spare_part_general_advert_type:
-        class: App\Form\Type\SparePartGeneralAdvertType
-        arguments: ["@app.provider.form.auto_advert_data_provider", "@app.form.transformer.id_to_brand", "@app.form.transformer.ids_to_models", "@app.form.transformer.ids_to_spare_parts"]
-        tags:
-            - { name: form.type }
 
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension

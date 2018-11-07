@@ -39,14 +39,12 @@
             <div class="business">
                 <div class="title-wrapper">
                     <button class="profil-business">Создать бизнес профиль</button>
-                    <a class="link-help"><img src="/img/help.png" alt="Подсказка"></a>
+                    <a class="link-help help-link-business-profile"><img src="/img/help.png" alt="Подсказка"></a>
                 </div>
                 <div class="podskazka-m">
                     <div class="close-m">x</div>
-                    <p>Выберите марку или условие "Все марки" Выберите марку или условие "Все марки"</p>
-                    <p>Выберите марку или условие "Все марки" Выберите марку или условие "Все марки"</p>
-                    <p>Выберите марку или условие "Все марки" Выберите марку или условие "Все марки"</p>
-                    <p>Выберите марку или условие "Все марки" Выберите марку или условие "Все марки"</p>
+                    <h2>{{ default_text(13).headline }}</h2>
+                    {{ default_text(13).text | raw }}
                 </div>
                 <div id="form-business-profile-container" style="display: none"
                      ng-controller="BusinessProfileCtrl as business"
@@ -54,7 +52,7 @@
                     {% include('/client/user-office/edit-base-profile-form/business-profile.html.twig') with {"form" : formBusiness, 'isValid' : false} %}
                 </div>
             </div>
-            <p class="subtext">тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога текстовтект из каталога ткстов </p>
+            <div class="subtext">{{ default_text(11).text | raw }}</div>
         </div>
 
     </main>

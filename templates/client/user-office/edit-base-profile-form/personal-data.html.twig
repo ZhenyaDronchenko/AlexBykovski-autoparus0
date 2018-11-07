@@ -1,7 +1,7 @@
 <form id="personal-data-form" class="profil-user" method="post" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
     <fieldset class="personal">
-        <legend class="profil-title">Персональные данные</legend>
+        <legend class="profil-title">{{ default_text(11).headline }}</legend>
         <ul class="profil-list">
             <li class="profil-option profil-option--1">
                 {{ form_label(form.name) }}
@@ -41,8 +41,8 @@
             </li>
             <li class="profil-option profil-option--2">
                 {{ form_label(form.city) }}
-                <div class="wrapper-form">
-                    {{ form_widget(form.city, {attr: {"placeholder": "Минск", class: "first-part"}}) }}
+                <div class="wrapper-form" style="width: 62%;">
+                    {{ form_widget(form.city, {attr: {"placeholder": "Минск", class: "first-part", "style": "border-bottom: none; width: 100%;"}}) }}
                     {% for key, error in form.city.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}

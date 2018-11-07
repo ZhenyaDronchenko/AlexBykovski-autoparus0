@@ -224,4 +224,9 @@ class Client extends User
     {
         $this->gallery = $gallery;
     }
+
+    public function isProfileEdited()
+    {
+        return $this->cars->count() || $this->city;
+    }
 }

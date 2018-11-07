@@ -40,6 +40,6 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
         }
 
-        return new RedirectResponse($this->router->generate('homepage'));
+        return new RedirectResponse($this->router->generate('show_user_office'));
     }
 }

@@ -25,7 +25,7 @@
         <section class="business">
             <form class="business-form" action="{{ path("show_user_business_office") }}" method="post" novalidate enctype="multipart/form-data">
                 {{ form_widget(form._token) }}
-                <h1 class="business-title">Редактор бизнес профиля</h1>
+                <h1 class="business-title">{{ app.user.isSeller ? "Редактор" : "Создание" }} бизнес профиля</h1>
                 <div class="business-block">
                     <ul class="business-option">
                         <li class="filter-option">
@@ -53,10 +53,27 @@
                         {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
                             <span class="check">{{ error.message }}</span>
                         {% endfor %}
-                        {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}
-                        {% for key, error in form.address.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
+                        <div>
+                            <div style="width: 8%; float: left;">РБ, </div>
+                            <div style="width: 42%; float: left;">{{ form_widget(form.city, {attr: {class: "choice-input", style: "width: 90%; border-bottom: none; float: left;"}}) }}<div style="width: 10%; float: left;"> , </div></div>
+                            <div style="width: 50%; float: left;">{{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}</div>
+                        </div>
+
+                        <div>
+                            <div style="width: 8%; float: left;"></div>
+                            <div style="width: 42%; float: left;">
+                                <span class="check"></span>
+                                {% for key, error in form.city.vars.errors.form.getErrors(true)%}
+                                    <span class="check">{{ error.message }}</span>
+                                {% endfor %}
+                            </div>
+                            <div style="width: 50%; float: left;">
+                                <span class="check"></span>
+                                {% for key, error in form.address.vars.errors.form.getErrors(true)%}
+                                    <span class="check">{{ error.message }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -154,40 +171,40 @@
                     {% endfor %}
                 </fieldset>
 
-                <fieldset class="delivery">
+                <fieldset class="delivery" ng-init="isDelivery = {{ form.workflow.delivery.vars.value ? "true" : "false"}}">
                     <legend class="delivery-title">Доставка</legend>
                     <ul class="delivery-block">
                         {% for choice in form.workflow.delivery %}
                             <li class="delivery-option">
-                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isDelivery = !isDelivery" }}) }}
                                 {{ form_label(choice) }}
                             </li>
                         {% endfor %}
                     </ul>
-                    <div class="delivery-text">
+                    <div class="delivery-text" ng-show="isDelivery">
                         <span>Варианты доставки:</span>
                         {{ form_widget(form.workflow.deliveryDetail, {attr: {"rows": "2" }}) }}
                     </div>
                 </fieldset>
 
-                <fieldset class="delivery">
+                <fieldset class="delivery" ng-init="isGuarantee = {{ form.workflow.guarantee.vars.value ? "true" : "false"}}">
                     <legend class="delivery-title">Гарантия</legend>
                     <ul class="delivery-block">
                         {% for choice in form.workflow.guarantee %}
                             <li class="delivery-option">
-                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isGuarantee = !isGuarantee" }}) }}
                                 {{ form_label(choice) }}
                             </li>
                         {% endfor %}
                     </ul>
 
-                    <div class="delivery-text">
+                    <div class="delivery-text" ng-show="isGuarantee">
                         <span>Гарантийные условия:</span>
                         {{ form_widget(form.workflow.guaranteeDetail, {attr: {"rows": "2" }}) }}
                     </div>
                 </fieldset>
                 <div class="info">
-                    <h2 class="info-title">О Вашей деятельности</h2>
+                    <h2 class="info-title">{{ default_text(12).headline }}</h2>
                     {{ form_widget(form.activityDescription, {attr: {"rows": "3" }}) }}
                 </div>
                 <div class="phone">
@@ -201,7 +218,7 @@
                     {% endif %}
                 </div>
             </form>
-            <p class="subtext">тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога ткстов тект из каталога текстовтект из каталога ткстов </p>
+            <p class="subtext">{{ default_text(12).text | raw }}</p>
         </section>
 
     </main>

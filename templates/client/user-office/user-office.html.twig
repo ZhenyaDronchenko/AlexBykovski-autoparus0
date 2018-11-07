@@ -16,10 +16,10 @@
                             <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
                             <a href="" id="user-photo-link" class="user-link"> + </a>
                             <input id="user-photo-input" type="file" style="display: none">
-                            <a class="user-name">{{ app.user.name }}</a>
+                            <a class="user-name">Добро пожаловать, <br>{{ app.user.name }}</a>
                         </div>
                         <div class="user-about">
-                            <a href="{{ path("show_user_base_profile") }}" class="button">Редактировать профиль <i class="fa fa-check" aria-hidden="true"></i></a>
+                            <a href="{{ path("show_user_base_profile") }}" class="button">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить личный" }} профиль <i class="fa fa-check" aria-hidden="true"></i></a>
                             {% for car in app.user.cars %}
                                 <a class="user-avto">{{ car.brand.name }} {{ car.model ? car.model.name : '' }}, {{ car.year ? car.year : '' }}</a>
                             {% endfor %}
@@ -29,15 +29,17 @@
 
                 <div class="profil-items">
                     <div class="user-info">
-                        <div class="user-logo">
-                            <img src="/img/userfoto.jpg" alt="Автолюбители" class="foto-user">
-                            <a href="#" class="user-link"> + </a>
-                        </div>
+                        {% if isSeller %}
+                            <div class="user-logo">
+                                <img src="/img/userfoto.jpg" alt="Автолюбители" class="foto-user">
+                                <a href="#" class="user-link"> + </a>
+                            </div>
+                        {% endif %}
 
                         <div class="user-edit">
                             <a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
-                            <div class="btn-block">
-                                {% if isSeller %}
+                            {% if isSeller %}
+                                <div class="btn-block">
                                     {% if app.user.sellerData.sellerCompany.isSeller %}
                                         <a class="user-btn" href="{{ path("user_profile_product_categories") }}">Товары</a>
                                     {% endif %}
@@ -47,8 +49,8 @@
                                     {% if app.user.sellerData.sellerCompany.isNews %}
                                         <a class="user-btn">Статьи</a>
                                     {% endif %}
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     {% if isSeller %}

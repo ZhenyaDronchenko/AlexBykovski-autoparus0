@@ -13,6 +13,14 @@ $('document').ready(function () {
             $('#form-business-profile-container').hide();
         }
     });
+
+    $('.title-wrapper a.help-link-business-profile').click(function(){
+        $('.podskazka-m').show();
+
+        $('.close-m').click(function(){
+            $('.podskazka-m').hide();
+        })
+    })
 });
 
 
