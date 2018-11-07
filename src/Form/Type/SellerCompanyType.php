@@ -37,7 +37,7 @@ class SellerCompanyType extends AbstractType
         /** @var SellerCompany $sellerCompany */
         $sellerCompany = $builder->getData();
 
-        $city = $sellerCompany->getCity() ?: $sellerCompany->getSellerData()->getClient()->getCity();
+        $city = $sellerCompany->getCity() ?: ($sellerCompany->getSellerData() ? $sellerCompany->getSellerData()->getClient()->getCity() : null);
 
         $builder
             ->add('isSeller', CheckboxType::class, [

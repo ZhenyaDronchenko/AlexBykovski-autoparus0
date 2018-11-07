@@ -100,7 +100,7 @@ class SellerCompany
     private $additionalPhone;
 
     /**
-     * @var SellerData
+     * @var SellerData|null
      *
      * One SellerCompany has One SellerData.
      * @ORM\OneToOne(targetEntity="SellerData", mappedBy="sellerCompany")
@@ -284,17 +284,17 @@ class SellerCompany
     }
 
     /**
-     * @return SellerData
+     * @return SellerData|null
      */
-    public function getSellerData(): SellerData
+    public function getSellerData(): ?SellerData
     {
         return $this->sellerData;
     }
 
     /**
-     * @param SellerData $sellerData
+     * @param SellerData|null $sellerData
      */
-    public function setSellerData(SellerData $sellerData): void
+    public function setSellerData(?SellerData $sellerData): void
     {
         $this->sellerData = $sellerData;
     }
