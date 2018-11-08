@@ -22,13 +22,13 @@
         </div>
         <div class="business-choice">
             <div class="choice-wrapper">
-                {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input choice-unp"}}) }}
+                {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input"}}) }}
                 {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
                     <span class="check">{{ error.message }}</span>
                 {% endfor %}
             </div>
             <div class="choice-wrapper">
-                {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input"}}) }}
+                {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input choice-unp"}}) }}
                 {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
                     <span class="check">{{ error.message }}</span>
                 {% endfor %}
