@@ -26,10 +26,10 @@ class IdToBrandTransformer implements DataTransformerInterface
     public function transform($brand)
     {
         if ($brand instanceof Brand) {
-            return (string)$brand->getId();
+            return (int)$brand->getId();
         }
 
-        return null;
+        return 0;
     }
 
     /**
@@ -46,6 +46,11 @@ class IdToBrandTransformer implements DataTransformerInterface
         }
 
         $brand = $this->em->getRepository(Brand::class)->find($id);
+
+        if(!$brand && (int)$id == -1){
+            $brand = new Brand();
+            $brand->setId(-1);
+        }
 
         if($brand instanceof Brand){
             return $brand;

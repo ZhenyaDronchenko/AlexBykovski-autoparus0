@@ -56,29 +56,23 @@ class SparePartGeneralAdvertType extends AbstractType
     {
         /** @var AutoSparePartGeneralAdvert $advert */
         $advert = $builder->getData();
+        $brand = $advert->getBrand();
 
         $usedBrands = $advert->getSellerAdvertDetail()->getAutoSparePartGeneralAdvertsBrands(true);
 
         $isAllUsed = in_array(null, $usedBrands);
 
-        if(!$advert->isBrandAdded() && $advert->getId() && $isAllUsed || $advert->isBrandAdded() && !$advert->getBrand()){
+        if(!$advert->isBrandAdded() && $advert->getId() && $isAllUsed || $advert->isBrandAdded() && !$brand){
             $isAllUsed = false;
         }
 
-        if($advert->isBrandAdded() && $advert->getBrand()){
-            if (($key = array_search($advert->getBrand()->getId(), $usedBrands)) !== false) {
+        if($advert->isBrandAdded() && $brand){
+            if (($key = array_search($brand->getId(), $usedBrands)) !== false) {
                 unset($usedBrands[$key]);
             }
         }
 
-        $brand = $options["brand"] ? $options["brand"] : $advert->getBrand();
-
         $choicesBrand = $this->provider->getBrands($usedBrands, $isAllUsed);
-
-        if(!$brand && count($choicesBrand)){
-            $brand = $this->provider->getBrandById(array_values($choicesBrand)[0]);
-            $advert->setBrand($brand);
-        }
 
         $builder
             ->add('condition', ChoiceType::class, [
@@ -98,7 +92,7 @@ class SparePartGeneralAdvertType extends AbstractType
             ->add('brand', ChoiceType::class, [
                 'label' => false,
                 'choices' => $choicesBrand,
-                'help' => $brand ? $brand->getBrandEn() : null
+                'help' => $brand && $brand->getId() ? $brand->getBrandEn() : null
             ])
             ->add('models', ChoiceType::class, [
                 'label' => false,

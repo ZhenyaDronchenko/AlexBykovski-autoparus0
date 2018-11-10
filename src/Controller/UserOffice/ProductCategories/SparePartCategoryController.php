@@ -70,18 +70,21 @@ class SparePartCategoryController extends Controller
         }
 
         if($form->isSubmitted() && $form->isValid()){
-            if($form->getClickedButton()->getName() === "submitGeneral"){
-                if(!$advert->getCondition()){
-                    $form->get("condition")->addError(new FormError("Выберите вариант"));
-                }
-                if(!$advert->getStockType()){
-                    $form->get("stockType")->addError(new FormError("Выберите вариант"));
-                }
-                if($advert->getBrand() instanceof Brand && !$advert->getModels()->count() && $advert->getBrand()->getModels()->count()){
-                    $form->get("models")->addError(new FormError("Выберите хотя бы 1 модель"));
-                }
+            if(!$advert->getCondition()){
+                $form->get("condition")->addError(new FormError("Выберите вариант"));
             }
-            else{
+            if(!$advert->getStockType()){
+                $form->get("stockType")->addError(new FormError("Выберите вариант"));
+            }
+
+            if($advert->getBrand() instanceof Brand && !$advert->getBrand()->getId()){
+                $form->get("brand")->addError(new FormError("Сделайте выбор"));
+            }
+            elseif($advert->getBrand() instanceof Brand && !$advert->getModels()->count() && $advert->getBrand()->getModels()->count()){
+                $form->get("models")->addError(new FormError("Выберите хотя бы 1 модель"));
+            }
+
+            if($form->getClickedButton()->getName() === "submitSparePart"){
                 if(!$advert->getSpareParts()->count()){
                     $form->get("spareParts")->addError(new FormError("Выберите хотя бы 1 запчасть"));
                 }

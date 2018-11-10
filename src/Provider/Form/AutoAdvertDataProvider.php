@@ -38,7 +38,7 @@ class AutoAdvertDataProvider
     {
         $choices = [];
 
-        if ($brand instanceof Brand) {
+        if ($brand instanceof Brand && $brand->getId()) {
             $models = $this->em->getRepository(Model::class)->findModelNamesByBrand($brand, true);
 
             foreach ($models as $model) {
@@ -51,6 +51,8 @@ class AutoAdvertDataProvider
 
     public function getBrands($exceptBrandIds, $isAllUsed = false)
     {
+        $choices["Сделайте выбор"] = -1;
+
         if(!$isAllUsed){
             $choices["Все марки"] = 0;
         }
