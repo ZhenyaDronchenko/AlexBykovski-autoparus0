@@ -538,7 +538,24 @@ label {
   line-height: 18px;
   color: #000000;
   margin: 0;
+}
 
+.podskazka-m {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: none;
+  width: 90%;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 15px;
+  padding-right: 30px;
+  background-color: #ffffff;
+  border: 1px solid #484646;
+  z-index: 101;
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.5);
 }
 
 @media (max-width: 480px) {

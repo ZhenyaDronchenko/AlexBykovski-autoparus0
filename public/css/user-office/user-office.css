@@ -8,11 +8,12 @@
     display: flex;
     justify-content: space-between;
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 .user-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
 }
 .user-logo {
     position: relative;
@@ -29,7 +30,6 @@
     line-height: 18px;
     font-weight: 700;
     color: #000000;
-    margin-bottom: 10px;
 }
 .user-company {
     font-weight: 700;

@@ -10,13 +10,12 @@
     <main class="container">
         <div class="profil">
             <div class="heading">
-                <div class="profil-items">
-                    <div class="user-info user-info--line">
+                <div class="profil-items user-info--line">
+                    <div class="user-info">
                         <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" img-selector="#user-photo" action-url="{{ path("user_office_upload_user_photo_ajax") }}">
                             <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
                             <a href="" id="user-photo-link" class="user-link"> + </a>
                             <input id="user-photo-input" type="file" style="display: none">
-                            <a class="user-name">Добро пожаловать, <br>{{ app.user.name }}</a>
                         </div>
                         <div class="user-about">
                             <a href="{{ path("show_user_base_profile") }}" class="button">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить личный" }} профиль <i class="fa fa-check" aria-hidden="true"></i></a>
@@ -25,6 +24,7 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <a class="user-name">Добро пожаловать, <br>{{ app.user.name }}</a>
                 </div>
 
                 <div class="profil-items">
