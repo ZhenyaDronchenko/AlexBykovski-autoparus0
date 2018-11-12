@@ -79,6 +79,8 @@ class AutoSparePartGeneralAdvert
      *      joinColumns={@ORM\JoinColumn(name="advert_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="model_id", referencedColumnName="id")}
      *      )
+     *
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $models;
 
@@ -91,6 +93,8 @@ class AutoSparePartGeneralAdvert
      *      joinColumns={@ORM\JoinColumn(name="advert_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="spare_part_id", referencedColumnName="id")}
      *      )
+     *
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $spareParts;
 
