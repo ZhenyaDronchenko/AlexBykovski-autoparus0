@@ -56,7 +56,12 @@ class SparePartGeneralAdvertType extends AbstractType
     {
         /** @var AutoSparePartGeneralAdvert $advert */
         $advert = $builder->getData();
-        $brand = $advert->getBrand();
+        $brand = $options["brand"] ?: $advert->getBrand();
+
+        if(!$brand){
+            $brand = new Brand();
+            $brand->setId(-1);
+        }
 
         $usedBrands = $advert->getSellerAdvertDetail()->getAutoSparePartGeneralAdvertsBrands(true);
 
@@ -92,7 +97,8 @@ class SparePartGeneralAdvertType extends AbstractType
             ->add('brand', ChoiceType::class, [
                 'label' => false,
                 'choices' => $choicesBrand,
-                'help' => $brand && $brand->getId() ? $brand->getBrandEn() : null
+                'help' => $brand && $brand->getId() ? $brand->getBrandEn() : null,
+                'data' => $advert->getBrand() ?: $brand,
             ])
             ->add('models', ChoiceType::class, [
                 'label' => false,
@@ -112,11 +118,9 @@ class SparePartGeneralAdvertType extends AbstractType
             ])
             ->add('submitGeneral', SubmitType::class, [
                 'label' => "Подтвердить выбранное",
-                'attr' => ["class" => "btn"]
             ])
             ->add('submitSparePart', SubmitType::class, [
                 'label' => "Подтвердить и сохранить",
-                'attr' => ["class" => "btn"]
             ])
         ;
 

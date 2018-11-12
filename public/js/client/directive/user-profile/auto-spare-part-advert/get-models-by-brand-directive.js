@@ -6,12 +6,10 @@
             restrict: 'A',
             link: function(scope, element, attrs)
             {
-                let brandSelect = $(attrs.brandSelect);
-                let modelPrototype = $(attrs.containerModel).html();
-                let listModels = $(attrs.listModels);
-                let legendElement = $(attrs.legendElement);
-
-                brandSelect.change(function(ev){
+                $("body").on("change", attrs.brandSelect, function(ev){
+                    let listModels = $(attrs.listModels);
+                    let modelPrototype = $(attrs.containerModel).html();
+                    let legendElement = $(attrs.legendElement);
                     let val = $(this).val();
                     let self = this;
 
