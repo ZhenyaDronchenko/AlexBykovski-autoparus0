@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/catalog/auto/brand/choice-spare-part.css'>
+{% endblock %}
+
+{% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container" ng-init="showAll = false">
+        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul id="breadcrumbs-one">
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="Главная" href="{{ path("homepage") }}">
+                      <span itemprop="name">Главная</span>
+                      <meta itemprop="position" content="1">
+                  </a>
+              </span>
+                </li>
+                <li class='dotdotdot' onclick='dotClick()'>  ...  /</li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="магазин" href="{{ path("show_brand_catalog_choice_brand") }}">
+                      <span itemprop="name">каталог</span>
+                      <meta itemprop="position" content="2">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="выбранный город" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}">
+                      <span itemprop="name">{{ brand.brandEn }}</span>
+                      <meta itemprop="position" content="2">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="запчасть" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}" class="current">
+                      <span itemprop="name">{{ model.modelEn }}</span>
+                      <meta itemprop="position" content="4">
+                  </a>
+              </span>
+                </li>
+            </ul>
+        </div>
+
+        <section class="mod">
+            <h1 class="mod-title">{{ page.headline1 }}</h1>
+            <div class="mod-text">
+                {{ page.text1 | raw }}
+            </div>
+
+            <form class='modform' action="#" method="get">
+                <input id="spare-part-autocomplete" class="form7" type="search"
+                       auto-сomplete-autoparus add-url="{{ path("show_spare_part_catalog_choice_spare_part") }}"
+                       method-search="searchSpareParts" identifier-field="spare-part-autocomplete"
+                       name="search" placeholder="Наименование запчасти:">
+            </form>
+            <ul class='showMoreModel' id='brandImg5'>
+                {% for sparePart in popularSpareParts %}
+                    <li><a class="mod-link" href="{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}"><span>{{ sparePart.name }}</span><img src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
+                {% endfor %}
+                {% for sparePart in popularSpareParts %}
+                    <li ng-show="showAll"><a class="mod-link-t" href='{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}'>{{ sparePart.name }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div ng-click="showAll = false" ng-show="showAll" id='showAll5'>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+            <h2 class='mod-subtitle'>{{ page.headline2 }}</h2>
+
+            <div class='mod-text-b'>{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+{% endblock %}

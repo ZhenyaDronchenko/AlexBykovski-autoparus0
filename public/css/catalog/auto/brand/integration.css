@@ -1,0 +1,233 @@
+/*Profil-anketa*/
+
+.block {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #000000;
+
+}
+
+.block-price {
+    width: 150px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.block-price span {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 24px;
+    color: #d22856;
+}
+
+
+.block-text {
+    width: 600px;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.block-tel {
+    width: 225px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.block-btn{
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 5px 10px;
+    background-color: #fafafa;
+    border: 1px solid #757373;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.block-btn:hover {
+    background-color:  #ebebebe;
+}
+
+.contact {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.contact:last-child {
+    margin-bottom: 0px;
+}
+
+@media (min-width: 768px) and  (max-width: 1023px) {
+    .container {
+        width: auto; }
+    .block {
+        padding: 10px 0;
+
+    }
+
+    .block-price {
+        width: 120px;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 400;
+        color: #000000;
+    }
+
+    .block-price span {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 22px;
+    }
+
+
+    .block-text {
+        width: 400px;
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 400;
+        color: #000000;
+    }
+
+    .block-tel {
+        width: 200px;
+    }
+
+
+
+    .block-btn{
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 5px 5px;
+    }
+
+    .contact {
+        font-size: 16px;
+        line-height: 18px;
+
+    }
+
+}
+
+@media (min-width: 481px) and  (max-width: 767px) {
+    .container {
+        width: auto;
+    }
+
+    .block {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    .block-price {
+        width: 50%;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 400;
+        color: #000000;
+        margin-bottom: 10px;
+    }
+
+    .block-price span {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+
+    .block-text {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 400;
+        color: #000000;
+        margin-bottom: 10px;
+    }
+
+    .block-tel {
+        width: 200px;
+        margin-left: auto;
+    }
+
+
+
+    .block-btn{
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 5px 5px;
+    }
+
+    .contact {
+        font-size: 16px;
+        line-height: 18px;
+
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+        padding: 0 5px; }
+
+    .block {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    .block-price {
+        width: 50%;
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 400;
+        color: #000000;
+        margin-bottom: 5px;
+    }
+
+    .block-price span {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+
+    .block-text {
+        text-align: center;
+        width: 100%;
+        font-size: 14px;
+        line-height: 16px;
+        margin-bottom: 5px;
+    }
+
+    .block-tel {
+        width: 210px;
+        margin-left: auto;
+    }
+
+    .block-btn{
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 5px 5px;
+    }
+
+    .contact {
+        font-size: 16px;
+        line-height: 18px;
+
+    }
+}

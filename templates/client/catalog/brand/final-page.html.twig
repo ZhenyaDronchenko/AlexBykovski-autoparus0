@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/catalog/auto/brand/final-page.css'>
+    <link rel='stylesheet' href='/css/catalog/auto/brand/integration.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul id="breadcrumbs-one">
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="Главная" href="index.html">
+                      <span itemprop="name">Главная</span>
+                      <meta itemprop="position" content="1">
+                  </a>
+              </span>
+                </li>
+                <li class='dotdotdot' onclick='dotClick()'>  ...  /</li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="магазин" href="catalog.html">
+                      <span itemprop="name">каталог</span>
+                      <meta itemprop="position" content="2">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="выбранный город" href="catalog.html">
+                      <span itemprop="name">марка</span>
+                      <meta itemprop="position" content="2">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="выбранная марка" href="catalog.html">
+                      <span itemprop="name">модель</span>
+                      <meta itemprop="position" content="3">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="выбранная модель" href="catalog.html">
+                      <span itemprop="name">запчасть</span>
+                      <meta itemprop="position" content="3">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="год" href="catalog.html">
+                      <span itemprop="name">город</span>
+                      <meta itemprop="position" content="3">
+                  </a>
+              </span>
+                </li>
+                <li>
+              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                  <a itemprop="item" title="запчасть" href='model.html' class="current">
+                      <span itemprop="name">В наличии</span>
+                      <meta itemprop="position" content="4">
+                  </a>
+              </span>
+                </li>
+            </ul>
+        </div>
+
+        <section class="delivery">
+            <h1 class="delivery-title">Заголовок H1 из админки</h1>
+            <div class="delivery-dsc">
+                <p id='text1' class='text1Hide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+                <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
+            </div>
+            <div class="block-product">
+                <div class="block-title">
+                    <p class="block-product__title">ООО "Полное название организации"</p>
+                    <div class="review">
+                        <span class="star rev"></span>
+                        <span class="star rev"></span>
+                        <span class="star rev"></span>
+                        <span class="star rev"></span>
+                        <span class="star"></span>
+                        <p class="review-text">нет отзывов</p>
+                    </div>
+                </div>
+                <div class="card-product">
+                    <div class="card-img">
+                        <div class="image">
+                            <img src="img/car_logo.png" alt="foto">
+                        </div>
+
+                        <span class="price">7555 <span>Бел. Р.</span></span>
+                        <a class="link-main" href="#">В наличии, новые</a>
+                        <div class="link-button">
+                            <a class="link map" href="#"></a>
+                            <a class="link deliver" href="#"></a>
+                            <a class="link phone" href="#"></a>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        <p class="description">Передний левый амортизатор для Toyta Avensis 2001, T22 (1.6 дизель 4A-FE седан)</p>
+                        <div class="card-contact">
+                            <a href="tel:+375296715642" class="contact">+375 29 671 56 42</a>
+                            <a href="tel:+375273333581" class="contact">+375 27 333 35 81</a>
+                        </div>
+                        <p class="time-text">Запчасти из европы очень хорошего качества с гарантией</p>
+                        <div class="card-block">
+                            <div class="adress">
+                                <p class="adress-text">Беларусь</p>
+                                <p class="adress-text-city">Минск, Селицкого 105-173</p>
+                            </div>
+                            <div class="card-time">
+                                <div class="week">
+                                    <span class="day blue"></span>
+                                    <span class="day blue"></span>
+                                    <span class="day blue"></span>
+                                    <span class="day blue"></span>
+                                    <span class="day blue-check"></span>
+                                    <span class="day-time">12:00 - 13:00</span>
+                                </div>
+                                <div class="weekend">
+                                    <span class="day"></span>
+                                    <span class="day"></span>
+                                    <span class="day"></span>
+                                    <span class="day red"></span>
+                                    <span class="day red-check"></span>
+                                    <span class="day-time">21:00 - 22:00</span>
+                                </div>
+                            </div>
+                            <div class="unp">УНП 190947561</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="delivery-admin">
+                <p class="admin-text">Текст 3 из админки</p>
+            </div>
+            <ul class="delivery-img">
+                <li><a href='#'><img class="img-small" src="#" alt=""></a></li>
+                <li><a href='#'><img class="img-big" src="#" alt=""></a></li>
+                <li><a href='#'><img class="img-big" src="#" alt=""></a></li>
+                <li><a href='#'><img class="img-small" src="#" alt=""></a></li>
+            </ul>
+            <h2 class="delivery-subtitle">Заголовок H2</h2>
+            <p class="delivery-text">текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки </p>
+        </section>
+    </main>
+{% endblock %}

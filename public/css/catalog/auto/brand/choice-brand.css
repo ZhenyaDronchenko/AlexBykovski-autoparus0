@@ -1,0 +1,391 @@
+/*ХЛЕБНЫЕ КРОШКИ*/
+.breadcrumbs {
+    display: flex;
+    padding-top: 5px;
+}
+
+.breadcrumbs li {
+    margin-right: 5px;
+
+}
+
+.breadcrumbs a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 20px;
+    color: #444;
+    position: relative;
+    -webkit-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.link:hover{
+    color: black;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.current {
+    font-weight: bold;
+}
+
+
+@media  (max-width: 480px) {
+    .container {
+        width: auto; }
+    .breadcrumbs a {
+        font-size: 16px;
+        line-height: 18px;
+        color: #444;
+        position: relative;
+    }
+
+}
+
+/*mod*/
+.model-block {
+    padding-top: 10px;
+    padding-bottom: 60px;
+}
+.model-title {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 26px;
+    line-height: 30px;
+
+}
+.model-text {
+    margin-bottom: 20px;
+}
+#text1 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000000;
+    font-weight: 400;
+}
+#allText {
+    text-align: right;
+    display: none;
+    font-weight: 700;
+    font-size: 14px;
+    color: #d22856;
+}
+
+
+
+.text1hide {
+    max-height: auto;
+}
+
+.text1show {
+    max-height: auto;
+}
+
+.subtext {
+    margin: 0;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.modform {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.form7 {
+    width: 100%;
+    padding-left: 5px;
+    border: none;
+    background-color: #fff;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    font-size: 18px;
+    margin-left: auto;
+}
+
+#showAll5 {
+    max-width: 50px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    color: #d22856;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#allText:hover,
+#showAll5:hover {
+    color: #000000;
+    cursor: pointer;
+}
+
+#brandImg5 {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+
+.showLess5 {
+    max-height: 335px;
+    margin: 0 auto;
+}
+
+.showMoreBrands {
+    max-height: auto;
+}
+
+#brandImg5 li {
+    margin: 10px;
+
+}
+
+.mod-link {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.mod-link img {
+    width: 150px;
+    height: 150px;
+
+}
+
+.model-subtitle {
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
+
+
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+    }
+    .model-block {
+        padding-bottom: 50px;
+    }
+    .text1Hide {
+        max-height: 48px;
+        overflow: hidden;
+
+    }
+    #allText {
+        display: block;
+        margin: 5px 0 0 3px;
+    }
+    .model-title {
+        font-size: 22px;
+        line-height: 24px;
+    }
+    .mod-avto {
+        margin: 0;
+        margin-left: auto;
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .model-text {
+        margin-bottom: 0;
+    }
+    #text1 {
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .mod-text-b {
+        margin-bottom: 45px;
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .modform {
+        margin: 0 auto;
+        margin-bottom: 10px;
+        width: 60%;
+    }
+
+    .form7 {
+        width: 100%;
+        font-size: 16px;
+        line-height: 18px;
+        margin-top: 3px;
+    }
+
+    #showAll5 {
+        max-width: 160px;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+
+    #allText{
+        font-size: 13px;
+    }
+    .showLess5 {
+        max-height: 305px;
+        margin: 0 auto;
+    }
+    #brandImg5 {
+        margin-bottom: 5px;
+    }
+
+    .showMoreBrands {
+        max-height: auto;
+    }
+
+
+    #brandImg5 li {
+        margin: 5px auto;
+    }
+
+    .mod-link {
+        width: 90px;
+        height: 90px;
+    }
+
+    .mod-link img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .mod-subtitle {
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 5px;
+
+    }
+    .mod-link span {
+        display: block;
+        width: 200px;
+    }
+    .mod-link-line {
+        border-top: 1px solid black;
+    }
+    .subtext {
+
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .container {
+        width: auto; }
+    .model-block {
+        padding-bottom: 50px;
+    }
+    .text1Hide {
+        max-height: 48px;
+        overflow: hidden;
+
+    }
+    #allText {
+        display: block;
+        margin: 5px 0 0 3px;
+    }
+    .model-title {
+        font-size: 22px;
+        line-height: 24px;
+    }
+
+    .model-text {
+        margin-bottom: 0;
+    }
+    #text1 {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .mod-search {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 11px;
+    }
+    .modform {
+        margin: 0 auto;
+        margin-bottom: 15px;
+        width: 300px;
+    }
+
+    .form7 {
+        width: 100%;
+        font-size: 16px;
+        margin-top: 18px;
+    }
+
+
+
+    .showLess5 {
+        max-height: 470px;
+        margin: 0 auto;
+    }
+    #brandImg5 {
+        margin-bottom: 5px;
+    }
+
+    .showMoreBrands {
+        max-height: auto;
+    }
+
+    #brandImg5 li {
+        margin: 10px 5px;
+
+    }
+
+    .mod-link {
+        width: 135px;
+        height: 135px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+
+    .mod-link img {
+        width: 135px;
+        height: 135px;
+
+    }
+    .mod-subtitle {
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 5px;
+
+    }
+    .mod-link span {
+        display: block;
+        width: 250px;
+    }
+    .mod-link-line {
+        border-top: 1px solid black;
+    }
+    .subtext {
+
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        width: auto; }
+
+
+
+}
+
+
+/*mod END*/
