@@ -3,6 +3,13 @@
 namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceModel;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart;
+use App\Entity\City;
+use App\Entity\Model;
+use App\Entity\SparePart;
+use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +23,7 @@ class BrandCatalogController extends Controller
     /**
      * @Route("/", name="show_brand_catalog_choice_brand")
      */
-    public function showCatalogAction(Request $request)
+    public function showChoiceBrandPageAction(Request $request)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -30,6 +37,117 @@ class BrandCatalogController extends Controller
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
             'page' => $em->getRepository(CatalogBrandChoiceBrand::class)->findAll()[0]
+        ]);
+    }
+
+    /**
+     * @Route("/{urlBrand}", name="show_brand_catalog_choice_model")
+     */
+    public function showChoiceModelPageAction(Request $request, $urlBrand, VariableTransformer $transformer)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+
+        if(!($brand instanceof Brand)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $allModels = $em->getRepository(Model::class)->findBy([
+            "active" => true,
+            "brand" => $brand,
+        ],
+            ["name" => "ASC"]);
+
+        $popularModels = array_filter($allModels, function(Model $model){
+            return $model->isPopular();
+        });
+
+        $page = $em->getRepository(CatalogBrandChoiceModel::class)->findAll()[0];
+
+        return $this->render('client/catalog/brand/choice-model.html.twig', [
+            'allModels' => $allModels,
+            'popularModels' => $popularModels,
+            'page' => $transformer->transformPage($page, [$brand]),
+            'brand' => $brand,
+        ]);
+    }
+
+    /**
+     * @Route("/{urlBrand}/{urlModel}/", name="show_brand_catalog_choice_spare_part")
+     */
+    public function showChoiceSparePartPageAction(Request $request, $urlBrand, $urlModel, VariableTransformer $transformer)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+
+        if(!($brand instanceof Brand) || !($model instanceof Model)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $popularSpareParts = $em->getRepository(SparePart::class)->findBy(
+            [
+                "active" => true,
+                "popular" => true
+            ],
+            ["name" => "ASC"]
+        );
+
+        $unpopularSpareParts = $em->getRepository(SparePart::class)->findBy(
+            [
+                "active" => true,
+                "popular" => false
+            ],
+            ["name" => "ASC"]
+        );
+
+        $page = $em->getRepository(CatalogBrandChoiceSparePart::class)->findAll()[0];
+
+        return $this->render('client/catalog/brand/choice-spare-part.html.twig', [
+            'popularSpareParts' => $popularSpareParts,
+            'unpopularSpareParts' => $unpopularSpareParts,
+            'page' => $transformer->transformPage($page, [$brand, $model]),
+            'brand' => $brand,
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/", name="show_brand_catalog_choice_city")
+     */
+    public function showChoiceCityPageAction(Request $request, $urlBrand, $urlModel, $urlSP, VariableTransformer $transformer)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) || !($model instanceof Model)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $capitals = $em->getRepository(City::class)->findBy(
+            ["type" => City::CAPITAL_TYPE],
+            ["name" => "ASC"]
+        );
+
+        $othersCities = $em->getRepository(City::class)->findBy(
+            [
+                "type" => [City::REGIONAL_CITY_TYPE, City::OTHERS_TYPE],
+                "active" => true,
+            ],
+            ["name" => "ASC"]
+        );
+
+        $page = $em->getRepository(CatalogBrandChoiceCity::class)->findAll()[0];
+
+        return $this->render('client/catalog/brand/choice-city.html.twig', [
+            'capitals' => $capitals,
+            'otherCities' => $othersCities,
+            'page' => $transformer->transformPage($page, [$sparePart, $brand, $model]),
         ]);
     }
 }

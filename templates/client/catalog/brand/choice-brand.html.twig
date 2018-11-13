@@ -4,49 +4,44 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/css/style-new.css'>
-    <link rel='stylesheet' href='/css/catalog.css'>
+    <link rel='stylesheet' href='/css/catalog/auto/brand/choice-brand.css'>
 {% endblock %}
 
 {% block body %}
-    <article id='cContent' ng-init="showAll = false;">
+    <main class="container" ng-init="showAll = false;">
+        <ul class="breadcrumbs">
+            <li><a class="link" href="{{ path("homepage") }}">Главная /</a></li>
+            <li><a class="current" href=""> Каталог</a></li>
+        </ul>
 
-        <h1>{{ page.headline1 }}</h1>
+        <section class="model-block">
+            <h1 class="model-title">{{ page.headline1 }}</h1>
+            <div class=model-text>
+                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
+            </div>
 
-        <div id=firstText>
-            {{ page.text1 | raw }}
-        </div>
+            <form class='modform' action="#" method="get">
+                <input id="brand-autocomplete" class='form7' name="search" placeholder="Марка авто:" type="search"
+                       auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                       method-search="searchBrands" identifier-field="brand-autocomplete">
+            </form>
 
-        <div id='brandSelect'>
-            <span>Марка (Brand):</span>
-            <select>
+            <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
                 {% for brand in allBrands %}
-                    <option>{{ brand.name }}</option>
+                    <li><a class="mod-link" href='{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}'><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="Запчасти для {{ brand.brandEn }}"></a></li>
                 {% endfor %}
-            </select>
-        </div>
+            </ul>
+            <ul class='showMoreModel' id='brandImg5' ng-hide="showAll">
+                {% for brand in popularBrands %}
+                    <li><a class="mod-link" href='{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}'><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="Запчасти для {{ brand.brandEn }}"></a></li>
+                {% endfor %}
+            </ul>
 
-        <div class='showMoreBrands' ng-hide="showAll">
-            {% for brand in popularBrands%}
-                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo, "brand") }}"/>
-            {% endfor %}
-        </div>
+            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' onclick="scrollToElement('#brand-autocomplete')">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div ng-click="showAll = false" ng-show="showAll" id='showAll5' onclick="scrollToElement('#brand-autocomplete')">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
 
-        <div class='showMoreBrands' ng-show="showAll">
-            {% for brand in allBrands%}
-                <img style="width: 100px; height: 100px; margin-right: 10px; margin-top: 10px;" src="{{ image_url(brand.logo, "brand") }}"/>
-            {% endfor %}
-        </div>
-
-        <div class="show-all" ng-click="showAll = true" ng-hide="showAll">Показать все &gt;&gt;&gt;</div>
-        <div class="show-all" ng-click="showAll = false" ng-show="showAll">&lt;&lt;&lt; Скрыть</div>
-
-        <h2>{{ page.headline2 }}</h2>
-
-        <div id='secondText'>
-            {{ page.text2 | raw }}
-        </div>
-        <br/><br/><br/><br/>
-
-    </article>
+            <h2 class='model-subtitle'>{{ page.headline2 }}</h2>
+            <div class='subtext'>{{ page.text2 | raw }}</div>
+        </section>
+    </main>
 {% endblock %}

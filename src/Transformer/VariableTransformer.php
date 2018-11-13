@@ -4,6 +4,7 @@ namespace App\Transformer;
 
 use App\Entity\Catalog\CatalogPageFour;
 use App\Entity\Catalog\CatalogPageOne;
+use App\Entity\Catalog\CatalogPageOneReturnButton;
 use App\Entity\Catalog\CatalogPageThree;
 use App\Entity\Catalog\CatalogPageTwo;
 
@@ -27,6 +28,9 @@ class VariableTransformer
         }
         else if($object instanceof CatalogPageFour){
             return $this->transformCatalogPageFour($cloneObject, $parameters);
+        }
+        else if($object instanceof CatalogPageOneReturnButton){
+            return $this->transformCatalogPageOneReturnButton($cloneObject, $parameters);
         }
 
         return $cloneObject;
@@ -89,5 +93,19 @@ class VariableTransformer
         $catalogPageFour->setText3($this->transformString($catalogPageFour->getText3(), $parameters));
 
         return $catalogPageFour;
+    }
+
+    protected function transformCatalogPageOneReturnButton(CatalogPageOneReturnButton $page, $parameters)
+    {
+        $page->setTitle($this->transformString($page->getTitle(), $parameters));
+        $page->setDescription($this->transformString($page->getDescription(), $parameters));
+        $page->setHeadline1($this->transformString($page->getHeadline1(), $parameters));
+        $page->setHeadline2($this->transformString($page->getHeadline2(), $parameters));
+        $page->setText1($this->transformString($page->getText1(), $parameters));
+        $page->setText2($this->transformString($page->getText2(), $parameters));
+        $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
+        $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
+
+        return $page;
     }
 }

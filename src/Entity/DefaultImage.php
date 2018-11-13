@@ -16,6 +16,7 @@ class DefaultImage
         "site_logo_50*50" => 3,
         "site_logo_500*500" => 4,
         "user" => 5,
+        "spare_part" => 10,
     ];
     /**
      * @var integer
