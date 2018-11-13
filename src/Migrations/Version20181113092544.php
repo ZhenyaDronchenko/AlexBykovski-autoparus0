@@ -20,10 +20,10 @@ final class Version20181113092544 extends AbstractMigration
         $this->addSql('CREATE TABLE to_sellers_general_page (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, headline1 VARCHAR(255) NOT NULL, text1 LONGTEXT NOT NULL, text2 LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE to_users_general_page (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, headline1 VARCHAR(255) NOT NULL, text1 LONGTEXT NOT NULL, text2 LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
 
-        $this->addSql('INSERT INTO `about_general_page` (`title`) VALUES ("")');
-        $this->addSql('INSERT INTO `news_general_page` (`title`) VALUES ("")');
-        $this->addSql('INSERT INTO `to_sellers_general_page` (`title`) VALUES ("")');
-        $this->addSql('INSERT INTO `to_users_general_page` (`title`) VALUES ("")');
+        $this->addSql('INSERT INTO `about_general_page` (`title`, `description`, `headline1`, `text1`, `text2`) VALUES ("", "", "", "", "")');
+        $this->addSql('INSERT INTO `news_general_page` (`title`, `description`, `headline1`, `text1`, `text2`) VALUES ("", "", "", "", "")');
+        $this->addSql('INSERT INTO `to_sellers_general_page` (`title`, `description`, `headline1`, `text1`, `text2`) VALUES ("", "", "", "", "")');
+        $this->addSql('INSERT INTO `to_users_general_page` (`title`, `description`, `headline1`, `text1`, `text2`) VALUES ("", "", "", "", "")');
     }
 
     public function down(Schema $schema) : void
