@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <h2>{{ page.headline1 }}</h2>
+        {{ page.text1 | raw }}
+        {{ page.text2 | raw }}
+    </main>
+{% endblock %}

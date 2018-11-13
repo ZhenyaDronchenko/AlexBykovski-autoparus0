@@ -1,0 +1,35 @@
+services:
+    admin.general.main_page:
+        class: App\Admin\General\MainPageAdmin
+        arguments: [~, App\Entity\General\MainPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
+        public: true
+
+    admin.general.about_page:
+        class: App\Admin\General\AboutGeneralPageAdmin
+        arguments: [~, App\Entity\General\AboutGeneralPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Обратная связь }
+        public: true
+
+    admin.general.news_page:
+        class: App\Admin\General\NewsGeneralPageAdmin
+        arguments: [~, App\Entity\General\NewsGeneralPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Новости }
+        public: true
+
+    admin.general.to_users_page:
+        class: App\Admin\General\ToUsersGeneralPageAdmin
+        arguments: [~, App\Entity\General\ToUsersGeneralPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Пользователям }
+        public: true
+
+    admin.general.to_sellers_page:
+        class: App\Admin\General\ToSellersGeneralPageAdmin
+        arguments: [~, App\Entity\General\ToSellersGeneralPage, ~]
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Продавцам }
+        public: true

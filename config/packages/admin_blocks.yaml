@@ -4,15 +4,9 @@ imports:
     - { resource: ./admin_blocks/spare_part_catalog.yaml }
     - { resource: ./admin_blocks/phone/general.yaml }
     - { resource: ./admin_blocks/user.yaml }
+    - { resource: ./admin_blocks/general.yaml }
 
 services:
-    admin.general.main_page:
-        class: App\Admin\MainPageAdmin
-        arguments: [~, App\Entity\MainPage, ~]
-        tags:
-            - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
-        public: true
-
     admin.city.city:
         class: App\Admin\CityAdmin
         arguments: [~, App\Entity\City, 'App\Admin\Controller\CityAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
