@@ -4,12 +4,13 @@ namespace App\Entity\Advert\AutoSparePart;
 
 use App\Entity\Brand;
 use App\Entity\Client\SellerAdvertDetail;
+use App\Entity\Client\SellerCompany;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Advert\AutoSparePart\AutoSparePartGeneralAdvertRepository")
  * @ORM\Table(name="auto_spare_part_general_advert")
  */
 class AutoSparePartGeneralAdvert
@@ -27,7 +28,7 @@ class AutoSparePartGeneralAdvert
     ];
 
     const CONDITIONS_CLIENT_VIEW = [
-        "used" => "БУ",
+        "used" => "Б/У",
         "new" => "Новые",
         "rebuilt" => "Восстановленные",
     ];
@@ -37,6 +38,11 @@ class AutoSparePartGeneralAdvert
         "under_order" => "На заказ",
         "check_availability" => "Наличие под вопросом",
     ];
+
+    const CONDITION_REBUILT = "rebuilt";
+    const STOCK_TYPE_CHECK_AVAILABILITY = "check_availability";
+
+    const ADVERT_CLIENT_VIEW_REBIULT_CONDITION = "Восстановленная";
 
     /**
      * @var integer|null
@@ -286,5 +292,23 @@ class AutoSparePartGeneralAdvert
     public function getConditionTypeView()
     {
         return self::CONDITIONS_CLIENT_VIEW[$this->condition];
+    }
+
+    public function getSellerCompany() : SellerCompany
+    {
+        return $this->getSellerAdvertDetail()->getSellerData()->getSellerCompany();
+    }
+
+    public function getConditionStockView()
+    {
+        if($this->condition === self::CONDITION_REBUILT){
+            return self::ADVERT_CLIENT_VIEW_REBIULT_CONDITION;
+        }
+
+        if($this->stockType === self::STOCK_TYPE_CHECK_AVAILABILITY){
+            return $this->getConditionTypeView();
+        }
+
+        return $this->getStockTypeView() . ', ' . $this->getConditionTypeView();
     }
 }

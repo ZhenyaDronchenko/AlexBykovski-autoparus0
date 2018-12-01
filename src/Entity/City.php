@@ -21,6 +21,7 @@ class City implements VariableInterface
     const CAPITAL_TYPE = "CAPITAL";
     const REGIONAL_CITY_TYPE = "REGIONAL_CITY";
     const OTHERS_TYPE = "OTHERS";
+    const ALL_CITIES = "all_cities";
 
     static $types = [
         "Столица" => self::CAPITAL_TYPE,
