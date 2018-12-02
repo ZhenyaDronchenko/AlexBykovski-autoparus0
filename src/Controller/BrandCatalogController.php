@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Admin;
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
@@ -215,9 +216,9 @@ class BrandCatalogController extends Controller
         $page = $em->getRepository(CatalogBrandChoiceFinalPage::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
 
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
+        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, [AutoSparePartGeneralAdvert::STOCK_TYPE_IN_STOCK]);
 
-        return $this->render('client/catalog/brand/only-in-stock.html.twig', [
+        return $this->render('client/catalog/brand/final-page.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,

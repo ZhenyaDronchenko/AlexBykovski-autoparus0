@@ -10,12 +10,16 @@ use Doctrine\ORM\EntityRepository;
 class AutoSparePartGeneralAdvertRepository extends EntityRepository
 {
     /**
-     * @param string $text
+     * @param SparePart $sparePart
+     * @param Brand $brand
+     * @param Model $model
+     * @param string|null $stockTypes
+     *
      * @return array
      */
-    public function findByParameters(SparePart $sparePart, Brand $brand, Model $model)
+    public function findByParameters(SparePart $sparePart, Brand $brand, Model $model, $stockTypes = null)
     {
-        return $this->createQueryBuilder('adv')
+        $q = $this->createQueryBuilder('adv')
             ->select('adv')
             ->join("adv.spareParts", "sp")
             ->join("adv.models", "model")
@@ -23,8 +27,14 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
             ->andWhere("adv.brand = :brand AND model = :model OR adv.brand IS NULL")
             ->setParameter("sparePart", $sparePart)
             ->setParameter("brand", $brand)
-            ->setParameter("model", $model)
-            ->getQuery()
+            ->setParameter("model", $model);
+
+        if($stockTypes){
+            $q->andWhere("adv.stockType IN(:stockTypes)")
+                ->setParameter("stockTypes", $stockTypes);
+        }
+
+        return $q->getQuery()
             ->getResult();
     }
 }

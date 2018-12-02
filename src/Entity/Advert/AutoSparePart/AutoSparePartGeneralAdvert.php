@@ -41,6 +41,7 @@ class AutoSparePartGeneralAdvert
 
     const CONDITION_REBUILT = "rebuilt";
     const STOCK_TYPE_CHECK_AVAILABILITY = "check_availability";
+    const STOCK_TYPE_IN_STOCK = "in_stock";
 
     const ADVERT_CLIENT_VIEW_REBIULT_CONDITION = "Восстановленная";
 
