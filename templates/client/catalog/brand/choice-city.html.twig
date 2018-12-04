@@ -151,17 +151,22 @@
                     </div>
                 </div>
             {% endfor %}
+            {{ render(controller('App\\Controller\\BamperController::showSuggestionsForBrandModelSparePartAction', routeParams)) }}
             <div class="delivery-admin">
                 <div class="admin-text">{{ page.text3 | raw }}</div>
             </div>
             <ul class="delivery-img">
-                <li><a href="{{ path("show_brand_catalog_choice_brand") }}"><img class="img-small" src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandRu }}" title="Автозапчасти для {{ brand.brandRu }}"></a></li>
-                <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}"><img class="img-big" src="{{ image_url(model.logo, "model") }}" alt="{{ model.modelRu }}" title="Запчасти для {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
-                <li><a href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"><img class="img-big" src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} к {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
-                <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : "toyota_rus"}) }}"><img class="img-small" src="{{ image_url(default_image(27).image) }}" alt="Город" title="{{ sparePart.alternativeName3 }} к {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
+                    <li><a href="{{ path("show_brand_catalog_choice_brand") }}"><img class="img-small" src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandRu }}" title="Автозапчасти для {{ brand.brandRu }}"></a></li>
+                    <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}"><img class="img-big" src="{{ image_url(model.logo, "model") }}" alt="{{ model.modelRu }}" title="Запчасти для {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
+                    <li><a href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"><img class="img-big" src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} к {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
+                    <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : "toyota_rus"}) }}"><img class="img-small" src="{{ image_url(default_image(27).image) }}" alt="Город" title="{{ sparePart.alternativeName3 }} к {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
             </ul>
             <h2 class="delivery-subtitle">{{ page.headline2 }}</h2>
             <div class="delivery-text">{{ page.text2 | raw }}</div>
         </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
 {% endblock %}

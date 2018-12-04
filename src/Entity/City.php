@@ -238,6 +238,14 @@ class City implements VariableInterface
         $this->urlConnectBamper = $urlConnectBamper;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamperIncludeBase(): ?string
+    {
+        return $this->urlConnectBamper ?: $this->url;
+    }
+
     public function getTypeTranslate()
     {
         return array_flip(self::$types)[$this->type];

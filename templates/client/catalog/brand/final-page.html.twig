@@ -154,6 +154,7 @@
                     </div>
                 </div>
             {% endfor %}
+            {{ render(controller('App\\Controller\\BamperController::showSuggestionsForBrandModelSparePartAction', routeParams)) }}
             <div class="delivery-admin">
                 <div class="admin-text">{{ page.text3 | raw }}</div>
             </div>
@@ -167,4 +168,8 @@
             <div class="delivery-text">{{ page.text2 | raw }}</div>
         </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
 {% endblock %}
