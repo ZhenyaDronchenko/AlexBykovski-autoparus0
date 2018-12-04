@@ -29,16 +29,8 @@ class BrandCatalogController extends Controller
      */
     public function showChoiceBrandPageAction(Request $request)
     {
-        $_ip = new ip_codehelper();
-
-// Detect Real IP Address & Location
-        $real_client_ip_address = $_ip->getRealIP();
-        $visitor_location       = $_ip->getLocation($real_client_ip_address);
-
-// Output result
-        echo $visitor_location['Country']."<br>";
-        echo "<pre>";
-        print_r($visitor_location);
+        $ip=$_SERVER['REMOTE_ADDR'];
+        echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip)));
         die;
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
