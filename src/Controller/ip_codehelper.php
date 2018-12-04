@@ -35,9 +35,9 @@ class ip_codehelper {
         if($ip == "") {
             $ip = $this->getRealIP();
         }
-        if(!class_exists("phpFastCache")) {
-            die("Please required phpFastCache Class");
-        }
+//        if(!class_exists("phpFastCache")) {
+//            die("Please required phpFastCache Class");
+//        }
         // you should change this to cURL()
         $data = phpFastCache::get("codehelper_ip_".md5($ip));
         // caching 1 week
