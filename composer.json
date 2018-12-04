@@ -26,8 +26,7 @@
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "*",
         "symfony/swiftmailer-bundle": "^3.2",
-        "symfony/yaml": "*",
-        "willdurand/geocoder-bundle": "^5.3"
+        "symfony/yaml": "*"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.6",

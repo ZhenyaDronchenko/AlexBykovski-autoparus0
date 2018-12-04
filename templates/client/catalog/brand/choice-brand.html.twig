@@ -45,3 +45,19 @@
         </section>
     </main>
 {% endblock %}
+
+{% block javascripts %}
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    }
+
+    function showPosition(position) {
+        console.log(position.coords);
+    }
+
+    getLocation();
+</script>
+{% endblock %}
