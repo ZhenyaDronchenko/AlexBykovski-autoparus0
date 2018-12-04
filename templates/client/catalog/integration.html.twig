@@ -1,0 +1,14 @@
+<main class="container" ng-controller="IntegrationAdsCtrl as integration">
+    {% for key, suggestion in suggestions %}
+        <div class="block" ng-init="integration.initAd('{{ key }}')">
+            <div class="block-price"><span>{{ suggestion.price }}</span> Бел. Руб.</div>
+            <div class="block-text">{{ suggestion.description }}</div>
+            <div class="block-tel">
+                <button class="block-btn" ng-click="integration.getPhones('{{ suggestion.url }}', '{{ key }}')">Показать телефоны</button>
+                <a ng-show="integration.phonesShow_{{ key }}" ng-repeat="phone in integration.phones_{{ key }}" ng-href="'tel:' + phone" class="contact" ng-bind="phone"></a>
+                {#<a href="tel:01234567890" class="contact">+375 (44) 553 18 16</a>#}
+                {#<a href="tel:01234567890" class="contact">+375 (33) 185 85 18 </a>#}
+            </div>
+        </div>
+    {% endfor %}
+</main>

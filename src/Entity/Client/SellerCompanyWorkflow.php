@@ -480,4 +480,15 @@ class SellerCompanyWorkflow
     {
         $this->guaranteeDetail = $guaranteeDetail;
     }
+
+    public function isWorkWeekday()
+    {
+        return $this->isMondayWork || $this->isTuesdayWork || $this->isWednesdayWork || $this->isThursdayWork ||
+            $this->isFridayWork;
+    }
+
+    public function isWorkWeekend()
+    {
+        return $this->isSaturdayWork || $this->isSundayWork;
+    }
 }

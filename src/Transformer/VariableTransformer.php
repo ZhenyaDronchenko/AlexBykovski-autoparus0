@@ -7,6 +7,7 @@ use App\Entity\Catalog\CatalogPageOne;
 use App\Entity\Catalog\CatalogPageOneReturnButton;
 use App\Entity\Catalog\CatalogPageThree;
 use App\Entity\Catalog\CatalogPageTwo;
+use App\Entity\Catalog\CatalogPageTwoReturnButton;
 
 class VariableTransformer
 {
@@ -31,6 +32,9 @@ class VariableTransformer
         }
         else if($object instanceof CatalogPageOneReturnButton){
             return $this->transformCatalogPageOneReturnButton($cloneObject, $parameters);
+        }
+        else if($object instanceof CatalogPageTwoReturnButton){
+            return $this->transformCatalogPageTwoReturnButton($cloneObject, $parameters);
         }
 
         return $cloneObject;
@@ -103,6 +107,21 @@ class VariableTransformer
         $page->setHeadline2($this->transformString($page->getHeadline2(), $parameters));
         $page->setText1($this->transformString($page->getText1(), $parameters));
         $page->setText2($this->transformString($page->getText2(), $parameters));
+        $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
+        $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
+
+        return $page;
+    }
+
+    protected function transformCatalogPageTwoReturnButton(CatalogPageTwoReturnButton $page, $parameters)
+    {
+        $page->setTitle($this->transformString($page->getTitle(), $parameters));
+        $page->setDescription($this->transformString($page->getDescription(), $parameters));
+        $page->setHeadline1($this->transformString($page->getHeadline1(), $parameters));
+        $page->setHeadline2($this->transformString($page->getHeadline2(), $parameters));
+        $page->setText1($this->transformString($page->getText1(), $parameters));
+        $page->setText2($this->transformString($page->getText2(), $parameters));
+        $page->setText3($this->transformString($page->getText3(), $parameters));
         $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
         $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
 

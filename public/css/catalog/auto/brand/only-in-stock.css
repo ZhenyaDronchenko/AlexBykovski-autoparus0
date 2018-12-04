@@ -470,13 +470,13 @@ ul{
 .star {
     width: 15px;
     height: 15px;
-    background: url("../img/Stars.svg") 0 0 no-repeat;
+    background: url("/img/Stars.svg") 0 0 no-repeat;
     margin-right: 3px;
 }
 .rev {
     width: 15px;
     height: 15px;
-    background: url("../img/Stars.svg") -15px 0 no-repeat;
+    background: url("/img/Stars.svg") -15px 0 no-repeat;
     margin-right: 3px;
 }
 .review-text {
@@ -562,14 +562,14 @@ ul{
 
 }
 .map {
-    background: #ebebeb url("../img/mar.png") 2px 2px no-repeat;
+    background: #ebebeb url("/img/mar.png") 2px 2px no-repeat;
 }
 
 .phone {
-    background: #ebebeb url("../img/tel.png") 1px 0 no-repeat;
+    background: #ebebeb url("/img/tel.png") 1px 0 no-repeat;
 }
 .deliver{
-    background: #ebebeb url("../img/dell.png") 2px 0 no-repeat;
+    background: #ebebeb url("/img/dell.png") 2px 0 no-repeat;
 }
 
 .card-description {
@@ -668,14 +668,14 @@ ul{
     background-color: blue;
     border: 1px solid blue;
     border-radius: 3px;
-    background: blue url("../img/check.png") 2px 0 no-repeat;
+    background: blue url("/img/check.png") 2px 0 no-repeat;
 
 }
 .red-check {
     background-color: red;
     border: 1px solid red;
     border-radius: 3px;
-    background: red url("../img/check.png") 2px 0 no-repeat;
+    background: red url("/img/check.png") 2px 0 no-repeat;
 
 }
 .red {
@@ -709,7 +709,7 @@ ul{
     left: 0;
     width: 13px;
     height: 18px;
-    background: url("../img/marker.png") 0 0 no-repeat;
+    background: url("/img/marker.png") 0 0 no-repeat;
 }
 .adress-text-city {
     margin: 0;

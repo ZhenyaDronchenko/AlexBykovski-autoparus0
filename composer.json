@@ -17,6 +17,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "3.4",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
+        "symfony/css-selector": "*",
+        "symfony/dom-crawler": "*",
         "symfony/dotenv": "*",
         "symfony/flex": "1.1",
         "symfony/framework-bundle": "*",

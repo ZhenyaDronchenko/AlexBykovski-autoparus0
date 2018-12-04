@@ -299,7 +299,7 @@ class Brand implements VariableInterface
      */
     public function getUrlConnectBamper(): ?string
     {
-        return $this->urlConnectBamper;
+        return $this->urlConnectBamper ;
     }
 
     /**
@@ -308,5 +308,13 @@ class Brand implements VariableInterface
     public function setUrlConnectBamper(?string $urlConnectBamper): void
     {
         $this->urlConnectBamper = $urlConnectBamper;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamperIncludeBase(): ?string
+    {
+        return $this->urlConnectBamper ?: $this->url;
     }
 }

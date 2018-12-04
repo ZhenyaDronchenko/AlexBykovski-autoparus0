@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Admin;
+use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceFinalPage;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceInStock;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceModel;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart;
 use App\Entity\City;
@@ -135,12 +139,11 @@ class BrandCatalogController extends Controller
         );
 
         $othersCities = $em->getRepository(City::class)->findBy(
-            [
-                "type" => [City::REGIONAL_CITY_TYPE, City::OTHERS_TYPE],
-                "active" => true,
-            ],
+            ["type" => City::REGIONAL_CITY_TYPE],
             ["name" => "ASC"]
         );
+
+        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
 
         $page = $em->getRepository(CatalogBrandChoiceCity::class)->findAll()[0];
 
@@ -148,6 +151,80 @@ class BrandCatalogController extends Controller
             'capitals' => $capitals,
             'otherCities' => $othersCities,
             'page' => $transformer->transformPage($page, [$sparePart, $brand, $model]),
+            'sparePart' => $sparePart,
+            'brand' => $brand,
+            'model' => $model,
+            'adverts' => $adverts,
+        ]);
+    }
+
+    /**
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_brand_catalog_in_stock")
+     */
+    public function showCatalogInStockAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $isAllCities = $urlCity === City::ALL_CITIES;
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $city = $isAllCities ? $urlCity : $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
+            !($model instanceof Model) || !($city instanceof City) && !$isAllCities){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository(CatalogBrandChoiceInStock::class)->findAll()[0];
+        $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
+
+        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
+
+        return $this->render('client/catalog/brand/only-in-stock.html.twig', [
+            'page' => $transformer->transformPage($page, $transformParameters),
+            'sparePart' => $sparePart,
+            'brand' => $brand,
+            'model' => $model,
+            'adverts' => $adverts,
+            'city' => $isAllCities ? null : $city,
+        ]);
+    }
+
+    /**
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}/in_stock", name="show_brand_catalog_final_page")
+     */
+    public function showCatalogFinalPageAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $isAllCities = $urlCity === City::ALL_CITIES;
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $city = $isAllCities ? $urlCity : $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
+            !($model instanceof Model) || !($city instanceof City) && !$isAllCities){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository(CatalogBrandChoiceFinalPage::class)->findAll()[0];
+        $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
+
+        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, [AutoSparePartGeneralAdvert::STOCK_TYPE_IN_STOCK]);
+
+        return $this->render('client/catalog/brand/final-page.html.twig', [
+            'page' => $transformer->transformPage($page, $transformParameters),
+            'sparePart' => $sparePart,
+            'brand' => $brand,
+            'model' => $model,
+            'adverts' => $adverts,
+            'city' => $isAllCities ? null : $city,
         ]);
     }
 }

@@ -514,4 +514,12 @@ class SparePart implements VariableInterface
     {
         $this->urlConnectBamper = $urlConnectBamper;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getUrlConnectBamperIncludeBase(): ?string
+    {
+        return $this->urlConnectBamper ?: $this->url;
+    }
 }

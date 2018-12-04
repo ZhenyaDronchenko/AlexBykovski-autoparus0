@@ -4,152 +4,172 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/css/catalog/auto/brand/final-page.css'>
+    <link rel='stylesheet' href='/css/catalog/auto/brand/only-in-stock.css'>
     <link rel='stylesheet' href='/css/catalog/auto/brand/integration.css'>
 {% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
         <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <ul id="breadcrumbs-one">
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="Главная" href="index.html">
-                      <span itemprop="name">Главная</span>
-                      <meta itemprop="position" content="1">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="Главная" href="{{ path("homepage") }}">
+                          <span itemprop="name">Главная</span>
+                          <meta itemprop="position" content="1">
+                      </a>
+                  </span>
                 </li>
                 <li class='dotdotdot' onclick='dotClick()'>  ...  /</li>
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="магазин" href="catalog.html">
-                      <span itemprop="name">каталог</span>
-                      <meta itemprop="position" content="2">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="магазин" href="{{ path("show_brand_catalog_choice_brand") }}">
+                          <span itemprop="name">Каталог</span>
+                          <meta itemprop="position" content="2">
+                      </a>
+                  </span>
                 </li>
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="выбранный город" href="catalog.html">
-                      <span itemprop="name">марка</span>
-                      <meta itemprop="position" content="2">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="выбранный город" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}">
+                          <span itemprop="name">{{ brand.brandEn }}</span>
+                          <meta itemprop="position" content="2">
+                      </a>
+                  </span>
                 </li>
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="выбранная марка" href="catalog.html">
-                      <span itemprop="name">модель</span>
-                      <meta itemprop="position" content="3">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="выбранная марка" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}">
+                          <span itemprop="name">{{ model.modelEn }}</span>
+                          <meta itemprop="position" content="3">
+                      </a>
+                  </span>
                 </li>
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="выбранная модель" href="catalog.html">
-                      <span itemprop="name">запчасть</span>
-                      <meta itemprop="position" content="3">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="выбранная модель" href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.url}) }}">
+                          <span itemprop="name">{{ sparePart.alternativeName1 }}</span>
+                          <meta itemprop="position" content="3">
+                      </a>
+                  </span>
                 </li>
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="год" href="catalog.html">
-                      <span itemprop="name">город</span>
-                      <meta itemprop="position" content="3">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="запчасть" href="{{ path("show_brand_catalog_in_stock", routeParams) }}">
+                          <span itemprop="name">{{ city ? city.name : "Все города" }}</span>
+                          <meta itemprop="position" content="4">
+                      </a>
+                  </span>
                 </li>
                 <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="запчасть" href='model.html' class="current">
-                      <span itemprop="name">В наличии</span>
-                      <meta itemprop="position" content="4">
-                  </a>
-              </span>
+                  <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                      <a itemprop="item" title="запчасть" href class="current">
+                          <span itemprop="name">В наличии</span>
+                          <meta itemprop="position" content="4">
+                      </a>
+                  </span>
                 </li>
             </ul>
         </div>
 
         <section class="delivery">
-            <h1 class="delivery-title">Заголовок H1 из админки</h1>
+            <h1 class="delivery-title">{{ page.headline1 }}</h1>
             <div class="delivery-dsc">
-                <p id='text1' class='text1Hide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
             </div>
-            <div class="block-product">
-                <div class="block-title">
-                    <p class="block-product__title">ООО "Полное название организации"</p>
-                    <div class="review">
-                        <span class="star rev"></span>
-                        <span class="star rev"></span>
-                        <span class="star rev"></span>
-                        <span class="star rev"></span>
-                        <span class="star"></span>
-                        <p class="review-text">нет отзывов</p>
-                    </div>
-                </div>
-                <div class="card-product">
-                    <div class="card-img">
-                        <div class="image">
-                            <img src="img/car_logo.png" alt="foto">
-                        </div>
-
-                        <span class="price">7555 <span>Бел. Р.</span></span>
-                        <a class="link-main" href="#">В наличии, новые</a>
-                        <div class="link-button">
-                            <a class="link map" href="#"></a>
-                            <a class="link deliver" href="#"></a>
-                            <a class="link phone" href="#"></a>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        <p class="description">Передний левый амортизатор для Toyta Avensis 2001, T22 (1.6 дизель 4A-FE седан)</p>
-                        <div class="card-contact">
-                            <a href="tel:+375296715642" class="contact">+375 29 671 56 42</a>
-                            <a href="tel:+375273333581" class="contact">+375 27 333 35 81</a>
-                        </div>
-                        <p class="time-text">Запчасти из европы очень хорошего качества с гарантией</p>
-                        <div class="card-block">
-                            <div class="adress">
-                                <p class="adress-text">Беларусь</p>
-                                <p class="adress-text-city">Минск, Селицкого 105-173</p>
-                            </div>
-                            <div class="card-time">
-                                <div class="week">
-                                    <span class="day blue"></span>
-                                    <span class="day blue"></span>
-                                    <span class="day blue"></span>
-                                    <span class="day blue"></span>
-                                    <span class="day blue-check"></span>
-                                    <span class="day-time">12:00 - 13:00</span>
-                                </div>
-                                <div class="weekend">
-                                    <span class="day"></span>
-                                    <span class="day"></span>
-                                    <span class="day"></span>
-                                    <span class="day red"></span>
-                                    <span class="day red-check"></span>
-                                    <span class="day-time">21:00 - 22:00</span>
-                                </div>
-                            </div>
-                            <div class="unp">УНП 190947561</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="delivery-on">
+                <a href={{ page.returnButtonLink }}>{{ page.returnButtonText }}</a>
             </div>
+            {% set sparePartImg = image_url(sparePart.logo, "spare_part") %}
+            {% for advert in adverts %}
+                <div class="block-product">
+                    <div class="block-title">
+                        <p class="block-product__title">{{ advert.getSellerCompany().companyName }}</p>
+                        <div class="review">
+                            <span class="star rev"></span>
+                            <span class="star rev"></span>
+                            <span class="star rev"></span>
+                            <span class="star rev"></span>
+                            <span class="star"></span>
+                            <p class="review-text">нет отзывов</p>
+                        </div>
+                    </div>
+                    <div class="card-product">
+                        <div class="card-img">
+                            <div class="image">
+                                <img src="{{ sparePartImg }}" alt="foto">
+                            </div>
+
+                            {#<span class="price">7555 <span>Бел. Р.</span></span>#}
+                            <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
+                            <div class="link-button">
+                                <a class="link map" href="#"></a>
+                                <a class="link deliver" href="#"></a>
+                                <a class="link phone" href="#"></a>
+                            </div>
+                        </div>
+                        <div class="card-description">
+                            <p class="description">{{ sparePart.alternativeName2 }} для {{ brand.brandEn }} {{ model.modelEn }}</p>
+                            <div class="card-contact">
+                                {% set sellerPhone = advert.getSellerCompany().getSellerData().getClient().phone %}
+                                <a href="tel:{{ sellerPhone }}" class="contact">{{ sellerPhone }}</a>
+                                {% if advert.getSellerCompany().additionalPhone %}
+                                    <a href="tel:{{ advert.getSellerCompany().additionalPhone }}" class="contact">{{ advert.getSellerCompany().additionalPhone }}</a>
+                                {% endif %}
+                            </div>
+                            <p class="time-text">{{ advert.comment }}</p>
+                            <div class="card-block">
+                                <div class="adress">
+                                    <p class="adress-text">Беларусь</p>
+                                    <p class="adress-text-city">{{ advert.getSellerCompany().city }}, {{  advert.getSellerCompany().address }}</p>
+                                </div>
+                                <div class="card-time">
+                                    {% set workflow = advert.getSellerCompany().workflow %}
+                                    <div class="week">
+                                        <span class="day blue{{ workflow.isMondayWork() ? "-check" : "" }}"></span>
+                                        <span class="day blue{{ workflow.isTuesdayWork() ? "-check" : "" }}"></span>
+                                        <span class="day blue{{ workflow.isWednesdayWork() ? "-check" : "" }}"></span>
+                                        <span class="day blue{{ workflow.isThursdayWork() ? "-check" : "" }}"></span>
+                                        <span class="day blue{{ workflow.isFridayWork() ? "-check" : "" }}"></span>
+                                        {% if workflow.isWorkWeekday %}
+                                            <span class="day-time">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="weekend">
+                                        <span class="day"></span>
+                                        <span class="day"></span>
+                                        <span class="day"></span>
+                                        <span class="day red{{ workflow.isSaturdayWork() ? "-check" : "" }}"></span>
+                                        <span class="day red{{ workflow.isSundayWork() ? "-check" : "" }}"></span>
+                                        {% if workflow.isWorkWeekend %}
+                                            <span class="day-time">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="unp">УНП {{ advert.getSellerCompany().unp }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {{ render(controller('App\\Controller\\BamperController::showSuggestionsForBrandModelSparePartAction', routeParams)) }}
             <div class="delivery-admin">
-                <p class="admin-text">Текст 3 из админки</p>
+                <div class="admin-text">{{ page.text3 | raw }}</div>
             </div>
             <ul class="delivery-img">
-                <li><a href='#'><img class="img-small" src="#" alt=""></a></li>
-                <li><a href='#'><img class="img-big" src="#" alt=""></a></li>
-                <li><a href='#'><img class="img-big" src="#" alt=""></a></li>
-                <li><a href='#'><img class="img-small" src="#" alt=""></a></li>
+                <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}"><img class="img-small" src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="Автозапчасти для {{ brand.brandEn }}"></a></li>
+                <li><a href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"><img class="img-big" src="{{ image_url(model.logo, "model") }}" alt="{{ model.name }}" title="Запчасти для {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
+                <li><a href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.url}) }}"><img class="img-big" src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName2 }}" title="{{ sparePart.alternativeName2 }} к {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
+                <li><a href="{{ path("show_brand_catalog_in_stock", routeParams) }}"><img class="img-small" src="{{ city ? image_url(city.logo) : image_url(default_image(27).image) }}" alt="{{ city ? city.name : "Город" }}" title="{{ sparePart.alternativeName3 }} к {{ brand.brandEn }} {{ model.modelEn }} {{ city ? "в " ~ city.prepositional : "во всех городах" }}"></a></li>
             </ul>
-            <h2 class="delivery-subtitle">Заголовок H2</h2>
-            <p class="delivery-text">текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки </p>
+            <h2 class="delivery-subtitle">{{ page.headline2 }}</h2>
+            <div class="delivery-text">{{ page.text2 | raw }}</div>
         </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
 {% endblock %}
