@@ -307,5 +307,9 @@ function citiesHideShow() {
 
  function dotClick() {
      var elemLi = document.getElementById('breadcrumbs');
+
+     if(!elemLi){
+         var elemLi = document.getElementById('breadcrumbs-one');
+     }
      elemLi.className = 'opened';
  }
