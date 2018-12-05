@@ -11,7 +11,7 @@
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container" ng-init="showAll = false">
         <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
-            <ul id="breadcrumbs-one">
+            <ul id="breadcrumbs">
                 <li>
               <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
                   <a itemprop="item" title="Главная" href="{{ path("homepage") }}">
