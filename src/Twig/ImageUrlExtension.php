@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use App\Entity\DefaultImage;
+use App\Entity\Image;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig_Extension;
 use Twig_Function;
@@ -37,6 +38,10 @@ class ImageUrlExtension extends Twig_Extension
     public function imageUrlCreator($url, $defaultImageType = null)
     {
         $defaultImageId = array_key_exists($defaultImageType, DefaultImage::$defaultImages) ? DefaultImage::$defaultImages[$defaultImageType] : null;
+
+        if($url instanceof Image){
+            $url = $url->getImage();
+        }
 
         if(!$url && $defaultImageId){
             $defaultImageObject = $this->em->getRepository(DefaultImage::class)->find($defaultImageId);

@@ -135,3 +135,19 @@ function getImageScaledSizes(width, height, maxSize) {
 
     return [maxSize/defaultScale, maxSize];
 }
+
+function getLocation(callback) {
+    console.log(navigator.geolocation);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            callback,
+            function (error) {
+                if (error.code == error.PERMISSION_DENIED) {
+                    console.log("You close access to your geolocation");
+                }
+                callback(null);
+            });
+    } else {
+        callback(null);
+    }
+}

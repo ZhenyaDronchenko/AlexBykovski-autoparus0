@@ -9,12 +9,14 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
 use App\Entity\EngineType;
+use App\Entity\Image;
 use App\Entity\Model;
 use App\Entity\User;
 use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
 use App\Form\Type\SellerCompanyType;
 use App\Provider\Form\ClientCarProvider;
+use App\Provider\GeoLocation\GeoLocationProvider;
 use App\Upload\FileUpload;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -235,22 +237,37 @@ class UserOfficeController extends Controller
     /**
      * @Route("/upload-user-photo-ajax", name="user_office_upload_user_photo_ajax")
      */
-    public function uploadUserPhotoAjaxAction(Request $request)
+    public function uploadUserPhotoAjaxAction(Request $request, GeoLocationProvider $provider)
     {
         /** @var Client $client */
         $client = $this->getUser();
         /** @var FileUpload $uploader */
         $uploader = $this->get("app.file_upload");
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
 
         $file = $request->files->get("file");
+        $ip = $request->getClientIp();
+        $coordinates = $request->request->get("coordinates");
+        $coordinates = $coordinates ? json_decode($coordinates, true) : null;
 
         $uploader->setFolder(FileUpload::USER);
-
         $path = $uploader->upload($file);
 
-        $client->setPhoto($path);
+        $image = new Image($path);
+        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+        $image->setGeoLocation($geoLocation);
 
-        $this->getDoctrine()->getManager()->flush();
+        $photoOld = $client->getPhoto();
+
+        if($photoOld instanceof Image){
+            $em->remove($photoOld);
+        }
+
+        $client->setPhoto($image);
+
+        $em->persist($image);
+        $em->flush();
 
         return new JsonResponse([
             "success" => true,
@@ -261,22 +278,37 @@ class UserOfficeController extends Controller
     /**
      * @Route("/upload-business-profile-photo-ajax", name="user_office_upload_business_profile_photo_ajax")
      */
-    public function uploadBusinessProfilePhotoAjaxAction(Request $request)
+    public function uploadBusinessProfilePhotoAjaxAction(Request $request, GeoLocationProvider $provider)
     {
         /** @var Client $client */
         $client = $this->getUser();
         /** @var FileUpload $uploader */
         $uploader = $this->get("app.file_upload");
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
 
         $file = $request->files->get("file");
+        $ip = $request->getClientIp();
+        $coordinates = $request->request->get("coordinates");
+        $coordinates = $coordinates ? json_decode($coordinates, true) : null;
 
         $uploader->setFolder(FileUpload::BUSINESS_PROFILE);
-
         $path = $uploader->upload($file);
 
-        $client->getSellerData()->setPhoto($path);
+        $image = new Image($path);
+        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+        $image->setGeoLocation($geoLocation);
 
-        $this->getDoctrine()->getManager()->flush();
+        $photoOld = $client->getSellerData()->getPhoto();
+
+        if($photoOld instanceof Image){
+            $em->remove($photoOld);
+        }
+
+        $client->getSellerData()->setPhoto($image);
+
+        $em->persist($image);
+        $em->flush();
 
         return new JsonResponse([
             "success" => true,
