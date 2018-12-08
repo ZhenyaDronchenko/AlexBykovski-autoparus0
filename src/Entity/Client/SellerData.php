@@ -2,6 +2,7 @@
 
 namespace App\Entity\Client;
 
+use App\Entity\Image;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,9 +48,12 @@ class SellerData
     private $advertDetail;
 
     /**
-     * @var string|null
+     * @var Image|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * One Client has One Image.
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="photo_id", referencedColumnName="id")
      */
     private $photo;
 
@@ -129,17 +133,17 @@ class SellerData
     }
 
     /**
-     * @return null|string
+     * @return Image|null
      */
-    public function getPhoto(): ?string
+    public function getPhoto(): ?Image
     {
         return $this->photo;
     }
 
     /**
-     * @param null|string $photo
+     * @param Image|null $photo
      */
-    public function setPhoto(?string $photo): void
+    public function setPhoto(?Image $photo): void
     {
         $this->photo = $photo;
     }

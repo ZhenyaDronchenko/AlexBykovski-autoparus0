@@ -101,6 +101,11 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         public: true
 
+    app.provider.geo_location.geo_location_provider:
+        class:  App\Provider\GeoLocation\GeoLocationProvider
+        arguments: []
+        public: true
+
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension
         arguments: ['%upload_image_directory%', '@doctrine.orm.entity_manager']

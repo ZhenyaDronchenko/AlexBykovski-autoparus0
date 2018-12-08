@@ -80,9 +80,6 @@
     "gaufrette/local-adapter": {
         "version": "v0.4.0"
     },
-    "geocoder-php/plugin": {
-        "version": "1.1.0"
-    },
     "gregwar/captcha": {
         "version": "v1.1.7"
     },
@@ -121,9 +118,6 @@
     },
     "paragonie/random_compat": {
         "version": "v2.0.17"
-    },
-    "php-http/promise": {
-        "version": "v1.0.0"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -172,6 +166,9 @@
     },
     "sonata-project/datagrid-bundle": {
         "version": "2.3.1"
+    },
+    "sonata-project/doctrine-extensions": {
+        "version": "1.1.2"
     },
     "sonata-project/doctrine-orm-admin-bundle": {
         "version": "3.4.0"
@@ -424,18 +421,6 @@
     },
     "twig/twig": {
         "version": "v2.5.0"
-    },
-    "willdurand/geocoder": {
-        "version": "4.2.0"
-    },
-    "willdurand/geocoder-bundle": {
-        "version": "5.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "5.0",
-            "ref": "b272ad4fbfcd45a20e7cbfdc4ad1b0e27a62fd3b"
-        }
     },
     "zendframework/zend-code": {
         "version": "3.3.1"
