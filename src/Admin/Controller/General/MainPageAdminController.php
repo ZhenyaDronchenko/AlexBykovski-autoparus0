@@ -22,12 +22,8 @@ class MainPageAdminController extends CRUDController
             throw new AccessDeniedException();
         }
 
-        $objectId = $this->getDoctrine()->getRepository(MainPage::class)->findAll()[0]->getId();
+        $object = $this->getDoctrine()->getRepository(MainPage::class)->findAll()[0];
 
-        $request = $this->getRequest();
-        $request->attributes->set('id', $objectId);
-
-        return $this->editAction();
-
+        return $this->redirectTo($object);
     }
 }
