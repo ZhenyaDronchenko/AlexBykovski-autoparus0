@@ -53,12 +53,12 @@
                 </div>
                 <div class='nav-block'>
                     <ul class='nav-list'>
-                        <li><a href='#'>Пользователям</a></li>
-                        <li class='item'><a href='#'>Продавцам</a></li>
+                        <li><a href='{{ path("general_to_users_page") }}'>Пользователям</a></li>
+                        <li class='item'><a href='{{ path("general_to_seller_page") }}'>Продавцам</a></li>
                     </ul>
                     <ul class='nav-list'>
-                        <li><a href="{{ path("show_phone_spare_part_catalog_choice_phone_brand") }}">Phone Запчасти</a></li>
-                        <li><a href="{{ path("show_phone_work_catalog_choice_work") }}">Phone Ремонт</a></li>
+                        <li><a href="{{ path("general_news_page") }}">Новости</a></li>
+                        <li><a href="{{ path("general_about_page") }}">Обратная связь</a></li>
                     </ul>
                 </div>
             </nav>

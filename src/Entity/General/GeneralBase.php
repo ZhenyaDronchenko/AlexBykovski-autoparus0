@@ -51,6 +51,20 @@ abstract class GeneralBase
     protected $text2;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $returnButtonLink;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $returnButtonText;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -145,5 +159,37 @@ abstract class GeneralBase
     public function setText2(?string $text2): void
     {
         $this->text2 = $text2;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getReturnButtonLink(): ?string
+    {
+        return $this->returnButtonLink;
+    }
+
+    /**
+     * @param null|string $returnButtonLink
+     */
+    public function setReturnButtonLink(?string $returnButtonLink): void
+    {
+        $this->returnButtonLink = $returnButtonLink;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getReturnButtonText(): ?string
+    {
+        return $this->returnButtonText;
+    }
+
+    /**
+     * @param null|string $returnButtonText
+     */
+    public function setReturnButtonText(?string $returnButtonText): void
+    {
+        $this->returnButtonText = $returnButtonText;
     }
 }
