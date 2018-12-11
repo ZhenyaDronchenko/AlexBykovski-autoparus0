@@ -34,7 +34,8 @@ class BuyerAdmin extends AbstractAdmin
 
         $query
             ->where($query->getRootAlias().'.roles LIKE :role')
-            ->setParameter('role', '%' . User::ROLE_BUYER . '%');
+            ->setParameter('role', '%' . User::ROLE_BUYER . '%')
+            ->orderBy($query->getRootAlias().'.createdAt', 'DESC');
 
         return $query;
     }

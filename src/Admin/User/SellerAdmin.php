@@ -37,7 +37,8 @@ class SellerAdmin extends AbstractAdmin
 
         $query
             ->where($query->getRootAlias().'.roles LIKE :role')
-            ->setParameter('role', '%' . User::ROLE_SELLER . '%');
+            ->setParameter('role', '%' . User::ROLE_SELLER . '%')
+            ->orderBy($query->getRootAlias().'.createdAt', 'DESC');
 
         return $query;
     }

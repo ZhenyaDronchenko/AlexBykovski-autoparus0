@@ -1,47 +1,13 @@
 imports:
+    - { resource: ./admin_blocks/general.yaml }
+    - { resource: ./admin_blocks/user.yaml }
+    - { resource: ./admin_blocks/city_brand_model_spare_part.yaml }
     - { resource: ./admin_blocks/city_catalog.yaml }
     - { resource: ./admin_blocks/brand_catalog.yaml }
     - { resource: ./admin_blocks/spare_part_catalog.yaml }
     - { resource: ./admin_blocks/phone/general.yaml }
-    - { resource: ./admin_blocks/user.yaml }
-    - { resource: ./admin_blocks/general.yaml }
 
 services:
-    admin.city.city:
-        class: App\Admin\CityAdmin
-        arguments: [~, App\Entity\City, 'App\Admin\Controller\CityAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
-        tags:
-            - { name: sonata.admin, group: Город, manager_type: orm, label: Город, on_top: true}
-        public: true
-
-    admin.brand.brand:
-        class: App\Admin\BrandAdmin
-        arguments: [~, App\Entity\Brand, 'App\Admin\Controller\BrandAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
-        tags:
-            - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Марка, on_top: true }
-        public: true
-        calls:
-            - [ addChild, ['@admin.brand.models', 'brand']]
-            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
-
-    admin.brand.models:
-        class: App\Admin\ModelAdmin
-        arguments: [~, App\Entity\Model, 'App\Admin\Controller\ModelAdminController', "@app.file_upload", '%upload_image_directory%', '@router', '@doctrine.orm.entity_manager']
-        tags:
-            - { name: sonata.admin, group: Марка/Модели, manager_type: orm, label: Модель, show_in_dashboard: false }
-        public: true
-        calls:
-            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
-
-    admin.spare_part.spare_part:
-        class: App\Admin\SparePartAdmin
-        arguments: [~, App\Entity\SparePart, 'App\Admin\Controller\SparePartAdminController', "@app.file_upload", '%upload_image_directory%', '@router']
-        tags:
-            - { name: sonata.admin, group: Запчасть, manager_type: orm, label: Запчасть, on_top: true }
-        public: true
-        calls:
-            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
-
     admin.add_code.head:
         class: App\Admin\HeadCodeAdmin
         arguments: [~, App\Entity\HeadCode, ~]

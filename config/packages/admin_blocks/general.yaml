@@ -1,35 +1,35 @@
 services:
     admin.general.main_page:
         class: App\Admin\General\MainPageAdmin
-        arguments: [~, App\Entity\General\MainPage, ~]
+        arguments: [~, App\Entity\General\MainPage, 'App\Admin\Controller\General\MainPageAdminController']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
         public: true
 
     admin.general.about_page:
         class: App\Admin\General\AboutGeneralPageAdmin
-        arguments: [~, App\Entity\General\AboutGeneralPage, ~]
+        arguments: [~, App\Entity\General\AboutGeneralPage, 'App\Admin\Controller\General\AboutGeneralPageAdminController']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Обратная связь }
         public: true
 
     admin.general.news_page:
         class: App\Admin\General\NewsGeneralPageAdmin
-        arguments: [~, App\Entity\General\NewsGeneralPage, ~]
+        arguments: [~, App\Entity\General\NewsGeneralPage, 'App\Admin\Controller\General\NewsGeneralPageAdminController']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Новости }
         public: true
 
     admin.general.to_users_page:
         class: App\Admin\General\ToUsersGeneralPageAdmin
-        arguments: [~, App\Entity\General\ToUsersGeneralPage, ~]
+        arguments: [~, App\Entity\General\ToUsersGeneralPage, 'App\Admin\Controller\General\ToUsersGeneralPageAdminController']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Пользователям }
         public: true
 
     admin.general.to_sellers_page:
         class: App\Admin\General\ToSellersGeneralPageAdmin
-        arguments: [~, App\Entity\General\ToSellersGeneralPage, ~]
+        arguments: [~, App\Entity\General\ToSellersGeneralPage, 'App\Admin\Controller\General\ToSellersGeneralPageAdminController']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Продавцам }
         public: true
