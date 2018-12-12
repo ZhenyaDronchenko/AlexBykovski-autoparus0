@@ -379,12 +379,16 @@
         line-height: 16px;
     }
 }
+
+@media (max-width: 575px) {
+    .link {
+        display: block;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
     .container {
         width: auto; }
-
-
-
 }
 
 

@@ -456,4 +456,10 @@
     }
 
 }
+
+@media (max-width: 575px) {
+    .link {
+        display: block;
+    }
+}
 /*mod END*/
