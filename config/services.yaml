@@ -6,12 +6,14 @@
 imports:
     - { resource: ./packages/admin_blocks.yaml }
     - { resource: ./packages/services/twig.yaml }
+    - { resource: ./packages/services/site_map.yaml }
     - { resource: ./packages/forms.yaml }
 
 parameters:
     locale: 'ru'
     upload_directory: '%kernel.project_dir%/public/images'
     upload_image_directory: '/images/'
+    public_folder: '%kernel.project_dir%/public/'
     robots_txt_file_path: '%kernel.project_dir%/public/robots.txt'
     site_map_xml_file_path: '%kernel.project_dir%/public/stat_sitemap.xml'
 

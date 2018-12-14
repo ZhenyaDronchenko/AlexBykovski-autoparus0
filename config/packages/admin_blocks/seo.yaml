@@ -1,0 +1,7 @@
+services:
+    admin.seo.site_map:
+        class: App\Admin\SiteMapAdmin
+        arguments: [~, App\Entity\SiteMap, 'App\Admin\Controller\SiteMapAdminController']
+        tags:
+            - { name: sonata.admin, group: SEO, manager_type: orm, label: Sitemap }
+        public: true

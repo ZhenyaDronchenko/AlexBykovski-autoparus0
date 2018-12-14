@@ -1,0 +1,5 @@
+services:
+    app.site_map.factory:
+        class:  App\SiteMap\SiteMapFactory
+        arguments: ['@doctrine.orm.entity_manager', '@router', '%public_folder%']
+        public: true

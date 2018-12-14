@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BrandCatalogController extends Controller
 {
     /**
-     * @Route("/", name="show_brand_catalog_choice_brand")
+     * @Route("", name="show_brand_catalog_choice_brand")
      */
     public function showChoiceBrandPageAction(Request $request)
     {
@@ -78,7 +78,7 @@ class BrandCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlBrand}/{urlModel}/", name="show_brand_catalog_choice_spare_part")
+     * @Route("/{urlBrand}/{urlModel}", name="show_brand_catalog_choice_spare_part")
      */
     public function showChoiceSparePartPageAction(Request $request, $urlBrand, $urlModel, VariableTransformer $transformer)
     {
@@ -119,7 +119,7 @@ class BrandCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}/", name="show_brand_catalog_choice_city")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}", name="show_brand_catalog_choice_city")
      */
     public function showChoiceCityPageAction(Request $request, $urlBrand, $urlModel, $urlSP, VariableTransformer $transformer)
     {

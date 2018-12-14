@@ -65,4 +65,17 @@ class ModelRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllUrlByBrandUrl($brandUrl)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m.url')
+            ->join("m.brand", "br")
+            ->where("m.active = :trueValue")
+            ->andWhere("br.url = :brandUrl")
+            ->setParameter("trueValue", true)
+            ->setParameter("brandUrl", $brandUrl)
+            ->getQuery()
+            ->getResult();
+    }
 }
