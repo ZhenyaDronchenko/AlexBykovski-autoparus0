@@ -1,6 +1,7 @@
 imports:
     - { resource: ./admin_blocks/general.yaml }
     - { resource: ./admin_blocks/user.yaml }
+    - { resource: ./admin_blocks/seo.yaml }
     - { resource: ./admin_blocks/city_brand_model_spare_part.yaml }
     - { resource: ./admin_blocks/city_catalog.yaml }
     - { resource: ./admin_blocks/brand_catalog.yaml }

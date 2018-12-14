@@ -47,4 +47,14 @@ class BrandRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllUrlsForSiteMap()
+    {
+        return $this->createQueryBuilder('br')
+            ->select('br.url')
+            ->where("br.active = :trueValue")
+            ->setParameter("trueValue", true)
+            ->getQuery()
+            ->getResult();
+    }
 }

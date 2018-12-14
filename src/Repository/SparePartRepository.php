@@ -31,4 +31,14 @@ class SparePartRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllUrlsForSiteMap()
+    {
+        return $this->createQueryBuilder('spp')
+            ->select('spp.url')
+            ->where("spp.active = :trueValue")
+            ->setParameter("trueValue", true)
+            ->getQuery()
+            ->getResult();
+    }
 }
