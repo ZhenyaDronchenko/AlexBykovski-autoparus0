@@ -10,47 +10,50 @@
 {% block body %}
     <main class="container" ng-init="showAll = false;">
         <ul id="breadcrumbs">
-            <li><a class="user-link user-link--icon"  href="{{ path("homepage") }}">
-                    <span class="user-name">Главная </span><img class="user-icon" src="/img/home.png" alt="icon"></a>
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная">
+                    <span class="user-name">Главная</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
+                        <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                </a>
             </li>
-            <li><a class="current">/ Последовательный каталог</a></li>
+            <li><a class="current">/ Каталог</a></li>
         </ul>
 
         <section class="city">
-            <h1 class="city-title">{{ page.headline1 }}</h1>
-            <div class=city-desc>
-                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
+            <h1 class="city-title" data-text="{{ page.headline1 }}"></h1>
+            <div class='city-desc'>
+                <p id='text1' class='text1Hide'>{{ page.text1 | raw }}</p>
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
             </div>
             <div class="city-block">
-                <div class="city-wrapper" ng-init="showAll = false">
+                <div class="city-wrapper">
                     <ul class="city-show" id='brandImg5'>
-                        <li><a class="city-link" href=''><img src="{{ image_url(capital.logo) }}" alt="{{ capital.name }}" title="Автозапчасти в {{ capital.prepositional }}">Минск</a></li>
+                        <li><a class="city-link" href=''><img src="{{ image_url(capital.logo) }}" alt="{{ capital.name }}" title="Автозапчасти в {{ capital.prepositional }}"><span>Минск</span></a></li>
                         {% for city in regionalCities %}
-                            <li><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}">{{ city.name }}</a></li>
+                            <li><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
                         {% endfor %}
                         {% for city in othersCities%}
-                            <li ng-show="showAll"><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}">{{ city.name }}</a></li>
+                            <li ng-show="showAll"><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
                         {% endfor %}
                     </ul>
                     <div ng-click='showAll = true' ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
                     <div ng-click='showAll = false' ng-show="showAll" id='showAll5'>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
                 </div>
                 <div class="city-list">
-                    <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
+                    <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
                     <div class='city-subtext'>{{ page.text2 | raw }}</div>
-                    <a href="{{ page.returnButtonLink }}" class="city-btn">{{ page.returnButtonText }}</a>
+                    <a href="{{ page.returnButtonLink }}" class="button">{{ page.returnButtonText }}</a>
                 </div>
             </div>
-            <div class="wrapper-icon">
-                <div class="city-items">
-                    <ul class="city-icon">
-                        {% for brand in brands %}
-                            <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: "dvs", urlBrand: brand.url}) }}"><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="Двигатели для автомобилей {{ brand.brandEn }}"></a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
+            <h3 class="model-title" data-text="Популярные марки автомобилей"></h3>
+            <ul class="city-icon">
+                {% for brand in brands %}
+                    <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: "dvs", urlBrand: brand.url}) }}"><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="Двигатели для автомобилей {{ brand.brandEn }}"></a></li>
+                {% endfor %}
+            </ul>
         </section>
     </main>
 {% endblock %}
