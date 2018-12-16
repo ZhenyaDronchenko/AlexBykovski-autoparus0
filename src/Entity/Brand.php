@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Brand implements VariableInterface
 {
     const ALL_BRANDS_NAME = "all_brands";
+    const TOYOTA_RUS_URL = "toyota_rus";
 
     static $variables = [
         "[BRAND]" => "getName",

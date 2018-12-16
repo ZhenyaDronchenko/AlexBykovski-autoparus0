@@ -45,7 +45,7 @@ class SparePartCatalogController extends Controller
     }
 
     /**
-     * @Route("/{url}/", name="show_spare_part_catalog_choice_brand")
+     * @Route("/{url}", name="show_spare_part_catalog_choice_brand")
      */
     public function showCatalogChoiceBrandAction(Request $request, $url, VariableTransformer $transformer)
     {
@@ -75,7 +75,7 @@ class SparePartCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlSP}/{urlBrand}/", name="show_spare_part_catalog_choice_model")
+     * @Route("/{urlSP}/{urlBrand}", name="show_spare_part_catalog_choice_model")
      */
     public function showCatalogChoiceModelAction(Request $request, $urlSP, $urlBrand, VariableTransformer $transformer)
     {
@@ -111,7 +111,7 @@ class SparePartCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlSP}/{urlBrand}/{urlModel}/", name="show_spare_part_catalog_choice_city")
+     * @Route("/{urlSP}/{urlBrand}/{urlModel}", name="show_spare_part_catalog_choice_city")
      */
     public function showCatalogChoiceCityAction(Request $request, $urlSP, $urlBrand, $urlModel, VariableTransformer $transformer)
     {

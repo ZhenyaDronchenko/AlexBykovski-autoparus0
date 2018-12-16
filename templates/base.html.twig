@@ -6,11 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="{% block meta_description %}Автопарус{% endblock %}">
         <meta name="author" content="">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
         <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&amp;subset=cyrillic" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet">
         <title>{% block title %}Автопарус{% endblock %}</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/fav/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/img/fav/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/img/fav/favicon-16x16.png">
+        <link rel="manifest" href="/img/fav/site.webmanifest">
+        <link rel="mask-icon" href="/img/fav/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
         <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
         <link rel='stylesheet' href='/css/normalize-new.min.css'>
         <link rel='stylesheet' href='/css/base-style.css'>
@@ -22,12 +30,12 @@
     <body>
         <header class="container">
             <div class="header">
-                <a class="header-logo" href="{{ path("homepage") }}" title='На главную'>Автопарус</a>
-                <div class="burger" onclick='menuActive()'>
+                <a class="header-logo" href="{{ path("homepage") }}" data-text="Автопарус"></a>
+                <button class="burger" onclick='menuActive()'>
                     <span id='g-1' class='gamburger'></span>
                     <span id='g-2' class='gamburger'></span>
                     <span id='g-3' class='gamburger'></span>
-                </div>
+                </button>
             </div>
 
             <nav id='menu' class="nav">
@@ -70,7 +78,14 @@
             <div class="container">
                 <nav class="navigation">
                     <ul class="navigation-block">
-                        <li><a href="{{ path("homepage") }}"><img src="/img/home.png" alt="icon"></a></li>
+                        <li>
+                            <a href="{{ path("homepage") }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="38px" height="38px">
+                                    <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
+                                    <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                                </svg>
+                            </a>
+                        </li>
                         <li><a href="{{ app.user ? "" : path("registration") }}"><img src="/img/engine.png" alt="icon"></a></li>
                         <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}"><img src="/img/image.png" alt="icon"></a></li>
                         <li><a href=""><img src="/img/search.png" alt="icon"></a></li>
