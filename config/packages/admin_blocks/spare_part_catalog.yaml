@@ -2,14 +2,14 @@ services:
 # 1st from SparePart
     admin.catalog.catalog_spare_part.spare_part:
         class: App\Admin\Catalog\SparePart\CatalogSparePartChoiceSparePartAdmin
-        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart, ~]
+        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart, 'App\Admin\Controller\Catalog\SparePart\CatalogSparePartChoiceSparePartAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от запчасти, manager_type: orm, label: Выбор запчасти }
         public: true
 # 2nd from SparePart
     admin.catalog.catalog_spare_part.brand:
         class: App\Admin\Catalog\SparePart\CatalogSparePartChoiceBrandAdmin
-        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand, ~]
+        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand, 'App\Admin\Controller\Catalog\SparePart\CatalogSparePartChoiceBrandAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от запчасти, manager_type: orm, label: Выбор марки }
         public: true
@@ -17,28 +17,28 @@ services:
 # 3rd from SparePart
     admin.catalog.catalog_spare_part.model:
         class: App\Admin\Catalog\SparePart\CatalogSparePartChoiceModelAdmin
-        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceModel, ~]
+        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceModel, 'App\Admin\Controller\Catalog\SparePart\CatalogSparePartChoiceModelAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от запчасти, manager_type: orm, label: Выбор модели }
         public: true
 # 4th from SparePart
     admin.catalog.catalog_spare_part.city:
         class: App\Admin\Catalog\SparePart\CatalogSparePartChoiceCityAdmin
-        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceCity, ~]
+        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceCity, 'App\Admin\Controller\Catalog\SparePart\CatalogSparePartChoiceCityAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от запчасти, manager_type: orm, label: Выбор города }
         public: true
 # 5th from SparePart
     admin.catalog.catalog_spare_part.in_stock:
         class: App\Admin\Catalog\SparePart\CatalogSparePartChoiceInStockAdmin
-        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceInStock, ~]
+        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceInStock, 'App\Admin\Controller\Catalog\SparePart\CatalogSparePartChoiceInStockAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от запчасти, manager_type: orm, label: Выбор усл. "Только в наличии" }
         public: true
 # 6th from SparePart
     admin.catalog.catalog_spare_part.final_page:
         class: App\Admin\Catalog\SparePart\CatalogSparePartChoiceFinalPageAdmin
-        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceFinalPage, ~]
+        arguments: [~, App\Entity\Catalog\SparePart\CatalogSparePartChoiceFinalPage, 'App\Admin\Controller\Catalog\SparePart\CatalogSparePartChoiceFinalPageAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от запчасти, manager_type: orm, label: Финальная страница }
         public: true

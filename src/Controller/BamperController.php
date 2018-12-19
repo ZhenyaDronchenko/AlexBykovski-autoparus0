@@ -33,12 +33,11 @@ class BamperController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
         $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
         $city = $urlCity ? $em->getRepository(City::class)->findOneBy(["url" => $urlCity]) : null;
-        $cityBamperUrl = $city instanceof City ? $city->getUrlConnectBamperIncludeBase() : null;
 
         $suggestions = [];
 
         if($sparePart instanceof SparePart && $brand instanceof Brand && $model instanceof Model){
-            $suggestions = $suggestionProvider->provide($brand->getUrlConnectBamperIncludeBase(), $model->getUrlConnectBamperIncludeBase(), $sparePart->getUrlConnectBamperIncludeBase(), $cityBamperUrl);
+            $suggestions = $suggestionProvider->provide($brand, $model, $sparePart, $city);
         }
 
         return $this->render('client/catalog/integration.html.twig', [
