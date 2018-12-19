@@ -6,7 +6,10 @@ use App\Entity\SiteMap;
 use App\SiteMap\SiteMapFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 //https://support.google.com/webmasters/answer/75712?visit_id=636803154165836618-2077691311&rd=1
@@ -35,7 +38,7 @@ class SiteMapController extends Controller
         }
 
         if(!count($urls)){
-            return $this->redirect("/sitemap_" . SiteMapFactory::SITE_MAP_INDEX . ".xml");
+            return new Response('Sitemap по данному url: /sitemap' . $path . '.xml - не существует', 404, ["Content-Type" => "text/html; charset=UTF-8"]);
         }
 
         $template = $path === '_' . SiteMapFactory::SITE_MAP_INDEX ? 'sitemap/index.html.twig' : 'sitemap/simple.html.twig';
