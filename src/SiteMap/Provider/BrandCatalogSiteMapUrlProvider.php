@@ -64,6 +64,10 @@ class BrandCatalogSiteMapUrlProvider implements SiteMapUrlProvider
         $urls = [$baseUrl . 'sitemap1.xml'];
 
         foreach ($brandUrls as $brandUrl){
+            if($brandUrl["url"] === self::TOYOTA_RUS){
+                continue;
+            }
+
             $urls[] = $baseUrl . 'sitemap_' . $brandUrl["url"] . '.xml';
         }
 
