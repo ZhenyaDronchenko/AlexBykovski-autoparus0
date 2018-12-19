@@ -2,42 +2,42 @@ services:
 # 1st from Brand
     admin.catalog.catalog_brand.brand:
         class: App\Admin\Catalog\Brand\CatalogBrandChoiceBrandAdmin
-        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceBrand, ~]
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceBrand, 'App\Admin\Controller\Catalog\Brand\CatalogBrandChoiceBrandAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор марки }
         public: true
 # 2nd from Brand
     admin.catalog.catalog_brand.model:
         class: App\Admin\Catalog\Brand\CatalogBrandChoiceModelAdmin
-        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceModel, ~]
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceModel, 'App\Admin\Controller\Catalog\Brand\CatalogBrandChoiceModelAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор модели }
         public: true
 # 3rd from Brand
     admin.catalog.catalog_brand.spare_part:
         class: App\Admin\Catalog\Brand\CatalogBrandChoiceSparePartAdmin
-        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart, ~]
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart, 'App\Admin\Controller\Catalog\Brand\CatalogBrandChoiceSparePartAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор запчасти }
         public: true
 # 4th from Brand
     admin.catalog.catalog_brand.city:
         class: App\Admin\Catalog\Brand\CatalogBrandChoiceCityAdmin
-        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceCity, ~]
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceCity, 'App\Admin\Controller\Catalog\Brand\CatalogBrandChoiceCityAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор города }
         public: true
 # 5th from Brand
     admin.catalog.catalog_brand.in_stock:
         class: App\Admin\Catalog\Brand\CatalogBrandChoiceInStockAdmin
-        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceInStock, ~]
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceInStock, 'App\Admin\Controller\Catalog\Brand\CatalogBrandChoiceInStockAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Выбор усл. "Только в наличии" }
         public: true
 # 6th from Brand
     admin.catalog.catalog_brand.final_page:
         class: App\Admin\Catalog\Brand\CatalogBrandChoiceFinalPageAdmin
-        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceFinalPage, ~]
+        arguments: [~, App\Entity\Catalog\Brand\CatalogBrandChoiceFinalPage, 'App\Admin\Controller\Catalog\Brand\CatalogBrandChoiceFinalPageAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от марки, manager_type: orm, label: Финальная страница }
         public: true
