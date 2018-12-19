@@ -32,5 +32,11 @@
 
             this["phonesShow_" + key] = !this["phonesShow_" + key];
         };
+
+        this.clickPhone = function(ev){
+            if(!($(ev.target).css("color") === "blue")){
+                $(ev.target).css("color", "blue");
+            }
+        };
     }]);
 })(window.autoparusApp);

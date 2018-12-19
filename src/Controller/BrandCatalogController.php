@@ -180,8 +180,8 @@ class BrandCatalogController extends Controller
 
         $page = $em->getRepository(CatalogBrandChoiceInStock::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
-
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
+        $cityParameter = $city instanceof City ? $city : null;
+        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, $cityParameter);
 
         return $this->render('client/catalog/brand/only-in-stock.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
@@ -216,7 +216,8 @@ class BrandCatalogController extends Controller
         $page = $em->getRepository(CatalogBrandChoiceFinalPage::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
 
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, [AutoSparePartGeneralAdvert::STOCK_TYPE_IN_STOCK]);
+        $cityParameter = $city instanceof City ? $city : null;
+        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, $cityParameter, [AutoSparePartGeneralAdvert::STOCK_TYPE_IN_STOCK]);
 
         return $this->render('client/catalog/brand/final-page.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
