@@ -78,4 +78,17 @@ class ModelRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findPopularUrlByBrandUrl($brandUrl)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m.url')
+            ->join("m.brand", "br")
+            ->where("m.isPopular = :trueValue")
+            ->andWhere("br.url = :brandUrl")
+            ->setParameter("trueValue", true)
+            ->setParameter("brandUrl", $brandUrl)
+            ->getQuery()
+            ->getResult();
+    }
 }
