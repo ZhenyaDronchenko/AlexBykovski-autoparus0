@@ -10,12 +10,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SiteMap
 {
-    const TYPES = ["brand_catalog"];
+    const TYPES = [
+        "brand_catalog",
+        "brand_catalog_popular",
+    ];
     const ADMIN_CHOICES = [
         "Сайт-мап Каталога от марки" => "brand_catalog",
+        "Сайт-мап Каталога от марки (только популярные)" => "brand_catalog_popular",
     ];
 
     const TYPE_BRAND_CATALOG = "brand_catalog";
+    const TYPE_BRAND_CATALOG_POPULAR = "brand_catalog_popular";
 
     /**
      * @var integer
