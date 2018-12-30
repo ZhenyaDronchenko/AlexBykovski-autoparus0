@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\GearBoxTypeRepository")
  * @ORM\Table(name="gear_box_type")
  */
 class GearBoxType

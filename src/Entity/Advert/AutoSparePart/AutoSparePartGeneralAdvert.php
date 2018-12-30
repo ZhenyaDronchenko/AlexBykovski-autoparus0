@@ -115,7 +115,7 @@ class AutoSparePartGeneralAdvert
     /**
      * @var SellerAdvertDetail
      *
-     * Many Features have One SellerAdvertDetail.
+     * Many AutoSparePartGeneralAdverts have One SellerAdvertDetail.
      * @ORM\ManyToOne(targetEntity="App\Entity\Client\SellerAdvertDetail", inversedBy="autoSparePartGeneralAdverts")
      * @ORM\JoinColumn(name="seller_advert_detail_id", referencedColumnName="id")
      */

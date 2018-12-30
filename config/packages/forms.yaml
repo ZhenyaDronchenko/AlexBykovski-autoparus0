@@ -11,6 +11,19 @@ services:
         tags:
             - { name: form.type }
 
+    app.form.spare_part_specific_advert_type:
+        class: App\Form\Type\SparePartSprecificAdvertType
+        arguments:
+            "@app.provider.form.spare_part_advert_provider"
+            "@app.form.transformer.id_to_brand"
+            "@app.form.transformer.id_to_model"
+            "@app.form.transformer.id_to_vehicle_type"
+            "@app.form.transformer.name_to_spare_part"
+            "@app.form.transformer.id_to_drive_type"
+            "@app.form.transformer.id_to_gear_box_type"
+        tags:
+            - { name: form.type }
+
     app.form.seller_company_type:
         class: App\Form\Type\SellerCompanyType
         arguments: ["@doctrine.orm.entity_manager"]

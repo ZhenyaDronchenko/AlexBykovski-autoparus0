@@ -41,11 +41,20 @@ class SellerAdvertDetail
     private $autoSparePartGeneralAdverts;
 
     /**
+     * @var Collection
+     *
+     * One SellerAdvertDetail has Many AutoSparePartSpecificAdverts.
+     * @ORM\OneToMany(targetEntity="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", mappedBy="sellerAdvertDetail")
+     */
+    private $autoSparePartSpecificAdverts;
+
+    /**
      * SellerAdvertDetail constructor.
      */
     public function __construct()
     {
         $this->autoSparePartGeneralAdverts = new ArrayCollection();
+        $this->autoSparePartSpecificAdverts = new ArrayCollection();
     }
 
     /**
@@ -94,6 +103,22 @@ class SellerAdvertDetail
     public function setAutoSparePartGeneralAdverts(Collection $autoSparePartGeneralAdverts): void
     {
         $this->autoSparePartGeneralAdverts = $autoSparePartGeneralAdverts;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAutoSparePartSpecificAdverts(): Collection
+    {
+        return $this->autoSparePartSpecificAdverts;
+    }
+
+    /**
+     * @param Collection $autoSparePartSpecificAdverts
+     */
+    public function setAutoSparePartSpecificAdverts(Collection $autoSparePartSpecificAdverts): void
+    {
+        $this->autoSparePartSpecificAdverts = $autoSparePartSpecificAdverts;
     }
 
     public function getAutoSparePartGeneralAdvertsBrands($isOnlyIds = false)
