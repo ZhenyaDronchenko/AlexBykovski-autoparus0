@@ -57,4 +57,9 @@ class GearBoxType
     {
         $this->type = $type;
     }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
 }

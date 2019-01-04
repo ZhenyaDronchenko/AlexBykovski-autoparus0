@@ -3,11 +3,11 @@
 namespace App\Form\Type;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
+use App\Entity\Client\SellerAdvertDetail;
 use App\Form\DataTransformer\IdToBrandTransformer;
 use App\Form\DataTransformer\IdToDriveTypeTransformer;
 use App\Form\DataTransformer\IdToGearBoxTypeTransformer;
 use App\Form\DataTransformer\IdToModelTransformer;
-use App\Form\DataTransformer\NameToSparePartTransformer;
 use App\Form\DataTransformer\IdToVehicleTypeTransformer;
 use App\Provider\Form\SparePartAdvertDataProvider;
 use Symfony\Component\Form\AbstractType;
@@ -37,9 +37,6 @@ class SparePartSpecificAdvertType extends AbstractType
     /** @var IdToVehicleTypeTransformer */
     private $vehicleTypeTransformer;
 
-    /** @var NameToSparePartTransformer */
-    private $sparePartTransformer;
-
     /** @var IdToDriveTypeTransformer */
     private $driveTypeTransformer;
 
@@ -53,7 +50,6 @@ class SparePartSpecificAdvertType extends AbstractType
      * @param IdToBrandTransformer $brandTransformer
      * @param IdToModelTransformer $modelTransformer
      * @param IdToVehicleTypeTransformer $vehicleTypeTransformer
-     * @param NameToSparePartTransformer $sparePartTransformer
      * @param IdToDriveTypeTransformer $driveTypeTransformer
      * @param IdToGearBoxTypeTransformer $gearBoxTypeTransformer
      */
@@ -62,7 +58,6 @@ class SparePartSpecificAdvertType extends AbstractType
         IdToBrandTransformer $brandTransformer,
         IdToModelTransformer $modelTransformer,
         IdToVehicleTypeTransformer $vehicleTypeTransformer,
-        NameToSparePartTransformer $sparePartTransformer,
         IdToDriveTypeTransformer $driveTypeTransformer,
         IdToGearBoxTypeTransformer $gearBoxTypeTransformer
     )
@@ -71,7 +66,6 @@ class SparePartSpecificAdvertType extends AbstractType
         $this->brandTransformer = $brandTransformer;
         $this->modelTransformer = $modelTransformer;
         $this->vehicleTypeTransformer = $vehicleTypeTransformer;
-        $this->sparePartTransformer = $sparePartTransformer;
         $this->driveTypeTransformer = $driveTypeTransformer;
         $this->gearBoxTypeTransformer = $gearBoxTypeTransformer;
     }
@@ -81,7 +75,7 @@ class SparePartSpecificAdvertType extends AbstractType
     {
         $object = $builder->getData();
 
-        $object = $object instanceof AutoSparePartSpecificAdvert ? $object : new AutoSparePartSpecificAdvert();
+        $object = $object instanceof AutoSparePartSpecificAdvert ? $object : new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
 
         $isFormSubmitted = $options["isFormSubmitted"];
 
@@ -91,7 +85,6 @@ class SparePartSpecificAdvertType extends AbstractType
                 'choices' => $this->provider->getAllBrands(),
                 'constraints' => [
                     new NotNull(['message' => 'Выберите марку']),
-                    new NotBlank(['message' => 'Выберите марку']),
                 ],
             ])
             ->add('model', ChoiceType::class, [
@@ -99,7 +92,6 @@ class SparePartSpecificAdvertType extends AbstractType
                 'choices' => $this->provider->getModels($object->getBrand(), true),
                 'constraints' => [
                     new NotNull(['message' => 'Выберите модель']),
-                    new NotBlank(['message' => 'Выберите модель']),
                 ],
             ])
             ->add('year', ChoiceType::class, [
@@ -107,15 +99,12 @@ class SparePartSpecificAdvertType extends AbstractType
                 'choices' => $this->provider->getYears($object->getModel(), true),
                 'constraints' => [
                     new NotNull(['message' => 'Выберите год']),
-                    new NotBlank(['message' => 'Выберите год']),
                 ],
             ])
             ->add('sparePart', TextType::class, [
                 'label' => false,
-                'choices' => $this->provider->getSpareParts(),
                 'constraints' => [
                     new NotNull(['message' => 'Выберите запчасть']),
-                    new NotBlank(['message' => 'Выберите запчасть']),
                 ],
             ])
             ->add('engineType', ChoiceType::class, [
@@ -124,11 +113,11 @@ class SparePartSpecificAdvertType extends AbstractType
             ])
             ->add('engineCapacity', ChoiceType::class, [
                 'label' => "Объем Двигателя",
-                'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngine()->getType(), true),
+                'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType(), true),
             ])
             ->add('engineName', ChoiceType::class, [
                 'label' => "",
-                'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngine()->getType(), true),
+                'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), true),
             ])
             ->add('gearBoxType', ChoiceType::class, [
                 'label' => "Тип КПП",
@@ -144,20 +133,18 @@ class SparePartSpecificAdvertType extends AbstractType
             ])
             ->add('condition', ChoiceType::class, [
                 'label' => "Состояние",
-                'choices' => AutoSparePartSpecificAdvert::CONDITIONS_FORM,
+                'choices' => array_flip(AutoSparePartSpecificAdvert::CONDITIONS_FORM),
                 'expanded' => true,
                 'constraints' => [
                     new NotNull(['message' => 'Выберите состояние']),
-                    new NotBlank(['message' => 'Выберите состояние']),
                 ],
             ])
             ->add('stockType', ChoiceType::class, [
                 'label' => "Наличие",
-                'choices' => AutoSparePartSpecificAdvert::STOCK_TYPES_FORM,
+                'choices' => array_flip(AutoSparePartSpecificAdvert::STOCK_TYPES_FORM),
                 'expanded' => true,
                 'constraints' => [
                     new NotNull(['message' => 'Выберите наличие']),
-                    new NotBlank(['message' => 'Выберите наличие']),
                 ],
             ])
             ->add('sparePartNumber', TextType::class, [
@@ -172,14 +159,23 @@ class SparePartSpecificAdvertType extends AbstractType
             ->add('cost', TextType::class, [
                 'label' => false,
             ])
-            ->add('submit', SubmitType::class, [])
-            ->add('submitAdd', SubmitType::class, [])
-            ->add('submitAutoContinue', SubmitType::class, []);
+            ->add('submit', SubmitType::class, [
+                'label' => "Подать объявление"
+            ])
+            ->add('submitAdd', SubmitType::class, [
+                'label' => "Подать и продолжить добавление"
+            ])
+            ->add('submitAutoContinue', SubmitType::class, [
+                'label' => "Подать и продолжить добавление с этим авто"
+            ])
+            ->add('submitButtonName', HiddenType::class, [
+                'mapped' => false,
+            ]);
 
         if(!$isFormSubmitted) {
             $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($builder) {
                 /** @var AutoSparePartSpecificAdvert $object */
-                $object = $event->getData() ?: new AutoSparePartSpecificAdvert();
+                $object = $event->getData() ?: new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
                 $form = $event->getForm();
 
                 $form
@@ -188,7 +184,6 @@ class SparePartSpecificAdvertType extends AbstractType
                         'choices' => $this->provider->getModels($object->getBrand()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите модель']),
-                            new NotBlank(['message' => 'Выберите модель']),
                         ],
                     ])
                     ->add('year', ChoiceType::class, [
@@ -196,7 +191,6 @@ class SparePartSpecificAdvertType extends AbstractType
                         'choices' => $this->provider->getYears($object->getModel()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите год']),
-                            new NotBlank(['message' => 'Выберите год']),
                         ],
                     ])
                     ->add('engineType', ChoiceType::class, [
@@ -205,11 +199,11 @@ class SparePartSpecificAdvertType extends AbstractType
                     ])
                     ->add('engineCapacity', ChoiceType::class, [
                         'label' => "Объем Двигателя",
-                        'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngine()->getType()),
+                        'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType()),
                     ])
                     ->add('engineName', ChoiceType::class, [
                         'label' => "",
-                        'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngine()->getType()),
+                        'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType()),
                     ])
                     ->add('gearBoxType', ChoiceType::class, [
                         'label' => "Тип КПП",
@@ -219,16 +213,16 @@ class SparePartSpecificAdvertType extends AbstractType
                         'label' => "Тип Кузова",
                         'choices' => $this->provider->getVehicleTypes($object->getModel()),
                     ])
-                    ->add('driveType', ChoiceType::class, [
-                        'label' => "Тип Привода",
-                        'choices' => $this->provider->getDriveTypes($object->getModel()),
-                    ]);
+//                    ->add('driveType', ChoiceType::class, [
+//                        'label' => "Тип Привода",
+//                        'choices' => $this->provider->getDriveTypes($object->getModel()),
+//                    ])
+                ;
             });
         }
 
         $builder->get('brand')->addModelTransformer($this->brandTransformer);
         $builder->get('model')->addModelTransformer($this->modelTransformer);
-        $builder->get('sparePart')->addModelTransformer($this->sparePartTransformer);
         $builder->get('gearBoxType')->addModelTransformer($this->gearBoxTypeTransformer);
         $builder->get('vehicleType')->addModelTransformer($this->vehicleTypeTransformer);
         $builder->get('driveType')->addModelTransformer($this->driveTypeTransformer);

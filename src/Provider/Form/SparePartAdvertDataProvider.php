@@ -25,6 +25,50 @@ class SparePartAdvertDataProvider extends ClientCarProvider
         parent::__construct($em);
     }
 
+    public function getYears($model, $isAll = false)
+    {
+        $choices = ["" => 0];
+
+        if($isAll){
+            $currYear = (int)(new DateTime())->format("Y");
+
+            foreach (range($currYear - 1000, $currYear + 1000) as $year){
+                $choices[$year] = $year;
+            }
+        }
+        elseif($model instanceof Model &&
+            ($from = $model->getTechnicalData()->getYearFrom()) && ($to = $model->getTechnicalData()->getYearTo()) &&
+            $to > $from){
+
+            foreach (range($from, $to) as $year){
+                $choices[$year] = $year;
+            }
+        }
+
+        return $choices;
+    }
+
+    public function getEngineTypes($model, $isAll = false)
+    {
+        $choices = ["Выбрать" => ''];
+
+        if($isAll){
+            $engineTypes = $this->em->getRepository(EngineType::class)->findAllEngineTypes();
+
+            foreach ($engineTypes as $engineType) {
+                $choices[$engineType["type"]] = $engineType["type"];
+            }
+        }
+        elseif($model instanceof Model){
+            /** @var EngineType $engineType */
+            foreach ($model->getTechnicalData()->getEngineTypes() as $engineType){
+                $choices[$engineType->getType()] = (string)$engineType->getType();
+            }
+        }
+
+        return $choices;
+    }
+
     public function getEngineCapacities($model, $engineType, $isAll = false)
     {
         $choices = [];
@@ -47,7 +91,7 @@ class SparePartAdvertDataProvider extends ClientCarProvider
             asort($choices);
         }
 
-        $choices = array_merge(["Выбрать" => ''], $choices);
+        $choices = array_merge(["" => ''], $choices);
 
         return $choices;
     }
@@ -57,7 +101,7 @@ class SparePartAdvertDataProvider extends ClientCarProvider
         $choices = [];
 
         if($isAll){
-            $engines = $this->em->getRepository(Engine::class)->findAllCapacities();
+            $engines = $this->em->getRepository(Engine::class)->findAllNames();
 
             /** @var Engine $engine */
             foreach ($engines as $engine){
@@ -74,7 +118,7 @@ class SparePartAdvertDataProvider extends ClientCarProvider
             asort($choices);
         }
 
-        $choices = array_merge(["Выбрать" => ''], $choices);
+        $choices = array_merge(["" => ''], $choices);
 
         return $choices;
     }
@@ -86,14 +130,14 @@ class SparePartAdvertDataProvider extends ClientCarProvider
         if($isAll){
             $gearBoxTypes = $this->em->getRepository(GearBoxType::class)->findAllGearBoxTypes();
 
-            foreach ($gearBoxTypes as $engineType) {
-                $choices[$engineType["type"]] = $engineType["id"];
+            foreach ($gearBoxTypes as $gearBoxType) {
+                $choices[$gearBoxType["type"]] = $gearBoxType["id"];
             }
         }
         elseif($model instanceof Model){
             /** @var GearBoxType $gearBoxType */
             foreach ($model->getTechnicalData()->getGearBoxTypes() as $gearBoxType){
-                $choices[$gearBoxType->getType()] = (string)$gearBoxType->getId();
+                $choices[$gearBoxType->getType()] = $gearBoxType->getId();
             }
         }
 

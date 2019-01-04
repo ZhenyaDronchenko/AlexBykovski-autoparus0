@@ -5,10 +5,8 @@ namespace App\Entity\Advert\AutoSparePart;
 use App\Entity\Brand;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\DriveType;
-use App\Entity\Engine;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
-use App\Entity\SparePart;
 use App\Entity\VehicleType;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -70,20 +68,32 @@ class AutoSparePartSpecificAdvert
     private $year;
 
     /**
-     * @var SparePart|null
+     * @var string|null
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\SparePart")
-     * @ORM\JoinColumn(name="spare_part_id", referencedColumnName="id")
+     * @ORM\Column(type="string")
      */
     private $sparePart;
 
     /**
-     * @var Engine|null
+     * @var string|null
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Engine")
-     * @ORM\JoinColumn(name="engine_id", referencedColumnName="id", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $engine;
+    private $engineType;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $engineCapacity;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $engineName;
 
     /**
      * @var GearBoxType|null
@@ -112,7 +122,7 @@ class AutoSparePartSpecificAdvert
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="condition_type", type="string")
      */
     private $condition;
 
@@ -147,9 +157,19 @@ class AutoSparePartSpecificAdvert
     /**
      * @var float|null
      *
-     * @ORM\Column(type="float", scale=2)
+     * @ORM\Column(type="float", scale=2, nullable=true)
      */
     private $cost;
+
+    /**
+     * AutoSparePartGeneralAdvert constructor.
+     *
+     * @param SellerAdvertDetail $advertDetail
+     */
+    public function __construct(SellerAdvertDetail $advertDetail)
+    {
+        $this->sellerAdvertDetail = $advertDetail;
+    }
 
     /**
      * @return int|null
@@ -232,35 +252,67 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @return SparePart|null
+     * @return null|string
      */
-    public function getSparePart(): ?SparePart
+    public function getSparePart(): ?string
     {
         return $this->sparePart;
     }
 
     /**
-     * @param SparePart|null $sparePart
+     * @param null|string $sparePart
      */
-    public function setSparePart(?SparePart $sparePart): void
+    public function setSparePart(?string $sparePart): void
     {
         $this->sparePart = $sparePart;
     }
 
     /**
-     * @return Engine|null
+     * @return null|string
      */
-    public function getEngine(): ?Engine
+    public function getEngineType(): ?string
     {
-        return $this->engine;
+        return $this->engineType;
     }
 
     /**
-     * @param Engine|null $engine
+     * @param null|string $engineType
      */
-    public function setEngine(?Engine $engine): void
+    public function setEngineType(?string $engineType): void
     {
-        $this->engine = $engine;
+        $this->engineType = $engineType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEngineCapacity(): ?string
+    {
+        return $this->engineCapacity;
+    }
+
+    /**
+     * @param null|string $engineCapacity
+     */
+    public function setEngineCapacity(?string $engineCapacity): void
+    {
+        $this->engineCapacity = $engineCapacity;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEngineName(): ?string
+    {
+        return $this->engineName;
+    }
+
+    /**
+     * @param null|string $engineName
+     */
+    public function setEngineName(?string $engineName): void
+    {
+        $this->engineName = $engineName;
     }
 
     /**
@@ -405,5 +457,23 @@ class AutoSparePartSpecificAdvert
     public function setCost(?float $cost): void
     {
         $this->cost = $cost;
+    }
+
+    public function createClone()
+    {
+        $advert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
+
+        $advert->setBrand($this->brand);
+        $advert->setModel($this->model);
+        $advert->setYear($this->year);
+        $advert->setSparePart($this->sparePart);
+        $advert->setEngineType($this->engineType);
+        $advert->setEngineCapacity($this->engineCapacity);
+        $advert->setEngineName($this->engineName);
+        $advert->setGearBoxType($this->gearBoxType);
+        $advert->setVehicleType($this->vehicleType);
+        $advert->setDriveType($this->driveType);
+
+        return $advert;
     }
 }

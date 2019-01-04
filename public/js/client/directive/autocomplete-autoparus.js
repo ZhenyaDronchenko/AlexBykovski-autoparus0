@@ -12,7 +12,9 @@
                 let identifier = attrs.identifierField;
                 let requestParams = angular.fromJson(attrs.requestParameters);
 
-                $( element ).val("");
+                if(addUrl) {
+                    $( element ).val("");
+                }
 
                 $( element ).autocomplete({
                     source: function( request, response ) {
@@ -29,6 +31,12 @@
                     }
                 })
                 .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                    if(!addUrl){
+                        return $( "<li class='ui-menu-item'>" )
+                            .html( item.label )
+                            .appendTo( ul );
+                    }
+
                     return $( "<li class='ui-menu-item'>" )
                         .append( "<a class='ui-menu-item-wrapper' href='" + addUrl + item.url + "'>" + item.label + "</a></div>" )
                         .appendTo( ul );

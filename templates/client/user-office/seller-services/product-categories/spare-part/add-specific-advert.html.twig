@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set isEditAction = app.request.attributes.get('_route') == "user_profile_product_categories_spare_part_edit_general_advert" %}
+{% set isEditAction = app.request.attributes.get('_route') == "user_profile_product_categories_spare_part_edit_specific_advert" %}
 
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-specific-product.css'>
@@ -11,201 +11,75 @@
         <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <ul id="breadcrumbs-one">
                 <li>
-            <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" itemprop="item" title="Главная" href="index.html">
-                    <span class="user-name" itemprop="name">Сергей 1375</span><img class="user-icon" src="img/component.png" alt="icon">
-                    <meta itemprop="position" content="1">
-                </a>
-            </span>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a class="user-link user-link--icon" itemprop="item" title="Главная" href="{{ path("show_user_office") }}">
+                            <span class="user-name" itemprop="name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon">
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </span>
                 </li>
                 <li>
-            <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                <a itemprop="item" title="Главная" href="index.html">
-                    <span itemprop="name">/  товары  /</span>
-                    <meta itemprop="position" content="1">
-                </a>
-            </span>
-                </li>
-
-                <li>
-            <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                <a itemprop="item" title="Главная" href="index.html">
-                    <span itemprop="name">автозапчасти  /</span>
-                    <meta itemprop="position" content="1">
-                </a>
-            </span>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories") }}">
+                            <span itemprop="name">/  товары  /</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </span>
                 </li>
                 <li>
-            <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                <a itemprop="item" title="запчасть" href='model.html' class="current">
-                    <span itemprop="name">добавление</span>
-                    <meta itemprop="position" content="4">
-                </a>
-            </span>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories_spare_part") }}">
+                            <span itemprop="name">автозапчасти  /</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" title="запчасть" href='' class="current">
+                            {% if isEditAction %}
+                                <span itemprop="name">редактирование</span>
+                            {% else %}
+                                <span itemprop="name">добавление</span>
+                            {% endif %}
+                            <meta itemprop="position" content="4">
+                        </a>
+                    </span>
                 </li>
             </ul>
         </div>
         <section class="product-advert">
-            <h1 class="advert-title">Добавление товара (запчасти)</h1>
+            {% if isEditAction %}
+                <h1 class="advert-title">Редактирование товара (запчасти)</h1>
+            {% else %}
+                <h1 class="advert-title">Добавление товара (запчасти)</h1>
+            {% endif %}
 
-            <form class="advert-form" action="#" method="get">
-                <ul class="profil-block">
-                    <li class="profil-option profil-m">
-                        <span class="name">Марка</span>
-
-                        <select class="name-select select-m">
-                            <option>Выбрать</option>
-                            <option>Mersedes-Benz</option>
-                            <option>Toyota</option>
-                            <option>Honda</option>
-                            <option>BMW</option>
-                        </select>
-
-                    </li>
-                    <li class="profil-option profil-d">
-                        <span class="name">Модель</span>
-                        <select class="name-select select-d">
-                            <option>Выбрать</option>
-                            <option>Corolla Verso R20 (2003-2008)</option>
-                            <option>Yaris Verso P10</option>
-                            <option>Corolla Verso R20</option>
-                            <option>Corolla Verso R20</option>
-                        </select>
-                    </li>
-                    <li class="profil-option profil-y">
-                        <span class="name">Год</span>
-                        <select class="name-select select-y">
-                            <option></option>
-                            <option>2000</option>
-                            <option>2001</option>
-                            <option>2001</option>
-                            <option>2001</option>
-                        </select>
-                    </li>
-                </ul>
-                <div class="choice-wrapper">
-                    <input class="choice-input" type="text" name="adress" placeholder="Наименование товара (запчасти)">
-
-                </div>
-                <ul class="profil-block1">
-                    <li class="profil-option profil-e">
-                        <span class="name name-small">Тип Двигателя</span>
-                        <select class="name-select select-e">
-                            <option>Выбрать</option>
-                            <option>Электродвигатель</option>
-                            <option>бензин</option>
-                            <option>дизель</option>
-                        </select>
-                    </li>
-                    <li class="profil-option profil-v">
-                        <span class="name">Объем <span class="name-hidden">Двигателя</span></span>
-                        <select class="name-select select-v1">
-                            <option></option>
-                            <option>5.5</option>
-                            <option>5.5</option>
-                            <option>2.5</option>
-                        </select>
-                        <select class="name-select select-v2">
-                            <option></option>
-                            <option>222-GTE-F</option>
-                            <option>2000</option>
-                            <option>2500</option>
-                        </select>
-                    </li>
-                    <li class="profil-option profil-t">
-                        <span class="name">Тип КПП</span>
-                        <select class="name-select select-t">
-                            <option>Выбрать</option>
-                            <option>Механическая</option>
-                            <option>Автоматическая</option>
-                            <option>Вариатор</option>
-                        </select>
-                    </li>
-                    <li class="profil-option profil-k">
-                        <span class="name">Тип Кузова</span>
-                        <select class="name-select select-p">
-                            <option>Выбрать</option>
-                            <option>универсал</option>
-                            <option>хэтчбек</option>
-                            <option>седан</option>
-                            <option>купе</option>
-                        </select>
-                    </li>
-                    <li class="profil-option profil-p">
-                        <span class="name">Тип Привода</span>
-                        <select class="name-select select-p">
-                            <option>Выбрать</option>
-                            <option>Передний</option>
-                            <option>Задний</option>
-                            <option>Полный</option>
-                        </select>
-                    </li>
-                </ul>
-                <div class="block-order">
-                    <div class="filter-list">
-                        <b class="profil-title">Состояние:</b>
-                        <ul>
-                            <li class="filter-option">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" value="yes" id="filter-yes">
-                                <label for="filter-yes">Б / У</label>
-                            </li>
-                            <li class="filter-option ">
-                                <input class="visually-hidden filter-input filter-input-radio" type="radio" name="group" value="no" id="filter-no">
-                                <label for="filter-no">Новая(й)</label>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <div class="filter-list filter-list--big">
-                        <b class="profil-title">Наличие:</b>
-                        <ul>
-                            <li class="filter-option">
-                                <input class="visually-hidden filter-input1 filter-input-radio1" type="radio" name="group1" value="yes" id="filter-y">
-                                <label for="filter-y">В наличии</label>
-                            </li>
-                            <li class="filter-option ">
-                                <input class="visually-hidden filter-input1 filter-input-radio1" type="radio" name="group1" value="no" id="filter-n">
-                                <label for="filter-n">На заказ</label>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <div class="wrapper-form">
-                        <label for="country">Номер запчасти</label>
-                        <input class="first-part" type="text" name="country" placeholder="номер №" id="country">
-                    </div>
-                </div>
-                <div class="delivery-text">
-                    <span>Описание,  комментарий:</span>
-                    <textarea rows="3" name="text"></textarea>
-                </div>
-                <div class="block-img">
-                    <a href="" class="add-img">Добавить изображение:</a>
-                    <div class="list-img">
-                        <img src="img/mers1.png" alt="">
-                        <img src="img/mers1.png" alt="">
-                        <img src="img/mers1.png" alt="">
-                    </div>
-                </div>
-                <div class="block-price">Цена <span>5555</span> BYN (Бел. руб.)</div>
-                <div class="advert">
-                    <button class="advert-add">Подать объявление</button>
-                    <button class="advert-add">Подать и продолжить добавление</button>
-                    <button class="advert-add advert-add--last">Подать и продолжить добавление с этим авто</button>
-                </div>
-            </form>
+            <div id="form-edit-specific-advert-container"
+                 ng-controller="EditSpecificAdvertCtrl as editAdvert"
+                 ng-init="editAdvert.init('#form-edit-specific-advert', '{{ form.submitButtonName.vars.id }}', '{{ form.image.vars.id }}')" get-car-data-by-parameters
+                    brand-id="{{ form.brand.vars.id }}"
+                    model-id="{{ form.model.vars.id }}"
+                    year-id="{{ form.year.vars.id }}"
+                    engine-type-id="{{ form.engineType.vars.id }}"
+                    engine-capacity-id="{{ form.engineCapacity.vars.id }}"
+                    engine-name-id="{{ form.engineName.vars.id }}"
+                    gear-box-type-id="{{ form.gearBoxType.vars.id }}"
+                    vehicle-type-id="{{ form.vehicleType.vars.id }}"
+                    drive-type-id="{{ form.driveType.vars.id }}"
+            >
+                {% include('/client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig') with {"form" : form, "advert" : advert} %}
+            </div>
 
         </section>
     </main>
 {% endblock %}
 
 {% block javascripts %}
-    {#<script src='/js/client/pages/user-profile/product-categories/spare-part/add-group-products.js'></script>#}
-    {#<script src='/js/client/controller/user-profile/product-categories/spare-part/edit-general-advert-controller.js'></script>#}
-    {#<script src='/js/client/controller/user-profile/provider-cars-data.js'></script>#}
-    {#<script src='/js/client/directive/user-profile/auto-spare-part-advert/get-models-by-brand-directive.js'></script>#}
-    {#<script src='/js/client/directive/scroll-to-element.js'></script>#}
-    {#<script src='/js/client/directive/redirect-to-url.js'></script>#}
+    <script src='/js/client/controller/user-profile/product-categories/spare-part/edit-specific-advert-controller.js'></script>
+    <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>
+    <script src='/js/client/service/image-upload-service.js'></script>
+    <script src='/js/client/service/user-profile/auto-spare-part-advert/set-car-data-service.js'></script>
+    <script src='/js/client/directive/user-profile/auto-spare-part-advert/get-car-data-by-parameters-directive.js'></script>
+    <script src='/js/client/directive/scroll-to-element.js'></script>
 {% endblock %}
