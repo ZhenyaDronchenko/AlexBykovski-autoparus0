@@ -1,0 +1,50 @@
+services:
+    app.form.transformer.ids_to_models:
+        class:  App\Form\DataTransformer\IdsToModelsTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.ids_to_spare_parts:
+        class:  App\Form\DataTransformer\IdsToSparePartsTransformer
+        arguments: []
+        public: true
+
+    app.transformer.variable:
+        class:  App\Transformer\VariableTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_brand:
+        class:  App\Form\DataTransformer\IdToBrandTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_model:
+        class:  App\Form\DataTransformer\IdToModelTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_vehicle_type:
+        class:  App\Form\DataTransformer\IdToVehicleTypeTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_engine_type:
+        class:  App\Form\DataTransformer\IdToEngineTypeTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_drive_type:
+        class:  App\Form\DataTransformer\IdToDriveTypeTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.id_to_gear_box_type:
+        class:  App\Form\DataTransformer\IdToGearBoxTypeTransformer
+        arguments: []
+        public: true
+
+    app.form.transformer.name_to_spare_part_type:
+        class:  App\Form\DataTransformer\NameToSparePartTransformer
+        arguments: []
+        public: true

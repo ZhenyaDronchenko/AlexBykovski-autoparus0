@@ -23,9 +23,16 @@
             this.jCropApi = null;
         };
 
-        this.processUploadImage = function(initFile) {
-            compress(initFile, [this.cropperContentSize], function(file){
+        this.processUploadImage = function(initFile, callback) {
+            let sizes = this.cropperContentSize ? [this.cropperContentSize] : null;
+
+            compress(initFile, sizes, function(file){
+                if(callback) {
+                    return callback(file);
+                }
+
                 self.workAfterCompress(file);
+
             });
         };
 

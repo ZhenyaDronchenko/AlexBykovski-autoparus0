@@ -16,4 +16,15 @@ class EngineRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function findAllNames()
+    {
+        return $this->createQueryBuilder('en')
+            ->select('en.name')
+            ->getQuery()
+            ->getResult();
+    }
 }

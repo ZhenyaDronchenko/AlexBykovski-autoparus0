@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\Engine;
 use App\Entity\EngineType;
 use App\Entity\Model;
+use App\Entity\SparePart;
 use App\Entity\VehicleType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,7 +16,7 @@ class ClientCarProvider
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    protected $em;
 
     /**
      * ClientCarProvider constructor.

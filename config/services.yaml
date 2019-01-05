@@ -5,9 +5,10 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 imports:
     - { resource: ./packages/admin_blocks.yaml }
+    - { resource: ./packages/forms.yaml }
     - { resource: ./packages/services/twig.yaml }
     - { resource: ./packages/services/site_map.yaml }
-    - { resource: ./packages/forms.yaml }
+    - { resource: ./packages/services/transformer.yaml }
 
 parameters:
     locale: 'ru'
@@ -58,43 +59,13 @@ services:
         arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router']
         public: true
 
-    app.transformer.variable:
-        class:  App\Transformer\VariableTransformer
-        arguments: []
-        public: true
-
-    app.form.transformer.id_to_brand:
-        class:  App\Form\DataTransformer\IdToBrandTransformer
-        arguments: []
-        public: true
-
-    app.form.transformer.id_to_model:
-        class:  App\Form\DataTransformer\IdToModelTransformer
-        arguments: []
-        public: true
-
-    app.form.transformer.id_to_vehicle_type:
-        class:  App\Form\DataTransformer\IdToVehicleTypeTransformer
-        arguments: []
-        public: true
-
-    app.form.transformer.id_to_engine_type:
-        class:  App\Form\DataTransformer\IdToEngineTypeTransformer
-        arguments: []
-        public: true
-
-    app.form.transformer.ids_to_models:
-        class:  App\Form\DataTransformer\IdsToModelsTransformer
-        arguments: []
-        public: true
-
-    app.form.transformer.ids_to_spare_parts:
-        class:  App\Form\DataTransformer\IdsToSparePartsTransformer
-        arguments: []
-        public: true
-
     app.provider.form.client_car_provider:
         class:  App\Provider\Form\ClientCarProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.form.spare_part_advert_provider:
+        class:  App\Provider\Form\SparePartAdvertDataProvider
         arguments: ['@doctrine.orm.entity_manager']
         public: true
 

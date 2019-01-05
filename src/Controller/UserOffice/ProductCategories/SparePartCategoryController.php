@@ -3,11 +3,15 @@
 namespace App\Controller\UserOffice\ProductCategories;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Form\Type\SparePartGeneralAdvertType;
+use App\Form\Type\SparePartSpecificAdvertType;
+use App\Upload\FileUpload;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -141,5 +145,85 @@ class SparePartCategoryController extends Controller
         $em->flush();
 
         return $this->redirectToRoute("user_profile_product_categories_spare_part_list_adverts");
+    }
+
+    /**
+     * @Route("/add-specific-advert", name="user_profile_product_categories_spare_part_add_specific_advert")
+     * @Route("/edit-specific-advert/{id}", name="user_profile_product_categories_spare_part_edit_specific_advert")
+     *
+     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
+     */
+    public function addSpecificAdvertAction(Request $request, AutoSparePartSpecificAdvert $advert = null)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+        $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
+
+        if(!($advert instanceof AutoSparePartSpecificAdvert)){
+            $parentAdvertId = $request->query->get("parent_advert", 0);
+            $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentAdvertId);
+
+            if($parentAdvert instanceof AutoSparePartSpecificAdvert &&
+                $client->getSellerData()->getAdvertDetail()->getId() === $parentAdvert->getSellerAdvertDetail()->getId()){
+                $advert = $parentAdvert->createClone();
+            }
+        }
+
+        $advert = $advert ?: new AutoSparePartSpecificAdvert($client->getSellerData()->getAdvertDetail());
+        $isFormSubmitted = array_key_exists("spare_part_specific_advert", $_POST);
+
+        $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => $isFormSubmitted]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $fileData = $form->get("image")->getData();
+
+            if($fileData){
+                $path = $uploader->uploadBase64Image($fileData);
+                $advert->setImage($path);
+            }
+
+            $em->persist($advert);
+            $em->flush();
+
+            switch($form->get('submitButtonName')->getData()){
+                case "submitAdd":
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert");
+
+                    break;
+                case "submitAutoContinue":
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_advert" => $advert->getId()]);
+
+                    break;
+                default:
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_edit_specific_advert", ["id" => $advert->getId()]);
+
+                    break;
+            }
+
+            return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig', [
+                "form" => $form->createView(),
+                "redirectUrl" => $redirectUrl,
+                "advert" => $advert,
+            ]);
+        }
+        elseif ($form->isSubmitted() && !$form->isValid()){
+            return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig', [
+                "form" => $form->createView(),
+                "advert" => $advert,
+            ]);
+        }
+
+        $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => false]);
+
+        return $this->render('client/user-office/seller-services/product-categories/spare-part/add-specific-advert.html.twig', [
+            "form" => $form->createView(),
+            "advert" => $advert,
+        ]);
     }
 }

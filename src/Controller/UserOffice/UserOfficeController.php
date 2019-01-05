@@ -16,6 +16,7 @@ use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
 use App\Form\Type\SellerCompanyType;
 use App\Provider\Form\ClientCarProvider;
+use App\Provider\Form\SparePartAdvertDataProvider;
 use App\Provider\GeoLocation\GeoLocationProvider;
 use App\Upload\FileUpload;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -232,6 +233,45 @@ class UserOfficeController extends Controller
         $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeId);
 
         return new JsonResponse($provider->getCapacities($model, $engineType));
+    }
+
+    /**
+     * @Route("/get-car-data-by-model", name="get_car_data_by_model")
+     */
+    public function getCarDataByModelAction(Request $request, SparePartAdvertDataProvider $provider)
+    {
+        $modelId = $request->query->get("model");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+
+        $data = [
+            "years" => $provider->getYears($model),
+            "engineTypes" => $provider->getEngineTypes($model),
+            "gearBoxTypes" => $provider->getGearBoxTypes($model),
+            "vehicleTypes" => $provider->getVehicleTypes($model),
+            "driveTypes" => $provider->getDriveTypes($model),
+        ];
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/get-car-data-by-model-engine-type", name="get_car_data_by_model_engine_type")
+     */
+    public function getCarDataByModelAndEngineTypeAction(Request $request, SparePartAdvertDataProvider $provider)
+    {
+        $modelId = $request->query->get("model");
+        $engineTypeId = $request->query->get("engine_type");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeId);
+
+        $data = [
+            "engineCapacities" => $provider->getEngineCapacities($model, $engineType->getType()),
+            "engineNames" => $provider->getEngineNames($model, $engineType->getType()),
+        ];
+
+        return new JsonResponse($data);
     }
 
     /**

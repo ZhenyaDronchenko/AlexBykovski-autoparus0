@@ -41,4 +41,17 @@ class SparePartRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllOnlyField($field, $isSort = false)
+    {
+        $qb = $this->createQueryBuilder('spp')
+            ->select('spp.id, spp.' . $field);
+
+        if($isSort){
+            $qb->orderBy("spp." . $field, "ASC");
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -16,6 +16,7 @@ class FileUpload
     const USER = 'user';
     const BUSINESS_PROFILE = 'business_profile';
     const DEFAULT_IMAGE = "default";
+    const AUTO_SPARE_PART_SPECIFIC_ADVERT = "auto-spare-part-specific-advert";
 
     const PHONE_BRAND = 'phone_brand';
     const PHONE_MODEL = 'phone_model';
@@ -66,6 +67,41 @@ class FileUpload
         else{
             $adapter->write($filename, file_get_contents($file->getPathname()));
         }
+
+        return $filename;
+    }
+
+    public function uploadBase64Image($base64string)
+    {
+        if (preg_match('/^data:image\/(\w+);base64,/', $base64string, $type)) {
+            $base64string = substr($base64string, strpos($base64string, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif
+
+            if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                // invalid image type
+                return null;
+            }
+
+            $base64string = base64_decode($base64string);
+
+            if ($base64string === false) {
+                // base64_decode failed
+                return null;
+            }
+        } else {
+            // did not match data URI with image data
+            return null;
+        }
+
+        $filename = sprintf('%s/%s/%s/%s.%s', $this->getFolder(), date('Y'), date('m'), uniqid(), $type);
+        $folder = sprintf('%s/%s/%s', 'images/' . $this->getFolder(), date('Y'), date('m'));
+
+        if (!file_exists($folder)) {
+            mkdir($folder, 0777, true);
+        }
+
+        file_put_contents('images/' . $filename, $base64string);
+
         return $filename;
     }
 }

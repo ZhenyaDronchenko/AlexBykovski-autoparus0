@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DriveTypeRepository")
  * @ORM\Table(name="drive_type")
  */
 class DriveType
@@ -56,5 +56,10 @@ class DriveType
     public function setType(string $type): void
     {
         $this->type = $type;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->id;
     }
 }

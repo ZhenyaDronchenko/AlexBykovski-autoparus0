@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% set isEditAction = app.request.attributes.get('_route') == "user_profile_product_categories_spare_part_edit_specific_advert" %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-specific-product.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <ul id="breadcrumbs-one">
+                <li>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a class="user-link user-link--icon" itemprop="item" title="Главная" href="{{ path("show_user_office") }}">
+                            <span class="user-name" itemprop="name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon">
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories") }}">
+                            <span itemprop="name">/  товары  /</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories_spare_part") }}">
+                            <span itemprop="name">автозапчасти  /</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </span>
+                </li>
+                <li>
+                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" title="запчасть" href='' class="current">
+                            {% if isEditAction %}
+                                <span itemprop="name">редактирование</span>
+                            {% else %}
+                                <span itemprop="name">добавление</span>
+                            {% endif %}
+                            <meta itemprop="position" content="4">
+                        </a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <section class="product-advert">
+            {% if isEditAction %}
+                <h1 class="advert-title">Редактирование товара (запчасти)</h1>
+            {% else %}
+                <h1 class="advert-title">Добавление товара (запчасти)</h1>
+            {% endif %}
+
+            <div id="form-edit-specific-advert-container"
+                 ng-controller="EditSpecificAdvertCtrl as editAdvert"
+                 ng-init="editAdvert.init('#form-edit-specific-advert', '{{ form.submitButtonName.vars.id }}', '{{ form.image.vars.id }}')" get-car-data-by-parameters
+                    brand-id="{{ form.brand.vars.id }}"
+                    model-id="{{ form.model.vars.id }}"
+                    year-id="{{ form.year.vars.id }}"
+                    engine-type-id="{{ form.engineType.vars.id }}"
+                    engine-capacity-id="{{ form.engineCapacity.vars.id }}"
+                    engine-name-id="{{ form.engineName.vars.id }}"
+                    gear-box-type-id="{{ form.gearBoxType.vars.id }}"
+                    vehicle-type-id="{{ form.vehicleType.vars.id }}"
+                    drive-type-id="{{ form.driveType.vars.id }}"
+            >
+                {% include('/client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig') with {"form" : form, "advert" : advert} %}
+            </div>
+
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/controller/user-profile/product-categories/spare-part/edit-specific-advert-controller.js'></script>
+    <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>
+    <script src='/js/client/service/image-upload-service.js'></script>
+    <script src='/js/client/service/user-profile/auto-spare-part-advert/set-car-data-service.js'></script>
+    <script src='/js/client/directive/user-profile/auto-spare-part-advert/get-car-data-by-parameters-directive.js'></script>
+    <script src='/js/client/directive/scroll-to-element.js'></script>
+{% endblock %}
