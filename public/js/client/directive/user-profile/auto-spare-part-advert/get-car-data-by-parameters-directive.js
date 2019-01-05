@@ -38,7 +38,6 @@
 
                 body.on("change", modelId, function(ev) {
                     ProviderCarsData.getCarDataByModel($(this).val()).then(function(data){
-                        console.log(data);
                         $(engineCapacityId).html(optionDefault2);
                         $(engineNameId).html(optionDefault2);
 
@@ -52,7 +51,6 @@
 
                 body.on("change", engineTypeId, function(ev) {
                     ProviderCarsData.getCarDataByModelAndEngineType($(modelId).val(), $(this).val()).then(function(data){
-                        console.log(data);
                         $(engineCapacityId).html(optionDefault2);
                         $(engineNameId).html(optionDefault2);
 

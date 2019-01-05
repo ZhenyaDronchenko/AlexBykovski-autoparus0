@@ -70,7 +70,6 @@
             url = $(formSelector).attr("action");
 
             request(url, data, function (response) {
-                console.log(response);
                 let el = $compile(response.data)( $scope );
 
                 $("#form-edit-specific-advert-container").html("").append(el);
