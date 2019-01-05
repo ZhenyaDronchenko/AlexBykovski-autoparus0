@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Страница просмотра добавленных обьявлений{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/jquery-modal/jquery.modal.min.css'>
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/list-adverts.css'>
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/delete-general-advert.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <ul id="breadcrumbs">
+            <li><a class="user-link user-link--icon"  href="{{ path("show_user_office") }}">
+                    <span class="user-name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon"></a>
+            </li>
+            <li class="more" onclick='dotClick()'><a>/  ...  </a></li>
+            <li><a class="link" href="{{ path("user_profile_product_categories") }}">/ товары </a></li>
+            <li><a class="link" href="{{ path("user_profile_product_categories_spare_part") }}">/ автозапчасти </a></li>
+            <li><a class="current">/ добавленные объявления (товары)</a></li>
+        </ul>
+
+        <section class="product-user" ng-init="modalAdvert = null;">
+            <h1 class="product-title">{{ default_text(6).headline }}</h1>
+            <h2 class="product-subtitle">Объявления добавленные группой</h2>
+            {% for advert in generalAdverts %}
+                <div class="block-marka marka-b" ng-init="showBlock_{{ advert.id }} = false;">
+                    <div class="marka">
+                        <b>{{ advert.brand ? advert.brand.brandEn : "Все марки - Все модели" }}</b>
+                        <div class="tool">
+                            <a href="{{ path("user_profile_product_categories_spare_part_edit_general_advert", {"id": advert.id}) }}" class="tool-rdc"><span class="item-1">Редактировать</span><img src="/img/crayon-b.png" alt="Редактировать"></a>
+                            <a href="#delete-advert-modal" rel="modal:open" class="tool-close" ng-click="modalAdvert = {{ advert.id }}"><span class="item-1">Удалить</span><img src="/img/delete-b.png" alt="Удалить"></a>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        {% if advert.models | length %}
+                            <ul class="block-product">
+                                <li class="product-item1">
+                                    <a class="link-prod" href=''>{{ advert.models.first.name }} {{ advert.models | length > 1 ? '...[' ~ advert.models | length ~ ' моделей]' : '' }}</a>
+                                </li>
+                                <li class="product-item2"><a class="link-prod" href=''>Количество выбранных запчастей {{ advert.spareParts | length }}</a></li>
+                            </ul>
+                            <div class="hidden-block" ng-show="showBlock_{{ advert.id }}">
+                                <div class="model-wrapper">
+                                    <p style="width: 100%;">{{ advert.comment }}</p>
+                                    <div class="select-model1">
+                                        <p class="select-text">Выбранные модели</p>
+                                        <ul>
+                                            {% for model in advert.models %}
+                                                <li>{{ model.name }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="select-model2">
+                                        <p class="select-text">Выбранные запчасти</p>
+                                        <ul class="model-n">
+                                            {% for sparePart in advert.spareParts %}
+                                                <li>{{ sparePart.name }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <ul class="block-product">
+                                <li class="product-item"><a class="link-prod" href=''>Количество выбранных запчастей {{ advert.spareParts | length }}</a></li>
+                            </ul>
+                            <div class="hidden-block" ng-show="showBlock_{{ advert.id }}">
+                                <div class="select-model">
+                                    <p class="select-text">Выбранные запчасти (товары)</p>
+                                    <ul class="model-n">
+                                        {% for sparePart in advert.spareParts %}
+                                            <li>{{ sparePart.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <button class="show" ng-hide="showBlock_{{ advert.id }}" ng-click="showBlock_{{ advert.id }} = true;">Показать полностью</button>
+                        <button class="show" ng-show="showBlock_{{ advert.id }}" ng-click="showBlock_{{ advert.id }} = false;">Свернуть показ полностью</button>
+                        <p class="text">{{ advert.getConditionTypeView() }}, {{ advert.getStockTypeView() }}</p>
+
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="subtext">{{ default_text(6).text | raw }}</div>
+            <div class="btn-list">
+                <a href="" class="btn btn-product">Подать объявление о товаре</a>
+                <a href="{{ path("user_profile_product_categories_spare_part_add_general_advert") }}" class="btn btn-product">Подать групповое объявление </a>
+                <a href="" class="btn btn-product">Загрузить прайс-лист</a>
+            </div>
+        </section>
+    </main>
+
+    {% include('/client/user-office/seller-services/product-categories/spare-part/delete-general-advert.html.twig') %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/jquery-modal/jquery.modal.min.js'></script>
+{% endblock %}
