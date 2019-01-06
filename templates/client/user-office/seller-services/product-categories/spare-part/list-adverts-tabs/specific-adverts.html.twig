@@ -1,0 +1,86 @@
+<div class="tab tab-2" ng-controller="ListSpecificAdvertCtrl as list" ng-init="list.init()">
+    <h2 class="subtitle" data-text="Объявления поданные по каждому товару (запчасти)">
+        <button class="help help-2">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="28px" height="28px">
+                <path style=" " d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+            </svg>
+        </button>
+    </h2>
+    <section class="modal modal-2">
+        <h3 class="modal-title">{{ default_text(21).headline }}</h3>
+        <p class="modal-text">{{ default_text(21).text | raw }}</p>
+        <button class="button-close button-close-2"> &lt;&lt;&lt;&lt;&lt; Свернуть подсказку &lt;&lt;&lt;&lt;&lt; </button>
+    </section>
+
+    <div class="promo">
+        <div class="promo-inp">
+            <select class="marka-select" ng-model="list.brand" ng-change="list.changeFilter('brand')">
+                <option value="">Марка</option>
+                {% for id, brand in specificAdvertBrands if id %}
+                    <option value="{{ id }}">{{ brand }}</option>
+                {% endfor %}
+            </select>
+
+            <select class="model-select" ng-model="list.model" ng-change="list.changeFilter('model')">
+                <option value="">Модель</option>
+                <option ng-repeat="(key, value) in list.models" value="{[{ key }]}">{[{ value }]}</option>
+            </select>
+
+            <select class="part-select" ng-model="list.sparePart" ng-change="list.changeFilter('sparePart')">
+                <option value="">Запчасть</option>
+                {% for id, sparePart in specificAdvertSpareParts if id %}
+                    <option value="{{ id }}">{{ sparePart }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <table ng-init="showAdvertDetail = []; list.modalSpecificAdvert = 23">
+            <tr ng-repeat="(indexAdv, advert) in list.adverts" ng-init="showAdvertDetail[advert.id] = false">
+                <td class="item1">
+                    <div class="wrapper-promo">
+                        <p class="text-p"><span ng-bind="advert.brand + ' ' + advert.model"></span><br>{[{advert.sparePart}]}</p>
+                        <div ng-show="showAdvertDetail[advert.id]">
+                            <p class="text-prom">{[{list.getTechnicalDetailAdvert(advert)}]}<br> {[{advert.sparePartName ? "№" + advert.sparePartName : ""}]}</p>
+                            <p class="text-adm" ng-bind="advert.comment"></p>
+                            <ul class="img-list" ng-show="advert.image">
+                                <li><img ng-src="advert.image" alt="Картинка"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="show-all" ng-show="showAdvertDetail[advert.id]" ng-click="showAdvertDetail[advert.id] = false">&lt;&lt;</button>
+                    <button class="show-all" ng-hide="showAdvertDetail[advert.id]" ng-click="showAdvertDetail[advert.id] = true">&gt;&gt;</button>
+                </td>
+                <td class="item2 item2-m">
+                    <div class="promo-price" ng-show="advert.cost">{[{advert.cost}]}<span>Бел. руб.</span></div>
+                </td>
+                <td class="item2">
+                    <div class="promo-price" ng-click="list.changeAdvertActivity(indexAdv)">{[{ advert.isActive ? "Активно" : "Не активно" }]}<span>{[{advert.activatedAt}]}</span></div>
+                </td>
+                <td class="item2">
+                    <div class="icon">
+                        <a ng-href="/user-office/product-categories/spare-part/edit-specific-advert/{[{advert.id}]}"><img src="/img/cra.png" alt=""></a>
+                        <a href="#"><img src="/img/camera.png" alt=""></a>
+                        <a href="#"><img src="/img/document.png" alt=""></a>
+                        <a href="#"><img src="/img/external-link.svg" alt=""></a>
+                        <a href="#delete-specific-advert-modal" rel="modal:open" ng-click="list.modalSpecificAdvert = advert.id"><img src="/img/trash-can.svg" alt=""></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <ul class="pagination" ng-show="list.countPages > 1">
+            <li><a class="pagination-item pagination-item-l" nohref ng-show="list.countPages > 7 && list.page - 1 > 3" ng-click="list.page = 1; list.changeFilter('page')">&lt;&lt;&lt;</a></li>
+            {#<li><a class="pagination-item pagination-item-current" nohref>1</a></li>#}
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(1)}" nohref ng-click="list.clickPaginationCell(1)">{[{list.getNumberForPaginationCell(1)}]}</a></li>
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(2)}" nohref ng-click="list.clickPaginationCell(2)">{[{list.getNumberForPaginationCell(2)}]}</a></li>
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(3)}" nohref ng-show="list.countPages > 2" ng-click="list.clickPaginationCell(3)">{[{list.getNumberForPaginationCell(3)}]}</a></li>
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(4)}" nohref ng-show="list.countPages > 3" ng-click="list.clickPaginationCell(4)">{[{list.getNumberForPaginationCell(4)}]}</a></li>
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(5)}" nohref ng-show="list.countPages > 4" ng-click="list.clickPaginationCell(5)">{[{list.getNumberForPaginationCell(5)}]}</a></li>
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(6)}" nohref ng-show="list.countPages > 5" ng-click="list.clickPaginationCell(6)">{[{list.getNumberForPaginationCell(6)}]}</a></li>
+            <li><a class="pagination-item" ng-class="{'pagination-item-current' : list.isActiveCell(7)}" nohref ng-show="list.countPages > 6" ng-click="list.clickPaginationCell(7)">{[{list.getNumberForPaginationCell(7)}]}</a></li>
+            <li><a class="pagination-item pagination-item-r" nohref ng-show="list.countPages > 7 && list.countPages - list.page > 3" ng-click="list.page = list.countPages; list.changeFilter('page')">&gt;&gt;&gt;</a></li>
+        </ul>
+
+    </div>
+
+    {% include('/client/user-office/seller-services/product-categories/spare-part/modal/delete-specific-advert.html.twig') %}
+</div>

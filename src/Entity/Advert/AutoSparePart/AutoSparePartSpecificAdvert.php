@@ -8,16 +8,17 @@ use App\Entity\DriveType;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\VehicleType;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Advert\AutoSparePart\AutoSparePartSpecificAdvertRepository")
  * @ORM\Table(name="auto_spare_part_specific_advert")
  */
 class AutoSparePartSpecificAdvert
 {
     const CONDITIONS_FORM = [
-        "used" => "Б / У",
+        "used" => "Б/У",
         "new" => "Новая(й)",
     ];
 
@@ -162,6 +163,27 @@ class AutoSparePartSpecificAdvert
     private $cost;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $isActive = 1;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $activatedAt;
+
+    /**
      * AutoSparePartGeneralAdvert constructor.
      *
      * @param SellerAdvertDetail $advertDetail
@@ -169,6 +191,8 @@ class AutoSparePartSpecificAdvert
     public function __construct(SellerAdvertDetail $advertDetail)
     {
         $this->sellerAdvertDetail = $advertDetail;
+        $this->createdAt = new DateTime();
+        $this->activatedAt = new DateTime();
     }
 
     /**
@@ -459,6 +483,54 @@ class AutoSparePartSpecificAdvert
         $this->cost = $cost;
     }
 
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getActivatedAt(): DateTime
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param DateTime $activatedAt
+     */
+    public function setActivatedAt(DateTime $activatedAt): void
+    {
+        $this->activatedAt = $activatedAt;
+    }
+
     public function createClone()
     {
         $advert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
@@ -475,5 +547,30 @@ class AutoSparePartSpecificAdvert
         $advert->setDriveType($this->driveType);
 
         return $advert;
+    }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->id,
+            "brand" => $this->brand->getName(),
+            "model" => $this->model->getName(),
+            "sparePart" => $this->sparePart,
+            "year" => $this->year,
+            "engineType" => $this->engineType,
+            "engineCapacity" => $this->engineCapacity,
+            "engineName" => $this->engineName,
+            "gearBoxType" => $this->gearBoxType ? $this->gearBoxType->getType() : "",
+            "vehicleType" => $this->vehicleType ? $this->vehicleType->getType() : "",
+            "driveType" => $this->driveType ? $this->driveType->getType() : "",
+            "condition" => self::CONDITIONS_FORM[$this->condition],
+            "stockType" => self::STOCK_TYPES_FORM[$this->stockType],
+            "sparePartNumber" => $this->sparePartNumber,
+            "comment" => $this->comment,
+            "image" => '/image/' . $this->image,
+            "cost" => $this->cost,
+            "isActive" => $this->isActive,
+            "activatedAt" => $this->activatedAt->format("d.m.Y"),
+        ];
     }
 }

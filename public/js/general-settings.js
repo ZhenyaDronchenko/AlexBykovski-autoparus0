@@ -137,7 +137,6 @@ function getImageScaledSizes(width, height, maxSize) {
 }
 
 function getLocation(callback) {
-    console.log(navigator.geolocation);
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             callback,

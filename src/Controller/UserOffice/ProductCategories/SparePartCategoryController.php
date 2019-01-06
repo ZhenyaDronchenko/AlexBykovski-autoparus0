@@ -6,9 +6,14 @@ use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Model;
+use App\Entity\SparePart;
 use App\Form\Type\SparePartGeneralAdvertType;
 use App\Form\Type\SparePartSpecificAdvertType;
+use App\Provider\SellerOffice\SpecificAdvertListProvider;
+use App\Type\AutoSparePartSpecificAdvertFilterType;
 use App\Upload\FileUpload;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -37,7 +42,7 @@ class SparePartCategoryController extends Controller
     /**
      * @Route("/list-adverts", name="user_profile_product_categories_spare_part_list_adverts")
      */
-    public function showListAdvertsAction(Request $request)
+    public function showListAdvertsAction(Request $request, SpecificAdvertListProvider $provider)
     {
         /** @var Client $client */
         $client = $this->getUser();
@@ -49,6 +54,8 @@ class SparePartCategoryController extends Controller
 
         return $this->render('client/user-office/seller-services/product-categories/spare-part/list-adverts.html.twig', [
             "generalAdverts" => $generalAdverts,
+            "specificAdvertBrands" => $provider->getBrands($client),
+            "specificAdvertSpareParts" => $provider->getSpareParts($client),
         ]);
     }
 
@@ -201,7 +208,7 @@ class SparePartCategoryController extends Controller
 
                     break;
                 default:
-                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_edit_specific_advert", ["id" => $advert->getId()]);
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_list_adverts");
 
                     break;
             }
@@ -224,6 +231,82 @@ class SparePartCategoryController extends Controller
         return $this->render('client/user-office/seller-services/product-categories/spare-part/add-specific-advert.html.twig', [
             "form" => $form->createView(),
             "advert" => $advert,
+        ]);
+    }
+
+    /**
+     * @Route("/delete-specific-advert/{id}", name="user_profile_product_categories_spare_part_delete_specific_advert")
+     *
+     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
+     */
+    public function deleteSpecificAdvertAction(Request $request, AutoSparePartSpecificAdvert $advert)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($advert);
+        $em->flush();
+
+        return $this->redirectToRoute("user_profile_product_categories_spare_part_list_adverts");
+    }
+
+    /**
+     * @Route("/ajax/models-by-brand/{id}", name="user_profile_product_categories_spare_part_ajax_get_models_by_brand")
+     *
+     * @ParamConverter("brand", class="App\Entity\Brand", options={"id" = "id"})
+     */
+    public function ajaxGetModelsByBrandAction(Request $request, Brand $brand, SpecificAdvertListProvider $provider)
+    {
+        return new JsonResponse($provider->getModels($this->getUser(), $brand));
+    }
+
+    /**
+     * @Route("/ajax/change-specific-advert-activity/{id}", name="user_profile_product_categories_spare_part_ajax_change_specific_advert_activity")
+     *
+     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
+     */
+    public function ajaxChangeActivitySpecificAdvertAction(Request $request, AutoSparePartSpecificAdvert $advert)
+    {
+        $advert->setIsActive(!$advert->isActive());
+
+        if($advert->isActive()){
+            $advert->setActivatedAt(new DateTime());
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+
+        $advertArray = $advert->toArray();
+
+        return new JsonResponse([
+            "isActive" => $advertArray["isActive"],
+            "date" => $advertArray["activatedAt"],
+        ]);
+    }
+
+    /**
+     * @Route("/ajax/specific-adverts-by-parameters", name="user_profile_product_categories_spare_part_ajax_get_specific_adverts_by_parameters")
+     */
+    public function ajaxGetSpecificAdvertsByParametersAction(Request $request, SpecificAdvertListProvider $provider)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        $requestData = json_decode($request->getContent(), true);
+        /** @var Brand|null $brand */
+        $brand = $em->getRepository(Brand::class)->find($requestData["brand"]);
+        /** @var Model|null $model */
+        $model = $em->getRepository(Model::class)->find($requestData["model"]);
+        /** @var SparePart|null $sparePart */
+        $sparePart = $em->getRepository(SparePart::class)->find($requestData["sparePart"]);
+        $page = (int)$requestData["page"];
+
+        $filterType = new AutoSparePartSpecificAdvertFilterType($client, $brand, $model, $sparePart, $page);
+
+        return new JsonResponse([
+            "adverts" => $provider->getAdverts($filterType),
+            "countPages" => $provider->getCountPagesAdverts($filterType),
         ]);
     }
 }
