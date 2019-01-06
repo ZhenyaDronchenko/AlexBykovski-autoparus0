@@ -22,7 +22,12 @@
                         recognition.onresult = function(e) {
                             recognition.stop();
 
-                            target.val(e.results[0][0].transcript)
+                            let value = e.results[0][0].transcript;
+
+                            if(value){
+                                target.val(e.results[0][0].transcript);
+                                target.attr("data-by-voice", "true");
+                            }
                         };
 
                         recognition.onerror = function(e) {

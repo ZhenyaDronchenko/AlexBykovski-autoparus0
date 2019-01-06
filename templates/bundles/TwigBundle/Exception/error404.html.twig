@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% set page = not_found_page_data() %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/404.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <div class="main-search" style="margin-top: 0;">
+            <form class="firstform">
+                <input id="target-voice-input" class="form1" name="search" placeholder="Поиск..." type="search" not-found-page-search voice-redirect="{{ path("show_city_catalog_choice_city") }}" manual-redirect="{{ path("show_brand_catalog_choice_brand") }}">
+                <button type="button" id="trigger-voice-input" class="mainbutton mbt" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input"></button>
+                <a class="search-link" href="{{ page.middleLink ? page.middleLink : '' }}"><span>{{ page.middleText }}</span></a>
+            </form>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block footerInfo %}
+    <div class="sail">
+        <img src="/img/windsurfing.png" alt="Парус">
+        <img src="/img/windsurfing.png" alt="Парус">
+        <img src="/img/windsurfing.png" alt="Парус">
+        <img src="/img/windsurfing.png" alt="Парус">
+        <img src="/img/windsurfing.png" alt="Парус">
+    </div>
+    <div class="page">
+        <span class="page-n">404</span>
+        <span class="page-text">Page not fоund</span>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src='/js/client/directive/not-found-page-search.js'></script>
+{% endblock %}
