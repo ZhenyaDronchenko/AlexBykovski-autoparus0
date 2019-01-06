@@ -33,3 +33,10 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Продавцам }
         public: true
+
+    admin.general.not_found_page:
+        class: App\Admin\General\NotFoundPageAdmin
+        arguments: [~, App\Entity\General\NotFoundPage, 'App\Admin\Controller\General\NotFoundPageAdminController']
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: 404 страница }
+        public: true
