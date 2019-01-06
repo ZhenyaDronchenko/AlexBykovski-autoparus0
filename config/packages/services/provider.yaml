@@ -1,0 +1,25 @@
+services:
+    app.provider.form.client_car_provider:
+        class:  App\Provider\Form\ClientCarProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.form.spare_part_advert_provider:
+        class:  App\Provider\Form\SparePartAdvertDataProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.form.auto_advert_data_provider:
+        class:  App\Provider\Form\AutoAdvertDataProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.geo_location.geo_location_provider:
+        class:  App\Provider\GeoLocation\GeoLocationProvider
+        arguments: []
+        public: true
+
+    app.provider.seller_office.specific_advert_list_provider:
+        class:  App\Provider\SellerOffice\SpecificAdvertListProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
