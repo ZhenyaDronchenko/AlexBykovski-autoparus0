@@ -54,7 +54,7 @@
                     <div class="promo-price" ng-show="advert.cost">{[{advert.cost}]}<span>Бел. руб.</span></div>
                 </td>
                 <td class="item2">
-                    <div class="promo-price" ng-click="list.changeAdvertActivity(indexAdv)">{[{ advert.isActive ? "Активно" : "Не активно" }]}<span>{[{advert.activatedAt}]}</span></div>
+                    <div class="promo-price" ng-click="list.changeAdvertActivity(indexAdv)"><span style="color: {[{ advert.isActive ? 'green' : 'red' }]};">{[{ advert.isActive ? "Активно" : "Не активно" }]}</span><span>{[{advert.activatedAt}]}</span></div>
                 </td>
                 <td class="item2">
                     <div class="icon">
