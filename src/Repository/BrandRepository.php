@@ -67,4 +67,19 @@ class BrandRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function findAllActivePopularByAlphabetic()
+    {
+        return $this->createQueryBuilder('br')
+            ->select('br')
+            ->where("br.popular = :trueValue")
+            ->andWhere("br.active = :trueValue")
+            ->setParameter("trueValue", true)
+            ->orderBy("br.name", "ASC")
+            ->getQuery()
+            ->getResult();
+    }
 }

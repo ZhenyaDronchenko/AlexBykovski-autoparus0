@@ -8,6 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="to_sellers_general_page")
  */
-class ToSellersGeneralPage extends GeneralBase
+class ToSellersGeneralPage extends InfoPageBase
 {
 }
