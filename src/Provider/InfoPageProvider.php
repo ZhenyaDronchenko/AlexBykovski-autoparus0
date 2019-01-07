@@ -37,7 +37,7 @@ class InfoPageProvider
         /** @var City $capital */
         $capital = $this->em->getRepository(City::class)->findOneBy(["type" => City::CAPITAL_TYPE]);
         /** @var City[] $regionalCities */
-        $regionalCities = $this->em->getRepository(City::class)->findOneBy(["type" => City::REGIONAL_CITY_TYPE]);
+        $regionalCities = $this->em->getRepository(City::class)->findBy(["type" => City::REGIONAL_CITY_TYPE]);
 
         $capitalUrlMethod = InfoPageBase::CITY_LINKS[$capital->getUrl()];
 
