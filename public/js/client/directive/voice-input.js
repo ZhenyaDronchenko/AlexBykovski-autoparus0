@@ -27,6 +27,7 @@
                             if(value){
                                 target.val(e.results[0][0].transcript);
                                 target.attr("data-by-voice", "true");
+                                target.trigger("search");
                             }
                         };
 
