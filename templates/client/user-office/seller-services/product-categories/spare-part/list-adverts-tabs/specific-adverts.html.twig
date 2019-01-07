@@ -43,7 +43,7 @@
                             <p class="text-prom">{[{list.getTechnicalDetailAdvert(advert)}]}<br> {[{advert.sparePartName ? "№" + advert.sparePartName : ""}]}</p>
                             <p class="text-adm" ng-bind="advert.comment"></p>
                             <ul class="img-list" ng-show="advert.image">
-                                <li><img ng-src="advert.image" alt="Картинка"></li>
+                                <li><img ng-src="{[{advert.image}]}" alt="Картинка"></li>
                             </ul>
                         </div>
                     </div>

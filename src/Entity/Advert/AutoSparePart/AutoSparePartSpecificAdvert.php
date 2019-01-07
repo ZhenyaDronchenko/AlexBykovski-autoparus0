@@ -567,7 +567,7 @@ class AutoSparePartSpecificAdvert
             "stockType" => self::STOCK_TYPES_FORM[$this->stockType],
             "sparePartNumber" => $this->sparePartNumber,
             "comment" => $this->comment,
-            "image" => '/image/' . $this->image,
+            "image" => $this->image ? '/images/' . $this->image : "",
             "cost" => $this->cost,
             "isActive" => $this->isActive,
             "activatedAt" => $this->activatedAt->format("d.m.Y"),

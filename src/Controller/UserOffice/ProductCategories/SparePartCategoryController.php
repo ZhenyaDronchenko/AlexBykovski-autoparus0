@@ -295,11 +295,11 @@ class SparePartCategoryController extends Controller
 
         $requestData = json_decode($request->getContent(), true);
         /** @var Brand|null $brand */
-        $brand = $em->getRepository(Brand::class)->find($requestData["brand"]);
+        $brand = $em->getRepository(Brand::class)->find($requestData["brand"] ?: "");
         /** @var Model|null $model */
-        $model = $em->getRepository(Model::class)->find($requestData["model"]);
+        $model = $em->getRepository(Model::class)->find($requestData["model"] ?: "");
         /** @var SparePart|null $sparePart */
-        $sparePart = $em->getRepository(SparePart::class)->find($requestData["sparePart"]);
+        $sparePart = $em->getRepository(SparePart::class)->find($requestData["sparePart"] ?: "");
         $page = (int)$requestData["page"];
 
         $filterType = new AutoSparePartSpecificAdvertFilterType($client, $brand, $model, $sparePart, $page);
