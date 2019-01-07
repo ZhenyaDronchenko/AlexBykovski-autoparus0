@@ -261,10 +261,10 @@ class UserOfficeController extends Controller
     public function getCarDataByModelAndEngineTypeAction(Request $request, SparePartAdvertDataProvider $provider)
     {
         $modelId = $request->query->get("model");
-        $engineTypeId = $request->query->get("engine_type");
+        $engineType = $request->query->get("engine_type");
 
         $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
-        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeId);
+        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["type" => $engineType]);
 
         $data = [
             "engineCapacities" => $provider->getEngineCapacities($model, $engineType->getType()),
