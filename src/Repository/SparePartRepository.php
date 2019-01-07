@@ -54,4 +54,19 @@ class SparePartRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function findAllActivePopularByAlphabetic()
+    {
+        return $this->createQueryBuilder('spp')
+            ->select('spp')
+            ->where("spp.popular = :trueValue")
+            ->andWhere("spp.active = :trueValue")
+            ->setParameter("trueValue", true)
+            ->orderBy("spp.name", "ASC")
+            ->getQuery()
+            ->getResult();
+    }
 }

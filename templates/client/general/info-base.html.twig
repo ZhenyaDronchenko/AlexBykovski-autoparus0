@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/general/info-page.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <ul id="breadcrumbs">
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная">
+                    <span class="user-name">Главная</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
+              <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+                </a>
+            </li>
+            <li><a class="current">/ {{ pageName }}</a></li>
+        </ul>
+
+        <section class="select-block">
+            <h1 class="select-title" data-text="{{ page.headline1 }}"></h1>
+            <div class="select-text">{{ page.text1 | raw }}</div>
+            <button type="submit" class="btn button"><a href="{{ page.returnButtonLink }}" style="color: #000000">{{ page.returnButtonText }}</a></button>
+
+            <div class="select-subtext">{{ page.text2 | raw }}</div>
+
+            <ul class="city-block">
+                {% for city in cities %}
+                    <li><a class="city-link" href="{{ city.url }}"><img src="{{ image_url(city.logo, 'city') }}" alt="{{ city.name }}" title="События {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
+                {% endfor %}
+            </ul>
+
+            <section class="model">
+                <h2 class="model-title" data-text="Популярные марки автомобилей"></h2>
+                <ul class="mod-list">
+                    {% for brand in brands %}
+                        <li><a class="mod-link" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}"><img src="{{ image_url(brand.logo, 'brand') }}" alt="{{ brand.enBrand }}" title="Запчасти для автомобилей {{ brand.enBrand }}"></a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="part">
+                <h3 class="part-title" data-text="Популярные запчасти для авто"></h3>
+                <ul class="part-list">
+                    {% for sparePart in spareParts %}
+                        <li><a class="part-link" href="{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}"><img src="{{ image_url(sparePart.logo, 'sparePart') }}" alt="{{ sparePart.name }}" title="{{ sparePart.multiple }} бу и новые"></a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </section>
+    </main>
+{% endblock %}

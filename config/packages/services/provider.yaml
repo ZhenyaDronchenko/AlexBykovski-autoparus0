@@ -23,3 +23,8 @@ services:
         class:  App\Provider\SellerOffice\SpecificAdvertListProvider
         arguments: ['@doctrine.orm.entity_manager']
         public: true
+
+    app.provider.info_page_provider:
+        class:  App\Provider\InfoPageProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true

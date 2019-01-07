@@ -4,8 +4,17 @@ namespace App\Entity\General;
 
 use Doctrine\ORM\Mapping as ORM;
 
-abstract class GeneralBase
+abstract class InfoPageBase
 {
+    const CITY_LINKS = [
+        "minsk" => "getMinskUrl",
+        "brest" => "getBrestUrl",
+        "vitebsk" => "getVitebskUrl",
+        "grodno" => "getGrodnoUrl",
+        "gomel" => "getGomelUrl",
+        "mogilev" => "getMogilevUrl",
+    ];
+
     /**
      * @var integer
      *
@@ -63,6 +72,48 @@ abstract class GeneralBase
      * @ORM\Column(type="string", nullable=true)
      */
     protected $returnButtonText;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $minskUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $brestUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $vitebskUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $gomelUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $grodnoUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $mogilevUrl;
 
     /**
      * @return int
@@ -191,5 +242,101 @@ abstract class GeneralBase
     public function setReturnButtonText(?string $returnButtonText): void
     {
         $this->returnButtonText = $returnButtonText;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMinskUrl(): ?string
+    {
+        return $this->minskUrl;
+    }
+
+    /**
+     * @param null|string $minskUrl
+     */
+    public function setMinskUrl(?string $minskUrl): void
+    {
+        $this->minskUrl = $minskUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getBrestUrl(): ?string
+    {
+        return $this->brestUrl;
+    }
+
+    /**
+     * @param null|string $brestUrl
+     */
+    public function setBrestUrl(?string $brestUrl): void
+    {
+        $this->brestUrl = $brestUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getVitebskUrl(): ?string
+    {
+        return $this->vitebskUrl;
+    }
+
+    /**
+     * @param null|string $vitebskUrl
+     */
+    public function setVitebskUrl(?string $vitebskUrl): void
+    {
+        $this->vitebskUrl = $vitebskUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getGomelUrl(): ?string
+    {
+        return $this->gomelUrl;
+    }
+
+    /**
+     * @param null|string $gomelUrl
+     */
+    public function setGomelUrl(?string $gomelUrl): void
+    {
+        $this->gomelUrl = $gomelUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getGrodnoUrl(): ?string
+    {
+        return $this->grodnoUrl;
+    }
+
+    /**
+     * @param null|string $grodnoUrl
+     */
+    public function setGrodnoUrl(?string $grodnoUrl): void
+    {
+        $this->grodnoUrl = $grodnoUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMogilevUrl(): ?string
+    {
+        return $this->mogilevUrl;
+    }
+
+    /**
+     * @param null|string $mogilevUrl
+     */
+    public function setMogilevUrl(?string $mogilevUrl): void
+    {
+        $this->mogilevUrl = $mogilevUrl;
     }
 }
