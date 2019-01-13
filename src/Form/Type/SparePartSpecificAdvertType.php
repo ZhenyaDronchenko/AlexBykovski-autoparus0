@@ -112,11 +112,11 @@ class SparePartSpecificAdvertType extends AbstractType
                 'choices' => $this->provider->getEngineTypes($object->getModel(), true),
             ])
             ->add('engineCapacity', ChoiceType::class, [
-                'label' => "Объем Двигателя",
+                'label' => "Объем",
                 'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType(), true),
             ])
             ->add('engineName', ChoiceType::class, [
-                'label' => "",
+                'label' => "Марка двигателя",
                 'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), true),
             ])
             ->add('gearBoxType', ChoiceType::class, [
@@ -202,7 +202,7 @@ class SparePartSpecificAdvertType extends AbstractType
                         'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType()),
                     ])
                     ->add('engineName', ChoiceType::class, [
-                        'label' => "",
+                        'label' => "Марка двигателя",
                         'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType()),
                     ])
                     ->add('gearBoxType', ChoiceType::class, [
@@ -213,10 +213,10 @@ class SparePartSpecificAdvertType extends AbstractType
                         'label' => "Тип Кузова",
                         'choices' => $this->provider->getVehicleTypes($object->getModel()),
                     ])
-//                    ->add('driveType', ChoiceType::class, [
-//                        'label' => "Тип Привода",
-//                        'choices' => $this->provider->getDriveTypes($object->getModel()),
-//                    ])
+                    ->add('driveType', ChoiceType::class, [
+                        'label' => "Тип Привода",
+                        'choices' => $this->provider->getDriveTypes($object->getModel()),
+                    ])
                 ;
             });
         }

@@ -16,7 +16,6 @@ use App\Upload\FileUpload;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -220,6 +219,10 @@ class SparePartCategoryController extends Controller
             ]);
         }
         elseif ($form->isSubmitted() && !$form->isValid()){
+            var_dump($_POST);
+            $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => false]);
+            $form->handleRequest($request);
+
             return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig', [
                 "form" => $form->createView(),
                 "advert" => $advert,

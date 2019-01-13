@@ -54,7 +54,7 @@ class AutoSparePartSpecificAdvert
     private $brand;
 
     /**
-     * @var Model|null
+     * @var Model|null|string
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Model")
      * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
@@ -97,7 +97,7 @@ class AutoSparePartSpecificAdvert
     private $engineName;
 
     /**
-     * @var GearBoxType|null
+     * @var GearBoxType|null|string
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\GearBoxType")
      * @ORM\JoinColumn(name="gear_box_type_id", referencedColumnName="id", nullable=true)
@@ -105,7 +105,7 @@ class AutoSparePartSpecificAdvert
     private $gearBoxType;
 
     /**
-     * @var VehicleType|null
+     * @var VehicleType|null|string
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\VehicleType")
      * @ORM\JoinColumn(name="vehicle_type_id", referencedColumnName="id", nullable=true)
@@ -113,7 +113,7 @@ class AutoSparePartSpecificAdvert
     private $vehicleType;
 
     /**
-     * @var DriveType|null
+     * @var DriveType|null|string
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\DriveType")
      * @ORM\JoinColumn(name="drive_type_id", referencedColumnName="id", nullable=true)
@@ -252,11 +252,11 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @param Model|null $model
+     * @param Model|null|string $model
      */
-    public function setModel(?Model $model): void
+    public function setModel($model): void
     {
-        $this->model = $model;
+        $this->model = $model instanceof Model ? $model : null;
     }
 
     /**
@@ -348,11 +348,11 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @param GearBoxType|null $gearBoxType
+     * @param GearBoxType|null|string $gearBoxType
      */
-    public function setGearBoxType(?GearBoxType $gearBoxType): void
+    public function setGearBoxType($gearBoxType): void
     {
-        $this->gearBoxType = $gearBoxType;
+        $this->gearBoxType = $gearBoxType instanceof GearBoxType ? $gearBoxType : null;
     }
 
     /**
@@ -364,11 +364,11 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @param VehicleType|null $vehicleType
+     * @param VehicleType|null|string $vehicleType
      */
-    public function setVehicleType(?VehicleType $vehicleType): void
+    public function setVehicleType($vehicleType): void
     {
-        $this->vehicleType = $vehicleType;
+        $this->vehicleType = $vehicleType instanceof VehicleType ? $vehicleType : null;;
     }
 
     /**
@@ -380,11 +380,11 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @param DriveType|null $driveType
+     * @param DriveType|null|string $driveType
      */
-    public function setDriveType(?DriveType $driveType): void
+    public function setDriveType($driveType): void
     {
-        $this->driveType = $driveType;
+        $this->driveType = $driveType instanceof DriveType ? $driveType : null;;
     }
 
     /**

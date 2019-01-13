@@ -1,154 +1,163 @@
 {% set scrollToElement = false %}
 
-<form id="form-edit-specific-advert" class="advert-form" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate enctype="multipart/form-data"
+<form id="form-edit-specific-advert" class="user-form" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate enctype="multipart/form-data"
         {% if redirectUrl is defined %}
             redirect-to-url redirect-url="{{ redirectUrl }}"
         {% endif %}
 >
     {{ form_widget(form._token) }}
-    <ul class="profil-block">
-        <li class="profil-option profil-m"
+    <div class="select">
+        <label class="select-item"
                 {% if not scrollToElement and form.condition.vars.errors.form.getErrors(true) | length %}
-                    scroll-to-element
-                    {% set scrollToElement = true %}
+        scroll-to-element
+                {% set scrollToElement = true %}
                 {% endif %}
-        >
-            <span class="name">{{ form.brand.vars.label }}</span>
-            {{ form_widget(form.brand, {attr: {class: "name-select select-m"}}) }}
-
+        >{{ form.brand.vars.label }}
+            {{ form_widget(form.brand, {attr: {class: "mark-select mark-select-m"}}) }}
             {% for key, error in form.brand.vars.errors.form.getErrors(true)%}
-                <br/><span class="check">{{ error.message }}</span>
+                <br/><span class="prompt prompt--l">{{ error.message }}</span>
             {% endfor %}
-        </li>
-        <li class="profil-option profil-d"
+        </label>
+        <label class="select-item"
                 {% if not scrollToElement and form.model.vars.errors.form.getErrors(true) | length %}
                     scroll-to-element
                     {% set scrollToElement = true %}
                 {% endif %}
-        >
-            <span class="name">{{ form.model.vars.label }}</span>
-            {{ form_widget(form.model, {attr: {class: "name-select select-d"}}) }}
-
+        >{{ form.model.vars.label }}
+            {{ form_widget(form.model, {attr: {class: "model-select mark-select-c"}}) }}
             {% for key, error in form.model.vars.errors.form.getErrors(true)%}
-                <span class="check">{{ error.message }}</span>
+                <span class="prompt prompt--l">{{ error.message }}</span>
             {% endfor %}
-        </li>
-        <li class="profil-option profil-y"
+        </label>
+        <label class="select-item"
                 {% if not scrollToElement and form.year.vars.errors.form.getErrors(true) | length %}
                     scroll-to-element
                     {% set scrollToElement = true %}
                 {% endif %}
-        >
-            <span class="name">{{ form.year.vars.label }}</span>
-            {{ form_widget(form.year, {attr: {class: "name-select select-y"}}) }}
-
+        >{{ form.year.vars.label }}
+            {{ form_widget(form.year, {attr: {class: "year-select mark-select-y"}}) }}
             {% for key, error in form.year.vars.errors.form.getErrors(true)%}
-                <span class="check">{{ error.message }}</span>
+                <span class="prompt prompt--l">{{ error.message }}</span>
             {% endfor %}
-        </li>
-    </ul>
-    <div class="choice-wrapper"
+        </label>
+    </div>
+    <div class="part"
             {% if not scrollToElement and form.sparePart.vars.errors.form.getErrors(true) | length %}
                 scroll-to-element
                 {% set scrollToElement = true %}
             {% endif %}
     >
-        {{ form_widget(form.sparePart, {attr: {class: "choice-input", "placeholder" : "Наименование товара (запчасти)", "auto-сomplete-autoparus" : "", "method-search" : "searchSpareParts", "identifier-field" : form.sparePart.vars.id}}) }}
-
+        <div class="input-wrapper">
+            {{ form_widget(form.sparePart, {attr: {class: "part-input", "placeholder" : "Наименование товара (запчасти)", "auto-сomplete-autoparus" : "", "method-search" : "searchSpareParts", "identifier-field" : form.sparePart.vars.id}}) }}
+            <button id="clear-spare-part" class="del">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
+            </button>
+        </div>
         {% for key, error in form.sparePart.vars.errors.form.getErrors(true)%}
-            <span class="check">{{ error.message }}</span>
+            <span class="prompt">{{ error.message }}</span>
         {% endfor %}
     </div>
-    <ul class="profil-block1">
-        <li class="profil-option profil-e">
-            <span class="name">{{ form.engineType.vars.label }}</span>
-            {{ form_widget(form.engineType, {attr: {class: "name-select select-e"}}) }}
-        </li>
-        <li class="profil-option profil-v">
-            <span class="name">Объем <span class="name-hidden">Двигателя</span></span>
-            {{ form_widget(form.engineCapacity, {attr: {class: "name-select select-v1"}}) }}
-            {{ form_widget(form.engineName, {attr: {class: "name-select select-v2"}}) }}
-        </li>
-        <li class="profil-option profil-t">
-            <span class="name">{{ form.gearBoxType.vars.label }}</span>
-            {{ form_widget(form.gearBoxType, {attr: {class: "name-select select-t"}}) }}
-        </li>
-        <li class="profil-option profil-k">
-            <span class="name">{{ form.vehicleType.vars.label }}</span>
-            {{ form_widget(form.vehicleType, {attr: {class: "name-select select-p"}}) }}
-        </li>
-        <li class="profil-option profil-p">
-            <span class="name">{{ form.driveType.vars.label }}</span>
-            {{ form_widget(form.driveType, {attr: {class: "name-select select-p"}}) }}
-        </li>
-    </ul>
-    <div class="block-order">
-        <div class="filter-list"
+    <div class="select">
+        <label class="select-i">{{ form.engineType.vars.label }}
+            {{ form_widget(form.engineType, {attr: {class: "engine-select"}}) }}
+        </label>
+        <label class="select-i">{{ form.engineCapacity.vars.label }}
+            {{ form_widget(form.engineCapacity, {attr: {class: "volume-select"}}) }}
+        </label>
+        <label class="select-i">{{ form.engineName.vars.label }}
+            {{ form_widget(form.engineName, {attr: {class: "type-select"}}) }}
+        </label>
+        <label class="select-i">{{ form.gearBoxType.vars.label }}
+            {{ form_widget(form.gearBoxType, {attr: {class: "body-select"}}) }}
+        </label>
+        <label class="select-i">{{ form.vehicleType.vars.label }}
+            {{ form_widget(form.vehicleType, {attr: {class: "kpp-select"}}) }}
+        </label>
+        <label class="select-i">{{ form.driveType.vars.label }}
+            {{ form_widget(form.driveType, {attr: {class: "drive-select"}}) }}
+        </label>
+    </div>
+
+    <div class="state">
+        <div class="state-item"
                 {% if not scrollToElement and form.condition.vars.errors.form.getErrors(true) | length %}
                     scroll-to-element
                     {% set scrollToElement = true %}
                 {% endif %}
         >
-            <b class="profil-title">{{ form.condition.vars.label }}:</b>
-            <ul>
+            <div class="state-block">
+                <h3 class="state-title">{{ form.condition.vars.label }}:</h3>
+                {% for key, error in form.condition.vars.errors.form.getErrors(true)%}
+                    <span class="state-check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <ul class="state-select">
                 {% for choice in form.condition %}
-                    <li class="filter-option">
+                    <li class="state-option">
                         {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
-                        {{ form_label(choice) }}
+                        {{ form_label(choice, null, {attr: {class: "state-text"}}) }}
                     </li>
                 {% endfor %}
             </ul>
-
-            {% for key, error in form.condition.vars.errors.form.getErrors(true)%}
-                <span class="check">{{ error.message }}</span>
-            {% endfor %}
         </div>
 
-        <div class="filter-list filter-list--big"
+        <div class="state-item state-item--m"
                 {% if not scrollToElement and form.stockType.vars.errors.form.getErrors(true) | length %}
                     scroll-to-element
                     {% set scrollToElement = true %}
                 {% endif %}
         >
-            <b class="profil-title">{{ form.stockType.vars.label }}:</b>
-            <ul>
+            <div class="state-block">
+                <h3 class="state-title">{{ form.stockType.vars.label }}:</h3>
+                {% for key, error in form.stockType.vars.errors.form.getErrors(true)%}
+                    <span class="state-check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <ul class="state-select">
                 {% for choice in form.stockType %}
-                    <li class="filter-option">
-                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio1" }}) }}
-                        {{ form_label(choice) }}
+                    <li class="state-option">
+                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                        {{ form_label(choice, null, {attr: {class: "state-text"}}) }}
                     </li>
                 {% endfor %}
             </ul>
-
-            {% for key, error in form.stockType.vars.errors.form.getErrors(true)%}
-                <span class="check">{{ error.message }}</span>
-            {% endfor %}
         </div>
-
-        <div class="wrapper-form">
+        <div class="part-number">
             {{ form_label(form.sparePartNumber) }}
-            {{ form_widget(form.sparePartNumber, {attr: {class: "first-part", placeholder: "номер №" }}) }}
+            {{ form_widget(form.sparePartNumber, {attr: {class: "num-input", placeholder: "номер №" }}) }}
         </div>
     </div>
-    <div class="delivery-text">
-        <span>{{ form.comment.vars.label }}:</span>
-        {{ form_widget(form.comment, {attr: {"rows": 3, placeholder: "Комментарий" }}) }}
-    </div>
-    <div class="block-img">
+
+    {{ form_widget(form.comment, {attr: {"rows": 5, placeholder: "Описание:" }}) }}
+
+    <div class="img-block">
         <a id="initiator-upload-image" nohref class="add-img">Добавить изображение:</a>
         <input id="upload-image-input" type="file" style="display: none">
-        <div class="list-img">
-            <img id="preview-image" src="{{ form.image.vars.value ? image_url(form.image.vars.value) : "/img/mers1.png" }}" alt="">
-        </div>
+        <img id="preview-image" class="img" src="{{ form.image.vars.value ? image_url(form.image.vars.value) : "/img/mers1.png" }}" alt="">
         {{ form_widget(form.image) }}
     </div>
-    <div class="block-price">Цена
-        {{ form_widget(form.cost) }}
-        BYN (Бел. руб.)</div>
-    <div class="advert">
-        {{ form_widget(form.submit, {attr: {class: "advert-add", "data-name" : "submit"}}) }}
-        {{ form_widget(form.submitAdd, {attr: {class: "advert-add", "data-name" : "submitAdd"}}) }}
-        {{ form_widget(form.submitAutoContinue, {attr: {class: "advert-add advert-add--last", "data-name" : "submitAutoContinue"}}) }}
-    </div>
+
+    <label class="price-c">
+        Цена
+        {{ form_widget(form.cost, {attr: {class: "name-input"}}) }}
+        BYN (Бел Руб)
+    </label>
+
+    <ul class="btn-list">
+        <li>
+            {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit"}}) }}
+        </li>
+        <li>
+            {{ form_widget(form.submitAdd, {attr: {class: "btn", "data-name" : "submitAdd"}}) }}
+        </li>
+        <li>
+            {{ form_widget(form.submitAutoContinue, {attr: {class: "btn", "data-name" : "submitAutoContinue"}}) }}
+        </li>
+    </ul>
+
     {{ form_widget(form.submitButtonName)}}
+    <div class="mod-text">{{ default_text(15).text | raw }}</div>
 </form>

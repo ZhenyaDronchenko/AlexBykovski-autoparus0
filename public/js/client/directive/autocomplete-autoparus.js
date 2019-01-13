@@ -1,8 +1,8 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.directive("autoСompleteAutoparus",["$window", "AutoCompleteResource",
-        function($window, AutoCompleteResource){
+    autoparusApp.directive("autoСompleteAutoparus",["$window", "$rootScope", "AutoCompleteResource",
+        function($window, $rootScope, AutoCompleteResource){
         return{
             restrict: 'A',
             link: function(scope, element, attrs)
@@ -28,6 +28,9 @@
                     },
                     open: function(){
                         $('.ui-autocomplete.' + identifier).css('width', $('#' + identifier).width() + 10 + 'px'); // HERE
+                    },
+                    select: function( event, ui ) {
+                        $rootScope.$broadcast(identifier + '_select-in-autocomplete');
                     }
                 })
                 .autocomplete( "instance" )._renderItem = function( ul, item ) {
