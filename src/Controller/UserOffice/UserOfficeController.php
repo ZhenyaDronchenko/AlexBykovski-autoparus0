@@ -269,6 +269,7 @@ class UserOfficeController extends Controller
         $data = [
             "engineCapacities" => $provider->getEngineCapacities($model, $engineType->getType()),
             "engineNames" => $provider->getEngineNames($model, $engineType->getType(), null),
+            "countEngineNames" => $model instanceof Model ? count($model->getEngineNames($engineType->getType())) : 0,
         ];
 
         return new JsonResponse($data);
@@ -288,6 +289,7 @@ class UserOfficeController extends Controller
 
         $data = [
             "engineNames" => $provider->getEngineNames($model, $engineType->getType(), $capacity),
+            "countEngineNames" => $model instanceof Model ? count($model->getEngineNames($engineType->getType(), $capacity)) : 0,
         ];
 
         return new JsonResponse($data);

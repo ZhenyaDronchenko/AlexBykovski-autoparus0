@@ -32,8 +32,8 @@
             setDataWithEmptyPlaceholder(engineCapacities, engineCapacityId, optionTemplate);
         };
 
-        this.setEngineNames = function(engineNames, engineNameId, optionTemplate) {
-            setDataWithEmptyPlaceholder(engineNames, engineNameId, optionTemplate);
+        this.setEngineNames = function(engineNames, engineNameId, optionTemplate, isSetDefault) {
+            setDataWithEmptyPlaceholder(engineNames, engineNameId, optionTemplate, isSetDefault);
         };
 
         function setDataWithPlaceholder(items, selector, optionTemplate) {
@@ -58,7 +58,11 @@
             }
         }
 
-        function setDataWithEmptyPlaceholder(items, selector, optionTemplate) {
+        function setDataWithEmptyPlaceholder(items, selector, optionTemplate, isSetDefault) {
+            if(isSetDefault == null){
+                isSetDefault = true;
+            }
+
             $(selector).html("");
             let itemActive = null;
             let length = Object.keys(items).length;
@@ -85,7 +89,7 @@
                 $(selector).append(itemsOptions[index]);
             }
 
-            if(itemActive){
+            if(itemActive && isSetDefault){
                 $(selector).val(itemActive).trigger("change");
             }
         }

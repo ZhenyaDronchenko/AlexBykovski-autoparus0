@@ -170,12 +170,19 @@ class SparePartCategoryController extends Controller
         $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
 
         if(!($advert instanceof AutoSparePartSpecificAdvert)){
-            $parentAdvertId = $request->query->get("parent_advert", 0);
-            $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentAdvertId);
+            $parentAutoAdvertId = $request->query->get("parent_auto", 0);
+            $parentSparePartAdvertId = $request->query->get("parent_spare_part", 0);
+
+            if($parentAutoAdvertId > 0) {
+                $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentAutoAdvertId);
+            }
+            else{
+                $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentSparePartAdvertId);
+            }
 
             if($parentAdvert instanceof AutoSparePartSpecificAdvert &&
                 $client->getSellerData()->getAdvertDetail()->getId() === $parentAdvert->getSellerAdvertDetail()->getId()){
-                $advert = $parentAdvert->createClone();
+                $advert = $parentAutoAdvertId > 0 ? $parentAdvert->createCloneByAuto() : $parentAdvert->createCloneBySparePart();
             }
         }
 
@@ -203,7 +210,11 @@ class SparePartCategoryController extends Controller
 
                     break;
                 case "submitAutoContinue":
-                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_advert" => $advert->getId()]);
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_auto" => $advert->getId()]);
+
+                    break;
+                case "submitSparePartContinue":
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_spare_part" => $advert->getId()]);
 
                     break;
                 default:

@@ -347,4 +347,20 @@ class Model implements VariableInterface
     {
         return $this->urlConnectBamper ?: $this->url;
     }
+
+    public function getEngineNames($engineType, $capacity = null)
+    {
+        $names = [];
+
+        /** @var Engine $engine */
+        foreach ($this->technicalData->getEnginesByType($engineType) as $engine){
+            if($capacity && $engine->getCapacity() !== $capacity){
+                continue;
+            }
+
+            $names[] = $engine->getName();
+        }
+
+        return $names;
+    }
 }

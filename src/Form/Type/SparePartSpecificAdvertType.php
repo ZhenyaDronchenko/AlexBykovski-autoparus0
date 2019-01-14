@@ -160,13 +160,16 @@ class SparePartSpecificAdvertType extends AbstractType
                 'label' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Подать объявление"
+                'label' => "Добавить объявление"
             ])
             ->add('submitAdd', SubmitType::class, [
-                'label' => "Подать и продолжить добавление"
+                'label' => "Добавить и продолжить добавление"
             ])
             ->add('submitAutoContinue', SubmitType::class, [
-                'label' => "Подать и продолжить добавление с этим авто"
+                'label' => "Добавить и продолжить добавление с этим авто"
+            ])
+            ->add('submitSparePartContinue', SubmitType::class, [
+                'label' => "Добавить и продолжить добавление с этой запчастью"
             ])
             ->add('submitButtonName', HiddenType::class, [
                 'mapped' => false,

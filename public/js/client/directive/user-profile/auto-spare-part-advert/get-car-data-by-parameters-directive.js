@@ -55,13 +55,13 @@
                         $(engineNameId).html(optionDefault2);
 
                         SetCarDataService.setEngineCapacities(data["engineCapacities"], engineCapacityId, optionTemplate);
-                        SetCarDataService.setEngineNames(data["engineNames"], engineNameId, optionTemplate);
+                        SetCarDataService.setEngineNames(data["engineNames"], engineNameId, optionTemplate, data["countEngineNames"] === 1);
                     });
                 });
 
                 body.on("change", engineCapacityId, function(ev) {
                     ProviderCarsData.getCarDataByModelAndEngineTypeAndCapacity($(modelId).val(), $(engineTypeId).val(), $(this).val()).then(function(data){
-                        SetCarDataService.setEngineNames(data["engineNames"], engineNameId, optionTemplate);
+                        SetCarDataService.setEngineNames(data["engineNames"], engineNameId, optionTemplate, data["countEngineNames"] === 1);
                     });
                 });
             }

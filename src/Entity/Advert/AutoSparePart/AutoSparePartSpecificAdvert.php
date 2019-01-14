@@ -531,20 +531,35 @@ class AutoSparePartSpecificAdvert
         $this->activatedAt = $activatedAt;
     }
 
-    public function createClone()
+    public function createCloneByAuto()
     {
         $advert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
 
         $advert->setBrand($this->brand);
         $advert->setModel($this->model);
         $advert->setYear($this->year);
-        $advert->setSparePart($this->sparePart);
         $advert->setEngineType($this->engineType);
         $advert->setEngineCapacity($this->engineCapacity);
         $advert->setEngineName($this->engineName);
         $advert->setGearBoxType($this->gearBoxType);
         $advert->setVehicleType($this->vehicleType);
         $advert->setDriveType($this->driveType);
+        $advert->setCondition($this->condition);
+        $advert->setStockType($this->stockType);
+        $advert->setComment($this->comment);
+
+        return $advert;
+    }
+
+    public function createCloneBySparePart()
+    {
+        $advert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
+
+        $advert->setBrand($this->brand);
+        $advert->setCondition($this->condition);
+        $advert->setStockType($this->stockType);
+        $advert->setComment($this->comment);
+        $advert->setSparePart($this->sparePart);
 
         return $advert;
     }
