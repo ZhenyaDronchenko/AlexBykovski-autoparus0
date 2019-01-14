@@ -9,6 +9,7 @@
         let API_URL_CAPACITIES = '/user-office/get-capacities-by-model-engine-type?model=[m]&engine_type=[e_t]';
         let API_URL_CAR_DATA_BY_MODEL = '/user-office/get-car-data-by-model?model=[m]';
         let API_URL_CAR_DATA_BY_MODEL_ENGINE_TYPE = '/user-office/get-car-data-by-model-engine-type?model=[m]&engine_type=[e_t]';
+        let API_URL_CAR_DATA_BY_MODEL_ENGINE_TYPE_CAPACITY = '/user-office/get-car-data-by-model-engine-type-capacity?model=[m]&engine_type=[e_t]&capacity=[cap]';
 
         this.getModels = function(brand) {
             return search(API_URL_MODELS.replace("[br]", brand));
@@ -36,6 +37,10 @@
 
         this.getCarDataByModelAndEngineType = function(model, engineType) {
             return search(API_URL_CAR_DATA_BY_MODEL_ENGINE_TYPE.replace("[m]", model).replace("[e_t]", engineType));
+        };
+
+        this.getCarDataByModelAndEngineTypeAndCapacity = function(model, engineType, capacityVal) {
+            return search(API_URL_CAR_DATA_BY_MODEL_ENGINE_TYPE_CAPACITY.replace("[m]", model).replace("[e_t]", engineType).replace("[cap]", capacityVal));
         };
 
         function search(url) {

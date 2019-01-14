@@ -58,6 +58,12 @@
                         SetCarDataService.setEngineNames(data["engineNames"], engineNameId, optionTemplate);
                     });
                 });
+
+                body.on("change", engineCapacityId, function(ev) {
+                    ProviderCarsData.getCarDataByModelAndEngineTypeAndCapacity($(modelId).val(), $(engineTypeId).val(), $(this).val()).then(function(data){
+                        SetCarDataService.setEngineNames(data["engineNames"], engineNameId, optionTemplate);
+                    });
+                });
             }
         };
     }]);

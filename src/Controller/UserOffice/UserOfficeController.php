@@ -268,7 +268,26 @@ class UserOfficeController extends Controller
 
         $data = [
             "engineCapacities" => $provider->getEngineCapacities($model, $engineType->getType()),
-            "engineNames" => $provider->getEngineNames($model, $engineType->getType()),
+            "engineNames" => $provider->getEngineNames($model, $engineType->getType(), null),
+        ];
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/get-car-data-by-model-engine-type-capacity", name="get_car_data_by_model_engine_type_capacity")
+     */
+    public function getCarDataByModelAndEngineTypeCapacityAction(Request $request, SparePartAdvertDataProvider $provider)
+    {
+        $modelId = $request->query->get("model");
+        $engineType = $request->query->get("engine_type");
+        $capacity = $request->query->get("capacity");
+
+        $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
+        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["type" => $engineType]);
+
+        $data = [
+            "engineNames" => $provider->getEngineNames($model, $engineType->getType(), $capacity),
         ];
 
         return new JsonResponse($data);

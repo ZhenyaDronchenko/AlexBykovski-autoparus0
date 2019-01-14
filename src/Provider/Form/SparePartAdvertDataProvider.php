@@ -96,7 +96,7 @@ class SparePartAdvertDataProvider extends ClientCarProvider
         return $choices;
     }
 
-    public function getEngineNames($model, $engineType, $isAll = false)
+    public function getEngineNames($model, $engineType, $capacity, $isAll = false)
     {
         $choices = [];
 
@@ -112,6 +112,10 @@ class SparePartAdvertDataProvider extends ClientCarProvider
 
             /** @var Engine $engine */
             foreach ($model->getTechnicalData()->getEnginesByType($engineType) as $engine){
+                if($capacity && $engine->getCapacity() !== $capacity){
+                    continue;
+                }
+
                 $choices[(string)$engine->getName()] = (string)$engine->getName();
             }
 

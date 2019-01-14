@@ -219,7 +219,6 @@ class SparePartCategoryController extends Controller
             ]);
         }
         elseif ($form->isSubmitted() && !$form->isValid()){
-            var_dump($_POST);
             $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => false]);
             $form->handleRequest($request);
 
