@@ -119,6 +119,11 @@ class SparePartSpecificAdvertType extends AbstractType
                 'label' => "Марка двигателя",
                 'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), null, true),
             ])
+            ->add('engineNameEmpty', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'mapped' => false,
+            ])
             ->add('gearBoxType', ChoiceType::class, [
                 'label' => "Тип КПП",
                 'choices' => $this->provider->getGearBoxTypes($object->getModel(), true),

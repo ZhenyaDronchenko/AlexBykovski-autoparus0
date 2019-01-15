@@ -67,9 +67,19 @@
         <label class="select-i">{{ form.engineCapacity.vars.label }}
             {{ form_widget(form.engineCapacity, {attr: {class: "volume-select"}}) }}
         </label>
+
+        {% set engineTypeValue = form.engineType.vars.value %}
+        {% set isInputUseEngineName = engineTypeValue and (form.engineName.vars.choices | length == 1) %}
+
         <label class="select-i">{{ form.engineName.vars.label }}
-            {{ form_widget(form.engineName, {attr: {class: "type-select"}}) }}
+            {% set attrSelectEngineName = {class: "type-select", "style": isInputUseEngineName ? "display: none;" : ""} %}
+            {% if isInputUseEngineName %}
+                {% set attrSelectEngineName = attrSelectEngineName|merge({"disabled" : ""}) %}
+            {% endif %}
+            {{ form_widget(form.engineName, {attr: attrSelectEngineName}) }}
+            <input type="text" name="{{ form.engineNameEmpty.vars.name }}" id="input_{{ form.engineName.vars.id }}" input-by-pattern pattern="[a-zA-Z\d\.\-]" max-length="10" style="text-transform: uppercase; {{ isInputUseEngineName ? "" : "display: none;" }}" {{ isInputUseEngineName ? "" : "disabled" }} value="{{ isInputUseEngineName and engineNameEmpty is defined ? engineNameEmpty : '' }}">
         </label>
+
         <label class="select-i">{{ form.gearBoxType.vars.label }}
             {{ form_widget(form.gearBoxType, {attr: {class: "body-select"}}) }}
         </label>
@@ -142,7 +152,7 @@
 
     <label class="price-c">
         Цена
-        {{ form_widget(form.cost, {attr: {class: "name-input", "price-input": ""}}) }}
+        {{ form_widget(form.cost, {attr: {class: "name-input", "input-by-pattern": "", "pattern" : "[\\d\\.]"}}) }}
         BYN (Бел Руб)
     </label>
 

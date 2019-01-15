@@ -88,8 +88,20 @@ class SparePartAdvertDataProvider extends ClientCarProvider
                 $choices[(string)$engine->getCapacity()] = (string)$engine->getCapacity();
             }
 
-            asort($choices);
+            if(!count($choices)){
+                foreach (range(1.2, 5.7, 0.1) as $capacity){
+                    $capacity = (string)$capacity;
+
+                    if(strlen($capacity) == 1){
+                        $capacity .= ".0";
+                    }
+
+                    $choices[$capacity] = $capacity;
+                }
+            }
         }
+
+        asort($choices);
 
         $choices = array_merge(["" => ''], $choices);
 

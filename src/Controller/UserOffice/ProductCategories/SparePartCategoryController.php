@@ -8,6 +8,7 @@ use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Entity\UserEngine;
 use App\Form\Type\SparePartGeneralAdvertType;
 use App\Form\Type\SparePartSpecificAdvertType;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
@@ -195,6 +196,18 @@ class SparePartCategoryController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
             $fileData = $form->get("image")->getData();
+            $newEmptyName = $request->request->get("engineNameEmpty");
+
+            if($newEmptyName){
+                $advert->setEngineName(strtoupper($newEmptyName));
+            }
+
+            if($newEmptyName || $advert->getEngineType() &&
+                !count($advert->getModel()->getEngineCapacities($advert->getEngineType())) && $advert->getEngineCapacity()){
+                $userEngine = UserEngine::createByAutoSparePartSpecificAdvert($advert);
+
+                $em->persist($userEngine);
+            }
 
             if($fileData){
                 $path = $uploader->uploadBase64Image($fileData);
@@ -230,12 +243,14 @@ class SparePartCategoryController extends Controller
             ]);
         }
         elseif ($form->isSubmitted() && !$form->isValid()){
+            $newEngineName = $request->request->get("engineNameEmpty");
             $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => false]);
             $form->handleRequest($request);
 
             return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig', [
                 "form" => $form->createView(),
                 "advert" => $advert,
+                "engineNameEmpty" => $newEngineName
             ]);
         }
 

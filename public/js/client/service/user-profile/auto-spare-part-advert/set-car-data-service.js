@@ -32,8 +32,19 @@
             setDataWithEmptyPlaceholder(engineCapacities, engineCapacityId, optionTemplate);
         };
 
-        this.setEngineNames = function(engineNames, engineNameId, optionTemplate, isSetDefault) {
-            setDataWithEmptyPlaceholder(engineNames, engineNameId, optionTemplate, isSetDefault);
+        this.setEngineNames = function(engineNames, engineNameId, optionTemplate, countNames) {
+            let inputSelector = "#input_" + engineNameId.substring(1, engineNameId.length);
+
+            if(countNames === 0){
+                $(engineNameId).attr("disabled", "").hide();
+                $(inputSelector).removeAttr("disabled").show().val("");
+            }
+            else{
+                $(inputSelector).attr("disabled", "").hide().val("");
+                $(engineNameId).removeAttr("disabled").show();
+
+                setDataWithEmptyPlaceholder(engineNames, engineNameId, optionTemplate, countNames === 1);
+            }
         };
 
         function setDataWithPlaceholder(items, selector, optionTemplate) {

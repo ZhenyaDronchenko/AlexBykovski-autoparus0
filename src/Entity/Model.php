@@ -354,7 +354,7 @@ class Model implements VariableInterface
 
         /** @var Engine $engine */
         foreach ($this->technicalData->getEnginesByType($engineType) as $engine){
-            if($capacity && $engine->getCapacity() !== $capacity){
+            if($capacity && $engine->getCapacity() !== $capacity || !$engine->getName()){
                 continue;
             }
 
@@ -362,5 +362,30 @@ class Model implements VariableInterface
         }
 
         return $names;
+    }
+
+    public function getEngineCapacities($engineType)
+    {
+        $names = [];
+
+        /** @var Engine $engine */
+        foreach ($this->technicalData->getEnginesByType($engineType) as $engine){
+            if(!$engine->getCapacity()){
+                continue;
+            }
+
+            $names[] = $engine->getCapacity();
+        }
+
+        return $names;
+    }
+
+    public function addEngine(Engine $engine)
+    {
+        $engines = $this->getTechnicalData()->getEngines();
+
+        $engines->add($engine);
+
+        $this->getTechnicalData()->setEngines($engines);
     }
 }
