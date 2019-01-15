@@ -14,7 +14,7 @@ class EngineFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => false,
                 'attr' => [
                     'class' => "engine-capacity-field-1"

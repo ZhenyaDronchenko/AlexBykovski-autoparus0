@@ -112,12 +112,17 @@ class SparePartSpecificAdvertType extends AbstractType
                 'choices' => $this->provider->getEngineTypes($object->getModel(), true),
             ])
             ->add('engineCapacity', ChoiceType::class, [
-                'label' => "Объем Двигателя",
+                'label' => "Объем",
                 'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType(), true),
             ])
             ->add('engineName', ChoiceType::class, [
-                'label' => "",
-                'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), true),
+                'label' => "Марка двигателя",
+                'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), null, true),
+            ])
+            ->add('engineNameEmpty', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'mapped' => false,
             ])
             ->add('gearBoxType', ChoiceType::class, [
                 'label' => "Тип КПП",
@@ -160,13 +165,16 @@ class SparePartSpecificAdvertType extends AbstractType
                 'label' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Подать объявление"
+                'label' => "Добавить объявление"
             ])
             ->add('submitAdd', SubmitType::class, [
-                'label' => "Подать и продолжить добавление"
+                'label' => "Добавить и продолжить добавление"
             ])
             ->add('submitAutoContinue', SubmitType::class, [
-                'label' => "Подать и продолжить добавление с этим авто"
+                'label' => "Добавить и продолжить добавление с этим авто"
+            ])
+            ->add('submitSparePartContinue', SubmitType::class, [
+                'label' => "Добавить и продолжить добавление с этой запчастью"
             ])
             ->add('submitButtonName', HiddenType::class, [
                 'mapped' => false,
@@ -202,8 +210,8 @@ class SparePartSpecificAdvertType extends AbstractType
                         'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType()),
                     ])
                     ->add('engineName', ChoiceType::class, [
-                        'label' => "",
-                        'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType()),
+                        'label' => "Марка двигателя",
+                        'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), null),
                     ])
                     ->add('gearBoxType', ChoiceType::class, [
                         'label' => "Тип КПП",
@@ -213,10 +221,10 @@ class SparePartSpecificAdvertType extends AbstractType
                         'label' => "Тип Кузова",
                         'choices' => $this->provider->getVehicleTypes($object->getModel()),
                     ])
-//                    ->add('driveType', ChoiceType::class, [
-//                        'label' => "Тип Привода",
-//                        'choices' => $this->provider->getDriveTypes($object->getModel()),
-//                    ])
+                    ->add('driveType', ChoiceType::class, [
+                        'label' => "Тип Привода",
+                        'choices' => $this->provider->getDriveTypes($object->getModel()),
+                    ])
                 ;
             });
         }

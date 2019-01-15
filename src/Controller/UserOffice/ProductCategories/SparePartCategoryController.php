@@ -8,6 +8,7 @@ use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Entity\UserEngine;
 use App\Form\Type\SparePartGeneralAdvertType;
 use App\Form\Type\SparePartSpecificAdvertType;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
@@ -16,7 +17,6 @@ use App\Upload\FileUpload;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,12 +171,19 @@ class SparePartCategoryController extends Controller
         $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
 
         if(!($advert instanceof AutoSparePartSpecificAdvert)){
-            $parentAdvertId = $request->query->get("parent_advert", 0);
-            $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentAdvertId);
+            $parentAutoAdvertId = $request->query->get("parent_auto", 0);
+            $parentSparePartAdvertId = $request->query->get("parent_spare_part", 0);
+
+            if($parentAutoAdvertId > 0) {
+                $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentAutoAdvertId);
+            }
+            else{
+                $parentAdvert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($parentSparePartAdvertId);
+            }
 
             if($parentAdvert instanceof AutoSparePartSpecificAdvert &&
                 $client->getSellerData()->getAdvertDetail()->getId() === $parentAdvert->getSellerAdvertDetail()->getId()){
-                $advert = $parentAdvert->createClone();
+                $advert = $parentAutoAdvertId > 0 ? $parentAdvert->createCloneByAuto() : $parentAdvert->createCloneBySparePart();
             }
         }
 
@@ -189,6 +196,18 @@ class SparePartCategoryController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
             $fileData = $form->get("image")->getData();
+            $newEmptyName = $request->request->get("engineNameEmpty");
+
+            if($newEmptyName){
+                $advert->setEngineName(strtoupper($newEmptyName));
+            }
+
+            if($newEmptyName || $advert->getEngineType() &&
+                !count($advert->getModel()->getEngineCapacities($advert->getEngineType())) && $advert->getEngineCapacity()){
+                $userEngine = UserEngine::createByAutoSparePartSpecificAdvert($advert);
+
+                $em->persist($userEngine);
+            }
 
             if($fileData){
                 $path = $uploader->uploadBase64Image($fileData);
@@ -204,7 +223,11 @@ class SparePartCategoryController extends Controller
 
                     break;
                 case "submitAutoContinue":
-                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_advert" => $advert->getId()]);
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_auto" => $advert->getId()]);
+
+                    break;
+                case "submitSparePartContinue":
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_add_specific_advert", ["parent_spare_part" => $advert->getId()]);
 
                     break;
                 default:
@@ -220,9 +243,14 @@ class SparePartCategoryController extends Controller
             ]);
         }
         elseif ($form->isSubmitted() && !$form->isValid()){
+            $newEngineName = $request->request->get("engineNameEmpty");
+            $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => false]);
+            $form->handleRequest($request);
+
             return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig', [
                 "form" => $form->createView(),
                 "advert" => $advert,
+                "engineNameEmpty" => $newEngineName
             ]);
         }
 

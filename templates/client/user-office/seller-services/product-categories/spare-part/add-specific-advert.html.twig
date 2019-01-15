@@ -8,56 +8,40 @@
 
 {% block body %}
     <main class="container">
-        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
-            <ul id="breadcrumbs-one">
-                <li>
-                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                        <a class="user-link user-link--icon" itemprop="item" title="Главная" href="{{ path("show_user_office") }}">
-                            <span class="user-name" itemprop="name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon">
-                            <meta itemprop="position" content="1">
-                        </a>
-                    </span>
-                </li>
-                <li>
-                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories") }}">
-                            <span itemprop="name">/  товары  /</span>
-                            <meta itemprop="position" content="1">
-                        </a>
-                    </span>
-                </li>
-                <li>
-                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories_spare_part") }}">
-                            <span itemprop="name">автозапчасти  /</span>
-                            <meta itemprop="position" content="1">
-                        </a>
-                    </span>
-                </li>
-                <li>
-                    <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                        <a itemprop="item" title="запчасть" href='' class="current">
-                            {% if isEditAction %}
-                                <span itemprop="name">редактирование</span>
-                            {% else %}
-                                <span itemprop="name">добавление</span>
-                            {% endif %}
-                            <meta itemprop="position" content="4">
-                        </a>
-                    </span>
-                </li>
-            </ul>
-        </div>
-        <section class="product-advert">
-            {% if isEditAction %}
-                <h1 class="advert-title">Редактирование товара (запчасти)</h1>
-            {% else %}
-                <h1 class="advert-title">Добавление товара (запчасти)</h1>
-            {% endif %}
+        <ul id="breadcrumbs">
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Главная">
+                    <span class="user-name">{{ app.user.name }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
+              <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+                </a>
+            </li>
+            <li><a class="link-b" href="{{ path("user_profile_product_categories") }}">/ Товары </a></li>
+            <li><a class="link-b" href="{{ path("user_profile_product_categories_spare_part") }}">/ Автозапчасти /</a></li>
+            <li><a class="current">
+                    {% if isEditAction %}
+                        <span itemprop="name">Редактирование объявления</span>
+                    {% else %}
+                        <span itemprop="name">Добавление объявления</span>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+
+        <section class="prod">
+            <h1 class="title-main" data-text="{{ default_text(15).headline }}">
+                <button class="help">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="28px" height="28px">
+                        <path style=" " d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                    </svg>
+                </button>
+            </h1>
 
             <div id="form-edit-specific-advert-container"
                  ng-controller="EditSpecificAdvertCtrl as editAdvert"
-                 ng-init="editAdvert.init('#form-edit-specific-advert', '{{ form.submitButtonName.vars.id }}', '{{ form.image.vars.id }}')" get-car-data-by-parameters
+                 ng-init="editAdvert.init('#form-edit-specific-advert', '{{ form.submitButtonName.vars.id }}', '{{ form.image.vars.id }}', '{{ form.sparePart.vars.id }}')" get-car-data-by-parameters
                     brand-id="{{ form.brand.vars.id }}"
                     model-id="{{ form.model.vars.id }}"
                     year-id="{{ form.year.vars.id }}"
@@ -73,13 +57,28 @@
 
         </section>
     </main>
+
+    <div class="overlay1">
+        <section class="modal">
+            <button class="modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+            <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+            </svg>
+            </button>
+            <h1 class="modal-title">{{ default_text(25).headline }}</h1>
+            <div class="modal-text">{{ default_text(25).text | raw }}</div>
+        </section>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/js/client/pages/user-profile/product-categories/spare-part/add-specific-product.js'></script>
     <script src='/js/client/controller/user-profile/product-categories/spare-part/edit-specific-advert-controller.js'></script>
     <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>
     <script src='/js/client/service/image-upload-service.js'></script>
     <script src='/js/client/service/user-profile/auto-spare-part-advert/set-car-data-service.js'></script>
     <script src='/js/client/directive/user-profile/auto-spare-part-advert/get-car-data-by-parameters-directive.js'></script>
     <script src='/js/client/directive/scroll-to-element.js'></script>
+    <script src='/js/client/directive/input-by-pattern.js'></script>
 {% endblock %}

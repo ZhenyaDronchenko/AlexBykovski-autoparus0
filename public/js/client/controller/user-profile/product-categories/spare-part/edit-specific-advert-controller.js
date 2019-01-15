@@ -1,17 +1,26 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('EditSpecificAdvertCtrl', ['$scope', '$http', '$compile', 'ImageUploadService',
-        function($scope, $http, $compile, ImageUploadService) {
+    autoparusApp.controller('EditSpecificAdvertCtrl', ['$scope', '$http', '$compile', '$rootScope',
+        'ImageUploadService',
+        function($scope, $http, $compile, $rootScope, ImageUploadService) {
         let formSelector = null;
         let url = null;
         let submitButtonName = "";
         let fileSelector = "";
+        let sparePartSelector = "";
+        let isDisableSparePart = false;
 
-        function init(formSelectorS, submitButtonNameS, fileIdS){
+        function init(formSelectorS, submitButtonNameS, fileIdS, sparePartId){
             formSelector = formSelectorS;
             submitButtonName = '#' + submitButtonNameS;
             fileSelector = '#' + fileIdS;
+            sparePartSelector = sparePartId;
+
+            $rootScope.$on(sparePartSelector + '_select-in-autocomplete', function(event, args) {
+                $('#' + sparePartSelector).attr("disabled", true);
+                isDisableSparePart = true;
+            });
 
             handleForm();
         }
@@ -59,11 +68,21 @@
                             });
                         })
                     });
+
+                    $("#clear-spare-part").click(function(e){
+                        $('#' + sparePartSelector).attr("disabled", false).val("");
+                        isDisableSparePart = false;
+                    });
+
+                    if(isDisableSparePart){
+                        $('#' + sparePartSelector).attr("disabled", true);
+                    }
                 }
             });
         }
 
         function sendForm() {
+            $('#' + sparePartSelector).attr("disabled", false);
             let data = $(formSelector).serialize();
 
             $(formSelector).find("button[type=submit]").prop("disabled", true);

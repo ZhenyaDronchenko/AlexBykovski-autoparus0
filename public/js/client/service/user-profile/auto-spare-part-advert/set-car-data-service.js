@@ -32,8 +32,19 @@
             setDataWithEmptyPlaceholder(engineCapacities, engineCapacityId, optionTemplate);
         };
 
-        this.setEngineNames = function(engineNames, engineNameId, optionTemplate) {
-            setDataWithEmptyPlaceholder(engineNames, engineNameId, optionTemplate);
+        this.setEngineNames = function(engineNames, engineNameId, optionTemplate, countNames) {
+            let inputSelector = "#input_" + engineNameId.substring(1, engineNameId.length);
+
+            if(countNames === 0){
+                $(engineNameId).attr("disabled", "").hide();
+                $(inputSelector).removeAttr("disabled").show().val("");
+            }
+            else{
+                $(inputSelector).attr("disabled", "").hide().val("");
+                $(engineNameId).removeAttr("disabled").show();
+
+                setDataWithEmptyPlaceholder(engineNames, engineNameId, optionTemplate, countNames === 1);
+            }
         };
 
         function setDataWithPlaceholder(items, selector, optionTemplate) {
@@ -58,7 +69,11 @@
             }
         }
 
-        function setDataWithEmptyPlaceholder(items, selector, optionTemplate) {
+        function setDataWithEmptyPlaceholder(items, selector, optionTemplate, isSetDefault) {
+            if(isSetDefault == null){
+                isSetDefault = true;
+            }
+
             $(selector).html("");
             let itemActive = null;
             let length = Object.keys(items).length;
@@ -85,7 +100,7 @@
                 $(selector).append(itemsOptions[index]);
             }
 
-            if(itemActive){
+            if(itemActive && isSetDefault){
                 $(selector).val(itemActive).trigger("change");
             }
         }

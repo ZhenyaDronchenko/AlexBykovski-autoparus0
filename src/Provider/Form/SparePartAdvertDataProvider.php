@@ -88,15 +88,27 @@ class SparePartAdvertDataProvider extends ClientCarProvider
                 $choices[(string)$engine->getCapacity()] = (string)$engine->getCapacity();
             }
 
-            asort($choices);
+            if(!count($choices)){
+                foreach (range(1.2, 5.7, 0.1) as $capacity){
+                    $capacity = (string)$capacity;
+
+                    if(strlen($capacity) == 1){
+                        $capacity .= ".0";
+                    }
+
+                    $choices[$capacity] = $capacity;
+                }
+            }
         }
+
+        asort($choices);
 
         $choices = array_merge(["" => ''], $choices);
 
         return $choices;
     }
 
-    public function getEngineNames($model, $engineType, $isAll = false)
+    public function getEngineNames($model, $engineType, $capacity, $isAll = false)
     {
         $choices = [];
 
@@ -112,6 +124,10 @@ class SparePartAdvertDataProvider extends ClientCarProvider
 
             /** @var Engine $engine */
             foreach ($model->getTechnicalData()->getEnginesByType($engineType) as $engine){
+                if($capacity && $engine->getCapacity() !== $capacity){
+                    continue;
+                }
+
                 $choices[(string)$engine->getName()] = (string)$engine->getName();
             }
 
