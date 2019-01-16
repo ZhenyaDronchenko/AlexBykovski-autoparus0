@@ -1,0 +1,16 @@
+services:
+    admin.error.type_obd2_error:
+        class: App\Admin\Error\TypeOBD2ErrorAdmin
+        arguments: [~, App\Entity\Error\TypeOBD2Error, ~]
+        tags:
+            - { name: sonata.admin, group: Ошибки OBD2, manager_type: orm, label: Тип, on_top: true }
+        public: true
+        calls:
+            - [ addChild, ['@admin.error.code_obd2_error', 'type']]
+
+    admin.error.code_obd2_error:
+        class: App\Admin\Error\CodeOBD2ErrorAdmin
+        arguments: [~, App\Entity\Error\CodeOBD2Error, ~, '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Ошибки OBD2, manager_type: orm, label: Код, show_in_dashboard: false }
+        public: true

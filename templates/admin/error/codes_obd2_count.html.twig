@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <div>
+        <a href="{{ path("admin_app_error_typeobd2error_error_codeobd2error_list", {"id" : object.id}) }}"><strong>{{ object.codes | length }}</strong></a>
+    </div>
+{% endblock %}
