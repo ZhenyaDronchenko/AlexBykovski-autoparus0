@@ -10,6 +10,7 @@ use App\Entity\EngineType;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\ModelTechnicalData;
+use App\Entity\UserEngine;
 use App\Entity\VehicleCategory;
 use App\Entity\VehicleType;
 use App\Form\Type\EngineFormType;
@@ -72,8 +73,12 @@ class ModelAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $isEditAction = $this->isCurrentRoute('edit');
+
         /** @var Model $model */
         $model = $this->getSubject();
+
+        $model = $this->handleUserData($model);
+
         $helpLogo = $isEditAction && $model->getLogo() ? $this->helper->getImagesHelp([$model->getLogo()]) : "";
 
         if($model->getLogo()){
@@ -386,5 +391,39 @@ class ModelAdmin extends AbstractAdmin
         ];
 
         return $actions;
+    }
+
+    private function handleUserData(Model $model)
+    {
+        $model = $this->handleUserEngine($model);
+
+        return $model;
+    }
+
+    private function handleUserEngine(Model $model)
+    {
+        $userEngineId = $this->request->get("user_engine");
+
+        if(!$userEngineId){
+            return $model;
+        }
+
+        $userEngine = $this->em->getRepository(UserEngine::class)->find($userEngineId);
+
+        if(!($userEngine instanceof UserEngine) || $userEngine->getModel()->getId() !== $model->getId()){
+            return $model;
+        }
+
+        $engine = new Engine();
+        $engine->setCapacity($userEngine->getCapacity());
+        $engine->setName($userEngine->getName());
+        $engine->setType($userEngine->getType());
+
+        $this->em->remove($userEngine);
+        $this->em->flush();
+
+        $model->addEngine($engine);
+
+        return $model;
     }
 }

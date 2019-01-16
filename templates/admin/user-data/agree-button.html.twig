@@ -1,5 +1,5 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field%}
-    <a class="btn btn-success" href="{{ path("admin_approve_user_engine", {id: object.id}) }}">Одобрить</a>
+    <a class="btn btn-success" href="{{ path("admin_app_brand_model_edit", {id: object.model.brand.id, childId: object.model.id, user_engine: object.id }) }}">Редактировать и одобрить</a>
 {% endblock %}

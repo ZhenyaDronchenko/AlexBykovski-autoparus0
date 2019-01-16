@@ -172,32 +172,6 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin-approve-user-engine/{id}", name="admin_approve_user_engine")
-     *
-     * @ParamConverter("engine", class="App\Entity\UserEngine", options={"id" = "id"})
-     *
-     * @Security("has_role('ROLE_ADMIN')")
-     */
-    public function approveUserEngineAction(Request $request, UserEngine $userEngine)
-    {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-
-        $engine = new Engine();
-        $engine->setCapacity($userEngine->getCapacity());
-        $engine->setName($userEngine->getName());
-        $engine->setType($userEngine->getType());
-
-        $userEngine->getModel()->addEngine($engine);
-
-        $em->persist($engine);
-        $em->remove($userEngine);
-        $em->flush();
-
-        return $this->redirect($request->headers->get('referer'));
-    }
-
-    /**
      * @Route("/admin-reject-user-engine/{id}", name="admin_reject_user_engine")
      *
      * @ParamConverter("engine", class="App\Entity\UserEngine", options={"id" = "id"})
