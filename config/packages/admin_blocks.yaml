@@ -8,6 +8,7 @@ imports:
     - { resource: ./admin_blocks/spare_part_catalog.yaml }
     - { resource: ./admin_blocks/phone/general.yaml }
     - { resource: ./admin_blocks/user_data.yaml }
+    - { resource: ./admin_blocks/error.yaml }
 
 services:
     admin.add_code.head:
