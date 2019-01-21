@@ -1,0 +1,131 @@
+{% form_theme form '/client/themes/registration-captcha.html.twig' %}
+
+{% set scrollToElement = false %}
+
+<form id="registration-form" class="registration {{ isValid ? "valid-form" : "" }}" action="{{ path("registration") }}" method="post" novalidate enctype="multipart/form-data">
+    {{ form_widget(form._token) }}
+    <fieldset>
+        <legend class="registration-title" data-text="Регистрация"></legend>
+        <ul class="registration-block">
+            <li>
+                <div class="wrapper"
+                        {% if not scrollToElement and form.name.vars.errors.form.getErrors(true) | length %}
+                            scroll-to-element
+                        {% set scrollToElement = true %}
+                        {% endif %}
+                >
+                    {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "class" : "input", "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\s]", "error-message" : "Используйте только буквы и пробел", "error-container" : "#first-name-errors" }}) }}
+                    <button class="btn" type="button" clear-field-button target-element="#{{ form.name.vars.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
+                            <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                            <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                        </svg>
+                    </button>
+                </div>
+                {% for key, error in form.name.vars.errors.form.getErrors(true)%}
+                    <span class="prompt">{{ error.message }}</span>
+                {% endfor %}
+                <span id="first-name-errors" class="prompt"></span>
+            </li>
+            <li >
+                <div class="wrapper"
+                        {% if not scrollToElement and form.email.vars.errors.form.getErrors(true) | length %}
+                scroll-to-element
+                        {% set scrollToElement = true %}
+                        {% endif %}
+                >
+                    {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "class" : "input", "oninput" : "this.value = this.value.toLowerCase();" }}) }}
+                    <button class="btn" type="button" clear-field-button target-element="#{{ form.email.vars.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
+                            <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                            <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                        </svg>
+                    </button>
+                </div>
+                {% for key, error in form.email.vars.errors.form.getErrors(true)%}
+                    <span class="prompt">{{ error.message }}</span>
+                {% endfor %}
+            </li>
+            <li>
+                <div class="wrapper"
+                        {% if not scrollToElement and form.phone.vars.errors.form.getErrors(true) | length %}
+                            scroll-to-element
+                            {% set scrollToElement = true %}
+                        {% endif %}
+                >
+                    {{ form_widget(form.phone, {attr: {"placeholder": "Ваш телефон", "class" : "input-pas phone-registration" }}) }}
+                    <button class="btn" type="button" clear-field-button target-element="#{{ form.phone.vars.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
+                            <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                            <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                        </svg>
+                    </button>
+                </div>
+                {% for key, error in form.phone.vars.errors.form.getErrors(true)%}
+                    <span class="prompt prompt-l">{{ error.message }}</span>
+                {% endfor %}
+            </li>
+            <li>
+                <div class="wrapper"
+                        {% if not scrollToElement and form.password.first.vars.errors.form.getErrors(true) | length %}
+                            scroll-to-element
+                            {% set scrollToElement = true %}
+                        {% endif %}
+                >
+                    {{ form_widget(form.password.first, {attr: {"placeholder": "Придумайте пароль", "class" : "input-pas", "scroll-to-element-start-input" : "", "target-element" : "#" ~ form.name.vars.id, "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\d]", "error-message" : "Используйте только буквы и цифры", "error-container" : "#password-first-errors" }}) }}
+                    <div password-show-button target-element="#{{ form.password.first.vars.id }}" ng-cloak>
+                        {% include('/client/security/additional/show-hide-password-button.html.twig') with {"var" : "showPassword", "init" : false} %}
+                    </div>
+                </div>
+                {% for key, error in form.password.first.vars.errors.form.getErrors(true)%}
+                    <span class="prompt prompt-l">{{ error.message }}</span>
+                {% endfor %}
+                <span id="password-first-errors" class="prompt prompt-l"></span>
+            </li>
+            <li>
+                <div class="wrapper"
+                        {% if not scrollToElement and form.password.second.vars.errors.form.getErrors(true) | length %}
+                            scroll-to-element
+                            {% set scrollToElement = true %}
+                        {% endif %}
+                >
+                    {{ form_widget(form.password.second, {attr: {"placeholder": "Повторите пароль", "class" : "input-pas", "scroll-to-element-start-input" : "", "target-element" : "#" ~ form.name.vars.id, "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\d]", "error-message" : "Используйте только буквы и цифры", "error-container" : "#password-second-errors" }}) }}
+                    <div password-show-button target-element="#{{ form.password.second.vars.id }}" ng-cloak>
+                        {% include('/client/security/additional/show-hide-password-button.html.twig') with {"var" : "showRepeatPassword", "init" : false} %}
+                    </div>
+                </div>
+                {% for key, error in form.password.second.vars.errors.form.getErrors(true)%}
+                    <span class="prompt prompt-l">{{ error.message }}</span>
+                {% endfor %}
+                <span id="password-second-errors" class="prompt prompt-l"></span>
+            </li>
+        </ul>
+
+        <div
+                {% if not scrollToElement and form.captcha.vars.errors.form.getErrors(true) | length %}
+        scroll-to-element
+                {% set scrollToElement = true %}
+                {% endif %}
+        >
+            {{ form_widget(form.captcha)}}
+        </div>
+
+        <div class="check"
+                {% if not scrollToElement and form.captcha.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >
+            {{ form_widget(form.isAgreeTerms, {attr: {"class" : "visually-hidden filter-input filter-input-checkbox"}}) }}
+            <label for="{{ form.isAgreeTerms.vars.id }}">Я принимаю условие пользователького соглашения</label>
+        </div>
+        {% for key, error in form.isAgreeTerms.vars.errors.form.getErrors(true)%}
+            <span class="prompt">{{ error.message }}</span>
+        {% endfor %}
+
+        <div class="button-block">
+            {{ form_widget(form.submit, {attr: {'class' : "button"}}) }}
+        </div>
+
+    </fieldset>
+</form>

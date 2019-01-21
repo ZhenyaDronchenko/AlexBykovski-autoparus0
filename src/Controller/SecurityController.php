@@ -9,9 +9,11 @@ use App\Form\Type\ForgotPasswordType;
 use App\Form\Type\RecoveryPasswordType;
 use App\Form\Type\RegistrationType;
 use App\Sender\ForgotPasswordSender;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -26,41 +28,58 @@ class SecurityController extends Controller
      *
      * @Route("/registration", name="registration")
      */
-    public function registrationAction(
-        Request $request,
-        UserPasswordEncoderInterface $encoder,
-        TokenStorageInterface $tokenStorage
-    )
+    public function registrationAction(Request $request)
     {
         if($this->getUser()){
             return $this->redirectToRoute("homepage");
         }
 
+        $form = $this->createForm(RegistrationType::class, new Client());
+
+        return $this->render('client/security/registration.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => false,
+        ]);
+    }
+
+    /**
+     * @Route("/edit-registration-form", name="edit_registration_form")
+     */
+    public function editPersonalDataAction(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        TokenStorageInterface $tokenStorage
+    )
+    {
+        /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
+        $isValid = false;
+
         $client = new Client();
 
         $form = $this->createForm(RegistrationType::class, $client);
-
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($client, $client->getPassword());
             $client->setPassword($password);
             $client->setUsername($client->getEmail());
-            $client->setEnabled(true);
+            //$client->setEnabled(true);
 
             $em->persist($client);
             $em->flush();
 
-            $token = new UsernamePasswordToken($client, null, 'main', $client->getRoles());
-            $tokenStorage->setToken($token);
-            $request->getSession()->set('_security_main', serialize($token));
+//            $token = new UsernamePasswordToken($client, null, 'main', $client->getRoles());
+//            $tokenStorage->setToken($token);
+//            $request->getSession()->set('_security_main', serialize($token));
 
-            return $this->redirectToRoute("show_user_office");
+            //return $this->redirectToRoute("show_user_office");
+            $isValid = true;
         }
 
-        return $this->render('client/security/registration.html.twig', [
-            "form" => $form->createView()
+        return $this->render('client/security/form/registration-form.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => $isValid,
         ]);
     }
 
