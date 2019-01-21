@@ -5,7 +5,7 @@
 <form id="registration-form" class="registration {{ isValid ? "valid-form" : "" }}" action="{{ path("registration") }}" method="post" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
     <fieldset>
-        <legend class="registration-title" data-text="Регистрация"></legend>
+        <legend class="registration-title" data-text="{{ headline }}"></legend>
         <ul class="registration-block">
             <li>
                 <div class="wrapper"
@@ -34,7 +34,7 @@
                         {% set scrollToElement = true %}
                         {% endif %}
                 >
-                    {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "class" : "input", "oninput" : "this.value = this.value.toLowerCase();" }}) }}
+                    {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "class" : "input registration-email-field", "oninput" : "this.value = this.value.toLowerCase();" }}) }}
                     <button class="btn" type="button" clear-field-button target-element="#{{ form.email.vars.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
                             <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
@@ -117,7 +117,7 @@
                 {% endif %}
         >
             {{ form_widget(form.isAgreeTerms, {attr: {"class" : "visually-hidden filter-input filter-input-checkbox"}}) }}
-            <label for="{{ form.isAgreeTerms.vars.id }}">Я принимаю условие пользователького соглашения</label>
+            <label for="{{ form.isAgreeTerms.vars.id }}">Я принимаю условие <a style="display: inline-block" href="{{ path("user_agreement") }}">пользователького соглашения</a></label>
         </div>
         {% for key, error in form.isAgreeTerms.vars.errors.form.getErrors(true)%}
             <span class="prompt">{{ error.message }}</span>

@@ -76,4 +76,20 @@ class GeneralController extends Controller
             "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
+
+    /**
+     * @Route("/user-agreement", name="user_agreement")
+     */
+    public function showUserAgreementPageAction(Request $request, InfoPageProvider $provider)
+    {
+        $page = $this->getDoctrine()->getRepository(AboutGeneralPage::class)->findAll()[0];
+
+        return $this->render('client/general/info-base.html.twig', [
+            "page" => $page,
+            "pageName" => "Обратная связь",
+            "cities" => $provider->getCities($page),
+            "brands" => $provider->getBrands(),
+            "spareParts" => $provider->getSpareParts($request->get('_route')),
+        ]);
+    }
 }

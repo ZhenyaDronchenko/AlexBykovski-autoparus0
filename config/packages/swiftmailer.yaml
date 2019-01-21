@@ -4,6 +4,7 @@
 
 
 swiftmailer:
-    url: 'gmail://bykovski.free@gmail.com:15397715@localhost?encryption=tls&auth_mode=oauth'
+    #url: 'gmail://bykovski.free@gmail.com:15397715@localhost?encryption=tls&auth_mode=oauth'
+    url: 'smtp://smtp.yandex.ru?encryption=tls&username=mr2@tut.by&password=78ujenii'
     spool: { type: memory }
     #sender_address: "info@lucky-deal.ru"

@@ -5,12 +5,14 @@
         function($scope, $http, $window, $compile) {
         let formSelector = null;
         let url = null;
+        let checkEmailEndUrl = null;
         let modal = $(".overlay");
         let closeModal = modal.find(".modal-close");
 
-        function init(formSelectorS, editUrl){
+        function init(formSelectorS, editUrl, checkEmailEndUrlS){
             formSelector = formSelectorS;
             url = editUrl;
+            checkEmailEndUrl = checkEmailEndUrlS;
 
             handleForm();
         }
@@ -35,6 +37,7 @@
                 $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
 
                 if($(formSelector).hasClass("valid-form") && modal.length && !modal.hasClass("modal--show")){
+                    checkEmailEnd($(".registration-email-field").val());
                     modal.addClass("modal--show");
                 }
 
@@ -67,6 +70,14 @@
             });
         }
 
+        function checkEmailEnd(email)
+        {
+            request(checkEmailEndUrl, {"email" : email}, function (response) {
+                if(response && response.data && response.data.exist){
+                    $("#link-to-mail").attr("href", response.data.domain).show();
+                }
+            });
+        }
 
         closeModal.click(function(ev){
             $window.location.href = '/';

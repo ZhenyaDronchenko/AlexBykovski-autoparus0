@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/registration.css'>
 {% endblock %}
@@ -8,11 +11,10 @@
     <main class="container">
         <div id="form-registration-container"
              ng-controller="RegistrationCtrl as register"
-             ng-init="register.init('#registration-form', '{{ path("edit_registration_form") }}')">
-            {% include('/client/security/form/registration-form.html.twig') with {"form" : form} %}
+             ng-init="register.init('#registration-form', '{{ path("edit_registration_form") }}', '{{ path("security_check_email_end") }}')">
+            {% include('/client/security/form/registration-form.html.twig') with {"form" : form, "headline" : page.headline} %}
         </div>
-        <p class="text">тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога, тект 1 из каталога
-        </p>
+        <div class="text">{{ page.textBottom | raw }}</div>
 
     </main>
 
@@ -30,6 +32,7 @@
                 на подтверждение регистрации. Для подтверждение регистрации Вам достаточно всего лишь перейти по одной
                 из полученных ссылок, и Вы активны. Используйте любой удобный для Вас вариант.<br>
                 Добро пожаловать.<br>
+                <a id="link-to-mail" target="_blank" style="display: none" href="">Перейти в почту</a>
             </p>
         </section>
     </div>
