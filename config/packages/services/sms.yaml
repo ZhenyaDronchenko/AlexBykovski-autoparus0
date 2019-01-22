@@ -1,0 +1,10 @@
+services:
+    app.sms.sms_sender:
+        class: App\Sms\SmsSender
+        arguments: []
+        public: true
+
+    app.sms.sms_notifier:
+        class: App\Sms\SmsNotifier
+        arguments: ['@app.sms.sms_sender', '@doctrine.orm.default_entity_manager']
+        public: true

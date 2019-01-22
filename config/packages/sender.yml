@@ -6,5 +6,5 @@ services:
 
     app.sender.registration:
         class:  App\Sender\RegistrationSender
-        arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router']
+        arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router', '@app.sms.sms_notifier']
         public: true
