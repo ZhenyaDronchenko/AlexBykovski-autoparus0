@@ -72,6 +72,20 @@ abstract class User extends BaseUser
      */
     private $forgotPassword;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $activateCode;
+
+    /**
+     * @var DateTime|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $activatedAt;
+
     public function __construct()
     {
         parent::__construct();
@@ -157,6 +171,38 @@ abstract class User extends BaseUser
     public function setForgotPassword(?ForgotPassword $forgotPassword): void
     {
         $this->forgotPassword = $forgotPassword;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getActivateCode(): ?string
+    {
+        return $this->activateCode;
+    }
+
+    /**
+     * @param null|string $activateCode
+     */
+    public function setActivateCode(?string $activateCode): void
+    {
+        $this->activateCode = $activateCode;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getActivatedAt(): ?DateTime
+    {
+        return $this->activatedAt;
+    }
+
+    /**
+     * @param DateTime|null $activatedAt
+     */
+    public function setActivatedAt(?DateTime $activatedAt): void
+    {
+        $this->activatedAt = $activatedAt;
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Form\Type;
 use App\Entity\Client\Client;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationType extends AbstractType
@@ -48,12 +50,20 @@ class RegistrationType extends AbstractType
                 ],
             ])
             ->add('captcha', CaptchaType::class, [
-                'length' => 6,
+                'length' => 5,
                 'width' => '400',
                 'height' => '200',
-                'distortion' => false
+                'distortion' => false,
+                'charset' => "123456789"
+            ])
+            ->add('isAgreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue(['message' => 'Вы должны принять условия']),
+                ],
             ])
             ->add('submit', SubmitType::class, [
+                'label' => "Подтвердить",
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

@@ -1,77 +1,409 @@
+/*user*/
 
-#registrationForm {
-  border: 1px solid black;
-  border-radius: 15px;
-  max-width: 400px;
-  margin: 10px auto;
+.registration {
+  margin: 0 auto;
+  padding-top: 30px;
+  width: 450px;
+}
+
+.registration-title {
+  margin: 0;
+  font-size: 26px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #ff0000;
   text-align: center;
-  position: relative;
+  margin-bottom: 15px;
 }
 
-.inputF2 {
-  width: 80%;
-  height: 32px;
-  padding-left: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-  color: black;
+.registration-title::before { /* второй слой */
+  content: attr(data-text);
+  -webkit-text-stroke: .03em #000000;
 }
 
-#reg {
-  display: block;
-  margin: 20px 0;
-  font-weight: bold;
-  font-size: 1.3em;
+.registration-block {
+  margin-bottom: 15px;
+}
+.registration-block li {
+  margin-bottom: 10px;
 }
 
-#registrationForm input {
-  font-weight: bolder;
-  font-family: 'Comfortaa', cursive;
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
 }
 
-#registrationForm > button {
-  border: 1px solid black;
-  border-radius: 10px;
-  background: white;
-  margin: 10px 0;
-  font-size: 1.1em;
-  font-family: 'Comfortaa', cursive;
-  letter-spacing: 1px;
-  font-weight: bolder;
-  padding: 6px 20px;
-  transition-duration: 0.2s;
+.input {
+  width: 100%;
 }
-
-#registrationForm > button:hover {
-  border: 1px solid black;
-  border-radius: 10px;
-  background: black;
-  color: white;
+.input-pas {
+  width: 50%;
+}
+.btn {
   cursor: pointer;
+  border: none;
+  background-color: #fff;
+  outline: none;
+  padding: 0;
 }
 
-/* ================= МЕДИАЗАПРОСЫ ================= */
-  
-@media only all and (max-width: 500px) {
+.prompt {
+  display: block;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 400;
+  padding-top: 3px;
+  color: red;
+  text-align: center;
+}
+.prompt-l {
+  text-align: left;
+}
 
-  #registrationForm {
-    margin: 10px 7%;
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  font-weight: 400;
+
+}
+
+input {
+  border: none;
+  padding: 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #000;
+  font-family: 'Comfortaa', cursive;
+  font-size: 18px;
+  line-height: 20px;
+  color: #757373;
+  background-color: #fff;
+
+}
+.cod {
+  width: 190px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+.input-cod {
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 16px;
+  color: #757373;
+}
+
+.img-block {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+  width: 150px;
+  height: 70px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.img-block img {
+  width: 150px;
+  height: 70px;
+}
+
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+.check  {
+  padding-left: 30px;
+  margin-bottom: 15px;
+}
+.check label {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.filter-input-checkbox + label::before {
+  content: "";
+  position: absolute;
+  display: block;
+  left: -30px;
+  top: -3px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #000000;
+  border-radius: 3px;
+}
+
+.filter-input-checkbox:checked + label::after {
+  content: '✔';
+  position: absolute;
+  display: block;
+  left: -27px;
+  top: -1px;
+  font-size: 14px;
+}
+
+.button {
+  margin: 0 auto;
+  display: block;
+  padding: 5px 25px;
+  text-align: center;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  color: #000000;
+  margin-bottom: 3px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 700;
+  color: #000000;
+  background-color: #dbc0c7;
+
+}
+.button:hover {
+  background-color: #d2a2af;
+}
+
+.button-block {
+  margin-bottom: 20px;
+}
+.text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #000000;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 60px;
+}
+
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100; }
+
+.modal--show {
+  display: block;
+}
+
+
+.modal {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  width: 450px;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: #fff;
+  padding: 25px 15px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  margin-bottom: 100px;
+}
+
+.modal-close {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  cursor: pointer;
+  border: 2px solid #000;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 2px;
+  outline: none;
+
+}
+
+.modal-close:hover {
+  border: 2px solid red;
+}
+
+
+
+.modal-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #ff0000;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.modal-title::before { /* второй слой */
+  content: attr(data-text);
+  -webkit-text-stroke: .03em #000000;
+}
+.modal-text {
+  margin: 0;
+  color: #000;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 18px;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+
+
+@media (max-width: 480px) {
+  .container {
+    width: auto;
+    padding: 0 20px;
   }
 
-  #registrationForm > button {
-    margin: 10px 0;
-    font-size: 1em;
-    letter-spacing: 0;
-    font-weight: bolder;
-    padding: 5px 15px;
-    transition-duration: 0.2s;
+  .registration {
+    width: auto;
+    padding-top: 30px;
   }
 
-}
+  .registration-title {
+    font-size: 24px;
+    line-height: 26px;
+    margin-bottom: 10px;
+  }
 
-#registrationForm .captcha_image{
-  width: 70%;
-  height: auto;
+  .input {
+    width: 100%;
+  }
+  .input-pas {
+    width: 65%;
+  }
+
+  .prompt {
+    font-size: 11px;
+    line-height: 14px;
+  }
+  label {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  input {
+    font-size: 16px;
+    line-height: 18px;
+  }
+  .cod {
+    margin-bottom: 15px;
+  }
+
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+  }
+  .check  {
+    width: 245px;
+    margin: 0 auto;
+    padding-left: 30px;
+    margin-bottom: 15px;
+  }
+  .check label {
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+
+
+  .button {
+    font-size: 16px;
+    line-height: 18px;
+  }
+
+  .button-block {
+    margin-bottom: 15px;
+  }
+
+
+
+  .overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: none;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100; }
+
+  .modal--show {
+    display: block;
+  }
+
+
+  .modal {
+    width: 90%;
+    padding: 20px 10px;
+    padding-top: 50px;
+  }
+
+  .modal-title {
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 10px;
+  }
+  .text {
+    margin-bottom: 45px;
+  }
+
+
 }
+/*Profil END*/

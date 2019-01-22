@@ -40,3 +40,10 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: 404 страница }
         public: true
+
+    admin.general.registration_page:
+        class: App\Admin\General\RegistrationPageAdmin
+        arguments: [~, App\Entity\General\RegistrationPage, 'App\Admin\Controller\General\RegistrationPageAdminController', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Страница регистрации }
+        public: true
