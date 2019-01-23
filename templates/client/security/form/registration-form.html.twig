@@ -1,6 +1,10 @@
 {% form_theme form '/client/themes/registration-captcha.html.twig' %}
 
 {% set scrollToElement = false %}
+{% set nameCookieKey = constant('App\\Entity\\General\\RegistrationPage::NAME_COOKIE_KEY') %}
+{% set emailCookieKey = constant('App\\Entity\\General\\RegistrationPage::EMAIL_COOKIE_KEY') %}
+{% set phoneCookieKey = constant('App\\Entity\\General\\RegistrationPage::PHONE_COOKIE_KEY') %}
+{% set termsCookieKey = constant('App\\Entity\\General\\RegistrationPage::TERMS_COOKIE_KEY') %}
 
 <form id="registration-form" class="registration {{ isValid ? "valid-form" : "" }}" action="{{ path("registration") }}" method="post" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
@@ -14,7 +18,7 @@
                         {% set scrollToElement = true %}
                         {% endif %}
                 >
-                    {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "class" : "input", "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\s]", "error-message" : "Используйте только буквы и пробел", "error-container" : "#first-name-errors" }}) }}
+                    {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "class" : "input save-field " ~ nameCookieKey, "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\s]", "error-message" : "Используйте только буквы и пробел", "error-container" : "#first-name-errors" }}) }}
                     <button class="btn" type="button" clear-field-button target-element="#{{ form.name.vars.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
                             <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
@@ -34,7 +38,7 @@
                         {% set scrollToElement = true %}
                         {% endif %}
                 >
-                    {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "class" : "input registration-email-field", "oninput" : "this.value = this.value.toLowerCase();" }}) }}
+                    {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "class" : "input registration-email-field save-field " ~ emailCookieKey, "oninput" : "this.value = this.value.toLowerCase();" }}) }}
                     <button class="btn" type="button" clear-field-button target-element="#{{ form.email.vars.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
                             <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
@@ -53,7 +57,7 @@
                             {% set scrollToElement = true %}
                         {% endif %}
                 >
-                    {{ form_widget(form.phone, {attr: {"placeholder": "Ваш телефон", "class" : "input-pas phone-registration" }}) }}
+                    {{ form_widget(form.phone, {attr: {"placeholder": "Ваш телефон", "class" : "input-pas phone-registration save-field " ~ phoneCookieKey }}) }}
                     <button class="btn" type="button" clear-field-button target-element="#{{ form.phone.vars.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
                             <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
@@ -116,7 +120,7 @@
                     {% set scrollToElement = true %}
                 {% endif %}
         >
-            {{ form_widget(form.isAgreeTerms, {attr: {"class" : "visually-hidden filter-input filter-input-checkbox"}}) }}
+            {{ form_widget(form.isAgreeTerms, {attr: {"class" : "visually-hidden filter-input filter-input-checkbox save-field " ~ termsCookieKey}}) }}
             <label for="{{ form.isAgreeTerms.vars.id }}">Я принимаю условие <a style="display: inline-block" href="{{ path("user_agreement") }}">пользователького соглашения</a></label>
         </div>
         {% for key, error in form.isAgreeTerms.vars.errors.form.getErrors(true)%}

@@ -6,6 +6,7 @@ use App\Entity\General\AboutGeneralPage;
 use App\Entity\General\NewsGeneralPage;
 use App\Entity\General\ToSellersGeneralPage;
 use App\Entity\General\ToUsersGeneralPage;
+use App\Entity\General\UserAgreementPage;
 use App\Provider\InfoPageProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,16 +81,10 @@ class GeneralController extends Controller
     /**
      * @Route("/user-agreement", name="user_agreement")
      */
-    public function showUserAgreementPageAction(Request $request, InfoPageProvider $provider)
+    public function showUserAgreementPageAction(Request $request)
     {
-        $page = $this->getDoctrine()->getRepository(AboutGeneralPage::class)->findAll()[0];
-
-        return $this->render('client/general/info-base.html.twig', [
-            "page" => $page,
-            "pageName" => "Обратная связь",
-            "cities" => $provider->getCities($page),
-            "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
+        return $this->render('client/general/user-agreement.html.twig', [
+            "page" => $this->getDoctrine()->getRepository(UserAgreementPage::class)->findAll()[0],
         ]);
     }
 }

@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RegistrationPage
 {
+    const NAME_COOKIE_KEY = "user-name";
+    const EMAIL_COOKIE_KEY = "user-email";
+    const PHONE_COOKIE_KEY = "user-phone";
+    const TERMS_COOKIE_KEY = "user-terms";
+    const SAVING_COOKIE_KEY = "reg-values";
+
     /**
      * @var integer|null
      * @ORM\Id

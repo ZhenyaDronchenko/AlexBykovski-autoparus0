@@ -1,18 +1,31 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('RegistrationCtrl', ['$scope', '$http', '$window', '$compile',
-        function($scope, $http, $window, $compile) {
+    autoparusApp.controller('RegistrationCtrl', ['$scope', '$http', '$window', '$compile', '$cookies',
+        function($scope, $http, $window, $compile, $cookies) {
+        const FIELDS_COOKIE_SELECTOR = ".save-field";
+
         let formSelector = null;
         let url = null;
         let checkEmailEndUrl = null;
         let modal = $(".overlay");
         let closeModal = modal.find(".modal-close");
+        let nameCookieKey = null;
+        let emailCookieKey = null;
+        let phoneCookieKey = null;
+        let termsCookieKey = null;
+        let allCookieKey = null;
 
-        function init(formSelectorS, editUrl, checkEmailEndUrlS){
+        function init(formSelectorS, editUrl, checkEmailEndUrlS,
+                      nameCookieKeyS, emailCookieKeyS, phoneCookieKeyS, termsCookieKeyS, allCookieKeyS){
             formSelector = formSelectorS;
             url = editUrl;
             checkEmailEndUrl = checkEmailEndUrlS;
+            nameCookieKey = nameCookieKeyS;
+            emailCookieKey = emailCookieKeyS;
+            phoneCookieKey = phoneCookieKeyS;
+            termsCookieKey = termsCookieKeyS;
+            allCookieKey = allCookieKeyS;
 
             handleForm();
         }
@@ -39,6 +52,8 @@
                 if($(formSelector).hasClass("valid-form") && modal.length && !modal.hasClass("modal--show")){
                     checkEmailEnd($(".registration-email-field").val());
                     modal.addClass("modal--show");
+
+                    $cookies.remove(allCookieKey);
                 }
 
                 if(!isExistSubmitHandler){
@@ -81,6 +96,16 @@
 
         closeModal.click(function(ev){
             $window.location.href = '/';
+        });
+
+        $("body").on("change input", FIELDS_COOKIE_SELECTOR, function(event){
+            let newValues = {};
+            newValues[nameCookieKey] = $(FIELDS_COOKIE_SELECTOR + '.' + nameCookieKey).val();
+            newValues[emailCookieKey] = $(FIELDS_COOKIE_SELECTOR + '.' + emailCookieKey).val();
+            newValues[phoneCookieKey] = $(FIELDS_COOKIE_SELECTOR + '.' + phoneCookieKey).val();
+            newValues[termsCookieKey] = $(FIELDS_COOKIE_SELECTOR + '.' + termsCookieKey).is(":checked");
+
+            $cookies.putObject(allCookieKey, newValues);
         });
 
         this.init = init;
