@@ -35,7 +35,6 @@ class SecurityController extends Controller
      */
     public function registrationAction(Request $request)
     {
-
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
@@ -51,6 +50,15 @@ class SecurityController extends Controller
         }
 
         $form = $this->createForm(RegistrationType::class, new Client());
+
+        $registrationData = json_decode($request->cookies->get(RegistrationPage::SAVING_COOKIE_KEY), true);
+
+        if($registrationData){
+            $form->get("name")->setData($registrationData[RegistrationPage::NAME_COOKIE_KEY]);
+            $form->get("email")->setData($registrationData[RegistrationPage::EMAIL_COOKIE_KEY]);
+            $form->get("phone")->setData($registrationData[RegistrationPage::PHONE_COOKIE_KEY]);
+            $form->get("isAgreeTerms")->setData($registrationData[RegistrationPage::TERMS_COOKIE_KEY]);
+        }
 
         return $this->render('client/security/registration.html.twig', [
             "form" => $form->createView(),

@@ -47,3 +47,10 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Страница регистрации }
         public: true
+
+    admin.general.user_agreement_page:
+        class: App\Admin\General\UserAgreementPageAdmin
+        arguments: [~, App\Entity\General\UserAgreementPage, 'App\Admin\Controller\General\UserAgreementPageAdminController', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Пользоват. соглашение }
+        public: true

@@ -3,6 +3,7 @@
 namespace App\Security\Authentication\Handler;
 
 use App\Entity\Admin;
+use App\Entity\General\RegistrationPage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Router;
@@ -36,10 +37,14 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     {
         $user = $token->getUser();
 
+        $response = new RedirectResponse($this->router->generate('show_user_office'));
+
         if($user instanceof Admin){
-            return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
+            $response = new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
         }
 
-        return new RedirectResponse($this->router->generate('show_user_office'));
+        $response->headers->clearCookie(RegistrationPage::SAVING_COOKIE_KEY);
+
+        return $response;
     }
 }

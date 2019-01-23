@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/general/info-page.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <ul id="breadcrumbs">
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("registration") }}" title="Регистрация">
+                    <span class="user-name">Регистрация</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
+              <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+                </a>
+            </li>
+            <li><a class="current">/ Пользовательское соглашение</a></li>
+        </ul>
+
+        <section class="select-block">
+            <h1 class="select-title" data-text="{{ page.headline }}"></h1>
+            <div class="select-text">{{ page.text | raw }}</div>
+            <button type="submit" class="btn button"><a href="{{ path("registration") }}" style="color: #000000">{{ page.textButtonReject }}</a></button>
+        </section>
+    </main>
+{% endblock %}

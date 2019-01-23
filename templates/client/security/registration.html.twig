@@ -8,10 +8,17 @@
 {% endblock %}
 
 {% block body %}
+    {% set nameCookieKey = constant('App\\Entity\\General\\RegistrationPage::NAME_COOKIE_KEY') %}
+    {% set emailCookieKey = constant('App\\Entity\\General\\RegistrationPage::EMAIL_COOKIE_KEY') %}
+    {% set phoneCookieKey = constant('App\\Entity\\General\\RegistrationPage::PHONE_COOKIE_KEY') %}
+    {% set termsCookieKey = constant('App\\Entity\\General\\RegistrationPage::TERMS_COOKIE_KEY') %}
+    {% set allCookieKey = constant('App\\Entity\\General\\RegistrationPage::SAVING_COOKIE_KEY') %}
+
     <main class="container">
         <div id="form-registration-container"
              ng-controller="RegistrationCtrl as register"
-             ng-init="register.init('#registration-form', '{{ path("edit_registration_form") }}', '{{ path("security_check_email_end") }}')">
+             ng-init="register.init('#registration-form', '{{ path("edit_registration_form") }}', '{{ path("security_check_email_end") }}',
+             '{{ nameCookieKey }}', '{{ emailCookieKey }}', '{{ phoneCookieKey }}', '{{ termsCookieKey }}', '{{ allCookieKey }}')">
             {% include('/client/security/form/registration-form.html.twig') with {"form" : form, "headline" : page.headline} %}
         </div>
         <div class="text">{{ page.textBottom | raw }}</div>
