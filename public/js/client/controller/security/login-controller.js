@@ -45,7 +45,6 @@
         }
 
         function sendForm(formSelector) {
-            console.log(formSelector);
             let data = $(formSelector).serialize();
             data = data.replace(/(\_\_modal1\_\_)/g, "").replace(/(\_\_modal2\_\_)/g, "");
 
