@@ -1,0 +1,5 @@
+services:
+    app.handler.login_handler:
+        class:  App\Handler\LoginHandler
+        arguments: ['@doctrine.orm.entity_manager', '@security.encoder_factory', '@security.token_storage', '@session']
+        public: true

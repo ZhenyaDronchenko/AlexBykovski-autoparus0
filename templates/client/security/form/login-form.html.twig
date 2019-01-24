@@ -1,0 +1,148 @@
+<main class="container">
+    {#<form class="registration" action="#" method="post">#}
+    {#{{ form_widget(form.createView._token) }}#}
+    {#</form>#}
+    {% set mainForm = form.createView %}
+    <form id="login-form1" class="registration login-form login-form1" action="" method="post" novalidate>
+        {{ form_widget(mainForm._token) }}
+        <fieldset>
+            <legend class="registration-title" data-text="{{ page.headline }}"></legend>
+            <ul class="registration-block">
+                <li>
+                    <div class="wrapper">
+                        {{ form_widget(mainForm.username, {attr: {"placeholder" : "e-mail или телефон", "class" : "input"}}) }}
+                        <button type="button" class="btn" clear-field-button target-element="#{{ mainForm.username.vars.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
+                                <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                                <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                            </svg>
+                        </button>
+                    </div>
+                    {% for key, error in mainForm.username.vars.errors.form.getErrors(true)%}
+                        <span class="prompt">{{ error.message }}</span>
+                    {% endfor %}
+                </li>
+
+                <li>
+                    <div class="wrapper wrapper-pas">
+                        {{ form_widget(mainForm.password, {attr: {"placeholder" : "Пароль", "class" : "input-pas"}}) }}
+                        <div password-show-button target-element="#{{ mainForm.password.vars.id }}" ng-cloak>
+                            {% include('/client/security/additional/show-hide-password-button.html.twig') with {"var" : "showPassword", "init" : false} %}
+                        </div>
+                    </div>
+                    {% for key, error in mainForm.password.vars.errors.form.getErrors(true)%}
+                        <span class="prompt">{{ error.message }}</span>
+                    {% endfor %}
+                </li>
+            </ul>
+
+            {{ form_widget(mainForm.submit, {attr: {'class' : "button button-show"}}) }}
+
+            <div class="check">
+                {{ form_widget(mainForm.rememberMe, {attr: {'class' : "visually-hidden filter-input filter-input-checkbox"}}) }}
+                <label for="{{ mainForm.rememberMe.vars.id }}">{{ mainForm.rememberMe.vars.label }}</label>
+            </div>
+
+            <a href="{{ path("forgot_password") }}" class="pas">Забыли пароль?</a>
+
+            <button class="button btn-show"><a style="color: black" href="{{ path("registration") }}">Регистрация</a></button>
+        </fieldset>
+    </form>
+    <div class="text">{{ page.textBottom | raw }}</div>
+</main>
+
+
+{% if showModal1 is defined %}
+    {% set modalForm1 = form.createView %}
+    <div id="modal1" class="overlay1 modal--show">
+        <div class="modal">
+            <button id="close-modal1" type="button" class="modal-close modal-close1">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
+            </button>
+            <b class="modal-mail">{{ modalForm1.username.vars.value }}</b>
+            <p class="modal-b text-m">Такой учетной записи нет в базе нашего сайта.</p>
+
+            <form id="login-form2" class="login-form login-form2" action="" method="post" novalidate>
+                {% set tokenModal1Id = modalForm1._token.vars.id ~ "__modal1__" %}
+                {{ form_widget(modalForm1._token, {"id" : tokenModal1Id}) }}
+                <ul class="registration-block">
+                    <li>
+                        <div class="wrapper">
+                            {% set usernameModal1Id = modalForm1.username.vars.id ~ "__modal1__" %}
+                            {{ form_widget(modalForm1.username, {attr: {"placeholder" : "e-mail или телефон", "class" : "input"}, "id" : usernameModal1Id}) }}
+                            <button type="button" class="btn" clear-field-button target-element="#{{ usernameModal1Id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
+                                    <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                                    <line stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="wrapper wrapper-pas">
+                            {% set passwordModal1Id = modalForm1.password.vars.id ~ "__modal1__" %}
+                            {{ form_widget(modalForm1.password, {attr: {"placeholder" : "Пароль", "class" : "input-pas"}, "id" : passwordModal1Id}) }}
+                            <div password-show-button target-element="#{{ passwordModal1Id }}" ng-cloak>
+                                {% include('/client/security/additional/show-hide-password-button.html.twig') with {"var" : "showPasswordModal1", "init" : false} %}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="check" style="display: none;">
+                    {% set rememberMeModal1Id = modalForm1.rememberMe.vars.id ~ "__modal1__" %}
+                    {{ form_widget(modalForm1.rememberMe, {"id" : rememberMeModal1Id, "type" : "hidden", "value" : true}) }}
+                </div>
+
+                {% set submitModal1Id = modalForm1.submit.vars.id ~ "__modal1__" %}
+                {{ form_widget(modalForm1.submit, {attr: {'class' : "button button-show"}, "id" : submitModal1Id}) }}
+                <div class="modal-text">{{ page.textIncorrectName | raw }}</div>
+                <button class="button btn-show"><a style="color: black" href="{{ path("registration") }}">Регистрация</a></button>
+            </form>
+        </div>
+    </div>
+{% endif %}
+
+{% if showModal2 is defined %}
+    {% set modalForm2 = form.createView %}
+    <div id="modal2" class="overlay2 modal--show">
+        <div class="modal">
+            <button id="close-modal2" type="button" class="modal-close modal-close2">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
+            </button>
+            <p class="modal-b">Неверный пароль для учетной записи:</p>
+            <b class="modal-mail text-m">{{ modalForm2.username.vars.value }}</b>
+
+            <form id="login-form3" class="login-form login-form3" action="" method="post" novalidate>
+                {% set tokenModal2Id = modalForm2._token.vars.id ~ "__modal2__" %}
+                {{ form_widget(modalForm2._token, {"id" : tokenModal2Id}) }}
+
+                {% set usernameModal2Id = modalForm2.username.vars.id ~ "__modal2__" %}
+                {{ form_widget(modalForm2.username, {"id" : usernameModal2Id, "type" : "hidden"}) }}
+                <ul class="registration-block">
+                    <li>
+                        <div class="wrapper wrapper-pas">
+                            {% set passwordModal2Id = modalForm2.password.vars.id ~ "__modal2__" %}
+                            {{ form_widget(modalForm2.password, {attr: {"placeholder" : "Введите верный пароль", "class" : "input-pas"}, "id" : passwordModal2Id}) }}
+                            <div password-show-button target-element="#{{ passwordModal2Id }}" ng-cloak>
+                                {% include('/client/security/additional/show-hide-password-button.html.twig') with {"var" : "showPasswordModal2", "init" : false} %}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                {% set submitModal2Id = modalForm2.submit.vars.id ~ "__modal2__" %}
+                {{ form_widget(modalForm2.submit, {attr: {'class' : "button button-show"}, "id" : submitModal2Id}) }}
+                <p class="modal-text">Если вы забыли пароль от вашего аккаунта, то воспользуйтесь функцией восстановления пароля</p>
+                <button type="button" class="button button-m"><a style="color: black" href="{{ path("forgot_password") }}">Восстановить пароль</a></button>
+            </form>
+        </div>
+    </div>
+{% endif %}

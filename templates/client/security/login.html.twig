@@ -1,32 +1,22 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/style-new.css'>
     <link rel='stylesheet' href='/css/login.css'>
 {% endblock %}
 
 {% block body %}
-    <article id=''>
+    <div id="form-login-container" ng-controller="LoginCtrl as login"
+         ng-init="login.init('.login-form', '{{ path("login_check") }}', '#form-login-container')">
+        {% include('/client/security/form/login-form.html.twig') with {"form" : form} %}
+    </div>
+{% endblock %}
 
-        {% if error %}
-            <div class="login-error">Неверные данные</div>
-        {% endif %}
-
-        <form id='loginForm' action="{{ path('login') }}" method="post">
-            <span>Вход на Автопарус</span><br/>
-            <span>e-mail или телефон</span><br/>
-            <input class='inputF' id="username" name="_username" placeholder="" maxlength="40" type="text"/><br/>
-            <span>пароль / password</span><br/>
-            <input class='inputF' id="password" name="_password" placeholder="" maxlength="40" type="password"/><br/>
-            <button type="submit">Войти</button><br/>
-            <div>
-                <input id="remember_me" name="_remember_me" value="yes" type="checkbox"/>
-                <span>Запомнить пароль</span>
-            </div>
-            <a href="{{ path("forgot_password") }}"><span id='forget'>Забыли пароль?</span></a>
-            <a href={{ path("registration") }}><span id='regButton'>Регистрация</span></a>
-        </form>
-        <br/><br/><br/><br/>
-
-    </article>
+{% block javascripts %}
+    <script src="/js/client/directive/clear-field-button.js"></script>
+    <script src="/js/client/directive/password-show-button.js"></script>
+    <script src="/js/client/controller/security/login-controller.js"></script>
 {% endblock %}

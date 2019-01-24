@@ -48,9 +48,16 @@ services:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Страница регистрации }
         public: true
 
+    admin.general.login_page:
+        class: App\Admin\General\LoginPageAdmin
+        arguments: [~, App\Entity\General\LoginPage, 'App\Admin\Controller\General\LoginPageAdminController']
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Страница логина }
+        public: true
+
     admin.general.user_agreement_page:
         class: App\Admin\General\UserAgreementPageAdmin
-        arguments: [~, App\Entity\General\UserAgreementPage, 'App\Admin\Controller\General\UserAgreementPageAdminController', '@doctrine.orm.entity_manager']
+        arguments: [~, App\Entity\General\UserAgreementPage, 'App\Admin\Controller\General\UserAgreementPageAdminController']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Пользоват. соглашение }
         public: true

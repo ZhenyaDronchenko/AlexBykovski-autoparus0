@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Client\Client;
 use App\Entity\ForgotPassword;
 use App\Entity\General\EmailDomain;
+use App\Entity\General\LoginPage;
 use App\Entity\General\RegistrationPage;
 use App\Entity\User;
 use App\Form\Type\ForgotPasswordType;
+use App\Form\Type\LoginType;
 use App\Form\Type\RecoveryPasswordType;
 use App\Form\Type\RegistrationType;
+use App\Handler\LoginHandler;
 use App\Sender\ForgotPasswordSender;
 use App\Sender\RegistrationSender;
 use DateTime;
@@ -20,6 +24,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -169,17 +174,72 @@ class SecurityController extends Controller
      * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
      *
      * @Route("/login", name="login")
+     * @Route("/login-check", name="login_check")
      */
-    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
+    public function loginAction(Request $request, LoginHandler $handler)
     {
-        $error = $authenticationUtils->getLastAuthenticationError();
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render(
-            'client/security/login.html.twig',
-            [
-                'error'         => $error,
-            ]
-        );
+        $form = $this->createForm(LoginType::class);
+        $form->handleRequest($request);
+        $page = $this->getDoctrine()->getRepository(LoginPage::class)->findAll()[0];
+
+        if($form->isSubmitted() && $form->isValid()){
+            $username = $form->get("username")->getData();
+            $password = $form->get("password")->getData();
+
+            $user = $handler->getUserByLoginName($username);
+
+            if(!($user instanceof User)){
+                return $this->render('client/security/form/login-form.html.twig',
+                    [
+                        'form' => $form,
+                        'showModal1' => true,
+                        'page' => $page,
+                    ]
+                );
+            }
+
+            if(!$handler->isCorrectPassword($user, $password)){
+                return $this->render('client/security/form/login-form.html.twig',
+                    [
+                        'form' => $form,
+                        'showModal2' => true,
+                        'page' => $page,
+                    ]
+                );
+            }
+
+            $handler->authorizeUser($user);
+
+            if($user instanceof Admin){
+                $redirectUrl = $this->generateUrl("sonata_admin_dashboard");
+            }
+            else{
+                $redirectUrl = $this->generateUrl("show_user_office");
+            }
+
+            return new JsonResponse([
+                "success" => true,
+                "redirect" => $redirectUrl,
+                'page' => $page,
+            ]);
+        }
+        elseif ($form->isSubmitted()){
+            return $this->render('client/security/form/login-form.html.twig', [
+                'form' => $form,
+                'page' => $page,
+            ]);
+        }
+        else{
+            $form->get("rememberMe")->setData(true);
+        }
+
+        return $this->render('client/security/login.html.twig', [
+            'form' => $form,
+            'page' => $page,
+        ]);
     }
 
     /**
