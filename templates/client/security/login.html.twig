@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/style-new.css'>
     <link rel='stylesheet' href='/css/login.css'>
@@ -16,25 +19,4 @@
     <script src="/js/client/directive/clear-field-button.js"></script>
     <script src="/js/client/directive/password-show-button.js"></script>
     <script src="/js/client/controller/security/login-controller.js"></script>
-    {#<script src="/js/client/controller/security/registration-controller.js"></script>#}
-    <script>
-        let popup1 = document.querySelector('.overlay1');
-        let popup2 = document.querySelector('.overlay2');
-
-        if(popup1){
-            let closePopupButton1 = popup1.querySelector('.modal-close1');
-
-            closePopupButton1.addEventListener('click', function () {
-                popup1.classList.remove('modal--show');
-            });
-        }
-
-        if(popup2){
-            let closePopupButton2 = popup2.querySelector('.modal-close2');
-
-            closePopupButton2.addEventListener('click', function () {
-                popup2.classList.remove('modal--show');
-            });
-        }
-    </script>
 {% endblock %}

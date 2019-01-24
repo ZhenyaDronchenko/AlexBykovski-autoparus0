@@ -6,6 +6,7 @@ use App\Entity\Admin;
 use App\Entity\Client\Client;
 use App\Entity\ForgotPassword;
 use App\Entity\General\EmailDomain;
+use App\Entity\General\LoginPage;
 use App\Entity\General\RegistrationPage;
 use App\Entity\User;
 use App\Form\Type\ForgotPasswordType;
@@ -182,6 +183,7 @@ class SecurityController extends Controller
 
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
+        $page = $this->getDoctrine()->getRepository(LoginPage::class)->findAll()[0];
 
         if($form->isSubmitted() && $form->isValid()){
             $username = $form->get("username")->getData();
@@ -194,6 +196,7 @@ class SecurityController extends Controller
                     [
                         'form' => $form,
                         'showModal1' => true,
+                        'page' => $page,
                     ]
                 );
             }
@@ -203,6 +206,7 @@ class SecurityController extends Controller
                     [
                         'form' => $form,
                         'showModal2' => true,
+                        'page' => $page,
                     ]
                 );
             }
@@ -219,16 +223,23 @@ class SecurityController extends Controller
             return new JsonResponse([
                 "success" => true,
                 "redirect" => $redirectUrl,
+                'page' => $page,
             ]);
         }
         elseif ($form->isSubmitted()){
-            return $this->render('client/security/form/login-form.html.twig', ['form' => $form]);
+            return $this->render('client/security/form/login-form.html.twig', [
+                'form' => $form,
+                'page' => $page,
+            ]);
         }
         else{
             $form->get("rememberMe")->setData(true);
         }
 
-        return $this->render('client/security/login.html.twig', ['form' => $form]);
+        return $this->render('client/security/login.html.twig', [
+            'form' => $form,
+            'page' => $page,
+        ]);
     }
 
     /**

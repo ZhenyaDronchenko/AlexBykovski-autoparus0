@@ -3,10 +3,10 @@
     {#{{ form_widget(form.createView._token) }}#}
     {#</form>#}
     {% set mainForm = form.createView %}
-    <form class="registration login-form login-form1" action="" method="post" novalidate>
+    <form id="login-form1" class="registration login-form login-form1" action="" method="post" novalidate>
         {{ form_widget(mainForm._token) }}
         <fieldset>
-            <legend class="registration-title" data-text="Вход на Автопарус"></legend>
+            <legend class="registration-title" data-text="{{ page.headline }}"></legend>
             <ul class="registration-block">
                 <li>
                     <div class="wrapper">
@@ -48,16 +48,15 @@
             <button class="button btn-show"><a style="color: black" href="{{ path("registration") }}">Регистрация</a></button>
         </fieldset>
     </form>
-    <p class="text">тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов, тект из каталога текстов,тект из каталога текстов
-    </p>
+    <div class="text">{{ page.textBottom | raw }}</div>
 </main>
 
 
 {% if showModal1 is defined %}
     {% set modalForm1 = form.createView %}
-    <div class="overlay1 modal--show">
+    <div id="modal1" class="overlay1 modal--show">
         <div class="modal">
-            <button class="modal-close modal-close1">
+            <button id="close-modal1" type="button" class="modal-close modal-close1">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                 <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
@@ -66,7 +65,7 @@
             <b class="modal-mail">{{ modalForm1.username.vars.value }}</b>
             <p class="modal-b text-m">Такой учетной записи нет в базе нашего сайта.</p>
 
-            <form class="login-form login-form2" action="" method="post" novalidate>
+            <form id="login-form2" class="login-form login-form2" action="" method="post" novalidate>
                 {% set tokenModal1Id = modalForm1._token.vars.id ~ "__modal1__" %}
                 {{ form_widget(modalForm1._token, {"id" : tokenModal1Id}) }}
                 <ul class="registration-block">
@@ -101,7 +100,7 @@
 
                 {% set submitModal1Id = modalForm1.submit.vars.id ~ "__modal1__" %}
                 {{ form_widget(modalForm1.submit, {attr: {'class' : "button button-show"}, "id" : submitModal1Id}) }}
-                <p class="modal-text">Текст подсказки из каталога текстов, Текст подсказки из каталога текстов Текст подсказки из каталога текстов Текст подсказки из каталога текстов  </p>
+                <div class="modal-text">{{ page.textIncorrectName | raw }}</div>
                 <button class="button btn-show"><a style="color: black" href="{{ path("registration") }}">Регистрация</a></button>
             </form>
         </div>
@@ -110,18 +109,18 @@
 
 {% if showModal2 is defined %}
     {% set modalForm2 = form.createView %}
-    <div class="overlay2 modal--show">
+    <div id="modal2" class="overlay2 modal--show">
         <div class="modal">
-            <button class="modal-close modal-close2">
+            <button id="close-modal2" type="button" class="modal-close modal-close2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                 <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
                 </svg>
             </button>
-            <p class="modal-b">Не верный пароль для учетной записи:</p>
+            <p class="modal-b">Неверный пароль для учетной записи:</p>
             <b class="modal-mail text-m">{{ modalForm2.username.vars.value }}</b>
 
-            <form class="login-form login-form3" action="" method="post" novalidate>
+            <form id="login-form3" class="login-form login-form3" action="" method="post" novalidate>
                 {% set tokenModal2Id = modalForm2._token.vars.id ~ "__modal2__" %}
                 {{ form_widget(modalForm2._token, {"id" : tokenModal2Id}) }}
 

@@ -36,7 +36,7 @@
                     $(formSelector).off().on("submit", function(e) {
                         e.preventDefault();
 
-                        sendForm();
+                        sendForm('#' + $(this).attr("id"));
 
                         return false;
                     });
@@ -44,7 +44,8 @@
             });
         }
 
-        function sendForm() {
+        function sendForm(formSelector) {
+            console.log(formSelector);
             let data = $(formSelector).serialize();
             data = data.replace(/(\_\_modal1\_\_)/g, "").replace(/(\_\_modal2\_\_)/g, "");
 
@@ -62,6 +63,14 @@
         }
 
         this.init = init;
+
+        $("body")
+            .on("click", "#close-modal1", function(){
+                $("#modal1").removeClass("modal--show");
+            })
+            .on("click", "#close-modal2", function(){
+                $("#modal2").removeClass("modal--show");
+            });
 
     }]);
 })(window.autoparusApp);
