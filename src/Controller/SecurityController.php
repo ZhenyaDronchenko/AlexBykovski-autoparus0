@@ -7,6 +7,7 @@ use App\Entity\Client\Client;
 use App\Entity\ForgotPassword;
 use App\Entity\General\EmailDomain;
 use App\Entity\General\LoginPage;
+use App\Entity\General\RecoveryPasswordPage;
 use App\Entity\General\RegistrationPage;
 use App\Entity\User;
 use App\Form\Type\ForgotPasswordType;
@@ -178,9 +179,6 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request, LoginHandler $handler)
     {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
         $page = $this->getDoctrine()->getRepository(LoginPage::class)->findAll()[0];
@@ -249,7 +247,7 @@ class SecurityController extends Controller
      */
     public function forgotPasswordAction(Request $request, LoginHandler $loginHandler, ForgotPasswordHandler $forgotPasswordHandler)
     {
-        $em = $this->getDoctrine()->getManager();
+        $page = $this->getDoctrine()->getRepository(RecoveryPasswordPage::class)->findAll()[0];
         $form = $this->createForm(ForgotPasswordType::class);
 
         $form->handleRequest($request);
@@ -271,16 +269,19 @@ class SecurityController extends Controller
 
             return $this->render('client/security/form/forgot-password-form.html.twig', [
                 "form" => $form->createView(),
+                "page" => $page,
             ]);
         }
         elseif($form->isSubmitted()){
             return $this->render('client/security/form/forgot-password-form.html.twig', [
                 "form" => $form->createView(),
+                "page" => $page,
             ]);
         }
 
         return $this->render('client/security/forgot-password.html.twig', [
             "form" => $form->createView(),
+            "page" => $page,
         ]);
     }
 }
