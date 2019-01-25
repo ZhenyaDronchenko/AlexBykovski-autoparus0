@@ -209,6 +209,14 @@ class SecurityController extends Controller
                 );
             }
 
+            if(!$user->isEnabled()) {
+                return new JsonResponse([
+                    "success" => true,
+                    "redirect" => $this->generateUrl("login"),
+                    'page' => $page,
+                ]);
+            }
+
             $handler->authorizeUser($user);
 
             if($user instanceof Admin){
