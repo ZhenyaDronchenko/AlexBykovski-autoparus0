@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Phone\Catalog\Selling;
+namespace App\Admin\Catalog\OBD2Error;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -9,14 +9,17 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class CatalogPhoneSellingChoiceCityAdmin extends AbstractAdmin
+class CatalogOBD2ErrorChoiceReasonAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('title', TextType::class, ['label' => 'title']);
         $formMapper->add('description', TextType::class, ['label' => 'description']);
-        $formMapper->add('text1', CKEditorType::class, ['label' => 'Заголовок 1 и текст к нему']);
-        $formMapper->add('text2', CKEditorType::class, ['label' => 'Заголовок 2 и текст к нему']);
+        $formMapper->add('headline1', TextType::class, ['label' => 'Заголовок 1']);
+        $formMapper->add('text1', CKEditorType::class, ['label' => 'Текст 1']);
+        $formMapper->add('headline2', TextType::class, ['label' => 'Заголовок 2']);
+        $formMapper->add('text2', CKEditorType::class, ['label' => 'Текст 2']);
+        $formMapper->add('text3', CKEditorType::class, ['label' => 'Текст 3']);
     }
 
     protected function configureListFields(ListMapper $listMapper)
