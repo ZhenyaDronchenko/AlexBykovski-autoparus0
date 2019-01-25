@@ -1,0 +1,32 @@
+services:
+# 1st from OBD2 error
+    admin.error.catalog_obd2.type:
+        class: App\Admin\Catalog\OBD2Error\CatalogOBD2ErrorChoiceTypeAdmin
+        arguments: [~, App\Entity\Catalog\OBD2Error\CatalogOBD2ErrorChoiceType, 'App\Admin\Controller\Catalog\OBD2Error\CatalogOBD2ErrorChoiceTypeAdminController']
+        tags:
+            - { name: sonata.admin, group: Каталог ошибок OBD2, manager_type: orm, label: Выбор типа ошибки }
+        public: true
+
+# 2nd from OBD2 error
+    admin.error.catalog_obd2.code:
+        class: App\Admin\Catalog\OBD2Error\CatalogOBD2ErrorChoiceCodeAdmin
+        arguments: [~, App\Entity\Catalog\OBD2Error\CatalogOBD2ErrorChoiceCode, 'App\Admin\Controller\Catalog\OBD2Error\CatalogOBD2ErrorChoiceCodeAdminController']
+        tags:
+            - { name: sonata.admin, group: Каталог ошибок OBD2, manager_type: orm, label: Выбор кода ошибки }
+        public: true
+
+# 3rd from OBD2 error
+    admin.error.catalog_obd2.transcript:
+        class: App\Admin\Catalog\OBD2Error\CatalogOBD2ErrorChoiceTranscriptAdmin
+        arguments: [~, App\Entity\Catalog\OBD2Error\CatalogOBD2ErrorChoiceTranscript, 'App\Admin\Controller\Catalog\OBD2Error\CatalogOBD2ErrorChoiceTranscriptAdminController']
+        tags:
+            - { name: sonata.admin, group: Каталог ошибок OBD2, manager_type: orm, label: Расшифровка кода }
+        public: true
+
+# 4th from OBD2 error
+    admin.error.catalog_obd2.reason:
+        class: App\Admin\Catalog\OBD2Error\CatalogOBD2ErrorChoiceReasonAdmin
+        arguments: [~, App\Entity\Catalog\OBD2Error\CatalogOBD2ErrorChoiceReason, 'App\Admin\Controller\Catalog\OBD2Error\CatalogOBD2ErrorChoiceReasonAdminController']
+        tags:
+            - { name: sonata.admin, group: Каталог ошибок OBD2, manager_type: orm, label: Причина неисправности }
+        public: true
