@@ -61,3 +61,10 @@ services:
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Пользоват. соглашение }
         public: true
+
+    admin.general.recovery_password_page:
+        class: App\Admin\General\RecoveryPasswordPageAdmin
+        arguments: [~, App\Entity\General\RecoveryPasswordPage, 'App\Admin\Controller\General\RecoveryPasswordPageAdminController']
+        tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: Стр. восстановления пароля }
+        public: true

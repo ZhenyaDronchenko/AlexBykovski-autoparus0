@@ -3,3 +3,8 @@ services:
         class:  App\Handler\LoginHandler
         arguments: ['@doctrine.orm.entity_manager', '@security.encoder_factory', '@security.token_storage', '@session']
         public: true
+
+    app.handler.forgot_password:
+        class:  App\Handler\ForgotPasswordHandler
+        arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@security.token_storage', '@app.sms.sms_notifier']
+        public: true

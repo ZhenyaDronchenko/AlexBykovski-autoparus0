@@ -7,14 +7,15 @@ use App\Entity\Client\Client;
 use App\Entity\ForgotPassword;
 use App\Entity\General\EmailDomain;
 use App\Entity\General\LoginPage;
+use App\Entity\General\RecoveryPasswordPage;
 use App\Entity\General\RegistrationPage;
 use App\Entity\User;
 use App\Form\Type\ForgotPasswordType;
 use App\Form\Type\LoginType;
 use App\Form\Type\RecoveryPasswordType;
 use App\Form\Type\RegistrationType;
+use App\Handler\ForgotPasswordHandler;
 use App\Handler\LoginHandler;
-use App\Sender\ForgotPasswordSender;
 use App\Sender\RegistrationSender;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -178,9 +179,6 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request, LoginHandler $handler)
     {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
         $page = $this->getDoctrine()->getRepository(LoginPage::class)->findAll()[0];
@@ -247,80 +245,43 @@ class SecurityController extends Controller
      *
      * @Route("/forgot-password", name="forgot_password")
      */
-    public function forgotPasswordAction(Request $request, ForgotPasswordSender $sender)
+    public function forgotPasswordAction(Request $request, LoginHandler $loginHandler, ForgotPasswordHandler $forgotPasswordHandler)
     {
-        $em = $this->getDoctrine()->getManager();
+        $page = $this->getDoctrine()->getRepository(RecoveryPasswordPage::class)->findAll()[0];
         $form = $this->createForm(ForgotPasswordType::class);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $email = $form->get("email")->getData();
-            $user = $em->getRepository(User::class)->findOneBy(["email" => $email]);
+            $user = $loginHandler->getUserByLoginName($email);
 
             if(!($user instanceof User)){
-                $form->get("email")->addError(new FormError("Пользователь с такими данными не найден, проверьте верно ли Вы ввели e-mail"));
+                $form->get("email")->addError(new FormError("Пользователь с такими данными не найден"));
             }
             else{
-                $sender->createAndSendForgotPassword($user);
+                $type = $email === $user->getEmail() ? ForgotPassword::EMAIL_TYPE : ForgotPassword::PHONE_TYPE;
 
-                return $this->redirectToRoute('success_recovery_password');
+                $forgotPasswordHandler->createAndSendPassword($user, $type);
+
+                return new JsonResponse(["success" => true]);
             }
+
+            return $this->render('client/security/form/forgot-password-form.html.twig', [
+                "form" => $form->createView(),
+                "page" => $page,
+            ]);
+        }
+        elseif($form->isSubmitted()){
+            return $this->render('client/security/form/forgot-password-form.html.twig', [
+                "form" => $form->createView(),
+                "page" => $page,
+            ]);
         }
 
         return $this->render('client/security/forgot-password.html.twig', [
             "form" => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
-     *
-     * @Route("/recovery-password", name="recovery_password")
-     */
-    public function recoveryPasswordAction(Request $request, UserPasswordEncoderInterface $encoder)
-    {
-        $code = $request->query->get("code");
-        $em = $this->getDoctrine()->getManager();
-
-        $forgotPassword = $em->getRepository(ForgotPassword::class)->findOneBy(["code" => $code]);
-
-        if(!($forgotPassword instanceof ForgotPassword) || $forgotPassword->isExpiredCode()){
-            return $this->render('client/security/recovery-password.html.twig', [
-                "incorrectCode" => true,
-            ]);
-        }
-
-        $form = $this->createForm(RecoveryPasswordType::class);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $user = $forgotPassword->getUser();
-            $password = $form->get("password")->getData();
-
-            $encodedPassword = $encoder->encodePassword($user, $password);
-            $user->setPassword($encodedPassword);
-
-            $em->remove($forgotPassword);
-            $em->flush();
-
-            return $this->redirectToRoute('login');
-        }
-
-        return $this->render('client/security/recovery-password.html.twig', [
-            "form" => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
-     *
-     * @Route("/success-recovery-password", name="success_recovery_password")
-     */
-    public function successRecoveryPasswordAction(Request $request)
-    {
-        return $this->render('client/security/success-recovery-password.html.twig', [
+            "page" => $page,
         ]);
     }
 }
