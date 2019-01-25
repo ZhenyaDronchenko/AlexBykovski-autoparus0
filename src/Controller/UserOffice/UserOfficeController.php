@@ -97,7 +97,7 @@ class UserOfficeController extends Controller
         $isValid = false;
 
         if($form->isSubmitted() && $form->isValid()){
-            $client->setPhone(str_replace(' ', '', $client->getPhone()));
+            $client->setPhone($client->getPhone());
             $isValid = true;
 
             $em->flush();
