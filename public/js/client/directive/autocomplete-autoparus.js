@@ -40,8 +40,10 @@
                             .appendTo( ul );
                     }
 
+                    let url = addUrl[addUrl.length - 1] === "/" ? addUrl + item.url : addUrl + '/' + item.url ;
+
                     return $( "<li class='ui-menu-item'>" )
-                        .append( "<a class='ui-menu-item-wrapper' href='" + addUrl + item.url + "'>" + item.label + "</a></div>" )
+                        .append( "<a class='ui-menu-item-wrapper' href='" + url + "'>" + item.label + "</a></div>" )
                         .appendTo( ul );
                 };
 
