@@ -18,8 +18,7 @@ class ForgotPasswordType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => true,
                 'constraints' => [
-                    new NotBlank(['message' => 'Введите адрес электронной почты']),
-                    new Email(['message' => 'Неверный формат']),
+                    new NotBlank(['message' => 'Введите адрес электронной почты или телефон']),
                 ],
             ])
             ->add('submit', SubmitType::class, [

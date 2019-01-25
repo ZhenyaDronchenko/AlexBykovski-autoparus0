@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ForgotPassword
 {
+    const PHONE_TYPE = "phone";
+    const EMAIL_TYPE = "email";
+
     /**
      * @var integer
      *
@@ -21,13 +24,6 @@ class ForgotPassword
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $code;
-
-    /**
      * @var DateTime
      *
      * @ORM\Column(type="datetime")
@@ -35,24 +31,35 @@ class ForgotPassword
     private $createdAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $type;
+
+    /**
      * @var User
      *
      * One ForgotPassword has One User.
-     * @ORM\OneToOne(targetEntity="User", inversedBy="forgotPassword")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="forgotPasswords")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
      * ForgotPassword constructor.
-     * @param string $code
      * @param User $user
+     * @param string $type
      */
-    public function __construct(string $code, User $user)
+    public function __construct(User $user, $type = null)
     {
-        $this->code = $code;
         $this->user = $user;
         $this->createdAt = new DateTime();
+        $this->type = self::PHONE_TYPE;
+
+        if($type === self::EMAIL_TYPE){
+            $this->type = self::EMAIL_TYPE;
+        }
     }
 
     /**
@@ -69,22 +76,6 @@ class ForgotPassword
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode(): string
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code
-     */
-    public function setCode(string $code): void
-    {
-        $this->code = $code;
     }
 
     /**
@@ -124,5 +115,21 @@ class ForgotPassword
        $monthBack = new DateTime("-1 month");
 
        return $monthBack > $this->createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 }

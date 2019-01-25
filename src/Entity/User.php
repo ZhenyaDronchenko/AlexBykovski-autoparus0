@@ -65,12 +65,12 @@ abstract class User extends BaseUser
     private $createdAt;
 
     /**
-     * @var ForgotPassword|null
+     * @var Collection
      *
      * One User has One ForgotPassword.
-     * @ORM\OneToOne(targetEntity="ForgotPassword", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="ForgotPassword", mappedBy="user")
      */
-    private $forgotPassword;
+    private $forgotPasswords;
 
     /**
      * @var string|null
@@ -90,6 +90,7 @@ abstract class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+        $this->forgotPasswords = new ArrayCollection();
         $this->createdAt = new DateTime();
     }
 
@@ -158,19 +159,19 @@ abstract class User extends BaseUser
     }
 
     /**
-     * @return ForgotPassword|null
+     * @return Collection
      */
-    public function getForgotPassword(): ?ForgotPassword
+    public function getForgotPasswords(): Collection
     {
-        return $this->forgotPassword;
+        return $this->forgotPasswords;
     }
 
     /**
-     * @param ForgotPassword|null $forgotPassword
+     * @param Collection $forgotPasswords
      */
-    public function setForgotPassword(?ForgotPassword $forgotPassword): void
+    public function setForgotPasswords(Collection $forgotPasswords): void
     {
-        $this->forgotPassword = $forgotPassword;
+        $this->forgotPasswords = $forgotPasswords;
     }
 
     /**

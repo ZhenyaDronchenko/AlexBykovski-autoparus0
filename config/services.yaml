@@ -10,6 +10,7 @@ imports:
     - { resource: ./packages/services/site_map.yaml }
     - { resource: ./packages/services/transformer.yaml }
     - { resource: ./packages/services/provider.yaml }
+    - { resource: ./packages/services/sender.yaml }
     - { resource: ./packages/services/sms.yaml }
 
 parameters:

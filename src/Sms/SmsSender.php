@@ -174,6 +174,9 @@ class SmsSender
             case SmsNotifier::REGISTRATION_NOTIFICATION:
                 $message = sprintf($params['template'], $params['link']);
                 break;
+            case SmsNotifier::RECOVERY_PASSWORD_NOTIFICATION:
+                $message = sprintf($params['template'], $params['password']);
+                break;
         }
 
         return $message;

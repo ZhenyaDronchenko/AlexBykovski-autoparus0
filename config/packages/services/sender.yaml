@@ -1,9 +1,4 @@
 services:
-    app.sender.forgot_password:
-        class:  App\Sender\ForgotPasswordSender
-        arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router']
-        public: true
-
     app.sender.registration:
         class:  App\Sender\RegistrationSender
         arguments: ["@app.generator.password_generator", '@doctrine.orm.entity_manager', '@mailer', '@router', '@app.sms.sms_notifier']
