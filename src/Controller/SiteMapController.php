@@ -31,6 +31,10 @@ class SiteMapController extends Controller
 
         $urls = [];
 
+        if($path === "index"){
+            return new Response('Sitemap по данному url: /sitemap' . $path . '.xml - не существует', 404, ["Content-Type" => "text/html; charset=UTF-8"]);
+        }
+
         if($activeSiteMap){
             $builder = $siteMapFactory->factory($activeSiteMap);
 
