@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\SiteMap;
+use App\Entity\SEO\SiteMap;
 use App\SiteMap\SiteMapFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

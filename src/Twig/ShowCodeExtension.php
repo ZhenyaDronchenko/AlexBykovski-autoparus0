@@ -2,8 +2,8 @@
 
 namespace App\Twig;
 
-use App\Entity\BodyCode;
-use App\Entity\HeadCode;
+use App\Entity\SEO\BodyCode;
+use App\Entity\SEO\HeadCode;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig_Extension;
 use Twig_Function;

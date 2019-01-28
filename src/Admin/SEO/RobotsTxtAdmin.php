@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin;
+namespace App\Admin\SEO;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -8,10 +8,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class SiteMapXmlAdmin extends AbstractAdmin
+class RobotsTxtAdmin extends AbstractAdmin
 {
-    protected $baseRouteName = 'admin_app_site_map_xml';
-    protected $baseRoutePattern = 'site-map-xml';
+    protected $baseRouteName = 'admin_app_robots_txt';
+    protected $baseRoutePattern = 'robots-txt';
 
     private $pathToFile;
 
@@ -36,7 +36,7 @@ class SiteMapXmlAdmin extends AbstractAdmin
             'mapped' => false,
             'data' => $data,
             'attr' => [
-                'rows' => 8
+                'rows' => 15
             ]
         ]);
     }

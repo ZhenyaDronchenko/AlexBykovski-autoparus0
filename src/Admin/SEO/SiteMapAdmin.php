@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Admin;
+namespace App\Admin\SEO;
 
-use App\Entity\SiteMap;
+use App\Entity\SEO\SiteMap;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

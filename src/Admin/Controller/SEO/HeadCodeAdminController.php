@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Admin\Controller;
+namespace App\Admin\Controller\SEO;
 
-use App\Entity\General\NewsGeneralPage;
-use App\Entity\SiteMap;
+use App\Entity\SEO\HeadCode;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class SiteMapAdminController extends CRUDController
+class HeadCodeAdminController extends CRUDController
 {
     /**
      * return the Response object associated to the list action
@@ -23,7 +22,7 @@ class SiteMapAdminController extends CRUDController
             throw new AccessDeniedException();
         }
 
-        $object = $this->getDoctrine()->getRepository(SiteMap::class)->findAll()[0];
+        $object = $this->getDoctrine()->getRepository(HeadCode::class)->findAll()[0];
 
         return $this->redirectTo($object);
     }
