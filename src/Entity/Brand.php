@@ -3,13 +3,17 @@
 namespace App\Entity;
 
 use App\Entity\Interfaces\VariableInterface;
+use App\Handler\ResizeImageHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BrandRepository")
  * @ORM\Table(name="brand")
+ *
+ * @ORM\HasLifecycleCallbacks()
  */
 class Brand implements VariableInterface
 {
@@ -103,6 +107,20 @@ class Brand implements VariableInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $urlConnectBamper;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thumbnailLogo32;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thumbnailLogo64;
 
     /**
      * Brand constructor.
@@ -317,5 +335,60 @@ class Brand implements VariableInterface
     public function getUrlConnectBamperIncludeBase(): ?string
     {
         return $this->urlConnectBamper ?: $this->url;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getThumbnailLogo32(): ?string
+    {
+        return $this->thumbnailLogo32;
+    }
+
+    /**
+     * @param null|string $thumbnailLogo32
+     */
+    public function setThumbnailLogo32(?string $thumbnailLogo32): void
+    {
+        $this->thumbnailLogo32 = $thumbnailLogo32;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getThumbnailLogo64(): ?string
+    {
+        return $this->thumbnailLogo64;
+    }
+
+    /**
+     * @param null|string $thumbnailLogo64
+     */
+    public function setThumbnailLogo64(?string $thumbnailLogo64): void
+    {
+        $this->thumbnailLogo64 = $thumbnailLogo64;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createAndSetThumbnailLogo(LifecycleEventArgs $args)
+    {
+        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
+
+        if(array_key_exists("logo", $changeSet) || !$this->id){
+            if(!$this->logo || !ResizeImageHandler::hasImageFile($this->logo)){
+                $this->thumbnailLogo32 = null;
+                $this->thumbnailLogo64 = null;
+
+                return false;
+            }
+
+            $this->thumbnailLogo32 = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::BRAND_WIDTH_32, ResizeImageHandler::BRAND_HEIGHT_32);
+            $this->thumbnailLogo64 = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::BRAND_WIDTH_64, ResizeImageHandler::BRAND_HEIGHT_64);
+        }
+
+        return true;
     }
 }

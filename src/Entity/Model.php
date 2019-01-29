@@ -4,11 +4,14 @@ namespace App\Entity;
 
 
 use App\Entity\Interfaces\VariableInterface;
+use App\Handler\ResizeImageHandler;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ModelRepository")
  * @ORM\Table(name="model")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Model implements VariableInterface
 {
@@ -115,6 +118,13 @@ class Model implements VariableInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $urlConnectBamper;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thumbnailLogo;
 
     /**
      * Model constructor.
@@ -387,5 +397,42 @@ class Model implements VariableInterface
         $engines->add($engine);
 
         $this->getTechnicalData()->setEngines($engines);
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getThumbnailLogo(): ?string
+    {
+        return $this->thumbnailLogo;
+    }
+
+    /**
+     * @param null|string $thumbnailLogo
+     */
+    public function setThumbnailLogo(?string $thumbnailLogo): void
+    {
+        $this->thumbnailLogo = $thumbnailLogo;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createAndSetThumbnailLogo(LifecycleEventArgs $args)
+    {
+        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
+
+        if(array_key_exists("logo", $changeSet) || !$this->id){
+            if(!$this->logo || !ResizeImageHandler::hasImageFile($this->logo)){
+                $this->thumbnailLogo = null;
+
+                return false;
+            }
+
+            $this->thumbnailLogo = ResizeImageHandler::resizeLogo($this);
+        }
+
+        return true;
     }
 }

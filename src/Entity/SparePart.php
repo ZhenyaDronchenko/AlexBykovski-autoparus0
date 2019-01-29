@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use App\Entity\Interfaces\VariableInterface;
+use App\Handler\ResizeImageHandler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SparePartRepository")
  * @ORM\Table(name="spare_part")
+ * @ORM\HasLifecycleCallbacks()
  */
 class SparePart implements VariableInterface
 {
@@ -156,6 +159,13 @@ class SparePart implements VariableInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $urlConnectBamper;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $thumbnailLogo;
 
     /**
      * SparePart constructor.
@@ -521,5 +531,42 @@ class SparePart implements VariableInterface
     public function getUrlConnectBamperIncludeBase(): ?string
     {
         return $this->urlConnectBamper ?: $this->url;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getThumbnailLogo(): ?string
+    {
+        return $this->thumbnailLogo;
+    }
+
+    /**
+     * @param null|string $thumbnailLogo
+     */
+    public function setThumbnailLogo(?string $thumbnailLogo): void
+    {
+        $this->thumbnailLogo = $thumbnailLogo;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createAndSetThumbnailLogo(LifecycleEventArgs $args)
+    {
+        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
+
+        if(array_key_exists("logo", $changeSet) || !$this->id){
+            if(!$this->logo || !ResizeImageHandler::hasImageFile($this->logo)){
+                $this->thumbnailLogo = null;
+
+                return false;
+            }
+
+            $this->thumbnailLogo = ResizeImageHandler::resizeLogo($this);
+        }
+
+        return true;
     }
 }
