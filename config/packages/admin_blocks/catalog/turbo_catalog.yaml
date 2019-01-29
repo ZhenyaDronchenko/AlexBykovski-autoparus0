@@ -1,0 +1,36 @@
+services:
+# 1st from Turbo
+    admin.catalog.catalog_turbo.brand:
+        class: App\Admin\Catalog\Turbo\CatalogTurboChoiceBrandAdmin
+        arguments: [~, App\Entity\Catalog\Turbo\CatalogTurboChoiceBrand, 'App\Admin\Controller\Catalog\Turbo\CatalogTurboChoiceBrandAdminController']
+        tags:
+            - { name: sonata.admin, group: Турбокаталог, manager_type: orm, label: Выбор марки }
+        public: true
+# 2nd from Turbo
+    admin.catalog.catalog_turbo.model:
+        class: App\Admin\Catalog\Turbo\CatalogTurboChoiceModelAdmin
+        arguments: [~, App\Entity\Catalog\Turbo\CatalogTurboChoiceModel, 'App\Admin\Controller\Catalog\Turbo\CatalogTurboChoiceModelAdminController']
+        tags:
+            - { name: sonata.admin, group: Турбокаталог, manager_type: orm, label: Выбор модели }
+        public: true
+# 3rd from Turbo
+    admin.catalog.catalog_turbo.spare_part:
+        class: App\Admin\Catalog\Turbo\CatalogTurboChoiceSparePartAdmin
+        arguments: [~, App\Entity\Catalog\Turbo\CatalogTurboChoiceSparePart, 'App\Admin\Controller\Catalog\Turbo\CatalogTurboChoiceSparePartAdminController']
+        tags:
+            - { name: sonata.admin, group: Турбокаталог, manager_type: orm, label: Выбор запчасти }
+        public: true
+# 4th from Turbo
+    admin.catalog.catalog_turbo.city:
+        class: App\Admin\Catalog\Turbo\CatalogTurboChoiceCityAdmin
+        arguments: [~, App\Entity\Catalog\Turbo\CatalogTurboChoiceCity, 'App\Admin\Controller\Catalog\Turbo\CatalogTurboChoiceCityAdminController']
+        tags:
+            - { name: sonata.admin, group: Турбокаталог, manager_type: orm, label: Выбор города }
+        public: true
+# 5th from Turbo
+    admin.catalog.catalog_turbo.final_page:
+        class: App\Admin\Catalog\Turbo\CatalogTurboChoiceFinalPageAdmin
+        arguments: [~, App\Entity\Catalog\Turbo\CatalogTurboChoiceFinalPage, 'App\Admin\Controller\Catalog\Turbo\CatalogTurboChoiceFinalPageAdminController']
+        tags:
+            - { name: sonata.admin, group: Турбокаталог, manager_type: orm, label: Финальная страница }
+        public: true

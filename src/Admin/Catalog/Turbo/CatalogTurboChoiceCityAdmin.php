@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Phone\Catalog\ReasonMalfunction;
+namespace App\Admin\Catalog\Turbo;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -9,14 +9,18 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class CatalogPhoneReasonMalfunctionChoicePhoneBrandAdmin extends AbstractAdmin
+class CatalogTurboChoiceCityAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('title', TextType::class, ['label' => 'title']);
         $formMapper->add('description', TextType::class, ['label' => 'description']);
-        $formMapper->add('text1', CKEditorType::class, ['label' => 'Заголовок 1 и текст к нему']);
-        $formMapper->add('text2', CKEditorType::class, ['label' => 'Заголовок 2 и текст к нему']);
+        $formMapper->add('headline1', TextType::class, ['label' => 'Заголовок 1']);
+        $formMapper->add('text1', CKEditorType::class, ['label' => 'Текст 1']);
+        $formMapper->add('headline2', TextType::class, ['label' => 'Заголовок 2']);
+        $formMapper->add('text2', CKEditorType::class, ['label' => 'Текст 2']);
+        $formMapper->add('returnButtonText', TextType::class, ['label' => 'Надпись на универсальной кнопке']);
+        $formMapper->add('returnButtonLink', TextType::class, ['label' => 'Адрес направления универсальной кнопки']);
     }
 
     protected function configureListFields(ListMapper $listMapper)
