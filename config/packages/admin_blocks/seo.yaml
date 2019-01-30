@@ -1,7 +1,35 @@
 services:
     admin.seo.site_map:
-        class: App\Admin\SiteMapAdmin
-        arguments: [~, App\Entity\SiteMap, 'App\Admin\Controller\SiteMapAdminController']
+        class: App\Admin\SEO\SiteMapAdmin
+        arguments: [~, App\Entity\SEO\SiteMap, 'App\Admin\Controller\SEO\SiteMapAdminController']
         tags:
             - { name: sonata.admin, group: SEO, manager_type: orm, label: Sitemap }
+        public: true
+
+    admin.seo.add_code_head:
+        class: App\Admin\SEO\HeadCodeAdmin
+        arguments: [~, App\Entity\SEO\HeadCode, 'App\Admin\Controller\SEO\HeadCodeAdminController']
+        tags:
+            - { name: sonata.admin, group: SEO, manager_type: orm, label: Добавление кода в head }
+        public: true
+
+    admin.seo.add_code_body:
+        class: App\Admin\SEO\BodyCodeAdmin
+        arguments: [~, App\Entity\SEO\BodyCode, 'App\Admin\Controller\SEO\BodyCodeAdminController']
+        tags:
+            - { name: sonata.admin, group: SEO, manager_type: orm, label: Добавление кода в body }
+        public: true
+
+    admin.seo.file_robots_txt:
+        class: App\Admin\SEO\RobotsTxtAdmin
+        arguments: [~, App\Entity\SEO\FileChangeTmp, 'App\Admin\Controller\SEO\FileChangeTmpAdminController', '%robots_txt_file_path%']
+        tags:
+            - { name: sonata.admin, group: SEO, manager_type: orm, label: Редактор robots.txt }
+        public: true
+
+    admin.seo.file_site_map_xml:
+        class: App\Admin\SEO\SiteMapXmlAdmin
+        arguments: [~, App\Entity\SEO\FileChangeTmp, 'App\Admin\Controller\SEO\FileChangeTmpAdminController', '%site_map_xml_file_path%']
+        tags:
+            - { name: sonata.admin, group: SEO, manager_type: orm, label: Статический sitemap }
         public: true

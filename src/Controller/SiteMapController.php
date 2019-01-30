@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\SiteMap;
+use App\Entity\SEO\SiteMap;
 use App\SiteMap\SiteMapFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,6 +30,10 @@ class SiteMapController extends Controller
         $activeSiteMap = $em->getRepository(SiteMap::class)->findAll()[0]->getType();
 
         $urls = [];
+
+        if($path === "index"){
+            return new Response('Sitemap по данному url: /sitemap' . $path . '.xml - не существует', 404, ["Content-Type" => "text/html; charset=UTF-8"]);
+        }
 
         if($activeSiteMap){
             $builder = $siteMapFactory->factory($activeSiteMap);

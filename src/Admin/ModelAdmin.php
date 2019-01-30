@@ -2,7 +2,6 @@
 
 namespace App\Admin;
 
-
 use App\Entity\Brand;
 use App\Entity\DriveType;
 use App\Entity\Engine;
@@ -79,7 +78,7 @@ class ModelAdmin extends AbstractAdmin
 
         $model = $this->handleUserData($model);
 
-        $helpLogo = $isEditAction && $model->getLogo() ? $this->helper->getImagesHelp([$model->getLogo()]) : "";
+        $helpLogo = $isEditAction && $model->getLogo() ? $this->helper->getImagesHelp($this->helper->getHelpImages($model)) : "";
 
         if($model->getLogo()){
             $helpLogo .= $this->addLinkRemoveLogo($model);

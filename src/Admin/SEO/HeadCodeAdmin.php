@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin;
+namespace App\Admin\SEO;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -12,7 +12,12 @@ class HeadCodeAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('code', TextareaType::class, ['label' => 'Код']);
+        $formMapper->add('code', TextareaType::class, [
+            'label' => 'Код',
+            'attr' => [
+                'rows' => 15
+            ]
+        ]);
     }
 
     protected function configureListFields(ListMapper $listMapper)

@@ -2,7 +2,7 @@
 
 namespace App\SiteMap;
 
-use App\Entity\SiteMap;
+use App\Entity\SEO\SiteMap;
 use App\SiteMap\Provider\BrandCatalogPopularSiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogSiteMapUrlProvider;
 use Doctrine\ORM\EntityManagerInterface;

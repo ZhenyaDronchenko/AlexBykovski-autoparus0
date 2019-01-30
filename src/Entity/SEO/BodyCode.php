@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\SEO;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="head_code")
+ * @ORM\Table(name="body_code")
  */
-class HeadCode
+class BodyCode
 {
     /**
      * @var integer
