@@ -5,11 +5,11 @@ namespace App\Handler;
 use App\Entity\Brand;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Kernel;
+use Exception;
 
 class ResizeImageHandler
 {
-    const IMAGE_FOLDER = "images/";
-
     const DEFAULT_HEIGHT = "150";
     const DEFAULT_WIDTH = "auto";
     const MODEL_HEIGHT = "64";
@@ -30,10 +30,7 @@ class ResizeImageHandler
     const MODEL_ADDITIONAL_PATH = "_thumb";
     const SPARE_PART_ADDITIONAL_PATH = "_thumb";
 
-    static function hasImageFile($file)
-    {
-        return file_exists(self::IMAGE_FOLDER . $file);
-    }
+    const IMAGE_FOLDER = "images/";
 
     static function resizeLogo($object, $newWidth = null, $newHeight = null)
     {
@@ -54,8 +51,14 @@ class ResizeImageHandler
 
     static function resizeImage($filePath, $newWidth, $newHeight)
     {
-        $filePathFull = self::IMAGE_FOLDER . $filePath;
+        $imageFolder = Kernel::getProjectRealPath() . '/public/' . self::IMAGE_FOLDER;
+
+        $filePathFull = $imageFolder . $filePath;
         $mimeType = self::getMimeType($filePathFull);
+
+        if(!$mimeType){
+            return null;
+        }
 
         list($width, $height) = getimagesize($filePathFull);
 
@@ -71,20 +74,35 @@ class ResizeImageHandler
 
         imagecopyresampled($image_p, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-        self::setImageByMimeType($mimeType, $image_p, self::IMAGE_FOLDER . $newFilePath);
+        self::setImageByMimeType($mimeType, $image_p, $imageFolder . $newFilePath);
 
         return $newFilePath;
     }
 
     static function getMimeType($filePath)
     {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        try {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
-        $mimeType = finfo_file($finfo, $filePath);
+            if ($finfo === false) {
+                throw new Exception("failed finfo_open");
+            }
 
-        finfo_close($finfo);
+            $mimeType = finfo_file($finfo, $filePath);
 
-        return $mimeType;
+            if ($mimeType === false) {
+                throw new Exception("failed finfo_file");
+            }
+
+            finfo_close($finfo);
+
+            return $mimeType;
+        }
+        catch (Exception $exception){
+            echo $exception->getMessage() . PHP_EOL;
+
+            return null;
+        }
     }
 
     static function createImageByMimeType($mimeType, $filePath)

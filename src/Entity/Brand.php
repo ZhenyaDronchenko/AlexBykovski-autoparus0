@@ -378,17 +378,22 @@ class Brand implements VariableInterface
         $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
 
         if(array_key_exists("logo", $changeSet) || !$this->id){
-            if(!$this->logo || !ResizeImageHandler::hasImageFile($this->logo)){
-                $this->thumbnailLogo32 = null;
-                $this->thumbnailLogo64 = null;
-
-                return false;
-            }
-
-            $this->thumbnailLogo32 = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::BRAND_WIDTH_32, ResizeImageHandler::BRAND_HEIGHT_32);
-            $this->thumbnailLogo64 = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::BRAND_WIDTH_64, ResizeImageHandler::BRAND_HEIGHT_64);
+            $this->updateThumbnailLogos();
         }
 
         return true;
+    }
+
+    public function updateThumbnailLogos()
+    {
+        if(!$this->logo){
+            $this->thumbnailLogo32 = null;
+            $this->thumbnailLogo64 = null;
+
+            return false;
+        }
+
+        $this->thumbnailLogo32 = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::BRAND_WIDTH_32, ResizeImageHandler::BRAND_HEIGHT_32);
+        $this->thumbnailLogo64 = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::BRAND_WIDTH_64, ResizeImageHandler::BRAND_HEIGHT_64);
     }
 }

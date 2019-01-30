@@ -424,15 +424,22 @@ class Model implements VariableInterface
         $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
 
         if(array_key_exists("logo", $changeSet) || !$this->id){
-            if(!$this->logo || !ResizeImageHandler::hasImageFile($this->logo)){
-                $this->thumbnailLogo = null;
-
-                return false;
-            }
-
-            $this->thumbnailLogo = ResizeImageHandler::resizeLogo($this);
+            $this->updateThumbnailLogo();
         }
 
         return true;
+    }
+
+    public function updateThumbnailLogo()
+    {
+        if(!$this->logo){
+            $this->thumbnailLogo = null;
+
+            return null;
+        }
+
+        $this->thumbnailLogo = ResizeImageHandler::resizeLogo($this);
+
+        return $this->thumbnailLogo;
     }
 }
