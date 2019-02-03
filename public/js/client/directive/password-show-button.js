@@ -7,9 +7,9 @@
             scope: true,
             link: function(scope, element, attrs)
             {
-                let target = $(attrs.targetElement);
-
                 scope.changeState = function(){
+                    let target = $(attrs.targetElement);
+
                     if(target.attr("type") === "text"){
                         target.attr("type", "password");
                     }

@@ -15,6 +15,19 @@
     {% set allCookieKey = constant('App\\Entity\\General\\RegistrationPage::SAVING_COOKIE_KEY') %}
 
     <main class="container">
+        <ul id="breadcrumbs">
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная">
+                    <span class="user-name">Главная </span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                </a>
+            </li>
+            <li><a>/ Регистрация</a></li>
+        </ul>
+
         <div id="form-registration-container"
              ng-controller="RegistrationCtrl as register"
              ng-init="register.init('#registration-form', '{{ path("edit_registration_form") }}', '{{ path("security_check_email_end") }}',

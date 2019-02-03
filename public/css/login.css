@@ -1,3 +1,163 @@
+/*ХЛЕБНЫЕ КРОШКИ*/
+#breadcrumbs {
+  border-top: 1px solid #444;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}
+
+#breadcrumbs li {
+  margin-right: 7px;
+
+}
+.dotdotdot {
+  display: none;
+  font-size: 10px;
+  line-height: 20px;
+  letter-spacing: 3px;
+  color: #444;
+
+}
+.more {
+  display: none;
+  font-size: 0.9em;
+  letter-spacing: 2px;
+  color: #444;
+}
+
+#breadcrumbs a {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  color: #444;
+  position: relative;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.user-icon {
+  display: none;
+}
+
+.user-link:hover,
+.link-b:hover {
+  color: black;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.current {
+  cursor: default;
+}
+.opened {
+  background-color: transparent;
+}
+
+@media  (max-width: 575px) {
+  .container {
+    width: auto;
+  }
+  #breadcrumbs {
+    padding-top: 3px;
+  }
+
+  .user-name {
+    display: none;
+  }
+  .opened {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+
+  }
+  .opened li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .opened .more {
+    display: none;
+  }
+
+  .user-icon {
+    display: block;
+  }
+  .link-b {
+    margin-right: 5px;
+    display: none;
+  }
+
+  .close-menu {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .user-link {
+    width: 10px;
+    height: 10px;
+  }
+
+  .opened .link-b {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .user-icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+  .more {
+    display: block;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  #breadcrumbs a {
+    line-height: 20px;
+    font-size: 12px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+
+  .user-link--icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  #breadcrumbs li {
+    margin-right: 0;
+  }
+
+  #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+  }
+
+  .more {
+    display: block;
+    cursor: pointer;
+
+  }
+
+  .opened .more {
+    display: none;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .container {
+    width: auto;
+  }
+}
+/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
 /*user*/
 
 .registration {
@@ -8,17 +168,18 @@
 
 .registration-title {
   margin: 0;
-  font-size: 26px;
-  line-height: 28px;
-  font-weight: 700;
-  color: #ff0000;
+  font-size: 30px;
+  line-height: 32px;
+  font-weight: 400;
+  color: #f66666;
   text-align: center;
   margin-bottom: 30px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .registration-title::before { /* второй слой */
   content: attr(data-text);
-  -webkit-text-stroke: .03em #000000;
+  -webkit-text-stroke: .03em #ff0000;
 }
 
 .registration-block {
@@ -41,6 +202,13 @@
   align-items: end;
 }
 
+.btn-active .registration-email {
+  display: block;
+}
+
+.block-tel-email {
+  margin-bottom: 20px;
+}
 .input {
   width: 100%;
 }
@@ -137,7 +305,7 @@ input {
   content: '✔';
   position: absolute;
   display: block;
-  left: -22px;
+  left: -23px;
   top: -1px;
   font-size: 14px;
 }
@@ -154,20 +322,39 @@ input {
   text-decoration: underline;
   color: red;
 }
+
+.btn-log {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: #000000;
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 400;
+  border: none;
+  background-color: #fff;
+  outline: none;
+}
+.btn-log:hover,
+.btn-log:focus {
+  font-weight: 700;
+  text-decoration: underline;
+}
 .button {
   margin: 0 auto;
   display: block;
   padding: 5px 25px;
   text-align: center;
-  border: 1px solid #000000;
+  border: 1px solid #727272;
   border-radius: 3px;
-  color: #000000;
+  color: #444444;
   margin-bottom: 3px;
   cursor: pointer;
   font-size: 18px;
   line-height: 20px;
   font-weight: 700;
-  color: #000000;
   background-color: #dbc0c7;
   margin-bottom: 30px;
 }
@@ -238,7 +425,7 @@ input {
   right: 7px;
   top: 7px;
   cursor: pointer;
-  border: 2px solid #000;
+  border: 2px solid #727272;
   background-color: #fff;
   border-radius: 50%;
   padding: 2px;
@@ -246,8 +433,9 @@ input {
 
 }
 
-.modal-close:hover {
-  border: 2px solid red;
+.modal-close svg:hover line,
+.modal-close svg:focus line {
+  stroke: red;
 }
 
 
@@ -294,10 +482,7 @@ input {
     width: auto;
   }
 
-  .registration-title {
-    font-size: 24px;
-    line-height: 26px;
-  }
+
   .registration-block {
     margin-bottom: 20px;
   }
@@ -314,10 +499,7 @@ input {
     line-height: 16px;
   }
 
-  input {
-    font-size: 16px;
-    line-height: 18px;
-  }
+
 
   .wrapper-pas {
     width: 260px;
@@ -326,8 +508,13 @@ input {
 
   .input-pas {
     width: 235px;
+    font-size: 16px;
+    line-height: 18px;
   }
-
+  .btn-log {
+    font-size: 14px;
+    line-height: 16px;
+  }
 
   .check label {
     position: relative;
