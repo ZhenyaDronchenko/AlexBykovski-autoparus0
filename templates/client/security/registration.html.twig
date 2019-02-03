@@ -27,22 +27,23 @@
 
     <div class="overlay">
         <section class="modal">
-            <button class="modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-            <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-            </svg>
+            <button class="modal-close" type="button">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                    <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
             </button>
             <h1 class="modal-title" data-text="Регистрация прошла успешно"></h1>
-            <p class="modal-text">
+            <div class="modal-text">
                 На Вашу почту отправлено письмо со cсылкой на активацию, а так же на номер телефона послан СМС с ссылкой
                 на подтверждение регистрации. Для подтверждение регистрации Вам достаточно всего лишь перейти по одной
                 из полученных ссылок, и Вы активны. Используйте любой удобный для Вас вариант.<br>
                 Добро пожаловать.<br>
                 <a id="link-to-mail" target="_blank" style="display: none" href="">Перейти в почту</a>
-            </p>
+            </div>
         </section>
     </div>
+
 {% endblock %}
 
 {% block javascripts %}
