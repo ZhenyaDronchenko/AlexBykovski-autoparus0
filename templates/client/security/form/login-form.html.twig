@@ -9,7 +9,7 @@
                 </svg>
             </a>
         </li>
-        <li><a>/ Авторизация</a></li>
+        <li><a class="current">/ Авторизация</a></li>
     </ul>
 
     {% set mainForm = form.createView %}
@@ -19,7 +19,6 @@
         <fieldset>
             <legend class="registration-title" data-text="{{ page.headline }}"></legend>
             <div class="registration-block">
-
                 <div class="block-tel-email">
                     <div class="{{ isEmail ? "registration-email" : "registration-tel" }}">
                         <div class="wrapper">

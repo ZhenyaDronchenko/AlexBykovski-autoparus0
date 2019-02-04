@@ -284,8 +284,7 @@ input {
   align-items: center;
   width: 150px;
   height: 70px;
-  margin-left: auto;
-  margin-bottom: 15px;
+  margin: 0 auto 15px;
 }
 
 .img-block img {

@@ -19,6 +19,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="Этот email уже зарегистрирован."
  * )
  *
+ * @UniqueEntity(
+ *     "phone",
+ *     message="Этот телефон уже зарегистрирован."
+ * )
+ *
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="role", type="string")
  * @ORM\DiscriminatorMap({"ROLE_CLIENT" = "App\Entity\Client\Client", "ROLE_ADMIN" = "Admin"})
@@ -53,7 +58,7 @@ abstract class User extends BaseUser
      *
      * @Assert\NotBlank(message="Введите телефон", groups={"registration", "edit_profile"})
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true, length=64)
      */
     private $phone;
 

@@ -31,6 +31,7 @@
             $(formSelector).ready(function(){
                 let formEvents = $.data($(this).get(0), 'events');
                 let isExistSubmitHandler = !!(formEvents && formEvents.submit);
+
                 $(".type-username[type=tel]").mask("+375  (99)  999 - 99 - 99");
 
                 if(!isExistSubmitHandler){
