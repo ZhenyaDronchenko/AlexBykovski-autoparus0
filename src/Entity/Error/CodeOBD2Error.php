@@ -10,6 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CodeOBD2Error
 {
+    static $variables = [
+        "[CODEOBD2]" => "getCode",
+        "[URLCODEOBD2]" => "getUrl",
+        "[RUTRANSCRIPTCODEOBD2]" => "getTranscriptRu",
+        "[ENTRANSCRIPTCODEOBD2]" => "getTranscriptEn",
+        "[REASON_CODEOBD2]" => "getReason",
+        "[ADVICE_CODEOBD2]" => "getAdvice",
+        "[URLCONNECTCODEOBD2]" => "getUrlToCatalog",
+    ];
+
     /**
      * @var integer|null
      *
@@ -89,6 +99,13 @@ class CodeOBD2Error
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     private $type;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $counter = 0;
 
     /**
      * @return int|null
@@ -264,5 +281,35 @@ class CodeOBD2Error
     public function setType(?TypeOBD2Error $type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCounter(): int
+    {
+        return $this->counter;
+    }
+
+    /**
+     * @param int $counter
+     */
+    public function setCounter(int $counter): void
+    {
+        $this->counter = $counter;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
+    }
+
+    public function increaseCounter(): void
+    {
+        ++$this->counter;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Catalog;
 
 use App\Entity\Brand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand;

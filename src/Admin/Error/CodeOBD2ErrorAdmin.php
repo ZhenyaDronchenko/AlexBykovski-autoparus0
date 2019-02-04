@@ -52,11 +52,11 @@ class CodeOBD2ErrorAdmin extends AbstractAdmin
         $formMapper->add('transcriptRu', TextType::class, ['label' => 'Расшифровка кода ошибки [RUTRANSCRIPTCODEOBD2]']);
         $formMapper->add('transcriptEn', TextType::class, ['label' => 'Расшифровка кода ошибки [ENTRANSCRIPTCODEOBD2]']);
         $formMapper->add('reason', CKEditorType::class, [
-            'label' => 'Причины неисправности, связанные с возникновением ошибки',
+            'label' => 'Причины неисправности, связанные с возникновением ошибки [REASON_CODEOBD2]',
             'constraints' => new NotNull(['message' =>'Введите данные']),
         ]);
         $formMapper->add('advice', CKEditorType::class, [
-            'label' => 'Советы по устранению неполадок',
+            'label' => 'Советы по устранению неполадок [ADVICE_CODEOBD2]',
             'constraints' => new NotNull(['message' =>'Введите данные']),
         ]);
         $formMapper->add('urlToCatalog', TextType::class, ['label' => 'URL коннект в каталог запчастей [URLCONNECTCODEOBD2]']);

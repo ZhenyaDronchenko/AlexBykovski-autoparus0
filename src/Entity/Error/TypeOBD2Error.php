@@ -13,6 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TypeOBD2Error
 {
+    const P_TYPE = "P";
+    const B_TYPE = "B";
+    const C_TYPE = "C";
+    const U_TYPE = "U";
+    const SECOND_BUTTON_P = "Коды ошибок работы двигателя OBD2";
+
+    const TYPE_CATALOG_ORDER = [self::P_TYPE, self::B_TYPE, self::SECOND_BUTTON_P, self::C_TYPE, self::U_TYPE];
+
+    static $variables = [
+        "[TYPEOBD2]" => "getType",
+        "[URLTYPEOBD2]" => "getUrl",
+        "[LETTERTYPEOBD2]" => "getDesignation",
+        "[TEXTTYPEOBD2]" => "getDescription",
+    ];
+
     /**
      * @var integer|null
      *
@@ -159,5 +174,23 @@ class TypeOBD2Error
     public function setCodes(Collection $codes): void
     {
         $this->codes = $codes;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
+    }
+
+    public function toArray()
+    {
+        return [
+            "type" => $this->type,
+            "url" => $this->url,
+            "designation" => $this->designation,
+        ];
     }
 }

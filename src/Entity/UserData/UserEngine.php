@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\UserData;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
+use App\Entity\Model;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -45,7 +46,7 @@ class UserEngine
     /**
      * @var Model
      *
-     * @ORM\ManyToOne(targetEntity="Model")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Model")
      * @ORM\JoinColumn(name="model_id", referencedColumnName="id")
      */
     private $model;
