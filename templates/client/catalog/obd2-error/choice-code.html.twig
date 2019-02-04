@@ -39,7 +39,7 @@
             <div class="text">{{ page.text1 | raw }}</div>
             <form class="code-block" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate>
                 {{ form_widget(form._token) }}
-                <b class="name">{{ type.designation }}{{ form.code.vars.errors.form.getErrors(true) | length }}</b>
+                <b class="name">{{ type.designation }}</b>
 
                 {{ form_widget(form.code, {attr: {"placeholder" : "5555", "class" : "input", "input-by-pattern" : "", "pattern" : "[\\d]", "max-length" : "4", "autocomplete" : "off"}, "type" : "tel"}) }}
                 <button id="{{ form.submit.vars.id }}" name="{{ form.submit.vars.full_name }}" class="btn" type="submit">

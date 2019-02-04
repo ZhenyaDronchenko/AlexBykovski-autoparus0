@@ -71,6 +71,7 @@ class CodeOBD2ErrorAdmin extends AbstractAdmin
         $listMapper->addIdentifier('transcriptRu', 'text', ['label' => 'Расшифровка кода', 'sortable' => false]);
         $listMapper->addIdentifier('active', 'boolean', ['label' => 'Активный', 'sortable' => false]);
         $listMapper->addIdentifier('isOftenSearch', 'boolean', ['label' => 'Частоискомый', 'sortable' => false]);
+        $listMapper->addIdentifier('counter', 'integer', ['label' => 'Счётчик', 'sortable' => false]);
     }
 
     public function getBatchActions()
