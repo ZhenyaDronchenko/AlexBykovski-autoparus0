@@ -6,8 +6,10 @@ use App\Entity\Catalog\CatalogPageFour;
 use App\Entity\Catalog\CatalogPageOne;
 use App\Entity\Catalog\CatalogPageOneReturnButton;
 use App\Entity\Catalog\CatalogPageThree;
+use App\Entity\Catalog\CatalogPageThreeWithHeadlines;
 use App\Entity\Catalog\CatalogPageTwo;
 use App\Entity\Catalog\CatalogPageTwoReturnButton;
+use App\Entity\Catalog\OBD2Error\CatalogOBD2ErrorChoiceType;
 
 class VariableTransformer
 {
@@ -35,6 +37,9 @@ class VariableTransformer
         }
         else if($object instanceof CatalogPageTwoReturnButton){
             return $this->transformCatalogPageTwoReturnButton($cloneObject, $parameters);
+        }
+        else if($object instanceof CatalogPageThreeWithHeadlines){
+            return $this->transformCatalogPageThreeWithHeadlines($cloneObject, $parameters);
         }
 
         return $cloneObject;
@@ -84,6 +89,18 @@ class VariableTransformer
         $catalogPageThree->setDescription($this->transformString($catalogPageThree->getDescription(), $parameters));
         $catalogPageThree->setText1($this->transformString($catalogPageThree->getText1(), $parameters));
         $catalogPageThree->setText2($this->transformString($catalogPageThree->getText2(), $parameters));
+
+        return $catalogPageThree;
+    }
+
+    protected function transformCatalogPageThreeWithHeadlines(CatalogPageThreeWithHeadlines $catalogPageThree, $parameters)
+    {
+        $catalogPageThree->setTitle($this->transformString($catalogPageThree->getTitle(), $parameters));
+        $catalogPageThree->setDescription($this->transformString($catalogPageThree->getDescription(), $parameters));
+        $catalogPageThree->setText1($this->transformString($catalogPageThree->getText1(), $parameters));
+        $catalogPageThree->setText2($this->transformString($catalogPageThree->getText2(), $parameters));
+        $catalogPageThree->setHeadline1($this->transformString($catalogPageThree->getHeadline1(), $parameters));
+        $catalogPageThree->setHeadline2($this->transformString($catalogPageThree->getHeadline2(), $parameters));
 
         return $catalogPageThree;
     }

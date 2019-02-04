@@ -79,6 +79,7 @@ class InfoPageProvider
         foreach ($brands as $brand){
             $parsedBrands[] = [
                 "enBrand" => $brand->getBrandEn(),
+                "name" => $brand->getName(),
                 "url" => $brand->getUrl(),
                 "logo" => $brand->getLogo(),
             ];

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/catalog/auto/obd2-error/choice-code.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="index.html" title="{{ titleHomepage }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}">/
+                    <span itemprop="name">OBD2</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">/
+                    <span itemprop="name">{{ type.type }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+        </ul>
+
+        <section class="code">
+            <h1 class="title" data-text="{{ page.headline1 }}"></h1>
+            <div class="text">{{ page.text1 | raw }}</div>
+            <form class="code-block" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate>
+                {{ form_widget(form._token) }}
+                <b class="name">{{ type.designation }}</b>
+
+                {{ form_widget(form.code, {attr: {"placeholder" : "5555", "class" : "input", "input-by-pattern" : "", "pattern" : "[\\d]", "max-length" : "4", "autocomplete" : "off"}, "type" : "tel"}) }}
+                <button id="{{ form.submit.vars.id }}" name="{{ form.submit.vars.full_name }}" class="btn" type="submit">
+                    <svg viewBox="0 0 32 32"  width="25px" height="25px">
+                        <path fill="#444" d="M 19 3 C 13.488281 3 9 7.488281 9 13 C 9 15.394531 9.839844 17.589844 11.25 19.3125 L 3.28125 27.28125 L 4.71875 28.71875 L 12.6875 20.75 C 14.410156 22.160156 16.605469 23 19 23 C 24.511719 23 29 18.511719 29 13 C 29 7.488281 24.511719 3 19 3 Z M 19 5 C 23.429688 5 27 8.570313 27 13 C 27 17.429688 23.429688 21 19 21 C 14.570313 21 11 17.429688 11 13 C 11 8.570313 14.570313 5 19 5 Z "/>
+                    </svg>
+                </button>
+
+            </form>
+            {% for key, error in form.code.vars.errors.form.getErrors(true)%}
+                <div style="color: red; text-align: center; margin-top: -33px; padding-bottom: 50px;">{{ error.message | raw }}</div>
+            {% endfor %}
+            <h1 class="subtitle" data-text="{{ page.headline2 }}"></h1>
+            <div class="text text-m">{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/directive/input-by-pattern.js"></script>
+{% endblock %}
