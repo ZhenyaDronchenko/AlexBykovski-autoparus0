@@ -8,7 +8,7 @@ class SmsSender
     const LOGIN = "Bylina";
     const PASSWORD = "5a985282";
     //const SENDER = "autoparus.by";
-    const SENDER = "TEST-assist";
+    const SENDER = "Autoparus";
     const URL_SINGLE_SMS = "https://userarea.sms-assistent.by/api/v1/send_sms/plain";
     const URL_MULTIPLE_SMS = "https://userarea.sms-assistent.by/api/v1/json";
 

@@ -1,3 +1,162 @@
+/*ХЛЕБНЫЕ КРОШКИ*/
+#breadcrumbs {
+  border-top: 1px solid #444;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}
+
+#breadcrumbs li {
+  margin-right: 7px;
+
+}
+.dotdotdot {
+  display: none;
+  font-size: 10px;
+  line-height: 20px;
+  letter-spacing: 3px;
+  color: #444;
+
+}
+.more {
+  display: none;
+  font-size: 0.9em;
+  letter-spacing: 2px;
+  color: #444;
+}
+
+#breadcrumbs a {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+  color: #444;
+  position: relative;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+.user-icon {
+  display: none;
+}
+
+.user-link:hover,
+.link-b:hover {
+  color: black;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.current {
+  cursor: default;
+}
+.opened {
+  background-color: transparent;
+}
+
+@media  (max-width: 575px) {
+  .container {
+    width: auto;
+  }
+  #breadcrumbs {
+    padding-top: 3px;
+  }
+
+  .user-name {
+    display: none;
+  }
+  .opened {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+
+  }
+  .opened li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .opened .more {
+    display: none;
+  }
+
+  .user-icon {
+    display: block;
+  }
+  .link-b {
+    margin-right: 5px;
+    display: none;
+  }
+
+  .close-menu {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .user-link {
+    width: 10px;
+    height: 10px;
+  }
+
+  .opened .link-b {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .user-icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+  .more {
+    display: block;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  #breadcrumbs a {
+    line-height: 20px;
+    font-size: 12px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+
+  .user-link--icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  #breadcrumbs li {
+    margin-right: 0;
+  }
+
+  #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+  }
+
+  .more {
+    display: block;
+    cursor: pointer;
+
+  }
+
+  .opened .more {
+    display: none;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .container {
+    width: auto;
+  }
+}
+/*END ХЛЕБНЫЕ КРОШКИ*/
+
 /*user*/
 
 .registration {
@@ -8,26 +167,31 @@
 
 .registration-title {
   margin: 0;
-  font-size: 26px;
-  line-height: 28px;
-  font-weight: 700;
-  color: #ff0000;
+  font-size: 30px;
+  line-height: 32px;
+  font-weight: 400;
+  color: #f66666;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .registration-title::before { /* второй слой */
   content: attr(data-text);
-  -webkit-text-stroke: .03em #000000;
+  -webkit-text-stroke: .03em #ff0000;
 }
 
 .registration-block {
   margin-bottom: 15px;
 }
 .registration-block li {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
-
+.input-m {
+  width: 255px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
 .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -39,7 +203,7 @@
   width: 100%;
 }
 .input-pas {
-  width: 50%;
+  width: 210px;
 }
 .btn {
   cursor: pointer;
@@ -75,6 +239,11 @@ label {
   font-weight: 400;
 
 }
+.cod-name {
+  padding-top: 5px;
+  font-size: 16px;
+  line-height: 18px;
+}
 
 input {
   border: none;
@@ -89,16 +258,18 @@ input {
 
 }
 .cod {
-  width: 190px;
+  width: 225px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .input-cod {
+  display: block;
+  margin: 0 auto;
   border: 1px solid #000;
   border-radius: 5px;
-  width: 100%;
-  font-size: 14px;
-  line-height: 16px;
+  width: 80px;
+  font-size: 16px;
+  line-height: 18px;
   color: #757373;
 }
 
@@ -113,8 +284,7 @@ input {
   align-items: center;
   width: 150px;
   height: 70px;
-  margin: 0 auto;
-  margin-bottom: 15px;
+  margin: 0 auto 15px;
 }
 
 .img-block img {
@@ -138,7 +308,7 @@ input {
 }
 .check  {
   padding-left: 30px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .check label {
   position: relative;
@@ -154,11 +324,11 @@ input {
   content: "";
   position: absolute;
   display: block;
-  left: -30px;
+  left: -25px;
   top: -3px;
   width: 14px;
   height: 14px;
-  border: 2px solid #000000;
+  border: 1px solid #000000;
   border-radius: 3px;
 }
 
@@ -166,7 +336,7 @@ input {
   content: '✔';
   position: absolute;
   display: block;
-  left: -27px;
+  left: -23px;
   top: -1px;
   font-size: 14px;
 }
@@ -176,15 +346,14 @@ input {
   display: block;
   padding: 5px 25px;
   text-align: center;
-  border: 1px solid #000000;
+  border: 1px solid #727272;
   border-radius: 3px;
-  color: #000000;
   margin-bottom: 3px;
   cursor: pointer;
   font-size: 18px;
   line-height: 20px;
   font-weight: 700;
-  color: #000000;
+  color: #444;
   background-color: #dbc0c7;
 
 }
@@ -251,7 +420,7 @@ input {
   right: 7px;
   top: 7px;
   cursor: pointer;
-  border: 2px solid #000;
+  border: 2px solid #727272;
   background-color: #fff;
   border-radius: 50%;
   padding: 2px;
@@ -259,8 +428,9 @@ input {
 
 }
 
-.modal-close:hover {
-  border: 2px solid red;
+.modal-close svg:hover line,
+.modal-close svg:focus line {
+  stroke: red;
 }
 
 
@@ -303,17 +473,10 @@ input {
     padding-top: 30px;
   }
 
-  .registration-title {
-    font-size: 24px;
-    line-height: 26px;
-    margin-bottom: 10px;
-  }
+
 
   .input {
     width: 100%;
-  }
-  .input-pas {
-    width: 65%;
   }
 
   .prompt {
@@ -330,7 +493,7 @@ input {
     line-height: 18px;
   }
   .cod {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
   }
 
 
@@ -351,7 +514,7 @@ input {
     width: 245px;
     margin: 0 auto;
     padding-left: 30px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
   }
   .check label {
     position: relative;
@@ -362,7 +525,9 @@ input {
     user-select: none;
   }
 
-
+  .input-m {
+    width: 230px;
+  }
 
   .button {
     font-size: 16px;

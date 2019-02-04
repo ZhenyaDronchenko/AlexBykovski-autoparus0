@@ -2,7 +2,6 @@
 
 namespace App\Sender;
 
-use App\Entity\ForgotPassword;
 use App\Entity\User;
 use App\Generator\PasswordGenerator;
 use App\Sms\SmsNotifier;
