@@ -43,7 +43,7 @@
             <div class="text text-m">{{ page.text2 | raw }}</div>
             <ul class="city-icon">
                 {% for brand in brands %}
-                    <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: code.urlToCatalog, urlBrand: brand.url}) }}"><img src="{{ brand["logo"] }}" alt="{{ brand["name"] }}" title="Запчасти для {{ brand["name"] }}"></a></li>
+                    <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: code.urlToCatalog, urlBrand: brand.url}) }}"><img src="{{ image_url(brand["logo"]) }}" alt="{{ brand["name"] }}" title="Запчасти для {{ brand["name"] }}"></a></li>
                 {% endfor %}
             </ul>
         </section>
