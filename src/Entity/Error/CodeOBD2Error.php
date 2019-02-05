@@ -108,6 +108,20 @@ class CodeOBD2Error
     private $counter = 0;
 
     /**
+     * CodeOBD2Error constructor.
+     */
+    public function __construct()
+    {
+        $this->transcriptEn = "";
+        $this->transcriptRu = "";
+        $this->url = "";
+        $this->advice = "";
+        $this->reason = "";
+        $this->urlToCatalog = "";
+    }
+
+
+    /**
      * @return int|null
      */
     public function getId(): ?int

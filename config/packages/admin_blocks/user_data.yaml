@@ -1,7 +1,13 @@
 services:
     admin.user_data.user_engine:
         class: App\Admin\UserData\UserEngineAdmin
-        arguments: [~, App\Entity\UserEngine, ~]
+        arguments: [~, App\Entity\UserData\UserEngine, ~]
         tags:
             - { name: sonata.admin, group: Данные от пользователей, manager_type: orm, label: Двигатели }
+        public: true
+    admin.user_data.user_obd2_error_code:
+        class: App\Admin\UserData\UserOBD2ErrorCodeAdmin
+        arguments: [~, App\Entity\UserData\UserOBD2ErrorCode, ~]
+        tags:
+            - { name: sonata.admin, group: Данные от пользователей, manager_type: orm, label: Коды OBD2 }
         public: true
