@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <a class="btn btn-danger" href="{{ path("admin_reject_user_obd2_error_code", {id: object.id}) }}">Отклонить</a>
+{% endblock %}
