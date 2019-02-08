@@ -6,151 +6,96 @@
 
 {% block body %}
     <main class="container">
-        <div class="choice">
-            <div class="choice-block">
-                <a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a>
-                <a class="icon" href="#"><i class="fa fa-suitcase"></i>  Business</a>
-                <a class="icon" href="#"><i class="fa fa-camera"></i>  Фотогалерея </a>
-                <a class="icon icon-plus" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
-            </div>
-        </div>
-
         <ul id="breadcrumbs">
-            <li><a class="user-link user-link--icon"  href="{{ path("show_user_office") }}">
-                    <span class="user-name">{{ app.user.name }}</span><img class="user-icon" src="/img/shop.png" alt="icon"></a>
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Главная">
+                    <span class="user-name">{{ app.user.name }} </span>
+                    <svg class="user-icon" width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="black" stroke-width="3"/>
+                    </svg>
+                </a>
             </li>
-            <li><a class="current">/ бизнес профиль</a></li>
+            <li><a nohref class="current">/ Редактор бизнес профиля</a></li>
         </ul>
 
-        <section class="business">
+        <div class="business">
             <form class="business-form" action="{{ path("show_user_business_office") }}" method="post" novalidate enctype="multipart/form-data">
                 {{ form_widget(form._token) }}
-                <h1 class="business-title">{{ app.user.isSeller ? "Редактор" : "Создание" }} бизнес профиля</h1>
-                <div class="business-block">
-                    <ul class="business-option">
+
+                <fieldset class="block">
+                    <legend class="title" data-text="Выберите виды деятельности">
+                        <sup>
+                            <button id="initiator-open-popup1" type="button" class="help button-open1 open-popup-button">
+                                <svg viewBox="0 0 32 32" width="18px" height="18px">
+                                    <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                                </svg>
+                            </button>
+                        </sup>
+                    </legend>
+                    <ul class="business-opt">
                         <li class="filter-option">
-                            {{ form_widget(form.isSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            <label for="{{ form.isSeller.vars.id }}">{{ form.isSeller.vars.label | raw }}</label>
+                            {{ form_widget(form.isSparePartSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            {{ form_label(form.isSparePartSeller) }}
                         </li>
                         <li class="filter-option">
                             {{ form_widget(form.isService, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            <label for="{{ form.isService.vars.id }}">{{ form.isService.vars.label | raw }}</label>
+                            {{ form_label(form.isService) }}
+                        </li>
+                        <li class="filter-option">
+                            {{ form_widget(form.isAutoSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                            {{ form_label(form.isAutoSeller) }}
                         </li>
                         <li class="filter-option">
                             {{ form_widget(form.isNews, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            <label for="{{ form.isNews.vars.id }}">{{ form.isNews.vars.label | raw }}</label>
+                            {{ form_label(form.isNews) }}
                         </li>
                     </ul>
-                    {% for key, error in form.isSeller.vars.errors.form.getErrors(true)%}
+                    {% for key, error in form.isSparePartSeller.vars.errors.form.getErrors(true)%}
                         <span class="check">{{ error.message }}</span>
                     {% endfor %}
-                    <div class="business-option">
-                        {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название ИП, Организации", class: "choice-input"}}) }}
-                        {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input choice-unp"}}) }}
-                        {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        <div>
-                            <div style="width: 40%; float: left;">Беларусь, </div>
-                            {{ form_widget(form.city, {attr: {class: "choice-input", style: "border-bottom: none; width: 60%; float: left;"}}) }}
-                            <div style="width: 40%; float: left;">
-                                {% if form.city.vars.errors.form.getErrors(true) | length %}
-                                    <span class="check"></span>
-                                {% endif %}
-                            </div>
-                            <div style="width: 60%; float: left;">
-                                {% for key, error in form.city.vars.errors.form.getErrors(true)%}
-                                    <span class="check">{{ error.message }}</span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div>
+                </fieldset>
+
+                <fieldset class="block">
+                    <legend class="title" data-text="Заполните регистрационные данные">
+                        <sup>
+                            <button type="button" id="initiator-open-popup2" class="help button-open2 open-popup-button">
+                                <svg viewBox="0 0 32 32" width="18px" height="18px">
+                                    <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                                </svg>
+                            </button>
+                        </sup>
+                    </legend>
+                    <ul class="business-option">
+                        <li class="choice-b">
+                            {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название организации", class: "choice-input"}}) }}
+                            {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                        </li>
+                        <li class="choice-unp">
+                            {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input"}}) }}
+                            {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                        </li>
+                        <li class="country">Беларусь</li>
+                        <li class="choice-city">
+                            {{ form_widget(form.city, {attr: {class: "name-select"}}) }}
+                            {% for key, error in form.city.vars.errors.form.getErrors(true)%}
+                                <span class="check">{{ error.message }}</span>
+                            {% endfor %}
+                        </li>
+                        <li class="choice-str">
                             {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}
                             {% for key, error in form.address.vars.errors.form.getErrors(true)%}
                                 <span class="check">{{ error.message }}</span>
                             {% endfor %}
-                        </div>
-                    </div>
-                </div>
+                        </li>
+                    </ul>
+                </fieldset>
 
-                <h2 class="time-text">Время работы</h2>
-                <div class="time">
-                    <div class="time-wrapper time-wrapper--border">
-                        <div class="time-block">
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isMondayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isMondayWork) }}
-                            </div>
-
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isTuesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isTuesdayWork) }}
-                            </div>
-
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isWednesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isWednesdayWork) }}
-                            </div>
-
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isThursdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isThursdayWork) }}
-                            </div>
-
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isFridayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isFridayWork) }}
-                            </div>
-                        </div>
-
-                        <div class="time-m">
-                            {{ form_widget(form.workflow.weekDaysStartAt, {attr: {class: "time_work"}}) }}
-
-                            {{ form_label(form.workflow.weekDaysEndAt) }}
-                            {{ form_widget(form.workflow.weekDaysEndAt, {attr: {class: "time_work"}}) }}
-                        </div>
-                    </div>
-                    <div class="time-wrapper">
-                        <div class="time-block">
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isSaturdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isSaturdayWork) }}
-                            </div>
-                            <div class="time_new_mk">
-                                {{ form_widget(form.workflow.isSundayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                {{ form_label(form.workflow.isSundayWork) }}
-                            </div>
-                        </div>
-                        <div class="time-w">
-                            {{ form_widget(form.workflow.weekendStartAt, {attr: {class: "time_work"}}) }}
-
-                            {{ form_label(form.workflow.weekendEndAt) }}
-                            {{ form_widget(form.workflow.weekendEndAt, {attr: {class: "time_work"}}) }}
-                        </div>
-
-                        {% for key, error in form.workflow.isMondayWork.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekendStartAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekendEndAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <fieldset class="pay">
-                    <legend class="pay-title">Способы оплаты</legend>
+                <fieldset class="block">
+                    <legend class="title" data-text="Способы оплаты"></legend>
                     <ul class="pay-block">
                         <li class="pay-option">
                             {{ form_widget(form.workflow.isCash, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
@@ -170,55 +115,161 @@
                     {% endfor %}
                 </fieldset>
 
-                <fieldset class="delivery" ng-init="isDelivery = {{ form.workflow.delivery.vars.value ? "true" : "false"}}">
-                    <legend class="delivery-title">Доставка</legend>
-                    <ul class="delivery-block">
-                        {% for choice in form.workflow.delivery %}
-                            <li class="delivery-option">
-                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isDelivery = !isDelivery" }}) }}
-                                {{ form_label(choice) }}
-                            </li>
+                <fieldset class="block">
+                    <legend class="title" data-text="Время работы"></legend>
+                    <div class="time">
+                        <div class="time-wrapper time-wrapper--border">
+                            <div class="time-block">
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isMondayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isMondayWork) }}
+                                </div>
+
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isTuesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isTuesdayWork) }}
+                                </div>
+
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isWednesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isWednesdayWork) }}
+                                </div>
+
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isThursdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isThursdayWork) }}
+                                </div>
+
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isFridayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isFridayWork) }}
+                                </div>
+                            </div>
+
+                            <div class="time-m">
+                                {{ form_widget(form.workflow.weekDaysStartAt, {attr: {class: "time_work"}}) }}
+                                {{ form_label(form.workflow.weekDaysEndAt) }}
+                                {{ form_widget(form.workflow.weekDaysEndAt, {attr: {class: "time_work"}}) }}
+                            </div>
+                        </div>
+                        <div class="time-wrapper">
+                            <div class="time-block">
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isSaturdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isSaturdayWork) }}
+                                </div>
+                                <div class="time_new_mk">
+                                    {{ form_widget(form.workflow.isSundayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                                    {{ form_label(form.workflow.isSundayWork) }}
+                                </div>
+                            </div>
+                            <div class="time-w">
+                                {{ form_widget(form.workflow.weekendStartAt, {attr: {class: "time_work"}}) }}
+                                {{ form_label(form.workflow.weekendEndAt) }}
+                                {{ form_widget(form.workflow.weekendEndAt, {attr: {class: "time_work"}}) }}
+                            </div>
+                        </div>
+
+                        {% for key, error in form.workflow.isMondayWork.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
                         {% endfor %}
-                    </ul>
-                    <div class="delivery-text" ng-show="isDelivery">
-                        <span>Варианты доставки:</span>
-                        {{ form_widget(form.workflow.deliveryDetail, {attr: {"rows": "2" }}) }}
+                        {% for key, error in form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekendStartAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
+                        {% for key, error in form.workflow.weekendEndAt.vars.errors.form.getErrors(true)%}
+                            <span class="check">{{ error.message }}</span>
+                        {% endfor %}
                     </div>
                 </fieldset>
 
-                <fieldset class="delivery" ng-init="isGuarantee = {{ form.workflow.guarantee.vars.value ? "true" : "false"}}">
-                    <legend class="delivery-title">Гарантия</legend>
-                    <ul class="delivery-block">
-                        {% for choice in form.workflow.guarantee %}
-                            <li class="delivery-option">
-                                {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isGuarantee = !isGuarantee" }}) }}
-                                {{ form_label(choice) }}
-                            </li>
-                        {% endfor %}
-                    </ul>
+                <div class="wrapper-block">
+                    <fieldset class="block-item" ng-init="isDelivery = {{ form.workflow.delivery.vars.value ? "true" : "false"}}">
+                        <legend class="title" data-text="Доставка"></legend>
+                        <ul class="delivery-block">
+                            {% for choice in form.workflow.delivery %}
+                                <li class="delivery-option">
+                                    {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isDelivery = !isDelivery" }}) }}
+                                    {{ form_label(choice) }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {#<span class="check">Сделайте выбор</span>#}
+                        <div class="delivery-text" ng-show="isDelivery">
+                            {{ form_widget(form.workflow.deliveryDetail, {attr: {"rows": "3", "placeholder" : "Варианты доставки:" }}) }}
+                        </div>
+                    </fieldset>
 
-                    <div class="delivery-text" ng-show="isGuarantee">
-                        <span>Гарантийные условия:</span>
-                        {{ form_widget(form.workflow.guaranteeDetail, {attr: {"rows": "2" }}) }}
+                    <fieldset class="block-item" ng-init="isGuarantee = {{ form.workflow.guarantee.vars.value ? "true" : "false"}}">
+                        <legend class="title" data-text="Гарантия"></legend>
+                        <ul class="delivery-block">
+                            {% for choice in form.workflow.guarantee %}
+                                <li class="delivery-option">
+                                    {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isGuarantee = !isGuarantee" }}) }}
+                                    {{ form_label(choice) }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {#<span class="check">Сделайте выбор</span>#}
+
+                        <div class="delivery-text" ng-show="isGuarantee">
+                            {{ form_widget(form.workflow.guaranteeDetail, {attr: {"rows": "3", "placeholder" : "Гарантийные условия:" }}) }}
+                        </div>
+                    </fieldset>
+                </div>
+
+                <fieldset class="block">
+                    <legend class="title title-t" data-text="{{ default_text(12).headline }}"></legend>
+                    {{ form_widget(form.activityDescription, {attr: {"rows": "5" }}) }}
+                </fieldset>
+
+                <fieldset class="block">
+                    <legend class="title" data-text="{{ form.additionalPhone.vars.label }}"></legend>
+                    <div class="phone">
+                        {{ form_widget(form.additionalPhone, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
+                        {{ form_widget(form.additionalPhone2, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
+                        {{ form_widget(form.additionalPhone3, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
                     </div>
                 </fieldset>
-                <div class="info">
-                    <h2 class="info-title">{{ default_text(12).headline }}</h2>
-                    {{ form_widget(form.activityDescription, {attr: {"rows": "3" }}) }}
-                </div>
-                <div class="phone">
-                    {{ form_label(form.additionalPhone) }}
-                    {{ form_widget(form.additionalPhone, {attr: {class: "phone-mask"}}) }}
-                </div>
+
                 <div class="business-btn">
-                    {{ form_widget(form.submit, {attr: {class: "btn-filter", label: "Сохранить" }}) }}
-                    {% if isValid %}
-                        <span class="check check-on">Сохранение принято</span>
-                    {% endif %}
+                    {{ form_widget(form.submit, {attr: {class: "btn-filter" }, label: "Подтвердить и сохранить"}) }}
+                    {#<span class="check check-on">Сохранение принято</span>#}
                 </div>
             </form>
-            <p class="subtext">{{ default_text(12).text | raw }}</p>
-        </section>
 
+            <div class="subtext">{{ default_text(12).text | raw }}</div>
+        </div>
     </main>
+
+    <div id="popup1" class="overlay1">
+        <section class="modal">
+            <button id="initiator-close-popup1" type="button" class="modal-close button-close1 close-popup-button">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                    <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
+            </button>
+            <h1 class="modal-title">{{ default_text(29).headline }}</h1>
+            <p class="modal-text">{{ default_text(29).text | raw }}</p>
+        </section>
+    </div>
+
+    <div id="popup2" class="overlay2">
+        <section class="modal">
+            <button id="initiator-close-popup2" type="button" class="modal-close button-close2 close-popup-button">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                    <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
+            </button>
+            <h1 class="modal-title">{{ default_text(30).headline }}</h1>
+            <p class="modal-text">{{ default_text(30).text | raw }}</p>
+        </section>
+    </div>
 {% endblock %}

@@ -31,25 +31,27 @@ class SellerCompanyType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $isFullForm = $options["isFullForm"];
-
         /** @var SellerCompany $sellerCompany */
         $sellerCompany = $builder->getData();
 
         $city = $sellerCompany->getCity() ?: ($sellerCompany->getSellerData() ? $sellerCompany->getSellerData()->getClient()->getCity() : null);
 
         $builder
-            ->add('isSeller', CheckboxType::class, [
+            ->add('isSparePartSeller', CheckboxType::class, [
                 'required' => false,
-                'label' => "Авторазборка, магазин, продавец<br>(товары, запчасти, тюнинг)",
+                'label' => "Автозапчасти, авторазборка, магазин запчастей для авто, тюнинг, товары для автомобилей.",
             ])
             ->add('isService', CheckboxType::class, [
                 'required' => false,
-                'label' => "СТО, автосервис, шиномонтаж<br>(услиги, ремонт, обслуживание)",
+                'label' => "СТО, автосервис, шиномонтаж, услиги, ремонт, обслуживание автомобилей.",
+            ])
+            ->add('isAutoSeller', CheckboxType::class, [
+                'required' => false,
+                'label' => "Продажа автомобилей, других транспортных средств, спецтехника.",
             ])
             ->add('isNews', CheckboxType::class, [
                 'required' => false,
-                'label' => "Новости, блоги, статьи",
+                'label' => "Новости, блоги, статьи.",
             ])
             ->add('unp', TextType::class, [
                 'required' => true,
@@ -73,19 +75,22 @@ class SellerCompanyType extends AbstractType
                 'label' => false,
                 'constraints' => new NotNull(['message' =>'Укажите адрес']),
             ])
-            ->add('workflow', SellerCompanyWorkflowType::class, ["isFullForm" => $isFullForm])
+            ->add('workflow', SellerCompanyWorkflowType::class)
+            ->add('activityDescription', TextareaType::class, ['required' => false])
+            ->add('additionalPhone', TextType::class, [
+                'label' => "Номера телефонов для связи",
+                'required' => false,
+            ])
+            ->add('additionalPhone2', TextType::class, [
+                'label' => false,
+                'required' => false,
+            ])
+            ->add('additionalPhone3', TextType::class, [
+                'label' => false,
+                'required' => false,
+            ])
             ->add('submit', SubmitType::class, [])
         ;
-
-        if($isFullForm){
-            $builder
-                ->add('activityDescription', TextareaType::class, ['required' => false])
-                ->add('additionalPhone', TextType::class, [
-                    'label' => "Дополнительный телефон:",
-                    'required' => false,
-                ])
-            ;
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -93,7 +98,6 @@ class SellerCompanyType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SellerCompany::class,
             'validation_groups' => [],
-            'isFullForm' => false,
         ]);
     }
 
@@ -103,7 +107,7 @@ class SellerCompanyType extends AbstractType
         $regionalCities = $this->em->getRepository(City::class)->findBy(["type" => City::REGIONAL_CITY_TYPE], ["name" => "ASC"]);
         $othersCities = $this->em->getRepository(City::class)->findBy(["type" => City::OTHERS_TYPE], ["name" => "ASC"]);
 
-        $cityChoices = ["Город" => null];
+        $cityChoices = ["Выберите город" => null];
 
         if($capital instanceof City){
             $cityChoices[$capital->getName()] = $capital->getName();

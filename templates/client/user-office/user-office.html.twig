@@ -41,7 +41,7 @@
                             <a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>
                             {% if isSeller %}
                                 <div class="btn-block">
-                                    {% if app.user.sellerData.sellerCompany.isSeller %}
+                                    {% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}
                                         <a class="user-btn" href="{{ path("user_profile_product_categories") }}">Товары</a>
                                     {% endif %}
                                     {% if app.user.sellerData.sellerCompany.isService %}

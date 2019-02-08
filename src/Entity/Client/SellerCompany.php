@@ -50,7 +50,7 @@ class SellerCompany
 
     /**
      * @Assert\Expression(
-     *     "this.isSeller() or this.isService() or this.isNews()",
+     *     "this.isSparePartSeller() or this.isAutoSeller() or this.isService() or this.isNews()",
      *     message="Выберите хотя бы одно значение"
      * )
      *
@@ -58,7 +58,14 @@ class SellerCompany
      *
      * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $isSeller = 0;
+    private $isSparePartSeller = 0;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isAutoSeller = 0;
 
     /**
      * @var boolean
@@ -98,6 +105,20 @@ class SellerCompany
      * @ORM\Column(type="string", nullable=true)
      */
     private $additionalPhone;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $additionalPhone2;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $additionalPhone3;
 
     /**
      * @var SellerData|null
@@ -190,17 +211,33 @@ class SellerCompany
     /**
      * @return bool
      */
-    public function isSeller(): bool
+    public function isSparePartSeller(): bool
     {
-        return $this->isSeller;
+        return $this->isSparePartSeller;
     }
 
     /**
-     * @param bool $isSeller
+     * @param bool $isSparePartSeller
      */
-    public function setIsSeller(bool $isSeller): void
+    public function setIsSparePartSeller(bool $isSparePartSeller): void
     {
-        $this->isSeller = $isSeller;
+        $this->isSparePartSeller = $isSparePartSeller;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoSeller(): bool
+    {
+        return $this->isAutoSeller;
+    }
+
+    /**
+     * @param bool $isAutoSeller
+     */
+    public function setIsAutoSeller(bool $isAutoSeller): void
+    {
+        $this->isAutoSeller = $isAutoSeller;
     }
 
     /**
@@ -265,6 +302,38 @@ class SellerCompany
     public function setAdditionalPhone(?string $additionalPhone): void
     {
         $this->additionalPhone = $additionalPhone;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAdditionalPhone2(): ?string
+    {
+        return $this->additionalPhone2;
+    }
+
+    /**
+     * @param null|string $additionalPhone2
+     */
+    public function setAdditionalPhone2(?string $additionalPhone2): void
+    {
+        $this->additionalPhone2 = $additionalPhone2;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAdditionalPhone3(): ?string
+    {
+        return $this->additionalPhone3;
+    }
+
+    /**
+     * @param null|string $additionalPhone3
+     */
+    public function setAdditionalPhone3(?string $additionalPhone3): void
+    {
+        $this->additionalPhone3 = $additionalPhone3;
     }
 
     /**
