@@ -1,57 +1,72 @@
-<form id="personal-data-form" class="profil-user" method="post" novalidate enctype="multipart/form-data">
+<form id="personal-data-form" class="user-form" style="padding-bottom: 0;" action="#" method="post" novalidate>
     {{ form_widget(form._token) }}
-    <fieldset class="personal">
-        <legend class="profil-title">{{ default_text(11).headline }}</legend>
-        <ul class="profil-list">
-            <li class="profil-option profil-option--1">
-                {{ form_label(form.name) }}
-                <div class="wrapper-form">
-                    {{ form_widget(form.name, {attr: {"placeholder": "Евгений", class: "first-part"}}) }}
-                    {% for key, error in form.name.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </div>
-            </li>
-            <li class="profil-option">
-                {{ form_label(form.phone) }}
-                <div class="wrapper-form">
-                    {{ form_widget(form.phone, {attr: {"placeholder": "+375-29-636-69-11", class: "first-part phone-profile"}}) }}
-                    {% for key, error in form.phone.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </div>
-            </li>
-            <li class="profil-option profil-option--2">
-                {{ form_label(form.email) }}
-                <div class="wrapper-form">
-                    {{ form_widget(form.email, {attr: {"placeholder": "d4d@tut.by", class: "first-part"}}) }}
-                    {% for key, error in form.email.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </div>
-            </li>
-            <li class="profil-option">
-                {{ form_label(form.country) }}
-                <div class="wrapper-form">
-                    {{ form_widget(form.country, {attr: {"placeholder": "Беларусь", class: "first-part"}}) }}
-                    {% for key, error in form.country.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </div>
-            </li>
-            <li class="profil-option profil-option--2">
-                {{ form_label(form.city) }}
-                <div class="wrapper-form" style="width: 62%;">
-                    {{ form_widget(form.city, {attr: {"placeholder": "Минск", class: "first-part", "style": "border-bottom: none; width: 100%;"}}) }}
-                    {% for key, error in form.city.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </div>
-            </li>
-        </ul>
+    <fieldset class="block">
+        <h1 class="title" data-text="{{ default_text(11).headline }}">
+            <sup>
+                <button id="open-overlay1" class="help" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="18px" height="18px">
+                        <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                    </svg>
+                </button>
+            </sup>
+        </h1>
+        <div class="select">
+            <label>
+                {{ form.name.vars.label }}
+                {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", class: "name-input"}}) }}
+                {% for key, error in form.name.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </label>
+            <label>
+                {{ form.phone.vars.label }}
+                {{ form_widget(form.phone, {attr: {"placeholder": "Ваш телефон", class: "phone-input phone-profile"}, type: "tel"}) }}
+                {% for key, error in form.phone.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </label>
+            <label>
+                {{ form.email.vars.label }}
+                {{ form_widget(form.email, {attr: {"placeholder": "Email", class: "email-input"}}) }}
+                {% for key, error in form.email.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </label>
+            <label>
+                {{ form.country.vars.label }}
+                {{ form_widget(form.country, {attr: {"placeholder": "Беларусь", class: "select-country"}}) }}
+                {% for key, error in form.country.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </label>
+            <label>
+                {{ form.city.vars.label }}
+                {{ form_widget(form.city, {attr: {"placeholder": "Город", class: "select-city"}}) }}
+                {% for key, error in form.city.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </label>
+        </div>
     </fieldset>
-    {{ form_widget(form.submit, {attr: {"label": "Подтвердить", class: "btn-filter"}}) }}
-    {% if isValid %}
-        <span class="check check-on">Подтверждение принято</span>
-    {% endif %}
+
+    <fieldset class="block">
+        <h2 class="title" data-text="Дополнительные не обязательные">
+            <sup>
+                <button id="open-overlay2" class="help" type="button">
+                    <svg viewBox="0 0 32 32" width="18px" height="18px">
+                        <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                    </svg>
+                </button>
+            </sup>
+        </h2>
+        {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "str-input"}}) }}
+        <span class="prompt">Достаточно только улицы и номер дома</span>
+    </fieldset>
+
+    <div class="business-btn">
+        {{ form_widget(form.submit, {attr: {"label": "Подтвердить и сохранить", class: "btn-filter"}}) }}
+        {% if isValid %}
+            <span class="check check-on">Подтверждение принято</span>
+        {% endif %}
+    </div>
 </form>

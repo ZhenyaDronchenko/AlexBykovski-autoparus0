@@ -19,8 +19,6 @@ class SellerCompanyWorkflowType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $isFullForm = $options["isFullForm"];
-
         $builder
             ->add('isMondayWork', CheckboxType::class, [
                 'required' => false,
@@ -91,31 +89,25 @@ class SellerCompanyWorkflowType extends AbstractType
                 'multiple' => false,
                 'placeholder' => false,
             ])
+            ->add('deliveryDetail', TextareaType::class, ['required' => false])
+            ->add('guarantee', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    "Да" => true,
+                    "Нет" => false,
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'placeholder' => false,
+            ])
+            ->add('guaranteeDetail', TextareaType::class, ['required' => false])
         ;
-
-        if($isFullForm){
-            $builder
-                ->add('deliveryDetail', TextareaType::class, ['required' => false])
-                ->add('guarantee', ChoiceType::class, [
-                    'required' => false,
-                    'choices' => [
-                        "Да" => true,
-                        "Нет" => false,
-                    ],
-                    'expanded' => true,
-                    'multiple' => false,
-                    'placeholder' => false,
-                ])
-                ->add('guaranteeDetail', TextareaType::class, ['required' => false])
-                ;
-        }
     }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => SellerCompanyWorkflow::class,
             'validation_groups' => [],
-            'isFullForm' => false,
         ]);
     }
 }

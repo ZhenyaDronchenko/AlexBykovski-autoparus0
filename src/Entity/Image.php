@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +38,14 @@ class Image
      */
     private $geoLocation;
 
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
     /**
      * Image constructor.
      * @param string|null $image
@@ -44,6 +53,7 @@ class Image
     public function __construct(string $image = null)
     {
         $this->image = $image;
+        $this->createdAt = new DateTime();
     }
 
     /**
@@ -92,5 +102,21 @@ class Image
     public function setGeoLocation(?GeoLocation $geoLocation): void
     {
         $this->geoLocation = $geoLocation;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }

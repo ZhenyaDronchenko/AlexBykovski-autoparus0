@@ -57,13 +57,16 @@ class PersonalDataType extends AbstractType
                     new Email(['message' =>'Некорректный email'])
                 ],
             ])
-            ->add('country', TextType::class, [
+            ->add('country', ChoiceType::class, [
                 'required' => true,
                 'label' => "Страна",
                 'data' => $country,
                 'attr' => [
                     'class' => "first-part",
-                ]
+                ],
+                'choices' => [
+                    "Беларусь" => "Беларусь",
+                ],
             ])
             ->add('city', ChoiceType::class, [
                 'required' => true,
@@ -74,6 +77,10 @@ class PersonalDataType extends AbstractType
                 'choices' => $this->getCitiesChoices(),
                 'constraints' => new NotNull(['message' =>'Выберите город']),
                 'data' => $city
+            ])
+            ->add('address', TextType::class, [
+                'required' => true,
+                'label' => "Адрес",
             ])
             ->add('submit', SubmitType::class, [
                 'label' => "Подтвердить",

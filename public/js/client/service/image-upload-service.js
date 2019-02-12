@@ -45,27 +45,19 @@
         };
 
         this.addDialog = function() {
-            this.cropperContainer.dialog({
-                modal: true,
-                closeOnEscape: false,
-                open: function(event, ui) {
-                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
-                    self.addCropper();
-                },
-                width: this.cropperContainer,
-                height: this.cropperContainer,
-                buttons: {
-                    "Отменить": function() {
-                        $( this ).dialog( "close" );
+            this.cropperContainer.addClass("modal--show");
 
-                        self.input.val('');
-                    },
-                    "Сохранить": function() {
-                        self.processCroppedImage(this);
+            self.addCropper();
 
-                        self.input.val('');
-                    }
-                }
+            $("#cancel-button").click(function(){
+                self.cropperContainer.removeClass("modal--show");
+                self.input.val('');
+            });
+
+            $("#save-button").click(function(){
+                self.processCroppedImage(this);
+
+                self.input.val('');
             });
         };
 
@@ -77,15 +69,14 @@
             }
 
             getImageData(this.previewImage.attr("src"), function(data){
-                const trueSize = self.getJCropTrueSize(data["width"], data["height"], self.cropperContentSize);
+                const trueSize = self.getJCropTrueSize(data["width"], data["height"], (self.cropperContentSize * 4 / 3));
                 const trueWidth = trueSize[0];
                 const trueHeight = trueSize[1];
-                self.cropperContainer.width(trueWidth);
-                self.cropperContainer.height(trueHeight);
+
 
                 self.previewImage.Jcrop({
                     aspectRatio: 3 / 2,
-                    maxSize: [self.cropperContentSize, self.cropperContentSize],
+                    maxSize: [trueWidth, trueHeight],
                     boxWidth: self.cropperContentSize,
                     boxHeight: self.cropperContentSize,
                     setSelect:   self.getJCropDefaultSelected(trueWidth, trueHeight),
@@ -147,7 +138,8 @@
                             self.imgPhoto.attr("src", data.path);
                         }
 
-                        $( dialogInstance ).dialog( "close" );
+                        self.cropperContainer.removeClass("modal--show");
+                        self.input.val('');
                     },
                     error(data) {
                         console.error('Upload error');

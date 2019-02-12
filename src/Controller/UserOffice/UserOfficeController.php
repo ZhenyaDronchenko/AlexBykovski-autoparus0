@@ -8,6 +8,7 @@ use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
+use App\Entity\Client\UserCar;
 use App\Entity\EngineType;
 use App\Entity\Image;
 use App\Entity\Model;
@@ -52,32 +53,13 @@ class UserOfficeController extends Controller
         /** @var Client $client */
         $client = $this->getUser();
 
-        if($client->isSeller()){
-            $sellerCompany = $client->getSellerData()->getSellerCompany();
-        }
-        else{
-            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
-            $sellerCompany = new SellerCompany();
-            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
-        }
-
         $formPersonalData = $this->createForm(PersonalDataType::class, $client);
         $formCars = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
-        $formBusiness = $this->createForm(SellerCompanyType::class, $sellerCompany);
 
         return $this->render('client/user-office/user-base-profile.html.twig', [
             "formPersonalData" => $formPersonalData->createView(),
             "formCars" => $formCars->createView(),
-            "formBusiness" => $formBusiness->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/business-profile", name="show_user_business_office")
-     */
-    public function editUserBusinessOfficeAction(Request $request)
-    {
-        return $this->render('client/user-office/user-business-profile.html.twig', $this->handleBusinessForm($request, true));
     }
 
     /**
@@ -139,6 +121,11 @@ class UserOfficeController extends Controller
                 }
             }
 
+            /** @var UserCar $car */
+            foreach ($client->getCars() as $car) {
+                $car->setClient($client);
+            }
+
             $em->flush();
 
             $em->refresh($client);
@@ -153,20 +140,53 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/edit-business-profile", name="edit_user_business_profile")
+     * @Route("/business-profile", name="show_user_business_office")
      */
     public function editBusinessProfileAction(Request $request)
     {
-        $parameters = $this->handleBusinessForm($request);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
 
-        if($parameters["isValid"]){
-            return new JsonResponse([
-                "success" => true,
-                "redirect" => $this->generateUrl("show_user_office")
-            ]);
+        if($client->isSeller()){
+            $sellerCompany = $client->getSellerData()->getSellerCompany();
+        }
+        else{
+            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
+            $sellerCompany = new SellerCompany();
+            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
         }
 
-        return $this->render('client/user-office/edit-base-profile-form/business-profile.html.twig', $parameters);
+        $form = $this->createForm(SellerCompanyType::class, $sellerCompany);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if(!$client->isSeller()){
+                $sellerData = new SellerData($client);
+                $sellerData->setClient($client);
+                $sellerData->setSellerCompany($sellerCompany);
+                $client->setSellerData($sellerData);
+
+                $sellerAdvertDetail = new SellerAdvertDetail();
+                $sellerAdvertDetail->setSellerData($sellerData);
+                $sellerData->setAdvertDetail($sellerAdvertDetail);
+
+                $em->persist($sellerAdvertDetail);
+                $em->persist($sellerCompany);
+                $em->persist($sellerData);
+                $em->persist($sellerCompany->getWorkflow());
+            }
+
+            $em->flush();
+
+            return $this->redirectToRoute("show_user_office");
+        }
+
+        return $this->render('client/user-office/user-business-profile.html.twig', [
+            "form" => $form->createView(),
+        ]);
     }
 
     /**
@@ -261,10 +281,14 @@ class UserOfficeController extends Controller
     public function getCarDataByModelAndEngineTypeAction(Request $request, SparePartAdvertDataProvider $provider)
     {
         $modelId = $request->query->get("model");
-        $engineType = $request->query->get("engine_type");
+        $engineTypeItem = $request->query->get("engine_type");
 
         $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
-        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["type" => $engineType]);
+        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["type" => $engineTypeItem]);
+
+        if(!$engineType){
+            $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeItem);
+        }
 
         $data = [
             "engineCapacities" => $provider->getEngineCapacities($model, $engineType->getType()),
@@ -375,55 +399,5 @@ class UserOfficeController extends Controller
             "success" => true,
             "path" => '/images/' . $path,
         ]);
-    }
-
-    private function handleBusinessForm(Request $request, $isFullForm = false)
-    {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-        /** @var Client $client */
-        $client = $this->getUser();
-
-        if($client->isSeller()){
-            $sellerCompany = $client->getSellerData()->getSellerCompany();
-        }
-        else{
-            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
-            $sellerCompany = new SellerCompany();
-            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
-        }
-
-        $form = $this->createForm(SellerCompanyType::class, $sellerCompany, ["isFullForm" => $isFullForm]);
-
-        $form->handleRequest($request);
-
-        $isValid = false;
-
-        if($form->isSubmitted() && $form->isValid()){
-            $isValid = true;
-
-            if(!$client->isSeller()){
-                $sellerData = new SellerData($client);
-                $sellerData->setClient($client);
-                $sellerData->setSellerCompany($sellerCompany);
-                $client->setSellerData($sellerData);
-
-                $sellerAdvertDetail = new SellerAdvertDetail();
-                $sellerAdvertDetail->setSellerData($sellerData);
-                $sellerData->setAdvertDetail($sellerAdvertDetail);
-
-                $em->persist($sellerAdvertDetail);
-                $em->persist($sellerCompany);
-                $em->persist($sellerData);
-                $em->persist($sellerCompany->getWorkflow());
-            }
-
-            $em->flush();
-        }
-
-        return [
-            "form" => $form->createView(),
-            "isValid" => $isValid
-        ];
     }
 }

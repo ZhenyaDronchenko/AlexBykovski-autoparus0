@@ -17,10 +17,7 @@
                 });
 
                 let dialogContentSize = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
-                let cropperContentSize = dialogContentSize;
-
-                cropperContainer.width(dialogContentSize);
-                cropperContainer.height(dialogContentSize);
+                let cropperContentSize = dialogContentSize * 0.75;
 
                 input.change(function(e){
                     let previewImage = $("#image-preview-container img");

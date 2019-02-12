@@ -2,6 +2,14 @@ $(function(){
     $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
     $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
     $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
+
+    $(document).on("click", ".open-popup-button", function (ev) {
+        $("#" + $(this).attr("id").replace("initiator-open-", "")).show();
+    });
+
+    $(document).on("click", ".close-popup-button", function (ev) {
+        $("#" + $(this).attr("id").replace("initiator-close-", "")).hide();
+    });
 });
 
 function scrollToElement(selector) {

@@ -4,6 +4,8 @@ namespace App\Form\Type;
 
 use App\Entity\Client\UserCar;
 use App\Form\DataTransformer\IdToBrandTransformer;
+use App\Form\DataTransformer\IdToDriveTypeTransformer;
+use App\Form\DataTransformer\IdToGearBoxTypeTransformer;
 use App\Form\DataTransformer\IdToModelTransformer;
 use App\Form\DataTransformer\IdToEngineTypeTransformer;
 use App\Form\DataTransformer\IdToVehicleTypeTransformer;
@@ -34,6 +36,12 @@ class ClientCarType extends AbstractType
     /** @var IdToEngineTypeTransformer */
     private $engineTypeTransformer;
 
+    /** @var IdToDriveTypeTransformer */
+    private $driveTypeTransformer;
+
+    /** @var IdToGearBoxTypeTransformer */
+    private $gearBoxTypeTransformer;
+
     /**
      * ClientCarType constructor.
      * @param ClientCarProvider $provider
@@ -41,13 +49,17 @@ class ClientCarType extends AbstractType
      * @param IdToModelTransformer $modelTransformer
      * @param IdToVehicleTypeTransformer $vehicleTypeTransformer
      * @param IdToEngineTypeTransformer $engineTypeTransformer
+     * @param IdToDriveTypeTransformer $driveTypeTransformer
+     * @param IdToGearBoxTypeTransformer $gearBoxTypeTransformer
      */
     public function __construct(
         ClientCarProvider $provider,
         IdToBrandTransformer $brandTransformer,
         IdToModelTransformer $modelTransformer,
         IdToVehicleTypeTransformer $vehicleTypeTransformer,
-        IdToEngineTypeTransformer $engineTypeTransformer
+        IdToEngineTypeTransformer $engineTypeTransformer,
+        IdToDriveTypeTransformer $driveTypeTransformer,
+        IdToGearBoxTypeTransformer $gearBoxTypeTransformer
     )
     {
         $this->provider = $provider;
@@ -55,6 +67,8 @@ class ClientCarType extends AbstractType
         $this->modelTransformer = $modelTransformer;
         $this->vehicleTypeTransformer = $vehicleTypeTransformer;
         $this->engineTypeTransformer = $engineTypeTransformer;
+        $this->driveTypeTransformer = $driveTypeTransformer;
+        $this->gearBoxTypeTransformer = $gearBoxTypeTransformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -64,6 +78,7 @@ class ClientCarType extends AbstractType
         $object = $object instanceof UserCar ? $object : new UserCar();
 
         $isFormSubmitted = $options["isFormSubmitted"];
+        $engineType = $object->getEngineType() ? $object->getEngineType()->getType() : null;
 
         $builder
             ->add('brand', ChoiceType::class, [
@@ -93,13 +108,28 @@ class ClientCarType extends AbstractType
             ->add('capacity', ChoiceType::class, [
                 'label' => "Объём",
                 'choices' => $this->provider->getCapacities($object->getModel(), $object->getEngineType(), true),
-            ]);
+            ])
+            ->add('engineName', ChoiceType::class, [
+                'label' => "Марка двигателя",
+                'choices' => $this->provider->getEngineNames($object->getModel(), $engineType, null, true),
+            ])
+            ->add('gearBoxType', ChoiceType::class, [
+                'label' => "Тип КПП",
+                'choices' => $this->provider->getGearBoxTypes($object->getModel(), true),
+            ])
+            ->add('driveType', ChoiceType::class, [
+                'label' => "Тип Привода",
+                'choices' => $this->provider->getDriveTypes($object->getModel(), true),
+            ])
+        ;
 
         if(!$isFormSubmitted) {
             $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($builder) {
                 /** @var UserCar $object */
                 $object = $event->getData() ?: new UserCar();
                 $form = $event->getForm();
+
+                $engineType = $object->getEngineType() ? $object->getEngineType()->getType() : null;
 
                 $form
                     ->add('brand', ChoiceType::class, [
@@ -132,7 +162,20 @@ class ClientCarType extends AbstractType
                         'label' => "Объём",
                         'choices' => $this->provider->getCapacities($object->getModel(), $object->getEngineType()),
                         'attr' => ["class" => "name-select car-form-choice-capacity"]
-                    ]);
+                    ])
+                    ->add('engineName', ChoiceType::class, [
+                        'label' => "Марка двигателя",
+                        'choices' => $this->provider->getEngineNames($object->getModel(), $engineType, null),
+                    ])
+                    ->add('gearBoxType', ChoiceType::class, [
+                        'label' => "Тип КПП",
+                        'choices' => $this->provider->getGearBoxTypes($object->getModel()),
+                    ])
+                    ->add('driveType', ChoiceType::class, [
+                        'label' => "Тип Привода",
+                        'choices' => $this->provider->getDriveTypes($object->getModel()),
+                    ])
+                ;
             });
         }
 
@@ -140,6 +183,8 @@ class ClientCarType extends AbstractType
         $builder->get('model')->addModelTransformer($this->modelTransformer);
         $builder->get('vehicle')->addModelTransformer($this->vehicleTypeTransformer);
         $builder->get('engineType')->addModelTransformer($this->engineTypeTransformer);
+        $builder->get('gearBoxType')->addModelTransformer($this->gearBoxTypeTransformer);
+        $builder->get('driveType')->addModelTransformer($this->driveTypeTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)
