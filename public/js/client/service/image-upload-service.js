@@ -25,7 +25,6 @@
 
         this.processUploadImage = function(initFile, callback) {
             let sizes = this.cropperContentSize ? [this.cropperContentSize] : null;
-            console.log(sizes);
 
             compress(initFile, sizes, function(file){
                 if(callback) {
