@@ -8,6 +8,7 @@ use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
 use App\Entity\Client\SellerData;
+use App\Entity\Client\UserCar;
 use App\Entity\EngineType;
 use App\Entity\Image;
 use App\Entity\Model;
@@ -52,23 +53,12 @@ class UserOfficeController extends Controller
         /** @var Client $client */
         $client = $this->getUser();
 
-        if($client->isSeller()){
-            $sellerCompany = $client->getSellerData()->getSellerCompany();
-        }
-        else{
-            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
-            $sellerCompany = new SellerCompany();
-            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
-        }
-
         $formPersonalData = $this->createForm(PersonalDataType::class, $client);
         $formCars = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
-        $formBusiness = $this->createForm(SellerCompanyType::class, $sellerCompany);
 
         return $this->render('client/user-office/user-base-profile.html.twig', [
             "formPersonalData" => $formPersonalData->createView(),
             "formCars" => $formCars->createView(),
-            "formBusiness" => $formBusiness->createView(),
         ]);
     }
 
@@ -129,6 +119,11 @@ class UserOfficeController extends Controller
                 if (false === $client->getCars()->contains($car)) {
                     $em->remove($car);
                 }
+            }
+
+            /** @var UserCar $car */
+            foreach ($client->getCars() as $car) {
+                $car->setClient($client);
             }
 
             $em->flush();
@@ -286,10 +281,14 @@ class UserOfficeController extends Controller
     public function getCarDataByModelAndEngineTypeAction(Request $request, SparePartAdvertDataProvider $provider)
     {
         $modelId = $request->query->get("model");
-        $engineType = $request->query->get("engine_type");
+        $engineTypeItem = $request->query->get("engine_type");
 
         $model = $this->getDoctrine()->getRepository(Model::class)->find($modelId);
-        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["type" => $engineType]);
+        $engineType = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["type" => $engineTypeItem]);
+
+        if(!$engineType){
+            $engineType = $this->getDoctrine()->getRepository(EngineType::class)->find($engineTypeItem);
+        }
 
         $data = [
             "engineCapacities" => $provider->getEngineCapacities($model, $engineType->getType()),

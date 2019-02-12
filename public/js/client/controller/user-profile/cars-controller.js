@@ -1,9 +1,9 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('CarsCtrl', ['$scope', '$http', "ProviderCarsData", function($scope, $http, ProviderCarsData) {
+    autoparusApp.controller('CarsCtrl', ['$scope', '$http', '$compile', "ProviderCarsData", function($scope, $http, $compile, ProviderCarsData) {
         const DEFAULT_OPTION = "<option value=''>Выбрать</option>";
-        const DEFAULT_LABEL = "Выбрать";
+        const DEFAULT_EMPTY_OPTION = "<option value=''></option>";
         let formSelector = null;
         let url = null;
 
@@ -53,11 +53,9 @@
             $(formSelector).find("button[type=submit]").prop("disabled", true);
 
             request(url, data, function (response) {
-                if(response.data.success){
+                let el = $compile(response.data)( $scope );
 
-                }
-
-                $("#form-cars-container").html(response.data);
+                $("#form-cars-container").html("").append(el);
                 handleForm();
 
                 $(formSelector).find("button[type=submit]").prop("disabled", false);
@@ -69,10 +67,10 @@
                 let collectionHolder = $("#cars-container");
                 let addCarButton = $("#add-new-car-button");
 
-                collectionHolder.data('index', collectionHolder.find('ul').length);
+                collectionHolder.data('index', collectionHolder.find('.car-container').length);
 
                 addCarButton.click(function(e) {
-                    if(collectionHolder.find('ul').length < 5) {
+                    if(collectionHolder.find('.car-container').length < 5) {
                         addCarForm(collectionHolder);
                     }
                     else{
@@ -80,9 +78,15 @@
                     }
                 });
 
-                updateRemoveButtons();
+                $("body").on('click', ".remove-car-button", function(e) {
+                    $(this).parents(".car-container").remove();
 
-                if(!collectionHolder.find('ul').length) {
+                    if($("#cars-container").find('.car-container').length < 5) {
+                        $("#add-new-car-button").show();
+                    }
+                });
+
+                if(!collectionHolder.find('.car-container').length) {
                     addCarButton.trigger("click");
                 }
             });
@@ -93,7 +97,7 @@
             let index = collectionHolder.data('index');
             let newForm = prototype;
 
-            if(collectionHolder.find('ul').length === 4){
+            if(collectionHolder.find('.car-container').length === 4){
                 $("#add-new-car-button").hide();
             }
 
@@ -102,18 +106,6 @@
             collectionHolder.data('index', index + 1);
 
             collectionHolder.append(newForm);
-
-            updateRemoveButtons();
-        }
-
-        function updateRemoveButtons() {
-            $(".remove-car-button").on('click', function(e) {
-                $(this).parents("ul.car-container").remove();
-
-                if($("#cars-container").find('ul').length < 5) {
-                    $("#add-new-car-button").show();
-                }
-            });
         }
 
         function initAutoSelects() {
@@ -121,16 +113,16 @@
                 .on("change", ".car-form-choice-brand", function(){
                     let element = $(this);
 
-                    updateBrand(element.val(), element.parents("ul.car-container"));
+                    updateBrand(element.val(), element.parents(".car-container"));
                 })
                 .on("change", ".car-form-choice-model", function(){
                     let element = $(this);
 
-                    updateModel(element.val(), element.parents("ul.car-container"));
+                    updateModel(element.val(), element.parents(".car-container"));
                 })
                 .on("change", ".car-form-choice-engine-type", function(){
                     let element = $(this);
-                    let container = element.parents("ul.car-container");
+                    let container = element.parents(".car-container");
 
                     updateEngineType(element.val(), container.find(".car-form-choice-model").val(), container);
                 })
@@ -141,10 +133,13 @@
                 let modelsElement = container.find(".car-form-choice-model");
                 modelsElement.html("").attr("disabled", false);
 
-                container.find(".car-form-choice-year").html(DEFAULT_OPTION).attr("disabled", true);
+                container.find(".car-form-choice-year").html(DEFAULT_EMPTY_OPTION).attr("disabled", true);
                 container.find(".car-form-choice-vehicle").html(DEFAULT_OPTION).attr("disabled", true);
                 container.find(".car-form-choice-engineType").html(DEFAULT_OPTION).attr("disabled", true);
-                container.find(".car-form-choice-capacity").html(DEFAULT_OPTION).attr("disabled", true);
+                container.find(".car-form-choice-capacity").html(DEFAULT_EMPTY_OPTION).attr("disabled", true);
+                container.find(".car-form-choice-engine-name").html(DEFAULT_EMPTY_OPTION).attr("disabled", true);
+                container.find(".car-form-choice-gear-box-type").html(DEFAULT_OPTION).attr("disabled", true);
+                container.find(".car-form-choice-drive-type").html(DEFAULT_OPTION).attr("disabled", true);
 
                 for(let label in options){
                     modelsElement.append($("<option value='" + options[label] + "'>" + label + "</option>"))
@@ -153,56 +148,64 @@
         }
 
         function updateModel(model, container) {
-            ProviderCarsData.getYears(model).then(function(options){
-                let keysSorted = Object.keys(options).sort(function(a, b){
-                    if(a === DEFAULT_LABEL){
-                        return false;
-                    }
-
-                    if(b === DEFAULT_LABEL){
-                        return true;
-                    }
-
-                    return a > b;
-                });
-
-                let yearsElement = container.find(".car-form-choice-year");
-                yearsElement.html("").attr("disabled", false);
-
-                keysSorted.forEach(function(item){
-                    yearsElement.append($("<option value='" + options[item] + "'>" + item + "</option>"))
-                });
-            });
-
-            ProviderCarsData.getVehicles(model).then(function(options){
-                let vehiclesElement = container.find(".car-form-choice-vehicle");
-                vehiclesElement.html("").attr("disabled", false);
-
-                for(let label in options){
-                    vehiclesElement.append($("<option value='" + options[label] + "'>" + label + "</option>"))
-                }
-            });
-
             ProviderCarsData.getEngineTypes(model).then(function(options){
-                let engineTypesElement = container.find(".car-form-choice-engine-type");
-                engineTypesElement.html("").attr("disabled", false);
-                container.find(".car-form-choice-capacity").html(DEFAULT_OPTION).attr("disabled", true);
+                setEngineTypes(options, container);
+            });
 
-                for(let label in options){
-                    engineTypesElement.append($("<option value='" + options[label] + "'>" + label + "</option>"))
-                }
+            ProviderCarsData.getCarDataByModel(model).then(function(options){
+                setYears(options["years"], container);
+                setTypesByModel(options["vehicleTypes"], container, ".car-form-choice-vehicle");
+                setTypesByModel(options["gearBoxTypes"], container, ".car-form-choice-gear-box-type");
+                setTypesByModel(options["driveTypes"], container, ".car-form-choice-drive-type");
             });
         }
 
         function updateEngineType(engineType, model, container) {
-            ProviderCarsData.getCapacities(model, engineType).then(function(options){
-                let capacitiesElement = container.find(".car-form-choice-capacity");
-                capacitiesElement.html("").attr("disabled", false);
-
-                for(let label in options){
-                    capacitiesElement.append($("<option value='" + options[label] + "'>" + label + "</option>"))
-                }
+            ProviderCarsData.getCarDataByModelAndEngineType(model, engineType).then(function(options){
+                setTypesByModel(options["engineCapacities"], container, ".car-form-choice-capacity");
+                setTypesByModel(options["engineNames"], container, ".car-form-choice-engine-name");
             });
+        }
+
+        function setYears(options, container) {
+            let keysSorted = Object.keys(options).sort(function(a, b){
+                if(a === ""){
+                    return -1;
+                }
+
+                if(b === ""){
+                    return 1;
+                }
+
+                return a < b ? 1 : -1;
+            });
+
+            let yearsElement = container.find(".car-form-choice-year");
+            yearsElement.html("").attr("disabled", false);
+
+            keysSorted.forEach(function(item){
+                yearsElement.append($("<option value='" + options[item] + "'>" + item + "</option>"))
+            });
+        }
+
+        function setTypesByModel(options, container, elementSelector) {
+            let element = container.find(elementSelector);
+            element.html("").attr("disabled", false);
+
+            for(let label in options){
+                element.append($("<option value='" + options[label] + "'>" + label + "</option>"))
+            }
+        }
+
+        function setEngineTypes(options, container) {
+            let engineTypesElement = container.find(".car-form-choice-engine-type");
+            engineTypesElement.html("").attr("disabled", false);
+            container.find(".car-form-choice-capacity").html(DEFAULT_EMPTY_OPTION).attr("disabled", true);
+            container.find(".car-form-choice-engine-name").html(DEFAULT_EMPTY_OPTION).attr("disabled", true);
+
+            for(let label in options){
+                engineTypesElement.append($("<option value='" + options[label] + "'>" + label + "</option>"))
+            }
         }
 
         this.init = init;

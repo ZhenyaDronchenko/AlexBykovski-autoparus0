@@ -53,6 +53,13 @@ class Client extends User
     private $country;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $address;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(type="boolean", options={"default" : false})
@@ -227,6 +234,22 @@ class Client extends User
     public function setGallery(Gallery $gallery): void
     {
         $this->gallery = $gallery;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param null|string $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
     }
 
     public function isProfileEdited()

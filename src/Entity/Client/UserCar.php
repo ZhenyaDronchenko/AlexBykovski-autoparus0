@@ -3,7 +3,9 @@
 namespace App\Entity\Client;
 
 use App\Entity\Brand;
+use App\Entity\DriveType;
 use App\Entity\EngineType;
+use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\VehicleType;
 use Doctrine\ORM\Mapping as ORM;
@@ -68,6 +70,29 @@ class UserCar
      * @ORM\Column(type="string", nullable=true)
      */
     private $capacity;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $engineName;
+
+    /**
+     * @var GearBoxType|null|string
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\GearBoxType")
+     * @ORM\JoinColumn(name="gear_box_type_id", referencedColumnName="id", nullable=true)
+     */
+    private $gearBoxType;
+
+    /**
+     * @var DriveType|null|string
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\DriveType")
+     * @ORM\JoinColumn(name="drive_type_id", referencedColumnName="id", nullable=true)
+     */
+    private $driveType;
 
     /**
      * @var Client
@@ -203,5 +228,53 @@ class UserCar
     public function setCapacity(?string $capacity): void
     {
         $this->capacity = $capacity;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEngineName(): ?string
+    {
+        return $this->engineName;
+    }
+
+    /**
+     * @param null|string $engineName
+     */
+    public function setEngineName(?string $engineName): void
+    {
+        $this->engineName = $engineName;
+    }
+
+    /**
+     * @return GearBoxType|null|string
+     */
+    public function getGearBoxType()
+    {
+        return $this->gearBoxType;
+    }
+
+    /**
+     * @param GearBoxType|null|string $gearBoxType
+     */
+    public function setGearBoxType($gearBoxType): void
+    {
+        $this->gearBoxType = $gearBoxType;
+    }
+
+    /**
+     * @return DriveType|null|string
+     */
+    public function getDriveType()
+    {
+        return $this->driveType;
+    }
+
+    /**
+     * @param DriveType|null|string $driveType
+     */
+    public function setDriveType($driveType): void
+    {
+        $this->driveType = $driveType;
     }
 }

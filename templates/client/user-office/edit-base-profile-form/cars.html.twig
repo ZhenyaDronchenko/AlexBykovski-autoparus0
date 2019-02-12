@@ -1,83 +1,111 @@
 <div id="car-prototype-container" style="display: none;">
     {% set prototype = form.cars.vars.prototype %}
-    <ul class="profil-list car-container">
-        <li class="profil-option profil-option--1">
-            <span class="name">{{ prototype.brand.vars.label }}</span>
-            {{ form_widget(prototype.brand, {attr: {class: "name-select car-form-choice-brand"}}) }}
-        </li>
-        <li class="profil-option profil-option--2">
-            <span class="name">{{ prototype.model.vars.label }}</span>
-            {{ form_widget(prototype.model, {attr: {"disabled" :  true, class: "name-select car-form-choice-model"}}) }}
-        </li>
-        <li class="profil-option profil-option--3">
-            <span class="name">{{ prototype.year.vars.label }}</span>
-            {{ form_widget(prototype.year, {attr: {"disabled" :  true, class: "name-select name-select--1 car-form-choice-year"}}) }}
-        </li>
-        <li class="profil-option">
-            <span class="name">{{ prototype.vehicle.vars.label }}</span>
-            {{ form_widget(prototype.vehicle, {attr: {"disabled" :  true, class: "name-select car-form-choice-vehicle"}}) }}
-        </li>
-        <li class="profil-option profil-option--2">
-            <span class="name">{{ prototype.engineType.vars.label }}</span>
-            {{ form_widget(prototype.engineType, {attr: {"disabled" :  true, class: "name-select car-form-choice-engine-type"}}) }}
-        </li>
-        <li class="profil-option profil-option--4">
-            <span class="name">{{ prototype.capacity.vars.label }}</span>
-            {{ form_widget(prototype.capacity, {attr: {"disabled" :  true, class: "name-select name-select--1 car-form-choice-capacity"}}) }}
-        </li>
-        <li class="profil-option">
-            <button type="button" class="moreinfo remove-car-button"><i class="fa fa-minus" aria-hidden="true"></i>Удалить</button>
-        </li>
-    </ul>
+    <div class="select car-container">
+        <label>{{ prototype.brand.vars.label }}
+            {{ form_widget(prototype.brand, {attr: {class: "mark-select car-form-choice-brand"}}) }}
+        </label>
+        <label>{{ prototype.model.vars.label }}
+            {{ form_widget(prototype.model, {attr: {"disabled" :  true, class: "model-select car-form-choice-model"}}) }}
+        </label>
+        <label>{{ prototype.year.vars.label }}
+            {{ form_widget(prototype.year, {attr: {"disabled" :  true, class: "year-select car-form-choice-year"}}) }}
+        </label>
+        <label>{{ prototype.engineType.vars.label }}
+            {{ form_widget(prototype.engineType, {attr: {"disabled" :  true, class: "engine-select car-form-choice-engine-type"}}) }}
+        </label>
+        <label>{{ prototype.capacity.vars.label }}
+            {{ form_widget(prototype.capacity, {attr: {"disabled" :  true, class: "volume-select car-form-choice-capacity"}}) }}
+        </label>
+        <label>{{ prototype.engineName.vars.label }}
+            {{ form_widget(prototype.engineName, {attr: {"disabled" :  true, class: "type-select car-form-choice-engine-name"}}) }}
+        </label>
+        <label>{{ prototype.vehicle.vars.label }}
+            {{ form_widget(prototype.vehicle, {attr: {"disabled" :  true, class: "body-select car-form-choice-vehicle"}}) }}
+        </label>
+        <label>{{ prototype.gearBoxType.vars.label }}
+            {{ form_widget(prototype.gearBoxType, {attr: {"disabled" :  true, class: "kpp-select car-form-choice-gear-box-type"}}) }}
+        </label>
+        <label>{{ prototype.driveType.vars.label }}
+            {{ form_widget(prototype.driveType, {attr: {"disabled" :  true, class: "drive-select car-form-choice-drive-type"}}) }}
+        </label>
+
+        <button class="btn remove-car-button" type="button">
+            <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
+                <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
+                <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
+            </svg>
+            Удалить транспортное средство
+        </button>
+    </div>
 </div>
 
-<form id="cars-form" method="post" novalidate enctype="multipart/form-data">
+<form {% if isValid %} redirect-to-url redirect-url="{{ path("show_user_office") }}" {% endif %} id="cars-form" class="user-form" style="padding-top: 0;" action="#" method="post" novalidate>
     {{ form_widget(form._token) }}
-    <fieldset class="car">
-        <legend class="profil-title">Авто - Мото</legend>
-
-        <div id="cars-container" class="moreinfoblock">
-            {% for car in form.cars %}
-                {% set isChosenBrand = car.brand.vars.value %}
-                {% set isChosenModel = car.model.vars.value %}
-                {% set isChosenEngineType = car.engineType.vars.value %}
-                <ul class="profil-list car-container">
-                    <li class="profil-option profil-option--1">
-                        <span class="name">{{ car.brand.vars.label }}</span>
-                        {{ form_widget(car.brand, {attr: {class: "name-select car-form-choice-brand"}}) }}
-                    </li>
-                    <li class="profil-option profil-option--2">
-                        <span class="name">{{ car.model.vars.label }}</span>
-                        {{ form_widget(car.model, {attr: {"disabled" :  not isChosenBrand, class: "name-select car-form-choice-model"}}) }}
-                    </li>
-                    <li class="profil-option profil-option--3">
-                        <span class="name">{{ car.year.vars.label }}</span>
-                        {{ form_widget(car.year, {attr: {"disabled" :  not isChosenModel, class: "name-select name-select--1 car-form-choice-year"}}) }}
-                    </li>
-                    <li class="profil-option">
-                        <span class="name">{{ car.vehicle.vars.label }}</span>
-                        {{ form_widget(car.vehicle, {attr: {"disabled" :  not isChosenModel, class: "name-select car-form-choice-vehicle"}}) }}
-                    </li>
-                    <li class="profil-option profil-option--2">
-                        <span class="name">{{ car.engineType.vars.label }}</span>
-                        {{ form_widget(car.engineType, {attr: {"disabled" :  not isChosenModel, class: "name-select car-form-choice-engine-type"}}) }}
-                    </li>
-                    <li class="profil-option profil-option--4">
-                        <span class="name">{{ car.capacity.vars.label }}</span>
-                        {{ form_widget(car.capacity, {attr: {"disabled" :  not isChosenModel and not isChosenEngineType, class: "name-select name-select--1 car-form-choice-capacity"}}) }}
-                    </li>
-                    <li class="profil-option">
-                        <button type="button" class="moreinfo remove-car-button"><i class="fa fa-minus" aria-hidden="true"></i>   Удалить</button>
-                    </li>
-                </ul>
-            {% endfor %}
-        </div>
-        <div class="btn-wrapper">
-            <button id="add-new-car-button" type="button" class="moreinfo" style="{{ form.cars | length < 5 ? "" : "display: none;" }}"><i class="fa fa-plus" aria-hidden="true"></i>   Добавить еще</button>
-        </div>
+    <fieldset class="block" id="cars-container">
+        <h2 class="title" data-text="Ваша авто-мото техника">
+            <sup>
+                <button id="open-overlay3" class="help" type="button">
+                    <svg viewBox="0 0 32 32" width="18px" height="18px">
+                        <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                    </svg>
+                </button>
+            </sup>
+        </h2>
+        {% for car in form.cars %}
+            {% set isChosenBrand = car.brand.vars.value %}
+            {% set isChosenModel = car.model.vars.value %}
+            {% set isChosenEngineType = car.engineType.vars.value %}
+            <div class="select car-container">
+                <label>{{ car.brand.vars.label }}
+                    {{ form_widget(car.brand, {attr: {class: "mark-select car-form-choice-brand"}}) }}
+                </label>
+                <label>{{ car.model.vars.label }}
+                    {{ form_widget(car.model, {attr: {"disabled" :  not isChosenBrand, class: "model-select car-form-choice-model"}}) }}
+                </label>
+                <label>{{ car.year.vars.label }}
+                    {{ form_widget(car.year, {attr: {"disabled" :  not isChosenModel, class: "year-select car-form-choice-year"}}) }}
+                </label>
+                <label>{{ car.engineType.vars.label }}
+                    {{ form_widget(car.engineType, {attr: {"disabled" :  not isChosenModel, class: "engine-select car-form-choice-engine-type"}}) }}
+                </label>
+                <label>{{ car.capacity.vars.label }}
+                    {{ form_widget(car.capacity, {attr: {"disabled" :  not isChosenModel or not isChosenEngineType, class: "volume-select car-form-choice-capacity"}}) }}
+                </label>
+                <label>{{ car.engineName.vars.label }}
+                    {{ form_widget(car.engineName, {attr: {"disabled" :  not isChosenModel or not isChosenEngineType, class: "type-select car-form-choice-engine-name"}}) }}
+                </label>
+                <label>{{ car.vehicle.vars.label }}
+                    {{ form_widget(car.vehicle, {attr: {"disabled" :  not isChosenModel, class: "body-select car-form-choice-vehicle"}}) }}
+                </label>
+                <label>{{ car.gearBoxType.vars.label }}
+                    {{ form_widget(car.gearBoxType, {attr: {"disabled" :  not isChosenModel, class: "kpp-select car-form-choice-gear-box-type"}}) }}
+                </label>
+                <label>{{ car.driveType.vars.label }}
+                    {{ form_widget(car.driveType, {attr: {"disabled" :  not isChosenModel, class: "drive-select car-form-choice-drive-type"}}) }}
+                </label>
+                <button class="btn remove-car-button" type="button">
+                    <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
+                        <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
+                        <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
+                    </svg>
+                    Удалить транспортное средство
+                </button>
+            </div>
+        {% endfor %}
     </fieldset>
-    {{ form_widget(form.submit, {attr: {class: "btn-filter", "label": "Сохранить"}}) }}
-    {% if isValid %}
-        <span id="save-car-form-confirmation" class="check check-on">Сохранение принято</span>
-    {% endif %}
+    <button id="add-new-car-button" type="button" class="btn btn--m" style="{{ form.cars | length < 5 ? "" : "display: none;" }}">
+        <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"/>
+            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
+        </svg> Добавить еще авто или мото
+    </button>
+
+    <div class="business-btn">
+        {{ form_widget(form.submit, {attr: {class: "btn-filter"}, "label": "Подтвердить и сохранить"}) }}
+        {% if isValid %}
+            <span id="check check-on" class="check check-on">Сохранение принято</span>
+        {% endif %}
+    </div>
+    <div class="modal-text">{{ default_text(11).text | raw }}</div>
 </form>
