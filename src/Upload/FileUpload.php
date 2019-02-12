@@ -26,7 +26,8 @@ class FileUpload
         'image/jpeg',
         'image/jpg',
         'image/png',
-        'image/gif'
+        'image/gif',
+        'image/webp'
     );
 
     private $filesystem;
