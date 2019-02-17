@@ -37,20 +37,20 @@
                        method-search="searchSpareParts" identifier-field="spare-part-autocomplete"
                        name="search" placeholder="Наименование запчасти">
             </form>
-            <div class="model-block" ng-cloak>
-                <ul class='show' id='model' ng-show="showAll">
+            <div class="model-block" ng-cloak scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <ul class='show-m' id='model' ng-show="showAll">
                     {% for sparePart in allSpareParts %}
                         <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
                     {% endfor %}
                 </ul>
-                <ul class='show' id='model' ng-hide="showAll">
+                <ul class='show-m' id='model' ng-hide="showAll">
                     {% for sparePart in popularSpareParts %}
                         <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
                     {% endfor %}
                 </ul>
 
-                <button id='button-mod' type="button" ng-hide="showAll" ng-click="showAll = true">Показать все запчасти</button>
-                <button id='button-mod' type="button" ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все запчасти</button>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 
             <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
