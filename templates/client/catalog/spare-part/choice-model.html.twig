@@ -8,6 +8,7 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
+
     <main class="container" ng-init="showAll = false; hideTextClass = 'text1Hide';">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -23,7 +24,7 @@
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="link-b" href="{{ path("show_spare_part_catalog_choice_spare_part") }}" itemprop="item" title="Запчасти для автомобилей">/ <span itemprop="name">Запчасти</span></a><meta itemprop="position" content="2"></li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}" itemprop="item" title="{{ sparePart.name }}">/ <span itemprop="name">{{ sparePart.alternativeName5 }}</span></a><meta itemprop="position" content="3"></li>
+                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}" itemprop="item" title="{{ sparePart.name }}">/ <span itemprop="name">{{ sparePart.alternativeName5 }}</span></a><meta itemprop="position" content="3"></li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" nohref itemprop="item">/ <span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="4"></a>
             </li>

@@ -132,9 +132,14 @@ class SparePartCatalogController extends Controller
             ["name" => "ASC"]
         );
 
+        $regionalCities = $em->getRepository(City::class)->findBy(
+            ["type" => City::REGIONAL_CITY_TYPE],
+            ["name" => "ASC"]
+        );
+
         $othersCities = $em->getRepository(City::class)->findBy(
             [
-                "type" => [City::REGIONAL_CITY_TYPE, City::OTHERS_TYPE],
+                "type" => City::OTHERS_TYPE,
                 "active" => true,
             ],
             ["name" => "ASC"]
@@ -145,7 +150,11 @@ class SparePartCatalogController extends Controller
 
         return $this->render('client/catalog/spare-part/choice-city.html.twig', [
             'capitals' => $capitals,
+            'regionalCities' => $regionalCities,
             'otherCities' => $othersCities,
+            'brand' => $brand,
+            'sparePart' => $sparePart,
+            'model' => $model instanceof Model ? $model : null,
             'page' => $transformer->transformPage($page, $transformParameters),
         ]);
     }
