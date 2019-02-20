@@ -2,10 +2,12 @@
 
 namespace App\Repository\Advert\AutoSparePart;
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityRepository;
 
 class AutoSparePartGeneralAdvertRepository extends EntityRepository
@@ -52,5 +54,18 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
 
         return $q->getQuery()
             ->getResult();
+    }
+
+    public function findAllForCatalog(CatalogAdvertFilterType $filterType)
+    {
+        $sparePart = $filterType->getSparePart();
+        $brand = $filterType->getBrand();
+        $model = $filterType->getModel();
+        $city = $filterType->getCity();
+        $stockTypes = $filterType->getInStock() ?
+            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
+            [AutoSparePartSpecificAdvert::IN_STOCK_TYPE];
+
+        return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes);
     }
 }

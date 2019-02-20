@@ -11,11 +11,13 @@ use Symfony\Component\DomCrawler\Crawler;
 class BamperSuggestionProvider
 {
     const URL_TEMPLATE = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/podzakaz_1/?sort=PRICE-ASC";
+    const URL_TEMPLATE_ALL_STOCK = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/?sort=PRICE-ASC";
     //const URL_TEMPLATE = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/podzakaz_1/?sort=PRICE_ASC";
     const URL_TEMPLATE_WITH_CITY = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/gorod_%s/podzakaz_1/?sort=PRICE-ASC";
+    const URL_TEMPLATE_WITH_CITY_ALL_STOCK = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/gorod_%s/?sort=PRICE-ASC";
     const URL_BASE = "https://bamper.by";
 
-    public function provide(Brand $brand, ?Model $model, SparePart $sparePart, City $city = null)
+    public function provide(Brand $brand, ?Model $model, SparePart $sparePart, City $city = null, $inStock = true)
     {
         if(!$brand || !$model || !$sparePart){
             return [];
@@ -24,7 +26,7 @@ class BamperSuggestionProvider
         $cityUrl = $city instanceof City ? $city->getUrlConnectBamperIncludeBase() : null;
         $modelYearFrom = $model->getTechnicalData()->getYearFrom();
         $modelYearTo = $model->getTechnicalData()->getYearTo();
-        $crawler = $this->getExternalData($brand->getUrlConnectBamperIncludeBase(), $model->getUrlConnectBamperIncludeBase(), $modelYearFrom, $modelYearTo, $sparePart->getUrlConnectBamperIncludeBase(), $cityUrl);
+        $crawler = $this->getExternalData($brand->getUrlConnectBamperIncludeBase(), $model->getUrlConnectBamperIncludeBase(), $modelYearFrom, $modelYearTo, $sparePart->getUrlConnectBamperIncludeBase(), $cityUrl, $inStock);
 
         $suggestions = $this->parseSuggestions($crawler);
 
@@ -48,14 +50,9 @@ class BamperSuggestionProvider
         return $phones;
     }
 
-    protected function getExternalData($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl)
+    protected function getExternalData($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock)
     {
-        if($cityUrl){
-            $url = sprintf(self::URL_TEMPLATE_WITH_CITY, $sparePartUrl, $brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $cityUrl);
-        }
-        else{
-            $url = sprintf(self::URL_TEMPLATE, $sparePartUrl, $brandUrl, $modelUrl, $modelYearFrom, $modelYearTo);
-        }
+        $url = $this->generateUrl($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock);
 
         $response = $this->request($url);
 
@@ -69,6 +66,19 @@ class BamperSuggestionProvider
         }
 
         return $crawler->filter('#allAds > div.item-list');
+    }
+
+    protected function generateUrl($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock)
+    {
+        $withCityTemplate = $inStock ? self::URL_TEMPLATE_WITH_CITY : self::URL_TEMPLATE_WITH_CITY_ALL_STOCK;
+        $withoutCityTemplate = $inStock ? self::URL_TEMPLATE : self::URL_TEMPLATE_ALL_STOCK;
+
+        if($cityUrl){
+            return sprintf($withCityTemplate, $sparePartUrl, $brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $cityUrl);
+        }
+        else{
+            return sprintf($withoutCityTemplate, $sparePartUrl, $brandUrl, $modelUrl, $modelYearFrom, $modelYearTo);
+        }
     }
 
     protected function parseSuggestions(Crawler $crawler)
