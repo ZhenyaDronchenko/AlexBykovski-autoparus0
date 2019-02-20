@@ -245,13 +245,13 @@
 .star {
     width: 15px;
     height: 15px;
-    background: url("../img/Stars.svg") 0 0 no-repeat;
+    background: url("/img/Stars.svg") 0 0 no-repeat;
     margin-right: 3px;
 }
 .rev {
     width: 15px;
     height: 15px;
-    background: url("../img/Stars.svg") -15px 0 no-repeat;
+    background: url("/img/Stars.svg") -15px 0 no-repeat;
     margin-right: 3px;
 }
 .review-text {
@@ -929,7 +929,7 @@
     .card-contact {
         margin: 0 auto;
         margin-bottom: 10px;
-        width: 210px;
+        width: 220px;
     }
 
     .adress {
@@ -1140,7 +1140,7 @@
         text-align: center;
     }
     .card-contact {
-        width: 260px;
+        width: 270px;
         margin: 0 auto;
         margin-bottom: 10px;
     }

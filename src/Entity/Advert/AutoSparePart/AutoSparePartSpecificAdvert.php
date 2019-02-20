@@ -17,12 +17,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AutoSparePartSpecificAdvert
 {
+    const IN_STOCK_TYPE = "in_stock";
+    const UNDER_ORDER_TYPE = "under_order";
+
     const CONDITIONS_FORM = [
         "used" => "Б/У",
         "new" => "Новая(й)",
     ];
 
     const STOCK_TYPES_FORM = [
+        self::IN_STOCK_TYPE => "В наличии",
+        self::UNDER_ORDER_TYPE => "На заказ",
+    ];
+
+    const CONDITIONS_CLIENT_VIEW = [
+        "used" => "Б/У",
+        "new" => "Новые",
+    ];
+
+    const STOCK_TYPES_CLIENT_VIEW = [
         "in_stock" => "В наличии",
         "under_order" => "На заказ",
     ];
@@ -587,5 +600,20 @@ class AutoSparePartSpecificAdvert
             "isActive" => $this->isActive,
             "activatedAt" => $this->activatedAt->format("d.m.Y"),
         ];
+    }
+
+    public function getStockTypeView()
+    {
+        return self::STOCK_TYPES_CLIENT_VIEW[$this->stockType];
+    }
+
+    public function getConditionTypeView()
+    {
+        return self::CONDITIONS_CLIENT_VIEW[$this->condition];
+    }
+
+    public function getConditionStockView()
+    {
+        return $this->getStockTypeView() . ', ' . $this->getConditionTypeView();
     }
 }

@@ -15,7 +15,7 @@ class BamperSuggestionProvider
     const URL_TEMPLATE_WITH_CITY = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/gorod_%s/podzakaz_1/?sort=PRICE-ASC";
     const URL_BASE = "https://bamper.by";
 
-    public function provide(Brand $brand, Model $model, SparePart $sparePart, City $city = null)
+    public function provide(Brand $brand, ?Model $model, SparePart $sparePart, City $city = null)
     {
         if(!$brand || !$model || !$sparePart){
             return [];

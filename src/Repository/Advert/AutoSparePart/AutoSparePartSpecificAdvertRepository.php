@@ -2,16 +2,15 @@
 
 namespace App\Repository\Advert\AutoSparePart;
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
-use App\Entity\City;
 use App\Entity\Client\Client;
-use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
 use App\Type\AutoSparePartSpecificAdvertFilterType;
+use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\QueryBuilder;
 
 class AutoSparePartSpecificAdvertRepository extends EntityRepository
 {
@@ -84,6 +83,43 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
         return $qb->select('COUNT(spAdv) as count')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function findAllForCatalog(CatalogAdvertFilterType $filterType)
+    {
+        $qb = $this->createQueryBuilder('spAdv');
+
+        if($filterType->getBrand()){
+            $qb->andWhere("spAdv.brand = :brand")
+                ->setParameter("brand", $filterType->getBrand());
+        }
+
+        if($filterType->getModel()){
+            $qb->andWhere("spAdv.model = :model")
+                ->setParameter("model", $filterType->getModel());
+        }
+
+        if($filterType->getSparePart()){
+            $qb->andWhere("spAdv.sparePart = :sparePart")
+                ->setParameter("sparePart", $filterType->getSparePart()->getName());
+        }
+
+        if($filterType->getCity()){
+            $qb->join("spAdv.sellerAdvertDetail", "sad")
+                ->join("sad.sellerData", "sd")
+                ->join("sd.sellerCompany", "sc")
+                ->andWhere("sc.city = :city")
+                ->setParameter("city", $filterType->getCity()->getName());
+        }
+
+        if($filterType->getInStock() !== null){
+            $qb->andWhere("spAdv.stockType = :inStock")
+                ->setParameter("inStock", $filterType->getInStock() ?
+                    AutoSparePartSpecificAdvert::IN_STOCK_TYPE : AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE);
+        }
+
+        return $qb->getQuery()
+            ->getResult();
     }
 
     protected function getBaseFilterSearch(AutoSparePartSpecificAdvertFilterType $filterType)
