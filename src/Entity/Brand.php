@@ -290,10 +290,10 @@ class Brand implements VariableInterface
         $this->models = $models;
     }
 
-    public function toSearchArray()
+    public function toSearchArray($isRussianText = false)
     {
         return [
-            "label" => $this->name,
+            "label" => $isRussianText ? $this->brandRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
         ];

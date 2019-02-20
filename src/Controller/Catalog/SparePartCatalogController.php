@@ -194,8 +194,12 @@ class SparePartCatalogController extends Controller
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
         $bamberSuggestions = $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject, false);
 
+        $pageTransformed = $transformer->transformPage($page, $transformParameters);
+        $pageTransformed->setReturnButtonLink($transformer->transformPage($page->getReturnButtonLink(), $transformParameters));
+        $pageTransformed->setReturnButtonText($transformer->transformPage($page->getReturnButtonText(), $transformParameters));
+
         return $this->render('client/catalog/spare-part/in-stock.html.twig', [
-            'page' => $transformer->transformPage($page, $transformParameters),
+            'page' => $pageTransformed,
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $modelObject,
@@ -246,8 +250,12 @@ class SparePartCatalogController extends Controller
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
         $bamberSuggestions = $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject);
 
+        $pageTransformed = $transformer->transformPage($page, $transformParameters);
+        $pageTransformed->setReturnButtonLink($transformer->transformPage($page->getReturnButtonLink(), $transformParameters));
+        $pageTransformed->setReturnButtonText($transformer->transformPage($page->getReturnButtonText(), $transformParameters));
+
         return $this->render('client/catalog/spare-part/final-page.html.twig', [
-            'page' => $transformer->transformPage($page, $transformParameters),
+            'page' => $pageTransformed,
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $modelObject,

@@ -319,7 +319,7 @@
             {% endif %}
             <h2 class='year-subtitle' data-text="{{ page.headline2 }}"></h2>
             <div class='year-subtext'>{{ page.text2 | raw }}</div>
-            {#<button class="un-btn">Универсальная кнопка</button>#}
+            <a href="{{ page.returnButtonLink }}"><button class="un-btn">{{ page.returnButtonText | raw }}</button></a>
         </section>
     </main>
 

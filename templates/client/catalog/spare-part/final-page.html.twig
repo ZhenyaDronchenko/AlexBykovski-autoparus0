@@ -47,7 +47,7 @@
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
             </div>
-            {#<button type="submit" class="button">Универсальная кнопка</button>#}
+            <a href="{{ page.returnButtonLink }}"><button class="button">{{ page.returnButtonText | raw }}</button></a>
 
             {% for advert in specificAdverts %}
                 {% set sellerData = advert.sellerAdvertDetail.sellerData %}
@@ -322,7 +322,7 @@
             {% endif %}
             <h2 class='year-subtitle' data-text="{{ page.headline2 }}"></h2>
             <div class='year-subtext'>{{ page.text2 | raw }}</div>
-            {#<button class="un-btn">Универсальная кнопка</button>#}
+            <a href="{{ page.returnButtonLink }}"><button class="un-btn">{{ page.returnButtonText | raw }}</button></a>
         </section>
     </main>
 
