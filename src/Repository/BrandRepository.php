@@ -10,11 +10,13 @@ class BrandRepository extends EntityRepository
      * @param string $text
      * @return array
      */
-    public function searchByText($text)
+    public function searchByText($text, $isRussianText = false)
     {
+        $searchField = $isRussianText ? "br.brandRu" : "br.name";
+
         return $this->createQueryBuilder('br')
             ->select('br')
-            ->where("br.name LIKE :text")
+            ->where($searchField . " LIKE :text")
             ->andWhere("br.active = :trueValue")
             ->setParameter("trueValue", true)
             ->setParameter("text", '%' . $text . '%')

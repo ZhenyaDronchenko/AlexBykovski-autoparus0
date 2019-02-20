@@ -53,13 +53,15 @@ class SearchController extends Controller
             return new JsonResponse([]);
         }
 
-        $brands = $this->getDoctrine()->getRepository(Brand::class)->searchByText($text);
+        $isRussianText = preg_match('/[А-Яа-яЁё]/u', $text);
+
+        $brands = $this->getDoctrine()->getRepository(Brand::class)->searchByText($text, $isRussianText);
 
         $parsedBrands= [];
 
         /** @var Brand $brand */
         foreach ($brands as $brand){
-            $parsedBrands[] = $brand->toSearchArray();
+            $parsedBrands[] = $brand->toSearchArray($isRussianText);
         }
 
         return new JsonResponse($parsedBrands);

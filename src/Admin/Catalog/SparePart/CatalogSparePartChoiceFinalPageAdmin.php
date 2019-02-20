@@ -20,6 +20,8 @@ class CatalogSparePartChoiceFinalPageAdmin extends AbstractAdmin
         $formMapper->add('headline2', TextType::class, ['label' => 'Заголовок 2']);
         $formMapper->add('text2', CKEditorType::class, ['label' => 'Текст 2']);
         $formMapper->add('text3', CKEditorType::class, ['label' => 'Текст 3']);
+        $formMapper->add('returnButtonText', TextType::class, ['label' => 'Надпись на универсальной кнопке']);
+        $formMapper->add('returnButtonLink', TextType::class, ['label' => 'Адрес направления универсальной кнопки']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

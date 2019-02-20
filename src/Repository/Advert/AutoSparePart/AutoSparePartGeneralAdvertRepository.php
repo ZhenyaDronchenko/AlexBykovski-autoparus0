@@ -2,10 +2,12 @@
 
 namespace App\Repository\Advert\AutoSparePart;
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityRepository;
 
 class AutoSparePartGeneralAdvertRepository extends EntityRepository
@@ -19,21 +21,27 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
      *
      * @return array
      */
-    public function findByParameters(SparePart $sparePart, Brand $brand, Model $model, City $city = null, $stockTypes = null)
+    public function findByParameters(SparePart $sparePart, Brand $brand, Model $model = null , City $city = null, $stockTypes = null)
     {
         $q = $this->createQueryBuilder('adv')
             ->select('adv')
             ->join("adv.spareParts", "sp")
-            ->leftJoin("adv.models", "model")
             ->where("sp = :sparePart")
-            ->andWhere("adv.brand = :brand AND model = :model OR adv.brand IS NULL")
             ->setParameter("sparePart", $sparePart)
-            ->setParameter("brand", $brand)
-            ->setParameter("model", $model);
+            ->setParameter("brand", $brand);
 
         if($stockTypes){
             $q->andWhere("adv.stockType IN(:stockTypes)")
                 ->setParameter("stockTypes", $stockTypes);
+        }
+
+        if($model instanceof Model){
+            $q->leftJoin("adv.models", "model")
+                ->andWhere("adv.brand = :brand AND model = :model OR adv.brand IS NULL")
+                ->setParameter("model", $model);
+        }
+        else{
+            $q->andWhere("adv.brand = :brand OR adv.brand IS NULL");
         }
 
         if($city instanceof City){
@@ -46,5 +54,18 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
 
         return $q->getQuery()
             ->getResult();
+    }
+
+    public function findAllForCatalog(CatalogAdvertFilterType $filterType)
+    {
+        $sparePart = $filterType->getSparePart();
+        $brand = $filterType->getBrand();
+        $model = $filterType->getModel();
+        $city = $filterType->getCity();
+        $stockTypes = $filterType->getInStock() ?
+            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
+            [AutoSparePartSpecificAdvert::IN_STOCK_TYPE];
+
+        return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes);
     }
 }

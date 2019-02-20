@@ -114,7 +114,9 @@
         <script src='/js/client/directive/voice-input.js' ></script>
         <script src='/js/client/directive/redirect-to-url.js'></script>
 
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src='/js/client/directive/scroll-to-element.js' ></script>
+        {% endblock %}
         {{ show_code("body") | raw }}
     </body>
 </html>

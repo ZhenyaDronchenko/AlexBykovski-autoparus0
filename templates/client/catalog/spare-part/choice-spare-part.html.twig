@@ -3,47 +3,58 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/css/style-new.css'>
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/choice-spare-part.css'>
 {% endblock %}
 
 {% block body %}
-    <main class="container" ng-init="showAll = false;">
-        <section class="catalog1">
-            <h1 class="catalog1-title">{{ page.headline1 }}</h1>
+    <main class="container" ng-init="showAll = false; hideTextClass = 'text1Hide';">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус.бай" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">/ <span itemprop="name">Автозапчасти</span><meta itemprop="position" content="2"></a>
+            </li>
+        </ul>
 
-            <div class=catalog1-text>
-                {{ page.text1 | raw }}
+        <section class="city">
+            <h1 class="city-title" data-text="{{ page.headline1 }}"></h1>
+            <div class='city-desc'>
+                <div id='text1' ng-class="hideTextClass">{{ page.text1 | raw }}</div>
+                <span ng-click="hideTextClass = 'text1Show'" ng-show="hideTextClass === 'text1Hide'" id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
+                <span ng-click="hideTextClass = 'text1Hide'" ng-show="hideTextClass === 'text1Show'" id='allText'> &lt;&lt;&lt;&lt;&lt;&lt;&lt; </span>
+            </div>
+            <form class='modform' action="" method="get">
+                <input id="spare-part-autocomplete" class="form7" type="search"
+                       auto-сomplete-autoparus add-url="{{ path("show_spare_part_catalog_choice_spare_part") }}"
+                       method-search="searchSpareParts" identifier-field="spare-part-autocomplete"
+                       name="search" placeholder="Наименование запчасти">
+            </form>
+            <div class="model-block" ng-cloak scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <ul class='show-m' id='model' ng-show="showAll">
+                    {% for sparePart in allSpareParts %}
+                        <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
+                    {% endfor %}
+                </ul>
+                <ul class='show-m' id='model' ng-hide="showAll">
+                    {% for sparePart in popularSpareParts %}
+                        <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
+                    {% endfor %}
+                </ul>
+
+                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все запчасти</button>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 
-            <div class='parts-search'>
-                <form class='catalog1form' action="" method="get">
-
-                    <input id="spare-part-autocomplete" class="form5" type="search"
-                           auto-сomplete-autoparus add-url="{{ path("show_spare_part_catalog_choice_spare_part") }}"
-                           method-search="searchSpareParts" identifier-field="spare-part-autocomplete"
-                           name="search" placeholder="Наименование запчасти">
-                </form>
-            </div>
-
-            <ul class='showMoreModel' id='brandImg3' ng-show="showAll">
-                {% for sparePart in allSpareParts %}
-                    <li><a href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'>{{ sparePart.name }}</a></li>
-                {% endfor %}
-            </ul>
-            <ul class='showMoreModel' id='brandImg3' ng-hide="showAll">
-                {% for sparePart in popularSpareParts %}
-                    <li><a href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'>{{ sparePart.name }}</a></li>
-                {% endfor %}
-            </ul>
-
-            <div id='showAll3' ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
-            <div id='showAll3' ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
-
-            <h2 class='catalog1-subtitle'>{{ page.headline2 }}</h2>
-
-            <p class='catalog1-text-b'>{{ page.text2 | raw }}</p>
-
+            <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
+            <div class='city-subtext'>{{ page.text2 | raw }}</div>
         </section>
-
     </main>
 {% endblock %}
