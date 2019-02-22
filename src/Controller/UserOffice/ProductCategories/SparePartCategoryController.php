@@ -27,7 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * @Route("/user-office/product-categories/spare-part")
  *
- * @Security("has_role('ROLE_CLIENT')")
+ * @Security("has_role('ROLE_SELLER')")
  */
 class SparePartCategoryController extends Controller
 {

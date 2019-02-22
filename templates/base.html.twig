@@ -77,24 +77,61 @@
         <footer class="footer">
             <div class="container">
                 <nav class="navigation">
-                    {% block footerInfo %}{% endblock %}
                     <ul class="navigation-block">
                         <li>
-                            <a href="{{ path("homepage") }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="38px" height="38px">
-                                    <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
-                                    <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("homepage") }}" title="Главная">
+                                <svg class="home" x="0px" y="0px" viewBox="0 0 16 16" width="40" height="40">
+                                    <polyline fill="none"  stroke="#444444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                                    <polyline fill="none" stroke="#444444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5 13.5,13.5 13.5,7 "/>
                                 </svg>
                             </a>
                         </li>
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}"><img src="/img/engine.png" alt="icon"></a></li>
-                        <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}"><img src="/img/image.png" alt="icon"></a></li>
-                        <li><a href=""><img src="/img/search.png" alt="icon"></a></li>
-                        <li><a href="{{ path("show_brand_catalog_choice_brand") }}"><img src="/img/avto.png" alt="icon"></a></li>
-                        <li><a href="{{ path("show_city_catalog_choice_city") }}"><img src="/img/shop.png" alt="icon"></a></li>
+                        <li>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_obd2_error_catalog_choice_type") }}" title="Ошибки">
+                                <svg class="check" width="40" height="40" viewBox="0 0 50 50" fill="none">
+                                    <path d="M30 14V10H35V6H21V10H26V14" stroke="#444444" stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round"/>
+                                    <path d="M9 27H5V21H1V37H5V31H9" stroke="#444444" stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round"/>
+                                    <path d="M45 20V25H42V16.843C42 15.826 41.189 15 40.191 15H19.99C19.511 15 19.049 15.195 18.71 15.542L14 21H11C10 21 9 22 9 23V35C9 36.018 10.002 37 11 37H14L18.712 42.461C19.051 42.806 19.511 43 19.99 43H32.845C33.324 43 33.784 42.806 34.123 42.461L41.469 34.979C41.81 34.633 41.999 34.165 41.999 33.676V31H44.999V36H48.999V20H45Z" stroke="#444444" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path class="ligh" d="M32 28L24 39L27 30H22L27 20H32L27 28H32Z" fill="#444444"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_spare_part_catalog_choice_spare_part") }}" title="Поиск запчастей">
+                                <svg class="part" width="38" height="38" viewBox="0 0 50 50" fill="none">
+                                    <path d="M46 22.6535V18.2787L40.793 17.4278C40.4846 16.1949 40.0004 15.0356 39.3624 13.974L42.3972 9.64886L39.3033 6.55665L35.0333 9.62625C33.9687 8.98171 32.8021 8.49028 31.5603 8.18113L30.6525 3H26.2775L25.4346 8.16436C24.1921 8.46914 23.0189 8.954 21.9514 9.59563L17.6938 6.55374L14.5999 9.64594L17.5946 13.9288C16.9471 15.0006 16.4549 16.1723 16.1421 17.4227L11 18.2787V22.6535L16.1363 23.5641C16.4461 24.8117 17.3503 25.2593 18 26.3326L21.9339 31.3942C23.0043 32.0372 24.1746 32.5258 25.4171 32.8327L26.2775 38H30.6525L31.572 32.8196C32.8079 32.5061 33.976 32.0139 35.0363 31.3686L39.3544 34.3981L42.4475 31.303L39.3653 27.0231C40.0033 25.9615 40.4875 24.8007 40.793 23.5678L46 22.6535ZM28.5 26.3326C25.2785 26.3326 22.6667 23.7209 22.6667 20.4996C22.6667 17.2784 25.2785 14.6667 28.5 14.6667C31.7215 14.6667 34.3333 17.2784 34.3333 20.4996C34.3333 23.7209 31.7215 26.3326 28.5 26.3326Z" stroke="#444444" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>
+                                    <path class="sch" fill-rule="evenodd" clip-rule="evenodd" d="M20.8571 38.7143H19.7143L19.2857 38.2857C20.7143 36.7143 21.5714 34.5714 21.5714 32.2857C21.5714 27.1429 17.4286 23 12.2857 23C7.14286 23 3 27.1429 3 32.2857C3 37.4286 7.14286 41.5714 12.2857 41.5714C14.5714 41.5714 16.7143 40.7143 18.2857 39.2857L18.7143 39.7143V40.8571L25.8571 48L28 45.8571L20.8571 38.7143ZM12.2857 38.7143C8.71429 38.7143 5.85714 35.8571 5.85714 32.2857C5.85714 28.7143 8.71429 25.8571 12.2857 25.8571C15.8571 25.8571 18.7143 28.7143 18.7143 32.2857C18.7143 35.8571 15.8571 38.7143 12.2857 38.7143Z" fill="#444444"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navigation-link" href="" title="Автопарус">
+                                <img src="/img/windsurfing.png" alt="icon">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_brand_catalog_choice_brand") }}" title="Поиск">
+                                <svg class="search" width="40" height="40" viewBox="0 0 50 50" fill="none">
+                                    <path d="M30.1892 5C22.0218 5 15.3785 11.6436 15.3785 19.8113C15.3785 27.9791 22.0218 34.6227 30.1892 34.6227C38.3567 34.6227 45 27.9791 45 19.8113C45 11.6436 38.354 5 30.1892 5ZM30.1892 31.9297C23.5083 31.9297 18.0714 26.4926 18.0714 19.8113C18.0714 13.1301 23.5056 7.69297 30.1892 7.69297C36.8729 7.69297 42.3071 13.1301 42.3071 19.8113C42.3071 26.4926 36.8702 31.9297 30.1892 31.9297Z" stroke-width="1.2" stroke="#444444" fill="#444444"/>
+                                    <path d="M18.464 29.6312L5 43.0958L6.90412 45L20.3682 31.5354L18.464 29.6312Z" stroke-width="1.2" fill="#444444" stroke="#444444"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_city_catalog_choice_city") }}" title="Магазин">
+                                <svg class="shop" width="40" height="40" viewBox="0 0 50 50" fill="none">
+                                    <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="#444444" stroke-width="2.5"/>
+                                </svg>
+                            </a>
+                        </li>
                         <li>
                             {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
-                            <a href="{{ path(personLink) }}"><img class="img-last" src="/img/component.png" alt="icon"></a>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path(personLink) }}" title="Пользователь">
+                                <svg class="user" width="40" height="40" viewBox="0 0 50 50" fill="none">
+                                    <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3.5"/>
+                                    <path d="M43.5 43.5H6.5V40.3771C6.50929 40.361 6.51902 40.3442 6.52922 40.3267C6.66558 40.0932 6.88316 39.7455 7.19248 39.3213C7.81152 38.4723 8.79409 37.3222 10.224 36.1667C13.0634 33.8723 17.7339 31.5 25 31.5C32.2661 31.5 36.9366 33.8723 39.776 36.1667C41.2059 37.3222 42.1885 38.4723 42.8075 39.3213C43.1168 39.7455 43.3344 40.0932 43.4708 40.3267C43.481 40.3442 43.4907 40.361 43.5 40.3771V43.5Z" stroke="#444444" stroke-width="3.5"/>
+                                </svg>
+                            </a>
                         </li>
                     </ul>
                 </nav>

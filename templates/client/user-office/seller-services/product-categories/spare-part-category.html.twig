@@ -7,50 +7,61 @@
 
 {% block body %}
     <main class="container">
-        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
-            <ul id="breadcrumbs-one">
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="Главная" href="{{ path("show_user_office") }}">
-                      <span itemprop="name">{{ app.user.name }}</span>
-                      <meta itemprop="position" content="1">
-                  </a>
-              </span>
-                </li>
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="Главная" href="{{ path("user_profile_product_categories") }}">
-                      <span itemprop="name">товары</span>
-                      <meta itemprop="position" content="1">
-                  </a>
-              </span>
-                </li>
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="запчасть" href='' class="current">
-                      <span itemprop="name">автозапчасти</span>
-                      <meta itemprop="position" content="4">
-                  </a>
-              </span>
-                </li>
-            </ul>
-        </div>
+        <ul id="breadcrumbs">
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Ваш персональный и бизнес профиль">
+                    <span class="user-name">{{ app.user.name }}</span>
+                    <svg class="user-icon" width="20px" height="20px" viewBox="0 0 50 50" fill="none">
+                        <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="black" stroke-width="3"/>
+                    </svg>
+                </a>
+            </li>
+
+            {% set sellerCompany = app.user.sellerData.sellerCompany %}
+
+            {% if sellerCompany.isSparePartSeller and sellerCompany.isAutoSeller %}
+                <li><a class="link-b" href="{{ path("user_profile_product_categories") }}" title="Выбор категории товаров">/ Товары </a></li>
+            {% else %}
+                <li><a class="link-b" nohref title="Выбор категории товаров">/ Товары </a></li>
+            {% endif %}
+            <li><a class="current" nohref>/ Автозапчасти</a></li>
+        </ul>
 
         <section class="items">
-            <h1 class="items-title">{{ default_text(2).headline }}</h1>
+            <h1 class="title" data-text="{{ default_text(2).headline }}"></h1>
             <ul class="items-block">
-                <li><a class="items-link" href="{{ path("user_profile_product_categories_spare_part_add_specific_advert") }}"><span>Добавить объявление о продаже товара, автозапчасти</span><img src="{{ image_url(default_image(23).image) }}" alt="лого"></a></li>
                 <li>
-                    <a class="items-link" href="{{ path("user_profile_product_categories_spare_part_add_general_advert") }}">
-                        <span>Добавить общее объявление о продаже автозапчастей</span>
+                    <a class="items-link" href='{{ path("user_profile_product_categories_spare_part_add_specific_advert") }}'>
+                        <span>Добавление объявления о продаже автозапчасти, детали и прочего товара для авто</span>
+                        <img src="{{ image_url(default_image(23).image) }}" alt="лого">
+                    </a>
+                </li>
+                <li>
+                    <a class="items-link" href='{{ path("user_profile_product_categories_spare_part_add_general_advert") }}'>
+                        <span>Добавление общего объявления о продаже автозапчастей и товаров для транспорта</span>
                         <img src="{{ image_url(default_image(24).image) }}" alt="лого">
                     </a>
                 </li>
-                <li><a class="items-link" href='#'><span>Импортировать прайслист автозапчастей, товаров</span><img src="{{ image_url(default_image(25).image) }}" alt="лого"></a></li>
-                <li><a class="items-link" href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}"><span>Посмотреть поданные объявления в разделе автозапчасти</span><img src="{{ image_url(default_image(26).image) }}" alt="лого"></a></li>
-
+                <li>
+                    <a class="items-link" nohref>
+                        <span>Импорт прайс-листа или листа наличия автозапчастей или товаров для автотранспорта</span>
+                        <img src="{{ image_url(default_image(25).image) }}" alt="лого">
+                    </a>
+                </li>
+                <li>
+                    <a class="items-link" href='{{ path("user_profile_product_categories_spare_part_list_adverts") }}'>
+                        <span>Просмотр поданных обьявлений. Проверка, анализ, редактирование и удаление</span>
+                        <img src="{{ image_url(default_image(26).image) }}" alt="лого">
+                    </a>
+                </li>
+                <li>
+                    <a class="items-link" nohref>
+                        <span>Сравнительный обзор всех трех видов подачи объявлений</span>
+                        <img src="{{ image_url(default_image(27).image) }}" alt="лого">
+                    </a>
+                </li>
             </ul>
-            <p class='items-link-text'>{{ default_text(2).text | raw }}</p>
+            <div>{{ default_text(2).text | raw }}</div>
         </section>
     </main>
 {% endblock %}

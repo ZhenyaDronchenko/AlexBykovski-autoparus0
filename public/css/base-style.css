@@ -316,21 +316,12 @@ ul {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
 }
 
 .navigation-block a {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
     width: 50px;
     height: 50px;
     cursor: pointer;
@@ -344,13 +335,17 @@ ul {
     }
 
     .navigation-block a {
+
         width: 35px;
         height: 35px;
+
     }
     .navigation-block img {
         width: 30px;
         height: 30px;
+
     }
+
 
     .navigation-block .img-last {
         width: 25px;
@@ -364,13 +359,17 @@ ul {
     }
 
     .navigation-block a {
+
         width: 35px;
         height: 35px;
+
     }
     .navigation-block img {
         width: 30px;
         height: 30px;
+
     }
+
 
     .navigation-block .img-last {
         width: 25px;
