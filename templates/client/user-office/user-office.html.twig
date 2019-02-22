@@ -52,20 +52,22 @@
                         {% endif %}
                         <div class="user-edit">
                             <a href="{{ path("show_user_business_office") }}" class="button button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
-                            <ul class="btn-block">
-                                {% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}
-                                    <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Товары"></a></li>
-                                {% endif %}
-                                {% if app.user.sellerData.sellerCompany.isService %}
-                                    <li><a class="user-btn" data-text="Услуги"></a></li>
-                                {% endif %}
-                                {% if app.user.sellerData.sellerCompany.isNews %}
-                                    <li><a class="user-btn" data-text="Статьи"></a></li>
-                                {% endif %}
-                            </ul>
+                            {% if app.user.sellerData %}
+                                <ul class="btn-block">
+                                    {% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}
+                                        <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Товары"></a></li>
+                                    {% endif %}
+                                    {% if app.user.sellerData.sellerCompany.isService %}
+                                        <li><a class="user-btn" data-text="Услуги"></a></li>
+                                    {% endif %}
+                                    {% if app.user.sellerData.sellerCompany.isNews %}
+                                        <li><a class="user-btn" data-text="Статьи"></a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
-                    <a class="user-company">{{ app.user.sellerData.sellerCompany.companyName }}</a>
+                    <a class="user-company">{{ app.user.sellerData ? app.user.sellerData.sellerCompany.companyName : "" }}</a>
                 </div>
             </div>
         </div>

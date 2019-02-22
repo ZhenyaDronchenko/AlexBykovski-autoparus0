@@ -191,9 +191,18 @@ class UserOfficeController extends Controller
 
     /**
      * @Route("/product-categories", name="user_profile_product_categories")
+     *
+     * @Security("has_role('ROLE_SELLER')")
      */
     public function showProductCategoriesAction(Request $request)
     {
+        /** @var SellerCompany $sellerCompany */
+        $sellerCompany = $this->getUser()->getSellerData()->getSellerCompany();
+
+        if($sellerCompany->isSparePartSeller() && !$sellerCompany->isAutoSeller()){
+            return $this->redirectToRoute("user_profile_product_categories_spare_part");
+        }
+
         return $this->render('client/user-office/seller-services/product-categories.html.twig', []);
     }
 
