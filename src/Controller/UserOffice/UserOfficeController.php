@@ -192,7 +192,7 @@ class UserOfficeController extends Controller
     /**
      * @Route("/product-categories", name="user_profile_product_categories")
      *
-     * @Security("has_role('ROLE_SELLER')")
+     * @Security("has_role('ROLE_CLIENT')")
      */
     public function showProductCategoriesAction(Request $request)
     {
