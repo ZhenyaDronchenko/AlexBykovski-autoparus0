@@ -3,10 +3,16 @@
 
     autoparusApp.controller('EditGeneralAdvertCtrl', ['$scope', '$http', '$compile', function($scope, $http, $compile) {
         let formSelector = null;
+        let modelSelector = null;
+        let sparePartSelector = null;
+        let brandSelector = null;
         let url = null;
 
-        function init(formSelectorS, editUrl){
+        function init(formSelectorS, modelSelectorS, sparePartSelectorS, brandSelectorS){
             formSelector = formSelectorS;
+            modelSelector = modelSelectorS;
+            sparePartSelector = sparePartSelectorS;
+            brandSelector = brandSelectorS;
 
             handleForm();
         }
@@ -33,7 +39,7 @@
                     $(formSelector).off().on("submit", function(e) {
                         e.preventDefault();
 
-                        sendForm($(document.activeElement).hasClass("submit-brand-model"));
+                        sendForm($(document.activeElement).hasClass("submit-brand-model"), $(document.activeElement));
 
                         return false;
                     });
@@ -41,8 +47,9 @@
             });
         }
 
-        function sendForm(isBrandSubmit) {
+        function sendForm(isBrandSubmit, buttonSubmitted) {
             let data = $(formSelector).serialize();
+            data = data + '&' + encodeURI(buttonSubmitted.attr('name')) + '=' + encodeURI(buttonSubmitted.attr('value'));
 
             $(formSelector).find("button[type=submit]").prop("disabled", true);
             url = $(formSelector).attr("action") + "?ajax";
@@ -57,8 +64,32 @@
                 $(formSelector).find("button[type=submit]").prop("disabled", false);
             });
         }
+        
+        function checkAllModels() {
+            $(modelSelector).attr("checked", true);
+        }
+
+        function uncheckAllModels() {
+            $(modelSelector).removeAttr("checked");
+        }
+        
+        function checkAllSpareParts() {
+            $(sparePartSelector).attr("checked", true);
+        }
+        
+        function uncheckAllSpareParts() {
+            $(sparePartSelector).removeAttr("checked");
+        }
+
+        $(document).on("change", brandSelector, function (ev) {
+
+        });
 
         this.init = init;
+        this.checkAllModels = checkAllModels;
+        this.uncheckAllModels = uncheckAllModels;
+        this.checkAllSpareParts = checkAllSpareParts;
+        this.uncheckAllSpareParts = uncheckAllSpareParts;
 
     }]);
 })(window.autoparusApp);

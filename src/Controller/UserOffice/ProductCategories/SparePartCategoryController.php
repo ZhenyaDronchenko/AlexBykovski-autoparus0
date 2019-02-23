@@ -74,14 +74,18 @@ class SparePartCategoryController extends Controller
         $client = $this->getUser();
         $advert = $advert ?: new AutoSparePartGeneralAdvert($client->getSellerData()->getAdvertDetail());
         $isValid = false;
-        $isBrandSubmitted = !is_null($request->query->get("brandSubmit"));
+        $isBrandSubmitted = false;
+        $isSimpleSparePartSubmitted = false;
         $isAjax = !is_null($request->query->get("ajax"));
+        $redirectToUrl = null;
 
         $form = $this->createForm(SparePartGeneralAdvertType::class, $advert);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
+            $isBrandSubmitted = $form->get("submitGeneral")->isClicked();
+            $isSimpleSparePartSubmitted = $form->get("submitSparePart")->isClicked();
             $brand = $form->get("brand")->getData();
 
             $form = $this->createForm(SparePartGeneralAdvertType::class, $advert, ["brand" => $brand]);
@@ -114,6 +118,15 @@ class SparePartCategoryController extends Controller
                     $em->persist($advert);
                     $em->flush();
                     $em->refresh($advert);
+
+                    $redirectToUrl = $isSimpleSparePartSubmitted ?
+                        $this->generateUrl("user_profile_product_categories_spare_part_add_general_advert") :
+                        $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "general"]);
+                }
+                else{
+                    $redirectToUrl = $isSimpleSparePartSubmitted ?
+                        $this->generateUrl("user_profile_product_categories_spare_part_edit_general_advert", ["id" => $advert->getId()]) :
+                        $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "general"]);
                 }
 
                 $em->flush();
@@ -126,6 +139,7 @@ class SparePartCategoryController extends Controller
                 "isConfirmBrand" => $isValid && $isBrandSubmitted,
                 "isValid" => $isValid,
                 "advertId" => $advert->getId(),
+                "redirectToUrl" => $redirectToUrl,
             ]);
         }
         else{
@@ -134,6 +148,7 @@ class SparePartCategoryController extends Controller
                 "isConfirmBrand" => $isValid && $isBrandSubmitted,
                 "isValid" => $isValid,
                 "advertId" => $advert->getId(),
+                "redirectToUrl" => $redirectToUrl,
             ]);
         }
     }
