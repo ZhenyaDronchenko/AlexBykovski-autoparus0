@@ -49,8 +49,12 @@ class SparePartCategoryController extends Controller
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findBy([
-            "sellerAdvertDetail" => $client->getSellerData()->getAdvertDetail()
-        ]);
+                "sellerAdvertDetail" => $client->getSellerData()->getAdvertDetail()
+            ],
+            [
+                "updatedAt" => "DESC"
+            ]
+        );
 
         return $this->render('client/user-office/seller-services/product-categories/spare-part/list-adverts.html.twig', [
             "generalAdverts" => $generalAdverts,
