@@ -18,6 +18,8 @@
             brandSelector = brandSelectorS;
 
             handleForm();
+
+            listenChange();
         }
 
         function request(url, data, callback) {
@@ -83,22 +85,22 @@
         function uncheckAllSpareParts() {
             $(sparePartSelector).removeAttr("checked");
         }
+        
+        function listenChange() {
+            $(document).on("change", modelSelector + ', ' + sparePartSelector + ', ' + brandSelector, function (ev) {
+                if($(this).attr("id") === brandSelector.replace("#", "")){
+                    self.isCheckedAllModels = false;
+                }
+                else if($(this).hasClass(modelSelector.replace(".", ""))){
+                    self.isCheckedAllModels = $(modelSelector).length ===  $(modelSelector + ":checkbox:checked").length;
+                }
+                else{
+                    self.isCheckedAllSpareParts = $(sparePartSelector).length ===  $(sparePartSelector + ":checkbox:checked").length;
+                }
 
-        $(document).on("change", modelSelector, function (ev) {
-            self.isCheckedAllModels = $(modelSelector).length ===  $(modelSelector + ":checkbox:checked").length;
-            $scope.$evalAsync();
-        });
-
-        $(document).on("change", sparePartSelector, function (ev) {
-            self.isCheckedAllSpareParts = $(sparePartSelector).length ===  $(sparePartSelector + ":checkbox:checked").length;
-            $scope.$evalAsync();
-        });
-
-        $(document).on("change", brandSelector, function (ev) {
-            self.isCheckedAllModels = false;
-
-            $scope.$evalAsync();
-        });
+                $scope.$evalAsync();
+            });
+        }
 
         this.init = init;
         this.checkAllModels = checkAllModels;
