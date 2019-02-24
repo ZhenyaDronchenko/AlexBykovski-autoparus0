@@ -117,23 +117,25 @@ class SparePartCategoryController extends Controller
 
             if($form->getErrors(true, false)->count() === 0){
                 $isValid = true;
+                $isNewElement = false;
 
                 if(!$advert->getId()){
                     $em->persist($advert);
                     $em->flush();
                     $em->refresh($advert);
 
-                    $redirectToUrl = $isSimpleSparePartSubmitted ?
-                        $this->generateUrl("user_profile_product_categories_spare_part_add_general_advert") :
-                        $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "general"]);
-                }
-                else{
-                    $redirectToUrl = $isSimpleSparePartSubmitted ?
-                        $this->generateUrl("user_profile_product_categories_spare_part_edit_general_advert", ["id" => $advert->getId()]) :
-                        $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "general"]);
+                    $isNewElement = true;
                 }
 
                 $em->flush();
+
+                $redirectFirstUrl = $isNewElement ?
+                    $this->generateUrl("user_profile_product_categories_spare_part_add_general_advert") :
+                    $this->generateUrl("user_profile_product_categories_spare_part_edit_general_advert", ["id" => $advert->getId()]);
+
+                $redirectToUrl = $isSimpleSparePartSubmitted ?
+                    $redirectFirstUrl :
+                    $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "general"]);
             }
         }
 
