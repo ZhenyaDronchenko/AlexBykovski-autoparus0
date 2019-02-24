@@ -2,11 +2,14 @@
     'use strict';
 
     autoparusApp.controller('EditGeneralAdvertCtrl', ['$scope', '$http', '$compile', function($scope, $http, $compile) {
+        let self = this;
         let formSelector = null;
         let modelSelector = null;
         let sparePartSelector = null;
         let brandSelector = null;
         let url = null;
+        this.isCheckedAllModels = null;
+        this.isCheckedAllSpareParts = null;
 
         function init(formSelectorS, modelSelectorS, sparePartSelectorS, brandSelectorS){
             formSelector = formSelectorS;
@@ -81,9 +84,19 @@
             $(sparePartSelector).removeAttr("checked");
         }
 
-        $(document).on("change", brandSelector, function (ev) {
-
+        $(document).on("change", modelSelector, function (ev) {
+            self.isCheckedAllModels = $(modelSelector).length ===  $(modelSelector + ":checkbox:checked").length;
+            $scope.$evalAsync();
         });
+
+        $(document).on("change", sparePartSelector, function (ev) {
+            self.isCheckedAllSpareParts = $(sparePartSelector).length ===  $(sparePartSelector + ":checkbox:checked").length;
+            $scope.$evalAsync();
+        });
+
+        function setControllerVariable(variable, value) {
+
+        }
 
         this.init = init;
         this.checkAllModels = checkAllModels;

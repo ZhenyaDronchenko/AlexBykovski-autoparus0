@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <h2 class="subtitle" data-text="Выберите марку или условие - Все марки">
+    <h2 class="subtitle" data-text="Выберите марку или условие - Все марки" ng-click="editAdvert.method()">
         <sup>
             <button id="open-overlay2" type="button" class="help">
                 <svg viewBox="0 0 32 32" width="18px" height="18px">
@@ -65,21 +65,21 @@
             {% endif %}
             ng-init="brand = '{{ form.brand.vars.value }}'"
     >
-        {{ form_widget(form.brand, {attr: {class: "select-avto form-brand-select", "ng-change" : "isCheckAllModels = false", "ng-model" : "brand"}}) }}
+        {{ form_widget(form.brand, {attr: {class: "select-avto form-brand-select", "ng-change" : "editAdvert.isCheckedAllModels = false", "ng-model" : "brand"}}) }}
         {% for key, error in form.brand.vars.errors.form.getErrors(true)%}
             <span class="prompt">{{ error.message }}</span>
         {% endfor %}
     </div>
 
     <button id="chosen-brand-name" type="button" class="btn-filter btn-filter--r"
-            style="display: {{ form.models | length ? 'block' : 'none' }}" ng-click="isCheckAllModels = !isCheckAllModels; isCheckAllModels ? editAdvert.checkAllModels() : editAdvert.uncheckAllModels();" ng-cloak
+            style="display: {{ form.models | length ? 'block' : 'none' }}" ng-click="editAdvert.isCheckedAllModels = !editAdvert.isCheckedAllModels; editAdvert.isCheckedAllModels ? editAdvert.checkAllModels() : editAdvert.uncheckAllModels();" ng-cloak
             {% if not scrollToElement and form.models.vars.errors.form.getErrors(true) | length %}
                 scroll-to-element
                 {% set scrollToElement = true %}
             {% endif %}
     >
-        <span class="first-span" ng-hide="isCheckAllModels">Отметить все модели</span>
-        <span class="first-span" ng-show="isCheckAllModels">Снять выбор всех моделей</span>
+        <span class="first-span" ng-hide="editAdvert.isCheckedAllModels">Отметить все модели</span>
+        <span class="first-span" ng-show="editAdvert.isCheckedAllModels">Снять выбор всех моделей</span>
         <span class="second-span">{{ form.brand.vars.help }}</span>
     </button>
 
@@ -89,13 +89,16 @@
 
     <ul id="list-models" class="pay-block" get-models-by-brand brand-select=".form-brand-select"
         container-model="#model-container" list-models="#list-models" legend-element="#chosen-brand-name">
+        {% set isCheckedAllModels = true %}
         {% for choice in form.models %}
+            {% set isCheckedAllModels = not choice.vars.data ? false : isCheckedAllModels %}
             <li class="pay-option">
                 {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-checkbox model-checkbox" }}) }}
                 {{ form_label(choice, null, {"label_attr" : {"class" : "pay-name"}}) }}
             </li>
         {% endfor %}
     </ul>
+    <div ng-init="editAdvert.isCheckedAllModels = {{ isCheckedAllModels ? 'true' : 'false' }}"></div>
 
     <div id="model-container" style="display: none">
         <li class="pay-option">
@@ -118,22 +121,31 @@
         {% endif %}
     </div>
 
-    <h2 class="subtitle" data-text="Отметьте предлагаемые товары"></h2>
+    <h2 class="subtitle" data-text="Отметьте предлагаемые товары"
+            {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}
+                scroll-to-element
+                {% set scrollToElement = true %}
+            {% endif %}
+    ></h2>
 
-    <button ng-cloak id="hide-all-spare-parts-button" type="button" ng-click="editAdvert.checkAllSpareParts(); isCheckAllSpareParts = true" class="btn-filter btn-filter--r" ng-hide="isCheckAllSpareParts">Отметить все запчасти (товары)</button>
-    <button ng-cloak id="show-all-spare-parts-button" type="button" ng-click="editAdvert.uncheckAllSpareParts(); isCheckAllSpareParts = false" class="btn-filter btn-filter--r" ng-show="isCheckAllSpareParts">Снять выбор запчастей (товаров)</button>
+    <button ng-cloak id="hide-all-spare-parts-button" type="button" ng-click="editAdvert.checkAllSpareParts(); editAdvert.isCheckedAllSpareParts = true" class="btn-filter btn-filter--r" ng-hide="editAdvert.isCheckedAllSpareParts">Отметить все запчасти (товары)</button>
+    <button ng-cloak id="show-all-spare-parts-button" type="button" ng-click="editAdvert.uncheckAllSpareParts(); editAdvert.isCheckedAllSpareParts = false" class="btn-filter btn-filter--r" ng-show="editAdvert.isCheckedAllSpareParts">Снять выбор запчастей (товаров)</button>
     {% for key, error in form.spareParts.vars.errors.form.getErrors(true)%}
         <span class="prompt-i">Выберите хотя бы одну позицию</span>
     {% endfor %}
 
     <ul class="pay-sel">
+        {% set isCheckedAllSpareParts = true %}
         {% for choice in form.spareParts %}
+            {% set isCheckedAllSpareParts = not choice.vars.data ? false : isCheckedAllSpareParts %}
             <li class="pay-item">
                 {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-checkbox spare-part-checkbox" }}) }}
                 {{ form_label(choice) }}
             </li>
         {% endfor %}
     </ul>
+
+    <div ng-init="editAdvert.isCheckedAllSpareParts = {{ isCheckedAllSpareParts ? 'true' : 'false' }}"></div>
 
     {{ form_widget(form.comment, {attr: {"rows": "5", "placeholder" : "Общий комментарий к объявлению:"}}) }}
 
@@ -146,17 +158,25 @@
         {% set secondButtonLabel = isEditAction ? "Редактировать и вернуться к списку" : "Добавить и вернуться к списку" %}
         {{ form_widget(form.submitSparePartAndList, {attr: {class: "btn", "style" : "margin-right: 0;"}, "label" : secondButtonLabel}) }}
 
-        {% if isValid and not isConfirmBrand %}
-            <span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}
-            scroll-to-element
-                    {% set scrollToElement = true %}
-                    {% endif %}>
-                Подтверждение принято и объявление сохранено
-            </span>
-        {% endif %}
-        
+        {#{% if isValid and not isConfirmBrand %}#}
+            {#<span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}#}
+            {#scroll-to-element#}
+                    {#{% set scrollToElement = true %}#}
+                    {#{% endif %}>#}
+                {#Подтверждение принято и объявление сохранено#}
+            {#</span>#}
+        {#{% endif %}#}
+
         {#<a class="btn btn-o" href="#">Посмотреть поданное объявление</a>#}
     </div>
+    {% if isValid and not isConfirmBrand %}
+        <span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}
+        scroll-to-element
+                {% set scrollToElement = true %}
+                {% endif %}>
+                Подтверждение принято и объявление сохранено
+            </span>
+    {% endif %}
 
     <div class="mod-text">{{ (isEditAction ? default_text(6) : default_text(5)).text | raw }}</div>
 </form>
