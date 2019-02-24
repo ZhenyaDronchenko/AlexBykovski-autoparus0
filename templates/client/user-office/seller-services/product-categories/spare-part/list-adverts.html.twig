@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block body %}
+    {% set activeTab = app.request.query.get("tab") in ["general", "specific"] ? app.request.query.get("tab") : "general" %}
     <main class="container">
         <ul id="breadcrumbs">
             <li>
@@ -26,8 +27,8 @@
         <section class="prod">
             <h1 class="title" data-text="{{ default_text(6).headline }}"></h1>
             <ul class="block-product">
-                <li class="product product--l product-1 active">Общие <span>(добавленные группой)</span></li>
-                <li class="product product--r product-2 ">Товарные <span>(добавленные поединично или импортом)</span></li>
+                <li class="product product--l product-1 {{ activeTab == 'general' ? "active" : ""  }}">Общие <span>(добавленные группой)</span></li>
+                <li class="product product--r product-2 {{ activeTab == 'specific' ? "active" : ""  }}">Товарные <span>(добавленные поединично или импортом)</span></li>
             </ul>
 
             <div class="main-block">

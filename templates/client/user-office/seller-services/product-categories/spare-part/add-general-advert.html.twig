@@ -17,59 +17,72 @@
 {% block body %}
     <main class="container">
         <ul id="breadcrumbs">
-            <li><a class="user-link user-link--icon"  href="{{ path("show_user_office") }}">
-                    <span class="user-name">{{ app.user.name }}</span><img class="user-icon" src="/img/component.png" alt="icon"></a>
+            <li>
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная">
+                    <span class="user-name">{{ app.user.name }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
+                        <polyline style="fill:none;stroke:#444;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline style="fill:none;stroke:#444;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                </a>
             </li>
-            <li class="more" onclick='dotClick()'><a>/  ...  </a></li>
-            <li><a class="link" href="{{ path("user_profile_product_categories") }}">/ товары </a></li>
-            <li><a class="link" href="{{ path("user_profile_product_categories_spare_part") }}">/ автозапчасти </a></li>
+            {% set sellerCompany = app.user.sellerData.sellerCompany %}
 
-            {% if isEditAction %}
-                <li><a class="current">/ Редактор группового объявления</a></li>
+            {% if sellerCompany.isSparePartSeller and sellerCompany.isAutoSeller %}
+                <li><a class="link-b" href="{{ path("user_profile_product_categories") }}" title="Выбор категории товаров">/ Товары </a></li>
             {% else %}
-                <li><a class="current">/ добавление товаров группой</a></li>
+                <li><a class="link-b" nohref title="Выбор категории товаров">/ Товары </a></li>
             {% endif %}
+            <li><a class="link-b" href="{{ path("user_profile_product_categories_spare_part") }}">/ Автозапчасти /</a></li>
+            <li><a class="current"> {{ isEditAction ? "Редактирование" : "Добавление" }} общего объявления</a></li>
         </ul>
 
-        <section class="choice">
-            <div class="block-title">
-                {% if isEditAction %}
-                    <h1 class="choice-title">{{ default_text(7).headline }}</h1>
-                {% else %}
-                    <h1 class="choice-title">Массовое добавление товаров</h1>
-                {% endif %}
-                <a class="link-help"><img src="/img/help.png" alt="Подсказка"></a>
-            </div>
-            <div class="podskazka-m">
-                <div class="close-m">x</div>
-                {% if isEditAction %}
-                    <h2>{{ default_text(8).headline }}</h2>
-                    {{ default_text(8).text | raw }}
-                {% else %}
-                    <h2>{{ default_text(3).headline }}</h2>
-                    {{ default_text(3).text | raw }}
-                {% endif %}
-            </div>
+        <section class="prod">
+            <h1 class="title-main" data-text="{{ (isEditAction ? default_text(6) : default_text(5)).headline }}">
+                <sup>
+                    <button id="open-overlay1" type="button" class="help">
+                        <svg viewBox="0 0 32 32" width="18px" height="18px">
+                            <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                        </svg>
+                    </button>
+                </sup>
+            </h1>
 
             <div id="form-edit-general-advert-container"
                  ng-controller="EditGeneralAdvertCtrl as editAdvert"
-                 ng-init="editAdvert.init('#form-edit-general-advert', '{{ path(app.request.attributes.get("_route"), app.request.attributes.get("_route_params")) }}')">
+                 ng-init="editAdvert.init('#form-edit-general-advert', '.model-checkbox', '.spare-part-checkbox', '#{{ form.brand.vars.id }}')">
                 {% include('/client/user-office/seller-services/product-categories/spare-part/forms/add-general-advert-form.html.twig') with {"form" : form, 'isValid' : false, 'isConfirmBrand' : isConfirmBrand, "isEditAction": isEditAction} %}
             </div>
 
-            {% if isEditAction %}
-                <div class="btn-list">
-                    <a href="{{ path("user_profile_product_categories_spare_part_add_general_advert") }}" class="btn btn-product">Добавить еще группу товаров</a>
-                    <a href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}" class="btn btn-product">Просмотреть поданные товары</a>
-                </div>
-                <h2 class="subtitle">{{ default_text(7).headline }}</h2>
-                <div class="subtext">{{ default_text(7).text | raw }}</div>
-            {% else %}
-                <h2 class="subtitle">{{ default_text(5).headline }}</h2>
-                <div class="subtext">{{ default_text(5).text | raw }}</div>
-            {% endif %}
         </section>
+
     </main>
+
+    <div class="overlay1" show-hint trigger-open="#open-overlay1" trigger-close="#close-overlay1">
+        <section class="modal">
+            <button id="close-overlay1" type="button" class="modal-close">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+            <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+            </svg>
+            </button>
+            <h1 class="modal-title">{{ (isEditAction ? default_text(8) : default_text(3)).headline }}</h1>
+            <div class="modal-text">{{ (isEditAction ? default_text(8) : default_text(3)).text | raw }}</div>
+        </section>
+    </div>
+
+    <div class="overlay2" show-hint trigger-open="#open-overlay2" trigger-close="#close-overlay2">
+        <section class="modal">
+            <button id="close-overlay2" type="button"  class="modal-close">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+            <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+            </svg>
+            </button>
+            <h1 class="modal-title">{{ (isEditAction ? default_text(9) : default_text(4)).headline }}</h1>
+            <div class="modal-text">{{ (isEditAction ? default_text(9) : default_text(4)).text | raw }}</div>
+        </section>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -77,4 +90,6 @@
     <script src='/js/client/controller/user-profile/product-categories/spare-part/edit-general-advert-controller.js'></script>
     <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>
     <script src='/js/client/directive/user-profile/auto-spare-part-advert/get-models-by-brand-directive.js'></script>
+    <script src='/js/client/directive/scroll-to-element.js'></script>
+    <script src='/js/client/directive/show-hint.js'></script>
 {% endblock %}

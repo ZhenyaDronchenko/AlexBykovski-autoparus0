@@ -14,7 +14,7 @@
                     let self = this;
 
                     ProviderCarsData.getModels(val).then(function(models){
-                        models = removeModelsWithoutId(models);
+                        models = removeModelsWithoutIdAndEmptyName(models);
 
                         if(parseInt(val) !== 0 && Object.values(models).length) {
                             legendElement.find("span.second-span").html($(self).find("option[value=" + val + "]").html());
@@ -38,9 +38,11 @@
                     });
                 });
 
-                function removeModelsWithoutId(models){
+                function removeModelsWithoutIdAndEmptyName(models){
                     for(let name in models){
-                        if(!models[name]){
+                        console.log(name);
+                        console.log(models[name]);
+                        if(!models[name] || !name.trim()){
                             delete models[name];
                         }
                     }
