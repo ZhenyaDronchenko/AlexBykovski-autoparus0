@@ -23,6 +23,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @Route("/user-office/product-categories/spare-part")
@@ -76,6 +80,8 @@ class SparePartCategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Client $client */
         $client = $this->getUser();
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         $advert = $advert ?: new AutoSparePartGeneralAdvert($client->getSellerData()->getAdvertDetail());
         $isValid = false;
         $isBrandSubmitted = false;
@@ -129,7 +135,10 @@ class SparePartCategoryController extends Controller
 
                 $em->flush();
 
-                $redirectFirstUrl = $isNewElement ?
+                $routeReferrer = $router->match(parse_url($request->headers->get('referer'))["path"])['_route'];
+                $isAddRouter = $routeReferrer === "user_profile_product_categories_spare_part_add_general_advert";
+
+                $redirectFirstUrl = $isNewElement || $isAddRouter ?
                     $this->generateUrl("user_profile_product_categories_spare_part_add_general_advert") :
                     $this->generateUrl("user_profile_product_categories_spare_part_edit_general_advert", ["id" => $advert->getId()]);
 
