@@ -94,9 +94,11 @@
             $scope.$evalAsync();
         });
 
-        function setControllerVariable(variable, value) {
+        $(document).on("change", brandSelector, function (ev) {
+            self.isCheckedAllModels = false;
 
-        }
+            $scope.$evalAsync();
+        });
 
         this.init = init;
         this.checkAllModels = checkAllModels;

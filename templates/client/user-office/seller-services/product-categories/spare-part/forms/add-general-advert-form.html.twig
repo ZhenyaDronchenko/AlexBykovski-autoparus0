@@ -63,9 +63,8 @@
                 scroll-to-element
                 {% set scrollToElement = true %}
             {% endif %}
-            ng-init="brand = '{{ form.brand.vars.value }}'"
     >
-        {{ form_widget(form.brand, {attr: {class: "select-avto form-brand-select", "ng-change" : "editAdvert.isCheckedAllModels = false", "ng-model" : "brand"}}) }}
+        {{ form_widget(form.brand, {attr: {class: "select-avto form-brand-select"}}) }}
         {% for key, error in form.brand.vars.errors.form.getErrors(true)%}
             <span class="prompt">{{ error.message }}</span>
         {% endfor %}
