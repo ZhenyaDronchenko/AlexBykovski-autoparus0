@@ -105,7 +105,7 @@ fos_user:
 
 gregwar_captcha:
     web_path: "%kernel.root_dir%/../public"
-    invalid_message: "Неправильный код. Попробуйте ещё раз"
+    invalid_message: "Неверный код с картинки. Попробуйте ещё раз."
     background_color: [255, 255, 255]
 
 knp_gaufrette:
