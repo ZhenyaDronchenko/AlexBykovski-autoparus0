@@ -18,7 +18,7 @@
                         {% set scrollToElement = true %}
                         {% endif %}
                 >
-                    {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "class" : "input save-field " ~ nameCookieKey, "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\s]", "error-message" : "Используйте только буквы и пробел", "error-container" : "#first-name-errors" }}) }}
+                    {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "class" : "input save-field " ~ nameCookieKey, "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\s]", "error-message" : "Используйте только буквы и пробел", "error-container" : "#first-name-errors", "style" : "display: block;" }}) }}
                     <button class="btn" type="button">
                         <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 50 50">
                             <line stroke="#8e8e8e" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>

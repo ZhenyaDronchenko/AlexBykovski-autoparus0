@@ -13,7 +13,7 @@
     </ul>
 
     {% set mainForm = form.createView %}
-    {% set isEmail = '@' in mainForm.username.vars.value %}
+    {% set isEmail = '@' in mainForm.username.vars.value or not mainForm.username.vars.value %}
     <form id="login-form1" {{ isEmail ? "true" : "false" }} class="registration login-form login-form1" action="" method="post" novalidate>
         {{ form_widget(mainForm._token) }}
         <fieldset>
@@ -22,7 +22,7 @@
                 <div class="block-tel-email">
                     <div class="{{ isEmail ? "registration-email" : "registration-tel" }}">
                         <div class="wrapper">
-                            {{ form_widget(mainForm.username, {attr: {"placeholder" : (isEmail ? "e-mail" : "Ваш телефон"), "class" : "input type-username", "data-change-type" : (isEmail ? "tel" : "email" ), "data-change-placeholder" : (isEmail ? "Ваш телефон" : "e-mail" )}, "type" : (isEmail ? "email" : "tel")}) }}
+                            {{ form_widget(mainForm.username, {attr: {"placeholder" : (isEmail ? "Ваш e-mail" : "+375  (__)  ___ - __ - __"), "class" : "input type-username", "data-change-type" : (isEmail ? "tel" : "email" ), "data-change-placeholder" : (isEmail ? "+375  (__)  ___ - __ - __" : "Ваш e-mail" )}, "type" : (isEmail ? "email" : "tel")}) }}
                             <button class="btn" type="button" clear-field-button target-element="#{{ mainForm.username.vars.id }}">
                                 <svg x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
                                     <line stroke="#8e8e8e" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
@@ -35,7 +35,7 @@
                         {% endfor %}
                     </div>
 
-                    <button class="btn-log change-type-username" data-change-value="Войти по {{ isEmail ? "e-mail" : "телефону" }}" type="button">Войти по {{ isEmail ? "телефону" : "e-mail" }}</button>
+                    <button class="btn-log change-type-username" data-change-value="Войти по {{ isEmail ? "e-mail" : "номеру телефону" }}" type="button">Войти по {{ isEmail ? "номеру телефону" : "e-mail" }}</button>
                 </div>
 
                 <div class="registration-pas">

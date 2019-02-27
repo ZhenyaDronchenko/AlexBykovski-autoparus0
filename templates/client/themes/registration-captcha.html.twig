@@ -4,7 +4,7 @@
             <img src="{{ captcha_code }}" alt="" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" />
         </div>
         <div class="cod">
-            {{ form_widget(form, {'attr': {"placeholder": "Введите код с картинки", "class" : "input-cod"}}) }}
+            {{ form_widget(form, {'attr': {"class" : "input-cod"}}) }}
             {% for key, error in form.vars.errors.form.getErrors(true)%}
                 <span class="prompt">{{ error.message }}</span>
             {% endfor %}

@@ -45,12 +45,14 @@
         };
 
         this.addDialog = function() {
+            $("body").addClass("modal--show");
             this.cropperContainer.addClass("modal--show");
 
             self.addCropper();
 
             $("#cancel-button").click(function(){
                 self.cropperContainer.removeClass("modal--show");
+                $("body").removeClass("modal--show");
                 self.input.val('');
             });
 
@@ -139,6 +141,7 @@
                         }
 
                         self.cropperContainer.removeClass("modal--show");
+                        $("body").removeClass("modal--show");
                         self.input.val('');
                     },
                     error(data) {
