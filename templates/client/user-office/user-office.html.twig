@@ -40,7 +40,7 @@
                         {% if isSeller %}
                             <div class="user-logo user-logo-r"  user-upload-link link-selector="#business-profile-photo-link" input-selector="#business-profile-photo-input" img-selector="#business-profile-photo" action-url="{{ path("user_office_upload_business_profile_photo_ajax") }}">
                                 <div class="foto-user-wrapper">
-                                    <img id="business-profile-photo" src="{{ image_url(app.user.sellerData.photo, "user") }}" alt="Автолюбители" class="foto-user">
+                                    <img id="business-profile-photo" src="{{ app.user.sellerData.photo ? image_url(app.user.sellerData.photo) : image_url(default_image(3).image) }}" alt="Автолюбители" class="foto-user">
                                 </div>
                                 <a id="business-profile-photo-link" href="" class="user-link us-btn">
                                     <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
@@ -55,7 +55,7 @@
                             {% if app.user.sellerData %}
                                 <ul class="btn-block">
                                     {% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}
-                                        <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Товары"></a></li>
+                                        <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Авто/Запчасти"></a></li>
                                     {% endif %}
                                     {% if app.user.sellerData.sellerCompany.isService %}
                                         <li><a class="user-btn" data-text="Услуги"></a></li>
