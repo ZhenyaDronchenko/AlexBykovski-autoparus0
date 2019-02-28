@@ -75,6 +75,7 @@
                 const trueWidth = trueSize[0];
                 const trueHeight = trueSize[1];
 
+                $("#cropper-modal").width(Math.max(data["width"], 450));
 
                 self.previewImage.Jcrop({
                     aspectRatio: 3 / 2,
@@ -109,16 +110,22 @@
         };
 
         this.getJCropDefaultSelected = function(width, height) {
-            const baseSide = width > height ? height : width;
-            const selectedH = baseSide / 9;
-            const selectedW = baseSide / 6;
+            const heightModified = height * 1.5;
+            const xWidth = width > heightModified ? heightModified : width;
+            const yHeight = width > heightModified ? height : width / 1.5;
 
-            const x = width/3 - selectedW/3;
-            const y = height/3 - selectedH/3;
-            const x1 = x + selectedW;
-            const y1 = y + selectedH;
+            let startX = width > heightModified ? (width - xWidth)/2 : 0;
+            let startY = width > heightModified ? 0 : (height - yHeight)/2;
+            // const baseSide = width > height ? height : width;
+            // const selectedH = baseSide / 9;
+            // const selectedW = baseSide / 6;
+            //
+            // const x = width/3 - selectedW/3;
+            // const y = height/3 - selectedH/3;
+            // const x1 = x + selectedW;
+            // const y1 = y + selectedH;
 
-            return [x, y, x1, y1];
+            return [startX, startY, xWidth, yHeight];
         };
 
         this.sendFileToServer = function(dialogInstance, formData) {
