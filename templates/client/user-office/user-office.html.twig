@@ -12,62 +12,49 @@
             <div class="heading">
                 <div class="profil-items user-info--line">
                     <div class="user-info">
-                        <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" img-selector="#user-photo" action-url="{{ path("user_office_upload_user_photo_ajax") }}">
+                        <div class="user-logo">
                             <div class="foto-user-wrapper">
-                                <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
+                                <img src="img/userfoto.jpg" alt="Автолюбители" class="foto-user">
                             </div>
-                            <a href="" id="user-photo-link" class="user-link us-btn">
+                            <a href="#" class="user-link us-btn">
                                 <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
                                     <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
                                 </svg>
                             </a>
-
-                            <input id="user-photo-input" type="file" style="display: none">
                         </div>
                         <div class="user-wrapper">
-                            <a href="{{ path("show_user_base_profile") }}" class="button button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} личный профиль</a>
+                            <a href="#" class="button button-rp">Редактировать персональный профиль</a>
                             <ul class="user-about">
-                                {% for car in app.user.cars %}
-                                    <a class="user-avto">{{ car.brand.brandEn }} {{ car.model ? car.model.modelEn : '' }}{{ car.year ? ', ' ~ car.year : '' }}</a>
-                                {% endfor %}
+                                <li><a class="user-avto">Toyota Corolla Verso R20, 2007</a></li>
+                                <li><a class="user-avto">Yamaha VX 1900, 2012</a></li>
+                                <li><a class="user-avto">Honda Civic EG, 2012</a></li>
                             </ul>
                         </div>
                     </div>
-                    <a class="user-name">{{ app.user.name }}</a>
+                    <a class="user-name">Иванов Евгений Игоревич</a>
                 </div>
                 <div class="profil-items">
                     <div class="user-info user-info-r">
-                        {% if isSeller %}
-                            <div class="user-logo user-logo-r"  user-upload-link link-selector="#business-profile-photo-link" input-selector="#business-profile-photo-input" img-selector="#business-profile-photo" action-url="{{ path("user_office_upload_business_profile_photo_ajax") }}">
-                                <div class="foto-user-wrapper">
-                                    <img id="business-profile-photo" src="{{ app.user.sellerData.photo ? image_url(app.user.sellerData.photo) : image_url(default_image(3).image) }}" alt="Автолюбители" class="foto-user">
-                                </div>
-                                <a id="business-profile-photo-link" href="" class="user-link us-btn">
-                                    <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
-                                        <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
-                                    </svg>
-                                </a>
-                                <input id="business-profile-photo-input" type="file" style="display: none">
+                        <div class="user-logo user-logo-r">
+                            <div class="foto-user-wrapper">
+                                <img src="img/userfoto.jpg" alt="Автолюбители" class="foto-user">
                             </div>
-                        {% endif %}
+                            <a href="#" class="user-link us-btn">
+                                <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
+                                    <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
+                                </svg>
+                            </a>
+                        </div>
                         <div class="user-edit">
-                            <a href="{{ path("show_user_business_office") }}" class="button button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
-                            {% if app.user.sellerData %}
-                                <ul class="btn-block">
-                                    {% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}
-                                        <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Авто/Запчасти"></a></li>
-                                    {% endif %}
-                                    {% if app.user.sellerData.sellerCompany.isService %}
-                                        <li><a class="user-btn" data-text="Услуги"></a></li>
-                                    {% endif %}
-                                    {% if app.user.sellerData.sellerCompany.isNews %}
-                                        <li><a class="user-btn" data-text="Статьи"></a></li>
-                                    {% endif %}
-                                </ul>
-                            {% endif %}
+                            <a href="#" class="button button-rp">Редактировать бизнес профиль</a>
+                            <ul class="btn-block">
+                                <li><a class="user-btn" data-text="Товары"></a></li>
+                                <li><a class="user-btn" data-text="Услуги"></a></li>
+                                <li><a class="user-btn" data-text="Статьи"></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <a class="user-company">{{ app.user.sellerData ? app.user.sellerData.sellerCompany.companyName : "" }}</a>
+                    <a class="user-company">ООО "Суперавтозапчасть"</a>
                 </div>
             </div>
         </div>
@@ -75,411 +62,533 @@
         <div class="choice">
             <ul class="choice-block">
                 <li><a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a> </li>
-                <li><a class="icon bis-btn" href="{{ isSeller ? path("show_user_business_office") : "" }}"><i class="fa fa-suitcase"></i>Business</a></li>
+                <li><a class="icon bis-btn" href="#"><i class="fa fa-suitcase"></i>Business</a></li>
                 <li><a class="icon" href="#"><i class="fa fa-camera"></i>Фотогалерея</a></li>
-                <li><a class="icon icon-plus us-btn" href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
+                <li><a class="icon icon-plus us-btn1" href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
             </ul>
         </div>
 
         <ul class="items">
             <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
+                <div class="marka">
+                    <div class="name">
+                        <img class="name-foto" src="img/maz.jpg" alt="">
+                        <b class="name-text">Иванов Иван Иванович</b>
                     </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
+                    <div class="tool">
+                        <a href="" class="tool-rdc"><span class="item-1">Редактировать</span><img src="img/cra.png" alt="Редактировать"></a>
+                        <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="img/trash-can.svg" alt="Удалить"></a>
                     </div>
                 </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
+                <div class="prod">
+                    <img class="prod-foto" src="img/maz.jpg" alt="">
+                    <div class="prod-content">
+                        <span class="date">18.02.2019</span>
+                        <span class="time">15:56</span>
+                        <span class="adress">Беларусь, Минск, Гая 37</span>
+                        <div class="text-block">
+                            <p id='text' class='texthide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+                            <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                        </div>
+                        <ul class="breadcrumbs">
+                            <li>
+                                <a class="item-link" href="index.html">
+                                    <img src="img/windsurfing.png" alt="Парус">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="item-link" href="#">/ Toyota</a>
+                            </li>
+                            <li>
+                                <a class="item-link" href="#">/ Avensis T25</a>
+                            </li>
+                            <li><a class="current">/ Генератор</a></li>
+                        </ul>
+                    </div>
+                </div>
             </li>
 
             <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
+                <div class="marka">
+                    <div class="name">
+                        <img class="name-foto" src="img/maz.jpg" alt="">
+                        <b class="name-text">Иванов Иван Иванович</b>
                     </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
+                    <div class="tool">
+                        <a href="" class="tool-rdc"><span class="item-1">Редактировать</span><img src="img/cra.png" alt="Редактировать"></a>
+                        <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="img/trash-can.svg" alt="Удалить"></a>
                     </div>
                 </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
+                <div class="prod">
+                    <img class="prod-foto" src="img/maz.jpg" alt="">
+                    <div class="prod-content">
+                        <span class="date">18.02.2019</span>
+                        <span class="time">15:56</span>
+                        <span class="adress">Беларусь, Минск, Гая 37</span>
+                        <div class="text-block">
+                            <p id='text' class='texthide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+                            <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                        </div>
+                        <ul class="breadcrumbs">
+                            <li>
+                                <a class="item-link" href="index.html">
+                                    <img src="img/windsurfing.png" alt="Парус">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="item-link" href="#">/ Toyota</a>
+                            </li>
+                            <li>
+                                <a class="item-link" href="#">/ Avensis T25</a>
+                            </li>
+                            <li><a class="current">/ Генератор</a></li>
+                        </ul>
+                    </div>
+                </div>
             </li>
 
             <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
+                <div class="marka">
+                    <div class="name">
+                        <img class="name-foto" src="img/maz.jpg" alt="">
+                        <b class="name-text">Иванов Иван Иванович</b>
                     </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
+                    <div class="tool">
+                        <a href="" class="tool-rdc"><span class="item-1">Редактировать</span><img src="img/cra.png" alt="Редактировать"></a>
+                        <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="img/trash-can.svg" alt="Удалить"></a>
                     </div>
                 </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
-            </li>
-
-            <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
+                <div class="prod">
+                    <img class="prod-foto" src="img/maz.jpg" alt="">
+                    <div class="prod-content">
+                        <span class="date">18.02.2019</span>
+                        <span class="time">15:56</span>
+                        <span class="adress">Беларусь, Минск, Гая 37</span>
+                        <div class="text-block">
+                            <p id='text' class='texthide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+                            <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                        </div>
+                        <ul class="breadcrumbs">
+                            <li>
+                                <a class="item-link" href="index.html">
+                                    <img src="img/windsurfing.png" alt="Парус">
+                                </a>
+                            </li>
+                            <li>
+                                <a class="item-link" href="#">/ Toyota</a>
+                            </li>
+                            <li>
+                                <a class="item-link" href="#">/ Avensis T25</a>
+                            </li>
+                            <li><a class="current">/ Генератор</a></li>
+                        </ul>
                     </div>
                 </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
-            </li>
-
-            <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
-                    </div>
-                </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
-            </li>
-
-            <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
-                    </div>
-                </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
-            </li>
-
-            <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button  class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
-                    </div>
-                </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
-            </li>
-
-            <li class="user-item">
-                <div class="foto">
-                    <img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">
-                    <div class="foto-hvr">
-                        <button class="btn">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-                    <div class="modal2">
-                        <button class="modal-close button-close2">
-                            <svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">
-                                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                                <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                            </svg>
-                        </button>
-                        <Ul class="links">
-                            <li><a class="links-item" href="#">Копировать ссылку</a></li>
-                            <li><a class="links-item" href="#">Поделиться в Viber</a></li>
-                            <li><a class="links-item" href="#">Поделиться WhatsApp</a></li>
-                            <li><a class="links-item" href="#">Редактировать</a></li>
-                            <li><a class="links-item" href="#">Удалить</a></li>
-                        </Ul>
-                    </div>
-                </div>
-                <p class="item-description">Скоро на сайте</p>
-                <a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>
             </li>
         </ul>
+
+        <div class="sail-f">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+        </div>
     </main>
 
-    {#<div id="dialog-cropper-container" title="Корректировка изображения" style="padding-left: 0;">#}
-        {#<div id="image-preview-container">#}
-            {#<img src="" style="display: none">#}
-        {#</div>#}
-    {#</div>#}
-
-    <div id="dialog-cropper-container" class="overlay1">
-        <section id="cropper-modal" class="modal1">
+    <div class="overlay1">
+        <section class="modal1">
             <h2 class="subtitle" data-text="Редактор изображения"></h2>
-            <div id="image-preview-container" class="img-cont">
-                <img class="modal-img" src="" alt="Фото" style="display: none">
+            <div class="img-cont">
+                <img class="modal-img" src="img/maz.jpg" alt="Фото">
             </div>
             <div class="btn-list">
-                <button id="cancel-button" class="button button-close1">Отменить</button>
-                <button id="save-button" class="button">Сохранить</button>
+                <button class="button button-close1">Отменить</button>
+                <button class="button">Сохранить</button>
             </div>
         </section>
     </div>
 
+    <div class="overlay2">
+        <section class="modal2">
+            <div class="img-cont">
+                <img class="modal-img1" src="img/maz.jpg" alt="Фото">
+            </div>
+            <div class="btn-lists">
+                <textarea name="text" rows="3" placeholder="Пост(описание) к фото"></textarea>
+                <div class="btn-input">
+                    <button class="button button-mr button-close2">Отменить</button>
+                    <button class="button">Сохранить</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
-    {% if not isSeller %}
-        <div class="overlay3">
-            <section class="modal3">
-                <button class="modal-close button-close3">
-                    <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                        <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                </svg>
-                </button>
-                <h3 class="modal-title">{{ default_text(13).headline }}</h3>
-                <div class="modal-text">{{ default_text(13).text | raw }}</div>
-                <a href="{{ path("show_user_business_office") }}"><button class="button">Создать бизнес профиль</button></a>
-            </section>
-        </div>
-    {% endif %}
-    {#{% set isSeller = app.user.isSeller() %}#}
+    <div class="overlay3">
+        <section class="modal3">
+            <button class="modal-close button-close3">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+            <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+            </svg>
+            </button>
+            <h3 class="modal-title">Заголовок №13 из КТ</h3>
+            <p class="modal-text">Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов, Текст №13 из каталога текстов</p>
+            <button  class="button">Создать бизнес профиль</button>
+        </section>
+
+    </div>
+
+
+
+
+
+
     {#<main class="container">#}
         {#<div class="profil">#}
             {#<div class="heading">#}
                 {#<div class="profil-items user-info--line">#}
                     {#<div class="user-info">#}
                         {#<div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" img-selector="#user-photo" action-url="{{ path("user_office_upload_user_photo_ajax") }}">#}
-                            {#<img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">#}
-                            {#<a href="" id="user-photo-link" class="user-link"> + </a>#}
+                            {#<div class="foto-user-wrapper">#}
+                                {#<img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">#}
+                            {#</div>#}
+                            {#<a href="" id="user-photo-link" class="user-link us-btn">#}
+                                {#<svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">#}
+                                    {#<path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>#}
+                                {#</svg>#}
+                            {#</a>#}
+
                             {#<input id="user-photo-input" type="file" style="display: none">#}
                         {#</div>#}
-                        {#<div class="user-about">#}
-                            {#<a href="{{ path("show_user_base_profile") }}" class="button">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить личный" }} профиль <i class="fa fa-check" aria-hidden="true"></i></a>#}
-                            {#{% for car in app.user.cars %}#}
-                                {#<a class="user-avto">{{ car.brand.name }} {{ car.model ? car.model.name : '' }}, {{ car.year ? car.year : '' }}</a>#}
-                            {#{% endfor %}#}
+                        {#<div class="user-wrapper">#}
+                            {#<a href="{{ path("show_user_base_profile") }}" class="button button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} личный профиль</a>#}
+                            {#<ul class="user-about">#}
+                                {#{% for car in app.user.cars %}#}
+                                    {#<a class="user-avto">{{ car.brand.brandEn }} {{ car.model ? car.model.modelEn : '' }}{{ car.year ? ', ' ~ car.year : '' }}</a>#}
+                                {#{% endfor %}#}
+                            {#</ul>#}
                         {#</div>#}
                     {#</div>#}
-                    {#<a class="user-name">Добро пожаловать, <br>{{ app.user.name }}</a>#}
+                    {#<a class="user-name">{{ app.user.name }}</a>#}
                 {#</div>#}
-
                 {#<div class="profil-items">#}
-                    {#<div class="user-info">#}
+                    {#<div class="user-info user-info-r">#}
                         {#{% if isSeller %}#}
-                            {#<div class="user-logo" user-upload-link link-selector="#business-profile-photo-link" input-selector="#business-profile-photo-input" img-selector="#business-profile-photo" action-url="{{ path("user_office_upload_business_profile_photo_ajax") }}">#}
-                                {#<img id="business-profile-photo" src="{{ image_url(app.user.sellerData.photo, "user") }}" alt="Автолюбители" class="foto-user">#}
-                                {#<a id="business-profile-photo-link" href="#" class="user-link"> + </a>#}
+                            {#<div class="user-logo user-logo-r"  user-upload-link link-selector="#business-profile-photo-link" input-selector="#business-profile-photo-input" img-selector="#business-profile-photo" action-url="{{ path("user_office_upload_business_profile_photo_ajax") }}">#}
+                                {#<div class="foto-user-wrapper">#}
+                                    {#<img id="business-profile-photo" src="{{ app.user.sellerData.photo ? image_url(app.user.sellerData.photo) : image_url(default_image(3).image) }}" alt="Автолюбители" class="foto-user">#}
+                                {#</div>#}
+                                {#<a id="business-profile-photo-link" href="" class="user-link us-btn">#}
+                                    {#<svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">#}
+                                        {#<path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>#}
+                                    {#</svg>#}
+                                {#</a>#}
                                 {#<input id="business-profile-photo-input" type="file" style="display: none">#}
                             {#</div>#}
                         {#{% endif %}#}
-
                         {#<div class="user-edit">#}
-                            {#<a href="{{ path("show_user_business_office") }}" class="button button-rdc">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль <i class="fa fa-check" aria-hidden="true"></i></a>#}
-                            {#{% if isSeller %}#}
-                                {#<div class="btn-block">#}
+                            {#<a href="{{ path("show_user_business_office") }}" class="button button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>#}
+                            {#{% if app.user.sellerData %}#}
+                                {#<ul class="btn-block">#}
                                     {#{% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}#}
-                                        {#<a class="user-btn" href="{{ path("user_profile_product_categories") }}">Товары</a>#}
+                                        {#<li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Авто/Запчасти"></a></li>#}
                                     {#{% endif %}#}
                                     {#{% if app.user.sellerData.sellerCompany.isService %}#}
-                                        {#<a class="user-btn">Услуги</a>#}
+                                        {#<li><a class="user-btn" data-text="Услуги"></a></li>#}
                                     {#{% endif %}#}
                                     {#{% if app.user.sellerData.sellerCompany.isNews %}#}
-                                        {#<a class="user-btn">Статьи</a>#}
+                                        {#<li><a class="user-btn" data-text="Статьи"></a></li>#}
                                     {#{% endif %}#}
-                                {#</div>#}
+                                {#</ul>#}
                             {#{% endif %}#}
                         {#</div>#}
                     {#</div>#}
-                    {#{% if isSeller %}#}
-                        {#<a class="user-company">{{ app.user.sellerData.sellerCompany.companyName }}</a>#}
-                    {#{% endif %}#}
+                    {#<a class="user-company">{{ app.user.sellerData ? app.user.sellerData.sellerCompany.companyName : "" }}</a>#}
                 {#</div>#}
             {#</div>#}
         {#</div>#}
 
         {#<div class="choice">#}
-            {#<div class="choice-block">#}
-                {#<a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a>#}
-                {#<a class="icon" href="#"><i class="fa fa-suitcase"></i>  Business</a>#}
-                {#<a class="icon" href="#"><i class="fa fa-camera"></i>  Фотогалерея </a>#}
-                {#<a class="icon icon-plus" href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>#}
-            {#</div>#}
+            {#<ul class="choice-block">#}
+                {#<li><a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a> </li>#}
+                {#<li><a class="icon bis-btn" href="{{ isSeller ? path("show_user_business_office") : "" }}"><i class="fa fa-suitcase"></i>Business</a></li>#}
+                {#<li><a class="icon" href="#"><i class="fa fa-camera"></i>Фотогалерея</a></li>#}
+                {#<li><a class="icon icon-plus us-btn" href=""><i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>#}
+            {#</ul>#}
         {#</div>#}
 
-        {#<div class="items">#}
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+        {#<ul class="items">#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button  class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
 
-            {#<div class="user-item">#}
-                {#<div class="foto"><img src="/img/Amazinr.jpg" alt="Автолюбители" class="foto-users"></div>#}
-                {#<p class="item-description">Ауди (Audi), немецкая компания, специализирующаяся на выпуске легковых автомобилей. </p>#}
-                {#<a class="more" href="#"> >>>>>>> </a>#}
-            {#</div>#}
-
-        {#</div>#}
+            {#<li class="user-item">#}
+                {#<div class="foto">#}
+                    {#<img src="{{ image_url(default_image(8).image) }}" alt="Автолюбители">#}
+                    {#<div class="foto-hvr">#}
+                        {#<button class="btn">#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                            {#<span class="points"></span>#}
+                        {#</button>#}
+                    {#</div>#}
+                    {#<div class="modal2">#}
+                        {#<button class="modal-close button-close2">#}
+                            {#<svg  x="0px" y="0px" width="20px" height="20px" viewBox="0 0 50 50">#}
+                                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                                {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                            {#</svg>#}
+                        {#</button>#}
+                        {#<Ul class="links">#}
+                            {#<li><a class="links-item" href="#">Копировать ссылку</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться в Viber</a></li>#}
+                            {#<li><a class="links-item" href="#">Поделиться WhatsApp</a></li>#}
+                            {#<li><a class="links-item" href="#">Редактировать</a></li>#}
+                            {#<li><a class="links-item" href="#">Удалить</a></li>#}
+                        {#</Ul>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<p class="item-description">Скоро на сайте</p>#}
+                {#<a class="more" href="#">&gt;&gt;&gt;&gt;&gt;</a>#}
+            {#</li>#}
+        {#</ul>#}
     {#</main>#}
 
-    {#<div id="dialog-cropper-container" title="Корректировка изображения" style="padding-left: 0;">#}
-        {#<div id="image-preview-container">#}
-            {#<img src="" style="display: none">#}
-        {#</div>#}
+    {#<div id="dialog-cropper-container" class="overlay1">#}
+        {#<section id="cropper-modal" class="modal1">#}
+            {#<h2 class="subtitle" data-text="Редактор изображения"></h2>#}
+            {#<div id="image-preview-container" class="img-cont">#}
+                {#<img class="modal-img" src="" alt="Фото" style="display: none">#}
+            {#</div>#}
+            {#<div class="btn-list">#}
+                {#<button id="cancel-button" class="button button-close1">Отменить</button>#}
+                {#<button id="save-button" class="button">Сохранить</button>#}
+            {#</div>#}
+        {#</section>#}
     {#</div>#}
+    {##}
+    {#{% if not isSeller %}#}
+        {#<div class="overlay3">#}
+            {#<section class="modal3">#}
+                {#<button class="modal-close button-close3">#}
+                    {#<svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">#}
+                {#<line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>#}
+                        {#<line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>#}
+                {#</svg>#}
+                {#</button>#}
+                {#<h3 class="modal-title">{{ default_text(13).headline }}</h3>#}
+                {#<div class="modal-text">{{ default_text(13).text | raw }}</div>#}
+                {#<a href="{{ path("show_user_business_office") }}"><button class="button">Создать бизнес профиль</button></a>#}
+            {#</section>#}
+        {#</div>#}
+    {#{% endif %}#}
 {% endblock %}
 
 {% block javascripts %}
