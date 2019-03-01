@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/universal-page/brand.css'>
+{% endblock %}
+
 {% block body %}
  <main class="container">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -153,4 +157,8 @@
         </ul>
       </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/universal-page/brand.js'></script>  
 {% endblock %}
