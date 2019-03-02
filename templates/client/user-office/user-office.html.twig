@@ -12,49 +12,63 @@
             <div class="heading">
                 <div class="profil-items user-info--line">
                     <div class="user-info">
-                        <div class="user-logo">
+                        <div class="user-logo" user-upload-link link-selector="#user-photo-link" input-selector="#user-photo-input" img-selector="#user-photo" action-url="{{ path("user_office_upload_user_photo_ajax") }}">
                             <div class="foto-user-wrapper">
-                                <img src="img/userfoto.jpg" alt="Автолюбители" class="foto-user">
+                                <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
                             </div>
-                            <a href="#" class="user-link us-btn">
+                            <a href="" id="user-photo-link" class="user-link us-btn">
                                 <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
                                     <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
                                 </svg>
                             </a>
+
+                            <input id="user-photo-input" type="file" style="display: none">
                         </div>
+
                         <div class="user-wrapper">
-                            <a href="#" class="button button-rp">Редактировать персональный профиль</a>
+                            <a href="{{ path("show_user_base_profile") }}" class="button button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} личный профиль</a>
                             <ul class="user-about">
-                                <li><a class="user-avto">Toyota Corolla Verso R20, 2007</a></li>
-                                <li><a class="user-avto">Yamaha VX 1900, 2012</a></li>
-                                <li><a class="user-avto">Honda Civic EG, 2012</a></li>
+                                {% for car in app.user.cars %}
+                                    <a class="user-avto">{{ car.brand.brandEn }} {{ car.model ? car.model.modelEn : '' }}{{ car.year ? ', ' ~ car.year : '' }}</a>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
-                    <a class="user-name">Иванов Евгений Игоревич</a>
+                    <a class="user-name">{{ app.user.name }}</a>
                 </div>
                 <div class="profil-items">
                     <div class="user-info user-info-r">
-                        <div class="user-logo user-logo-r">
-                            <div class="foto-user-wrapper">
-                                <img src="img/userfoto.jpg" alt="Автолюбители" class="foto-user">
+                        {% if isSeller %}
+                            <div class="user-logo user-logo-r"  user-upload-link link-selector="#business-profile-photo-link" input-selector="#business-profile-photo-input" img-selector="#business-profile-photo" action-url="{{ path("user_office_upload_business_profile_photo_ajax") }}">
+                                <div class="foto-user-wrapper">
+                                    <img id="business-profile-photo" src="{{ app.user.sellerData.photo ? image_url(app.user.sellerData.photo) : image_url(default_image(3).image) }}" alt="Автолюбители" class="foto-user">
+                                </div>
+                                <a id="business-profile-photo-link" href="" class="user-link us-btn">
+                                    <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
+                                        <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
+                                    </svg>
+                                </a>
+                                <input id="business-profile-photo-input" type="file" style="display: none">
                             </div>
-                            <a href="#" class="user-link us-btn">
-                                <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
-                                    <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
-                                </svg>
-                            </a>
-                        </div>
+                        {% endif %}
                         <div class="user-edit">
-                            <a href="#" class="button button-rp">Редактировать бизнес профиль</a>
-                            <ul class="btn-block">
-                                <li><a class="user-btn" data-text="Товары"></a></li>
-                                <li><a class="user-btn" data-text="Услуги"></a></li>
-                                <li><a class="user-btn" data-text="Статьи"></a></li>
-                            </ul>
+                            <a href="{{ path("show_user_business_office") }}" class="button button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
+                            {% if app.user.sellerData %}
+                                <ul class="btn-block">
+                                    {% if app.user.sellerData.sellerCompany.isSparePartSeller or app.user.sellerData.sellerCompany.isAutoSeller %}
+                                        <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Авто/Запчасти"></a></li>
+                                    {% endif %}
+                                    {% if app.user.sellerData.sellerCompany.isService %}
+                                        <li><a class="user-btn" data-text="Услуги"></a></li>
+                                    {% endif %}
+                                    {% if app.user.sellerData.sellerCompany.isNews %}
+                                        <li><a class="user-btn" data-text="Статьи"></a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
-                    <a class="user-company">ООО "Суперавтозапчасть"</a>
+                    <a class="user-company">{{ app.user.sellerData ? app.user.sellerData.sellerCompany.companyName : "" }}</a>
                 </div>
             </div>
         </div>
