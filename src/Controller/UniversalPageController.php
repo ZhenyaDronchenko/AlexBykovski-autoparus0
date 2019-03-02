@@ -14,9 +14,18 @@ class UniversalPageController extends Controller
     /**
      * @Route("/00001/{url}", name="universal_page_brand")
      */
-    public function showToUsersPageAction(Request $request)
+    public function showUniversalBrandPageAction(Request $request)
     {
         return $this->render('client/universal-page/brand.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/city/{url}", name="universal_page_city")
+     */
+    public function showUniversalCityPageAction(Request $request)
+    {
+        return $this->render('client/universal-page/city.html.twig', [
         ]);
     }
 }
