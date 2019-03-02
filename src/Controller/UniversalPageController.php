@@ -28,4 +28,13 @@ class UniversalPageController extends Controller
         return $this->render('client/universal-page/city.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/zapchasti/{url}", name="universal_page_spare-part")
+     */
+    public function showUniversalSparePartPageAction(Request $request)
+    {
+        return $this->render('client/universal-page/spare-part.html.twig', [
+        ]);
+    }
 }
