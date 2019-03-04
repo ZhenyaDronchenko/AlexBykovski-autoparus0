@@ -58,4 +58,12 @@ class CityCatalogController extends Controller
     {
         return $this->render('client/catalog/city/choice-model.html.twig', []);
     }
+
+    /**
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}", name="show_city_catalog_choice_year")
+     */
+    public function showChoiceYearPageAction(Request $request)
+    {
+        return $this->render('client/catalog/city/choice-year.html.twig', []);
+    }
 }
