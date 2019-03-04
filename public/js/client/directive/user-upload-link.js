@@ -10,7 +10,7 @@
                 let input = $(attrs.inputSelector);
                 let imgPhoto = $(attrs.imgSelector);
                 let uploadUrl = attrs.actionUrl;
-                let cropperContainer = $("#dialog-cropper-container");
+                let cropperContainer = $(attrs.cropperContainer);
 
                 link.click(function(e){
                     input.trigger("click");
