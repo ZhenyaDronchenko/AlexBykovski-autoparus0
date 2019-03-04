@@ -18,7 +18,7 @@ class CityCatalogController extends Controller
     /**
      * @Route("/", name="show_city_catalog_choice_city")
      */
-    public function showCatalogAction(Request $request)
+    public function showChoiceCityPageAction(Request $request)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -41,5 +41,13 @@ class CityCatalogController extends Controller
             'brands' => $brands,
             'page' => $em->getRepository(CatalogCityChoiceCity::class)->findAll()[0]
         ]);
+    }
+
+    /**
+     * @Route("/{urlCity}", name="show_city_catalog_choice_brand")
+     */
+    public function showChoiceBrandPageAction(Request $request)
+    {
+        return $this->render('client/catalog/city/choice-brand.html.twig', []);
     }
 }
