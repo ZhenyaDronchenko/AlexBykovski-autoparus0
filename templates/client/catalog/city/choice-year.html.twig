@@ -1,7 +1,175 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+<link rel='stylesheet' href='/css/catalog/city/choice-year.css'>
 {% endblock %}
 
 {% block body %}
+<main class="container">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
+            <span class="user-name" itemprop="name">Главная</span>
+            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+            <meta itemprop="position" content="1">
+          </a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[CITY]</span></a><meta itemprop="position" content="3"></li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="link-b" href="#" itemprop="item" title="Тайтал четвертой крошки"><span class="line">/</span><span itemprop="name">[ENBRAND]</span></a><meta itemprop="position" content="4"></li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[ENMODEL]</span><meta itemprop="position" content="5"></a>
+        </li>
+      </ul>
+
+      <section class="model">
+        <h1>Заголовок H1 из админки</h1>
+        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+
+        <ul class="brand-block">
+          <li><a class="link-c" href='#'>2000</a></li>
+          <li><a class="link-c" href='#'>2001</a></li>
+          <li><a class="link-c" href='#'>2002</a></li>
+          <li><a class="link-c" href='#'>2003</a></li>
+          <li><a class="link-c" href='#'>2004</a></li>
+          <li><a class="link-c" href='#'>2005</a></li>
+          <li><a class="link-c" href='#'>2006</a></li>
+          <li><a class="link-c" href='#'>2007</a></li>
+          <li><a class="link-c" href='#'>2008</a></li>
+        </ul>
+
+        <h2>Заголовок H2 из админки</h2>
+        
+        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1  из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки,  
+        </p>
+        <button class="btn">Универсальная кнопка</button>
+
+        <h3>Частоискаемые автозапчасти</h3>
+
+        <ul class="model-block">
+          <li>
+            <a class="model-link" href="#">
+              <img src="/img/audi.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="#">
+              <img src="/img/maz.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="#">
+              <img src="/img/citroen.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/bmw.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/audi.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/audi.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/citroen.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/bmw.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/audi.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/audi.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/maz.jpg" alt="Логотип БМВ">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/citroen.jpg" alt="Логотип Ситроен">
+            </a>
+          </li>
+          <li>
+            <a class="model-link" href="/zapchasti/audi">
+              <img src="/img/audi.jpg" alt="Логотип Audi">
+            </a>
+          </li>
+        </ul>
+
+      </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+<script src='/js/catalog/city/choice-year.js'></script>
+
 {% endblock %}
