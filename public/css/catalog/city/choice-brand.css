@@ -1,0 +1,419 @@
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;  
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+ /*ХЛЕБНЫЕ КРОШКИ*/
+#breadcrumbs {
+   border-top: 2px solid #444;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
+}
+  
+.line {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+.dotdotdot {
+    display: none;
+        font-size: 10px;
+    line-height: 20px;
+    letter-spacing: 3px;
+    color: #444;
+
+}
+.more {
+  display: none;
+  font-size: 0.9em;
+  letter-spacing: 2px;
+  color: #444; 
+}
+
+#breadcrumbs a {
+  font-family: 'Roboto', sans-serif;
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+}
+.user-icon {
+  display: none;
+}
+
+.user-link:hover,
+.link-b:hover {
+color: black;
+-webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+        transform: scale(1.05);
+}
+
+.current {
+cursor: default;
+}
+.opened {
+    background-color: transparent;
+}
+
+@media  (max-width: 575px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
+}
+  .line {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+.user-name {
+    display: none;
+  }
+.opened {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            
+    }
+  .opened li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .opened .more {
+        display: none;
+    }
+  
+.user-icon {
+  display: block;
+}
+
+
+.close-menu {
+  font-size: 14px;
+  cursor: pointer;
+}
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.opened .link-b {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+.user-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+ .more {
+  display: block;
+  cursor: pointer;
+   font-size: 12px;
+  line-height: 18px;
+  margin-left: 5px;
+  }
+#breadcrumbs a {
+    line-height: 20px;
+    font-size: 11px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 16px;
+}
+   
+ 
+
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+.more {
+        display: block;
+        cursor: pointer;
+   
+    }
+
+.opened .more {
+        display: none;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .container {
+    width: auto; 
+  }
+}
+ /*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+/*mod*/
+.model{
+  padding-top: 40px;
+  padding-bottom: 65px;
+}
+h1 {
+  margin: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 26px;
+  line-height: 30px;
+  color: #ff0000;
+
+}
+
+
+p {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
+  font-weight: 400;
+  text-align: justify;
+}
+
+
+.modform {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin: 40px 0;   
+}
+
+ .form7 {
+  width: 200px;
+  padding-left: 5px;
+  border: none;
+  background-color: #fff;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  outline: none;
+  color: black;
+  font-size: 18px;
+  line-height: 20px;
+ 
+}
+
+
+.model-block {
+  margin: 40px 0;
+}
+
+#model {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+
+.show {
+  max-height: 255px;
+  margin: 0 auto;  
+  overflow: hidden;  
+}
+
+
+#model li {
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-bottom: 30px;
+}
+.model-link {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+
+}
+.model-link img {
+  width: 100px;
+  height: 100px;
+}
+.model-link img:hover {
+ -webkit-filter: grayscale(100%);
+         filter: grayscale(100%);  
+}
+
+
+
+#button-mod {
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    color: red; 
+    padding-top: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+#button-mod:hover,
+#button-mod:focus {
+    color: #000;
+}
+
+.btn {
+  display: block;
+  font-size: 16px;
+  line-height: 18px;
+    padding: 5px 15px;
+    background-color: #dbc0c7;
+    border: 1px solid #757373;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700; 
+    margin-left: auto;
+    margin-top: 30px;
+}
+.btn:hover {
+  background-color: #d2a2af;
+}
+h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  line-height: 26px;
+  margin-bottom: 20px;
+  color: #ff0000;
+}
+
+
+@media (max-width: 480px) {
+  .container {
+    width: auto; 
+    padding: 0 10px;
+  }
+.model {
+  padding-bottom: 50px;
+}
+  
+  h1 {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  
+
+.show {
+    max-height: 350px;
+}
+ .form7 {
+  border-bottom: 2px solid #444444;
+
+}
+#model li {
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.model-link img {
+  width: 60px;
+  height: 60px;
+}
+
+
+h2 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+
+
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    width: auto; 
+  }
+
+
+  h1 {
+    font-size: 22px;
+    line-height: 24px;
+  }
+
+.model-link img {
+  width: 80px;
+  height: 80px;
+}
+#model li {
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 15px;
+}
+ 
+h2 {
+  font-size: 20px;
+  line-height: 22px; 
+}
+.show {
+    max-height: 280px;
+}
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: auto; }
+
+
+
+  }
+
+
+/*mod END*/ 
+
