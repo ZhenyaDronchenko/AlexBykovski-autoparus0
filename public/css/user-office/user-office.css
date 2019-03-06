@@ -15,6 +15,7 @@
     padding-bottom: 20px;
 }
 .user-info {
+    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -24,9 +25,7 @@
     margin-bottom: 15px;
     min-height: 125px;
 }
-.user-logo {
-    position: relative;
-}
+
 .profil-items {
     width: 560px;
 }
@@ -77,8 +76,8 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    bottom: 18px;
-    right: -7px;
+    top: 85px;
+    left: 135px;
     border: 1px solid #757575;
     border-radius: 3px;
     padding: 3px;
@@ -100,7 +99,22 @@
     width: 380px;
 
 }
-
+.btn {
+    width: 185px;
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px;
+    padding-bottom: 3px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 400;
+}
+.btn:hover {
+    background-color: #dbc0c7;
+}
 .button {
     border: 1px solid #737373;
     background-color: #dbc0c7;
@@ -134,26 +148,26 @@
 .button-rp:hover {
     background-color: #ededed;
 }
-.btn-block {
+
+.btn-block li {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-flex-wrap: wrap;
-    -o-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
-.btn-block li {
-    margin-right: 40px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 15px;
 }
 .user-btn {
     color: #ff0000;
     text-decoration: none;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 26px;
+    font-size: 18px;
+    line-height: 20px;
 
 }
 
@@ -169,17 +183,26 @@
     color: #000;
 }
 .user-about li {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .user-about li:last-child {
     margin-bottom: 0;
 }
+
+
 .user-avto {
+    color: #ff0000;
+    text-decoration: none;
     font-size: 16px;
     line-height: 18px;
     font-weight: 700;
 
+}
+
+.user-avto::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .04em #000000;
 }
 .user-avto:hover {
     color: red;
@@ -620,8 +643,6 @@
     -ms-flex-pack: justify;
     justify-content: space-between;
     margin: 0 auto;
-    -webkit-flex-wrap: wrap;
-    -moz-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -629,21 +650,27 @@
 
 .btn-input {
     width: 130px;
-    display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
     display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    -webkit-flex-direction: column;
     -moz-flex-direction: column;
     -ms-flex-direction: column;
     -o-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
     flex-direction: column;
     -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-left: 15px;
 }
 .btn-lists textarea {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
     flex-grow: 1;
     font-size: 14px;
     line-height: 16px;
@@ -688,11 +715,7 @@
         width: 90px;
         height: 60px;
     }
-    .user-link {
-        bottom: -5px;
-        right: -5px;
-        padding: 2px;
-    }
+
 
 
     .user-wrapper {
@@ -723,7 +746,7 @@
         line-height: 16px;
     }
     .btn-block  li {
-        margin-right: 24px;
+
     }
 
     .user-logo {
@@ -793,10 +816,10 @@
         padding-bottom: 3px;
         font-size: 9px;
         line-height: 12px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
     .user-about li {
-        margin-bottom: 0;
+        margin-bottom: 10px;
     }
 
     .user-btn {
@@ -805,7 +828,7 @@
 
     }
     .btn-block  li {
-        margin-right: 8px;
+        margin-bottom: 12px;
     }
 
     .icon {
@@ -994,30 +1017,39 @@
         margin-bottom: 10px;
     }
     .btn-lists {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
         flex-direction: column;
     }
 
     .btn-input {
         width: 100%;
-        display: -webkit-flex;
         display: -moz-flex;
         display: -ms-flex;
         display: -o-flex;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        -webkit-flex-direction: row;
         -moz-flex-direction: row;
         -ms-flex-direction: row;
         -o-flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
         flex-direction: row;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
         align-items: end;
         margin-left: 0;
     }
     .btn-lists textarea {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
         flex-grow: 1;
 
         margin-bottom: 15px;
@@ -1030,7 +1062,25 @@
     .button-mr {
         margin-bottom: 0;
     }
+    .user-link {
+        top: 45px;
+        left: 75px;
+    }
+    .user-link-r {
+        top: 45px;
+        left: 75px;
+    }
+    .btn {
+        padding: 2px;
+        font-size: 8px;
+        line-height: 12px;
+        width: 110px;
+    }
+    .user-btn {
+        font-size: 12px;
+        line-height: 14px;
 
+    }
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
@@ -1050,9 +1100,7 @@
         width: 120px;
         height: 80px;
     }
-    .user-link {
-        bottom: -8px;
-    }
+
 
     .user-link:hover svg {
         fill: red;
@@ -1071,8 +1119,10 @@
         line-height: 14px;
     }
 
-    .btn-block  li {
-        margin-right: 24px;
+    .btn {
+        width: 160px;
+        font-size: 12px;
+        line-height: 14px;
     }
 
     .user-logo {
@@ -1130,17 +1180,14 @@
         padding-bottom: 3px;
         font-size: 12px;
         line-height: 14px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
 
     .user-btn {
-        font-size: 22px;
-        line-height: 24px;
+        font-size: 14px;
+        line-height: 16px;
 
-    }
-    .btn-block  li {
-        margin-right: 18px;
     }
 
     .icon {
@@ -1304,7 +1351,14 @@
         font-size: 22px;
         line-height: 24px;
     }
-
+    .user-link {
+        top: 63px;
+        left: 103px;
+    }
+    .user-link-r {
+        top: 63px;
+        left: 103px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -1340,7 +1394,10 @@
         margin: 0 auto;
         padding-top: 30px;
     }
-
+    .user-link-r {
+        top: 85px;
+        left: 545px;
+    }
 
 }
 @media (min-width: 1024px) and  (max-width: 1199px) {
@@ -1359,7 +1416,8 @@
         height: 80px;
     }
     .user-link {
-        bottom: 36px;
+        top: 65px;
+        left: 105px;
     }
 
     .user-link:hover svg {
@@ -1378,10 +1436,10 @@
         line-height: 14px;
     }
 
-    .btn-block  li {
-        margin-right: 24px;
+    .user-btn {
+        font-size: 16px;
+        line-height: 18px;
     }
-
 
 }
 /*Profil END*/
