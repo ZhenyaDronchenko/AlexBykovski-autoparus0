@@ -3,6 +3,7 @@
 namespace App\Entity\Client;
 
 
+use App\Entity\Image;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,10 +22,15 @@ class GalleryPhoto
     private $id;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @var Image
+     *
+     * One GalleryPhoto has One Image.
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     *
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
-    private $photo;
+    private $image;
 
     /**
      * @var string|null
@@ -44,12 +50,12 @@ class GalleryPhoto
 
     /**
      * GalleryPhoto constructor.
-     * @param string $photo
+     * @param Image $image
      * @param Gallery $gallery
      */
-    public function __construct(string $photo, Gallery $gallery)
+    public function __construct(Image $image, Gallery $gallery)
     {
-        $this->photo = $photo;
+        $this->image = $image;
         $this->gallery = $gallery;
     }
 
@@ -70,19 +76,19 @@ class GalleryPhoto
     }
 
     /**
-     * @return string
+     * @return Image
      */
-    public function getPhoto(): string
+    public function getImage(): Image
     {
-        return $this->photo;
+        return $this->image;
     }
 
     /**
-     * @param string $photo
+     * @param Image $image
      */
-    public function setPhoto(string $photo): void
+    public function setImage(Image $image): void
     {
-        $this->photo = $photo;
+        $this->image = $image;
     }
 
     /**
@@ -115,5 +121,17 @@ class GalleryPhoto
     public function setGallery(Gallery $gallery): void
     {
         $this->gallery = $gallery;
+    }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->getId(),
+            "address" => $this->getImage()->getGeoLocation()->getFullAddress(),
+            "date" => $this->getImage()->getCreatedAt()->format("d.m.Y"),
+            "time" => $this->getImage()->getCreatedAt()->format("H:i"),
+            "path" => "/images/" . $this->getImage()->getImage(),
+            "description" => $this->getDescription(),
+        ];
     }
 }
