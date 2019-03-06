@@ -195,20 +195,26 @@
                             <div id='text' class='texthide gallery-photo-description'></div>
                             {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
                         </div>
-                        {#<ul class="breadcrumbs">#}
-                            {#<li>#}
-                                {#<a class="item-link" href="index.html">#}
-                                    {#<img src="img/windsurfing.png" alt="Парус">#}
-                                {#</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a class="item-link" href="#">/ Toyota</a>#}
-                            {#</li>#}
-                            {#<li>#}
-                                {#<a class="item-link" href="#">/ Avensis T25</a>#}
-                            {#</li>#}
-                            {#<li><a class="current">/ Генератор</a></li>#}
-                        {#</ul>#}
+                        <ul class="breadcrumbs">
+                            <li>
+                                <a class="item-link" href="{{ path("homepage") }}">
+                                    <img src="/img/windsurfing.png" alt="Парус">
+                                </a>
+                            </li>
+                            {% if firstBrand %}
+                                <li>
+                                    <a class="item-link" nohref>/ {{ firstBrand }}</a>
+                                </li>
+
+                                {% if firstModel %}
+                                    <li>
+                                        <a class="item-link" nohref>/ {{ firstModel }}</a>
+                                    </li>
+                                {% endif %}
+
+                                <li><a class="current">/ Генератор</a></li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
             </li>
