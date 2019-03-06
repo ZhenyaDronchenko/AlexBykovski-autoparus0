@@ -85,142 +85,117 @@
                 <li><a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a> </li>
                 <li><a id="initiator-open-popup3" class="icon open-popup-button" href="#"><i class="fa fa-suitcase"></i>Business</a></li>
                 <li><a class="icon" href="#"><i class="fa fa-camera"></i>Фотогалерея</a></li>
-                <li user-upload-link link-selector="#user-photo-link-gallery" input-selector="#user-photo-input-gallery"
-                    img-selector="#user-photo" action-url="{{ path("user_office_upload_user_photo_ajax") }}"
-                    cropper-container="#dialog-cropper-container-gallery">
-                    <a id="user-photo-link-gallery"  class="icon icon-plus us-btn1" href="">
+                <li gallery-upload input-selector="#gallery-input-null"
+                    cropper-container="#dialog-cropper-container-gallery" gallery-id=""
+                    action-url="{{ path("user_office_add_gallery_photo_ajax") }}">
+                    <a ng-click="editGalleryPhoto()" class="icon icon-plus us-btn1" nohref
+                       data-href="">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </a>
-                    <input id="user-photo-input-gallery" type="file" style="display: none">
+                    <input id="gallery-input-null" type="file" style="display: none">
                 </li>
             </ul>
         </div>
 
-        <ul class="items">
-            <li class="user-item">
-                <div class="marka">
-                    <div class="name">
-                        <img class="name-foto" src="img/maz.jpg" alt="">
-                        <b class="name-text">Иванов Иван Иванович</b>
-                    </div>
-                    <div class="tool">
-                        <a href="" class="tool-rdc"><span class="item-1">Редактировать</span><img src="img/cra.png" alt="Редактировать"></a>
-                        <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="img/trash-can.svg" alt="Удалить"></a>
-                    </div>
-                </div>
-                <div class="prod">
-                    <img class="prod-foto" src="img/maz.jpg" alt="">
-                    <div class="prod-content">
-                        <span class="date">18.02.2019</span>
-                        <span class="time">15:56</span>
-                        <span class="adress">Беларусь, Минск, Гая 37</span>
-                        <div class="text-block">
-                            <p id='text' class='texthide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-                            <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+        <ul class="items" id="gallery-photos-container">
+            {% for photo in galleryPhotos %}
+                <li id="gallery-photo-{{ photo.id }}" class="user-item" gallery-upload
+                    input-selector="#gallery-input-{{ photo.id }}"
+                    cropper-container="#dialog-cropper-container-gallery" gallery-id="{{ photo.id }}"
+                    action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: photo.id}) }}"
+                    remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : photo.id}) }}">
+                    <div class="marka">
+                        {#<div class="name">#}
+                            {#<img class="name-foto" src="{{ image_url(photo.path) }}" alt="">#}
+                            {#<b class="name-text">{{ app.user.name }}</b>#}
+                        {#</div>#}
+                        <div class="tool">
+                            <a ng-click="editGalleryPhoto()" nohref class="tool-rdc gallery-photo"><span class="item-1">Редактировать</span><img src="/img/cra.png" alt="Редактировать"></a>
+                            <a ng-click="removeGalleryPhoto()" nohref class="tool-close"><span class="item-1">Удалить</span><img src="/img/trash-can.svg" alt="Удалить"></a>
+                            <input id="gallery-input-{{ photo.id }}" type="file" style="display: none">
                         </div>
-                        <ul class="breadcrumbs">
-                            <li>
-                                <a class="item-link" href="index.html">
-                                    <img src="img/windsurfing.png" alt="Парус">
-                                </a>
-                            </li>
-                            <li>
-                                <a class="item-link" href="#">/ Toyota</a>
-                            </li>
-                            <li>
-                                <a class="item-link" href="#">/ Avensis T25</a>
-                            </li>
-                            <li><a class="current">/ Генератор</a></li>
-                        </ul>
                     </div>
-                </div>
-            </li>
-
-            <li class="user-item">
-                <div class="marka">
-                    <div class="name">
-                        <img class="name-foto" src="img/maz.jpg" alt="">
-                        <b class="name-text">Иванов Иван Иванович</b>
-                    </div>
-                    <div class="tool">
-                        <a href="" class="tool-rdc"><span class="item-1">Редактировать</span><img src="img/cra.png" alt="Редактировать"></a>
-                        <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="img/trash-can.svg" alt="Удалить"></a>
-                    </div>
-                </div>
-                <div class="prod">
-                    <img class="prod-foto" src="img/maz.jpg" alt="">
-                    <div class="prod-content">
-                        <span class="date">18.02.2019</span>
-                        <span class="time">15:56</span>
-                        <span class="adress">Беларусь, Минск, Гая 37</span>
-                        <div class="text-block">
-                            <p id='text' class='texthide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-                            <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                    <div class="prod">
+                        <img class="prod-foto gallery-photo-image" src="{{ photo.path}}" alt="">
+                        <div class="prod-content">
+                            <span class="date gallery-photo-date">{{ photo.date }}</span>
+                            <span class="time gallery-photo-time">{{ photo.time }}</span>
+                            <span class="adress gallery-photo-address">{{ photo.address }}</span>
+                            <div class="text-block">
+                                <div id='text' class='texthide gallery-photo-description'>{{ photo.description }}</div>
+                                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+                            </div>
+                            {#<ul class="breadcrumbs">#}
+                                {#<li>#}
+                                    {#<a class="item-link" href="index.html">#}
+                                        {#<img src="img/windsurfing.png" alt="Парус">#}
+                                    {#</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="item-link" href="#">/ Toyota</a>#}
+                                {#</li>#}
+                                {#<li>#}
+                                    {#<a class="item-link" href="#">/ Avensis T25</a>#}
+                                {#</li>#}
+                                {#<li><a class="current">/ Генератор</a></li>#}
+                            {#</ul>#}
                         </div>
-                        <ul class="breadcrumbs">
-                            <li>
-                                <a class="item-link" href="index.html">
-                                    <img src="img/windsurfing.png" alt="Парус">
-                                </a>
-                            </li>
-                            <li>
-                                <a class="item-link" href="#">/ Toyota</a>
-                            </li>
-                            <li>
-                                <a class="item-link" href="#">/ Avensis T25</a>
-                            </li>
-                            <li><a class="current">/ Генератор</a></li>
-                        </ul>
                     </div>
-                </div>
-            </li>
-
-            <li class="user-item">
-                <div class="marka">
-                    <div class="name">
-                        <img class="name-foto" src="img/maz.jpg" alt="">
-                        <b class="name-text">Иванов Иван Иванович</b>
-                    </div>
-                    <div class="tool">
-                        <a href="" class="tool-rdc"><span class="item-1">Редактировать</span><img src="img/cra.png" alt="Редактировать"></a>
-                        <a href="" class="tool-close"><span class="item-1">Удалить</span><img src="img/trash-can.svg" alt="Удалить"></a>
-                    </div>
-                </div>
-                <div class="prod">
-                    <img class="prod-foto" src="img/maz.jpg" alt="">
-                    <div class="prod-content">
-                        <span class="date">18.02.2019</span>
-                        <span class="time">15:56</span>
-                        <span class="adress">Беларусь, Минск, Гая 37</span>
-                        <div class="text-block">
-                            <p id='text' class='texthide'>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-                            <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                        </div>
-                        <ul class="breadcrumbs">
-                            <li>
-                                <a class="item-link" href="index.html">
-                                    <img src="img/windsurfing.png" alt="Парус">
-                                </a>
-                            </li>
-                            <li>
-                                <a class="item-link" href="#">/ Toyota</a>
-                            </li>
-                            <li>
-                                <a class="item-link" href="#">/ Avensis T25</a>
-                            </li>
-                            <li><a class="current">/ Генератор</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
+                </li>
+            {% endfor %}
         </ul>
 
+        <div id="gallery-photo-template" style="display: none;">
+            <li id="gallery-photo-__id__" class="user-item" gallery-upload link-selector="#gallery-link-__id__" input-selector="#gallery-input-__id__"
+                cropper-container="#dialog-cropper-container-gallery" gallery-id="__id__"
+                action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: '__id__'}) }}"
+                remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : "__id__"})|replace({"/": "\/"}) }}">
+                <div class="marka">
+                    {#<div class="name">#}
+                        {#<img class="name-foto" src="" alt="">#}
+                        {#<b class="name-text">{{ app.user.name }}</b>#}
+                    {#</div>#}
+                    <div class="tool">
+                        <a ng-click="editGalleryPhoto()" nohref class="tool-rdc gallery-photo"><span class="item-1">Редактировать</span><img src="/img/cra.png" alt="Редактировать"></a>
+                        <a ng-click="removeGalleryPhoto()" nohref class="tool-close"><span class="item-1">Удалить</span><img src="/img/trash-can.svg" alt="Удалить"></a>
+                        <input id="gallery-input-__id__" type="file" style="display: none">
+                    </div>
+                </div>
+                <div class="prod">
+                    <img class="prod-foto gallery-photo-image" src="" alt="">
+                    <div class="prod-content">
+                        <span class="date gallery-photo-date"></span>
+                        <span class="time gallery-photo-time"></span>
+                        <span class="adress gallery-photo-address"></span>
+                        <div class="text-block">
+                            <div id='text' class='texthide gallery-photo-description'></div>
+                            {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+                        </div>
+                        {#<ul class="breadcrumbs">#}
+                            {#<li>#}
+                                {#<a class="item-link" href="index.html">#}
+                                    {#<img src="img/windsurfing.png" alt="Парус">#}
+                                {#</a>#}
+                            {#</li>#}
+                            {#<li>#}
+                                {#<a class="item-link" href="#">/ Toyota</a>#}
+                            {#</li>#}
+                            {#<li>#}
+                                {#<a class="item-link" href="#">/ Avensis T25</a>#}
+                            {#</li>#}
+                            {#<li><a class="current">/ Генератор</a></li>#}
+                        {#</ul>#}
+                    </div>
+                </div>
+            </li>
+        </div>
+
         <div class="sail-f">
-            <img src="img/windsurfing.png" alt="Парус">
-            <img src="img/windsurfing.png" alt="Парус">
-            <img src="img/windsurfing.png" alt="Парус">
-            <img src="img/windsurfing.png" alt="Парус">
-            <img src="img/windsurfing.png" alt="Парус">
+            <img src="/img/windsurfing.png" alt="Парус">
+            <img src="/img/windsurfing.png" alt="Парус">
+            <img src="/img/windsurfing.png" alt="Парус">
+            <img src="/img/windsurfing.png" alt="Парус">
+            <img src="/img/windsurfing.png" alt="Парус">
         </div>
     </main>
 
@@ -231,8 +206,8 @@
                 <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
             <div class="btn-list">
-                <button id="cancel-button" class="button button-close1">Отменить</button>
-                <button id="save-button" class="button">Сохранить</button>
+                <button id="cancel-button" class="button cancel-button-cropper-dialog">Отменить</button>
+                <button id="save-button" class="button save-button-cropper-dialog">Сохранить</button>
             </div>
         </section>
     </div>
@@ -243,11 +218,10 @@
                 <img class="modal-img1" src="" alt="Фото" style="display: none">
             </div>
             <div class="btn-lists">
-                <textarea name="text" rows="3" placeholder="Пост(описание) к фото"></textarea>
+                <textarea id="gallery-photo-description" name="text" rows="3" placeholder="Пост(описание) к фото"></textarea>
                 <div class="btn-input">
-                    <button id="cancel-button" class="button button-mr button-close2">Загрузить фото</button>
-                    <button id="cancel-button" class="button button-mr button-close2">Отменить</button>
-                    <button id="save-button" class="button">Сохранить</button>
+                    <button id="gallery-photo-cancel" class="button button-mr cancel-button-cropper-dialog">Отменить</button>
+                    <button id="gallery-photo-save" class="button save-button-cropper-dialog">Сохранить</button>
                 </div>
             </div>
         </section>
@@ -274,6 +248,7 @@
     <script src='/bower-components/Jcrop/js/Jcrop.min.js'></script>
     <script src='/js/client/service/image-upload-service.js'></script>
     <script src='/js/client/directive/user-upload-link.js'></script>
+    <script src='/js/client/directive/user-profile/gallery-upload.js'></script>
     <script>
         // var popup1 = document.querySelector('.overlay1');
         //

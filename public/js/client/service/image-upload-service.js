@@ -11,7 +11,8 @@
                              input,
                              fileName,
                              uploadUrl,
-                             imgPhoto) {
+                             imgPhoto,
+                             customUploadToServer) {
             this.cropperContentSize = cropperContentSize;
             this.previewImage = previewImage;
             this.cropperContainer = cropperContainer;
@@ -20,7 +21,9 @@
             this.fileName = fileName;
             this.uploadUrl = uploadUrl;
             this.imgPhoto = imgPhoto;
+            this.customUploadToServer = customUploadToServer;
             this.jCropApi = null;
+            this.isBlockedUpload = false;
         };
 
         this.processUploadImage = function(initFile, callback) {
@@ -50,16 +53,21 @@
 
             self.addCropper();
 
-            $("#cancel-button").click(function(){
+            $(".cancel-button-cropper-dialog:visible").click(function(){
                 self.cropperContainer.removeClass("modal--show");
                 $("body").removeClass("modal--show");
                 self.input.val('');
             });
 
-            $("#save-button").click(function(){
-                self.processCroppedImage(this);
+            $(".save-button-cropper-dialog:visible").click(function(){
+                //@@todo here called multiple times
+                if(!self.isBlockedUpload){
+                    self.processCroppedImage(this);
 
-                self.input.val('');
+                    self.input.val('');
+
+                    self.isBlockedUpload = true;
+                }
             });
         };
 
@@ -116,14 +124,6 @@
 
             let startX = width > heightModified ? (width - xWidth)/2 : 0;
             let startY = width > heightModified ? 0 : (height - yHeight)/2;
-            // const baseSide = width > height ? height : width;
-            // const selectedH = baseSide / 9;
-            // const selectedW = baseSide / 6;
-            //
-            // const x = width/3 - selectedW/3;
-            // const y = height/3 - selectedH/3;
-            // const x1 = x + selectedW;
-            // const y1 = y + selectedH;
 
             return [startX, startY, xWidth, yHeight];
         };
@@ -137,24 +137,29 @@
 
                 formData.append('coordinates', coordinates);
 
-                $.ajax(self.uploadUrl, {
-                    method: "POST",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success(data) {
-                        if(data.success) {
-                            self.imgPhoto.attr("src", data.path);
-                        }
+                if(self.customUploadToServer){
+                    self.customUploadToServer(formData, self.uploadUrl, self.cropperContainer, self.input)
+                }
+                else{
+                    $.ajax(self.uploadUrl, {
+                        method: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success(data) {
+                            if (data.success) {
+                                self.imgPhoto.attr("src", data.path);
+                            }
 
-                        self.cropperContainer.removeClass("modal--show");
-                        $("body").removeClass("modal--show");
-                        self.input.val('');
-                    },
-                    error(data) {
-                        console.error('Upload error');
-                    },
-                });
+                            self.cropperContainer.removeClass("modal--show");
+                            $("body").removeClass("modal--show");
+                            self.input.val('');
+                        },
+                        error(data) {
+                            console.error('Upload error');
+                        },
+                    });
+                }
             });
         };
     });

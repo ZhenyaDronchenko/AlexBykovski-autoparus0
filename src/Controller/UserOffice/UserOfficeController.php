@@ -4,6 +4,8 @@ namespace App\Controller\UserOffice;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Client\Gallery;
+use App\Entity\Client\GalleryPhoto;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
@@ -42,6 +44,7 @@ class UserOfficeController extends Controller
     public function editUserOfficeAction(Request $request)
     {
         return $this->render('client/user-office/user-office.html.twig', [
+            "galleryPhotos" => $this->getUser()->getGalleryInArray(),
         ]);
     }
 
@@ -407,6 +410,91 @@ class UserOfficeController extends Controller
         return new JsonResponse([
             "success" => true,
             "path" => '/images/' . $path,
+        ]);
+    }
+
+    /**
+     * @Route("/add-gallery-photo-ajax", name="user_office_add_gallery_photo_ajax")
+     * @Route("/edit-gallery-photo-ajax/{id}", name="user_office_edit_gallery_photo_ajax")
+     *
+     * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
+     */
+    public function uploadGalleryPhotoAjaxAction(Request $request, GeoLocationProvider $provider, GalleryPhoto $galleryPhoto = null)
+    {
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        if($galleryPhoto && $galleryPhoto->getGallery()->getClient()->getId() !== $client->getId()){
+            return new JsonResponse([
+                "success" => false,
+            ]);
+        }
+
+        if(!$client->getGallery()){
+            $gallery = new Gallery($client);
+
+            $em->persist($gallery);
+        }
+
+        $file = $request->files->get("file");
+        $ip = $request->getClientIp();
+        $coordinates = $request->request->get("coordinates");
+        $coordinates = $coordinates ? json_decode($coordinates, true) : null;
+        $description = $request->request->get("description");
+
+        $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
+        $path = $uploader->upload($file);
+
+        $image = new Image($path);
+        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+        $image->setGeoLocation($geoLocation);
+
+        if(!$galleryPhoto){
+            $galleryPhoto = new GalleryPhoto($image, $client->getGallery());
+
+            $em->persist($galleryPhoto);
+        }
+        else{
+            $em->remove($galleryPhoto->getImage());
+
+            $galleryPhoto->setImage($image);
+        }
+
+        $galleryPhoto->setDescription($description);
+
+        $em->persist($image);
+        $em->flush();
+
+        return new JsonResponse([
+            "success" => true,
+            "gallery" => $galleryPhoto->toArray(),
+        ]);
+    }
+
+    /**
+     * @Route("/remove-gallery-photo-ajax/{id}", name="user_office_remove_gallery_photo_ajax")
+     *
+     * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
+     */
+    public function removeGalleryPhotoAjaxAction(Request $request, GalleryPhoto $galleryPhoto)
+    {
+        if($galleryPhoto->getGallery()->getClient()->getId() !== $this->getUser()->getId()){
+            return new JsonResponse([
+                "success" => false,
+            ]);
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($galleryPhoto);
+        $em->flush();
+
+        return new JsonResponse([
+            "success" => true,
         ]);
     }
 }

@@ -330,7 +330,7 @@
 
 .prod-foto {
     width: 210px;
-    height: 100%;
+    height: auto;
     margin-right: 30px;
 }
 
