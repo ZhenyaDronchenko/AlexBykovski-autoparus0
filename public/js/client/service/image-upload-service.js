@@ -137,29 +137,7 @@
 
                 formData.append('coordinates', coordinates);
 
-                if(self.customUploadToServer){
-                    self.customUploadToServer(formData, self.uploadUrl, self.cropperContainer, self.input)
-                }
-                else{
-                    $.ajax(self.uploadUrl, {
-                        method: "POST",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success(data) {
-                            if (data.success) {
-                                self.imgPhoto.attr("src", data.path);
-                            }
-
-                            self.cropperContainer.removeClass("modal--show");
-                            $("body").removeClass("modal--show");
-                            self.input.val('');
-                        },
-                        error(data) {
-                            console.error('Upload error');
-                        },
-                    });
-                }
+                self.customUploadToServer(formData);
             });
         };
     });

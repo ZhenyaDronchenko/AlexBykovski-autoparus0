@@ -1,7 +1,8 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.directive("galleryUpload",["$compile", "ImageUploadService", function($compile, ImageUploadService){
+    autoparusApp.directive("galleryUpload",["$compile", "$rootScope", "ImageUploadService",
+        function($compile, $rootScope, ImageUploadService){
         return{
             restrict: 'A',
             scope: true,
@@ -33,6 +34,7 @@
                 }
 
                 $(document).on("change", attrs.inputSelector, function (e) {
+
                     let cropperContainer = $(attrs.cropperContainer);
                     let previewImage = $("#image-preview-container-gallery img");
                     let fileName = e.target.files[0].name;
@@ -43,7 +45,7 @@
 
                     ImageUploadService.init(cropperContentSize, previewImage, cropperContainer, dialogContentSize,
                         input, fileName, uploadUrl, null,
-                        function (formData, uploadUrl, cropperContainer, inputEl) {
+                        function (formData) {
                             formData.append('description', $("#gallery-photo-description").val());
 
                             $.ajax(uploadUrl, {
@@ -58,7 +60,7 @@
 
                                     cropperContainer.removeClass("modal--show");
                                     $("body").removeClass("modal--show");
-                                    inputEl.val('');
+                                    $(e.target).val('');
                                 },
                                 error(data) {
                                     console.error('Upload error');
@@ -101,6 +103,12 @@
                     galleryPhoto.find(".gallery-photo-time").html(gallery.time);
                     galleryPhoto.find(".gallery-photo-address").html(gallery.address);
                     galleryPhoto.find(".gallery-photo-description").html(gallery.description);
+                }
+
+                if(!id){
+                    $rootScope.$on('added-new-user-gallery-photo', function(event, args) {
+                        addNewGalleryPhoto(args.galleryPhoto);
+                    });
                 }
 
                 scope.removeGalleryPhoto = removeGalleryPhoto;

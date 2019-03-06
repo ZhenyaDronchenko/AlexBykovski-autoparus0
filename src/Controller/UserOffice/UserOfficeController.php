@@ -358,7 +358,9 @@ class UserOfficeController extends Controller
         $photoOld = $client->getPhoto();
 
         if($photoOld instanceof Image){
-            $em->remove($photoOld);
+            $galleryPhoto = new GalleryPhoto($photoOld, $client->getGallery());
+
+            $em->persist($galleryPhoto);
         }
 
         $client->setPhoto($image);
@@ -369,6 +371,7 @@ class UserOfficeController extends Controller
         return new JsonResponse([
             "success" => true,
             "path" => '/images/' . $path,
+            "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
         ]);
     }
 
@@ -399,7 +402,9 @@ class UserOfficeController extends Controller
         $photoOld = $client->getSellerData()->getPhoto();
 
         if($photoOld instanceof Image){
-            $em->remove($photoOld);
+            $galleryPhoto = new GalleryPhoto($photoOld, $client->getGallery());
+
+            $em->persist($galleryPhoto);
         }
 
         $client->getSellerData()->setPhoto($image);
@@ -410,6 +415,7 @@ class UserOfficeController extends Controller
         return new JsonResponse([
             "success" => true,
             "path" => '/images/' . $path,
+            "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
         ]);
     }
 
