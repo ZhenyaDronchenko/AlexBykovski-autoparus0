@@ -1,0 +1,7 @@
+services:
+    admin.universal_page.spare_part:
+        class: App\Admin\UniversalPage\UniversalPageSparePartAdmin
+        arguments: [~, App\Entity\UniversalPage\UniversalPageSparePart, ~, "@app.file_upload", '%upload_image_directory%', '@router', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Универсальные страницы, manager_type: orm, label: Страницы марок, on_top: true}
+        public: true

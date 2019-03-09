@@ -22,6 +22,10 @@ class FileUpload
     const PHONE_MODEL = 'phone_model';
     const PHONE_SPARE_PART = 'phone_spare_part';
 
+    const UNIVERSAL_PAGE_BRAND = 'universal-page-brand';
+    const UNIVERSAL_PAGE_CITY = 'universal-page-city';
+    const UNIVERSAL_PAGE_SPARE_PART = 'universal-page-spare-part';
+
     private static $allowedMimeTypes = array(
         'image/jpeg',
         'image/jpg',

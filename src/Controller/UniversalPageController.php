@@ -6,13 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/page", name="universal_page")
- */
 class UniversalPageController extends Controller
 {
     /**
-     * @Route("/00001/{url}", name="universal_page_brand")
+     * @Route("/page-brand/{id}", name="universal_page_brand")
+     * @Route("/page-brand/{id}/{urlBrand}", name="universal_page_brand_specific_brand")
      */
     public function showUniversalBrandPageAction(Request $request)
     {

@@ -11,6 +11,7 @@ imports:
     - { resource: ./admin_blocks/user_data.yaml }
     - { resource: ./admin_blocks/error.yaml }
     - { resource: ./admin_blocks/error/obd2_error_catalog.yaml }
+    - { resource: ./admin_blocks/universal_page.yaml }
 
 services:
     admin.default_image.default_image:
