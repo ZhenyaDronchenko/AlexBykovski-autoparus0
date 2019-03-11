@@ -54,7 +54,7 @@ class SparePartAdmin extends AbstractAdmin
         $isEditAction = $this->isCurrentRoute('edit');
         /** @var SparePart $sparePart */
         $sparePart = $this->getSubject();
-        $helpLogo = $isEditAction && $sparePart->getLogo() ? $this->helper->getImagesHelp($this->helper->getHelpImages($sparePart)) : "";
+        $helpLogo = $isEditAction && $sparePart->getLogo() ? $this->helper->getImagesHelp($this->helper->getImagesData($sparePart)) : "";
 
         if($sparePart->getLogo()){
             $helpLogo .= $this->addLinkRemoveLogo($sparePart);

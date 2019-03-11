@@ -51,7 +51,7 @@ class BrandAdmin extends AbstractAdmin
         $isEditAction = $this->isCurrentRoute('edit');
         /** @var Brand $brand */
         $brand = $this->getSubject();
-        $helpLogo = $isEditAction && $brand->getLogo() ? $this->helper->getImagesHelp($this->helper->getHelpImages($brand)) : "";
+        $helpLogo = $isEditAction && $brand->getLogo() ? $this->helper->getImagesHelp($this->helper->getImagesData($brand)) : "";
 
         if($brand->getLogo()){
             $helpLogo .= $this->addLinkRemoveLogo($brand);

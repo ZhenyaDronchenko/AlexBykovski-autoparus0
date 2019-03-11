@@ -1,0 +1,14 @@
+services:
+    admin.universal_page.spare_part:
+        class: App\Admin\UniversalPage\UniversalPageSparePartAdmin
+        arguments: [~, App\Entity\UniversalPage\UniversalPageSparePart, ~, "@app.file_upload", '%upload_image_directory%', '@router', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Универсальные страницы, manager_type: orm, label: Страницы запчастей}
+        public: true
+
+    admin.universal_page.city:
+        class: App\Admin\UniversalPage\UniversalPageCityAdmin
+        arguments: [~, App\Entity\UniversalPage\UniversalPageCity, ~, "@app.file_upload", '%upload_image_directory%', '@router', '@doctrine.orm.entity_manager']
+        tags:
+            - { name: sonata.admin, group: Универсальные страницы, manager_type: orm, label: Страницы городов}
+        public: true
