@@ -3,8 +3,13 @@
 namespace App\Helper;
 
 use App\Entity\Brand;
+use App\Entity\Image;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Entity\UniversalPage\UniversalPage;
+use App\Entity\UniversalPage\UniversalPageBrand;
+use App\Entity\UniversalPage\UniversalPageCity;
+use App\Entity\UniversalPage\UniversalPageSparePart;
 use App\Handler\ResizeImageHandler;
 
 class AdminHelper
@@ -52,21 +57,26 @@ class AdminHelper
                 </div>';
     }
 
-    static function getHelpImages($object)
+    static function getImagesData($object)
     {
+
         switch (get_class($object)){
             case Model::class:
-                return self::getModelHelpImages($object);
+                return self::getModelImages($object);
             case SparePart::class:
-                return self::getSparePartHelpImages($object);
+                return self::getSparePartImages($object);
             case Brand::class:
-                return self::getBrandHelpImages($object);
+                return self::getBrandImages($object);
+            case UniversalPageSparePart::class:
+            case UniversalPageBrand::class:
+            case UniversalPageCity::class:
+                return self::getUniversalPageImages($object);
             default:
                 return [];
         }
     }
 
-    static function getModelHelpImages(Model $model)
+    static function getModelImages(Model $model)
     {
         return [
             [
@@ -82,7 +92,7 @@ class AdminHelper
         ];
     }
 
-    static function getSparePartHelpImages(SparePart $sparePart)
+    static function getSparePartImages(SparePart $sparePart)
     {
         return [
             [
@@ -98,7 +108,7 @@ class AdminHelper
         ];
     }
 
-    static function getBrandHelpImages(Brand $brand)
+    static function getBrandImages(Brand $brand)
     {
         return [
             [
@@ -117,5 +127,21 @@ class AdminHelper
                 "height" => ResizeImageHandler::BRAND_HEIGHT_32,
             ]
         ];
+    }
+
+    static function getUniversalPageImages(UniversalPage $page)
+    {
+        $images = [];
+
+        /** @var Image $image */
+        foreach ($page->getImages() as $image){
+            $images[] = [
+                "image" => $image->getImage(),
+                "width" => ResizeImageHandler::DEFAULT_WIDTH,
+                "height" => ResizeImageHandler::DEFAULT_HEIGHT,
+            ];
+        }
+
+        return $images;
     }
 }
