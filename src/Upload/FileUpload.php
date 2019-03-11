@@ -17,10 +17,15 @@ class FileUpload
     const BUSINESS_PROFILE = 'business_profile';
     const DEFAULT_IMAGE = "default";
     const AUTO_SPARE_PART_SPECIFIC_ADVERT = "auto-spare-part-specific-advert";
+    const USER_OFFICE_GALLERY = "user-office-gallery";
 
     const PHONE_BRAND = 'phone_brand';
     const PHONE_MODEL = 'phone_model';
     const PHONE_SPARE_PART = 'phone_spare_part';
+
+    const UNIVERSAL_PAGE_BRAND = 'universal-page-brand';
+    const UNIVERSAL_PAGE_CITY = 'universal-page-city';
+    const UNIVERSAL_PAGE_SPARE_PART = 'universal-page-spare-part';
 
     private static $allowedMimeTypes = array(
         'image/jpeg',
