@@ -256,4 +256,22 @@ class Client extends User
     {
         return $this->cars->count() || $this->city;
     }
+
+    public function getGalleryInArray()
+    {
+        $galleryPhotos = [];
+
+        if(!$this->gallery){
+            return $galleryPhotos;
+        }
+
+        /** @var GalleryPhoto $photo */
+        foreach ($this->gallery->getPhotos() as $photo){
+            $galleryPhotos[$photo->getImage()->getCreatedAt()->format("Y-m-d H:i:s")] = $photo->toArray();
+        }
+
+        krsort($galleryPhotos);
+
+        return $galleryPhotos;
+    }
 }

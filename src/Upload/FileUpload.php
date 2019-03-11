@@ -17,6 +17,7 @@ class FileUpload
     const BUSINESS_PROFILE = 'business_profile';
     const DEFAULT_IMAGE = "default";
     const AUTO_SPARE_PART_SPECIFIC_ADVERT = "auto-spare-part-specific-advert";
+    const USER_OFFICE_GALLERY = "user-office-gallery";
 
     const PHONE_BRAND = 'phone_brand';
     const PHONE_MODEL = 'phone_model';
