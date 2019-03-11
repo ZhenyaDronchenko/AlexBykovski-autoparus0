@@ -28,3 +28,8 @@ services:
         class:  App\Provider\InfoPageProvider
         arguments: ['@doctrine.orm.entity_manager']
         public: true
+
+    app.provider.universal_page_provider:
+        class:  App\Provider\UniversalPageProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true

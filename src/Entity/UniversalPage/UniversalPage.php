@@ -42,16 +42,16 @@ abstract class UniversalPage
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     protected $text1;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
-    private $text2;
+    protected $text2;
 
     /**
      * @var string|null

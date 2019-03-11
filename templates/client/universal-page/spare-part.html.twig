@@ -1,164 +1,89 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
 {% block stylesheets %}
-<link rel='stylesheet' href='/css/client/universal-page/spare-part.css'>
+    <link rel='stylesheet' href='/css/client/universal-page/spare-part.css'>
 {% endblock %}
 
 {% block body %}
-<main class="container">
-      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
-            <span class="user-name" itemprop="name">Главная</span>
-            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-            </svg>
-            <meta itemprop="position" content="1">
-          </a>
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Автозапчасти</span></a><meta itemprop="position" content="2"></li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[ZAP5]</span><meta itemprop="position" content="3"></a>
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">Название крошки из админки</span><meta itemprop="position" content="4"></a>
-        </li>
-      </ul>
-
-      <section class="model">
-        <h1>Заголовок H1 из админки</h1>
-        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-
-        <ul class="model-img">
-          <li><a class="model-item" href="#"><img src="/img/maz.jpg" alt="Картинка"></a></li>
-          <li><a class="model-item" href="#"><img src="/img/maz.jpg" alt="Картинка"></a></li>
-          <li><a class="model-item" href="#"><img src="/img/maz.jpg" alt="Картинка"></a></li>
-          
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}"
+                   itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_spare_part") }}" itemprop="item"
+                   title="Запчасти для автомобилей и мототехники"><span class="line">/</span><span itemprop="name">Автозапчасти</span></a>
+                <meta itemprop="position" content="2">
+            </li>
+            {% if sparePart %}
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="#" itemprop="item"
+                       title="{{ sparePart.namePlural }} для легковых и грузовых авто"><span class="line">/</span><span
+                                itemprop="name">{{ sparePart.alternativeName5 }}</span>
+                        <meta itemprop="position" content="3">
+                    </a>
+                </li>
+            {% endif %}
+            {% if page.lastBreadCrumb %}
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" nohref itemprop="item"><span class="line">/</span><span
+                                itemprop="name">{{ page.lastBreadCrumb }}</span>
+                        <meta itemprop="position" content="4">
+                    </a>
+                </li>
+            {% endif %}
         </ul>
-      
-        <button class="btn">Универсальная кнопка</button>
-        
-        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1  из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки,  
-        </p>
 
-        <ul class="model-block">
-          <li>
-            <a class="model-link" href="#">
-              <img src="/img/audi.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="#">
-              <img src="/mg/maz.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="#">
-              <img src="/img/citroen.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/bmw.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/audi.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/audi.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/citroen.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="img/bmw.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/audi.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/audi.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/maz.jpg" alt="Логотип БМВ">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/citroen.jpg" alt="Логотип Ситроен">
-            </a>
-          </li>
-          <li>
-            <a class="model-link" href="/zapchasti/audi">
-              <img src="/img/audi.jpg" alt="Логотип Audi">
-            </a>
-          </li>
-        </ul>
-      </section>
+        <section class="model">
+            <h1>{{ page.headline1 }}</h1>
+            <div>{{ page.text1 | raw }}</div>
+
+            <ul class="model-img">
+                {% for image in page.images %}
+                    <li><a class="model-item" nohref><img src="{{ image_url(image.image) }}" alt="{{ page.title }}"
+                                                          title="{{ page.headline1 }}"></a></li>
+                {% endfor %}
+            </ul>
+
+            {% if page.returnButtonLink and page.returnButtonText %}
+                <a href="{{ page.returnButtonText }}">
+                    <button class="btn">{{ page.returnButtonText }}</button>
+                </a>
+            {% endif %}
+
+            <div>{{ page.text2 | raw }}</div>
+
+            <ul class="model-block">
+                {% for brand in brands %}
+                    <li>
+                        {% if sparePart %}
+                            <a class="model-link"
+                               href="{{ path("show_spare_part_catalog_choice_model", {"urlSP": sparePart.url, "urlBrand": brand.url}) }}">
+                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
+                                     title="{{ sparePart.alternativeName1 }} для автомобилей {{ brand.enBrand }}">
+                            </a>
+                        {% else %}
+                            <a class="model-link"
+                               href="{{ path("show_brand_catalog_choice_model", {"urlBrand": brand.url}) }}">
+                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
+                                     title="Запчасти для автомобилей {{ brand.enBrand }}">
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
     </main>
-{% endblock %}
-
-{% block javascripts %}
-<script src='/js/client/universal-page/spare-part.js'></script>
 {% endblock %}
