@@ -78,7 +78,7 @@ class ModelAdmin extends AbstractAdmin
 
         $model = $this->handleUserData($model);
 
-        $helpLogo = $isEditAction && $model->getLogo() ? $this->helper->getImagesHelp($this->helper->getHelpImages($model)) : "";
+        $helpLogo = $isEditAction && $model->getLogo() ? $this->helper->getImagesHelp($this->helper->getImagesData($model)) : "";
 
         if($model->getLogo()){
             $helpLogo .= $this->addLinkRemoveLogo($model);
