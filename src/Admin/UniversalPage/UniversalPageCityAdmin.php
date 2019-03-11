@@ -19,7 +19,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\RouterInterface;
 
-class UniversalPageSparePartAdmin extends AbstractAdmin
+class UniversalPageCityAdmin extends AbstractAdmin
 {
     protected $uploader;
 
@@ -44,7 +44,7 @@ class UniversalPageSparePartAdmin extends AbstractAdmin
         parent::__construct($code, $class, $baseControllerName);
         $this->uploader = $uploader;
 
-        $this->uploader->setFolder(FileUpload::UNIVERSAL_PAGE_SPARE_PART);
+        $this->uploader->setFolder(FileUpload::UNIVERSAL_PAGE_CITY);
         $this->helper = new AdminHelper($uploadDirectory);
 
         $this->router = $router;
@@ -84,8 +84,7 @@ class UniversalPageSparePartAdmin extends AbstractAdmin
         $listMapper->addIdentifier('url', TextType::class, [
             'label' => 'Адрес',
             'sortable' => false,
-            'template' => 'admin/universal-page/spare-part/show-url.html.twig',
-            'route' => ['name' => 'show']
+            'template' => 'admin/universal-page/city/show-url.html.twig'
         ]);
         $listMapper->addIdentifier('headline1', TextType::class, ['label' => 'Заголовок', 'sortable' => false]);
     }

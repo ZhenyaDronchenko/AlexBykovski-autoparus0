@@ -52,8 +52,11 @@
 
             <ul class="model-img">
                 {% for image in page.images %}
-                    <li><a class="model-item" nohref><img src="{{ image_url(image.image) }}" alt="{{ page.title }}"
-                                                          title="{{ page.headline1 }}"></a></li>
+                    <li>
+                        <a class="model-item" nohref>
+                            <img src="{{ image_url(image.image) }}" alt="{{ page.title }}" title="{{ page.headline1 }}">
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
 

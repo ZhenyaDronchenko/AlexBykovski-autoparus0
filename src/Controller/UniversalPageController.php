@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\General\MainPage;
 use App\Entity\SparePart;
+use App\Entity\UniversalPage\UniversalPageCity;
 use App\Entity\UniversalPage\UniversalPageSparePart;
 use App\Provider\UniversalPageProvider;
 use App\Transformer\VariableTransformer;
@@ -28,11 +30,30 @@ class UniversalPageController extends Controller
     }
 
     /**
-     * @Route("/city/{url}", name="universal_page_city")
+     * @Route("/page-city/{id}", name="universal_page_city")
+     * @Route("/page-city/{id}/{urlCity}", name="universal_page_city_specific_city")
+     *
+     * @ParamConverter("page", class="App\Entity\UniversalPage\UniversalPageCity", options={"id" = "id"})
      */
-    public function showUniversalCityPageAction(Request $request)
+    public function showUniversalCityPageAction(
+        Request $request,
+        UniversalPageCity $page,
+        UniversalPageProvider $universalPageProvider,
+        VariableTransformer $transformer,
+        $urlCity = null
+    )
     {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $city = $urlCity ? $em->getRepository(City::class)->findOneBy(["url" => $urlCity]) : null;
+        $transformerParameters = $city ? [$city] : [];
+
         return $this->render('client/universal-page/city.html.twig', [
+            "page" => $transformer->transformPage($page, $transformerParameters),
+            "city" => $city,
+            "titleHomepage" => $universalPageProvider->getMailPageTitle(),
+            "brands" => $universalPageProvider->getBrands(),
         ]);
     }
 
