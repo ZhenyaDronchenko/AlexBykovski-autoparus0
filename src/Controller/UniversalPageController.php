@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\General\MainPage;
 use App\Entity\SparePart;
+use App\Entity\UniversalPage\UniversalPageBrand;
 use App\Entity\UniversalPage\UniversalPageCity;
 use App\Entity\UniversalPage\UniversalPageSparePart;
 use App\Provider\UniversalPageProvider;
@@ -21,11 +23,27 @@ class UniversalPageController extends Controller
      * @Route("/page-brand/{id}", name="universal_page_brand")
      * @Route("/page-brand/{id}/{urlBrand}", name="universal_page_brand_specific_brand")
      *
-     * @ParamConverter("brand", class="App\Entity\UniversalPage\UniversalPageBrand", options={"id" = "id"})
+     * @ParamConverter("page", class="App\Entity\UniversalPage\UniversalPageBrand", options={"id" = "id"})
      */
-    public function showUniversalBrandPageAction(Request $request)
+    public function showUniversalBrandPageAction(
+        Request $request,
+        UniversalPageBrand $page,
+        UniversalPageProvider $universalPageProvider,
+        VariableTransformer $transformer,
+        $urlBrand = null
+    )
     {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $brand = $urlBrand ? $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]) : null;
+        $transformerParameters = $brand ? [$brand] : [];
+
         return $this->render('client/universal-page/brand.html.twig', [
+            "page" => $transformer->transformPage($page, $transformerParameters),
+            "brand" => $brand,
+            "titleHomepage" => $universalPageProvider->getMailPageTitle(),
+            "models" => $brand instanceof Brand ? $universalPageProvider->getModels($brand) : [],
         ]);
     }
 

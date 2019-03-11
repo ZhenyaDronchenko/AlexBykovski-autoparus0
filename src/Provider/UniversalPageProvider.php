@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\General\InfoPageBase;
 use App\Entity\General\MainPage;
+use App\Entity\Model;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -52,5 +53,28 @@ class UniversalPageProvider
         }
 
         return $parsedBrands;
+    }
+
+    public function getModels(Brand $brand)
+    {
+        /** @var Model[] $models */
+        $models = $this->em->getRepository(Model::class)->findBy(
+            [
+                "isPopular" => true,
+                "brand" => $brand,
+            ],
+            ["name" => "ASC"]);
+
+        $parsedModels = [];
+
+        foreach ($models as $model){
+            $parsedModels[] = [
+                "name" => $model->getName(),
+                "url" => $model->getUrl(),
+                "logo" => $model->getThumbnailLogo(),
+            ];
+        }
+
+        return $parsedModels;
     }
 }

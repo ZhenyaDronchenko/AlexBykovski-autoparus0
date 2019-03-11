@@ -4,90 +4,94 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-<link rel='stylesheet' href='/css/client/universal-page/brand-city.css'>
+    <link rel='stylesheet' href='/css/client/universal-page/brand-city.css'>
 {% endblock %}
 
 {% block body %}
- <main class="container">
-      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
-            <span class="user-name" itemprop="name">Главная</span>
-            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-            </svg>
-            <meta itemprop="position" content="1">
-          </a>
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item" title="Автозапчасти в Беларуси">
-            <span class="line">/</span>
-            <span itemprop="name">Каталог</span>
-          </a>
-          <meta itemprop="position" content="2">
-        </li>
-        {% if city %}
-          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a class="link-b" nohref itemprop="item" title="Запчасти для автомобилей в {{ city.prepositional }}">
-              <span class="line">/</span>
-              <span itemprop="name">{{ city.name }}</span>
-              <meta itemprop="position" content="3">
-            </a>
-          </li>
-        {% endif %}
-          {% if page.lastBreadCrumb %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="current" nohref itemprop="item">
-                <span class="line">/</span>
-                <span itemprop="name">{{ page.lastBreadCrumb }}</span>
-                <meta itemprop="position" content="4">
-              </a>
-            </li>
-        {% endif %}
-      </ul>
-
-      <section class="model">
-        <h1>{{ page.headline1 }}</h1>
-        <div>{{ page.text1 | raw }}</div>
-
-        <ul class="model-img">
-            {% for image in page.images %}
-              <li>
-                <a class="model-item" nohref>
-                  <img src="{{ image_url(image.image) }}" alt="{{ page.title }}" title="{{ page.headline1 }}">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}"
+                   itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
                 </a>
-              </li>
-            {% endfor %}
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item"
+                   title="Автозапчасти в Беларуси">
+                    <span class="line">/</span>
+                    <span itemprop="name">Каталог</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+            {% if city %}
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" nohref itemprop="item"
+                       title="Запчасти для автомобилей в {{ city.prepositional }}">
+                        <span class="line">/</span>
+                        <span itemprop="name">{{ city.name }}</span>
+                        <meta itemprop="position" content="3">
+                    </a>
+                </li>
+            {% endif %}
+            {% if page.lastBreadCrumb %}
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" nohref itemprop="item">
+                        <span class="line">/</span>
+                        <span itemprop="name">{{ page.lastBreadCrumb }}</span>
+                        <meta itemprop="position" content="4">
+                    </a>
+                </li>
+            {% endif %}
         </ul>
 
-          {% if page.returnButtonLink and page.returnButtonText %}
-            <a href="{{ page.returnButtonText }}">
-              <button class="btn">{{ page.returnButtonText }}</button>
-            </a>
-          {% endif %}
-        
-        <div>{{ page.text2 | raw }}</div>
+        <section class="model">
+            <h1>{{ page.headline1 }}</h1>
+            <div>{{ page.text1 | raw }}</div>
 
-        <ul class="model-block">
-            {% for brand in brands %}
-              <li>
-                  {% if city %}
-                    <a class="model-link" nohref>
-                      <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
-                           title="Запчасти для автомобилей {{ brand.name }} в {{ city.prepositional }}">
-                    </a>
-                  {% else %}
-                    <a class="model-link"
-                       href="{{ path("show_brand_catalog_choice_model", {"urlBrand": brand.url}) }}">
-                      <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
-                           title="Запчасти для автомобилей {{ brand.name }} в Беларуси">
-                    </a>
-                  {% endif %}
-              </li>
-            {% endfor %}
-        </ul>
+            <ul class="model-img">
+                {% for image in page.images %}
+                    <li>
+                        <a class="model-item" nohref>
+                            <img src="{{ image_url(image.image) }}" alt="{{ page.title }}" title="{{ page.headline1 }}">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
 
-      </section>
+            {% if page.returnButtonLink and page.returnButtonText %}
+                <a href="{{ page.returnButtonText }}">
+                    <button class="btn">{{ page.returnButtonText }}</button>
+                </a>
+            {% endif %}
+
+            <div>{{ page.text2 | raw }}</div>
+
+            <ul class="model-block">
+                {% for brand in brands %}
+                    <li>
+                        {% if city %}
+                            <a class="model-link" nohref>
+                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
+                                     title="Запчасти для автомобилей {{ brand.name }} в {{ city.prepositional }}">
+                            </a>
+                        {% else %}
+                            <a class="model-link"
+                               href="{{ path("show_brand_catalog_choice_model", {"urlBrand": brand.url}) }}">
+                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
+                                     title="Запчасти для автомобилей {{ brand.name }} в Беларуси">
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </section>
     </main>
 {% endblock %}
