@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/catalog/city/choice-year.css'>
+{% endblock %}
+
+{% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item"
+                   title="{{ choiceCityTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Каталог</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"
+                   itemprop="item" title="{{ choiceBrandTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ city.name }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b"
+                   href="{{ path("show_city_catalog_choice_model", {"urlCity" : city.url, "urlBrand" : brand.url}) }}"
+                   itemprop="item" title="{{ choiceModelTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ brand.brandEn }}</span>
+                </a>
+                <meta itemprop="position" content="4">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ model.modelEn }}</span>
+                    <meta itemprop="position" content="5">
+                </a>
+            </li>
+        </ul>
+
+        <section class="model">
+            <h1>{{ page.headline1 }}</h1>
+            <div>{{ page.text1 | raw }}</div>
+
+            <ul class="brand-block">
+                {% set yearFrom = model.technicalData.yearFrom %}
+                {% set yearTo = model.technicalData.yearTo %}
+
+                {% if yearFrom and yearTo and yearFrom <= yearTo %}
+                    {% for year in range(yearFrom, yearTo) %}
+                        <li><a class="link-c" href="{{ path("show_city_catalog_choice_spare_part", routeParams|merge({"year" : year})) }}">{{ year }}</a></li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+
+            <h2>{{ page.headline2 }}</h2>
+
+            <div>{{ page.text2 | raw }}</div>
+            <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
+
+            <h3>Частоискаемые автозапчасти</h3>
+
+            <ul class="model-block">
+                {% for sparePart in popularSpareParts %}
+                    <li>
+                        <a class="model-link" href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.item.url}) }}">
+                            <img src="{{ image_url(sparePart.item.thumbnailLogo) }}" alt="{{ sparePart.item.alternativeName5 }} к {{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.title }}">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+{% endblock %}

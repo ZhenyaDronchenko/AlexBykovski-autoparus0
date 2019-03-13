@@ -20,7 +20,6 @@ class Model implements VariableInterface
         "[URLMODEL]" => "getUrl",
         "[ENMODEL]" => "getModelEn",
         "[RUMODEL]" => "getModelRu",
-//        "[YEAR]" => "",
 //        "[ENGINE_TYPE]" => "",
 //        "[DRIVE_TYPE]" => "",
 //        "[GEAR_TYPE]" => "",
@@ -29,6 +28,8 @@ class Model implements VariableInterface
 //        "[BODY_TYPE]" => "",
         "[TEXTMODEL]" => "getText",
     ];
+
+    const YEAR_VARIABLE = "[YEAR]";
 
     /**
      * @var integer|null
@@ -311,12 +312,13 @@ class Model implements VariableInterface
         $this->active = $active;
     }
 
-    public function toSearchArray()
+    public function toSearchArray($isRussianText = false)
     {
         return [
-            "label" => $this->name,
+            "label" => $isRussianText ? $this->modelRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "isRussian" => $isRussianText,
         ];
     }
 
@@ -441,5 +443,17 @@ class Model implements VariableInterface
         $this->thumbnailLogo = ResizeImageHandler::resizeLogo($this);
 
         return $this->thumbnailLogo;
+    }
+
+    public function isHasYear($year)
+    {
+        $yearFrom = $this->technicalData->getYearFrom();
+        $yearTo = $this->technicalData->getYearTo();
+
+        if(!$yearFrom || !$yearTo){
+            return false;
+        }
+
+        return $yearFrom <= $year && $year <= $yearTo;
     }
 }

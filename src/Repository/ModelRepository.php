@@ -13,11 +13,13 @@ class ModelRepository extends EntityRepository
      *
      * @return array
      */
-    public function searchByText($text, Brand $brand = null)
+    public function searchByText($text, Brand $brand = null, $isRussianText = false)
     {
+        $searchField = $isRussianText ? "m.modelRu" : "m.name";
+
         $query = $this->createQueryBuilder('m')
             ->select('m')
-            ->where("m.name LIKE :text")
+            ->where($searchField . " LIKE :text")
             ->andWhere("m.active = :trueValue")
             ->setParameter("trueValue", true)
             ->setParameter("text", '%' . $text . '%');

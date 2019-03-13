@@ -33,3 +33,8 @@ services:
         class:  App\Provider\UniversalPageProvider
         arguments: ['@doctrine.orm.entity_manager']
         public: true
+
+    app.provider.title_provider:
+        class:  App\Provider\TitleProvider
+        arguments: ['@doctrine.orm.entity_manager', '@app.transformer.variable']
+        public: true
