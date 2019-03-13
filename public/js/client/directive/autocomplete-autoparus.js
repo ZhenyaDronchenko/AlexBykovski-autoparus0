@@ -12,6 +12,7 @@
                 let identifier = attrs.identifierField;
                 let requestParams = angular.fromJson(attrs.requestParameters);
                 let isPreloadData = attrs.isPreloadData === "true";
+                let isRussianSearch = false;
 
                 if(addUrl) {
                     $( element ).val("");
@@ -25,7 +26,7 @@
                 }
 
                 function createAutocomplete(sourceData){
-                    $( element ).autocomplete({
+                    let autocomplete = $( element ).autocomplete({
                         source: sourceData,
                         minLength: 1,
                         classes: {
@@ -36,9 +37,10 @@
                         },
                         select: function( event, ui ) {
                             $rootScope.$broadcast(identifier + '_select-in-autocomplete');
-                        }
-                    })
-                        .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                        },
+                    });
+
+                    autocomplete.autocomplete( "instance" )._renderItem = function( ul, item ) {
                         if(!addUrl){
                             return $( "<li class='ui-menu-item'>" )
                                 .html( item.label )
@@ -50,6 +52,28 @@
                         return $( "<li class='ui-menu-item'>" )
                             .append( "<a class='ui-menu-item-wrapper' href='" + url + "'>" + item.label + "</a></div>" )
                             .appendTo( ul );
+                    };
+
+                    autocomplete.autocomplete( "instance" )._renderMenu = function (ul, items) {
+                        let searchValue = $(element).val();
+                        searchValue = searchValue.replace(/\d+/g, '');
+                        searchValue = searchValue.replace(/\s/g, '');
+
+                        isRussianSearch = /[а-яА-ЯЁё]/.test(searchValue);
+
+                        let self = this;
+
+                        $.each( items, function( index, item ) {
+                            if(isRussianSearch && item.hasOwnProperty("isRussian") && item.isRussian){
+                                self._renderItemData( ul, item );
+                            }
+                            else if(!isRussianSearch && item.hasOwnProperty("isRussian") && !item.isRussian){
+                                self._renderItemData( ul, item );
+                            }
+                            else if(!item.hasOwnProperty("isRussian")){
+                                self._renderItemData( ul, item );
+                            }
+                        });
                     };
                 }
 

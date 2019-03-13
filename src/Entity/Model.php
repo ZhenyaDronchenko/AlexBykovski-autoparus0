@@ -312,12 +312,13 @@ class Model implements VariableInterface
         $this->active = $active;
     }
 
-    public function toSearchArray()
+    public function toSearchArray($isRussianText = false)
     {
         return [
-            "label" => $this->name,
+            "label" => $isRussianText ? $this->modelRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "isRussian" => $isRussianText,
         ];
     }
 

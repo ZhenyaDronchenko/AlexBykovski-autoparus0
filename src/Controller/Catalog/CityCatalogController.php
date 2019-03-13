@@ -65,9 +65,64 @@ class CityCatalogController extends Controller
     /**
      * @Route("/{urlCity}/{urlBrand}", name="show_city_catalog_choice_model")
      */
-    public function showChoiceModelPageAction(Request $request)
+    public function showChoiceModelPageAction(
+        Request $request,
+        $urlCity,
+        $urlBrand,
+        TitleProvider $titleProvider,
+        VariableTransformer $transformer
+    )
     {
-        return $this->render('client/catalog/city/choice-model.html.twig', []);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+
+        if(!($brand instanceof Brand) || !($city instanceof City)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $page = $em->getRepository(CatalogCityChoiceModel::class)->findAll()[0];
+
+        $transformParameters = [$city, $brand];
+
+        $models = $em->getRepository(Model::class)->findBy(
+            [
+                "active" => true,
+                "brand" => $brand,
+            ],
+            ["name" => "ASC"]
+        );
+
+        $popularModelsParsed = [];
+        $allModelsParsed = [];
+
+        /** @var Model $model */
+        foreach ($models as $model){
+            $pageParameters = $transformParameters;
+            $pageParameters[] = $model;
+            $object = [
+                "item" => $model,
+                "title" => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $pageParameters),
+            ];
+
+            $allModelsParsed[] = $object;
+
+            if($model->isPopular()){
+                $popularModelsParsed[] = $object;
+            }
+        }
+
+        return $this->render('client/catalog/city/choice-model.html.twig', [
+            "page" => $transformer->transformPage($page, $transformParameters),
+            'city' => $city,
+            'brand' => $brand,
+            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
+            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
+            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
+            'popularModels' => $popularModelsParsed,
+            'allModels' => $allModelsParsed,
+        ]);
     }
 
     /**
@@ -82,6 +137,7 @@ class CityCatalogController extends Controller
         VariableTransformer $transformer
     )
     {
+        /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
@@ -93,9 +149,6 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City)){
             return $this->redirect($request->headers->get('referer'));
         }
-
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository(CatalogCityChoiceYear::class)->findAll()[0];
 
@@ -147,6 +200,7 @@ class CityCatalogController extends Controller
         VariableTransformer $transformer
     )
     {
+        /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
@@ -160,9 +214,6 @@ class CityCatalogController extends Controller
             !$year || !$model->isHasYear($year)){
             return $this->redirect($request->headers->get('referer'));
         }
-
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository(CatalogCityChoiceSparePart::class)->findAll()[0];
 

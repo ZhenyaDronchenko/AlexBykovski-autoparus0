@@ -10,6 +10,7 @@
                 let isScrollByClick = !!attrs.scrollByClick;
                 let initiator = attrs.initiator ? $(attrs.initiator) : $(element);
                 let beforeTop = attrs.beforetop ? attrs.beforetop : 0;
+                beforeTop = beforeTop ? beforeTop : (attrs.beforeTop ? attrs.beforeTop : 0);
 
                 $(document).ready(function(ev){
                     if(!isScrollByClick){
