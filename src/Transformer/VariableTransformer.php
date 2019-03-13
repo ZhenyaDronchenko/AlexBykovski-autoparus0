@@ -52,11 +52,21 @@ class VariableTransformer
     protected function transformString($string, array $parameters = [])
     {
         foreach ($parameters as $parameter){
-            if(!is_object($parameter)){
+            if(!is_object($parameter) && !is_array($parameter)){
                 continue;
             }
 
-            $string = $parameter->replaceVariables($string);
+            if(is_object($parameter)){
+                $string = $parameter->replaceVariables($string);
+            }
+            else{
+                $key = array_keys($parameter)[0];
+                $value = array_values($parameter)[0];
+
+                $string = str_replace($key, $value, $string);
+            }
+
+
         }
 
         return preg_replace('/\[.+\]/', '', $string);

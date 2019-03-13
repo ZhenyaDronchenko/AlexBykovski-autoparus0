@@ -1,66 +1,106 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
 {% block stylesheets %}
-<link rel='stylesheet' href='/css/catalog/city/choice-spare-part.css'>
+    <link rel='stylesheet' href='/css/catalog/city/choice-spare-part.css'>
 {% endblock %}
 
 {% block body %}
- <main class="container">
-      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
-            <span class="user-name" itemprop="name">Главная</span>
-            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-            </svg>
-            <meta itemprop="position" content="1">
-          </a>
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[CITY]</span></a><meta itemprop="position" content="3"></li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a class="link-b" href="#" itemprop="item" title="Тайтал четвертой крошки"><span class="line">/</span><span itemprop="name">[ENBRAND]</span></a><meta itemprop="position" content="4"></li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a class="link-b" href="#" itemprop="item" title="Тайтал пятой крошки"><span class="line">/</span><span itemprop="name">[ENMODEL]</span></a><meta itemprop="position" content="5"></li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[YEAR]</span><meta itemprop="position" content="6"></a>
-        </li>
-      </ul>
-
-      <section class="model">
-        <h1>Заголовок H1 из админки</h1>
-        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-
-        <form class='modform' action="#" method="get">
-          <input class='form7' name="search" placeholder="Введите наименование запчасти:" type="search" >  
-        </form>
-        <button class="btn">Универсальная кнопка</button>
-         <div class="model-block">
-        <ul class='show' id='model'>
-           <li><a class="mod-link mod-link-line" href='#'><span>Амортизатор задний левый</span><img src="/img/maz.jpg" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>Амортизатор задний правый</span><img src="/img/part.png" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>[ZAP1]</span><img src="/img/part.png" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>Амортизатор задний правый</span><img src="/img/part.png" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>[ZAP1]</span><img src="/img/part.png" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>Арки задних крыльев</span><img src="/img/part.png" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>[ZAP1]</span><img src="/img/part.png" alt="лого"></a></li>
-            <li><a class="mod-link" href='#'><span>[ZAP1]</span><img src="/img/part.png" alt="лого"></a></li>
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container" ng-init="showAll = false">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemprop="item" title="{{ homepageTitle }}">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item" title="{{ choiceCityTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Каталог</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"
+                   itemprop="item" title="{{ choiceBrandTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ city.name }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_model", {"urlCity" : city.url, "urlBrand" : brand.url}) }}"
+                   itemprop="item" title="{{ choiceModelTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ brand.brandEn }}</span>
+                </a>
+                <meta itemprop="position" content="4">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_city_catalog_choice_year", {"urlCity" : city.url, "urlBrand" : brand.url, "urlModel" : model.url}) }}"
+                   itemprop="item" title="{{ choiceYearTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ model.modelEn }}</span>
+                </a>
+                <meta itemprop="position" content="5">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ year }}</span>
+                    <meta itemprop="position" content="6">
+                </a>
+            </li>
         </ul>
-        <button onclick='modelbtn()' id='button-mod' type="button"> >>>>>>> </button>
-        </div>
 
-        <h2>Заголовок H2 из админки</h2>
-        
-        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1  из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки,  
-        </p>
-      </section>
+        <section class="model">
+            <h1>{{ page.headline1 }}</h1>
+            <div>{{ page.text1 | raw }}</div>
+
+            <form class='modform' action="#" method="get">
+                <input id="spare-part-autocomplete" class="form7" type="search"
+                       auto-сomplete-autoparus add-url="{{ path("show_city_catalog_choice_spare_part", routeParams) }}"
+                       method-search="searchSpareParts" identifier-field="spare-part-autocomplete" is-preload-data="true"
+                       name="search" placeholder="Введите наименование запчасти:"
+                       scroll-to-element scroll-by-click="true" before-top="30">
+            </form>
+
+            <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
+            <div class="model-block">
+                <ul class='show-m' id='model'>
+                    {% for sparePart in popularSpareParts %}
+                        <li ng-hide="showAll">
+                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="">
+                                <span>{{ sparePart.alternativeName1 }}</span>
+                                <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% for sparePart in unpopularSpareParts %}
+                        <li ng-show="showAll">
+                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="">
+                                <span>{{ sparePart.alternativeName1 }}</span>
+                                <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button ng-click="showAll = true" ng-hide="showAll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button ng-click="showAll = false" ng-show="showAll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+            </div>
+
+            <h2>{{ page.headline2 }}</h2>
+
+            <p>{{ page.text2 | raw }}</p>
+        </section>
     </main>
-{% endblock %}
-
-{% block javascripts %}
-<script src='/js/catalog/city/choice-spare-part.js'></script>
-
 {% endblock %}

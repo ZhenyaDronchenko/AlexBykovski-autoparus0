@@ -19,6 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SearchController extends Controller
 {
+    const ALL_VARIANTS = "all_preload_variants";
+
     /**
      * @Route("/spare-part", name="search_spare_part_autocomplete")
      */
@@ -29,6 +31,8 @@ class SearchController extends Controller
         if(!is_string($text) || strlen($text) < 1){
             return new JsonResponse([]);
         }
+
+        $text = $text !== self::ALL_VARIANTS ? $text : "";
 
         $spareParts = $this->getDoctrine()->getRepository(SparePart::class)->searchByText($text);
 
