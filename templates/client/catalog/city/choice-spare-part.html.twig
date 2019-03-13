@@ -75,7 +75,7 @@
             </form>
 
             <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
-            <div class="model-block">
+            <div class="model-block" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <ul class='show-m' id='model'>
                     {% for sparePart in popularSpareParts %}
                         <li ng-hide="showAll">
@@ -94,8 +94,8 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button ng-click="showAll = true" ng-hide="showAll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                <button ng-click="showAll = false" ng-show="showAll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 
             <h2>{{ page.headline2 }}</h2>

@@ -3,6 +3,7 @@
 namespace App\Controller\Catalog;
 
 use App\Entity\Brand;
+use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
 use App\Entity\Catalog\City\CatalogCityChoiceBrand;
 use App\Entity\Catalog\City\CatalogCityChoiceCity;
 use App\Entity\Catalog\City\CatalogCityChoiceModel;
@@ -72,9 +73,65 @@ class CityCatalogController extends Controller
     /**
      * @Route("/{urlCity}/{urlBrand}/{urlModel}", name="show_city_catalog_choice_year")
      */
-    public function showChoiceYearPageAction(Request $request)
+    public function showChoiceYearPageAction(
+        Request $request,
+        $urlCity,
+        $urlBrand,
+        $urlModel,
+        TitleProvider $titleProvider,
+        VariableTransformer $transformer
+    )
     {
-        return $this->render('client/catalog/city/choice-year.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+        $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $em->getRepository(Model::class)->findOneBy([
+            "url" => $urlModel,
+            "brand" => $brand,
+        ]);
+
+        if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository(CatalogCityChoiceYear::class)->findAll()[0];
+
+        $transformParameters = [$city, $brand, $model];
+
+        $popularSpareParts = $em->getRepository(SparePart::class)->findBy(
+            [
+                "active" => true,
+                "popular" => true,
+            ],
+            ["alternativeName1" => "ASC"]
+        );
+
+        $spareParts = [];
+
+        foreach ($popularSpareParts as $sparePart){
+            $pageParameters = $transformParameters;
+            $pageParameters[] = $sparePart;
+
+            $spareParts[] = [
+                "item" => $sparePart,
+                "title" => $titleProvider->getSinglePageTitle(CatalogBrandChoiceCity::class, $pageParameters),
+            ];
+        }
+
+        return $this->render('client/catalog/city/choice-year.html.twig', [
+            "page" => $transformer->transformPage($page, $transformParameters),
+            'city' => $city,
+            'brand' => $brand,
+            'model' => $model,
+            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
+            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
+            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
+            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
+            'popularSpareParts' => $spareParts,
+        ]);
     }
 
     /**

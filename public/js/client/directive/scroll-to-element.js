@@ -23,9 +23,6 @@
                 });
 
                 function scroll(){
-                    console.log("scroll");
-                    console.log(beforeTop);
-                    console.log($(element).offset().top - beforeTop);
                     $('html, body').animate({
                         scrollTop: $(element).offset().top - beforeTop
                     }, 1000, "swing", function(){
