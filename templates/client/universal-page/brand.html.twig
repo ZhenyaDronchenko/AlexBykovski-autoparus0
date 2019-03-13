@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/universal-page/brand.css'>
+{% endblock %}
+
+{% block body %}
+ <main class="container">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
+            <span class="user-name" itemprop="name">Главная</span>
+            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+            <meta itemprop="position" content="1">
+          </a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" nohref itemprop="item" title="Форум OBD2 ошибок">
+            <span class="line">/</span>
+            <span itemprop="name">Форум OBD2</span>
+          </a>
+          <meta itemprop="position" content="2">
+        </li>
+          {% if brand %}
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" nohref itemprop="item" title="Форум OBD2 ошибок для автомобиля {{ brand.name }}">
+            <span class="line">/</span>
+            <span itemprop="name">{{ brand.brandEn }}</span>
+            <meta itemprop="position" content="3">
+          </a>
+        </li>
+        {% endif %}
+          {% if page.lastBreadCrumb %}
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="current" nohref itemprop="item">
+              <span class="line">/</span>
+              <span itemprop="name">{{ page.lastBreadCrumb }}</span>
+              <meta itemprop="position" content="7">
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <section class="model">
+        <h1>{{ page.headline1 }}</h1>
+        <div>{{ page.text1 | raw }}</div>
+
+        <ul class="model-img">
+            {% for image in page.images %}
+              <li>
+                <a class="model-item" nohref>
+                  <img src="{{ image_url(image.image) }}" alt="{{ page.title }}" title="{{ page.headline1 }}">
+                </a>
+              </li>
+            {% endfor %}
+        </ul>
+
+          {% if page.returnButtonLink and page.returnButtonText %}
+            <a href="{{ page.returnButtonText }}">
+              <button class="btn">{{ page.returnButtonText }}</button>
+            </a>
+          {% endif %}
+        
+        <div>{{ page.text2 | raw }}</div>
+
+        <ul class="model-block">
+            {% for model in models %}
+              <li>
+                  <a class="model-link"
+                     href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand": brand.url, "urlModel" : model.url}) }}">
+                    <img src="{{ image_url(brand.logo) }}" alt="{{ model.name }}"
+                         title="Запчасти для автомобилей {{ brand.name }} {{ model.name }}">
+                  </a>
+              </li>
+            {% endfor %}
+        </ul>
+      </section>
+    </main>
+{% endblock %}

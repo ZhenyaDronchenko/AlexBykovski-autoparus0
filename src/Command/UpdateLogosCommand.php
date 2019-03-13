@@ -28,8 +28,8 @@ class UpdateLogosCommand extends ContainerAwareCommand
         /** @var EntityManagerInterface $em */
         $this->em = $container->get('doctrine.orm.default_entity_manager');
 
-        $this->updateModels();
-        $this->updateSpareParts();
+        //$this->updateModels();
+        //$this->updateSpareParts();
         $this->updateBrands();
 
         $output->writeln("<info>Done</info>");

@@ -11,7 +11,7 @@
     <main class="container" ng-init="showAll = false;">
         <ul id="breadcrumbs">
             <li>
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}">
                     <span class="user-name">Главная</span>
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
                         <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
@@ -31,12 +31,12 @@
             <div class="city-block">
                 <div class="city-wrapper">
                     <ul class="city-show" id='brandImg5'>
-                        <li><a class="city-link" href=''><img src="{{ image_url(capital.logo) }}" alt="{{ capital.name }}" title="Автозапчасти в {{ capital.prepositional }}"><span>Минск</span></a></li>
+                        <li><a class="city-link" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : capital.url}) }}"><img src="{{ image_url(capital.logo) }}" alt="{{ capital.name }}" title="Автозапчасти в {{ capital.prepositional }}"><span>Минск</span></a></li>
                         {% for city in regionalCities %}
-                            <li><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
+                            <li><a class="city-link" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
                         {% endfor %}
                         {% for city in othersCities%}
-                            <li ng-show="showAll"><a class="city-link" href=''><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
+                            <li ng-show="showAll"><a class="city-link" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
                         {% endfor %}
                     </ul>
                     <div ng-click='showAll = true' ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
