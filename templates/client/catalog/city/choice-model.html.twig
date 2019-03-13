@@ -9,7 +9,7 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container"  ng-init="showAll = false">
+    <main class="container" ng-init="showAll = false">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}"
@@ -67,7 +67,7 @@
                         <li ng-hide="showAll">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_city_catalog_choice_year", {"urlModel" : model.item.url}|merge(routeParams)) }}">
                                 <span>{{ model.item.name }}<br>{{ model.item.modelRu }}</span>
-                                <img src="{{ image_url(model.item.thumbnailLogo, "model") }}" alt="{{ brand.brandEn }} {{ model.item.modelEn }}" title="Запчасти для {{ model.title }}">
+                                <img src="{{ image_url(model.item.thumbnailLogo, "model") }}" alt="{{ brand.brandEn }} {{ model.item.modelEn }}" title="{{ model.title }}">
                             </a>
                         </li>
                     {% endfor %}
@@ -75,7 +75,7 @@
                         <li ng-show="showAll">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_city_catalog_choice_year", {"urlModel" : model.item.url}|merge(routeParams)) }}">
                                 <span>{{ model.item.name }}<br>{{ model.item.modelRu }}</span>
-                                <img src="{{ image_url(model.item.thumbnailLogo, "model") }}" alt="{{ brand.brandEn }} {{ model.item.modelEn }}" title="Запчасти для {{ model.title }}">
+                                <img src="{{ image_url(model.item.thumbnailLogo, "model") }}" alt="{{ brand.brandEn }} {{ model.item.modelEn }}" title="{{ model.title }}">
                             </a>
                         </li>
                     {% endfor %}

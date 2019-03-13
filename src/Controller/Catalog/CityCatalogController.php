@@ -57,9 +57,59 @@ class CityCatalogController extends Controller
     /**
      * @Route("/{urlCity}", name="show_city_catalog_choice_brand")
      */
-    public function showChoiceBrandPageAction(Request $request)
+    public function showChoiceBrandPageAction(
+        Request $request,
+        $urlCity,
+        TitleProvider $titleProvider,
+        VariableTransformer $transformer
+    )
     {
-        return $this->render('client/catalog/city/choice-brand.html.twig', []);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+
+        if(!($city instanceof City)){
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $page = $em->getRepository(CatalogCityChoiceBrand::class)->findAll()[0];
+
+        $transformParameters = [$city];
+
+        $brands = $em->getRepository(Brand::class)->findBy(
+            [
+                "active" => true,
+            ],
+            ["name" => "ASC"]
+        );
+
+        $popularBrandsParsed = [];
+        $allBrandsParsed = [];
+
+        /** @var Brand $brand */
+        foreach ($brands as $brand){
+            $pageParameters = $transformParameters;
+            $pageParameters[] = $brand;
+            $object = [
+                "item" => $brand,
+                "title" => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $pageParameters),
+            ];
+
+            $allBrandsParsed[] = $object;
+
+            if($brand->isPopular()){
+                $popularBrandsParsed[] = $object;
+            }
+        }
+
+        return $this->render('client/catalog/city/choice-brand.html.twig', [
+            "page" => $transformer->transformPage($page, $transformParameters),
+            'city' => $city,
+            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
+            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
+            'popularBrands' => $popularBrandsParsed,
+            'allBrands' => $allBrandsParsed,
+        ]);
     }
 
     /**

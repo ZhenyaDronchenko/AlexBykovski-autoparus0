@@ -19,6 +19,8 @@ class CatalogCityChoiceBrandAdmin extends AbstractAdmin
         $formMapper->add('text1', CKEditorType::class, ['label' => 'Текст 1']);
         $formMapper->add('headline2', TextType::class, ['label' => 'Заголовок 2']);
         $formMapper->add('text2', CKEditorType::class, ['label' => 'Текст 2']);
+        $formMapper->add('returnButtonText', TextType::class, ['label' => 'Надпись на универсальной кнопке']);
+        $formMapper->add('returnButtonLink', TextType::class, ['label' => 'Адрес направления универсальной кнопки']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

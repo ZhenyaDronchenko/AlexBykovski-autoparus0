@@ -519,5 +519,9 @@ h2 {
 }
   }
 
-/*mod END*/ 
+/*mod END*/
+
+.ui-autocomplete.model-autocomplete{
+    font-size: 18px;
+}
 
