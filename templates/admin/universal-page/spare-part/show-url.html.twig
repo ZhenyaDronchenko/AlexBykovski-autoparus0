@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {% set url = url("universal_page_spare_part", {"id" : object.id}) %}
+    <a href="{{ url }}" target="_blank">{{ url }}</a>
+    <br/>
+    {{ url("universal_page_brand_specific_spare_part", {"id" : object.id, "urlSp" : "URLZAP"}) }}
+{% endblock %}

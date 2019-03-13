@@ -19,6 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SearchController extends Controller
 {
+    const ALL_VARIANTS = "all_preload_variants";
+
     /**
      * @Route("/spare-part", name="search_spare_part_autocomplete")
      */
@@ -29,6 +31,8 @@ class SearchController extends Controller
         if(!is_string($text) || strlen($text) < 1){
             return new JsonResponse([]);
         }
+
+        $text = $text !== self::ALL_VARIANTS ? $text : "";
 
         $spareParts = $this->getDoctrine()->getRepository(SparePart::class)->searchByText($text);
 
@@ -53,15 +57,23 @@ class SearchController extends Controller
             return new JsonResponse([]);
         }
 
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
         $isRussianText = preg_match('/[А-Яа-яЁё]/u', $text);
 
         $brands = $this->getDoctrine()->getRepository(Brand::class)->searchByText($text, $isRussianText);
 
-        $parsedBrands= [];
+        $parsedBrands = [];
 
         /** @var Brand $brand */
         foreach ($brands as $brand){
             $parsedBrands[] = $brand->toSearchArray($isRussianText);
+
+            if($isAllVariants){
+                $parsedBrands[] = $brand->toSearchArray(!$isRussianText);
+            }
         }
 
         return new JsonResponse($parsedBrands);
@@ -80,13 +92,22 @@ class SearchController extends Controller
             return new JsonResponse([]);
         }
 
-        $models = $this->getDoctrine()->getRepository(Model::class)->searchByText($text, $brand);
+        $isAllVariants = $text === self::ALL_VARIANTS;
 
-        $parsedModels= [];
+        $text = !$isAllVariants ? $text : "";
+        $isRussianText = preg_match('/[А-Яа-яЁё]/u', $text);
+
+        $models = $this->getDoctrine()->getRepository(Model::class)->searchByText($text, $brand, $isRussianText);
+
+        $parsedModels = [];
 
         /** @var Model $model */
         foreach ($models as $model){
-            $parsedModels[] = $model->toSearchArray();
+            $parsedModels[] = $model->toSearchArray($isRussianText);
+
+            if($isAllVariants){
+                $parsedModels[] = $model->toSearchArray(!$isRussianText);
+            }
         }
 
         return new JsonResponse($parsedModels);

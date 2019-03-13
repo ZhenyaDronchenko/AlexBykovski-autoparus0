@@ -28,3 +28,13 @@ services:
         class:  App\Provider\InfoPageProvider
         arguments: ['@doctrine.orm.entity_manager']
         public: true
+
+    app.provider.universal_page_provider:
+        class:  App\Provider\UniversalPageProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.title_provider:
+        class:  App\Provider\TitleProvider
+        arguments: ['@doctrine.orm.entity_manager', '@app.transformer.variable']
+        public: true
