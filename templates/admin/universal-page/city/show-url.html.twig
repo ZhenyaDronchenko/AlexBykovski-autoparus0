@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {% set url = url("universal_page_city", {"id" : object.id}) %}
+    <a href="{{ url }}" target="_blank">{{ url }}</a>
+    <br/>
+    {{ url("universal_page_city_specific_city", {"id" : object.id, "urlCity" : "URLCITY"}) }}
+{% endblock %}

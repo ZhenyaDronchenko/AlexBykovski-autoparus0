@@ -296,6 +296,7 @@ class Brand implements VariableInterface
             "label" => $isRussianText ? $this->brandRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "isRussian" => $isRussianText,
         ];
     }
 

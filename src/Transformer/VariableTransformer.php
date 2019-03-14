@@ -10,6 +10,7 @@ use App\Entity\Catalog\CatalogPageThreeWithHeadlines;
 use App\Entity\Catalog\CatalogPageTwo;
 use App\Entity\Catalog\CatalogPageTwoReturnButton;
 use App\Entity\Catalog\OBD2Error\CatalogOBD2ErrorChoiceType;
+use App\Entity\UniversalPage\UniversalPage;
 
 class VariableTransformer
 {
@@ -41,6 +42,9 @@ class VariableTransformer
         else if($object instanceof CatalogPageThreeWithHeadlines){
             return $this->transformCatalogPageThreeWithHeadlines($cloneObject, $parameters);
         }
+        else if($object instanceof UniversalPage){
+            return $this->transformUniversalPage($cloneObject, $parameters);
+        }
 
         return $cloneObject;
     }
@@ -48,11 +52,21 @@ class VariableTransformer
     protected function transformString($string, array $parameters = [])
     {
         foreach ($parameters as $parameter){
-            if(!is_object($parameter)){
+            if(!is_object($parameter) && !is_array($parameter)){
                 continue;
             }
 
-            $string = $parameter->replaceVariables($string);
+            if(is_object($parameter)){
+                $string = $parameter->replaceVariables($string);
+            }
+            else{
+                $key = array_keys($parameter)[0];
+                $value = array_values($parameter)[0];
+
+                $string = str_replace($key, $value, $string);
+            }
+
+
         }
 
         return preg_replace('/\[.+\]/', '', $string);
@@ -141,6 +155,20 @@ class VariableTransformer
         $page->setText3($this->transformString($page->getText3(), $parameters));
         $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
         $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
+
+        return $page;
+    }
+
+    protected function transformUniversalPage(UniversalPage $page, $parameters)
+    {
+        $page->setTitle($this->transformString($page->getTitle(), $parameters));
+        $page->setDescription($this->transformString($page->getDescription(), $parameters));
+        $page->setHeadline1($this->transformString($page->getHeadline1(), $parameters));
+        $page->setText1($this->transformString($page->getText1(), $parameters));
+        $page->setText2($this->transformString($page->getText2(), $parameters));
+        $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
+        $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
+        $page->setLastBreadCrumb($this->transformString($page->getLastBreadCrumb(), $parameters));
 
         return $page;
     }

@@ -163,6 +163,7 @@ class BrandCatalogController extends Controller
      */
     public function showCatalogInStockAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
     {
+        /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
@@ -174,9 +175,6 @@ class BrandCatalogController extends Controller
             !($model instanceof Model) || !($city instanceof City) && !$isAllCities){
             return $this->redirect($request->headers->get('referer'));
         }
-
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository(CatalogBrandChoiceInStock::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
@@ -198,6 +196,7 @@ class BrandCatalogController extends Controller
      */
     public function showCatalogFinalPageAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
     {
+        /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
@@ -209,9 +208,6 @@ class BrandCatalogController extends Controller
             !($model instanceof Model) || !($city instanceof City) && !$isAllCities){
             return $this->redirect($request->headers->get('referer'));
         }
-
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository(CatalogBrandChoiceFinalPage::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
