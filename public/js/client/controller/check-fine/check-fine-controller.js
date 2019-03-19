@@ -63,7 +63,7 @@
             }).then(function (response) {
                 callback.call($scope, response);
             }, function (response) {
-                .log("error");
+                console.log("error");
             });
         }
 
