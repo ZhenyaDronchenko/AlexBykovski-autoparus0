@@ -78,9 +78,6 @@
                         e.preventDefault();
 
                         if(!checkFormValidation()){
-                            console.log(self.form);
-                            console.log("show error");
-
                             return false;
                         }
 
@@ -156,9 +153,7 @@
         }
 
         function checkSeriesNumber() {
-            console.log("here check series");
             self.form.series.value = self.form.series.value.toUpperCase();
-            console.log(self.form.series.value);
             $("#potential_user_check_fine_series").val(self.form.series.value);
 
             let series = self.form.series.value;
