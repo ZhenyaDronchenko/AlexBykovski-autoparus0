@@ -74,7 +74,7 @@ class PotentialUserCheckFineType extends AbstractType
         return [
             self::getNotBlankConstraint(),
             new Regex([
-                "pattern" => "/^\d{6}$/",
+                "pattern" => "/^\d{6,7}$/",
                 "message" => "Номер - только 6 цифр"
             ])
         ];

@@ -6,7 +6,7 @@
         const REQUIRED_FIELDS = "Поля обязательные для заполнения";
         const ERROR_FIO = "Только русские буквы и \"-\"";
         const ERROR_SERIES = "Серия - только 3 русские буквы";
-        const ERROR_NUMBER = "Номер - только 6 цифр";
+        const ERROR_NUMBER = "Номер - 6-7 цифр";
         const ERROR_PHONE = "Некорректный номер телефона";
         const ERROR_EMAIL = "Некорректный email";
 
@@ -171,7 +171,7 @@
             }
 
             let isValidSeries = /^[А-ЯЁ]{3}$/.test(series);
-            let isValidNumber = /^\d{6}$/.test(number);
+            let isValidNumber = /^\d{6,7}$/.test(number);
 
             if(!isValidSeries){
                 self.form.series.error = ERROR_SERIES;
