@@ -17,7 +17,7 @@ class CheckFineTrafficPoliceProvider
 
         $params = [
             "GuidControl" => self::GUID_CONTROL,
-            "Param1" => $fullName,
+            "Param1" => strtoupper($fullName),
             "Param2" => $checkFineUser->getSeries(),
             "Param3" => $checkFineUser->getNumber(),
         ];

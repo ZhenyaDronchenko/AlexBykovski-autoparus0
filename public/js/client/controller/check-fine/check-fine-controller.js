@@ -63,7 +63,7 @@
             }).then(function (response) {
                 callback.call($scope, response);
             }, function (response) {
-                console.log("error");
+                .log("error");
             });
         }
 
@@ -78,6 +78,8 @@
                         e.preventDefault();
 
                         if(!checkFormValidation()){
+                            $scope.$evalAsync();
+
                             return false;
                         }
 
@@ -101,11 +103,11 @@
                 $("#check-fine-message").hide();
 
                 if(response.data.success){
-                    let checkResult = response.data.checkResult;
-                    checkResult = checkResult !== "false" ? checkResult : "База данных ГАИ не отвечает. Попробуйте ещё раз немного позже";
+                    let checkResult = trimChar(unescapeStrig(response.data.checkResult), '"');
+                    checkResult = response.data.checkResult !== "false" ? "Ответ из базы ГАИ: " + checkResult : "База данных ГАИ не отвечает. Попробуйте ещё раз немного позже";
 
                     $("#result-check-fine").html(checkResult);
-                    $("#check-fine-result-modal").addClass("modal--show");
+                    $("#check-fine-result-modal").show();
                     $(formSelector).find("button[type=submit]").prop("disabled", false);
 
                     return true;
@@ -227,6 +229,31 @@
             self.form.email.error = "";
 
             return true;
+        }
+
+        function unescapeStrig(str) {
+            let r = /\\u([\d\w]{4})/gi;
+
+            str = str.replace(r, function (match, grp) {
+                return String.fromCharCode(parseInt(grp, 16)); } );
+
+            return decodeURIComponent(str);
+        }
+
+        function trimChar(string, charToRemove) {
+            if(string.length < 2){
+                return string;
+            }
+
+            while(string.charAt(0) === charToRemove) {
+                string = string.substring(1);
+            }
+
+            while(string.charAt(string.length - 1) === charToRemove) {
+                string = string.substring(0, string.length - 1);
+            }
+
+            return string;
         }
 
         this.init = init;
