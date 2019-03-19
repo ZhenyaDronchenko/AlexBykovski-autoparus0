@@ -101,7 +101,10 @@
                 $("#check-fine-message").hide();
 
                 if(response.data.success){
-                    $("#result-check-fine").html(response.data.checkResult);
+                    let checkResult = response.data.checkResult;
+                    checkResult = checkResult !== "false" ? checkResult : "База данных ГАИ не отвечает. Попробуйте ещё раз немного позже";
+
+                    $("#result-check-fine").html(checkResult);
                     $("#check-fine-result-modal").addClass("modal--show");
                     $(formSelector).find("button[type=submit]").prop("disabled", false);
 
