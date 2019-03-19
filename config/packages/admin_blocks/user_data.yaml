@@ -11,3 +11,9 @@ services:
         tags:
             - { name: sonata.admin, group: Данные от пользователей, manager_type: orm, label: Коды OBD2 }
         public: true
+    admin.user_data.potential_user_check_fine:
+        class: App\Admin\UserData\PotentialUserCheckFineAdmin
+        arguments: [~, App\Entity\UserData\PotentialUserCheckFine, ~]
+        tags:
+            - { name: sonata.admin, group: Данные от пользователей, manager_type: orm, label: Потенциальные пользователи }
+        public: true

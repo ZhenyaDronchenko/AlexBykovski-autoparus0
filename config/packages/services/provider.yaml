@@ -38,3 +38,8 @@ services:
         class:  App\Provider\TitleProvider
         arguments: ['@doctrine.orm.entity_manager', '@app.transformer.variable']
         public: true
+
+    app.provider.check_fine.check_fine_traffic_policy:
+        class:  App\Provider\CheckFine\CheckFineTrafficPoliceProvider
+        arguments: []
+        public: true
