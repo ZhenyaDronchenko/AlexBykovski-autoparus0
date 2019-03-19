@@ -12,7 +12,6 @@ class BamperSuggestionProvider
 {
     const URL_TEMPLATE = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/podzakaz_1/?sort=PRICE-ASC";
     const URL_TEMPLATE_ALL_STOCK = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/?sort=PRICE-ASC";
-    //const URL_TEMPLATE = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/podzakaz_1/?sort=PRICE_ASC";
     const URL_TEMPLATE_WITH_CITY = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/gorod_%s/podzakaz_1/?sort=PRICE-ASC";
     const URL_TEMPLATE_WITH_CITY_ALL_STOCK = "https://bamper.by/zchbu/zapchast_%s/marka_%s/model_%s/god_%s-%s/gorod_%s/?sort=PRICE-ASC";
     const URL_BASE = "https://bamper.by";

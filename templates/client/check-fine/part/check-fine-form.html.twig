@@ -1,0 +1,52 @@
+<form id="check-fine-form" class="model-user" method="post" novalidate>
+    {{ form_widget(form._token) }}
+    <fieldset>
+        <ul class="form-block">
+            <li>
+                {% set lastNameError = form.lastName.vars.errors.form.getErrors(true).current() %}
+                {{ form_widget(form.lastName, {attr: {"placeholder" : "Фамилия", "ng-model" : "checkFine.form.lastName.value"}}) }}
+                <span class="prompt" ng-bind="checkFine.form.lastName.error"
+                      ng-init="checkFine.form.lastName.error = '{{ lastNameError ? lastNameError.message : "" }}'"></span>
+            </li>
+            <li>
+                {% set firstNameError = form.firstName.vars.errors.form.getErrors(true).current() %}
+                {{ form_widget(form.firstName, {attr: {"placeholder" : "Имя", "ng-model" : "checkFine.form.firstName.value"}}) }}
+                <span class="prompt"  ng-bind="checkFine.form.firstName.error"
+                      ng-init="checkFine.form.firstName.error = '{{ firstNameError ? firstNameError.message : "" }}'"></span>
+            </li>
+            <li>
+                {% set patronymicError = form.patronymic.vars.errors.form.getErrors(true).current() %}
+                {{ form_widget(form.patronymic, {attr: {"placeholder" : "Отчество", "ng-model" : "checkFine.form.patronymic.value"}}) }}
+                <span class="prompt"  ng-bind="checkFine.form.patronymic.error"
+                      ng-init="checkFine.form.patronymic.error = '{{ patronymicError ? patronymicError.message : "" }}'"></span>
+            </li>
+            <li>
+                {% set seriesError = form.series.vars.errors.form.getErrors(true).current() %}
+                {% set numberError = form.number.vars.errors.form.getErrors(true).current() %}
+                <div class="pass">
+                    {{ form_widget(form.series, {attr: {"placeholder" : "Серия", "class" : "pass-s", "style" : "text-transform: uppercase;", "ng-model" : "checkFine.form.series.value"}}) }}
+                    {{ form_widget(form.number, {attr: {"placeholder" : "Номер", "class" : "pass-n", "ng-model" : "checkFine.form.number.value"}}) }}
+                </div>
+                <span class="prompt"  ng-bind="checkFine.form.series.error"
+                      ng-init="checkFine.form.series.error = '{{ seriesError ? seriesError.message : "" }}'"></span>
+                <span class="prompt"  ng-bind="checkFine.form.number.error"
+                      ng-init="checkFine.form.number.error = '{{ numberError ? numberError.message : "" }}'"></span>
+            </li>
+            <li>
+                {% set phoneError = form.phone.vars.errors.form.getErrors(true).current() %}
+                {{ form_widget(form.phone, {attr: {"placeholder" : "Номер телефона", "class" : "phone-mask", "ng-model" : "checkFine.form.phone.value"}, type: "tel"}) }}
+                <span class="prompt"  ng-bind="checkFine.form.phone.error"
+                      ng-init="checkFine.form.phone.error = '{{ phoneError ? phoneError.message : "" }}'"></span>
+            </li>
+            <li>
+                {% set emailError = form.email.vars.errors.form.getErrors(true).current() %}
+                {{ form_widget(form.email, {attr: {"placeholder" : "E-mail", "class" : "first-part", "ng-model" : "checkFine.form.email.value"}}) }}
+                <span class="prompt"  ng-bind="checkFine.form.email.error"
+                      ng-init="checkFine.form.email.error = '{{ emailError ? emailError.message : "" }}'"></span>
+            </li>
+        </ul>
+
+        {{ form_widget(form.submit, {attr: {"class" : "btn"}}) }}
+        <h4 id="check-fine-message" style="display: none">Идёт проверка по базе ГАИ...</h4>
+    </fieldset>
+</form>

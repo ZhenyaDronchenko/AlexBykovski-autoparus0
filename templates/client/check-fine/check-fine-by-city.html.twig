@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/check-fine/check-fine-by-city.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container" ng-init="showAll = false">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}"
+                   itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("check_fine") }}" itemprop="item" title="{{ cityChoiceTitle }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Штраф фотофиксации</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ city.name }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+        </ul>
+
+        <section class="model">
+            <h1>{{ page.headline1 }}</h1>
+
+            <div class="model-wpapper">
+                <div id="form-check-fine-container" ng-controller="CheckFineCtrl as checkFine"
+                     ng-init="checkFine.init('#check-fine-form', '{{ path("check_fine_traffic_policy_ajax") }}', '#form-check-fine-container')">
+                    {% include('/client/check-fine/part/check-fine-form.html.twig') with {"form" : form} %}
+                </div>
+
+                <div class="content">
+                    <div class="text-b">{{ page.text1 | raw }}</div>
+
+                    <h2>{{ page.headline2 }}</h2>
+
+                    <div>{{ page.text2 | raw }}</div>
+                    <a href="{{ page.returnButtonLink }}" style="display: contents;">
+                        <button class="btn">{{ page.returnButtonText }}</button>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="model-block">
+                <ul class='show-m' id='model'>
+                    {% for brand in popularBrands %}
+                        <li ng-hide="showAll">
+                            <a class="model-link"
+                               href="{{ path("show_city_catalog_choice_model", {"urlBrand" : brand.url, "urlCity" : city.url}) }}">
+                                <img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}"
+                                     title="Запчасти для {{ brand.brandEn }} в {{ city.prepositional }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                    {% for brand in activeBrands %}
+                        <li ng-show="showAll">
+                            <a class="model-link"
+                               href="{{ path("show_city_catalog_choice_model", {"urlBrand" : brand.url, "urlCity" : city.url}) }}">
+                                <img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}"
+                                     title="Запчасти для {{ brand.brandEn }} в {{ city.prepositional }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button ng-click="showAll = true" ng-hide="showAll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button ng-click="showAll = false" ng-show="showAll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+            </div>
+
+        </section>
+    </main>
+
+    {% include('/client/check-fine/part/result-fine-check.html.twig') %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/directive/show-hint.js"></script>
+    <script src="/js/client/controller/check-fine/check-fine-controller.js"></script>
+{% endblock %}

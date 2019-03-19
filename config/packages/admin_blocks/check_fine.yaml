@@ -1,0 +1,14 @@
+services:
+    admin.check_fine.traffic_police:
+        class: App\Admin\CheckFine\CheckFineTrafficPoliceAdmin
+        arguments: [~, App\Entity\CheckFine\CheckFineTrafficPolice, App\Admin\Controller\CheckFine\CheckFineTrafficPoliceAdminController]
+        tags:
+            - { name: sonata.admin, group: Проверка штрафов, manager_type: orm, label: Проверка штрафа ГАИ }
+        public: true
+
+    admin.check_fine.traffic_police_by_city:
+        class: App\Admin\CheckFine\CheckFineTrafficPoliceByCityAdmin
+        arguments: [~, App\Entity\CheckFine\CheckFineTrafficPoliceByCity, App\Admin\Controller\CheckFine\CheckFineTrafficPoliceByCityAdminController]
+        tags:
+            - { name: sonata.admin, group: Проверка штрафов, manager_type: orm, label: Проверка по городу }
+        public: true
