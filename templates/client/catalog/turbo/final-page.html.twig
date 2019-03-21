@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/catalog/auto/turbo/choice-city.css'>
+{% endblock %}
+
+{% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("turbo_catalog_choice_brand") }}" itemprop="item" title="{{ choiceBrandTitle }}">/
+                    <span itemprop="name">Поиск</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("turbo_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ choiceModelTitle }}">/
+                    <span itemprop="name">{{ brand.brandEn }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("turbo_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}" itemprop="item" title="{{ choiceSparePartTitle }}">/
+                    <span itemprop="name">{{ model.modelEn }}</span>
+                    <meta itemprop="position" content="4">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("turbo_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.url}) }}" itemprop="item" title="{{ choiceCityTitle }}">/
+                    <span itemprop="name">{{ sparePart.alternativeName5 }}</span>
+                    <meta itemprop="position" content="5">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" href="#" itemprop="item">/
+                    <span itemprop="name">{{ city ? city.name : "Все города" }}</span>
+                    <meta itemprop="position" content="6">
+                </a>
+            </li>
+        </ul>
+
+        <section class="brand">
+            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>
+            <div class="subtext-block">
+                <div class="img-wrapper">
+                    <a href="{{ path("show_brand_catalog_in_stock", routeParams) }}" style="display: contents;">
+                        <img src="{{ image_url(model.thumbnailLogo) }}" alt="{{ model.name }}" title="{{ sparePart.alternativeName3 }} для {{ brand.brandEn }} {{ model.modelEn }} {{ city ? "в " ~ city.prepositional : "во всех городах" }}">
+                    </a>
+                </div>
+                <div class="text-block">
+                    <div id="text1" class="text1Hide">{{ page.text1 | raw }}</div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <div class="code-text">{{ page.text3 | raw }}</div>
+                <a href="{{ page.returnButtonLink }}"><button class="button" type="button">{{ page.returnButtonText }}</button></a>
+            </div>
+
+            <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
+            <div class="subtext-block subtext-block-m">
+                <div class="subtext">{{ page.text2 | raw }}</div>
+                <div class="img-wrapper">
+                    <a href="{{ path("show_spare_part_catalog_in_stock", routeParams) }}" style="display: contents;"><img src="{{ image_url(sparePart.thumbnailLogo) }}" alt="{{ sparePart.alternativeName4 }}" title={{ sparePart.alternativeName4 }} для {{ brand.brandEn }} {{ model.modelEn }}"></a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

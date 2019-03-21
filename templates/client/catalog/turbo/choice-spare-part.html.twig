@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/catalog/auto/turbo/choice-model.css'>
+{% endblock %}
+
+{% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container" ng-init="showAll = false">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("turbo_catalog_choice_brand") }}" itemprop="item" title="{{ choiceBrandTitle }}">/
+                    <span itemprop="name">Поиск</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("turbo_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ choiceModelTitle }}">/
+                    <span itemprop="name">{{ brand.brandEn }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">/
+                    <span itemprop="name">{{ model.modelEn }}</span>
+                    <meta itemprop="position" content="4">
+                </a>
+            </li>
+        </ul>
+
+        <section class="brand">
+            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>
+            <div class="subtext-block">
+                <div class="img-wrapper">
+                    <a href="{{ path("show_brand_catalog_choice_spare_part", routeParams) }}" style="display: contents; ">
+                        <img src="{{ image_url(model.thumbnailLogo) }}" alt="{{ model.name }}" title="Запчасти для {{ brand.brandEn }} {{ model.modelEn }}">
+                    </a>
+                </div>
+                <div class="text-block">
+                    <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
+                </div>
+            </div>
+
+            <form class='modform' action="#" method="get">
+                <input id="spare-part-autocomplete" class="select" type="search"
+                       auto-сomplete-autoparus add-url="{{ path("turbo_catalog_choice_spare_part", routeParams) }}"
+                       method-search="searchSpareParts" identifier-field="spare-part-autocomplete" is-preload-data="true"
+                       name="search" placeholder="Введите наименование запчасти:"
+                       scroll-to-element scroll-by-click="true" before-top="30">
+            </form>
+
+            <div class="wrapper">
+                <ul id="brand-block" class="text2Show" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                    {% for sparePart in popularSpareParts %}
+                        <li ng-hide="showAll">
+                            <a class="link" href="{{ path("turbo_catalog_choice_city", routeParams|merge({"urlSP" : sparePart.url})) }}">{{ sparePart.name|replace({"(" : "<br />("})|raw }}</a>
+                        </li>
+                    {% endfor %}
+                    {% for sparePart in unpopularSpareParts %}
+                        <li ng-show="showAll">
+                            <a class="link" href="{{ path("turbo_catalog_choice_city", routeParams|merge({"urlSP" : sparePart.url})) }}">{{ sparePart.name|replace({"(" : "<br />("})|raw }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id="allText2" type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id="allText2" type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+            </div>
+
+            <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
+            <div class="subtext">{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+{% endblock %}

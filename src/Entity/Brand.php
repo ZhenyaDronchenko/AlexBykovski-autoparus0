@@ -19,6 +19,7 @@ class Brand implements VariableInterface
 {
     const ALL_BRANDS_NAME = "all_brands";
     const TOYOTA_RUS_URL = "toyota_rus";
+    const TOYOTA_URL = "toyota";
 
     static $variables = [
         "[BRAND]" => "getName",

@@ -1,0 +1,460 @@
+/*ХЛЕБНЫЕ КРОШКИ*/
+#breadcrumbs {
+    border-top: 1px solid #444;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-top: 5px;
+}
+
+#breadcrumbs li {
+    margin-right: 7px;
+
+}
+.dotdotdot {
+    display: none;
+    font-size: 10px;
+    line-height: 20px;
+    letter-spacing: 3px;
+    color: #444;
+
+}
+.more {
+    display: none;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    color: #444;
+}
+
+#breadcrumbs a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    color: #444;
+    position: relative;
+    -webkit-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+.user-icon {
+    display: none;
+}
+
+.user-link:hover,
+.link-b:hover {
+    color: black;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.current {
+    cursor: default;
+}
+.opened {
+    background-color: transparent;
+}
+
+@media  (max-width: 575px) {
+    .container {
+        width: auto;
+    }
+    #breadcrumbs {
+        padding-top: 3px;
+    }
+
+    .user-name {
+        display: none;
+    }
+    .opened {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+
+    }
+    .opened li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .opened .more {
+        display: none;
+    }
+
+    .user-icon {
+        display: block;
+    }
+
+
+    .close-menu {
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .user-link {
+        width: 10px;
+        height: 10px;
+    }
+
+    .opened .link-b {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .user-icon {
+        display: block;
+        width: 16px;
+        height: 16px;
+    }
+    .more {
+        display: block;
+        cursor: pointer;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    #breadcrumbs a {
+        line-height: 20px;
+        font-size: 12px;
+    }
+    .model-block {
+        padding-top: 5px;
+    }
+
+    .user-link--icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    #breadcrumbs li {
+        margin-right: 0;
+    }
+
+    #breadcrumbs li:nth-child(2) {
+        margin-right: 3px;
+    }
+
+    .more {
+        display: block;
+        cursor: pointer;
+
+    }
+
+    .opened .more {
+        display: none;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .container {
+        width: auto;
+    }
+}
+/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+/*code*/
+.brand {
+    padding-top: 35px;
+    padding-bottom: 65px;
+}
+
+.brand-title {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 26px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
+    font-family: 'Roboto', sans-serif;
+}
+.brand-title::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
+}
+
+.select {
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 3px;
+    color: #757373;
+    border: none;
+    width: 300px;
+    border-bottom: 1px solid #000;
+    background-color: #fff;
+    margin-bottom: 40px;
+
+}
+.text-block {
+    width: 85%;
+}
+.subtext-block {
+    margin-bottom: 35px;
+}
+
+#text1 {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000000;
+    font-weight: 400;
+    text-align: justify;
+}
+
+
+#allText {
+    text-align: right;
+    display: none;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 5px;
+    margin-right: 7%;
+    cursor: pointer;
+    outline: none;
+}
+#allText:hover {
+    color: #000;
+}
+.wrapper {
+    margin-bottom: 30px;
+}
+
+#brand-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    -ms-flex-wrap: wrap;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#brand-block li {
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.link{
+    width: 330px;
+    padding: 5px;
+    padding-bottom: 3px;
+    background-color: #faeeee;
+    text-align: center;
+    border: 1px solid #727272;
+    border-radius: 3px;
+    color: #444444;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 700;
+}
+.link:hover,
+.link:focus {
+    background-color: #d2a2af;
+}
+
+
+#allText2 {
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+    border: none;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ff0000;
+    cursor: pointer;
+    outline: none;
+}
+#allText2:hover {
+    color: #000;
+}
+.text2Hide {
+    max-height: 145px;
+    overflow: hidden;
+}
+
+
+.turbo-subtitle {
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-family: 'Roboto', sans-serif;
+    color: #f66666;
+}
+.turbo-subtitle::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
+}
+
+.subtext-block {
+    display: flex;
+    justify-content: space-between;
+    -ms-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.subtext {
+    margin: 0;
+    width: 85%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000000;
+    text-align: justify;
+    font-weight: 400;
+}
+
+.img-wrapper  {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.img-wrapper img {
+    width: 80px;
+    height: 80px;
+}
+
+
+.subtext-block-m {
+    margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+        padding: 0 10px;
+    }
+
+    .brand {
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
+    .brand-title {
+        font-size: 22px;
+        line-height: 24px;
+    }
+
+    .text-block {
+        width: 100%;
+    }
+    .item {
+        width: 295px;
+        font-size: 16px;
+        line-height: 18px;
+        box-sizing: border-box;
+    }
+    #brand-block li {
+        margin-right: 0;
+    }
+
+    .text2Hide {
+        max-height: 235px;
+    }
+
+
+    .turbo-subtitle {
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .img-wrapper {
+        display: none;
+    }
+    .text1Hide {
+        max-height: 55px;
+        overflow: hidden;
+    }
+    #allText {
+        display: block;
+    }
+    .subtext {
+        width: 100%;
+    }
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .container {
+        width: auto; }
+
+
+    #brand-block li {
+        margin-right: 12px;
+    }
+
+    .text2Hide {
+        max-height: 245px;
+    }
+    .img-wrapper {
+        display: none;
+    }
+    .text-block {
+        width: 100%;
+    }
+    .subtext {
+        width: 100%;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        width: auto; }
+
+    #brand-block li {
+        margin-right: 30px;
+        margin-bottom: 20px;
+    }
+
+    .item {
+        width: 295px;
+        font-size: 16px;
+        line-height: 18px;
+    }
+    .text2Hide {
+        max-height: 140px;
+    }
+
+
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .container {
+        width: auto; }
+    #brand-block li {
+        margin-right: 15px;
+        margin-bottom: 20px;
+    }
+
+    .item {
+        width: 295px;
+        font-size: 16px;
+        line-height: 18px;
+
+    }
+    .text2Hide {
+        max-height: 140px;
+    }
+}
+/*city END*/

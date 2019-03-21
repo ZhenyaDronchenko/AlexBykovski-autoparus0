@@ -2,6 +2,7 @@
 
 namespace App\Transformer;
 
+use App\Entity\Catalog\CatalogPageFive;
 use App\Entity\Catalog\CatalogPageFour;
 use App\Entity\Catalog\CatalogPageOne;
 use App\Entity\Catalog\CatalogPageOneReturnButton;
@@ -41,6 +42,9 @@ class VariableTransformer
         }
         else if($object instanceof CatalogPageThreeWithHeadlines){
             return $this->transformCatalogPageThreeWithHeadlines($cloneObject, $parameters);
+        }
+        else if($object instanceof CatalogPageFive){
+            return $this->transformCatalogPageFive($cloneObject, $parameters);
         }
         else if($object instanceof UniversalPage){
             return $this->transformUniversalPage($cloneObject, $parameters);
@@ -153,6 +157,20 @@ class VariableTransformer
         $page->setText1($this->transformString($page->getText1(), $parameters));
         $page->setText2($this->transformString($page->getText2(), $parameters));
         $page->setText3($this->transformString($page->getText3(), $parameters));
+        $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
+        $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
+
+        return $page;
+    }
+
+    protected function transformCatalogPageFive(CatalogPageFive $page, $parameters)
+    {
+        $page->setTitle($this->transformString($page->getTitle(), $parameters));
+        $page->setDescription($this->transformString($page->getDescription(), $parameters));
+        $page->setText1($this->transformString($page->getText1(), $parameters));
+        $page->setText2($this->transformString($page->getText2(), $parameters));
+        $page->setHeadline1($this->transformString($page->getHeadline1(), $parameters));
+        $page->setHeadline2($this->transformString($page->getHeadline2(), $parameters));
         $page->setReturnButtonText($this->transformString($page->getReturnButtonText(), $parameters));
         $page->setReturnButtonLink($this->transformString($page->getReturnButtonLink(), $parameters));
 
