@@ -32,8 +32,8 @@
             </li>
             {% if city %}
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="link-b" nohref itemprop="item"
-                       title="Запчасти для автомобилей в {{ city.prepositional }}">
+                    <a class="link-b" href="{{ path("universal_page_city", {"id" : page.id}) }}" itemprop="item"
+                       title="{{ previousPageTitle }}">
                         <span class="line">/</span>
                         <span itemprop="name">{{ city.name }}</span>
                         <meta itemprop="position" content="3">
@@ -66,7 +66,7 @@
             </ul>
 
             {% if page.returnButtonLink and page.returnButtonText %}
-                <a href="{{ page.returnButtonText }}">
+                <a href="{{ page.returnButtonLink }}">
                     <button class="btn">{{ page.returnButtonText }}</button>
                 </a>
             {% endif %}
@@ -74,22 +74,26 @@
             <div>{{ page.text2 | raw }}</div>
 
             <ul class="model-block">
-                {% for brand in brands %}
-                    <li>
-                        {% if city %}
-                            <a class="model-link" nohref>
-                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
-                                     title="Запчасти для автомобилей {{ brand.name }} в {{ city.prepositional }}">
-                            </a>
-                        {% else %}
+                {% if city %}
+                    {% for brand in brands %}
+                        <li>
                             <a class="model-link"
-                               href="{{ path("show_brand_catalog_choice_model", {"urlBrand": brand.url}) }}">
-                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
-                                     title="Запчасти для автомобилей {{ brand.name }} в Беларуси">
+                               href="{{ path("show_city_catalog_choice_model", {"urlBrand": brand.item.url, "urlCity" : city.url}) }}">
+                                <img src="{{ image_url(brand.item.logo) }}" alt="{{ brand.item.name }}" style="height: auto;"
+                                     title="{{ brand.title }}">
                             </a>
-                        {% endif %}
-                    </li>
-                {% endfor %}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    {% for city in cities %}
+                        <li>
+                            <a class="model-link" href="{{ path("universal_page_city_specific_city", {"urlCity" : city.item.url, "id" : page.id}) }}">
+                                <img src="{{ image_url(city.item.logo) }}" alt="{{ city.item.name }}" style="height: auto;"
+                                     title="{{ city.title }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
 
         </section>
