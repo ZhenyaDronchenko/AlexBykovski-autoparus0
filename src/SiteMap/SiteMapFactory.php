@@ -5,6 +5,8 @@ namespace App\SiteMap;
 use App\Entity\SEO\SiteMap;
 use App\SiteMap\Provider\BrandCatalogPopularSiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogSiteMapUrlProvider;
+use App\SiteMap\Provider\SparePartCatalogOBD2AllCititesSiteMapUrlProvider;
+use App\SiteMap\Provider\SparePartCatalogOBD2MinskSiteMapUrlProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -47,6 +49,10 @@ final class SiteMapFactory
                 return new BrandCatalogSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             case SiteMap::TYPE_BRAND_CATALOG_POPULAR:
                 return new BrandCatalogPopularSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
+            case SiteMap::TYPE_SPARE_PART_CATALOG_OBD2_MINSK:
+                return new SparePartCatalogOBD2MinskSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
+            case SiteMap::TYPE_SPARE_PART_CATALOG_OBD2_ALL_CITIES:
+                return new SparePartCatalogOBD2AllCititesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             default:
                 throw new \InvalidArgumentException('Unknown builder given');
         }

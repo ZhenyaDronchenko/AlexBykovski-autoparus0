@@ -5,7 +5,7 @@ namespace App\Entity\Error;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Error\CodeOBD2ErrorRepository")
  * @ORM\Table(name="code_obd2error")
  */
 class CodeOBD2Error
