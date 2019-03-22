@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Error\TypeOBD2ErrorRepository")
  * @ORM\Table(name="type_obd2error")
  */
 class TypeOBD2Error

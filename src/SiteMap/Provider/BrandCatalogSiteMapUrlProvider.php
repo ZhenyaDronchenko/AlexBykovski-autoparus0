@@ -14,10 +14,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 class BrandCatalogSiteMapUrlProvider implements SiteMapUrlProvider
 {
-    const INDICATOR_SPARE_PART = "1";
-    const TOYOTA_RUS = "toyota_rus";
-    const INDEX_FILE_NAME = "sitemap_index.xml";
-
     /** @var EntityManagerInterface */
     private $em;
 
@@ -63,7 +59,7 @@ class BrandCatalogSiteMapUrlProvider implements SiteMapUrlProvider
         $urls = [$baseUrl . 'sitemap1.xml'];
 
         foreach ($brandUrls as $brandUrl){
-            if($brandUrl["url"] === self::TOYOTA_RUS){
+            if($brandUrl["url"] === Brand::TOYOTA_RUS_URL){
                 continue;
             }
 
@@ -83,8 +79,8 @@ class BrandCatalogSiteMapUrlProvider implements SiteMapUrlProvider
             case "1":
                 return $this->provideSparePart();
             default:
-                if(strpos($type, self::TOYOTA_RUS . "_") === 0){
-                    $model = strlen($type) > strlen(self::TOYOTA_RUS . "_") ? substr($type, strlen(self::TOYOTA_RUS . "_")) : "";
+                if(strpos($type, Brand::TOYOTA_RUS_URL . "_") === 0){
+                    $model = strlen($type) > strlen(Brand::TOYOTA_RUS_URL . "_") ? substr($type, strlen(Brand::TOYOTA_RUS_URL . "_")) : "";
 
                     return $this->provideToyotaRusModel($model);
                 }
@@ -114,7 +110,7 @@ class BrandCatalogSiteMapUrlProvider implements SiteMapUrlProvider
     protected function provideToyotaRusModel($modelUrl)
     {
         $urls = [];
-        $brandUrl = self::TOYOTA_RUS;
+        $brandUrl = Brand::TOYOTA_RUS_URL;
 
         $model = $this->em->getRepository(Model::class)->findOneBy(["url" => $modelUrl]);
 
