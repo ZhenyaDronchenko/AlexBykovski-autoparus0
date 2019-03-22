@@ -25,34 +25,32 @@ class UniversalPageProvider
         $this->em = $em;
     }
 
-    public function getMailPageTitle()
+    public function brandToArray(Brand $brand)
     {
-        $page = $this->em->getRepository(MainPage::class)->findAll()[0];
-
-        if(!$page instanceof MainPage){
-            return "";
-        }
-
-        return $page->getTitle();
+        return  [
+            "enBrand" => $brand->getBrandEn(),
+            "name" => $brand->getName(),
+            "url" => $brand->getUrl(),
+            "logo" => $brand->getThumbnailLogo64(),
+        ];
     }
 
-    public function getBrands()
+    public function cityToArray(City $city)
     {
-        /** @var Brand[] $brands */
-        $brands = $this->em->getRepository(Brand::class)->findBy(["popular" => true], ["name" => "ASC"]);
+        return  [
+            "name" => $city->getName(),
+            "url" => $city->getUrl(),
+            "logo" => $city->getLogo(),
+        ];
+    }
 
-        $parsedBrands = [];
-
-        foreach ($brands as $brand){
-            $parsedBrands[] = [
-                "enBrand" => $brand->getBrandEn(),
-                "name" => $brand->getName(),
-                "url" => $brand->getUrl(),
-                "logo" => $brand->getThumbnailLogo32(),
-            ];
-        }
-
-        return $parsedBrands;
+    public function sparePartToArray(SparePart $sparePart)
+    {
+        return  [
+            "name" => $sparePart->getName(),
+            "url" => $sparePart->getUrl(),
+            "logo" => $sparePart->getLogo(),
+        ];
     }
 
     public function getModels(Brand $brand)

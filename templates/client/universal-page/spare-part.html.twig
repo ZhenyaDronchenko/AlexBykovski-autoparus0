@@ -29,8 +29,8 @@
             </li>
             {% if sparePart %}
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="link-b" href="#" itemprop="item"
-                       title="{{ sparePart.namePlural }} для легковых и грузовых авто"><span class="line">/</span><span
+                    <a class="link-b" href="{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}" itemprop="item"
+                       title="{{ previousPageTitle }}"><span class="line">/</span><span
                                 itemprop="name">{{ sparePart.alternativeName5 }}</span>
                         <meta itemprop="position" content="3">
                     </a>
@@ -61,7 +61,7 @@
             </ul>
 
             {% if page.returnButtonLink and page.returnButtonText %}
-                <a href="{{ page.returnButtonText }}">
+                <a href="{{ page.returnButtonLink }}" style="display: contents;">
                     <button class="btn">{{ page.returnButtonText }}</button>
                 </a>
             {% endif %}
@@ -69,23 +69,27 @@
             <div>{{ page.text2 | raw }}</div>
 
             <ul class="model-block">
-                {% for brand in brands %}
-                    <li>
-                        {% if sparePart %}
+                {% if sparePart %}
+                    {% for brand in brands %}
+                        <li>
                             <a class="model-link"
-                               href="{{ path("show_spare_part_catalog_choice_model", {"urlSP": sparePart.url, "urlBrand": brand.url}) }}">
-                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
-                                     title="{{ sparePart.alternativeName1 }} для автомобилей {{ brand.enBrand }}">
+                               href="{{ path("show_spare_part_catalog_choice_model", {"urlSP": sparePart.url, "urlBrand": brand.item.url}) }}">
+                                <img src="{{ image_url(brand.item.logo) }}" alt="{{ brand.item.name }}"
+                                     title="{{ brand.title }}">
                             </a>
-                        {% else %}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    {% for sparePart in spareParts %}
+                        <li>
                             <a class="model-link"
-                               href="{{ path("show_brand_catalog_choice_model", {"urlBrand": brand.url}) }}">
-                                <img src="{{ image_url(brand.logo) }}" alt="{{ brand.name }}"
-                                     title="Запчасти для автомобилей {{ brand.enBrand }}">
+                               href="{{ path("universal_page_brand_specific_spare_part", {"urlSp": sparePart.item.url, "id": page.id}) }}">
+                                <img src="{{ image_url(sparePart.item.logo) }}" alt="{{ sparePart.item.name }}"
+                                     title="{{ sparePart.title }}">
                             </a>
-                        {% endif %}
-                    </li>
-                {% endfor %}
+                        </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </section>
     </main>

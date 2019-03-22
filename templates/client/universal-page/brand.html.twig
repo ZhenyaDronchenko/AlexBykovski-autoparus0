@@ -28,13 +28,13 @@
           <meta itemprop="position" content="2">
         </li>
           {% if brand %}
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" nohref itemprop="item" title="Форум OBD2 ошибок для автомобиля {{ brand.name }}">
-            <span class="line">/</span>
-            <span itemprop="name">{{ brand.brandEn }}</span>
-            <meta itemprop="position" content="3">
-          </a>
-        </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="{{ path("universal_page_brand", {"id" : page.id}) }}" itemprop="item" title="{{ previousPageTitle }}">
+                <span class="line">/</span>
+                <span itemprop="name">{{ brand.brandEn }}</span>
+                <meta itemprop="position" content="3">
+              </a>
+            </li>
         {% endif %}
           {% if page.lastBreadCrumb %}
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -62,7 +62,7 @@
         </ul>
 
           {% if page.returnButtonLink and page.returnButtonText %}
-            <a href="{{ page.returnButtonText }}">
+            <a href="{{ page.returnButtonLink }}" style="display: contents;">
               <button class="btn">{{ page.returnButtonText }}</button>
             </a>
           {% endif %}
@@ -70,15 +70,27 @@
         <div>{{ page.text2 | raw }}</div>
 
         <ul class="model-block">
-            {% for model in models %}
-              <li>
-                  <a class="model-link"
-                     href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand": brand.url, "urlModel" : model.url}) }}">
-                    <img src="{{ image_url(brand.logo) }}" alt="{{ model.name }}"
-                         title="Запчасти для автомобилей {{ brand.name }} {{ model.name }}">
-                  </a>
-              </li>
-            {% endfor %}
+            {% if brand %}
+                {% for model in models %}
+                  <li>
+                      <a class="model-link"
+                         href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand": brand.url, "urlModel" : model.url}) }}">
+                        <img src="{{ image_url(model.logo) }}" alt="{{ model.name }}"
+                             title="Запчасти для автомобилей {{ brand.name }} {{ model.name }}">
+                      </a>
+                  </li>
+                {% endfor %}
+            {% else %}
+                {% for brand in brands %}
+                    <li>
+                        <a class="model-link"
+                           href="{{ path("universal_page_brand_specific_brand", {"urlBrand": brand.item.url, "id" : page.id}) }}">
+                            <img src="{{ image_url(brand.item.logo) }}" alt="{{ brand.item.name }}"
+                                 title="{{ brand.title }}">
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
         </ul>
       </section>
     </main>
