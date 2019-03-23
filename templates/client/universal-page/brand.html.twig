@@ -73,9 +73,9 @@
             {% if brand %}
                 {% for model in models %}
                   <li>
-                      <a class="model-link" style="height: 100%;"
+                      <a class="model-link"
                          href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand": brand.url, "urlModel" : model.url}) }}">
-                        <img src="{{ image_url(model.logo) }}" alt="{{ model.name }}"
+                        <img src="{{ image_url(model.logo) }}" alt="{{ model.name }}" style="height: 100%;"
                              title="Запчасти для автомобилей {{ brand.name }} {{ model.name }}">
                       </a>
                   </li>
@@ -83,9 +83,9 @@
             {% else %}
                 {% for brand in brands %}
                     <li>
-                        <a class="model-link" style="height: 100%;"
+                        <a class="model-link"
                            href="{{ path("universal_page_brand_specific_brand", {"urlBrand": brand.item.url, "id" : page.id}) }}">
-                            <img src="{{ image_url(brand.item.logo) }}" alt="{{ brand.item.name }}"
+                            <img src="{{ image_url(brand.item.logo) }}" alt="{{ brand.item.name }}" style="height: 100%;"
                                  title="{{ brand.title }}">
                         </a>
                     </li>
