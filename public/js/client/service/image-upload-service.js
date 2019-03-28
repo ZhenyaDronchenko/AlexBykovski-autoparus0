@@ -53,6 +53,11 @@
 
             self.addCropper();
 
+            $(".move-to-popup").click(function(){
+                $(this).parents(".overlay").removeClass("modal--show");
+                $(".overlay" + $(this).attr("data-popup")).addClass("modal--show");
+            });
+
             $(".cancel-button-cropper-dialog:visible").click(function(){
                 self.cropperContainer.removeClass("modal--show");
                 $("body").removeClass("modal--show");
@@ -69,6 +74,13 @@
                     self.isBlockedUpload = true;
                 }
             });
+
+            $(".change-image-button-cropper-dialog:visible").click(function(){
+                self.cropperContainer.removeClass("modal--show");
+                $("body").removeClass("modal--show");
+                self.input.val('');
+                $("#gallery-input-" + $(this).attr("data-photo-id")).trigger("click");
+            });
         };
 
         this.addCropper = function() {
@@ -82,8 +94,14 @@
                 const trueSize = self.getJCropTrueSize(data["width"], data["height"], (self.cropperContentSize * 4 / 3));
                 const trueWidth = trueSize[0];
                 const trueHeight = trueSize[1];
+                let elemToResize = $("#cropper-modal");
 
-                $("#cropper-modal").width(Math.max(data["width"], 450));
+                if(data["width"] > data["height"]){
+                    elemToResize.width(Math.min(data["width"], 840));
+                }
+                else{
+                    elemToResize.find("#image-preview-container").height(data["height"]);
+                }
 
                 self.previewImage.Jcrop({
                     aspectRatio: 3 / 2,

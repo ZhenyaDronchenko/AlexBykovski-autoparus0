@@ -20,9 +20,9 @@ class HeadCode
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $code;
 
@@ -43,17 +43,17 @@ class HeadCode
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
     /**
-     * @param string $code
+     * @param null|string $code
      */
-    public function setCode(string $code): void
+    public function setCode(?string $code): void
     {
         $this->code = $code;
     }

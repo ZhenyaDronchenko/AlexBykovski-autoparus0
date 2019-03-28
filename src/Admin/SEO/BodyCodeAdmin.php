@@ -16,7 +16,8 @@ class BodyCodeAdmin extends AbstractAdmin
             'label' => 'Код',
             'attr' => [
                 'rows' => 15
-            ]
+            ],
+            'required' => false,
         ]);
     }
 
