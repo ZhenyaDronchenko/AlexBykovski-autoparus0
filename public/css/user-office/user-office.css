@@ -505,7 +505,8 @@
 .overlay3,
 .overlay4,
 .overlay5,
-.overlay6 {
+.overlay6,
+.overlay7 {
     width: 100%;
     height: 100%;
     position: fixed;
