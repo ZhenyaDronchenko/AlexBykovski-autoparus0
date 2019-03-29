@@ -53,10 +53,16 @@
 
             self.addCropper();
 
+            $(".move-to-popup").click(function(){
+                $(this).parents(".overlay").removeClass("modal--show");
+                $(".overlay" + $(this).attr("data-popup")).addClass("modal--show");
+            });
+
             $(".cancel-button-cropper-dialog:visible").click(function(){
                 self.cropperContainer.removeClass("modal--show");
                 $("body").removeClass("modal--show");
                 self.input.val('');
+                self.jCropApi.destroy();
             });
 
             $(".save-button-cropper-dialog:visible").click(function(){
@@ -68,6 +74,13 @@
 
                     self.isBlockedUpload = true;
                 }
+            });
+
+            $(".change-image-button-cropper-dialog:visible").click(function(){
+                self.cropperContainer.removeClass("modal--show");
+                $("body").removeClass("modal--show");
+                self.input.val('');
+                $("#gallery-input-" + $(this).attr("data-photo-id")).trigger("click");
             });
         };
 
@@ -82,8 +95,20 @@
                 const trueSize = self.getJCropTrueSize(data["width"], data["height"], (self.cropperContentSize * 4 / 3));
                 const trueWidth = trueSize[0];
                 const trueHeight = trueSize[1];
+                let elemToResize = $("#cropper-modal");
 
-                $("#cropper-modal").width(Math.max(data["width"], 450));
+                if(data["width"] > data["height"]){
+                    elemToResize.width(Math.min(data["width"], 840));
+
+                    if(detectmob()){
+                        elemToResize.width(window.innerWidth);
+                    }
+                }
+                else{
+                    elemToResize.find("#image-preview-container").height(data["height"]);
+                }
+
+                $.Jcrop.component.DragState.prototype.touch = null;
 
                 self.previewImage.Jcrop({
                     aspectRatio: 3 / 2,
@@ -138,7 +163,12 @@
                 formData.append('coordinates', coordinates);
 
                 self.customUploadToServer(formData);
+                self.jCropApi.destroy();
             });
         };
+
+        function detectmob() {
+            return window.innerWidth <= 800 && window.innerHeight <= 600;
+        }
     });
 })(window.autoparusApp);

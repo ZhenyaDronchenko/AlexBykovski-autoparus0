@@ -7,6 +7,11 @@
 
 {% block body %}
     {% set isSeller = app.user.isSeller() %}
+    {% if isSeller %}
+        {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
+        {% set countSparePartSprecificAdverts = app.user.sellerData.advertDetail.autoSparePartSpecificAdverts | length %}
+    {% endif %}
+    {% set isHasAdverts = isSeller and (countSparePartGeneralAdverts + countSparePartSprecificAdverts) > 0 %}
     <main class="container">
         <div class="profil">
             <div class="heading">
@@ -27,12 +32,18 @@
 
                             <input id="user-photo-input" type="file" style="display: none">
                         </div>
-
                         <div class="user-wrapper">
-                            <a href="{{ path("show_user_base_profile") }}" class="button button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} личный профиль</a>
+                            <a href="{{ path("show_user_base_profile") }}" class="button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} персональный профиль</a>
                             <ul class="user-about">
                                 {% for car in app.user.cars %}
-                                    <li><a class="user-avto" data-text="{{ car.brand.brandEn }} {{ car.model ? car.model.modelEn : '' }}{{ car.year ? ', ' ~ car.year : '' }}"></a></li>
+                                    <li>
+                                        <a class="user-avto" nohref="">
+                                            <span data-text="{{ car.brand.name }}"></span>
+                                            <br>
+                                            <span data-text="{{ car.model ? car.model.modelEn : '' }}{{ car.year ? ', ' ~ car.year : '' }}"></span>
+                                        </a>
+                                        {#<button class="btn-p">Продать</button>#}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -50,27 +61,27 @@
                                 <div class="foto-user-wrapper">
                                     <img id="business-profile-photo" src="{{ app.user.sellerData.photo ? image_url(app.user.sellerData.photo) : image_url(default_image(3).image) }}" alt="Автолюбители" class="foto-user">
                                 </div>
-                                <a id="business-profile-photo-link" href="" class="user-link us-btn">
+                                <a id="business-profile-photo-link" href="" class="user-link us-btn user-link-r">
                                     <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
                                         <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "/>
                                     </svg>
                                 </a>
+
                                 <input id="business-profile-photo-input" type="file" style="display: none">
                             </div>
                         {% endif %}
                         <div class="user-edit">
-                            <a href="{{ path("show_user_business_office") }}" class="button button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
+                            <a href="{{ path("show_user_business_office") }}" class="button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
                             {% if app.user.sellerData %}
                                 <ul class="btn-block">
                                     {% if app.user.sellerData.sellerCompany.isSparePartSeller%}
                                         <li>
-                                            <a class="user-btn" href="{{ path("user_profile_product_categories") }}" data-text="Автозапчасти"></a>
-                                            <a href="{{ path("user_profile_product_categories") }}">
+                                            <a class="user-btn" href="{{ path("user_profile_product_categories_spare_part") }}" data-text="Автозапчасти"></a>
+                                            <a href="{{ path("user_profile_product_categories_spare_part") }}">
                                                 <button class="btn">Добавить объявление</button>
                                             </a>
                                         </li>
                                     {% endif %}
-
                                     {% if app.user.sellerData.sellerCompany.isAutoSeller %}
                                         <li>
                                             <a class="user-btn" href="{{ path("user_profile_product_categories") }}" data-text="Автотранспорт"></a>
@@ -79,13 +90,17 @@
                                             </a>
                                         </li>
                                     {% endif %}
-
                                     {% if app.user.sellerData.sellerCompany.isService %}
-                                        <li><a class="user-btn" data-text="Услуги / СТО"></a><button class="btn">Добавить объявление</button></li>
+                                        <li>
+                                            <a class="user-btn" data-text="Услуги / СТО"></a>
+                                            <button class="btn">Добавить объявление</button>
+                                        </li>
                                     {% endif %}
-
                                     {% if app.user.sellerData.sellerCompany.isNews %}
-                                        <li><a class="user-btn" data-text="Статьи"></a><button class="btn">Добавить статью</button></li>
+                                        <li>
+                                            <a class="user-btn" data-text="Статьи"></a>
+                                            <button class="btn">Добавить статью</button>
+                                        </li>
                                     {% endif %}
                                 </ul>
                             {% endif %}
@@ -98,16 +113,21 @@
 
         <div class="choice">
             <ul class="choice-block">
-                <li><a class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a> </li>
-                <li><a id="initiator-open-popup3" class="icon open-popup-button" href="#"><i class="fa fa-suitcase"></i>Business</a></li>
-                <li><a class="icon" href="#"><i class="fa fa-camera"></i>Фотогалерея</a></li>
+                <li><a id="user-map-link" style="display: none;" class="icon" href="#"><i class="fa fa-map-o" aria-hidden="true"></i></a> </li>
+                <li>
+                    {% set businessLinkId = not isSeller ? "initiator-open-popup7" : "initiator-open-popup6" %}
+                    <a id="{{ businessLinkId }}" class="icon us-btn5 {{ isHasAdverts or not isSeller ? "open-popup-button" : "" }}" href="{{ not isSeller or isHasAdverts ? "" : path("show_user_business_office") }}">
+                        <i class="fa fa-suitcase"></i>Business
+                    </a>
+                </li>
+                <li><a class="icon" href="" onclick="document.getElementById('trigger-add-new-gallery-photo').click()"><i class="fa fa-camera"></i>Фотогалерея</a></li>
                 <li gallery-upload input-selector="#gallery-input-null"
                     cropper-container="#dialog-cropper-container-gallery" gallery-id=""
                     action-url="{{ path("user_office_add_gallery_photo_ajax") }}">
-                    <a ng-click="editGalleryPhoto()" class="icon icon-plus us-btn1" nohref
-                       data-href="">
+                    <a id="trigger-add-new-gallery-photo" ng-click="editGalleryPhoto()" class="icon icon-plus us-btn" href="">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </a>
+
                     <input id="gallery-input-null" type="file" style="display: none">
                 </li>
             </ul>
@@ -117,74 +137,61 @@
         {% set firstModel = app.user.cars and app.user.cars | length ? app.user.cars.first.model.name : "" %}
         <ul class="items" id="gallery-photos-container">
             {% for photo in galleryPhotos %}
-                <li id="gallery-photo-{{ photo.id }}" class="user-item" gallery-upload
-                    input-selector="#gallery-input-{{ photo.id }}"
-                    cropper-container="#dialog-cropper-container-gallery" gallery-id="{{ photo.id }}"
-                    action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: photo.id}) }}"
-                    remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : photo.id}) }}">
-                    <div class="marka">
-                        {#<div class="name">#}
-                            {#<img class="name-foto" src="{{ image_url(photo.path) }}" alt="">#}
-                            {#<b class="name-text">{{ app.user.name }}</b>#}
-                        {#</div>#}
-                        <div class="tool">
-                            <a ng-click="editGalleryPhoto()" nohref class="tool-rdc gallery-photo"><span class="item-1">Редактировать</span><img src="/img/cra.png" alt="Редактировать"></a>
-                            <a ng-click="removeGalleryPhoto()" nohref class="tool-close"><span class="item-1">Удалить</span><img src="/img/trash-can.svg" alt="Удалить"></a>
-                            <input id="gallery-input-{{ photo.id }}" type="file" style="display: none">
-                        </div>
-                    </div>
-                    <div class="prod">
-                        <img class="prod-foto gallery-photo-image" src="{{ photo.path}}" alt="">
-                        <div class="prod-content">
-                            <span class="date gallery-photo-date">{{ photo.date }}</span>
-                            <span class="time gallery-photo-time">{{ photo.time }}</span>
-                            <span class="adress gallery-photo-address">{{ photo.address }}</span>
-                            <div class="text-block">
-                                <div id='text' class='texthide gallery-photo-description'>{{ photo.description }}</div>
-                                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
-                            </div>
-                            <ul class="breadcrumbs">
-                                <li>
-                                    <a class="item-link" href="{{ path("homepage") }}">
-                                        <img src="/img/windsurfing.png" alt="Парус">
-                                    </a>
-                                </li>
-                                {% if firstBrand %}
-                                    <li>
-                                        <a class="item-link" nohref>/ {{ firstBrand }}</a>
-                                    </li>
+            <li id="gallery-photo-{{ photo.id }}" class="user-item" gallery-upload
+                input-selector="#gallery-input-{{ photo.id }}"
+                cropper-container="#dialog-cropper-container-gallery" gallery-id="{{ photo.id }}"
+                action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: photo.id}) }}"
+                remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'}) }}">
+                <div class="tool">
+                    <a id="edit-gallery-photo-link-{{ photo.id }}" ng-click="editGalleryPhoto()" nohref class="tool-rdc us-btn2 gallery-photo">
+                        <span class="item-1">Редактировать</span>
+                        <img src="/img/cra.png" alt="Редактировать">
+                    </a>
+                    <a ng-click="removeGalleryPhoto()" nohref class="tool-close us-btn4">
+                        <span class="item-1">Удалить</span>
+                        <img src="/img/trash-can.svg" alt="Удалить">
+                    </a>
 
-                                    {% if firstModel %}
-                                        <li>
-                                            <a class="item-link" nohref>/ {{ firstModel }}</a>
-                                        </li>
-                                    {% endif %}
+                    <input id="gallery-input-{{ photo.id }}" type="file" style="display: none">
+                </div>
 
-                                    <li><a class="current">/ Генератор</a></li>
-                                {% endif %}
-                            </ul>
+                <div class="prod">
+                    <img class="prod-foto gallery-photo-image" src="{{ photo.path}}" alt="">
+                    <div class="prod-content">
+                        <span class="date gallery-photo-date">{{ photo.date }}</span>
+                        <span class="time gallery-photo-time">{{ photo.time }}</span>
+                        <span class="adress gallery-photo-address">{{ photo.address }}</span>
+                        <div class="text-block">
+                            <pre id='text' style="font-size: 17px;" class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{{ photo.id }}" trigger-close=".close-more-lines-button-{{ photo.id }}">{{ photo.description }}</pre>
+                            <button id='button-t' class="open-more-lines-button-{{ photo.id }}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                            <button id='button-t' class="close-more-lines-button-{{ photo.id }}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
+                        {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
                     </div>
-                </li>
+                </div>
+            </li>
             {% endfor %}
         </ul>
 
         <div id="gallery-photo-template" style="display: none;">
-            <li id="gallery-photo-__id__" class="user-item" gallery-upload link-selector="#gallery-link-__id__" input-selector="#gallery-input-__id__"
+            <li id="gallery-photo-__id__" class="user-item" gallery-upload
+                input-selector="#gallery-input-__id__"
                 cropper-container="#dialog-cropper-container-gallery" gallery-id="__id__"
                 action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: '__id__'}) }}"
-                remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : "__id__"})|replace({"/": "\/"}) }}">
-                <div class="marka">
-                    {#<div class="name">#}
-                        {#<img class="name-foto" src="" alt="">#}
-                        {#<b class="name-text">{{ app.user.name }}</b>#}
-                    {#</div>#}
-                    <div class="tool">
-                        <a ng-click="editGalleryPhoto()" nohref class="tool-rdc gallery-photo"><span class="item-1">Редактировать</span><img src="/img/cra.png" alt="Редактировать"></a>
-                        <a ng-click="removeGalleryPhoto()" nohref class="tool-close"><span class="item-1">Удалить</span><img src="/img/trash-can.svg" alt="Удалить"></a>
-                        <input id="gallery-input-__id__" type="file" style="display: none">
-                    </div>
+                remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'})|replace({"/": "\/"}) }}">
+                <div class="tool">
+                    <a id="edit-gallery-photo-link-__id__" ng-click="editGalleryPhoto()" nohref class="tool-rdc us-btn2 gallery-photo" style="display: contents">
+                        <span class="item-1">Редактировать</span>
+                        <img src="/img/cra.png" alt="Редактировать">
+                    </a>
+                    <a ng-click="removeGalleryPhoto()" nohref class="tool-close us-btn4" style="display: contents">
+                        <span class="item-1">Удалить</span>
+                        <img src="/img/trash-can.svg" alt="Удалить">
+                    </a>
+
+                    <input id="gallery-input-__id__" type="file" style="display: none">
                 </div>
+
                 <div class="prod">
                     <img class="prod-foto gallery-photo-image" src="" alt="">
                     <div class="prod-content">
@@ -192,29 +199,11 @@
                         <span class="time gallery-photo-time"></span>
                         <span class="adress gallery-photo-address"></span>
                         <div class="text-block">
-                            <div id='text' class='texthide gallery-photo-description'></div>
-                            {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+                            <pre id='text' style="font-size: 17px;" class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-__id__" trigger-close=".close-more-lines-button-__id__"></pre>
+                            <button id='button-t' class="open-more-lines-button-__id__" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                            <button id='button-t' class="close-more-lines-button-__id__" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
-                        <ul class="breadcrumbs">
-                            <li>
-                                <a class="item-link" href="{{ path("homepage") }}">
-                                    <img src="/img/windsurfing.png" alt="Парус">
-                                </a>
-                            </li>
-                            {% if firstBrand %}
-                                <li>
-                                    <a class="item-link" nohref>/ {{ firstBrand }}</a>
-                                </li>
-
-                                {% if firstModel %}
-                                    <li>
-                                        <a class="item-link" nohref>/ {{ firstModel }}</a>
-                                    </li>
-                                {% endif %}
-
-                                <li><a class="current">/ Генератор</a></li>
-                            {% endif %}
-                        </ul>
+                        {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
                     </div>
                 </div>
             </li>
@@ -231,36 +220,104 @@
 
     <div id="dialog-cropper-container" class="overlay1">
         <section id="cropper-modal" class="modal1">
-            <h2 class="subtitle" data-text="Редактор изображения"></h2>
+            <div class="modal-header">
+                <button class="button-home cancel-button-cropper-dialog"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h2 class="button-title">Редактирование <span> изображения</span></h2>
+            </div>
+
             <div id="image-preview-container" class="img-cont">
                 <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
-            <div class="btn-list">
-                <button id="cancel-button" class="button cancel-button-cropper-dialog">Отменить</button>
+            <div class="btn-list-m">
+                <button id="cancel-button" class="button button-m cancel-button-cropper-dialog">Отменить</button>
                 <button id="save-button" class="button save-button-cropper-dialog">Сохранить</button>
             </div>
+
         </section>
     </div>
 
-    <div id="dialog-cropper-container-gallery" class="overlay2">
-        <section id="cropper-modal-gallery" class="modal2">
-            <div id="image-preview-container-gallery" class="img-cont">
-                <img class="modal-img1" src="" alt="Фото" style="display: none">
+    <div id="dialog-cropper-container-gallery" class="overlay overlay3">
+        <section id="cropper-modal-gallery" class="modal3">
+            <div class="modal-header">
+                <button type="button" class="button-home" onclick="document.getElementById('gallery-photo-cancel').click()"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h2 class="button-title">Редактирование <span> изображения</span></h2>
+                <button type="button" class="button-home us-btn3 move-to-popup" data-popup="4"><span>Далее </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
             </div>
-            <div class="btn-lists">
-                <textarea id="gallery-photo-description" name="text" rows="3" placeholder="Пост(описание) к фото"></textarea>
-                <div class="btn-input">
-                    <button id="gallery-photo-cancel" class="button button-mr cancel-button-cropper-dialog">Отменить</button>
-                    <button id="gallery-photo-save" class="button save-button-cropper-dialog">Сохранить</button>
-                </div>
+
+            <div id="image-preview-container-gallery" class="img-cont">
+                <img class="modal-img" src="" alt="Фото" style="display: none">
+            </div>
+            <div class="btn-list-o">
+                <button type="button" id="gallery-photo-cancel" class="button button-s cancel-button-cropper-dialog">Отменить</button>
+                <button type="button" id="gallery-photo-save" class="button button-s save-button-cropper-dialog">Сохранить</button>
+                <button type="button" id="change-image-button-gallery" class="button button-o change-image-button-cropper-dialog" data-photo-id="" style="display: none;">Заменить изображение</button>
             </div>
         </section>
     </div>
+
+    <div id="dialog-cropper-container-gallery2" class="overlay overlay4">
+        <section class="modal4">
+            <div class="modal-header">
+                <button class="button-home move-to-popup" data-popup="3"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h2 class="button-title">Комментарий / Пост <span></span></h2>
+                <button type="button" class="button-home" onclick="document.getElementById('gallery-photo-save').click()"><span>Опубликовать </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
+            </div>
+
+            <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста"></textarea>
+            <div class="btn-list">
+                <button id="left-without-comment-gallery" class="button button-o move-to-popup" data-popup="3" type="button" style="display: none">Оставить без изменений</button>
+                <button id="add-comment-later-gallery" class="button move-to-popup" data-popup="3" type="button" style="display: none">Добавить позже</button>
+                <button id="without-comment-gallery" class="button move-to-popup" data-popup="3" type="button" style="display: none">Без комментария</button>
+
+                <button class="button" type="button" onclick="document.getElementById('gallery-photo-save').click()">Сохранить</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="remove-gallery-photo-confirm" class="overlay5" data-photo-id="">
+        <div class="modal5">
+            <section class="del">
+                <h3 class="del-title">Подтверждение удаления</h3>
+                <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
+                <ul class="del-btn">
+                    <li><a id="remove-gallery-photo" class="btn-m btn-red btn-del" nohref><span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon"></a></li>
+                    <li class="btn-o"><a id="cancel-remove-gallery-photo" class="btn-m btn-gray" nohref>Отменить удаление</a></li>
+                    <li class="btn-edit"><a id="edit-from-remove-popup" class="btn-m btn-green" nohref><span>Редактировать</span><img src="/img/cra.png" alt="icon"></a></li>
+                </ul>
+
+            </section>
+        </div>
+    </div>
+
+    {% if isSeller %}
+        <div id="popup6" class="overlay6">
+            <section class="modal6">
+                <div class="modal-header modal-header-m">
+                    <button id="initiator-close-popup6" class="button-home button-home-m close-popup-button"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                    <h3 class="button-title">Мои объявления</h3>
+                </div>
+                <div class="block-modal">
+                    <h4 class="button-title-m">{{ default_text(40).headline }}</h4>
+
+                    <ul class="list">
+                        <li><a href="{{ path("user_profile_product_categories") }}" class="user-btn" data-text="Автозапчасти"></a><span class="number">( {{ countSparePartGeneralAdverts }} / {{ countSparePartSprecificAdverts }} )</span></li>
+                        {#<li><a href="#" class="user-btn user-btn-m" data-text="Автотранспорт"></a><span class="number">( 12 )</span></li>#}
+                        {#<li><a href="#" class="user-btn user-btn-m" data-text="Услуги / СТО"></a><span class="number">( 1 )</span></li>#}
+                        {#<li><a href="#" class="user-btn user-btn-m" data-text="Авто, Автотуры"></a><span class="number">( 56 )</span></li>#}
+                        {#<li><a href="#" class="user-btn user-btn-m" data-text="Статьи / Блоги"></a><span class="number">( 24 )</span></li>#}
+                    </ul>
+
+                    <div class="modal-text">{{ default_text(40).text }}</div>
+                </div>
+
+            </section>
+        </div>
+    {% endif %}
 
     {% if not isSeller %}
-        <div id="popup3" class="overlay3">
+        <div id="popup7" class="overlay7">
             <section class="modal3">
-                <button id="initiator-close-popup3" class="modal-close close-popup-button">
+                <button id="initiator-close-popup7" class="modal-close close-popup-button">
                     <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                         <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                         <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
@@ -279,105 +336,6 @@
     <script src='/js/client/service/image-upload-service.js'></script>
     <script src='/js/client/directive/user-upload-link.js'></script>
     <script src='/js/client/directive/user-profile/gallery-upload.js'></script>
-    <script>
-        // var popup1 = document.querySelector('.overlay1');
-        //
-        // var openPopupButton1 = document.querySelectorAll('.us-btn');
-        //
-        // var closePopupButton1 = popup1.querySelector('.button-close1');
-        //
-        // openPopupButton1.forEach(function(item){
-        //     item.addEventListener('click', function (evt) {
-        //         evt.preventDefault();
-        //         popup1.classList.add('modal--show');
-        //     });
-        // });
-        //
-        //
-        // closePopupButton1.addEventListener('click', function () {
-        //     popup1.classList.remove('modal--show');
-        // });
-        //
-        // document.addEventListener('keydown', function (evt) {
-        //     if (evt.keyCode === 27) {
-        //         popup1.classList.remove('modal--show');
-        //     }
-        // });
-        //
-        //
-        // var popup2 = document.querySelector('.overlay2');
-        //
-        // var openPopupButton2 = document.querySelectorAll('.us-btn1');
-        //
-        // var closePopupButton2 = popup2.querySelector('.button-close2');
-        //
-        // openPopupButton2.forEach(function(item){
-        //     item.addEventListener('click', function (evt) {
-        //         evt.preventDefault();
-        //         popup2.classList.add('modal--show');
-        //     });
-        // });
-        //
-        //
-        // closePopupButton2.addEventListener('click', function () {
-        //     popup2.classList.remove('modal--show');
-        // });
-        //
-        // document.addEventListener('keydown', function (evt) {
-        //     if (evt.keyCode === 27) {
-        //         popup2.classList.remove('modal--show');
-        //     }
-        // });
-        //
-        //
-        // var popup3 = document.querySelector('.overlay3');
-        //
-        // var openPopupButton3 = document.querySelector('.bis-btn');
-        //
-        // var closePopupButton3 = popup3.querySelector('.button-close3');
-        //
-        //
-        // openPopupButton3.addEventListener('click', function (evt) {
-        //     evt.preventDefault();
-        //     popup3.classList.add('modal--show');
-        // });
-        //
-        //
-        //
-        // closePopupButton3.addEventListener('click', function () {
-        //     popup3.classList.remove('modal--show');
-        // });
-        //
-        // document.addEventListener('keydown', function (evt) {
-        //     if (evt.keyCode === 27) {
-        //         popup3.classList.remove('modal--show');
-        //     }
-        // });
-        //
-        //
-        //
-        //
-        //
-        //
-        // function textbtn() {
-        //
-        //     var text1Elem = document.getElementById('text');
-        //
-        //     var toggle3 = even_odd(n4);
-        //
-        //     if(toggle3 == true) {
-        //         text1Elem.className = 'textshow';
-        //         var toggleB = document.getElementById('button-t');
-        //         toggleB.textContent = '<<<<<<<';
-        //     }
-        //     else {
-        //         text1Elem.className = 'texthide';
-        //         var toggleB = document.getElementById('button-t');
-        //         toggleB.textContent = '>>>>>>>';
-        //     }
-        //
-        //     n4 +=1;
-        //
-        // };
-    </script>
+    <script src='/js/client/directive/user-profile/show-more-lines.js'></script>
+    <script src='/js/client/pages/user-profile/user-office.js'></script>
 {% endblock %}

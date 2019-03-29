@@ -82,8 +82,8 @@
             <div class="delivery-on">
                 <a href={{ page.returnButtonLink }}>{{ page.returnButtonText }}</a>
             </div>
-            {% set sparePartImg = image_url(sparePart.logo, "spare_part") %}
             {% for advert in adverts %}
+                {% set sparePartImg = advert.sellerAdvertDetail.sellerData.photo ? image_url(advert.sellerAdvertDetail.sellerData.photo) : image_url(sparePart.logo, "spare_part") %}
                 <div class="block-product">
                     <div class="block-title">
                         <p class="block-product__title">{{ advert.getSellerCompany().companyName }}</p>

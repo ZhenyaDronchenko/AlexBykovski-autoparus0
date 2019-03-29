@@ -14,6 +14,7 @@
                 let input = $(attrs.inputSelector);
                 let dialogContentSize = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
                 let cropperContentSize = dialogContentSize * 0.7;
+                let removePopupSelector = "#remove-gallery-photo-confirm";
 
 
                 function editGalleryPhoto(){
@@ -21,19 +22,48 @@
                 }
 
                 function removeGalleryPhoto(){
-                    $.ajax(removePath, {
+                    $(removePopupSelector).attr("data-photo-id", id).addClass("modal--show");
+                }
+
+                $("#remove-gallery-photo").off("click").click(function () {
+                    $.ajax(removePath.replace("__rid__", $(removePopupSelector).attr("data-photo-id")), {
                         success(data) {
                             if(data.success) {
-                                $("#gallery-photo-" + id).remove();
+                                $("#gallery-photo-" + $(removePopupSelector).attr("data-photo-id")).remove();
                             }
+
+                            $(removePopupSelector).removeClass("modal--show")
                         },
                         error(data) {
                             console.error('Upload error');
+
+                            $(removePopupSelector).removeClass("modal--show")
                         },
                     });
-                }
+                });
+
+                $("#cancel-remove-gallery-photo").off("click").click(function () {
+                    $(removePopupSelector).removeClass("modal--show");
+                });
+
+                $("#edit-from-remove-popup").off("click").click(function () {
+                    $(removePopupSelector).removeClass("modal--show");
+                    $("#gallery-input-" + $(removePopupSelector).attr("data-photo-id")).trigger("click");
+                });
 
                 $(document).on("change", attrs.inputSelector, function (e) {
+                    if(id){
+                        $("#left-without-comment-gallery").show();
+                        $("#add-comment-later-gallery").hide();
+                        $("#without-comment-gallery").hide();
+                        $("#change-image-button-gallery").attr("data-photo-id", id).show();
+                    }
+                    else{
+                        $("#left-without-comment-gallery").hide();
+                        $("#add-comment-later-gallery").show();
+                        $("#without-comment-gallery").show();
+                        $("#change-image-button-gallery").hide();
+                    }
 
                     let cropperContainer = $(attrs.cropperContainer);
                     let previewImage = $("#image-preview-container-gallery img");
@@ -59,6 +89,7 @@
                                     }
 
                                     cropperContainer.removeClass("modal--show");
+                                    $("#dialog-cropper-container-gallery2").removeClass("modal--show");
                                     $("body").removeClass("modal--show");
                                     $(e.target).val('');
                                 },
