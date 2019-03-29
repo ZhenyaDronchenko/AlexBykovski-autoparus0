@@ -1,0 +1,32 @@
+{% for car in app.user.cars %}
+    <ul class="breadcrumbs">
+        <li>
+            <a class="item-link" href="{{ path("homepage") }}">
+                <img src="/img/windsurfing.png" alt="Парус">
+            </a>
+        </li>
+        {% if car.brand %}
+            <li>
+                <a class="item-link" href="#">/ {{ car.brand.name }}</a>
+            </li>
+            {% if car.model %}
+                <li>
+                    <a class="item-link" href="#">/ {{ car.model.name }}</a>
+                </li>
+                {% if car.engineType %}
+                    <li><a class="current">/ {{ car.engineType.type }}</a></li>
+                {% endif %}
+            {% endif %}
+            <li>
+                <a class="item-link-plus" nohref>
+                    <svg version="1.1" x="0px" y="0px" width="14px" height="14px" viewBox="0 0 50 50"
+                         enable-background="new 0 0 50 50" xml:space="preserve">
+                        <line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="7" y1="7" x2="43" y2="43"/>
+                        <line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10"
+                              x1="43" y1="7" x2="7" y2="43"/>
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endfor %}

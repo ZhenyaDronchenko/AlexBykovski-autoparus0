@@ -145,38 +145,11 @@
                         <span class="time gallery-photo-time">{{ photo.time }}</span>
                         <span class="adress gallery-photo-address">{{ photo.address }}</span>
                         <div class="text-block">
-                            <pre id='text' class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{{ photo.id }}" trigger-close=".close-more-lines-button-{{ photo.id }}">{{ photo.description }}</pre>
+                            <pre id='text' style="font-size: 17px;" class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{{ photo.id }}" trigger-close=".close-more-lines-button-{{ photo.id }}">{{ photo.description }}</pre>
                             <button id='button-t' class="open-more-lines-button-{{ photo.id }}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
                             <button id='button-t' class="close-more-lines-button-{{ photo.id }}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
-                        <ul class="breadcrumbs">
-                            <li>
-                                <a class="item-link" href="{{ path("homepage") }}">
-                                    <img src="/img/windsurfing.png" alt="Парус">
-                                </a>
-                            </li>
-                            {% if firstBrand %}
-                                <li>
-                                    <a class="item-link" href="#">/ {{ firstBrand }}</a>
-                                </li>
-                                {% if firstModel %}
-                                    <li>
-                                        <a class="item-link" href="#">/ {{ firstModel }}</a>
-                                    </li>
-                                {% endif %}
-                                <li><a class="current">/ Генератор</a></li>
-                                <li>
-                                    <a class="item-link-plus" nohref>
-                                        <svg version="1.1" x="0px" y="0px" width="14px" height="14px" viewBox="0 0 50 50"
-                                             enable-background="new 0 0 50 50" xml:space="preserve">
-                                            <line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="7" y1="7" x2="43" y2="43"/>
-                                            <line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10"
-                                                  x1="43" y1="7" x2="7" y2="43"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                        {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
                     </div>
                 </div>
             </li>
@@ -209,38 +182,11 @@
                         <span class="time gallery-photo-time"></span>
                         <span class="adress gallery-photo-address"></span>
                         <div class="text-block">
-                            <pre id='text' class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-__id__" trigger-close=".close-more-lines-button-__id__"></pre>
+                            <pre id='text' style="font-size: 17px;" class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-__id__" trigger-close=".close-more-lines-button-__id__"></pre>
                             <button id='button-t' class="open-more-lines-button-__id__" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
                             <button id='button-t' class="close-more-lines-button-__id__" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
-                        <ul class="breadcrumbs">
-                            <li>
-                                <a class="item-link" href="{{ path("homepage") }}">
-                                    <img src="/img/windsurfing.png" alt="Парус">
-                                </a>
-                            </li>
-                            {% if firstBrand %}
-                                <li>
-                                    <a class="item-link" href="#">/ {{ firstBrand }}</a>
-                                </li>
-                                {% if firstModel %}
-                                    <li>
-                                        <a class="item-link" href="#">/ {{ firstModel }}</a>
-                                    </li>
-                                {% endif %}
-                                <li><a class="current">/ Генератор</a></li>
-                                <li>
-                                    <a class="item-link-plus" nohref>
-                                        <svg version="1.1" x="0px" y="0px" width="14px" height="14px" viewBox="0 0 50 50"
-                                             enable-background="new 0 0 50 50" xml:space="preserve">
-                                            <line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="7" y1="7" x2="43" y2="43"/>
-                                            <line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10"
-                                                  x1="43" y1="7" x2="7" y2="43"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                        {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
                     </div>
                 </div>
             </li>
