@@ -145,9 +145,9 @@
                         <span class="time gallery-photo-time">{{ photo.time }}</span>
                         <span class="adress gallery-photo-address">{{ photo.address }}</span>
                         <div class="text-block">
-                            <p id='text' class='texthide  gallery-photo-description'>{{ photo.description }}</p>
-                            {#<p id='text' class='textshow gallery-photo-description'>{{ photo.description }}</p>#}
-                            {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+                            <pre id='text' class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{{ photo.id }}" trigger-close=".close-more-lines-button-{{ photo.id }}">{{ photo.description }}</pre>
+                            <button id='button-t' class="open-more-lines-button-{{ photo.id }}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                            <button id='button-t' class="close-more-lines-button-{{ photo.id }}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
                         <ul class="breadcrumbs">
                             <li>
@@ -209,9 +209,9 @@
                         <span class="time gallery-photo-time"></span>
                         <span class="adress gallery-photo-address"></span>
                         <div class="text-block">
-                            <p id='text' class='texthide  gallery-photo-description'></p>
-                            {#<p id='text' class='textshow gallery-photo-description'>{{ photo.description }}</p>#}
-                            {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+                            <pre id='text' class='textshow gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-__id__" trigger-close=".close-more-lines-button-__id__"></pre>
+                            <button id='button-t' class="open-more-lines-button-__id__" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                            <button id='button-t' class="close-more-lines-button-__id__" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
                         <ul class="breadcrumbs">
                             <li>
@@ -359,4 +359,5 @@
     <script src='/js/client/service/image-upload-service.js'></script>
     <script src='/js/client/directive/user-upload-link.js'></script>
     <script src='/js/client/directive/user-profile/gallery-upload.js'></script>
+    <script src='/js/client/directive/user-profile/show-more-lines.js'></script>
 {% endblock %}

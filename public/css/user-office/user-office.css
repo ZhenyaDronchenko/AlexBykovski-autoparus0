@@ -431,7 +431,6 @@
     margin-left: auto;
     background-color: #fff;
     border: none;
-    display: none;
     font-weight: 400;
     font-size: 16px;
     color: #ff7c01;
@@ -995,10 +994,6 @@ textarea {
         padding: 0 10px;
     }
 
-    .texthide {
-        max-height: 50px;
-        overflow: hidden;
-    }
     #button-t {
         display: block;
         font-size: 14px;
@@ -1855,5 +1850,10 @@ textarea {
         line-height: 18px;
     }
 
+}
+
+.texthide {
+    max-height: 55px;
+    overflow: hidden;
 }
 /*Profil END*/
