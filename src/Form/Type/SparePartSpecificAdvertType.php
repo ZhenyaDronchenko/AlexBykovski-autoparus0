@@ -74,8 +74,9 @@ class SparePartSpecificAdvertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $object = $builder->getData();
-
-        $object = $object instanceof AutoSparePartSpecificAdvert ? $object : new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
+        $isExistObject = $object instanceof AutoSparePartSpecificAdvert && $object->getId();
+        $object = $isExistObject ? $object : new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
+        $wordForButtons = $isExistObject ? "Редактировать" : "Добавить";
 
         $isFormSubmitted = $options["isFormSubmitted"];
 
@@ -165,16 +166,16 @@ class SparePartSpecificAdvertType extends AbstractType
                 'label' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Добавить объявление"
+                'label' => $wordForButtons . " объявление"
             ])
             ->add('submitAdd', SubmitType::class, [
-                'label' => "Добавить и продолжить добавление"
+                'label' => $wordForButtons . " и продолжить добавление"
             ])
             ->add('submitAutoContinue', SubmitType::class, [
-                'label' => "Добавить и продолжить добавление с этим авто"
+                'label' => $wordForButtons . " и продолжить добавление с этим авто"
             ])
             ->add('submitSparePartContinue', SubmitType::class, [
-                'label' => "Добавить и продолжить добавление с этой запчастью"
+                'label' => $wordForButtons . " и продолжить добавление с этой запчастью"
             ])
             ->add('submitButtonName', HiddenType::class, [
                 'mapped' => false,

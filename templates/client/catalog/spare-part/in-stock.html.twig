@@ -65,7 +65,8 @@
                     <div class="card-product">
                         <div class="card-img">
                             <div class="image">
-                                <img src="{{ image_url(advert.image ? advert.image : image_url(sparePart.logo, "spare_part")) }}" alt="foto">
+                                {% set specificAdvertImage = advert.image ? image_url(advert.image) : (sellerData.photo ? image_url(sellerData.photo) : image_url(default_image(10).image)) %}
+                                <img src="{{ specificAdvertImage }}" alt="foto">
                             </div>
                             {% if advert.cost %}
                                 <div class="price">{{ advert.cost }} <span>Руб</span></div>
@@ -195,7 +196,8 @@
                     <div class="card-product">
                         <div class="card-img">
                             <div class="image">
-                                <img src="{{ image_url(image_url(sparePart.logo, "spare_part")) }}" alt="foto">
+                                {% set sparePartImg = sellerData.photo ? image_url(sellerData.photo) : image_url(sparePart.logo, "spare_part") %}
+                                <img src="{{ sparePartImg }}" alt="foto">
                             </div>
                             <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
                             <div class="link-button">

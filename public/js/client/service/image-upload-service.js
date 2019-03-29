@@ -62,6 +62,7 @@
                 self.cropperContainer.removeClass("modal--show");
                 $("body").removeClass("modal--show");
                 self.input.val('');
+                self.jCropApi.destroy();
             });
 
             $(".save-button-cropper-dialog:visible").click(function(){
@@ -98,10 +99,16 @@
 
                 if(data["width"] > data["height"]){
                     elemToResize.width(Math.min(data["width"], 840));
+
+                    if(detectmob()){
+                        elemToResize.width(window.innerWidth);
+                    }
                 }
                 else{
                     elemToResize.find("#image-preview-container").height(data["height"]);
                 }
+
+                $.Jcrop.component.DragState.prototype.touch = null;
 
                 self.previewImage.Jcrop({
                     aspectRatio: 3 / 2,
@@ -156,7 +163,12 @@
                 formData.append('coordinates', coordinates);
 
                 self.customUploadToServer(formData);
+                self.jCropApi.destroy();
             });
         };
+
+        function detectmob() {
+            return window.innerWidth <= 800 && window.innerHeight <= 600;
+        }
     });
 })(window.autoparusApp);
