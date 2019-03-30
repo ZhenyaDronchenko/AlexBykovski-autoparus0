@@ -4,11 +4,21 @@ $(function(){
     $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
 
     $(document).on("click", ".open-popup-button", function (ev) {
-        $("#" + $(this).attr("id").replace("initiator-open-", "")).show();
+        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-")){
+            $("#" + $(this).attr("id").replace("initiator-close-", "")).show();
+        }
+        else{
+            $("#popup" + $(this).attr("data-popup-id")).show();
+        }
     });
 
     $(document).on("click", ".close-popup-button", function (ev) {
-        $("#" + $(this).attr("id").replace("initiator-close-", "")).hide();
+        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-")){
+            $("#" + $(this).attr("id").replace("initiator-close-", "")).hide();
+        }
+        else{
+            $("#popup" + $(this).attr("data-popup-id")).hide();
+        }
     });
 });
 
