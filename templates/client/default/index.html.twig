@@ -69,13 +69,13 @@
                                         <li><a nohref><img src="/img/Logo1.svg" alt="Парус" width="16" height="16"></a></li>
                                         <li>/</li>
                                         {% if car.brand %}
-                                            <li style="font-size: 14px;">{{ car.brand.name }}</li>
+                                            <li style="font-size: 13px;">{{ car.brand.name }}</li>
                                             {% if car.model %}
                                                 <li>/</li>
-                                                <li style="font-size: 13px;">{{ car.model.name }}</li>
+                                                <li style="font-size: 12px;">{{ car.model.name }}</li>
                                                 {% if car.engineType %}
                                                     <li>/</li>
-                                                    <li style="font-size: 13px;">{{ car.engineType.type }}</li>
+                                                    <li style="font-size: 12px;">{{ car.engineType.type }}</li>
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
