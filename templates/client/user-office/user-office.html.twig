@@ -22,7 +22,7 @@
                              action-url="{{ path("user_office_upload_user_photo_ajax") }}"
                              cropper-container="#dialog-cropper-container">
                             <div class="foto-user-wrapper">
-                                <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user">
+                                <img id="user-photo" src="{{ image_url(app.user.photo, "user") }}" alt="Автолюбители" class="foto-user" {% if app.user.photo %} style="width: 100px;"{% endif %}>
                             </div>
                             <a href="" id="user-photo-link" class="user-link us-btn">
                                 <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
