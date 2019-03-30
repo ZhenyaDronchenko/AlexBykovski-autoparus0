@@ -1,37 +1,41 @@
 <!DOCTYPE html>
-<html ng-app="autoparusApp">
+<html ng-app="autoparusApp" lang="ru">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="{% block meta_description %}Автопарус{% endblock %}">
-        <meta name="author" content="">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
-        <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&amp;subset=cyrillic" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-              rel="stylesheet">
         <title>{% block title %}Автопарус{% endblock %}</title>
+        <link rel='stylesheet' href='/css/normalize-new.min.css'>
+        <link rel='stylesheet' href='/css/base-style.css'>
+        <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
         <link rel="apple-touch-icon" sizes="180x180" href="/img/fav/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/img/fav/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/img/fav/favicon-16x16.png">
         <link rel="manifest" href="/img/fav/site.webmanifest">
         <link rel="mask-icon" href="/img/fav/safari-pinned-tab.svg" color="#5bbad5">
         <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
-        <link rel='stylesheet' href='/bower-components/jquery-ui/themes/base/jquery-ui.min.css'>
-        <link rel='stylesheet' href='/css/normalize-new.min.css'>
-        <link rel='stylesheet' href='/css/base-style.css'>
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
         {% block stylesheets %}
-            <link rel='stylesheet' href='/css/style-new.css'>
         {% endblock %}
         {{ show_code("head") | raw }}
+        {#<meta name="author" content="">#}
+        {#<meta name="msapplication-TileColor" content="#da532c">#}
+        {#<meta name="theme-color" content="#ffffff">#}
+        {#<link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&amp;subset=cyrillic" rel="stylesheet">#}
+        {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">#}
+        {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons"#}
+              {#rel="stylesheet">#}
     </head>
     <body>
         <header class="container">
             <div class="header">
-                <a class="header-logo" href="{{ path("homepage") }}" data-text="Автопарус"></a>
-                <button class="burger" onclick='menuActive()'>
+                <div class="block-logo">
+                    <img src="/img/Logo1.svg" alt="Логотип">
+                    <a class="header-logo" href='index.html' data-text="Автопарус"></a>
+                </div>
+                <button class="burger" onclick='menuActive()' type="button">
                     <span id='g-1' class='gamburger'></span>
                     <span id='g-2' class='gamburger'></span>
                     <span id='g-3' class='gamburger'></span>
@@ -40,33 +44,37 @@
 
             <nav id='menu' class="nav">
                 <div class='nav-block'>
-                    <ul class='nav-list'>
-                        <li><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Auto Запчасти</a></li>
-                        <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Auto Каталог</a></li>
+                    <ul class='nav-list nav-list-m'>
+                        <li class='item-o'><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
+                        <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Поиск з/ч по марке</a></li>
+                        <li class='item item-m'><a href="{{ path("show_city_catalog_choice_city") }}">Поиск з/ч по городу</a></li>
                     </ul>
-                    <ul class='nav-list'>
+                    <ul class='nav-list nav-list-m'>
                         {% if app.user %}
                             {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
-                            <li><a href="{{ logout_path("main") }}">Выход</a></li>
+                            <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
                             {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                <li><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
                             {% else %}
-                                <li><a class="inverse-color" href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}">{{ userName }}</a></li>
                             {% endif %}
                         {% else %}
-                            <li><a href="{{ path("login") }}">Вход</a></li>
-                            <li><a href="{{ path("registration") }}">Регистрация</a></li>
+                            <li class='item-text'><a href="{{ path("login") }}">Вход</a></li>
+                            <li class='item-m item-text'><a href="{{ path("registration") }}">Регистрация</a></li>
                         {% endif %}
+                        <li><a href="{{ path("general_about_page") }}">Обратная связь</a></li>
                     </ul>
                 </div>
                 <div class='nav-block'>
                     <ul class='nav-list'>
-                        <li><a href='{{ path("general_to_users_page") }}'>Пользователям</a></li>
-                        <li class='item'><a href='{{ path("general_to_seller_page") }}'>Продавцам</a></li>
+                        <li><a href="{{ path("general_to_users_page") }}">Пользователям</a></li>
+                        <li class='item'><a href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
+                        <li class='item'><a href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
                     </ul>
                     <ul class='nav-list'>
                         <li><a href="{{ path("general_news_page") }}">Новости</a></li>
-                        <li><a href="{{ path("general_about_page") }}">Обратная связь</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Форум Ошибок ОBD2</a></li>
                     </ul>
                 </div>
             </nav>
@@ -87,7 +95,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_obd2_error_catalog_choice_type") }}" title="Ошибки">
+                            <a class="navigation-link cbutton cbutton--effect-boris"  href="{{ path("show_obd2_error_catalog_choice_type") }}" title="OBD2 ошибки автотранспорта">
                                 <svg class="check" width="40" height="40" viewBox="0 0 50 50" fill="none">
                                     <path d="M30 14V10H35V6H21V10H26V14" stroke="#444444" stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round"/>
                                     <path d="M9 27H5V21H1V37H5V31H9" stroke="#444444" stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round"/>
@@ -105,10 +113,22 @@
                             </a>
                         </li>
                         <li>
-                            <a class="navigation-link" href="" title="Автопарус">
-                                <img src="/img/windsurfing.png" alt="icon">
+                            {% set linkCenter = app.user ? "" : path("registration") %}
+                            <a class="navigation-link navigation-link-p cbutton cbutton--effect-boris" href="{{ linkCenter }}" title="Автопарус">
+                                <svg width="35" height="35" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0)">
+                                        <path d="M27.5509 21.5911L27.5509 50.0001H0L27.5509 21.5911Z" fill="#D22856"/>
+                                        <path d="M28.3163 0L49.9999 49.9998H28.3163V0Z" fill="#494242"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0">
+                                            <rect width="50" height="50" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
                             </a>
                         </li>
+
                         <li>
                             <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_brand_catalog_choice_brand") }}" title="Поиск">
                                 <svg class="search" width="40" height="40" viewBox="0 0 50 50" fill="none">
@@ -118,15 +138,15 @@
                             </a>
                         </li>
                         <li>
-                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_city_catalog_choice_city") }}" title="Магазин">
-                                <svg class="shop" width="40" height="40" viewBox="0 0 50 50" fill="none">
-                                    <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="#444444" stroke-width="2.5"/>
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_city_catalog_choice_city") }}" title="Поиск могазинов запчастей и авторазборок по выбранному городу">
+                                <svg class="shop" width="40" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.66667 29.6667V28.6667H3.66667H2V24.4324L4.48647 12H45.5135L48 24.4323V28.6667H46.3333H45.3333V29.6667V44.6667H44V29.6667V28.6667H43H30.3333H29.3333V29.6667V44.6667H4.66667V29.6667ZM27 43.3333H28V42.3333V29.6667V28.6667H27H7H6V29.6667V42.3333V43.3333H7H27ZM4.66667 6H45.3333V7.33333H4.66667V6Z" stroke="#444444" stroke-width="2"/>
                                 </svg>
                             </a>
                         </li>
                         <li>
                             {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
-                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path(personLink) }}" title="Пользователь">
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ personLink }}" title="Персональный профиль пользователя">
                                 <svg class="user" width="40" height="40" viewBox="0 0 50 50" fill="none">
                                     <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3.5"/>
                                     <path d="M43.5 43.5H6.5V40.3771C6.50929 40.361 6.51902 40.3442 6.52922 40.3267C6.66558 40.0932 6.88316 39.7455 7.19248 39.3213C7.81152 38.4723 8.79409 37.3222 10.224 36.1667C13.0634 33.8723 17.7339 31.5 25 31.5C32.2661 31.5 36.9366 33.8723 39.776 36.1667C41.2059 37.3222 42.1885 38.4723 42.8075 39.3213C43.1168 39.7455 43.3344 40.0932 43.4708 40.3267C43.481 40.3442 43.4907 40.361 43.5 40.3771V43.5Z" stroke="#444444" stroke-width="3.5"/>
