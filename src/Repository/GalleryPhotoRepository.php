@@ -11,6 +11,10 @@ class GalleryPhotoRepository extends EntityRepository
         return $this->createQueryBuilder('gph')
             ->select('gph')
             ->join("gph.image", "im")
+            ->join("gph.gallery", "g")
+            ->join("g.client", "cl")
+            ->where("cl.id IN(:ids)")
+            ->setParameter("ids", [34, 29, 28, 27, 26, 24])
             ->orderBy("im.createdAt", "DESC")
             ->getQuery()
             ->getResult();
