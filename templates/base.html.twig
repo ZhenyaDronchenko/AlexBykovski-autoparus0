@@ -55,9 +55,9 @@
                             {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
                             <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
                             {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Admin</a></li>
                             {% else %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}" style="color: #ff0000;">{{ userName }}</a></li>
                             {% endif %}
                         {% else %}
                             <li class='item-text'><a href="{{ path("login") }}">Вход</a></li>
@@ -157,7 +157,7 @@
                             </a>
                         </li>
                         <li>
-                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
+                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? path("sonata_admin_dashboard") : path("show_user_office") ) : "login" %}
                             <a class="navigation-link cbutton cbutton--effect-boris" href="{{ personLink }}" title="Персональный профиль пользователя">
                                 <svg class="user" width="40" height="40" viewBox="0 0 50 50" fill="none">
                                     <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3.5"/>
