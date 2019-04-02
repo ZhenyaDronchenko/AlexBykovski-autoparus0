@@ -56,32 +56,11 @@
             $(".move-to-popup").click(function(){
                 $(this).parents(".overlay").removeClass("modal--show");
                 $(".overlay" + $(this).attr("data-popup")).addClass("modal--show");
+
+                updateSaveCloseButtons();
             });
 
-            $(".cancel-button-cropper-dialog:visible").click(function(){
-                self.cropperContainer.removeClass("modal--show");
-                $("body").removeClass("modal--show");
-                self.input.val('');
-                self.jCropApi.destroy();
-            });
-
-            $(".save-button-cropper-dialog:visible").click(function(){
-                //@@todo here called multiple times
-                if(!self.isBlockedUpload){
-                    self.processCroppedImage(this);
-
-                    self.input.val('');
-
-                    self.isBlockedUpload = true;
-                }
-            });
-
-            $(".change-image-button-cropper-dialog:visible").click(function(){
-                self.cropperContainer.removeClass("modal--show");
-                $("body").removeClass("modal--show");
-                self.input.val('');
-                $("#gallery-input-" + $(this).attr("data-photo-id")).trigger("click");
-            });
+            updateSaveCloseButtons();
         };
 
         this.addCropper = function() {
@@ -166,6 +145,33 @@
                 self.jCropApi.destroy();
             });
         };
+
+        function updateSaveCloseButtons() {
+            $(".cancel-button-cropper-dialog:visible").off().on("click", function(){
+                self.cropperContainer.removeClass("modal--show");
+                $("body").removeClass("modal--show");
+                self.input.val('');
+                self.jCropApi.destroy();
+            });
+
+            $(".save-button-cropper-dialog:visible").off().on("click", function(){
+                //@@todo here called multiple times
+                if(!self.isBlockedUpload){
+                    self.processCroppedImage(this);
+
+                    self.input.val('');
+
+                    self.isBlockedUpload = true;
+                }
+            });
+
+            $(".change-image-button-cropper-dialog:visible").off().on("click", function(){
+                self.cropperContainer.removeClass("modal--show");
+                $("body").removeClass("modal--show");
+                self.input.val('');
+                $("#gallery-input-" + $(this).attr("data-photo-id")).trigger("click");
+            });
+        }
 
         function detectmob() {
             return window.innerWidth <= 800 && window.innerHeight <= 600;
