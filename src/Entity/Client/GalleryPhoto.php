@@ -134,4 +134,24 @@ class GalleryPhoto
             "description" => $this->getDescription(),
         ];
     }
+
+    public function toSearchArray()
+    {
+        $user = $this->getGallery()->getClient();
+        $userPhoto = $user->getPhoto();
+        $geoLocation = $this->getImage()->getGeoLocation();
+        $address = $geoLocation->getCountry();
+        $address .= $geoLocation->getCity() ? ", " . $geoLocation->getCity() : "";
+
+        return [
+            "id" => $this->getId(),
+            "userPhoto" => $userPhoto ? "/images/" . $userPhoto->getImage() : "",
+            "userName" => $user->getName(),
+            "image" => $this->getImage()->getImage() ? "/images/" . $this->getImage()->getImage() : "",
+            "description" => str_replace("\n", "<br>", $this->getDescription()),
+            "address" => $address,
+            "date" => $this->getImage()->getCreatedAt()->format("d.m.Y"),
+            "time" => $this->getImage()->getCreatedAt()->format("H:i"),
+        ];
+    }
 }

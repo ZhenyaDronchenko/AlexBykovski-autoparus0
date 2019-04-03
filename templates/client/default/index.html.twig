@@ -40,60 +40,57 @@
                 </form>
             </div>
 
-            <ul class="content">
-                {% for post in posts %}
-                    {% set postUser = post.gallery.client %}
-                    <li class="content-item">
-                        <div class="post-block">
-                            <img class="name-foto" src="{{ image_url(postUser.photo) }}" alt="Фото">
-                            <b class="name">{{ postUser.name }}</b>
-                            <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
-                                <span class="points"></span>
-                                <span class="points"></span>
-                                <span class="points"></span>
-                            </button>
+            <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}')">
+                <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts" ng-cloak>
+                    <div class="post-block">
+                        <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
+                        <b class="name" ng-bind="post.userName"></b>
+                        <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
+                            <span class="points"></span>
+                            <span class="points"></span>
+                            <span class="points"></span>
+                        </button>
+                    </div>
+
+                    <div class="content-wrapper">
+                        <div class="foto">
+                            <img ng-src="{[{post.image}]}" alt="Картинка">
                         </div>
 
-                        <div class="content-wrapper">
-                            <div class="foto">
-                                <img src="{{ image_url(post.image.image) }}" alt="Картинка">
+                        <div class="user-block">
+                            <div class="text-block text-block-w">
+                                <div id='text1' class='text1Show' show-more-lines class-less="text1Hide" class-more="text1Show" count-lines="3" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
+                                <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                                <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                            </div>
+                            {#{% for car in pos.cars %}#}
+                                {#<ul class="user-list">#}
+                                    {#<li><a nohref><img src="/img/Logo1.svg" alt="Парус" width="16" height="16"></a></li>#}
+                                    {#<li>/</li>#}
+                                    {#{% if car.brand %}#}
+                                        {#<li style="font-size: 12px;">{{ car.brand.name }}</li>#}
+                                        {#{% if car.model %}#}
+                                            {#<li>/</li>#}
+                                            {#<li style="font-size: 10px;">{{ car.model.name }}</li>#}
+                                            {#{% if car.engineType %}#}
+                                                {#<li>/</li>#}
+                                                {#<li style="font-size: 10px;">{{ car.engineType.type }}</li>#}
+                                            {#{% endif %}#}
+                                        {#{% endif %}#}
+                                    {#{% endif %}#}
+                                {#</ul>#}
+                            {#{% endfor %}#}
+                            <p class="adress" ng-bind="post.address"></p>
+                            <div class="date-block">
+                                <span class="date" ng-bind="post.date"></span>
+                                <span class="time" ng-bind="post.time"></span>
                             </div>
 
-                            <div class="user-block">
-                                <div class="text-block text-block-w">
-                                    <div id='text1' class='text1Show' show-more-lines class-less="text1Hide" class-more="text1Show" count-lines="3" trigger-open=".open-more-lines-button-{{ post.id }}" trigger-close=".close-more-lines-button-{{ post.id }}">{{ post.description | nl2br }}</div>
-                                    <button id='allText' class="open-more-lines-button-{{ post.id }}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                                    <button id='allText' class="close-more-lines-button-{{ post.id }}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                                </div>
-                                {% for car in postUser.cars %}
-                                    <ul class="user-list">
-                                        <li><a nohref><img src="/img/Logo1.svg" alt="Парус" width="16" height="16"></a></li>
-                                        <li>/</li>
-                                        {% if car.brand %}
-                                            <li style="font-size: 12px;">{{ car.brand.name }}</li>
-                                            {% if car.model %}
-                                                <li>/</li>
-                                                <li style="font-size: 10px;">{{ car.model.name }}</li>
-                                                {% if car.engineType %}
-                                                    <li>/</li>
-                                                    <li style="font-size: 10px;">{{ car.engineType.type }}</li>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endif %}
-                                    </ul>
-                                {% endfor %}
-                                {% set city = post.image.geoLocation.city %}
-                                <p class="adress">{{ post.image.geoLocation.country }}{{ city? ", " ~ city : "" }}</p>
-                                <div class="date-block">
-                                    <span class="date">{{ post.image.createdAt|date("d.m.Y") }}</span>
-                                    <span class="time">{{ post.image.createdAt|date("H:i") }}</span>
-                                </div>
-
-                            </div>
                         </div>
-                    </li>
-                {% endfor %}
+                    </div>
+                </li>
             </ul>
+            <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
             <div class="sail-f">
                 <img src="/img/windsurfing.png" alt="Парус">
                 <img src="/img/windsurfing.png" alt="Парус">
@@ -192,4 +189,5 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
 {% endblock %}

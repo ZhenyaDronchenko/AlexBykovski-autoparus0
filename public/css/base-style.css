@@ -818,3 +818,7 @@ ul {
         width: 85%;
     }
 }
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+}

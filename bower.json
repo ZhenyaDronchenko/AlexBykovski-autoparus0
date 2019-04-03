@@ -22,6 +22,7 @@
     "cropper": "^4.0.0",
     "Jcrop": "^2.0.4",
     "jquery-modal": "^0.9.1",
-    "angular-cookies": "^1.7.6"
+    "angular-cookies": "^1.7.6",
+    "angular-sanitize": "^1.7.8"
   }
 }
