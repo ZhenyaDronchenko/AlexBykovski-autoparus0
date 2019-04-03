@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
+use App\Entity\Client\GalleryPhoto;
 use App\Entity\Model;
 use App\Entity\Phone\PhoneBrand;
 use App\Entity\Phone\PhoneModel;
@@ -182,5 +183,30 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedModels);
+    }
+
+    /**
+     * @Route("/posts", name="search_posts")
+     */
+    public function searchPostsAction(Request $request)
+    {
+        $requestData = json_decode($request->getContent(), true);
+        $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
+        $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
+
+        if(!is_numeric($offset) || !is_numeric($limit)){
+            return new JsonResponse([]);
+        }
+
+        $photos = $this->getDoctrine()->getRepository(GalleryPhoto::class)->findAllByCreatedAt($offset, $limit);
+
+        $parsedPhotos= [];
+
+        /** @var GalleryPhoto $photo */
+        foreach ($photos as $photo){
+            $parsedPhotos[] = $photo->toSearchArray();
+        }
+
+        return new JsonResponse($parsedPhotos);
     }
 }

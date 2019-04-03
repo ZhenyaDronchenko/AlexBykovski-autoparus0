@@ -111,7 +111,13 @@
                 }
 
                 function addNewGalleryPhoto(gallery) {
-                    let template = $("#gallery-photo-template").html();
+                    let templateEl = $("#gallery-photo-template");
+
+                    if(!templateEl.length){
+                       return false;
+                    }
+
+                    let template = templateEl.html();
                     template = template.replace(/__id__/g, gallery.id);
                     let el = $compile(template)( scope );
 

@@ -24,9 +24,8 @@
         {#<meta name="msapplication-TileColor" content="#da532c">#}
         {#<meta name="theme-color" content="#ffffff">#}
         {#<link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&amp;subset=cyrillic" rel="stylesheet">#}
-        {% if app.request.attributes.get('_route') != "homepage" %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        {% endif %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel='stylesheet' href='/bower-components/Jcrop/css/Jcrop.min.css'>
         {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons"#}
               {#rel="stylesheet">#}
     </head>
@@ -56,9 +55,9 @@
                             {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
                             <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
                             {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}">Admin</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Admin</a></li>
                             {% else %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}">{{ userName }}</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}" style="color: #ff0000;">{{ userName }}</a></li>
                             {% endif %}
                         {% else %}
                             <li class='item-text'><a href="{{ path("login") }}">Вход</a></li>
@@ -114,22 +113,33 @@
                                 </svg>
                             </a>
                         </li>
-                        <li>
-                            {% set linkCenter = app.user ? "" : path("registration") %}
-                            <a class="navigation-link navigation-link-p cbutton cbutton--effect-boris" href="{{ linkCenter }}" title="Автопарус">
-                                <svg width="35" height="35" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0)">
-                                        <path d="M27.5509 21.5911L27.5509 50.0001H0L27.5509 21.5911Z" fill="#D22856"/>
-                                        <path d="M28.3163 0L49.9999 49.9998H28.3163V0Z" fill="#494242"/>
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0">
-                                            <rect width="50" height="50" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </a>
-                        </li>
+                        {% if app.user  %}
+                            <li gallery-upload input-selector="#gallery-input-null"
+                                cropper-container="#dialog-cropper-container-gallery" gallery-id=""
+                                action-url="{{ path("user_office_add_gallery_photo_ajax") }}">
+                                <a id="trigger-add-new-gallery-photo" ng-click="editGalleryPhoto()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                    <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
+                                </a>
+
+                                <input id="gallery-input-null" type="file" style="display: none">
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="navigation-link navigation-link-p cbutton cbutton--effect-boris" href="{{ path("registration") }}" title="Автопарус">
+                                    <svg width="35" height="35" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0)">
+                                            <path d="M27.5509 21.5911L27.5509 50.0001H0L27.5509 21.5911Z" fill="#D22856"/>
+                                            <path d="M28.3163 0L49.9999 49.9998H28.3163V0Z" fill="#494242"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0">
+                                                <rect width="50" height="50" fill="white"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </li>
+                        {% endif %}
 
                         <li>
                             <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("show_brand_catalog_choice_brand") }}" title="Поиск">
@@ -147,7 +157,7 @@
                             </a>
                         </li>
                         <li>
-                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? "sonata_admin_dashboard" : "show_user_office" ) : "login" %}
+                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? path("sonata_admin_dashboard") : path("show_user_office") ) : "login" %}
                             <a class="navigation-link cbutton cbutton--effect-boris" href="{{ personLink }}" title="Персональный профиль пользователя">
                                 <svg class="user" width="40" height="40" viewBox="0 0 50 50" fill="none">
                                     <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3.5"/>
@@ -160,8 +170,43 @@
             </div>
         </footer>
 
+        {% if app.user %}
+            <div id="dialog-cropper-container-gallery" class="overlay overlay3">
+                <section id="cropper-modal-gallery" class="modal3">
+                    <div class="modal-header">
+                        <button type="button" class="button-home cancel-button-cropper-dialog" id="gallery-photo-cancel">
+                            <img src="/img/left-arrow1.png" alt="Назад">
+                            <span> Назад</span>
+                        </button>
+                        <h2 class="button-title">Редактирование <span> изображения</span></h2>
+                        <button type="button" class="button-home us-btn3 move-to-popup" data-popup="4"><span>Далее </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
+                    </div>
+
+                    <div id="image-preview-container-gallery" class="img-cont">
+                        <img class="modal-img" src="" alt="Фото" style="display: none">
+                    </div>
+                </section>
+            </div>
+
+            <div id="dialog-cropper-container-gallery2" class="overlay overlay4">
+                <section class="modal4">
+                    <div class="modal-header">
+                        <button class="button-home move-to-popup" data-popup="3"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                        <h2 class="button-title">Комментарий / Пост <span></span></h2>
+                        <button type="button" class="button-home save-button-cropper-dialog" id="gallery-photo-save">
+                            <span>Опубликовать </span>
+                            <img src="/img/right-arrow1.png" alt="Далее">
+                        </button>
+                    </div>
+
+                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста"></textarea>
+                </section>
+            </div>
+        {% endif %}
+
         <script src='/bower-components/angular/angular.min.js'></script>
         <script src='/bower-components/angular-cookies/angular-cookies.min.js'></script>
+        <script src='/bower-components/angular-sanitize/angular-sanitize.min.js'></script>
         <script src='/bower-components/jquery/dist/jquery.min.js'></script>
         <script src='/bower-components/jquery-ui/jquery-ui.min.js'></script>
         <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
@@ -173,6 +218,11 @@
         <script src='/js/client/directive/voice-input.js' ></script>
         <script src='/js/client/directive/redirect-to-url.js'></script>
         <script src='/js/client/directive/scroll-to-element.js' ></script>
+        <script src='/bower-components/Jcrop/js/Jcrop.min.js'></script>
+        <script src='/js/client/service/image-upload-service.js'></script>
+        <script src='/js/client/directive/user-upload-link.js'></script>
+        <script src='/js/client/directive/user-profile/gallery-upload.js'></script>
+        <script src='/js/client/directive/user-profile/show-more-lines.js'></script>
 
         {% block javascripts %}
         {% endblock %}

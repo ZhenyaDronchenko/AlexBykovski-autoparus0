@@ -5,7 +5,7 @@
 // });
 
 (function(angular) {
-    window.autoparusApp = angular.module("autoparusApp", ['ngCookies']);
+    window.autoparusApp = angular.module("autoparusApp", ['ngCookies', "ngSanitize"]);
 
     autoparusApp.config(function($interpolateProvider){
         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');

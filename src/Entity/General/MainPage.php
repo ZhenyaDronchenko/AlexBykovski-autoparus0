@@ -2,6 +2,7 @@
 
 namespace App\Entity\General;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,6 +54,14 @@ class MainPage
      * @ORM\Column(type="string")
      */
     private $middleLink;
+
+    /**
+     * @var Collection
+     *
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="App\Entity\General\MainPageAction", mappedBy="mainPage", cascade={"persist", "remove"})
+     */
+    private $actions;
 
     /**
      * @return int
@@ -148,5 +157,21 @@ class MainPage
     public function setMiddleLink(?string $middleLink): void
     {
         $this->middleLink = $middleLink;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @param Collection $actions
+     */
+    public function setActions(Collection $actions): void
+    {
+        $this->actions = $actions;
     }
 }

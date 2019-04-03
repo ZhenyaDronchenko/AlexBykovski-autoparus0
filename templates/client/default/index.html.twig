@@ -29,69 +29,68 @@
             <div class="main-search">
                 <form class="form" action="#" method="get" >
 
-                    <input class="form-input" name="search" placeholder="Поиск..." type="search">
-                    <button class="form-button cbutton cbutton--effect-boris mike-show" type="button">
+                    <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
+                    <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
                         <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
                             <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
                             <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
                         </svg>
                     </button>
-                    <a class="form-link open-popup-button" nohref data-popup-id="6">Последовательный поиск</a>
+                    <a class="form-link" href="{{ homePage.middleLink ? homePage.middleLink : ""}}">{{ homePage.middleText }}</a>
                 </form>
             </div>
 
-            <ul class="content">
-                {% for post in posts %}
-                    {% set postUser = post.gallery.client %}
-                    <li class="content-item">
-                        <div class="post-block">
-                            <img class="name-foto" src="{{ image_url(postUser.photo) }}" alt="Фото">
-                            <b class="name">{{ postUser.name }}</b>
-                            <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
-                                <span class="points"></span>
-                                <span class="points"></span>
-                                <span class="points"></span>
-                            </button>
+            <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}')">
+                <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts" ng-cloak>
+                    <div class="post-block">
+                        <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
+                        <b class="name" ng-bind="post.userName"></b>
+                        <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
+                            <span class="points"></span>
+                            <span class="points"></span>
+                            <span class="points"></span>
+                        </button>
+                    </div>
+
+                    <div class="content-wrapper">
+                        <div class="foto">
+                            <img ng-src="{[{post.image}]}" alt="Картинка">
                         </div>
 
-                        <div class="content-wrapper">
-                            <div class="foto">
-                                <img src="{{ image_url(post.image.image) }}" alt="Картинка">
+                        <div class="user-block">
+                            <div class="text-block text-block-w">
+                                <div id='text1' class='text1Show' show-more-lines class-less="text1Hide" class-more="text1Show" count-lines="3" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
+                                <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                                <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                            </div>
+                            {#{% for car in pos.cars %}#}
+                                {#<ul class="user-list">#}
+                                    {#<li><a nohref><img src="/img/Logo1.svg" alt="Парус" width="16" height="16"></a></li>#}
+                                    {#<li>/</li>#}
+                                    {#{% if car.brand %}#}
+                                        {#<li style="font-size: 12px;">{{ car.brand.name }}</li>#}
+                                        {#{% if car.model %}#}
+                                            {#<li>/</li>#}
+                                            {#<li style="font-size: 10px;">{{ car.model.name }}</li>#}
+                                            {#{% if car.engineType %}#}
+                                                {#<li>/</li>#}
+                                                {#<li style="font-size: 10px;">{{ car.engineType.type }}</li>#}
+                                            {#{% endif %}#}
+                                        {#{% endif %}#}
+                                    {#{% endif %}#}
+                                {#</ul>#}
+                            {#{% endfor %}#}
+                            <p class="adress" ng-bind="post.address"></p>
+                            <div class="date-block">
+                                <span class="date" ng-bind="post.date"></span>
+                                <span class="time" ng-bind="post.time"></span>
                             </div>
 
-                            <div class="user-block">
-                                <div class="text-block text-block-w">
-                                    <div id='text1' class='text1Hide'>{{ post.description }}</div>
-                                    <button onclick='text1ShowHide()' id='allText'> >>>>>>> </button>
-                                </div>
-                                {% for car in postUser.cars %}
-                                    <ul class="user-list">
-                                        <li><a nohref><img src="/img/Logo1.svg" alt="Парус" width="16" height="16"></a></li>
-                                        <li>/</li>
-                                        {% if car.brand %}
-                                            <li style="font-size: 12px;">{{ car.brand.name }}</li>
-                                            {% if car.model %}
-                                                <li>/</li>
-                                                <li style="font-size: 10px;">{{ car.model.name }}</li>
-                                                {% if car.engineType %}
-                                                    <li>/</li>
-                                                    <li style="font-size: 10px;">{{ car.engineType.type }}</li>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endif %}
-                                    </ul>
-                                {% endfor %}
-                                <p class="adress">{{ post.image.geoLocation.fullAddress }}</p>
-                                <div class="date-block">
-                                    <span class="date">{{ post.image.createdAt|date("d.m.Y") }}</span>
-                                    <span class="time">{{ post.image.createdAt|date("H:i") }}</span>
-                                </div>
-
-                            </div>
                         </div>
-                    </li>
-                {% endfor %}
+                    </div>
+                </li>
             </ul>
+            <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
             <div class="sail-f">
                 <img src="/img/windsurfing.png" alt="Парус">
                 <img src="/img/windsurfing.png" alt="Парус">
@@ -102,65 +101,62 @@
         </div>
     </main>
 
-    <div class="overlay1">
+    <div id="popup1" class="overlay1 modal--show" style="display: none;">
         <div class="modal1">
-            <button class="modal-close button-close1"><svg  x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" enable-background="new 0 0 50 50" >
+            <button id="initiator-close-popup1" class="modal-close close-popup-button"><svg  x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" enable-background="new 0 0 50 50" >
                     <line stroke="#737373" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line stroke="#737373" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
                 </svg>
             </button>
             <div class="mike">
                 <a href="#">Autoparus.by</a>
-                <div class="mike-img">
-                    <svg  fill="red" viewBox="0 0 40 59.5" width="60" height="80">
+                <div id="microphone-image" class="mike-img">
+                    <svg fill="red" viewBox="0 0 40 59.5" width="60" height="80">
                         <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
                         <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
                     </svg>
                 </div>
-                <span class="mike-text">То что смог разобрать микрофон</span>
-                <button class="mike-btn">Универсальная кнопка</button>
-
-
+                <span id="text-from-microphone" class="mike-text"></span>
+                {#<button class="mike-btn">Универсальная кнопка</button>#}
             </div>
         </div>
     </div>
 
-    <div id="popup6" class="overlay6">
-        <section class="modal6">
-            <div class="modal-header ">
-                <button class="button-home close-popup-button" data-popup-id="6"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
-                <h3 class="button-title" data-text="Последовательный поиск"></h3>
-                {% if app.user %}
-                    <button class="button-home close-popup-button" data-popup-id="6">
-                        <span>Вперед </span>
-                        <img src="/img/right-arrow1.png" alt="Далее">
-                    </button>
-                {% else %}
-                    <a href="{{ path("login") }}">
-                        <button class="button-home">
-                            <span>Вперед </span>
-                            <img src="/img/right-arrow1.png" alt="Далее">
-                        </button>
-                    </a>
-                {% endif %}
-            </div>
-            <div class="block-modal">
-                <h4 class="button-title-m">{{ default_text(41).headline }}</h4>
+    {#<div id="popup6" class="overlay6">#}
+        {#<section class="modal6">#}
+            {#<div class="modal-header ">#}
+                {#<button class="button-home close-popup-button" data-popup-id="6"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>#}
+                {#<h3 class="button-title" data-text="Последовательный поиск"></h3>#}
+                {#{% if app.user %}#}
+                    {#<button class="button-home close-popup-button" data-popup-id="6">#}
+                        {#<span>Вперед </span>#}
+                        {#<img src="/img/right-arrow1.png" alt="Далее">#}
+                    {#</button>#}
+                {#{% else %}#}
+                    {#<a href="{{ path("login") }}">#}
+                        {#<button class="button-home">#}
+                            {#<span>Вперед </span>#}
+                            {#<img src="/img/right-arrow1.png" alt="Далее">#}
+                        {#</button>#}
+                    {#</a>#}
+                {#{% endif %}#}
+            {#</div>#}
+            {#<div class="block-modal">#}
+                {#<h4 class="button-title-m">{{ default_text(41).headline }}</h4>#}
 
-                <ul class="list">
-                    <li><a href="#" class="user-btn">Действие 1</a></li>
-                    <li><a href="#" class="user-btn">Действие 2</a></li>
-                    <li><a href="#" class="user-btn">Действие 3</a></li>
+                {#<ul class="list">#}
+                    {#{% for action in homePage.actions %}#}
+                        {#<li><a href="{{ action.link }}" class="user-btn">{{ action.name }}</a></li>#}
+                    {#{% endfor %}#}
+                {#</ul>#}
 
-                </ul>
-
-                <div class="modal-text">{{ default_text(41).text | raw }}</div>
+                {#<div class="modal-text">{{ default_text(41).text | raw }}</div>#}
 
 
-            </div>
-            <button class="button-cl close-popup-button" data-popup-id="6"><span>Закрыть</span></button>
-        </section>
-    </div>
+            {#</div>#}
+            {#<button class="button-cl close-popup-button" data-popup-id="6"><span>Закрыть</span></button>#}
+        {#</section>#}
+    {#</div>#}
 
     <div id="popup7" class="overlay6">
         <section class="modal6">
@@ -178,10 +174,9 @@
                 <h4 class="button-title-m">{{ default_text(42).headline }}</h4>
 
                 <ul class="list">
-                    <li><a href="#" class="user-btn">Действие 1</a></li>
-                    <li><a href="#" class="user-btn">Действие 2</a></li>
-                    <li><a href="#" class="user-btn">Действие 3</a></li>
-
+                    {% for action in homePage.actions %}
+                        <li><a href="{{ action.link }}" class="user-btn">{{ action.name }}</a></li>
+                    {% endfor %}
                 </ul>
 
                 <div class="modal-text">{{ default_text(42).text | raw }}</div>
@@ -194,50 +189,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        function text1ShowHide() {
-
-            var text1Elem = document.getElementById('text1');
-
-            var toggle3 = even_odd(n4);
-
-            if(toggle3 == true) {
-                text1Elem.className = 'text1Show';
-                var toggleB = document.getElementById('allText');
-                toggleB.textContent = '<<<<<<<';
-            }
-            else {
-                text1Elem.className = 'text1Hide';
-                var toggleB = document.getElementById('allText');
-                toggleB.textContent = '>>>>>>>';
-            }
-
-            n4 +=1;
-
-        }
-
-        var popup1 = document.querySelector('.overlay1');
-
-        var openPopupButton1 = document.querySelector('.mike-show');
-
-        var closePopupButton1 = popup1.querySelector('.button-close1');
-
-
-        openPopupButton1.addEventListener('click', function (evt) {
-            evt.preventDefault();
-            popup1.classList.add('modal--show');
-        });
-
-
-
-        closePopupButton1.addEventListener('click', function () {
-            popup1.classList.remove('modal--show');
-        });
-
-        document.addEventListener('keydown', function (evt) {
-            if (evt.keyCode === 27) {
-                popup1.classList.remove('modal--show');
-            }
-        });
-    </script>
+    <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
 {% endblock %}
