@@ -57,8 +57,6 @@
                     const divHeight = element[0].offsetHeight;
                     const lineHeight = Math.floor(parseFloat($(element).css('line-height').replace('px','')));
                     lines = divHeight / lineHeight;
-
-                    console.log(lines);
                 }
             }
         };

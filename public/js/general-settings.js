@@ -4,7 +4,7 @@ $(function(){
     $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
 
     $(document).on("click", ".open-popup-button", function (ev) {
-        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-")){
+        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-") > -1){
             $("#" + $(this).attr("id").replace("initiator-close-", "")).show();
         }
         else{
@@ -13,7 +13,7 @@ $(function(){
     });
 
     $(document).on("click", ".close-popup-button", function (ev) {
-        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-")){
+        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-") > -1){
             $("#" + $(this).attr("id").replace("initiator-close-", "")).hide();
         }
         else{
