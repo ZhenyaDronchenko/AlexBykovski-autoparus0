@@ -1,7 +1,7 @@
 services:
     admin.general.main_page:
         class: App\Admin\General\MainPageAdmin
-        arguments: [~, App\Entity\General\MainPage, 'App\Admin\Controller\General\MainPageAdminController']
+        arguments: [~, App\Entity\General\MainPage, 'App\Admin\Controller\General\MainPageAdminController', '@doctrine.orm.entity_manager']
         tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Главная }
         public: true

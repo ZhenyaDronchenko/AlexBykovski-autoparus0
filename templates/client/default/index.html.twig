@@ -127,42 +127,41 @@
         </div>
     </div>
 
-    <div id="popup6" class="overlay6">
-        <section class="modal6">
-            <div class="modal-header ">
-                <button class="button-home close-popup-button" data-popup-id="6"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
-                <h3 class="button-title" data-text="Последовательный поиск"></h3>
-                {% if app.user %}
-                    <button class="button-home close-popup-button" data-popup-id="6">
-                        <span>Вперед </span>
-                        <img src="/img/right-arrow1.png" alt="Далее">
-                    </button>
-                {% else %}
-                    <a href="{{ path("login") }}">
-                        <button class="button-home">
-                            <span>Вперед </span>
-                            <img src="/img/right-arrow1.png" alt="Далее">
-                        </button>
-                    </a>
-                {% endif %}
-            </div>
-            <div class="block-modal">
-                <h4 class="button-title-m">{{ default_text(41).headline }}</h4>
+    {#<div id="popup6" class="overlay6">#}
+        {#<section class="modal6">#}
+            {#<div class="modal-header ">#}
+                {#<button class="button-home close-popup-button" data-popup-id="6"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>#}
+                {#<h3 class="button-title" data-text="Последовательный поиск"></h3>#}
+                {#{% if app.user %}#}
+                    {#<button class="button-home close-popup-button" data-popup-id="6">#}
+                        {#<span>Вперед </span>#}
+                        {#<img src="/img/right-arrow1.png" alt="Далее">#}
+                    {#</button>#}
+                {#{% else %}#}
+                    {#<a href="{{ path("login") }}">#}
+                        {#<button class="button-home">#}
+                            {#<span>Вперед </span>#}
+                            {#<img src="/img/right-arrow1.png" alt="Далее">#}
+                        {#</button>#}
+                    {#</a>#}
+                {#{% endif %}#}
+            {#</div>#}
+            {#<div class="block-modal">#}
+                {#<h4 class="button-title-m">{{ default_text(41).headline }}</h4>#}
 
-                <ul class="list">
-                    <li><a href="#" class="user-btn">Действие 1</a></li>
-                    <li><a href="#" class="user-btn">Действие 2</a></li>
-                    <li><a href="#" class="user-btn">Действие 3</a></li>
+                {#<ul class="list">#}
+                    {#{% for action in homePage.actions %}#}
+                        {#<li><a href="{{ action.link }}" class="user-btn">{{ action.name }}</a></li>#}
+                    {#{% endfor %}#}
+                {#</ul>#}
 
-                </ul>
-
-                <div class="modal-text">{{ default_text(41).text | raw }}</div>
+                {#<div class="modal-text">{{ default_text(41).text | raw }}</div>#}
 
 
-            </div>
-            <button class="button-cl close-popup-button" data-popup-id="6"><span>Закрыть</span></button>
-        </section>
-    </div>
+            {#</div>#}
+            {#<button class="button-cl close-popup-button" data-popup-id="6"><span>Закрыть</span></button>#}
+        {#</section>#}
+    {#</div>#}
 
     <div id="popup7" class="overlay6">
         <section class="modal6">
@@ -180,10 +179,9 @@
                 <h4 class="button-title-m">{{ default_text(42).headline }}</h4>
 
                 <ul class="list">
-                    <li><a href="#" class="user-btn">Действие 1</a></li>
-                    <li><a href="#" class="user-btn">Действие 2</a></li>
-                    <li><a href="#" class="user-btn">Действие 3</a></li>
-
+                    {% for action in homePage.actions %}
+                        <li><a href="{{ action.link }}" class="user-btn">{{ action.name }}</a></li>
+                    {% endfor %}
                 </ul>
 
                 <div class="modal-text">{{ default_text(42).text | raw }}</div>
