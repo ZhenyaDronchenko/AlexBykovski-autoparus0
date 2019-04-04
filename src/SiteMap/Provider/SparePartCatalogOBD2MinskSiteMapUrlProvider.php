@@ -87,7 +87,7 @@ class SparePartCatalogOBD2MinskSiteMapUrlProvider implements SiteMapUrlProvider
 
         foreach ($types as $type){
             $urls[] = $this->router->generate("show_obd2_error_catalog_choice_code", ["urlType" => $type["url"]], $absUrlConst);
-            $codes = $this->em->getRepository(CodeOBD2Error::class)->findAllUrlsForSiteMap($type);
+            $codes = $this->em->getRepository(CodeOBD2Error::class)->findAllUrlsForSiteMap($type["url"]);
 
             foreach ($codes as $code){
                 if(!$code["url"]){
