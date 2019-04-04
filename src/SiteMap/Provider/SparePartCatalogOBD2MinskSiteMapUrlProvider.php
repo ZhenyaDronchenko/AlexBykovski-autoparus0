@@ -79,7 +79,6 @@ class SparePartCatalogOBD2MinskSiteMapUrlProvider implements SiteMapUrlProvider
     protected function provideFirstSitemap()
     {
         $types = $this->em->getRepository(TypeOBD2Error::class)->findAllUrlsForSiteMap();
-        $codes = $this->em->getRepository(CodeOBD2Error::class)->findAllUrlsForSiteMap();
         $absUrlConst = UrlGeneratorInterface::ABSOLUTE_URL;
 
         $obd2BasePage = $this->router->generate("show_obd2_error_catalog_choice_type", [], $absUrlConst);
@@ -88,6 +87,7 @@ class SparePartCatalogOBD2MinskSiteMapUrlProvider implements SiteMapUrlProvider
 
         foreach ($types as $type){
             $urls[] = $this->router->generate("show_obd2_error_catalog_choice_code", ["urlType" => $type["url"]], $absUrlConst);
+            $codes = $this->em->getRepository(CodeOBD2Error::class)->findAllUrlsForSiteMap($type);
 
             foreach ($codes as $code){
                 if(!$code["url"]){
