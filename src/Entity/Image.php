@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image
 {
+    const USER_IMAGE_WIDTH = "320";
+    const USER_IMAGE_HEIGHT = "320";
+
+    const USER_THUMBNAIL_IMAGE_WIDTH = "92";
+    const USER_THUMBNAIL_IMAGE_HEIGHT = "92";
+
     /**
      * @var integer|null
      *
