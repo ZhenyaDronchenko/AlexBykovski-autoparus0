@@ -355,14 +355,6 @@ class UserOfficeController extends Controller
         $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
         $image->setGeoLocation($geoLocation);
 
-        $photoOld = $client->getPhoto();
-
-        if($photoOld instanceof Image){
-            $galleryPhoto = new GalleryPhoto($photoOld, $client->getGallery());
-
-            $em->persist($galleryPhoto);
-        }
-
         $client->setPhoto($image);
 
         $em->persist($image);
@@ -398,14 +390,6 @@ class UserOfficeController extends Controller
         $image = new Image($path);
         $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
         $image->setGeoLocation($geoLocation);
-
-        $photoOld = $client->getSellerData()->getPhoto();
-
-        if($photoOld instanceof Image){
-            $galleryPhoto = new GalleryPhoto($photoOld, $client->getGallery());
-
-            $em->persist($galleryPhoto);
-        }
 
         $client->getSellerData()->setPhoto($image);
 

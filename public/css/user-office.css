@@ -1155,75 +1155,126 @@ label {
 }
 /*Profil END*/
 
-/*  FOOTER */
+/*modal4*/
 
-.footer {
-    position: fixed;
-    border-top: solid 2px black;
-    bottom: 0;
-    left: 0;
+.overlay4 {
     width: 100%;
-    background-color: white;
+    height: 100%;
+    position: fixed;
+    /*display: none;*/
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100; }
+
+.modal--show {
+    display: block;
 }
 
-.footer-wrapper {
+
+.modal4 {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    width: 700px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+    background-color: #fff;
+    padding: 45px 15px;
+    border-radius: 5px;
+}
+
+.modal-close {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    cursor: pointer;
+    border: 1px solid #737373;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 2px;
+    outline: none;
 
 }
-.footer a {
-    color: #000000
+
+.modal-close svg:hover line,
+.modal-close svg:focus line {
+    stroke: red;
 }
 
-.footer a:hover {
-    color: #d22856;
-}
 
-.material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
 
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-}
-
-.material-icons.md-36 {font-size: 36px;}
-
-/* fallback */
-@font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
+.modal-title {
+    margin: 0;
+    margin-bottom: 15px;
+    color: #000;
+    font-size: 24px;
     font-weight: 400;
-    src: url('https://fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2') format('woff2');
+    line-height: 24px;
+    text-align: center;
+
 }
 
-@media (max-width: 480px) {
+.modal-text {
+    margin: 0;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: justify;
+}
+
+.btn-m {
+    display: block;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 5px 25px;
+    padding-bottom: 3px;
+    margin: 0 auto;
+    color: #444;
+    border: 1px solid #727272;
+    cursor: pointer;
+    background-color: #dbc0c7;
+    border-radius: 3px;
+    margin-top: 20px;
+}
+.btn-m:hover {
+    background-color: #d2a2af;
+}
+
+@media (max-width: 767px) {
     .container {
         width: auto;
+        padding: 0 10px;
     }
-    .material-icons.md-36 {font-size: 32px;}
-}
 
-/*  FOOTER END */
+    .modal4 {
+        top: 50px;
+        width: 80%;
+        padding: 40px 10px;
+    }
+
+    .modal-title {
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .btn-filter {
+        font-size: 16px;
+        line-height: 18px;
+        padding: 5px 15px;
+        padding-bottom: 3px;
+    }
+}
+/*modal4 end*/

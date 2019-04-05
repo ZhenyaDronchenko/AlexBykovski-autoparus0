@@ -4,6 +4,7 @@
     autoparusApp.directive("userUploadLink",["$rootScope", "ImageUploadService", function($rootScope, ImageUploadService){
         return{
             restrict: 'A',
+            scope: true,
             link: function(scope, element, attrs)
             {
                 let link = $(attrs.linkSelector);
@@ -11,13 +12,16 @@
                 let imgPhoto = $(attrs.imgSelector);
                 let uploadUrl = attrs.actionUrl;
                 let cropperContainer = $(attrs.cropperContainer);
+                let imageWidth = attrs.imageWidth;
+                let imageHeight = attrs.imageHeight;
+                let imageSizes = !imageWidth || !imageHeight ? null : [imageWidth, imageHeight];
 
                 link.click(function(e){
                     input.trigger("click");
                 });
 
-                let dialogContentSize = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
-                let cropperContentSize = dialogContentSize * 0.75;
+                let dialogContentSize = window.screen.availWidth > window.screen.availHeight ? window.screen.availHeight : window.screen.availWidth;
+                let cropperContentSize = dialogContentSize * 0.6;
 
                 input.change(function(e){
                     let previewImage = $("#image-preview-container img");
@@ -49,7 +53,7 @@
                                     console.error('Upload error');
                                 },
                             });
-                        });
+                        }, imageSizes);
 
                     ImageUploadService.processUploadImage(e.target.files[0]);
                 });

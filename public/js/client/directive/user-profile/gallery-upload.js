@@ -12,8 +12,8 @@
                 let uploadUrl = attrs.actionUrl;
                 let removePath = attrs.removeLink;
                 let input = $(attrs.inputSelector);
-                let dialogContentSize = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
-                let cropperContentSize = dialogContentSize * 0.7;
+                let dialogContentSize = window.screen.availWidth > window.screen.availHeight ? window.screen.availHeight : window.screen.availWidth;
+                let cropperContentSize = dialogContentSize * 0.6;
                 let removePopupSelector = "#remove-gallery-photo-confirm";
 
 

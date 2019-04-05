@@ -77,6 +77,16 @@ class Client extends User
     private $photo;
 
     /**
+     * @var Image|null
+     *
+     * One Client has One Image.
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="thumbnail_photo_id", referencedColumnName="id")
+     */
+    private $thumbnailPhoto;
+
+    /**
      * @var Gallery
      *
      * One Client has One Gallery.
@@ -250,6 +260,22 @@ class Client extends User
     public function setAddress(?string $address): void
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return Image|null
+     */
+    public function getThumbnailPhoto(): ?Image
+    {
+        return $this->thumbnailPhoto;
+    }
+
+    /**
+     * @param Image|null $thumbnailPhoto
+     */
+    public function setThumbnailPhoto(?Image $thumbnailPhoto): void
+    {
+        $this->thumbnailPhoto = $thumbnailPhoto;
     }
 
     public function isProfileEdited()
