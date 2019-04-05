@@ -12,7 +12,8 @@
                              fileName,
                              uploadUrl,
                              imgPhoto,
-                             customUploadToServer) {
+                             customUploadToServer,
+                             imageSizes) {
             this.cropperContentSize = cropperContentSize;
             this.previewImage = previewImage;
             this.cropperContainer = cropperContainer;
@@ -24,6 +25,7 @@
             this.customUploadToServer = customUploadToServer;
             this.jCropApi = null;
             this.isBlockedUpload = false;
+            this.imageSizes = imageSizes;
         };
 
         this.processUploadImage = function(initFile, callback) {
@@ -74,13 +76,15 @@
                 const trueSize = self.getJCropTrueSize(data["width"], data["height"], (self.cropperContentSize * 4 / 3));
                 const trueWidth = trueSize[0];
                 const trueHeight = trueSize[1];
+                const widthSelected = trueWidth > trueHeight ? self.cropperContentSize : self.cropperContentSize / (trueHeight / trueWidth);
+                const heightSelected = trueHeight > trueWidth ? self.cropperContentSize : self.cropperContentSize / (trueWidth / trueHeight);
                 let elemToResize = $("#cropper-modal");
 
                 if(data["width"] > data["height"]){
-                    elemToResize.width(Math.min(data["width"], 840));
+                    elemToResize.width(Math.max(Math.min(data["width"], window.screen.availWidth), 840));
 
                     if(detectmob()){
-                        elemToResize.width(window.innerWidth);
+                        elemToResize.width(window.screen.availWidth);
                     }
                 }
                 else{
@@ -90,11 +94,11 @@
                 $.Jcrop.component.DragState.prototype.touch = null;
 
                 self.previewImage.Jcrop({
-                    aspectRatio: 3 / 2,
+                    aspectRatio: self.imageSizes ? self.imageSizes[0]/self.imageSizes[1] : 3 / 2,
                     maxSize: [trueWidth, trueHeight],
                     boxWidth: self.cropperContentSize,
                     boxHeight: self.cropperContentSize,
-                    setSelect:   self.getJCropDefaultSelected(trueWidth, trueHeight),
+                    setSelect: self.getJCropDefaultSelected(widthSelected, heightSelected),
                 }, function () { self.jCropApi = this; });
             });
         };
@@ -122,14 +126,27 @@
         };
 
         this.getJCropDefaultSelected = function(width, height) {
-            const heightModified = height * 1.5;
-            const xWidth = width > heightModified ? heightModified : width;
-            const yHeight = width > heightModified ? height : width / 1.5;
+            if(self.imageSizes){
+                const coef = self.imageSizes[0] / self.imageSizes[1];
+                const heightModified = height * coef;
+                const xWidth = width > heightModified ? heightModified : width;
+                const yHeight = width > heightModified ? height : width / coef;
 
-            let startX = width > heightModified ? (width - xWidth)/2 : 0;
-            let startY = width > heightModified ? 0 : (height - yHeight)/2;
+                let startX = width > heightModified ? (width - xWidth)/2 : 0;
+                let startY = width > heightModified ? 0 : (height - yHeight)/2;
 
-            return [startX, startY, xWidth, yHeight];
+                return [startX, startY, xWidth, yHeight];
+            }
+            else{
+                const heightModified = height * 1.5;
+                const xWidth = width > heightModified ? heightModified : width;
+                const yHeight = width > heightModified ? height : width / 1.5;
+
+                let startX = width > heightModified ? (width - xWidth)/2 : 0;
+                let startY = width > heightModified ? 0 : (height - yHeight)/2;
+
+                return [startX, startY, xWidth, yHeight];
+            }
         };
 
         this.sendFileToServer = function(dialogInstance, formData) {
@@ -171,10 +188,6 @@
                 self.input.val('');
                 $("#gallery-input-" + $(this).attr("data-photo-id")).trigger("click");
             });
-        }
-
-        function detectmob() {
-            return window.innerWidth <= 800 && window.innerHeight <= 600;
         }
     });
 })(window.autoparusApp);

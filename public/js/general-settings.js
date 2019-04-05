@@ -4,8 +4,8 @@ $(function(){
     $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
 
     $(document).on("click", ".open-popup-button", function (ev) {
-        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-") > -1){
-            $("#" + $(this).attr("id").replace("initiator-close-", "")).show();
+        if($(this).attr("id") && $(this).attr("id").indexOf("initiator-open-") > -1){
+            $("#" + $(this).attr("id").replace("initiator-open-", "")).show();
         }
         else{
             $("#popup" + $(this).attr("data-popup-id")).show();
@@ -155,11 +155,15 @@ function getImageScaledSizes(width, height, maxSize) {
 }
 
 function getLocation(callback) {
+    if(location.protocol !== "https:"){
+        return callback(null);
+    }
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             callback,
             function (error) {
-                if (error.code == error.PERMISSION_DENIED) {
+                if (error.code === error.PERMISSION_DENIED) {
                     console.log("You close access to your geolocation");
                 }
                 callback(null);
@@ -167,4 +171,8 @@ function getLocation(callback) {
     } else {
         callback(null);
     }
+}
+
+function detectmob() {
+    return window.innerWidth <= 800 && window.innerHeight <= 600;
 }

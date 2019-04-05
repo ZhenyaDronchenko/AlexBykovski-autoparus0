@@ -30,6 +30,7 @@
               {#rel="stylesheet">#}
     </head>
     <body>
+    {% set isUserOffice = app.request.attributes.get('_route') == "show_user_office" %}
         <header class="container">
             <div class="header">
                 <div class="block-logo">
@@ -114,15 +115,24 @@
                             </a>
                         </li>
                         {% if app.user  %}
-                            <li gallery-upload input-selector="#gallery-input-null"
-                                cropper-container="#dialog-cropper-container-gallery" gallery-id=""
-                                action-url="{{ path("user_office_add_gallery_photo_ajax") }}">
-                                <a id="trigger-add-new-gallery-photo" ng-click="editGalleryPhoto()" class="icon icon-plus us-btn" style="color: black;" href="">
-                                    <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
-                                </a>
+                            {% if isUserOffice %}
+                                <li>
+                                    <a onclick="document.getElementById('trigger-add-new-gallery-photo').click()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li gallery-upload input-selector="#gallery-input-null"
+                                    cropper-container="#dialog-cropper-container-gallery" gallery-id=""
+                                    action-url="{{ path("user_office_add_gallery_photo_ajax") }}"
+                                    remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'}) }}">
+                                    <a id="trigger-add-new-gallery-photo" ng-click="editGalleryPhoto()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
+                                    </a>
 
-                                <input id="gallery-input-null" type="file" style="display: none">
-                            </li>
+                                    <input id="gallery-input-null" type="file" style="display: none">
+                                </li>
+                            {% endif %}
                         {% else %}
                             <li>
                                 <a class="navigation-link navigation-link-p cbutton cbutton--effect-boris" href="{{ path("registration") }}" title="Автопарус">
@@ -170,7 +180,7 @@
             </div>
         </footer>
 
-        {% if app.user %}
+        {% if app.user and not isUserOffice %}
             <div id="dialog-cropper-container-gallery" class="overlay overlay3">
                 <section id="cropper-modal-gallery" class="modal3">
                     <div class="modal-header">

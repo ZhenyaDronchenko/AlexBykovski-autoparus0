@@ -1,8 +1,5 @@
-/*Profil*/
+/*MAIN */
 
-.profil {
-    border-top: 7px solid #464545;
-}
 
 .heading {
     display: -webkit-box;
@@ -23,20 +20,22 @@
     -ms-flex-pack: justify;
     justify-content: space-between;
 
-    min-height: 125px;
 }
 
 .profil-items {
-    width: 560px;
+    width: 600px;
+}
+.profil-items--left {
+    width: 500px;
 }
 .user-name {
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     color: #000000;
 }
 .user-company {
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
@@ -62,7 +61,29 @@
 .foto-user {
     width: 150px;
     height: 100px;
-    border: 1px solid #757575;
+    border: 1px solid #999;
+}
+.foto-user-left {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}
+.foto-left {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #999;
 }
 .user-link {
     position: absolute;
@@ -79,7 +100,7 @@
     top: 85px;
     left: 135px;
     border: 1px solid #757575;
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 3px;
     background-color: #fff;
     cursor: pointer;
@@ -88,23 +109,48 @@
 .user-link:hover svg {
     fill: red;
 }
+.user-link-left {
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 85px;
+    left: 85px;
+    border: 1px solid #757575;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.user-link-left:hover svg {
+    fill: red;
+}
 .user-wrapper {
-    width: 375px;
+    width: 370px;
+    margin-bottom: 15px;
 }
 .user-about {
     list-style: disc;
 }
 
 .user-edit {
-    width: 380px;
+    width: 420px;
 
 }
 .btn {
     width: 185px;
     display: block;
     font-size: 14px;
-    line-height: 16px;
-    padding: 5px;
+    line-height: 15px;
+    padding: 4px;
     padding-bottom: 3px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -146,40 +192,40 @@
     line-height: 16px;
     cursor: pointer;
 }
-.btn-p {
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 5px;
-    color: #444;
-    padding: 5px;
-    width: 120px;
-    padding-bottom: 3px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: 400;
+.btn-uni {
+    display: block;
+    margin: 0 auto;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 15px;
+    padding: 4px 10px;
+    padding-bottom: 3px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     cursor: pointer;
+    font-weight: 400;
+    color: #444;
 }
-.btn-p:hover {
+.btn-uni:hover {
     background-color: #d2a2af;
 
 }
 .button-rp {
+    display: block;
+    margin: 0 auto;
     text-transform: uppercase;
     background-color: #fff;
     font-size: 14px;
     line-height: 18px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     border: 1px solid #737373;
-
     border-radius: 3px;
     color: #444;
     padding: 5px 10px;
     padding-bottom: 3px;
     text-decoration: none;
     text-align: center;
-    font-weight: 700;
+    font-weight: 400;
     cursor: pointer;
 }
 
@@ -213,7 +259,7 @@
 .user-btn {
     color: #ff0000;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 18px;
     line-height: 20px;
     cursor: pointer;
@@ -231,8 +277,8 @@
 .user-btn:hover {
     color: #000;
 }
-.user-about li {
-    margin-bottom: 15px;
+.user-about {
+    margin-bottom: 20px;
 }
 
 
@@ -247,22 +293,20 @@
     -webkit-box-align: end;
     -ms-flex-align: end;
     align-items: flex-end;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .user-avto {
     text-decoration: none;
     cursor: default;
-}
-
-.user-avto span {
     color: #ff0000;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     line-height: 20px;
 }
 
-.user-avto span::before { /* второй слой */
+
+.user-avto::before { /* второй слой */
     content: attr(data-text);
     -webkit-text-stroke: .04em #000000;
 }
@@ -272,7 +316,7 @@
 }
 
 .choice {
-    background-color: #464545;
+    background-color: #999;
 }
 
 .choice-block {
@@ -322,7 +366,7 @@
     margin-bottom: 20px;
 }
 .user-item {
-    padding: 25px 0;
+    padding: 15px 0;
     border-bottom: 1px solid #737373;
 }
 
@@ -385,9 +429,12 @@
 }
 
 .prod-foto {
-    width: 210px;
-    height: 100%;
+    width: 300px;
+    height: 200px;
     margin-right: 30px;
+    -webkit-transform: translateY(-40px);
+    -ms-transform: translateY(-40px);
+    transform: translateY(-40px)
 }
 
 .prod-content {
@@ -396,38 +443,94 @@
     flex-grow: 1;
 }
 .time {
-    display: inline-block;
-    margin-bottom: 10px;
-    margin-right: 30px;
     font-size: 14px;
     line-height: 18px;
+    margin-left: 10px;
 }
 
-.adress  {
-    display: inline-block;
-    margin-bottom: 10px;
+
+.date {
+    text-align: right;
     font-size: 16px;
     line-height: 20px;
 }
-.date {
-    display: inline-block;
-    margin-bottom: 10px;
-    margin-right: 15px;
-    font-size: 18px;
-    line-height: 20px;
+
+
+.adress-text-img {
+    margin-right: 5px;
 }
+.adress {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 15px;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+}
+
+.adress-text {
+    margin: 0;
+    margin-bottom: 7px;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-right: 10px;
+
+}
+
+.adress-text-city {
+    margin: 0;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+
+}
+
+.btn-p {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0;
+    -ms-flex-item-align: end;
+    -ms-grid-row-align: end;
+    align-self: flex-end;
+    outline: none;
+}
+
+.points {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background-color: #000;
+    border-radius: 50%;
+    margin-right: 3px;
+}
+.btn-p:hover .points {
+    background-color: #ccc;
+}
+
 .text-block {
     margin-bottom: 15px;
 }
 
-#text {
+.text {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-indent: 30px;
     text-align: justify;
 }
 
 
 #button-t {
+    display: block;
     margin-left: auto;
     background-color: #fff;
     border: none;
@@ -455,25 +558,25 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .breadcrumbs li {
-    margin-right: 10px;
-}
-.item-link {
-    font-size: 17px;
-    line-height: 18px;
+    margin-right: 5px;
+    font-size: 14px;
+    line-height: 15px;
     color: #444;
 }
+
 .current {
     font-size: 18px;
     line-height: 18px;
     color: #444;
     cursor: default;
 }
-.item-link img {
-    width: 18px;
-    height: 18px;
+.breadcrumbs li img {
+    width: 12px;
+    height: 12px;
 }
 .item-link-plus {
     margin-left: 10px;
@@ -505,8 +608,7 @@
 .overlay3,
 .overlay4,
 .overlay5,
-.overlay6,
-.overlay7 {
+.overlay6 {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -528,13 +630,15 @@
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
-    padding-bottom: 30px;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .modal1,
 .modal2,
 .modal3 {
     position: fixed;
-    top: 20px;
+    top: 40px;
     left: 50%;
     width: 840px;
     -webkit-transform: translateX(-50%);
@@ -542,18 +646,22 @@
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
-    padding-bottom: 30px;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .modal5 {
     position: fixed;
     top: 40px;
     left: 50%;
-    width: 450px;
+    width: 730px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 
 }
 
@@ -685,10 +793,8 @@
     margin: 0;
     color: #000;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
-
 }
 
 .user-link:hover svg,
@@ -700,11 +806,14 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     margin: 0 auto;
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 .btn-list-o .button {
     margin-right: 3%;
@@ -756,25 +865,15 @@ textarea {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -ms-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+
     border-bottom: 1px solid #737373;
-    padding: 7px;
-    margin-bottom: 5px;
+    border-top: 1px solid #737373;
+    padding: 7px  0;
+    margin-bottom: 30px;
 
 }
 
-.modal-header-m {
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
 
-}
 .button-home {
     border: none;
     background-color: #fff;
@@ -791,12 +890,24 @@ textarea {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 18px;
     color: #000;
+    cursor: pointer;
 }
-.button-home-m {
-    margin-right: 20%;
+.button-home-left {
+    -ms-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+}
+.button-home-right {
+    -ms-align-self: flex-end;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+}
+
+.hid {
+    display: none;
 }
 .modal-title {
     margin-bottom: 15px;
@@ -812,19 +923,28 @@ textarea {
     font-weight: 700;
 }
 
+
 .button-title {
-    margin: 0;
-    font-size: 18px;
-    line-height: 20px;
-    color: #000;
-    font-weight: 700;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 22px;
+    padding: 5px 10px;
+    font-weight: 400;
+    color: #ff0000;
+    text-align: center;
 }
+
+.button-title::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #000000;
+}
+
 .button-title-m {
     margin: 0;
     font-size: 20px;
     line-height: 24px;
     color: #000;
-    font-weight: 700;
+    font-weight: 400;
     margin-bottom: 20px;
 }
 .button-home span {
@@ -850,6 +970,30 @@ textarea {
     line-height: 22px;
     color: #999;
 }
+
+.button-cl {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    border-top: 1px solid #737373;
+    font-size: 18px;
+    line-height: 20px;
+    color: #444;
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    cursor: pointer;
+}
+.button-home:hover,
+.button-home:focus,
+.button-cl:hover,
+.button-cl:focus {
+    color: red;
+}
+
+
+
 /*  DEL  */
 .del {
     padding: 15px 20px;
@@ -861,39 +1005,44 @@ textarea {
     margin-bottom: 20px;
     font-size: 24px;
     line-height: 28px;
-    font-weight: 700;
+    font-weight: 400;
     text-align: center;
-    color: #000000;
-    text-decoration: underline;
+    color: #ff0000;
+}
+
+.del-title::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .04em #000000;
 }
 
 .del-subtitle {
     margin: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
     text-align: center;
     color: #000000;
 }
-
+.parus {
+    display: block;
+    color: #ff0000;
+    text-align: right;
+}
 .del-btn {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    margin: 40px 0;
 }
 .del-btn li {
-    margin-bottom: 20px;
+    margin: 0 15px;
 }
-.btn-o {
-    margin: 0 auto;
-    margin-bottom: 20px;
-}
-.btn-edit {
-    margin-left: auto;
-}
+
 .btn-m {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -904,16 +1053,17 @@ textarea {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 240px;
-    padding: 10px;
+    width: 180px;
+    padding: 5px;
     border: 2px solid #cccccc;
     border-radius: 3px;
     cursor: pointer;
     color: #000000;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
 }
+
 .btn-m:hover {
     background-color:  #ededed;
 
@@ -939,19 +1089,26 @@ textarea {
     line-height: 18px;
     font-weight: 400;
 }
-@media (max-width: 480px) {
+@media (max-width: 767px) {
     .container {
         width: auto;
     }
     .modal5 {
-
-        width: 98%;
+        top: 0;
+        width: 100%;
     }
     .del {
         padding: 15px 10px;
         border: 5px solid #efefef ;
     }
-
+    .del-btn {
+        margin: 30px auto;
+        margin-bottom: 10px;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        width: 290px;
+    }
     .del-title {
         margin: 0;
         margin-bottom: 15px;
@@ -960,7 +1117,7 @@ textarea {
     }
 
     .del-subtitle {
-        margin-bottom: 15px;
+
         font-size: 18px;
         line-height: 20px;
     }
@@ -984,10 +1141,33 @@ textarea {
         line-height: 16px;
 
     }
+    .btn-m {
+        font-size: 16px;
+        line-height: 18px;
+        margin-bottom: 15px;
+    }
+    .del-btn li:nth-child(2) {
+        margin: 0 auto;
+    }
+    .del-btn li:nth-child(3) {
+        margin-left: auto;
+    }
 }
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+    }
 
+    .del-btn {
+        margin: 25px auto;
+        margin-bottom: 10px;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        width: 85%;
+    }
 
-
+}
 
 @media (max-width: 480px) {
     .container {
@@ -995,14 +1175,15 @@ textarea {
         padding: 0 10px;
     }
 
+    .texthide {
+        max-height: 50px;
+        overflow: hidden;
+    }
     #button-t {
         display: block;
         font-size: 14px;
     }
 
-    .profil {
-        border-top: 4px solid #464545;
-    }
     .profil-items {
         width: 300px;
     }
@@ -1010,17 +1191,27 @@ textarea {
         width: 90px;
         height: 60px;
     }
+    .foto-user-left {
+        width: 60px;
+        height: 60px;
+    }
     .foto-user {
         width: 90px;
         height: 60px;
     }
 
+    .foto-user-left {
+        width: 60px;
+        height: 60px;
+    }
 
-
+    .foto-left {
+        width: 60px;
+        height: 60px;
+    }
     .user-wrapper {
-        -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-        flex-grow: 1;
+        width: 77%;
+        margin-bottom: 0;
     }
 
 
@@ -1062,9 +1253,13 @@ textarea {
         width: 13px;
         height: 13px;
     }
+    .user-link-left svg {
+        width: 13px;
+        height: 13px;
+    }
     .heading {
-        padding-top: 25px;
-        padding-bottom: 15px;
+        padding-top: 15px;
+        padding-bottom: 10px;
     }
 
     .user-info {
@@ -1074,11 +1269,12 @@ textarea {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         min-height: auto;
     }
     .user-info-r {
         padding-right: 4px;
+        margin-bottom: 0;
     }
     .profil-items {
         width: 100%;
@@ -1103,19 +1299,22 @@ textarea {
     }
 
     .user-edit {
-        width: 68%;
+        width: 71%;
 
     }
+    .user-link-left {
+        top: 45px;
+        left: 45px;
 
+    }
     .button-rp {
         padding: 4px;
         padding-bottom: 3px;
         font-size: 9px;
         line-height: 12px;
-        margin-bottom: 20px;
     }
     .user-about li {
-        margin-bottom: 10px;
+        margin-bottom: 7px;
     }
 
     .user-btn {
@@ -1138,11 +1337,12 @@ textarea {
     }
     .user-about {
         padding-left: 0;
+        margin-bottom: 15px;
     }
     .user-info--line {
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #757373;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
 
     }
     .heading {
@@ -1171,7 +1371,8 @@ textarea {
     }
 
     .user-item {
-        padding: 15px 0;
+        padding: 10px 0;
+        padding-top: 0;
         border-bottom: 1px solid #737373;
     }
 
@@ -1193,6 +1394,7 @@ textarea {
 
     .tool {
         width: 270px;
+        margin-bottom: 10px;
     }
     .tool-rdc img,
     .tool-close img {
@@ -1220,6 +1422,9 @@ textarea {
         height: auto;
         margin: 0 auto;
         margin-bottom: 15px;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0)
     }
 
     .prod-content {
@@ -1228,18 +1433,18 @@ textarea {
         flex-grow: 0;
     }
     .time {
-        font-size: 12px;
-        line-height: 14px;
+        font-size: 10px;
+        line-height: 16px;
     }
 
     .adress  {
         display: block;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 18px;
     }
     .date {
-        font-size: 16px;
-        line-height: 18px;
+        font-size: 14px;
+        line-height: 16px;
     }
 
     .text-block {
@@ -1249,9 +1454,16 @@ textarea {
 
     .breadcrumbs li {
         margin-right: 3px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .breadcrumbs li img {
+        width: 12px;
+        height: 14px;
     }
     .item-link {
-        font-size: 13px;
+        font-size: 14px;
         line-height: 16px;
 
     }
@@ -1263,7 +1475,14 @@ textarea {
         width: 16px;
         height: 16px;
     }
+    .item-link-plus {
+        margin-left: 7px;
 
+    }
+    .item-link-plus svg {
+        width: 12px;
+        height: 12px;
+    }
     .sail-f {
         margin: 0 auto;
         margin-bottom: 43px;
@@ -1275,10 +1494,8 @@ textarea {
     .modal3,
     .modal4,
     .modal6 {
-        top: 5px;
-        width: 98%;
-        padding-top: 5px;
-        padding-bottom: 30px;
+        top: 0;
+        width: 100%;
     }
 
     .button-title-m {
@@ -1295,7 +1512,7 @@ textarea {
     }
     .modal-img {
         width: 300px;
-        max-height: auto;
+        height: auto;
     }
     .btn-list {
         width: 255px;
@@ -1365,9 +1582,10 @@ textarea {
     }
     .btn {
         padding: 2px;
+        padding-bottom: 1px;
         font-size: 8px;
         line-height: 12px;
-        width: 110px;
+        width: 90px;
     }
     .user-btn {
         font-size: 12px;
@@ -1411,8 +1629,7 @@ textarea {
         font-size: 12px;
         line-height: 16px;
     }
-    .btn-a,
-    .btn-p {
+    .btn-a {
         font-size: 9px;
         line-height: 12px;
         width: 70px;
@@ -1420,14 +1637,20 @@ textarea {
     .block-modal {
         padding: 0 10px;
     }
+    .adress-text {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .adress-text-city {
+        font-size: 14px;
+        line-height: 18px;
+    }
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
 
-    .profil {
-        border-top: 4px solid #464545;
-    }
+
     .profil-items {
         width: 480px;
     }
@@ -1447,7 +1670,8 @@ textarea {
         fill: red;
     }
     .user-wrapper {
-        width: 315px;
+        width: 345px;
+        margin-bottom: 0;
     }
 
     .user-avto span {
@@ -1464,9 +1688,9 @@ textarea {
     }
 
     .btn {
-        width: 160px;
-        font-size: 12px;
-        line-height: 14px;
+        width: 130px;
+        font-size: 11px;
+        line-height: 12px;
     }
 
     .user-logo {
@@ -1476,23 +1700,37 @@ textarea {
         border: 1px solid #464545;
 
     }
+    .user-logo-left {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        border: 1px solid #464545;
 
+    }
+    .foto-user-left {
+        width: 80px;
+        height: 80px;
+    }
     .user-company {
         display: block;
         font-size: 16px;
         line-height: 18px;
-        margin: 5px 0;
-        margin-bottom: 10px;
         text-align: right;
     }
 
-
+    .foto-left {
+        width: 80px;
+        height: 80px;
+    }
     .heading {
-        padding-top: 30px;
-        padding-bottom: 10px;
+        padding-top: 15px;
+        padding-bottom: 15px;
 
     }
-
+    .user-link-left {
+        top: 65px;
+        left: 65px;
+    }
     .user-info {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -1500,8 +1738,8 @@ textarea {
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
-        margin-bottom: 15px;
         min-height: auto;
+        margin-bottom: 15px;
     }
 
     .profil-items {
@@ -1512,12 +1750,12 @@ textarea {
 
 
     .user-about {
-        width: 315px;
         margin-right: 0;
     }
 
     .user-edit {
         width: 310px;
+
 
     }
 
@@ -1551,7 +1789,7 @@ textarea {
     .user-info--line {
         padding-bottom: 10px;
         border-bottom: 1px solid #757373;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
 
     }
     .heading {
@@ -1576,7 +1814,7 @@ textarea {
         margin-right: 5px;
     }
     .user-item {
-        padding: 15px 0;
+        padding: 10px 0;
         border-bottom: 1px solid #737373;
     }
 
@@ -1620,6 +1858,9 @@ textarea {
         height: 100%;
         margin: 0 auto;
         margin-bottom: 15px;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
     }
 
     .prod-content {
@@ -1627,24 +1868,16 @@ textarea {
         -ms-flex-positive: 0;
         flex-grow: 0;
     }
-    .time,
-    .adress  {
-        display: block;
-        margin-bottom: 7px;
-        margin-right: 30px;
-        font-size: 14px;
-        line-height: 18px;
-    }
+
     .text-block {
         margin-bottom: 10px;
     }
-
 
     .breadcrumbs li {
         margin-right: 3px;
     }
     .item-link {
-        font-size: 13px;
+        font-size: 14px;
         line-height: 16px;
 
     }
@@ -1668,16 +1901,15 @@ textarea {
     .modal3,
     .modal4,
     .modal6 {
-        top: 5px;
-        width: 85%;
-        padding-top: 5px;
+        top: 0;
+        width: 100%;
+
     }
     .modal1,
     .modal2,
     .modal3 {
-        top: 5px;
-        width: 97%;
-        padding-top: 5px;
+        top: 0;
+        width: 100%;
     }
 
 
@@ -1719,6 +1951,8 @@ textarea {
         -ms-flex-pack: center;
         justify-content: center;
         -ms-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         width: 255px;
     }
@@ -1737,12 +1971,7 @@ textarea {
         font-size: 14px;
         line-height: 20px;
     }
-    .btn-a,
-    .btn-p {
-        font-size: 12px;
-        line-height: 14px;
-        width: 115px;
-    }
+
     .img-cont {
 
         height: 240px;
@@ -1758,7 +1987,9 @@ textarea {
     .container {
         width: auto;
     }
-
+    .profil-items--left {
+        width: 600px;
+    }
     .user-about {
         -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
@@ -1774,6 +2005,7 @@ textarea {
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
         flex-direction: column;
+        padding-bottom: 0;
     }
     .user-logo-r {
         -webkit-box-ordinal-group: 2;
@@ -1786,7 +2018,8 @@ textarea {
     }
     .profil-items {
         margin: 0 auto;
-        padding-top: 30px;
+        margin-bottom: 20px;
+
     }
     .user-link-r {
         top: 85px;
@@ -1809,13 +2042,51 @@ textarea {
         margin-right: 3%;
         margin-bottom: 15px;
     }
+    .prod-foto {
+        width: 240px;
+        height: 160px;
+    }
+    .btn {
+        width: 170px;
+    }
+    .user-edit {
+        width: 400px;
+    }
+    .foto-user-wrapper {
+        width: 180px;
+        height: 120px;
+    }
+    .foto-user {
+        width: 180px;
+        height: 120px;
+    }
+    .foto-user-left {
+        width: 120px;
+        height: 120px;
+    }
+    .foto-left {
+        width: 120px;
+        height: 120px;
+    }
+    .user-link-left {
+        top: 105px;
+        left: 105px
+    }
+    .user-wrapper {
+        width: 415px;
+
+    }
+    .user-link-r {
+        top: 105px;
+        left: 585px;
+    }
 }
 @media (min-width: 1024px) and  (max-width: 1199px) {
     .container {
         width: auto; }
 
     .profil-items {
-        width: 480px;
+        width: 510px;
     }
     .foto-user-wrapper {
         width: 120px;
@@ -1834,13 +2105,15 @@ textarea {
         fill: red;
     }
     .user-wrapper {
-        width: 345px;
+        width: 310px;
     }
 
     .user-edit {
-        width: 345px;
+        width: 370px;
     }
-
+    .btn {
+        width: 165px;
+    }
     .button-rp {
         font-size: 12px;
         line-height: 14px;
@@ -1850,11 +2123,13 @@ textarea {
         font-size: 16px;
         line-height: 18px;
     }
-
+    .profil-items--left {
+        width: 430px;
+    }
 }
 
-.texthide {
-    max-height: 55px;
+.texthide{
+    max-height: 58px;
     overflow: hidden;
 }
-/*Profil END*/
+/*  MAIN END */

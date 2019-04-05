@@ -4,6 +4,8 @@ namespace App\Entity\Client;
 
 
 use App\Entity\Image;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +51,14 @@ class GalleryPhoto
     private $gallery;
 
     /**
+     * @var Collection
+     *
+     * One GalleryPhoto has many GalleryPhotoCars. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="App\Entity\Client\GalleryPhotoCar", mappedBy="galleryPhoto")
+     */
+    private $cars;
+
+    /**
      * GalleryPhoto constructor.
      * @param Image $image
      * @param Gallery $gallery
@@ -57,6 +67,7 @@ class GalleryPhoto
     {
         $this->image = $image;
         $this->gallery = $gallery;
+        $this->cars = new ArrayCollection();
     }
 
     /**
@@ -121,6 +132,22 @@ class GalleryPhoto
     public function setGallery(Gallery $gallery): void
     {
         $this->gallery = $gallery;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCars(): Collection
+    {
+        return $this->cars;
+    }
+
+    /**
+     * @param Collection $cars
+     */
+    public function setCars(Collection $cars): void
+    {
+        $this->cars = $cars;
     }
 
     public function toArray()
