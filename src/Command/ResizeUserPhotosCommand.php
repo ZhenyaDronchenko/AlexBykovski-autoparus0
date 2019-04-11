@@ -43,14 +43,15 @@ class ResizeUserPhotosCommand extends ContainerAwareCommand
 
             $imageResizer->save($fileFullPath);
 
+            $geolocation = $image->getGeoLocation();
             $coordinates = [
-                "longitude" => $image->getGeoLocation()->getLongitude(),
-                "latitude" => $image->getGeoLocation()->getLatitude(),
+                "longitude" => $geolocation ? $geolocation->getLongitude() : "",
+                "latitude" => $geolocation ? $geolocation->getLatitude() : "",
             ];
             //create thumbnail
             $imageThumbnail = $resizer->resizeImagePersonOffice($uploadDir, $image->getImage(),
                 Image::USER_THUMBNAIL_IMAGE_WIDTH, Image::USER_THUMBNAIL_IMAGE_HEIGHT, true);
-            $resizer->setImageGeoLocation($imageThumbnail, $coordinates, $image->getGeoLocation()->getId());
+            $resizer->setImageGeoLocation($imageThumbnail, $coordinates, $geolocation->getIp());
 
             $client->setThumbnailPhoto($imageThumbnail);
         }
