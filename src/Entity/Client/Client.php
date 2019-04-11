@@ -297,7 +297,6 @@ class Client extends User
         }
 
         krsort($galleryPhotos);
-        //var_dump($galleryPhotos);
 
         return $galleryPhotos;
     }

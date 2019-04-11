@@ -69,8 +69,6 @@
                     });
                 });
 
-            console.log(self.activePost);
-
             if(eventUpload) {
                 ImageUploadService.processUploadImage(eventUpload.target.files[0]);
             }
