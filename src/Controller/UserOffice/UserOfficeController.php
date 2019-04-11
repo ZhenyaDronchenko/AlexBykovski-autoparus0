@@ -470,6 +470,7 @@ class UserOfficeController extends Controller
 
         if(!$galleryPhoto){
             $galleryPhoto = new GalleryPhoto($image, $client->getGallery());
+            $galleryPhoto->setUserCars();
 
             $em->persist($galleryPhoto);
         }
@@ -480,7 +481,6 @@ class UserOfficeController extends Controller
         }
 
         $galleryPhoto->setDescription($description);
-        $galleryPhoto->setUserCars();
 
         $em->persist($image);
         $em->flush();
