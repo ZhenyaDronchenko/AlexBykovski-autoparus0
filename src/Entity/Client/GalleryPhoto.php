@@ -166,7 +166,7 @@ class GalleryPhoto
     public function toSearchArray()
     {
         $user = $this->getGallery()->getClient();
-        $userPhoto = $user->getPhoto();
+        $userPhoto = $user->getThumbnailPhoto() ?: null;
         $geoLocation = $this->getImage()->getGeoLocation();
         $address = $geoLocation->getCountry();
         $address .= $geoLocation->getCity() ? ", " . $geoLocation->getCity() : "";

@@ -22,10 +22,10 @@ use App\Form\Type\SellerCompanyType;
 use App\Provider\Form\ClientCarProvider;
 use App\Provider\Form\SparePartAdvertDataProvider;
 use App\Provider\GeoLocation\GeoLocationProvider;
+use App\Upload\Client\UserOfficeUploader;
 use App\Upload\FileUpload;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Gumlet\ImageResize;
 use Gumlet\ImageResizeException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -337,14 +337,12 @@ class UserOfficeController extends Controller
      *
      * @throws ImageResizeException
      */
-    public function uploadUserPhotoAjaxAction(Request $request, GeoLocationProvider $provider)
+    public function uploadUserPhotoAjaxAction(Request $request, UserOfficeUploader $userOfficeUploader)
     {
         /** @var Client $client */
         $client = $this->getUser();
         /** @var FileUpload $uploader */
         $uploader = $this->get("app.file_upload");
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
         $uploadDir = $this->getParameter("upload_directory");
 
         $file = $request->files->get("file");
@@ -355,37 +353,9 @@ class UserOfficeController extends Controller
         $uploader->setFolder(FileUpload::USER);
         $path = $uploader->upload($file);
 
-        //https://packagist.org/packages/gumlet/php-image-resize
-        $fileFullPath = $uploadDir . '/' . $path;
-        $imageResizer = new ImageResize($fileFullPath);
-        $imageResizer->resize(Image::USER_IMAGE_WIDTH, Image::USER_IMAGE_HEIGHT, true);
-        $imageResizer->save($fileFullPath);
-
-        $image = new Image($path);
-        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-        $image->setGeoLocation($geoLocation);
-
-        $fileInfo = pathinfo($path);
-        $thumbnailPath = $fileInfo['dirname'] . '/' . $fileInfo["filename"] . "_thumbnal." . $fileInfo['extension'];
-        $fileFullPathThumbnail = $uploadDir . '/' . $thumbnailPath;
-
-        $imageResizer->resize(Image::USER_THUMBNAIL_IMAGE_WIDTH, Image::USER_THUMBNAIL_IMAGE_HEIGHT, true);
-        $imageResizer->save($fileFullPathThumbnail);
-
-        $imageThumbnail = new Image($thumbnailPath);
-        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-        $imageThumbnail->setGeoLocation($geoLocation);
-
-        $client->setPhoto($image);
-        $client->setThumbnailPhoto($imageThumbnail);
-
-        $em->persist($image);
-        $em->persist($imageThumbnail);
-        $em->flush();
+        $userOfficeUploader->uploadImagesPersonOffice($path, $coordinates, $ip, $uploadDir,  $client);
 
         return new JsonResponse([
-            "resized" => $fileFullPath,
-            "resized2" => $thumbnailPath,
             "success" => true,
             "path" => '/images/' . $path,
             "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
