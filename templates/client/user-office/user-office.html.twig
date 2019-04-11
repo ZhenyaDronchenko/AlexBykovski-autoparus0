@@ -147,7 +147,7 @@
         </div>
 
         <ul class="items">
-            <li ng-repeat="post in gallery.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}">
+            <li ng-repeat="post in gallery.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}" ng-cloak>
                 <div class="tool">
                     <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="gallery.activePost = post; gallery.editPost()">
                         <span class="item-1">Редактировать</span>
@@ -177,7 +177,7 @@
                             </p>
                             <p class="adress-text-city" ng-bind="post.address"></p>
                         </div>
-                        {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
+                        {% include('/client/user-office/parts/cars-for-gallery-angular.html.twig') %}
                         <div class="date">
                             <span ng-bind="post.date"></span>
                             <span class="time" ng-bind="post.time"></span>

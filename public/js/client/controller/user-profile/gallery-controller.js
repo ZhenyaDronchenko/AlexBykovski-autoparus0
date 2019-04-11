@@ -7,6 +7,7 @@
         const ADD_LINK = Routing.generate('user_office_add_gallery_photo_ajax');
         const EDIT_LINK = Routing.generate('user_office_edit_gallery_photo_ajax', {"id" : "__id__"});
         const ALL_POSTS_LINK = Routing.generate('user_office_get_all_gallery_ajax');
+        const REMOVE_GALLERY_CAR_LINK = Routing.generate('remove_gallery_car_ajax', {"id" : "__id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
 
         let self = this;
@@ -56,6 +57,7 @@
                         success(data) {
                             if(data.success) {
                                 self.posts[data.gallery.id] = data.gallery;
+
                                 $scope.$evalAsync();
                             }
 
@@ -115,11 +117,31 @@
             });
         }
 
+        function removeGalleryCar(id) {
+            if(!id){
+                return false;
+            }
+
+            $.ajax(REMOVE_GALLERY_CAR_LINK.replace("__id__", id), {
+                method: "POST",
+                success(data) {
+                    if(data.success) {
+                        self.posts[data.gallery.id] = data.gallery;
+
+                        $scope.$evalAsync();
+                    }
+                },
+                error(data) {
+                    console.error('Error due request');
+                },
+            });
+        }
 
         this.init = init;
         this.getNewPost = getNewPost;
         this.editPost = editPost;
         this.closeModals = closeModals;
         this.removePost = removePost;
+        this.removeGalleryCar = removeGalleryCar;
     }]);
 })(window.autoparusApp);

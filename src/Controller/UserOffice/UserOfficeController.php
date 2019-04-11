@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Entity\Client\Gallery;
 use App\Entity\Client\GalleryPhoto;
+use App\Entity\Client\GalleryPhotoCar;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
@@ -479,9 +480,12 @@ class UserOfficeController extends Controller
         }
 
         $galleryPhoto->setDescription($description);
+        $galleryPhoto->setUserCars();
 
         $em->persist($image);
         $em->flush();
+
+        $em->refresh($galleryPhoto);
 
         return new JsonResponse([
             "success" => true,
@@ -518,5 +522,31 @@ class UserOfficeController extends Controller
     public function getAllGallery(Request $request)
     {
         return new JsonResponse($this->getUser()->getGalleryInArray());
+    }
+
+    /**
+     * @Route("/remove-gallery-car-ajax/{id}", name="remove_gallery_car_ajax", options={"expose"=true})
+     *
+     * @ParamConverter("galleryPhotoCar", class="App\Entity\Client\GalleryPhotoCar", options={"id" = "id"})
+     */
+    public function removeGalleryCarAction(Request $request, GalleryPhotoCar $galleryPhotoCar)
+    {
+        if($galleryPhotoCar->getGalleryPhoto()->getGallery()->getClient()->getId() !== $this->getUser()->getId()){
+            return new JsonResponse(["success" => false]);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $galleryPhoto = $galleryPhotoCar->getGalleryPhoto();
+
+        $em->remove($galleryPhotoCar);
+        $em->flush();
+
+        $em->refresh($galleryPhoto);
+
+        return new JsonResponse([
+            "success" => true,
+            "gallery" => $galleryPhoto->toArray(),
+        ]);
     }
 }

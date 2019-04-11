@@ -54,7 +54,7 @@ class GalleryPhoto
      * @var Collection
      *
      * One GalleryPhoto has many GalleryPhotoCars. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="App\Entity\Client\GalleryPhotoCar", mappedBy="galleryPhoto")
+     * @ORM\OneToMany(targetEntity="App\Entity\Client\GalleryPhotoCar", mappedBy="galleryPhoto", cascade={"persist", "remove"})
      */
     private $cars;
 
@@ -159,6 +159,7 @@ class GalleryPhoto
             "time" => $this->getImage()->getCreatedAt()->format("H:i"),
             "path" => "/images/" . $this->getImage()->getImage(),
             "description" => $this->getDescription(),
+            "cars" => $this->getCarsArray(),
         ];
     }
 
@@ -180,5 +181,34 @@ class GalleryPhoto
             "date" => $this->getImage()->getCreatedAt()->format("d.m.Y"),
             "time" => $this->getImage()->getCreatedAt()->format("H:i"),
         ];
+    }
+
+    public function setUserCars()
+    {
+        $cars = $this->getGallery()->getClient()->getCars();
+
+        $galleryCars = new ArrayCollection();
+
+        /** @var UserCar $car */
+        foreach ($cars as $car){
+            $galleryCar = GalleryPhotoCar::getGalleryCarByClientCar($car);
+            $galleryCar->setGalleryPhoto($this);
+
+            $galleryCars->add($galleryCar);
+        }
+
+        $this->setCars($galleryCars);
+    }
+
+    public function getCarsArray()
+    {
+        $cars = [];
+
+        /** @var GalleryPhotoCar $car */
+        foreach ($this->getCars() as $car){
+            $cars[] = $car->toArray();
+        }
+
+        return $cars;
     }
 }
