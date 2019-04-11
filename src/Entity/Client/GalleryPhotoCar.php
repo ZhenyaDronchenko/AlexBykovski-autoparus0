@@ -29,14 +29,14 @@ class GalleryPhotoCar
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $model;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $engineType;
 
@@ -127,5 +127,30 @@ class GalleryPhotoCar
     public function setGalleryPhoto(GalleryPhoto $galleryPhoto): void
     {
         $this->galleryPhoto = $galleryPhoto;
+    }
+
+    static function getGalleryCarByClientCar(UserCar $car)
+    {
+        $galleryCar = new GalleryPhotoCar();
+
+        $brand = $car->getBrand() ? $car->getBrand()->getName() : null;
+        $model = $car->getModel() ? $car->getModel()->getName() : null;
+        $engineType = $car->getEngineType() ? $car->getEngineType()->getType() : null;
+
+        $galleryCar->setBrand($brand);
+        $galleryCar->setModel($model);
+        $galleryCar->setEngineType($engineType);
+
+        return $galleryCar;
+    }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->getId(),
+            "brand" => $this->getBrand(),
+            "model" => $this->getModel(),
+            "engineType" => $this->getEngineType(),
+        ];
     }
 }

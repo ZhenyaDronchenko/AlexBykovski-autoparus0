@@ -83,6 +83,11 @@ services:
         arguments: []
         public: true
 
+    app.upload.client.user_office_upload:
+        class:  App\Upload\Client\UserOfficeUploader
+        arguments: ["@app.provider.geo_location.geo_location_provider", "@doctrine.orm.entity_manager"]
+        public: true
+
     App\Twig\ImageUrlExtension:
         class: App\Twig\ImageUrlExtension
         arguments: ['%upload_image_directory%', '@doctrine.orm.entity_manager']

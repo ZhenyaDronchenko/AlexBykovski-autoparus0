@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Entity\Client\Gallery;
 use App\Entity\Client\GalleryPhoto;
+use App\Entity\Client\GalleryPhotoCar;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
@@ -21,10 +22,10 @@ use App\Form\Type\SellerCompanyType;
 use App\Provider\Form\ClientCarProvider;
 use App\Provider\Form\SparePartAdvertDataProvider;
 use App\Provider\GeoLocation\GeoLocationProvider;
+use App\Upload\Client\UserOfficeUploader;
 use App\Upload\FileUpload;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Gumlet\ImageResize;
 use Gumlet\ImageResizeException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -45,9 +46,7 @@ class UserOfficeController extends Controller
      */
     public function editUserOfficeAction(Request $request)
     {
-        return $this->render('client/user-office/user-office.html.twig', [
-            "galleryPhotos" => $this->getUser()->getGalleryInArray(),
-        ]);
+        return $this->render('client/user-office/user-office.html.twig', []);
     }
 
     /**
@@ -338,14 +337,12 @@ class UserOfficeController extends Controller
      *
      * @throws ImageResizeException
      */
-    public function uploadUserPhotoAjaxAction(Request $request, GeoLocationProvider $provider)
+    public function uploadUserPhotoAjaxAction(Request $request, UserOfficeUploader $userOfficeUploader)
     {
         /** @var Client $client */
         $client = $this->getUser();
         /** @var FileUpload $uploader */
         $uploader = $this->get("app.file_upload");
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
         $uploadDir = $this->getParameter("upload_directory");
 
         $file = $request->files->get("file");
@@ -356,37 +353,9 @@ class UserOfficeController extends Controller
         $uploader->setFolder(FileUpload::USER);
         $path = $uploader->upload($file);
 
-        //https://packagist.org/packages/gumlet/php-image-resize
-        $fileFullPath = $uploadDir . '/' . $path;
-        $imageResizer = new ImageResize($fileFullPath);
-        $imageResizer->resize(Image::USER_IMAGE_WIDTH, Image::USER_IMAGE_HEIGHT, true);
-        $imageResizer->save($fileFullPath);
-
-        $image = new Image($path);
-        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-        $image->setGeoLocation($geoLocation);
-
-        $fileInfo = pathinfo($path);
-        $thumbnailPath = $fileInfo['dirname'] . '/' . $fileInfo["filename"] . "_thumbnal." . $fileInfo['extension'];
-        $fileFullPathThumbnail = $uploadDir . '/' . $thumbnailPath;
-
-        $imageResizer->resize(Image::USER_THUMBNAIL_IMAGE_WIDTH, Image::USER_THUMBNAIL_IMAGE_HEIGHT, true);
-        $imageResizer->save($fileFullPathThumbnail);
-
-        $imageThumbnail = new Image($thumbnailPath);
-        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-        $imageThumbnail->setGeoLocation($geoLocation);
-
-        $client->setPhoto($image);
-        $client->setThumbnailPhoto($imageThumbnail);
-
-        $em->persist($image);
-        $em->persist($imageThumbnail);
-        $em->flush();
+        $userOfficeUploader->uploadImagesPersonOffice($path, $coordinates, $ip, $uploadDir,  $client);
 
         return new JsonResponse([
-            "resized" => $fileFullPath,
-            "resized2" => $thumbnailPath,
             "success" => true,
             "path" => '/images/' . $path,
             "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
@@ -430,8 +399,8 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/add-gallery-photo-ajax", name="user_office_add_gallery_photo_ajax")
-     * @Route("/edit-gallery-photo-ajax/{id}", name="user_office_edit_gallery_photo_ajax")
+     * @Route("/add-gallery-photo-ajax", name="user_office_add_gallery_photo_ajax", options={"expose"=true})
+     * @Route("/edit-gallery-photo-ajax/{id}", name="user_office_edit_gallery_photo_ajax", options={"expose"=true})
      *
      * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
      */
@@ -471,6 +440,7 @@ class UserOfficeController extends Controller
 
         if(!$galleryPhoto){
             $galleryPhoto = new GalleryPhoto($image, $client->getGallery());
+            $galleryPhoto->setUserCars();
 
             $em->persist($galleryPhoto);
         }
@@ -485,6 +455,8 @@ class UserOfficeController extends Controller
         $em->persist($image);
         $em->flush();
 
+        $em->refresh($galleryPhoto);
+
         return new JsonResponse([
             "success" => true,
             "gallery" => $galleryPhoto->toArray(),
@@ -492,7 +464,7 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/remove-gallery-photo-ajax/{id}", name="user_office_remove_gallery_photo_ajax")
+     * @Route("/remove-gallery-photo-ajax/{id}", name="user_office_remove_gallery_photo_ajax", options={"expose"=true})
      *
      * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
      */
@@ -511,6 +483,40 @@ class UserOfficeController extends Controller
 
         return new JsonResponse([
             "success" => true,
+        ]);
+    }
+
+    /**
+     * @Route("/get-all-gallery-ajax", name="user_office_get_all_gallery_ajax", options={"expose"=true})
+     */
+    public function getAllGallery(Request $request)
+    {
+        return new JsonResponse($this->getUser()->getGalleryInArray());
+    }
+
+    /**
+     * @Route("/remove-gallery-car-ajax/{id}", name="remove_gallery_car_ajax", options={"expose"=true})
+     *
+     * @ParamConverter("galleryPhotoCar", class="App\Entity\Client\GalleryPhotoCar", options={"id" = "id"})
+     */
+    public function removeGalleryCarAction(Request $request, GalleryPhotoCar $galleryPhotoCar)
+    {
+        if($galleryPhotoCar->getGalleryPhoto()->getGallery()->getClient()->getId() !== $this->getUser()->getId()){
+            return new JsonResponse(["success" => false]);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $galleryPhoto = $galleryPhotoCar->getGalleryPhoto();
+
+        $em->remove($galleryPhotoCar);
+        $em->flush();
+
+        $em->refresh($galleryPhoto);
+
+        return new JsonResponse([
+            "success" => true,
+            "gallery" => $galleryPhoto->toArray(),
         ]);
     }
 }
