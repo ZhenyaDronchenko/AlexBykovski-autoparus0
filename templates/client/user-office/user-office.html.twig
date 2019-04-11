@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+    <div ng-controller="GalleryCtrl as gallery" ng-init="gallery.init('#dialog-cropper-container-gallery', true)">
     {% set isSeller = app.user.isSeller() %}
     {% if isSeller %}
         {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
@@ -46,7 +47,9 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <button class="btn-uni" type="button" onclick="document.getElementById('trigger-add-new-gallery-photo').click()">Добавить фото в историю</button>
+                            <button class="btn-uni" type="button"
+                                    onclick="document.getElementById('trigger-edit-gallery-photo').click()"
+                                    ng-click="gallery.activePost = gallery.getNewPost()">Добавить фото в историю</button>
                         </div>
                     </div>
                     <a class="user-name">{{ app.user.name }}</a>
@@ -128,99 +131,41 @@
                     </a>
                 </li>
                 <li>
-                    <a class="icon" href="" onclick="document.getElementById('trigger-add-new-gallery-photo').click()">
+                    <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()">
                         <i class="fa fa-camera"></i>
                         Фотогалерея
                     </a>
                 </li>
-                <li gallery-upload input-selector="#gallery-input-null"
-                    cropper-container="#dialog-cropper-container-gallery" gallery-id=""
-                    action-url="{{ path("user_office_add_gallery_photo_ajax") }}"
-                    remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'}) }}">
-                    <a id="trigger-add-new-gallery-photo" ng-click="editGalleryPhoto()" class="icon icon-plus us-btn" href="">
+                <li>
+                    <a id="create-new-post" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()" class="icon icon-plus us-btn" href="">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </a>
 
-                    <input id="gallery-input-null" type="file" style="display: none">
+                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="gallery.editPost">
                 </li>
             </ul>
         </div>
 
-        <ul class="items" id="gallery-photos-container">
-            {% for photo in galleryPhotos %}
-                <li id="gallery-photo-{{ photo.id }}" class="user-item" gallery-upload
-                    input-selector="#gallery-input-{{ photo.id }}"
-                    cropper-container="#dialog-cropper-container-gallery" gallery-id="{{ photo.id }}"
-                    action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: photo.id}) }}"
-                    remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'}) }}">
-                    <div class="tool">
-                        <a id="edit-gallery-photo-link-{{ photo.id }}" ng-click="editGalleryPhoto()" href="" class="tool-rdc us-btn2 gallery-photo">
-                            <span class="item-1">Редактировать</span>
-                            <img src="/img/cra.png" alt="Редактировать">
-                        </a>
-                        <a ng-click="removeGalleryPhoto()" href="" class="tool-close us-btn4">
-                            <span class="item-1">Удалить</span>
-                            <img src="/img/trash-can.svg" alt="Удалить">
-                        </a>
-
-                        <input id="gallery-input-{{ photo.id }}" type="file" style="display: none">
-                    </div>
-
-                    <div class="prod">
-                        <img class="prod-foto gallery-photo-image" src="{{ photo.path}}" alt="">
-                        <div class="prod-content">
-                            <div class="text-block">
-                                <pre id='text' class='text gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{{ photo.id }}" trigger-close=".close-more-lines-button-{{ photo.id }}">{{ photo.description }}</pre>
-                                <button id='button-t' class="open-more-lines-button-{{ photo.id }}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                                <button id='button-t' class="close-more-lines-button-{{ photo.id }}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                            </div>
-                            <div class="adress">
-                                <p class="adress-text">
-                                    <svg class="adress-text-img" width="18" height="18" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill="red" d="M25 47.7741L24.2284 46.6575C23.6481 45.8166 10 25.9678 10 18C10 9.72938 16.7294 3 25 3C33.2706 3 40 9.72938 40 18C40 25.9678 26.3519 45.8166 25.7716 46.6575L25 47.7741ZM25 4.875C17.7625 4.875 11.875 10.7625 11.875 18C11.875 24.3628 22.0797 40.0828 25 44.4506C27.9203 40.0828 38.125 24.3628 38.125 18C38.125 10.7625 32.2375 4.875 25 4.875Z"/>
-                                        <path fill="red" d="M25 24.5625C21.3822 24.5625 18.4375 21.6188 18.4375 18C18.4375 14.3813 21.3822 11.4375 25 11.4375C28.6178 11.4375 31.5625 14.3813 31.5625 18C31.5625 21.6188 28.6178 24.5625 25 24.5625ZM25 13.3125C22.4153 13.3125 20.3125 15.4153 20.3125 18C20.3125 20.5847 22.4153 22.6875 25 22.6875C27.5847 22.6875 29.6875 20.5847 29.6875 18C29.6875 15.4153 27.5847 13.3125 25 13.3125Z"/>
-                                    </svg>
-                                    {#<span class="gallery-photo-address">Беларусь, Минск, Минская область</span>#}
-                                </p>
-                                <p class="adress-text-city gallery-photo-address">{{ photo.address }}</p>
-                            </div>
-                            {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
-                            <div class="date">
-                                <span class="gallery-photo-date">{{ photo.date }}</span>
-                                <span class="time gallery-photo-time">{{ photo.time }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-
-        <div id="gallery-photo-template" style="display: none;">
-            <li id="gallery-photo-__id__" class="user-item" gallery-upload
-                input-selector="#gallery-input-__id__"
-                cropper-container="#dialog-cropper-container-gallery" gallery-id="__id__"
-                action-url="{{ path("user_office_edit_gallery_photo_ajax", {id: "__id__"}) }}"
-                remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'}) }}">
+        <ul class="items">
+            <li ng-repeat="post in gallery.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}">
                 <div class="tool">
-                    <a id="edit-gallery-photo-link-__id__" ng-click="editGalleryPhoto()" href="" class="tool-rdc us-btn2 gallery-photo">
+                    <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="gallery.activePost = post; gallery.editPost()">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
                     </a>
-                    <a ng-click="removeGalleryPhoto()" href="" class="tool-close us-btn4">
+                    <a href="" class="tool-close us-btn4 open-popup-button" data-popup-id="5" ng-click="gallery.activePost = post">
                         <span class="item-1">Удалить</span>
                         <img src="/img/trash-can.svg" alt="Удалить">
                     </a>
-
-                    <input id="gallery-input-__id__" type="file" style="display: none">
                 </div>
 
                 <div class="prod">
-                    <img class="prod-foto gallery-photo-image" src="" alt="">
+                    <img class="prod-foto gallery-photo-image" ng-src="{[{ post.path }]}" alt="">
                     <div class="prod-content">
                         <div class="text-block">
-                            <pre id='text' class='text gallery-photo-description' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-__id__" trigger-close=".close-more-lines-button-__id__"></pre>
-                            <button id='button-t' class="open-more-lines-button-__id__" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                            <button id='button-t' class="close-more-lines-button-__id__" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                            <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
+                            <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                            <button id='button-t' class="close-more-lines-button-{[{post.id}]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>
                         <div class="adress">
                             <p class="adress-text">
@@ -230,17 +175,17 @@
                                 </svg>
                                 {#<span class="gallery-photo-address">Беларусь, Минск, Минская область</span>#}
                             </p>
-                            <p class="adress-text-city gallery-photo-address"></p>
+                            <p class="adress-text-city" ng-bind="post.address"></p>
                         </div>
                         {% include('/client/user-office/parts/cars-for-gallery.html.twig') %}
                         <div class="date">
-                            <span class="gallery-photo-date"></span>
-                            <span class="time gallery-photo-time"></span>
+                            <span ng-bind="post.date"></span>
+                            <span class="time" ng-bind="post.time"></span>
                         </div>
                     </div>
                 </div>
             </li>
-        </div>
+        </ul>
 
         <div class="sail-f">
             <img src="/img/windsurfing.png" alt="Парус">
@@ -263,7 +208,6 @@
             <div id="image-preview-container" class="img-cont">
                 <img class="modal-img" src="/img/maz5.jpg" alt="Фото" style="display: none">
             </div>
-            {#<button class="button-cl button-close1"><span>Закрыть без сохранения </span></button>#}
         </section>
     </div>
 
@@ -276,9 +220,9 @@
             </div>
 
             <div id="image-preview-container-gallery" class="img-cont">
-                <img class="modal-img" src="/img/maz5.jpg" alt="Фото" style="display: none">
+                <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
-            {#<button class="button-cl button-close1"><span>Закрыть без сохранения </span></button>#}
+            <button class="button-cl" type="button" ng-click="gallery.closeModals();" onclick="document.getElementById('trigger-edit-gallery-photo').click()"><span>Изменить изображение </span></button>
         </section>
     </div>
 
@@ -289,28 +233,27 @@
                 <h2 class="button-title" data-text="Комментарий / Пост"><span></span></h2>
                 <button id="gallery-photo-save" class="button-home button-home-right save-button-cropper-dialog"><span>Опубликовать </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
             </div>
-
-            <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста"></textarea>
+            <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="gallery.activePost.description"></textarea>
             {#<button class="button-cl button-close1"><span>Закрыть без сохранения </span></button>#}
         </section>
     </div>
 
-    <div id="remove-gallery-photo-confirm" class="overlay5" data-photo-id="">
+    <div id="popup5" class="overlay5">
         <div class="modal5">
             <section class="del">
                 <h3 class="del-title" data-text="Подтверждение удаления"></h3>
                 <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
                 <ul class="del-btn">
                     <li>
-                        <a id="remove-gallery-photo" class="btn-m btn-red" href="">
+                        <a class="btn-m btn-red" href="" ng-click="gallery.removePost()">
                             <span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon">
                         </a>
                     </li>
                     <li class="btn-o">
-                        <a id="cancel-remove-gallery-photo" class="btn-m btn-gray" href="">Отменить удаление</a>
+                        <a id="close-popup-5" class="btn-m btn-gray close-popup-button" data-popup-id="5" href="">Отменить удаление</a>
                     </li>
                     <li class="btn-edit">
-                        <a id="edit-from-remove-popup" class="btn-m btn-green" href="">
+                        <a class="btn-m btn-green close-popup-button" data-popup-id="5" href="" ng-click="gallery.editPost()">
                             <span>Редактировать</span><img src="/img/cra.png" alt="icon">
                         </a>
                     </li>
@@ -369,8 +312,11 @@
             </section>
         </div>
     {% endif %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src='/js/client/pages/user-profile/user-office.js'></script>
+    <script src='/js/client/controller/user-profile/gallery-controller.js'></script>
+    <script src='/js/client/filter/order-object-by.js'></script>
 {% endblock %}

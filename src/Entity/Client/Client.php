@@ -293,10 +293,11 @@ class Client extends User
 
         /** @var GalleryPhoto $photo */
         foreach ($this->gallery->getPhotos() as $photo){
-            $galleryPhotos[$photo->getImage()->getCreatedAt()->format("Y-m-d H:i:s")] = $photo->toArray();
+            $galleryPhotos[$photo->getId()] = $photo->toArray();
         }
 
         krsort($galleryPhotos);
+        //var_dump($galleryPhotos);
 
         return $galleryPhotos;
     }

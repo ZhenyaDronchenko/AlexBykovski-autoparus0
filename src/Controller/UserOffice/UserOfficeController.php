@@ -45,9 +45,7 @@ class UserOfficeController extends Controller
      */
     public function editUserOfficeAction(Request $request)
     {
-        return $this->render('client/user-office/user-office.html.twig', [
-            "galleryPhotos" => $this->getUser()->getGalleryInArray(),
-        ]);
+        return $this->render('client/user-office/user-office.html.twig', []);
     }
 
     /**
@@ -430,8 +428,8 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/add-gallery-photo-ajax", name="user_office_add_gallery_photo_ajax")
-     * @Route("/edit-gallery-photo-ajax/{id}", name="user_office_edit_gallery_photo_ajax")
+     * @Route("/add-gallery-photo-ajax", name="user_office_add_gallery_photo_ajax", options={"expose"=true})
+     * @Route("/edit-gallery-photo-ajax/{id}", name="user_office_edit_gallery_photo_ajax", options={"expose"=true})
      *
      * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
      */
@@ -492,7 +490,7 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/remove-gallery-photo-ajax/{id}", name="user_office_remove_gallery_photo_ajax")
+     * @Route("/remove-gallery-photo-ajax/{id}", name="user_office_remove_gallery_photo_ajax", options={"expose"=true})
      *
      * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
      */
@@ -512,5 +510,13 @@ class UserOfficeController extends Controller
         return new JsonResponse([
             "success" => true,
         ]);
+    }
+
+    /**
+     * @Route("/get-all-gallery-ajax", name="user_office_get_all_gallery_ajax", options={"expose"=true})
+     */
+    public function getAllGallery(Request $request)
+    {
+        return new JsonResponse($this->getUser()->getGalleryInArray());
     }
 }

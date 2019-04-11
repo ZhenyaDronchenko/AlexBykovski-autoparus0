@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "beberlei/DoctrineExtensions": "^1.1",
         "friendsofsymfony/ckeditor-bundle": "^1.1",
+        "friendsofsymfony/jsrouting-bundle": "^2.3",
         "friendsofsymfony/user-bundle": "^2.1",
         "gaufrette/local-adapter": "^0.4.0",
         "gregwar/captcha-bundle": "^2.0",

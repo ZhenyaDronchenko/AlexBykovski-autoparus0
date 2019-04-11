@@ -29,7 +29,7 @@
         {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons"#}
               {#rel="stylesheet">#}
     </head>
-    <body>
+    <body ng-controller="GalleryCtrl as gallery">
     {% set isUserOffice = app.request.attributes.get('_route') == "show_user_office" %}
         <header class="container">
             <div class="header">
@@ -117,20 +117,17 @@
                         {% if app.user  %}
                             {% if isUserOffice %}
                                 <li>
-                                    <a onclick="document.getElementById('trigger-add-new-gallery-photo').click()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                    <a onclick="document.getElementById('create-new-post').click()" class="icon icon-plus us-btn" style="color: black;" href="">
                                         <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
                                     </a>
                                 </li>
                             {% else %}
-                                <li gallery-upload input-selector="#gallery-input-null"
-                                    cropper-container="#dialog-cropper-container-gallery" gallery-id=""
-                                    action-url="{{ path("user_office_add_gallery_photo_ajax") }}"
-                                    remove-link="{{ path("user_office_remove_gallery_photo_ajax", {id : '__rid__'}) }}">
-                                    <a id="trigger-add-new-gallery-photo" ng-click="editGalleryPhoto()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                <li>
+                                    <a ng-init="gallery.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
                                         <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
                                     </a>
 
-                                    <input id="gallery-input-null" type="file" style="display: none">
+                                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="gallery.editPost">
                                 </li>
                             {% endif %}
                         {% else %}
@@ -209,11 +206,13 @@
                         </button>
                     </div>
 
-                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста"></textarea>
+                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="gallery.activePost.description"></textarea>
                 </section>
             </div>
         {% endif %}
 
+        <script src="/bundles/fosjsrouting/js/router.min.js"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         <script src='/bower-components/angular/angular.min.js'></script>
         <script src='/bower-components/angular-cookies/angular-cookies.min.js'></script>
         <script src='/bower-components/angular-sanitize/angular-sanitize.min.js'></script>
@@ -233,6 +232,11 @@
         <script src='/js/client/directive/user-upload-link.js'></script>
         <script src='/js/client/directive/user-profile/gallery-upload.js'></script>
         <script src='/js/client/directive/user-profile/show-more-lines.js'></script>
+        <script src='/js/client/directive/custom-on-change.js'></script>
+
+        {% if not isUserOffice %}
+            <script src='/js/client/controller/user-profile/gallery-controller.js'></script>
+        {% endif %}
 
         {% block javascripts %}
         {% endblock %}
