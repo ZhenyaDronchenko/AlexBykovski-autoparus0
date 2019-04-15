@@ -354,10 +354,11 @@ class UserOfficeController extends Controller
         $path = $uploader->upload($file);
 
         $userOfficeUploader->uploadImagesPersonOffice($path, $coordinates, $ip, $uploadDir,  $client);
+        $this->getDoctrine()->getManager()->refresh($client);
 
         return new JsonResponse([
             "success" => true,
-            "path" => '/images/' . $path,
+            "path" => '/images/' . $client->getPhoto()->getImage(),
             "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
         ]);
     }
@@ -393,7 +394,7 @@ class UserOfficeController extends Controller
 
         return new JsonResponse([
             "success" => true,
-            "path" => '/images/' . $path,
+            "path" => '/images/' . $image->getImage(),
             "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
         ]);
     }
