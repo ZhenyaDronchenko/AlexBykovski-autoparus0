@@ -155,6 +155,12 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "rollbar/rollbar": {
+        "version": "v1.7.5"
+    },
+    "rollbar/rollbar-php-symfony-bundle": {
+        "version": "v3.1.2"
+    },
     "rosell-dk/webp-convert": {
         "version": "1.3.9"
     },
@@ -202,6 +208,9 @@
     },
     "sonata-project/exporter": {
         "version": "1.9.1"
+    },
+    "staffim/rollbar-bundle": {
+        "version": "v1.1.2"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
