@@ -6,69 +6,68 @@
 
 {% block body %}
     <main class="container">
-        <ul id="breadcrumbs">
-            <li>
-                <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Главная">
-                    <span class="user-name">{{ app.user.name }}</span>
-                    <svg class="user-icon" width="20px" height="20px" viewBox="0 0 50 50" fill="none">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус" itemprop="item">
+                    <span class="user-name" itemprop="name">{{ app.user.name }}</span>
+                    <svg class="user-icon" width="14" height="14" viewBox="0 0 50 50" fill="none">
                         <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3"/>
                         <path d="M43.5 43.5H6.5V40.3771C6.50929 40.361 6.51902 40.3442 6.52922 40.3267C6.66558 40.0932 6.88316 39.7455 7.19248 39.3213C7.81152 38.4723 8.79409 37.3222 10.224 36.1667C13.0634 33.8723 17.7339 31.5 25 31.5C32.2661 31.5 36.9366 33.8723 39.776 36.1667C41.2059 37.3222 42.1885 38.4723 42.8075 39.3213C43.1168 39.7455 43.3344 40.0932 43.4708 40.3267C43.481 40.3442 43.4907 40.361 43.5 40.3771V43.5Z" stroke="#444444" stroke-width="3"/>
                     </svg>
-
+                    <meta itemprop="position" content="1">
                 </a>
             </li>
-            <li><a class="current">/ Редактор персанального профиля</a></li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">Редактор персонального профиля</span><meta itemprop="position" content="2"></a>
+            </li>
         </ul>
 
-        <div class="profil-form">
-            <div class="profil-wpapper">
-                <div id="form-personal-data-container" ng-controller="PersonalDataCtrl as personData"
-                     ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')">
-                    {% include('/client/user-office/edit-base-profile-form/personal-data.html.twig') with {"form" : formPersonalData, 'isValid' : false} %}
-                </div>
+        <div id="form-personal-data-container" ng-controller="PersonalDataCtrl as personData"
+             ng-init="personData.init('#personal-data-form', '{{ path("edit_user_personal_data") }}')">
+            {% include('/client/user-office/edit-profile-form/personal-data.html.twig') with {"form" : formPersonalData, 'isValid' : false} %}
+        </div>
 
-                <div id="form-cars-container"
-                     ng-controller="CarsCtrl as cars"
-                     ng-init="cars.init('#cars-form', '{{ path("edit_user_cars") }}')">
-                    {% include('/client/user-office/edit-base-profile-form/cars.html.twig') with {"form" : formCars, 'isValid' : false} %}
-                </div>
-            </div>
+        <div id="form-cars-container"
+             ng-controller="CarsCtrl as cars"
+             ng-init="cars.init('#cars-form', '{{ path("edit_user_cars") }}')">
+            {% include('/client/user-office/edit-profile-form/cars.html.twig') with {"form" : formCars, 'isValid' : false} %}
         </div>
     </main>
 
-    <div class="overlay1" show-hint trigger-open="#open-overlay1" trigger-close="#close-overlay1">
+    <div id="popup1" class="overlay1">
         <section class="modal">
-            <button id="close-overlay1" class="modal-close" type="button">
+            <button class="modal-close close-popup-button" type="button" data-popup-id="1">
                 <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                     <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
                 </svg>
             </button>
             <h1 class="modal-title">{{ default_text(22).headline }}</h1>
-            <div class="modal-text">{{ default_text(22).text | raw }}</div>
+            <p class="modal-text">{{ default_text(22).text | raw }}</p>
         </section>
     </div>
 
-    <div class="overlay2" show-hint trigger-open="#open-overlay2" trigger-close="#close-overlay2">
+    <div id="popup2" class="overlay2">
         <section class="modal">
-            <button id="close-overlay2" class="modal-close" type="button">
+            <button class="modal-close close-popup-button" type="button" data-popup-id="2">
                 <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                    <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+            <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                </svg>
+            </svg>
             </button>
             <h1 class="modal-title">{{ default_text(23).headline }}</h1>
             <div class="modal-text">{{ default_text(23).text | raw }}</div>
         </section>
     </div>
 
-    <div class="overlay3" show-hint trigger-open="#open-overlay3" trigger-close="#close-overlay3">
+    <div id="popup3" class="overlay3">
         <section class="modal">
-            <button id="close-overlay3" class="modal-close" type="button">
+            <button class="modal-close close-popup-button" type="button" data-popup-id="2">
                 <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                    <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+            <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                </svg>
+            </svg>
             </button>
             <h1 class="modal-title">{{ default_text(24).headline }}</h1>
             <div class="modal-text">{{ default_text(24).text | raw }}</div>

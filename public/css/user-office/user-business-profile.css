@@ -1,6 +1,5 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 1px solid #444;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -9,20 +8,13 @@
     padding-top: 5px;
 }
 
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
+.line {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     font-size: 16px;
     line-height: 18px;
     color: #444;
@@ -46,45 +38,24 @@
 .current {
     cursor: default;
 }
-.opened {
-    background-color: transparent;
-}
 
-@media  (max-width: 575px) {
+@media  (max-width: 481px) {
     .container {
         width: auto;
     }
     #breadcrumbs {
         padding-top: 3px;
     }
-
+    .line {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
     .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
         display: none;
     }
 
     .user-icon {
         display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-        display: none;
     }
 
     .close-menu {
@@ -96,59 +67,42 @@
         height: 10px;
     }
 
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
     .user-icon {
         display: block;
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 18px;
     }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
+
     #breadcrumbs a {
         line-height: 20px;
-        font-size: 12px;
+        font-size: 11px;
     }
     .model-block {
         padding-top: 5px;
     }
 
     .user-link--icon {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
     }
 
-    #breadcrumbs li {
-        margin-right: 0;
-    }
 
     #breadcrumbs li:nth-child(2) {
         margin-right: 3px;
     }
 
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
 }
-@media (min-width: 576px) and (max-width: 767px) {
+@media  (max-width: 767px) {
     .container {
         width: auto;
     }
+    #breadcrumbs a {
+        line-height: 20px;
+        font-size: 11px;
+    }
 }
 /*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 
@@ -171,7 +125,6 @@
     color: #f66666;
     text-align: center;
     margin-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
 }
 
@@ -207,8 +160,21 @@ label {
     font-size: 20px;
     line-height: 22px;
     color: #000000;
-    font-weight: 700;
+    font-weight: 400;
 }
+
+label span {
+    font-size: 16px;
+    line-height: 22px;
+    font-family: 'Roboto';
+
+}
+::-webkit-input-placeholder {color:#000000;}
+::-moz-placeholder          {color:#000000;}/* Firefox 19+ */
+:-moz-placeholder           {color:#000000;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#000000;}
+
+
 .help {
     width: 18px;
     height: 18px;
@@ -233,52 +199,59 @@ label {
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
+
 }
 .business-option li {
-    margin-right: 50px;
+    margin: 0 25px;
     margin-bottom: 20px;
 }
-.business-option li:nth-child(3) {
-    margin-bottom: 30px;
-}
+
 .country {
-    width: 100%;
+    display: inline-block;
     font-size: 22px;
-    line-height: 24px;
-    color: #444;
+    line-height: 26px;
+    font-weight: 400;
+    color: #000;
+    margin-right: 13px;
+
+
 }
 .choice-input {
     width: 98%;
     border: none;
     padding: 0 5px;
     border-bottom: 1px solid #757373;
-    font-family: 'Comfortaa', cursive;
     font-size: 20px;
     line-height: 22px;
     color: #000;
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 .choice-b {
-    width: 52%;
+    width: 64%;
 }
 .city-input {
     width: 100px;
     border: 1px solid #757373;
-    font-family: 'Comfortaa', cursive;
     font-size: 16px;
     line-height: 18px;
     color: #757373;
 }
 .choice-unp {
-    width: 20%;
+    width: 21%;
 
 }
+.choice-input-unp {
+    width: 72%;
+    margin-left: 7px;
+}
 .choice-city {
-    width: 250px;
+    width: 400px;
     color: #757373;
 }
 
 .choice-str {
-    width: 600px;
+    width: 590px;
 }
 .choice-input--str {
     width: 450px;
@@ -286,13 +259,15 @@ label {
 }
 
 .name-select {
-    width: 100%;
+    width: 70%;
     font-size: 18px;
     line-height: 20px;
-    color: #757373;
+    color: #000000;
     border: none;
     border-bottom: 1px solid #757373;
-    background-color: #fff;
+    background: white;
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 .visually-hidden {
     position: absolute;
@@ -331,12 +306,14 @@ label {
 }
 
 .filter-input-checkbox:checked + label::after {
-    content: '✔';
+    content: "";
+    background: url("/img/chek.svg") 0 0 no-repeat;
     position: absolute;
     display: block;
-    left: -40px;
-    top: 0;
-    font-size: 18px;
+    width: 16px;
+    height: 16px;
+    left: -41px;
+    top: 0px;
 }
 
 .time {
@@ -372,7 +349,7 @@ label {
     justify-content: space-between;
 }
 .time-wrapper--border {
-    border-right: 1px solid #000000;
+    border-right: 1px solid #737373;
 }
 .time-text {
     font-size: 22px;
@@ -404,14 +381,16 @@ label {
 .time_work {
     width: 70px;
     padding: 3px;
-    border: 2px solid #5a5959;
+    border: 1px solid #737373;
     border-radius: 3px;
     font-size: 14px;
     margin: 5px 0;
     background-color: #fff;
 }
 
-
+.choice-city-c {
+    display: inline-block;
+}
 fieldset {
     border: none;
     margin: 0;
@@ -438,7 +417,7 @@ fieldset {
     margin: 0;
     margin-bottom: 10px;
     text-align: center;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .pay-block {
@@ -515,11 +494,11 @@ textarea {
     box-sizing: border-box;
     width: 100%;
     padding: 5px;
-    border: 1px solid #000000;
-    font-family: 'Comfortaa', cursive;
+    border: 1px solid #737373;
+    -webkit-appearance: none;
     font-size: 16px;
     line-height: 18px;
-    color: #757373;
+    color: #000;
 }
 
 .check {
@@ -527,7 +506,7 @@ textarea {
     font-size: 12px;
     line-height: 14px;
     padding-top: 3px;
-    color: #d22856;
+    color: red;
     text-align: center;
 }
 .check-on {
@@ -546,7 +525,7 @@ textarea {
     margin: 0;
     margin-bottom: 10px;
     text-align: center;
-    font-weight: 700;
+    font-weight: 400;
 }
 .phone {
     display: -webkit-box;
@@ -564,7 +543,6 @@ textarea {
     padding: 5px;
     border: 1px solid #000000;
     border-radius: 3px;
-    font-family: 'Comfortaa', cursive;
     font-size: 16px;
     line-height: 18px;
     color: #757373;
@@ -574,7 +552,7 @@ textarea {
     display: block;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     padding: 5px 25px;
     padding-bottom: 3px;
     margin: 0 auto;
@@ -603,12 +581,15 @@ textarea {
 }
 
 .checkbox-custom:checked + label::after {
-    content: '✔';
+    content: "";
+    background: url("/img/chek.svg") 0 0 no-repeat;
     position: absolute;
     display: block;
-    left: 7px;
+    width: 16px;
+    height: 16px;
+    left: 6px;
     top: -22px;
-    font-size: 18px;
+
 }
 
 
@@ -634,8 +615,8 @@ textarea {
 .filter-input-radio:checked + label::after {
     content: "";
     position: absolute;
-    top: 4px;
-    left: -35px;
+    top: 3px;
+    left: -36px;
     width: 8px;
     height: 8px;
     background-color: #000000;
@@ -655,7 +636,7 @@ textarea {
     line-height: 18px;
     color: #000000;
     font-weight: 400;
-    font-family: 'Roboto', sans-serif;
+
 }
 
 
@@ -679,13 +660,14 @@ textarea {
     position: fixed;
     top: 100px;
     left: 50%;
-    width: 450px;
+    width: 700px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
     padding: 45px 10px;
+    border-radius: 5px;
 }
 
 .modal-close {
@@ -700,12 +682,12 @@ textarea {
     -ms-flex-align: center;
     align-items: center;
     position: absolute;
-    right: 7px;
-    top: 7px;
+    right: 3px;
+    top: 3px;
     cursor: pointer;
-    border: 2px solid #444;
+    border: 1px solid #737373;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 
@@ -723,9 +705,8 @@ textarea {
     margin-bottom: 15px;
     color: #000;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 26px;
-    text-transform: uppercase;
     text-align: center;
 
 }
@@ -734,9 +715,9 @@ textarea {
     margin: 0;
     color: #000;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
+
 }
 
 @media (max-width: 480px) {
@@ -767,8 +748,12 @@ textarea {
         line-height: 20px;
     }
     .business-option li {
-        margin-right: 0;
+        margin: 0;
         margin-bottom: 15px;
+
+    }
+    .business-option li:nth-child(3) {
+        margin-top: 25px;
 
     }
     label {
@@ -786,11 +771,11 @@ textarea {
     }
 
     .choice-unp {
-        width: 40%;
+        width: 70%;
 
     }
     .choice-city {
-        width: 250px;
+        width: 100%;
         color: #757373;
     }
     .country {
@@ -806,9 +791,11 @@ textarea {
 
     }
     .choice-city span {
-        display: block;
-        margin-bottom: 10px;
+        margin-bottom: 0;
 
+    }
+    .name-select {
+        width: 60%;
     }
     .block-item:last-child {
         margin-bottom: 0;
@@ -851,10 +838,7 @@ textarea {
         -webkit-box-direction: normal;
         flex-direction: column;
     }
-    textarea {
-        font-size: 14px;
-        line-height: 16px;
-    }
+
     .filter-option {
         margin: 12px 0;
         padding-left: 40px;
@@ -985,8 +969,7 @@ textarea {
         width: 95%;
         display: block;
         margin: 0 auto;
-        font-size: 14px;
-        line-height: 16px;
+
     }
     .modal {
         top: 50px;
@@ -997,6 +980,9 @@ textarea {
         font-size: 20px;
         line-height: 22px;
     }
+    .country {
+        margin-right: 20px;
+    }
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
@@ -1004,13 +990,17 @@ textarea {
     .business {
         padding-bottom: 55px;
     }
+    .business-option li:nth-child(3) {
+        margin-top: 30px;
 
+    }
     .title {
         font-size: 22px;
         line-height: 24px;
     }
     .business-option li {
-        margin-right: 0;
+        margin: 0;
+        margin-bottom: 15px;
 
     }
     label {
@@ -1028,14 +1018,18 @@ textarea {
     }
 
     .choice-unp {
-        width: 30%;
+        width: 50%;
 
     }
     .choice-city {
+        display: inline-block;
         width: 250px;
         color: #757373;
     }
-
+    .country {
+        display: inline-block;
+        width: 150px;
+    }
     .choice-str {
         width: 90%;
     }
@@ -1074,7 +1068,6 @@ textarea {
         font-size: 18px;
         line-height: 20px;
         color: #000000;
-        font-weight: 700;
     }
 
     .pay {
@@ -1098,7 +1091,7 @@ textarea {
         margin: 0;
         margin-bottom: 10px;
         text-align: center;
-        font-weight: 700;
+        font-weight: 400;
     }
 
     .pay-block {
@@ -1109,7 +1102,7 @@ textarea {
     }
     .time-wrapper--border {
         border-right: none;
-        border-bottom: 1px solid #000000;
+        border-bottom: 1px solid #737373;
         padding-bottom: 5px;
     }
 
@@ -1159,7 +1152,6 @@ textarea {
         padding: 5px;
         border: 1px solid #000000;
         border-radius: 3px;
-        font-family: 'Comfortaa', cursive;
         font-size: 14px;
         line-height: 16px;
         color: #757373;
@@ -1177,10 +1169,7 @@ textarea {
         color: #ffffff;
         font-size: 20px;
     }
-    textarea {
-        font-size: 14px;
-        line-height: 16px;
-    }
+
     .modal {
         top: 50px;
         width: 80%;
@@ -1189,6 +1178,17 @@ textarea {
         margin-bottom: 10px;
         font-size: 20px;
         line-height: 22px;
+    }
+    .choice-city {
+        width: 400px;
+        color: #757373;
+    }
+    .name-select {
+        width: 60%;
+    }
+    .country {
+
+        width: 120px;
     }
 }
 @media (min-width: 768px) and  (max-width: 1023px) {
@@ -1205,20 +1205,34 @@ textarea {
         line-height: 20px;
     }
 
-    .choice-b {
-        width: 60%;
-    }
 
     .choice-city {
-        width: 200px;
+        width: 180px;
         color: #757373;
     }
 
     .choice-str {
-        width: 420px;
+        width: 340px;
+    }
+    .choice-b {
+        width: 70%;
+    }
+    .business-option li {
+        margin: 0 15px;
+        margin-bottom: 20px;
     }
 
+    .choice-input-unp {
+        width: 61%;
 
+    }
+    .choice-city {
+        width: 325px;
+        color: #757373;
+    }
+    .name-select {
+        width: 60%;
+    }
 }
 
 @media (min-width: 1024px) and (max-width: 1199px) {
@@ -1228,13 +1242,14 @@ textarea {
         font-size: 17px;
         line-height: 20px;
     }
-
-
+    .choice-str {
+        width: 465px;
+    }
+    .choice-b {
+        width: 68%;
+    }
+    .choice-city {
+        width: 415px;
+    }
 }
-
-
-
-
-
-
 /*Profil END*/

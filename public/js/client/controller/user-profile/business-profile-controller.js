@@ -1,7 +1,7 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('BusinessProfileCtrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
+    autoparusApp.controller('BusinessProfileCtrl', ['$scope', '$http', '$compile', function($scope, $http, $compile) {
         let formSelector = null;
         let url = null;
 
@@ -48,13 +48,9 @@
             $(formSelector).find("button[type=submit]").prop("disabled", true);
 
             request(url, data, function (response) {
-                if(response.data.success){
-                    $("#success-submit-message").show();
+                let el = $compile(response.data)( $scope );
 
-                    return $window.location.href = response.data.redirect;
-                }
-
-                $("#form-business-profile-container").html(response.data);
+                $("#form-business-profile-container").html("").append(el);
                 handleForm();
 
                 $(formSelector).find("button[type=submit]").prop("disabled", false);

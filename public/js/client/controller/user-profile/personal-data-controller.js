@@ -49,10 +49,6 @@
             $(formSelector).find("button[type=submit]").prop("disabled", true);
 
             request(url, data, function (response) {
-                if(response.data.success){
-
-                }
-
                 $("#form-personal-data-container").html(response.data);
                 handleForm();
 

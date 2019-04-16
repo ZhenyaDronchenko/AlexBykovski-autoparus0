@@ -15,7 +15,6 @@ use App\Entity\Client\UserCar;
 use App\Entity\EngineType;
 use App\Entity\Image;
 use App\Entity\Model;
-use App\Entity\User;
 use App\Form\Type\ClientCarsType;
 use App\Form\Type\PersonalDataType;
 use App\Form\Type\SellerCompanyType;
@@ -89,7 +88,7 @@ class UserOfficeController extends Controller
             $em->flush();
         }
 
-        return $this->render('client/user-office/edit-base-profile-form/personal-data.html.twig', [
+        return $this->render('client/user-office/edit-profile-form/personal-data.html.twig', [
             "form" => $form->createView(),
             "isValid" => $isValid
         ]);
@@ -137,7 +136,7 @@ class UserOfficeController extends Controller
 
         $form = $this->createForm(ClientCarsType::class, $client, ["isFormSubmitted" => false]);
 
-        return $this->render('client/user-office/edit-base-profile-form/cars.html.twig', [
+        return $this->render('client/user-office/edit-profile-form/cars.html.twig', [
             "form" => $form->createView(),
             "isValid" => $isValid
         ]);
@@ -148,10 +147,35 @@ class UserOfficeController extends Controller
      */
     public function editBusinessProfileAction(Request $request)
     {
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        if($client->isSeller()){
+            $sellerCompany = $client->getSellerData()->getSellerCompany();
+        }
+        else{
+            $newSellerCompanyWorkflow = new SellerCompanyWorkflow();
+            $sellerCompany = new SellerCompany();
+            $sellerCompany->setWorkflow($newSellerCompanyWorkflow);
+        }
+
+        $form = $this->createForm(SellerCompanyType::class, $sellerCompany);
+
+        return $this->render('client/user-office/user-business-profile.html.twig', [
+            "form" => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/edit-business-data", name="edit_user_business_data")
+     */
+    public function editBusinessDataAction(Request $request)
+    {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Client $client */
         $client = $this->getUser();
+        $isValid = false;
 
         if($client->isSeller()){
             $sellerCompany = $client->getSellerData()->getSellerCompany();
@@ -185,11 +209,12 @@ class UserOfficeController extends Controller
 
             $em->flush();
 
-            return $this->redirectToRoute("show_user_office");
+            $isValid = true;
         }
 
-        return $this->render('client/user-office/user-business-profile.html.twig', [
+        return $this->render('client/user-office/edit-profile-form/business-data.html.twig', [
             "form" => $form->createView(),
+            "isValid" => $isValid,
         ]);
     }
 

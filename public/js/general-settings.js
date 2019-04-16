@@ -6,18 +6,22 @@ $(function(){
     $(document).on("click", ".open-popup-button", function (ev) {
         if($(this).attr("id") && $(this).attr("id").indexOf("initiator-open-") > -1){
             $("#" + $(this).attr("id").replace("initiator-open-", "")).show();
+            $("body").addClass("modal--show");
         }
         else{
             $("#popup" + $(this).attr("data-popup-id")).show();
+            $("body").addClass("modal--show");
         }
     });
 
     $(document).on("click", ".close-popup-button", function (ev) {
         if($(this).attr("id") && $(this).attr("id").indexOf("initiator-close-") > -1){
             $("#" + $(this).attr("id").replace("initiator-close-", "")).hide();
+            $("body").removeClass("modal--show");
         }
         else{
             $("#popup" + $(this).attr("data-popup-id")).hide();
+            $("body").removeClass("modal--show");
         }
     });
 });

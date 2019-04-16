@@ -39,41 +39,45 @@ class SellerCompanyType extends AbstractType
         $builder
             ->add('isSparePartSeller', CheckboxType::class, [
                 'required' => false,
-                'label' => "Автозапчасти, авторазборка, магазин запчастей для авто, тюнинг, товары для автомобилей.",
+                'label' => "Авто-мото запчасти <span>(Авторазборки, магазины и точки запчастей б/у и новых)</span>",
             ])
             ->add('isService', CheckboxType::class, [
                 'required' => false,
-                'label' => "СТО, автосервис, шиномонтаж, услиги, ремонт, обслуживание автомобилей.",
+                'label' => "Услуги / СТО / Сервисы <span>(Авто-мото сервисы, мастерские, станции тех. обслуживания)</span>",
             ])
             ->add('isAutoSeller', CheckboxType::class, [
                 'required' => false,
-                'label' => "Продажа автомобилей, других транспортных средств, спецтехника.",
+                'label' => "Авто-мото транспорт <span>(Продавцы авто и мото транспорта, стоянки продажи авто)</span>",
             ])
             ->add('isNews', CheckboxType::class, [
                 'required' => false,
-                'label' => "Новости, блоги, статьи.",
+                'label' => "Новости / Статьи <span>(Статьи о Вашей компании, автосервисе, магазине, турагенстве)</span>",
+            ])
+            ->add('isTourism', CheckboxType::class, [
+                'required' => false,
+                'label' => "Туризм / Путешествия <span>(Туристические компании, турагенства, агроусадьбы, гиды)</span>",
             ])
             ->add('unp', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'constraints' => new NotNull(['message' =>'Заполните поле']),
+                'constraints' => new NotNull(['message' =>'Заполните УНП']),
             ])
             ->add('companyName', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'constraints' => new NotNull(['message' =>'Заполните поле']),
+                'constraints' => new NotNull(['message' =>'Заполните данные']),
             ])
             ->add('city', ChoiceType::class, [
                 'required' => true,
                 'label' => false,
                 'choices' => $this->getCitiesChoices(),
                 'data' => $city,
-                'constraints' => new NotNull(['message' =>'Выберите город']),
+                'constraints' => new NotNull(['message' =>'Сделайте выбор']),
             ])
             ->add('address', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'constraints' => new NotNull(['message' =>'Укажите адрес']),
+                'constraints' => new NotNull(['message' =>'Заполните поле адреса']),
             ])
             ->add('workflow', SellerCompanyWorkflowType::class)
             ->add('activityDescription', TextareaType::class, ['required' => false])
