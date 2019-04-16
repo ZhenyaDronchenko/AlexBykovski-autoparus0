@@ -6,7 +6,6 @@ namespace App\Upload\Client;
 use App\Entity\Client\Client;
 use App\Entity\Image;
 use App\Provider\GeoLocation\GeoLocationProvider;
-use App\Upload\FileUpload;
 use Doctrine\ORM\EntityManagerInterface;
 use Gumlet\ImageResize;
 
@@ -91,6 +90,6 @@ class UserOfficeUploader
     {
         $fileInfo = pathinfo($path);
 
-        return $fileInfo['dirname'] . '/' . $fileInfo["filename"] . "_thumbnal." . $fileInfo['extension'];
+        return $fileInfo['dirname'] . '/' . $fileInfo["filename"] . "_thumbnail." . $fileInfo['extension'];
     }
 }

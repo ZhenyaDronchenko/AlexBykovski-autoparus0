@@ -1,52 +1,11 @@
-<div id="car-prototype-container" style="display: none;">
-    {% set prototype = form.cars.vars.prototype %}
-    <div class="select car-container">
-        <label>{{ prototype.brand.vars.label }}
-            {{ form_widget(prototype.brand, {attr: {class: "mark-select car-form-choice-brand"}}) }}
-        </label>
-        <label>{{ prototype.model.vars.label }}
-            {{ form_widget(prototype.model, {attr: {"disabled" :  true, class: "model-select car-form-choice-model"}}) }}
-        </label>
-        <label>{{ prototype.year.vars.label }}
-            {{ form_widget(prototype.year, {attr: {"disabled" :  true, class: "year-select car-form-choice-year"}}) }}
-        </label>
-        <label>{{ prototype.engineType.vars.label }}
-            {{ form_widget(prototype.engineType, {attr: {"disabled" :  true, class: "engine-select car-form-choice-engine-type"}}) }}
-        </label>
-        <label>{{ prototype.capacity.vars.label }}
-            {{ form_widget(prototype.capacity, {attr: {"disabled" :  true, class: "volume-select car-form-choice-capacity"}}) }}
-        </label>
-        <label>{{ prototype.engineName.vars.label }}
-            {{ form_widget(prototype.engineName, {attr: {"disabled" :  true, class: "type-select car-form-choice-engine-name"}}) }}
-        </label>
-        <label>{{ prototype.vehicle.vars.label }}
-            {{ form_widget(prototype.vehicle, {attr: {"disabled" :  true, class: "body-select car-form-choice-vehicle"}}) }}
-        </label>
-        <label>{{ prototype.gearBoxType.vars.label }}
-            {{ form_widget(prototype.gearBoxType, {attr: {"disabled" :  true, class: "kpp-select car-form-choice-gear-box-type"}}) }}
-        </label>
-        <label>{{ prototype.driveType.vars.label }}
-            {{ form_widget(prototype.driveType, {attr: {"disabled" :  true, class: "drive-select car-form-choice-drive-type"}}) }}
-        </label>
-
-        <button class="btn remove-car-button" type="button">
-            <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
-                <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
-                <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
-            </svg>
-            Удалить транспортное средство
-        </button>
-    </div>
-</div>
-
 <form {% if isValid %} redirect-to-url redirect-url="{{ path("show_user_office") }}" {% endif %} id="cars-form" class="user-form" style="padding-top: 0;" action="#" method="post" novalidate>
     {{ form_widget(form._token) }}
-    <fieldset class="block" id="cars-container">
+    <fieldset class="block block-m" id="cars-container">
         <h2 class="title" data-text="Ваша авто-мото техника">
             <sup>
-                <button id="open-overlay3" class="help" type="button">
+                <button class="help open-popup-button" type="button" data-popup-id="3">
                     <svg viewBox="0 0 32 32" width="18px" height="18px">
-                        <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                        <path fill="#999999" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
                     </svg>
                 </button>
             </sup>
@@ -93,13 +52,13 @@
             </div>
         {% endfor %}
     </fieldset>
-    <button id="add-new-car-button" type="button" class="btn btn--m" style="{{ form.cars | length < 5 ? "" : "display: none;" }}">
+
+    <button id="add-new-car-button" class="btn btn--m" type="button" style="{{ form.cars | length < 5 ? "" : "display: none;" }}">
         <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
             <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
             <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"/>
             <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
-        </svg> Добавить еще авто или мото
-    </button>
+        </svg> Добавить еще авто или мото</button>
 
     <div class="business-btn">
         {{ form_widget(form.submit, {attr: {class: "btn-filter"}, "label": "Подтвердить и сохранить"}) }}
@@ -109,3 +68,44 @@
     </div>
     <div class="modal-text">{{ default_text(11).text | raw }}</div>
 </form>
+
+<div id="car-prototype-container" style="display: none;">
+    {% set prototype = form.cars.vars.prototype %}
+    <div class="select car-container">
+        <label>{{ prototype.brand.vars.label }}
+            {{ form_widget(prototype.brand, {attr: {class: "mark-select car-form-choice-brand"}}) }}
+        </label>
+        <label>{{ prototype.model.vars.label }}
+            {{ form_widget(prototype.model, {attr: {"disabled" :  true, class: "model-select car-form-choice-model"}}) }}
+        </label>
+        <label>{{ prototype.year.vars.label }}
+            {{ form_widget(prototype.year, {attr: {"disabled" :  true, class: "year-select car-form-choice-year"}}) }}
+        </label>
+        <label>{{ prototype.engineType.vars.label }}
+            {{ form_widget(prototype.engineType, {attr: {"disabled" :  true, class: "engine-select car-form-choice-engine-type"}}) }}
+        </label>
+        <label>{{ prototype.capacity.vars.label }}
+            {{ form_widget(prototype.capacity, {attr: {"disabled" :  true, class: "volume-select car-form-choice-capacity"}}) }}
+        </label>
+        <label>{{ prototype.engineName.vars.label }}
+            {{ form_widget(prototype.engineName, {attr: {"disabled" :  true, class: "type-select car-form-choice-engine-name"}}) }}
+        </label>
+        <label>{{ prototype.vehicle.vars.label }}
+            {{ form_widget(prototype.vehicle, {attr: {"disabled" :  true, class: "body-select car-form-choice-vehicle"}}) }}
+        </label>
+        <label>{{ prototype.gearBoxType.vars.label }}
+            {{ form_widget(prototype.gearBoxType, {attr: {"disabled" :  true, class: "kpp-select car-form-choice-gear-box-type"}}) }}
+        </label>
+        <label>{{ prototype.driveType.vars.label }}
+            {{ form_widget(prototype.driveType, {attr: {"disabled" :  true, class: "drive-select car-form-choice-drive-type"}}) }}
+        </label>
+
+        <button class="btn remove-car-button" type="button">
+            <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
+                <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
+                <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
+            </svg>
+            Удалить транспортное средство
+        </button>
+    </div>
+</div>

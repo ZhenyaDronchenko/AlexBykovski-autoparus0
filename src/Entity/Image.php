@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-
+use App\Upload\FileUpload;
 use DateTime;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="image")
+ *
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -124,5 +127,37 @@ class Image
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function prePersistOrPreUpdate(LifecycleEventArgs $args)
+    {
+        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
+
+        if(array_key_exists("image", $changeSet) || !$this->id){
+            $this->convertImage();
+        }
+
+        return true;
+    }
+
+    private function convertImage()
+    {
+        if(!$this->getImage()){
+            return false;
+        }
+
+        $fileInfo = pathinfo($this->getImage());
+
+        if(!isset($fileInfo['extension']) || !$fileInfo['extension'] || $fileInfo['extension'] === "webp"){
+            return false;
+        }
+
+        $this->setImage(FileUpload::fileToWebP($this->getImage()));
+
+        return true;
     }
 }

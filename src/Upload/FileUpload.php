@@ -4,6 +4,7 @@ namespace App\Upload;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Gaufrette\Filesystem;
+use WebPConvert\WebPConvert;
 
 class FileUpload
 {
@@ -26,6 +27,8 @@ class FileUpload
     const UNIVERSAL_PAGE_BRAND = 'universal-page-brand';
     const UNIVERSAL_PAGE_CITY = 'universal-page-city';
     const UNIVERSAL_PAGE_SPARE_PART = 'universal-page-spare-part';
+
+    const IMAGE_FOLDER = "images/";
 
     private static $allowedMimeTypes = array(
         'image/jpeg',
@@ -106,8 +109,28 @@ class FileUpload
             mkdir($folder, 0777, true);
         }
 
-        file_put_contents('images/' . $filename, $base64string);
+        file_put_contents(self::IMAGE_FOLDER . $filename, $base64string);
 
         return $filename;
+    }
+
+    // https://github.com/rosell-dk/webp-convert/blob/master/docs/api/convert-and-serve.md
+    static function fileToWebP($currentPath)
+    {
+        //$currentPath = self::IMAGE_FOLDER . $currentPath;
+        $fileInfo = pathinfo($currentPath);
+
+        $newPath = $fileInfo['dirname'] . '/' . $fileInfo["filename"] . ".webp";
+        $fullNewPath = self::IMAGE_FOLDER . $newPath;
+
+        WebPConvert::convert(self::IMAGE_FOLDER .  $currentPath, $fullNewPath, ["fail" => "serve-original"]);
+
+        if(!file_exists($fullNewPath)){
+            return $currentPath;
+        }
+
+        unlink(self::IMAGE_FOLDER . $currentPath);
+
+        return $newPath;
     }
 }

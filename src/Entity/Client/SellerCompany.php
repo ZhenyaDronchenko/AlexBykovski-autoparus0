@@ -82,6 +82,13 @@ class SellerCompany
     private $isNews = 0;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isTourism = 0;
+
+    /**
      * @Assert\Valid()
      *
      * @var SellerCompanyWorkflow
@@ -270,6 +277,22 @@ class SellerCompany
     public function setIsNews(bool $isNews): void
     {
         $this->isNews = $isNews;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTourism(): bool
+    {
+        return $this->isTourism;
+    }
+
+    /**
+     * @param bool $isTourism
+     */
+    public function setIsTourism(bool $isTourism): void
+    {
+        $this->isTourism = $isTourism;
     }
 
     /**

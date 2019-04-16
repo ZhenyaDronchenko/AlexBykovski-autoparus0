@@ -6,270 +6,61 @@
 
 {% block body %}
     <main class="container">
-        <ul id="breadcrumbs">
-            <li>
-                <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Главная">
-                    <span class="user-name">{{ app.user.name }} </span>
-                    <svg class="user-icon" width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="black" stroke-width="3"/>
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус" itemprop="item">
+                    <span class="user-name" itemprop="name">{{ app.user.name }}</span>
+                    <svg class="user-icon" width="14" height="14" viewBox="0 0 50 50" fill="none">
+                        <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3"/>
+                        <path d="M43.5 43.5H6.5V40.3771C6.50929 40.361 6.51902 40.3442 6.52922 40.3267C6.66558 40.0932 6.88316 39.7455 7.19248 39.3213C7.81152 38.4723 8.79409 37.3222 10.224 36.1667C13.0634 33.8723 17.7339 31.5 25 31.5C32.2661 31.5 36.9366 33.8723 39.776 36.1667C41.2059 37.3222 42.1885 38.4723 42.8075 39.3213C43.1168 39.7455 43.3344 40.0932 43.4708 40.3267C43.481 40.3442 43.4907 40.361 43.5 40.3771V43.5Z" stroke="#444444" stroke-width="3"/>
                     </svg>
+                    <meta itemprop="position" content="1">
                 </a>
             </li>
-            <li><a nohref class="current">/ Редактор бизнес профиля</a></li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">Редактор бизнес профиля</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </li>
         </ul>
 
-        <div class="business">
-            <form class="business-form" action="{{ path("show_user_business_office") }}" method="post" novalidate enctype="multipart/form-data">
-                {{ form_widget(form._token) }}
-
-                <fieldset class="block">
-                    <legend class="title" data-text="Выберите виды деятельности">
-                        <sup>
-                            <button id="initiator-open-popup1" type="button" class="help button-open1 open-popup-button">
-                                <svg viewBox="0 0 32 32" width="18px" height="18px">
-                                    <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
-                                </svg>
-                            </button>
-                        </sup>
-                    </legend>
-                    <ul class="business-opt">
-                        <li class="filter-option">
-                            {{ form_widget(form.isSparePartSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.isSparePartSeller) }}
-                        </li>
-                        <li class="filter-option">
-                            {{ form_widget(form.isService, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.isService) }}
-                        </li>
-                        <li class="filter-option">
-                            {{ form_widget(form.isAutoSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.isAutoSeller) }}
-                        </li>
-                        <li class="filter-option">
-                            {{ form_widget(form.isNews, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.isNews) }}
-                        </li>
-                    </ul>
-                    {% for key, error in form.isSparePartSeller.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </fieldset>
-
-                <fieldset class="block">
-                    <legend class="title" data-text="Заполните регистрационные данные">
-                        <sup>
-                            <button type="button" id="initiator-open-popup2" class="help button-open2 open-popup-button">
-                                <svg viewBox="0 0 32 32" width="18px" height="18px">
-                                    <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
-                                </svg>
-                            </button>
-                        </sup>
-                    </legend>
-                    <ul class="business-option">
-                        <li class="choice-b">
-                            {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название организации", class: "choice-input"}}) }}
-                            {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
-                                <span class="check">{{ error.message }}</span>
-                            {% endfor %}
-                        </li>
-                        <li class="choice-unp">
-                            {{ form_widget(form.unp, {attr: {"placeholder": "УНП", class: "choice-input"}}) }}
-                            {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
-                                <span class="check">{{ error.message }}</span>
-                            {% endfor %}
-                        </li>
-                        <li class="country">Беларусь</li>
-                        <li class="choice-city">
-                            {{ form_widget(form.city, {attr: {class: "name-select"}}) }}
-                            {% for key, error in form.city.vars.errors.form.getErrors(true)%}
-                                <span class="check">{{ error.message }}</span>
-                            {% endfor %}
-                        </li>
-                        <li class="choice-str">
-                            {{ form_widget(form.address, {attr: {"placeholder": "Адрес", class: "choice-input"}}) }}
-                            {% for key, error in form.address.vars.errors.form.getErrors(true)%}
-                                <span class="check">{{ error.message }}</span>
-                            {% endfor %}
-                        </li>
-                    </ul>
-                </fieldset>
-
-                <fieldset class="block">
-                    <legend class="title" data-text="Способы оплаты"></legend>
-                    <ul class="pay-block">
-                        <li class="pay-option">
-                            {{ form_widget(form.workflow.isCash, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.workflow.isCash) }}
-                        </li>
-                        <li class="pay-option">
-                            {{ form_widget(form.workflow.isCashless, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.workflow.isCashless) }}
-                        </li>
-                        <li class="pay-option">
-                            {{ form_widget(form.workflow.isCreditCard, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
-                            {{ form_label(form.workflow.isCreditCard) }}
-                        </li>
-                    </ul>
-                    {% for key, error in form.workflow.isCash.vars.errors.form.getErrors(true)%}
-                        <span class="check">{{ error.message }}</span>
-                    {% endfor %}
-                </fieldset>
-
-                <fieldset class="block">
-                    <legend class="title" data-text="Время работы"></legend>
-                    <div class="time">
-                        <div class="time-wrapper time-wrapper--border">
-                            <div class="time-block">
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isMondayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isMondayWork) }}
-                                </div>
-
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isTuesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isTuesdayWork) }}
-                                </div>
-
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isWednesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isWednesdayWork) }}
-                                </div>
-
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isThursdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isThursdayWork) }}
-                                </div>
-
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isFridayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isFridayWork) }}
-                                </div>
-                            </div>
-
-                            <div class="time-m">
-                                {{ form_widget(form.workflow.weekDaysStartAt, {attr: {class: "time_work"}}) }}
-                                {{ form_label(form.workflow.weekDaysEndAt) }}
-                                {{ form_widget(form.workflow.weekDaysEndAt, {attr: {class: "time_work"}}) }}
-                            </div>
-                        </div>
-                        <div class="time-wrapper">
-                            <div class="time-block">
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isSaturdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isSaturdayWork) }}
-                                </div>
-                                <div class="time_new_mk">
-                                    {{ form_widget(form.workflow.isSundayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
-                                    {{ form_label(form.workflow.isSundayWork) }}
-                                </div>
-                            </div>
-                            <div class="time-w">
-                                {{ form_widget(form.workflow.weekendStartAt, {attr: {class: "time_work"}}) }}
-                                {{ form_label(form.workflow.weekendEndAt) }}
-                                {{ form_widget(form.workflow.weekendEndAt, {attr: {class: "time_work"}}) }}
-                            </div>
-                        </div>
-
-                        {% for key, error in form.workflow.isMondayWork.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekendStartAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                        {% for key, error in form.workflow.weekendEndAt.vars.errors.form.getErrors(true)%}
-                            <span class="check">{{ error.message }}</span>
-                        {% endfor %}
-                    </div>
-                </fieldset>
-
-                <div class="wrapper-block">
-                    <fieldset class="block-item" ng-init="isDelivery = {{ form.workflow.delivery.vars.value ? "true" : "false"}}">
-                        <legend class="title" data-text="Доставка"></legend>
-                        <ul class="delivery-block">
-                            {% for choice in form.workflow.delivery %}
-                                <li class="delivery-option">
-                                    {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isDelivery = !isDelivery" }}) }}
-                                    {{ form_label(choice) }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        {#<span class="check">Сделайте выбор</span>#}
-                        <div class="delivery-text" ng-show="isDelivery">
-                            {{ form_widget(form.workflow.deliveryDetail, {attr: {"rows": "3", "placeholder" : "Варианты доставки:" }}) }}
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="block-item" ng-init="isGuarantee = {{ form.workflow.guarantee.vars.value ? "true" : "false"}}">
-                        <legend class="title" data-text="Гарантия"></legend>
-                        <ul class="delivery-block">
-                            {% for choice in form.workflow.guarantee %}
-                                <li class="delivery-option">
-                                    {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isGuarantee = !isGuarantee" }}) }}
-                                    {{ form_label(choice) }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        {#<span class="check">Сделайте выбор</span>#}
-
-                        <div class="delivery-text" ng-show="isGuarantee">
-                            {{ form_widget(form.workflow.guaranteeDetail, {attr: {"rows": "3", "placeholder" : "Гарантийные условия:" }}) }}
-                        </div>
-                    </fieldset>
-                </div>
-
-                <fieldset class="block">
-                    <legend class="title title-t" data-text="{{ default_text(12).headline }}"></legend>
-                    {{ form_widget(form.activityDescription, {attr: {"rows": "5" }}) }}
-                </fieldset>
-
-                <fieldset class="block">
-                    <legend class="title" data-text="{{ form.additionalPhone.vars.label }}"></legend>
-                    <div class="phone">
-                        {{ form_widget(form.additionalPhone, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
-                        {{ form_widget(form.additionalPhone2, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
-                        {{ form_widget(form.additionalPhone3, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
-                    </div>
-                </fieldset>
-
-                <div class="business-btn">
-                    {{ form_widget(form.submit, {attr: {class: "btn-filter" }, label: "Подтвердить и сохранить"}) }}
-                    {#<span class="check check-on">Сохранение принято</span>#}
-                </div>
-            </form>
-
-            <div class="subtext">{{ default_text(12).text | raw }}</div>
+        <div class="business" id="form-business-profile-container" ng-controller="BusinessProfileCtrl as business"
+             ng-init="business.init('#business-data-form', '{{ path("edit_user_business_data") }}')">
+            {% include('/client/user-office/edit-profile-form/business-data.html.twig') with {"form" : form} %}
         </div>
     </main>
 
     <div id="popup1" class="overlay1">
         <section class="modal">
-            <button id="initiator-close-popup1" type="button" class="modal-close button-close1 close-popup-button">
+            <button class="modal-close close-popup-button" data-popup-id="1" type="button">
                 <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                     <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
                 </svg>
             </button>
             <h1 class="modal-title">{{ default_text(29).headline }}</h1>
-            <p class="modal-text">{{ default_text(29).text | raw }}</p>
+            <div class="modal-text">{{ default_text(29).text | raw }}</div>
         </section>
     </div>
 
     <div id="popup2" class="overlay2">
         <section class="modal">
-            <button id="initiator-close-popup2" type="button" class="modal-close button-close2 close-popup-button">
+            <button class="modal-close close-popup-button" data-popup-id="2" type="button">
                 <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                     <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                     <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
                 </svg>
             </button>
             <h1 class="modal-title">{{ default_text(30).headline }}</h1>
-            <p class="modal-text">{{ default_text(30).text | raw }}</p>
+            <div class="modal-text">{{ default_text(30).text | raw }}</div>
         </section>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/controller/user-profile/business-profile-controller.js'></script>
+    <script src='/js/client/directive/scroll-to-element.js'></script>
 {% endblock %}

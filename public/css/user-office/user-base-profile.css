@@ -1,6 +1,5 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-  border-top: 1px solid #444;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,20 +8,13 @@
   padding-top: 5px;
 }
 
-#breadcrumbs li {
-  margin-right: 7px;
-
-}
-
-.more {
-  display: none;
-  font-size: 0.9em;
-  letter-spacing: 2px;
-  color: #444;
+.line {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #breadcrumbs a {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   font-size: 16px;
   line-height: 18px;
   color: #444;
@@ -46,45 +38,24 @@
 .current {
   cursor: default;
 }
-.opened {
-  background-color: transparent;
-}
 
-@media  (max-width: 575px) {
+@media  (max-width: 481px) {
   .container {
     width: auto;
   }
   #breadcrumbs {
     padding-top: 3px;
   }
-
+  .line {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
   .user-name {
-    display: none;
-  }
-  .opened {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-
-  }
-  .opened li {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-
-  .opened .more {
     display: none;
   }
 
   .user-icon {
     display: block;
-  }
-  .link-b {
-    margin-right: 5px;
-    display: none;
   }
 
   .close-menu {
@@ -96,59 +67,42 @@
     height: 10px;
   }
 
-  .opened .link-b {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
   .user-icon {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 18px;
   }
-  .more {
-    display: block;
-    cursor: pointer;
-    font-size: 12px;
-    line-height: 18px;
-  }
+
   #breadcrumbs a {
     line-height: 20px;
-    font-size: 12px;
+    font-size: 11px;
   }
   .model-block {
     padding-top: 5px;
   }
 
   .user-link--icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 
-  #breadcrumbs li {
-    margin-right: 0;
-  }
 
   #breadcrumbs li:nth-child(2) {
     margin-right: 3px;
   }
 
-  .more {
-    display: block;
-    cursor: pointer;
-
-  }
-
-  .opened .more {
-    display: none;
-  }
 }
-@media (min-width: 576px) and (max-width: 767px) {
+@media  (max-width: 767px) {
   .container {
     width: auto;
   }
+  #breadcrumbs a {
+    line-height: 20px;
+    font-size: 11px;
+  }
 }
 /*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 
@@ -160,17 +114,19 @@
 }
 
 .block {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
+}
+.block-m {
+  margin-bottom: 10px;
 }
 
 .title {
   font-size: 26px;
-  line-height: 28px;
+  line-height: 30px;
   font-weight: 400;
   color: #f66666;
   text-align: center;
   margin-bottom: 30px;
-  font-family: 'Roboto', sans-serif;
   letter-spacing: 1px;
 }
 
@@ -202,8 +158,8 @@ label {
   font-size: 20px;
   line-height: 22px;
   color: #727272;
-  font-weight: 700;
-  margin-right: 37px;
+  font-weight: 400;
+  margin: 0 16px;
   margin-bottom: 20px;
 }
 
@@ -211,12 +167,13 @@ input {
   border: none;
   padding: 5px;
   border-bottom: 1px solid #757373;
-  font-family: 'Comfortaa', cursive;
   font-size: 18px;
   line-height: 20px;
   color: #000;
-  background-color: #fff;
+  background-color: white;
   margin-left: 15px;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 select {
@@ -229,9 +186,16 @@ select {
   border-bottom: 1px solid #757373;
   margin: 0 10px;
   margin-left: 18px;
-  background-color: #fff;
+  background: white;
+  -webkit-appearance: none;
+  border-radius: 0;
   margin-left: 15px;
 }
+::-webkit-input-placeholder {color:#000000;}
+::-moz-placeholder          {color:#000000;}/* Firefox 19+ */
+:-moz-placeholder           {color:#000000;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#000000;}
+
 .help {
   width: 18px;
   height: 18px;
@@ -252,7 +216,7 @@ select {
 }
 
 .phone-input {
-  width: 190px;
+  width: 200px;
 }
 
 .email-input {
@@ -288,7 +252,7 @@ select {
   font-size: 12px;
   line-height: 14px;
   padding-top: 5px;
-  color: #d22856;
+  color: red;
   text-align: center;
 }
 .check-on {
@@ -305,7 +269,7 @@ select {
   display: block;
   font-size: 18px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 400;
   padding: 5px 25px;
   padding-bottom: 3px;
   margin: 0 auto;
@@ -364,7 +328,7 @@ select {
 
   font-size: 20px;
   line-height: 22px;
-  font-weight: 700;
+  font-weight: 400;
   color: #444444;
   cursor: pointer;
   background-color: #fff;
@@ -379,7 +343,7 @@ select {
   margin-right: 10px;
 }
 .btn--m {
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 }
 
 .overlay1,
@@ -408,7 +372,8 @@ select {
   transform: translateX(-50%);
   text-align: center;
   background-color: #fff;
-  padding: 25px 10px;
+  padding: 45px 10px;
+  border-radius: 5px;
 }
 
 .modal-close {
@@ -423,12 +388,12 @@ select {
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  right: 7px;
-  top: 7px;
+  right: 3px;
+  top: 3px;
   cursor: pointer;
-  border: 2px solid #000;
+  border: 1px solid #737373;
   background-color: #fff;
-  border-radius: 50%;
+  border-radius: 5px;
   padding: 2px;
   outline: none;
 
@@ -446,9 +411,8 @@ select {
   margin-bottom: 15px;
   color: #000;
   font-size: 24px;
-  font-weight: 700;
-  line-height: 26px;
-  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 24px;
   text-align: center;
 
 }
@@ -457,9 +421,8 @@ select {
   margin: 0;
   color: #000;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 18px;
-  font-family: 'Roboto', sans-serif;
   text-align: justify;
 }
 
@@ -467,9 +430,8 @@ select {
   margin: 0;
   color: #000;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 18px;
-  font-family: 'Roboto', sans-serif;
   text-align: justify;
 }
 
@@ -551,7 +513,7 @@ select {
 
   .str-input {
     display: block;
-    width: 100%;
+    width: 95%;
     margin: 0 auto;
   }
 
@@ -568,7 +530,6 @@ select {
     font-size: 11px;
     line-height: 14px;
     padding-top: 5px;
-    color: #d22856;
     text-align: center;
   }
 
@@ -659,8 +620,6 @@ select {
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
-    padding: 25px 10px;
-    padding-top: 35px;
   }
 
   .modal-close {
@@ -675,19 +634,19 @@ select {
     -ms-flex-align: center;
     align-items: center;
     position: absolute;
-    right: 7px;
-    top: 7px;
+    right: 3px;
+    top: 3px;
     cursor: pointer;
-    border: 2px solid #000;
+    border: 1px solid #737373;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 
   }
 
   .modal-close:hover {
-    border: 2px solid red;
+    border: 1px solid red;
   }
 
 
@@ -696,7 +655,6 @@ select {
     margin-bottom: 15px;
     color: #000;
     font-size: 24px;
-    font-weight: 700;
     line-height: 26px;
     text-transform: uppercase;
     text-align: center;
@@ -707,9 +665,8 @@ select {
     margin: 0;
     color: #000;
     font-size: 16px;
-    font-weight: 300;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
+
   }
   .modal {
     top: 50px;
@@ -802,9 +759,6 @@ select {
   }
 
 }
-
-
-
 
 
 

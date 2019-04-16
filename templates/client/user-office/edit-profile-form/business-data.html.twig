@@ -1,0 +1,272 @@
+{% set scrollToElement = false %}
+
+<form id="business-data-form" class="business-form" action="{{ path("show_user_business_office") }}" method="post" novalidate enctype="multipart/form-data"
+        {% if isValid is defined and isValid %} redirect-to-url redirect-url="{{ path("show_user_office") }}" {% endif %}>
+    {{ form_widget(form._token) }}
+    <fieldset class="block">
+        <legend class="title" data-text="Выберите виды деятельности">
+            <sup>
+                <button class="help open-popup-button" data-popup-id="1" type="button">
+                    <svg viewBox="0 0 32 32" width="18px" height="18px">
+                        <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                    </svg>
+                </button>
+            </sup>
+        </legend>
+        <ul class="business-opt"
+                {% if not scrollToElement and form.isSparePartSeller.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}>
+            <li class="filter-option">
+                {{ form_widget(form.isSparePartSeller, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                <label for="{{ form.isSparePartSeller.vars.id }}">{{ form.isSparePartSeller.vars.label | raw }}</label>
+            </li>
+            <li class="filter-option">
+                {{ form_widget(form.isService, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                <label for="{{ form.isService.vars.id }}">{{ form.isService.vars.label | raw }}</label>
+            </li>
+            <li class="filter-option">
+                {{ form_widget(form.isAutoSeller, {attr: {class: "visually-hidden isAutoSeller-input filter-input-checkbox"}}) }}
+                <label for="{{ form.isAutoSeller.vars.id }}">{{ form.isSparePartSeller.vars.label | raw }}</label>
+            </li>
+            {#<li class="filter-option">#}
+            {#{{ form_widget(form.isTourism, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}#}
+            {#<label for="{{ form.isTourism.vars.id }}">{{ form.isTourism.vars.label | raw }}</label>#}
+            {#</li>#}
+            {#<li class="filter-option">#}
+            {#{{ form_widget(form.isNews, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}#}
+            {#<label for="{{ form.isNews.vars.id }}">{{ form.isNews.vars.label | raw }}</label>#}
+            {#</li>#}
+        </ul>
+        {% for key, error in form.isSparePartSeller.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+    </fieldset>
+
+    <fieldset class="block">
+        <legend class="title" data-text="Заполните регистрационные данные">
+            <sup>
+                <button class="help open-popup-button" data-popup-id="2" type="button">
+                    <svg viewBox="0 0 32 32" width="18px" height="18px">
+                        <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
+                    </svg>
+                </button>
+            </sup>
+        </legend>
+        <ul class="business-option">
+            <li class="choice-b"
+                    {% if not scrollToElement and form.companyName.vars.errors.form.getErrors(true) | length %}
+                        scroll-to-element
+                        {% set scrollToElement = true %}
+                    {% endif %}
+            >
+                {{ form_widget(form.companyName, {attr: {"placeholder": "Полное название организации или ИП", class: "choice-input"}}) }}
+                {% for key, error in form.companyName.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </li>
+            <li class="choice-unp">
+                <label
+                        {% if not scrollToElement and form.unp.vars.errors.form.getErrors(true) | length %}
+                            scroll-to-element
+                            {% set scrollToElement = true %}
+                        {% endif %}
+                >УНП
+                    {{ form_widget(form.unp, {attr: {"placeholder": "", class: "choice-input"}}) }}
+                </label>
+                {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </li>
+            <li class="choice-city choice-city-c"
+                    {% if not scrollToElement and form.city.vars.errors.form.getErrors(true) | length %}
+                        scroll-to-element
+                        {% set scrollToElement = true %}
+                    {% endif %}
+            >
+                <span class="country">Беларусь</span>
+                {{ form_widget(form.city, {attr: {class: "name-select"}}) }}
+                {% for key, error in form.city.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </li>
+            <li class="choice-str"
+                    {% if not scrollToElement and form.address.vars.errors.form.getErrors(true) | length %}
+                        scroll-to-element
+                        {% set scrollToElement = true %}
+                    {% endif %}
+            >
+                {{ form_widget(form.address, {attr: {"placeholder": "Адрес:", class: "choice-input"}}) }}
+                {% for key, error in form.address.vars.errors.form.getErrors(true)%}
+                    <span class="check">{{ error.message }}</span>
+                {% endfor %}
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset class="block">
+        <legend class="title" data-text="Способы оплаты"></legend>
+        <ul class="pay-block"
+                {% if not scrollToElement and form.workflow.isCash.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >
+            <li class="pay-option">
+                {{ form_widget(form.workflow.isCash, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                {{ form_label(form.workflow.isCash) }}
+            </li>
+            <li class="pay-option">
+                {{ form_widget(form.workflow.isCashless, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                {{ form_label(form.workflow.isCashless) }}
+            </li>
+            <li class="pay-option">
+                {{ form_widget(form.workflow.isCreditCard, {attr: {class: "visually-hidden filter-input filter-input-checkbox"}}) }}
+                {{ form_label(form.workflow.isCreditCard) }}
+            </li>
+        </ul>
+        {% for key, error in form.workflow.isCash.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+    </fieldset>
+
+    {% set workdayErrors = (form.workflow.isMondayWork.vars.errors.form.getErrors(true) | length) +
+        (form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true) | length) +
+        (form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true) | length) +
+        (form.workflow.weekendStartAt.vars.errors.form.getErrors(true) | length) +
+        (form.workflow.weekendEndAt.vars.errors.form.getErrors(true) | length)%}
+    <fieldset class="block"
+            {% if not scrollToElement and workdayErrors > 0 %}
+                scroll-to-element
+                {% set scrollToElement = true %}
+            {% endif %}
+    >
+        <legend class="title" data-text="Время работы"></legend>
+        <div class="time">
+            <div class="time-wrapper time-wrapper--border">
+                <div class="time-block">
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isMondayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isMondayWork) }}
+                    </div>
+
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isTuesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isTuesdayWork) }}
+                    </div>
+
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isWednesdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isWednesdayWork) }}
+                    </div>
+
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isThursdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isThursdayWork) }}
+                    </div>
+
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isFridayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isFridayWork) }}
+                    </div>
+                </div>
+
+                <div class="time-m">
+                    {{ form_widget(form.workflow.weekDaysStartAt, {attr: {class: "time_work"}}) }}
+                    {{ form_label(form.workflow.weekDaysEndAt) }}
+                    {{ form_widget(form.workflow.weekDaysEndAt, {attr: {class: "time_work"}}) }}
+                </div>
+            </div>
+            <div class="time-wrapper">
+                <div class="time-block">
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isSaturdayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isSaturdayWork) }}
+                    </div>
+                    <div class="time_new_mk">
+                        {{ form_widget(form.workflow.isSundayWork, {attr: {class: "visually-hidden filter-input checkbox-custom"}}) }}
+                        {{ form_label(form.workflow.isSundayWork) }}
+                    </div>
+                </div>
+                <div class="time-w">
+                    {{ form_widget(form.workflow.weekendStartAt, {attr: {class: "time_work"}}) }}
+                    {{ form_label(form.workflow.weekendEndAt) }}
+                    {{ form_widget(form.workflow.weekendEndAt, {attr: {class: "time_work"}}) }}
+                </div>
+            </div>
+        </div>
+        {% for key, error in form.workflow.isMondayWork.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+        {% for key, error in form.workflow.weekDaysStartAt.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+        {% for key, error in form.workflow.weekDaysEndAt.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+        {% for key, error in form.workflow.weekendStartAt.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+        {% for key, error in form.workflow.weekendEndAt.vars.errors.form.getErrors(true)%}
+            <span class="check">{{ error.message }}</span>
+        {% endfor %}
+    </fieldset>
+
+    <div class="wrapper-block">
+        <fieldset class="block-item" ng-init="isDelivery = {{ form.workflow.delivery.vars.value ? "true" : "false"}}">
+            <legend class="title" data-text="Доставка"></legend>
+            <ul class="delivery-block">
+                {% for choice in form.workflow.delivery %}
+                    <li class="delivery-option">
+                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isDelivery = !isDelivery" }}) }}
+                        {{ form_label(choice) }}
+                    </li>
+                {% endfor %}
+            </ul>
+            {#<span class="check">Сделайте выбор</span>#}
+            <div class="delivery-text" ng-show="isDelivery">
+                {{ form_widget(form.workflow.deliveryDetail, {attr: {"rows": "3", "placeholder" : "Варианты доставки:" }}) }}
+            </div>
+        </fieldset>
+
+        <fieldset class="block-item" ng-init="isGuarantee = {{ form.workflow.guarantee.vars.value ? "true" : "false"}}">
+            <legend class="title" data-text="Гарантия"></legend>
+            <ul class="delivery-block">
+                {% for choice in form.workflow.guarantee %}
+                    <li class="delivery-option">
+                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio", "ng-click": "isGuarantee = !isGuarantee" }}) }}
+                        {{ form_label(choice) }}
+                    </li>
+                {% endfor %}
+            </ul>
+            {#<span class="check">Сделайте выбор</span>#}
+
+            <div class="delivery-text" ng-show="isGuarantee">
+                {{ form_widget(form.workflow.guaranteeDetail, {attr: {"rows": "3", "placeholder" : "Гарантийные условия:" }}) }}
+            </div>
+        </fieldset>
+    </div>
+
+    <fieldset class="block">
+        <legend class="title title-t" data-text="{{ default_text(12).headline }}"></legend>
+        {{ form_widget(form.activityDescription, {attr: {"rows": "5" }}) }}
+    </fieldset>
+
+    <fieldset class="block">
+        <legend class="title" data-text="{{ form.additionalPhone.vars.label }}"></legend>
+        <div class="phone">
+            {{ form_widget(form.additionalPhone, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
+            {{ form_widget(form.additionalPhone2, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
+            {{ form_widget(form.additionalPhone3, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
+        </div>
+    </fieldset>
+
+    <div class="business-btn">
+        {{ form_widget(form.submit, {attr: {class: "btn-filter" }, label: "Подтвердить и сохранить"}) }}
+        {% if isValid is defined and isValid %}
+            <span class="check check-on">Сохранение принято</span>
+        {% endif %}
+    </div>
+</form>
+<div class="subtext">{{ default_text(12).text | raw }}</div>
