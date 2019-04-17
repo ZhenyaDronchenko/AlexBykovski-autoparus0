@@ -181,4 +181,17 @@ class GeoLocation
     {
         $this->ip = $ip;
     }
+
+    public function copy()
+    {
+        $geoLocation = new GeoLocation($this->ip);
+
+        $geoLocation->setCountry($this->country);
+        $geoLocation->setCity($this->city);
+        $geoLocation->setFullAddress($this->fullAddress);
+        $geoLocation->setLatitude($this->latitude);
+        $geoLocation->setLongitude($this->longitude);
+
+        return $geoLocation;
+    }
 }
