@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <form class='modform' action="#" method="get">
+            <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <input id="model-autocomplete" class="select" type="search"
                        auto-сomplete-autoparus add-url="{{ path("turbo_catalog_choice_model", routeParams) }}"
                        method-search="searchModels" identifier-field="model-autocomplete" is-preload-data="true"
@@ -58,7 +58,7 @@
             </form>
 
             <div class="wrapper">
-                <ul id="brand-block" class="text2Show" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <ul id="brand-block" class="text2Show">
                     {% for model in popularModels %}
                         <li ng-hide="showAll">
                             <a class="link" href="{{ path("turbo_catalog_choice_spare_part", routeParams|merge({"urlModel" : model.url})) }}">{{ model.name }}</a>

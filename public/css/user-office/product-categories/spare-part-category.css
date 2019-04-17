@@ -1,6 +1,5 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 2px solid black;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -9,20 +8,13 @@
     padding-top: 5px;
 }
 
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
+.line {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
     font-size: 16px;
     line-height: 18px;
     color: #444;
@@ -46,45 +38,24 @@
 .current {
     cursor: default;
 }
-.opened {
-    background-color: transparent;
-}
 
-@media  (max-width: 575px) {
+@media  (max-width: 481px) {
     .container {
         width: auto;
     }
     #breadcrumbs {
         padding-top: 3px;
     }
-
+    .line {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
     .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
         display: none;
     }
 
     .user-icon {
         display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-
     }
 
     .close-menu {
@@ -96,57 +67,42 @@
         height: 10px;
     }
 
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
     .user-icon {
         display: block;
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 18px;
     }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
+
     #breadcrumbs a {
         line-height: 20px;
-        font-size: 12px;
+        font-size: 11px;
     }
     .model-block {
         padding-top: 5px;
     }
 
     .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
+        width: 16px;
+        height: 16px;
     }
 
 
-
-    .more {
-        display: block;
-        cursor: pointer;
-
+    #breadcrumbs li:nth-child(2) {
+        margin-right: 3px;
     }
 
-    .opened .more {
-        display: none;
-    }
 }
-@media (min-width: 576px) and (max-width: 767px) {
+@media  (max-width: 767px) {
     .container {
         width: auto;
     }
+    #breadcrumbs a {
+        line-height: 20px;
+        font-size: 14px;
+    }
 }
 /*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 
@@ -158,18 +114,18 @@
 
 .title {
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    text-align: center;
     font-size: 26px;
     line-height: 30px;
-    font-weight: 700;
-    color: #ff0000;
-    text-align: center;
-    margin-bottom: 30px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
 }
 
-.title::before { /* второй слой */
+.title::before {
     content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 
@@ -190,25 +146,30 @@
     margin-bottom: 30px;
     width: 43%;
 }
+.items-block li:last-child {
+    margin-top: 30px;
+}
 
 .items-link{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 85px;
     border: 1px solid #737373;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px 7px;
+    padding-left: 20px;
     overflow: hidden;
 }
 
 .items-link span {
     width: 73%;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
     color: #444;
     letter-spacing: 1px;
+    text-align: center;
 
 }
 
@@ -223,7 +184,7 @@
 }
 
 p {
-    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
     font-size: 16px;
     line-height: 20px;
     color: #000;
@@ -246,15 +207,15 @@ p {
 
     .items-block li {
         width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     .items-link {
         padding: 5px;
     }
     .items-link span{
         width: 71%;
-        font-size: 12px;
-        line-height: 14px;
+        font-size: 15px;
+        line-height: 20px;
 
     }
     .items-link img {
@@ -278,10 +239,7 @@ p {
     }
 
 
-    .items-link span{
-        font-size: 16px;
-        line-height: 18px;
-    }
+
 
 
 
@@ -296,8 +254,8 @@ p {
     }
 
     .items-link span{
-        font-size: 12px;
-        line-height: 18px;
+        font-size: 16px;
+        line-height: 20px;
     }
 
 

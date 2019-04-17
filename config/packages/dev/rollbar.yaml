@@ -1,0 +1,4 @@
+rollbar:
+  enabled: true
+  access_token: 2636d4d87c02416d837200dc18aaecda
+  environment: dev
