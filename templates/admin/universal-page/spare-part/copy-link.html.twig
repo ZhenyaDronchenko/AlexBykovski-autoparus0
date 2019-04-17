@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% set type = constant('App\\Entity\\UniversalPage\\UniversalPage::UNIVERSAL_PAGE_SPARE_PART') %}
+    <a class="btn btn-primary" href="{{ path("admin_copy_universal_page", {"id": object.id, "type": type}) }}">
+        <i class="fa fa-files-o" aria-hidden="true"></i> Copy
+    </a>
+{% endblock %}
