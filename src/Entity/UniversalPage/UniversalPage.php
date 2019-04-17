@@ -3,12 +3,16 @@
 namespace App\Entity\UniversalPage;
 
 
+use App\Entity\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 abstract class UniversalPage
 {
+    const UNIVERSAL_PAGE_BRAND = "brand";
+    const UNIVERSAL_PAGE_CITY = "city";
+    const UNIVERSAL_PAGE_SPARE_PART = "spare_part";
     /**
      * @var integer|null
      *
@@ -242,5 +246,49 @@ abstract class UniversalPage
     public function setImages(Collection $images): void
     {
         $this->images = $images;
+    }
+
+    public function copy()
+    {
+        $newPage = $this->getNewObject();
+
+        $newPage->setLastBreadCrumb($this->lastBreadCrumb);
+        $newPage->setReturnButtonLink($this->returnButtonLink);
+        $newPage->setReturnButtonText($this->returnButtonText);
+        $newPage->setText2($this->text2);
+        $newPage->setText1($this->text1);
+        $newPage->setDescription($this->description);
+        $newPage->setHeadline1($this->headline1);
+        $newPage->setTitle($this->title);
+
+        $images = new ArrayCollection();
+
+        /** @var Image $image */
+        foreach ($this->images as $image)
+        {
+            $geoLocation = $image->getGeoLocation() ?  $image->getGeoLocation()->copy() : null;
+            $newImage = new Image($image->getImage());
+            $newImage->setGeoLocation($geoLocation);
+
+            $images->add($newImage);
+        }
+
+        $newPage->setImages($images);
+
+        return $newPage;
+    }
+
+    private function getNewObject()
+    {
+        switch(get_class($this)){
+            case UniversalPageBrand::class:
+                return new UniversalPageBrand();
+            case UniversalPageCity::class:
+                return new UniversalPageCity();
+            case UniversalPageSparePart::class:
+                return new UniversalPageSparePart();
+        }
+
+        return null;
     }
 }
