@@ -19,7 +19,7 @@
                         {% endif %}
                 >
                     {{ form_widget(form.name, {attr: {"placeholder": "Ваше имя", "class" : "input save-field " ~ nameCookieKey, "input-by-pattern" : "", "pattern" : "[a-zA-Zа-яА-Я\\s]", "error-message" : "Используйте только буквы и пробел", "error-container" : "#first-name-errors", "style" : "display: block;" }}) }}
-                    <button class="btn" type="button">
+                    <button class="btn" type="button" clear-field-button target-element="#{{ form.name.vars.id }}">
                         <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 50 50">
                             <line stroke="#8e8e8e" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                             <line stroke="#8e8e8e" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
@@ -39,7 +39,7 @@
                         {% endif %}
                 >
                     {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail", "class" : "input registration-email-field save-field " ~ emailCookieKey, "oninput" : "this.value = this.value.toLowerCase();" }}) }}
-                    <button class="btn" type="button">
+                    <button class="btn" type="button" clear-field-button target-element="#{{ form.email.vars.id }}">
                         <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 50 50">
                             <line stroke="#8e8e8e" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                             <line stroke="#8e8e8e" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
