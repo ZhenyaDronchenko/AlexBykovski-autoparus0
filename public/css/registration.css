@@ -247,15 +247,13 @@ label {
 
 input {
   border: none;
-  padding: 5px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid #000;
-  font-family: 'Comfortaa', cursive;
+  padding: 4px;
+  border-bottom: 1px solid #999999;
+  font-weight: 400;
   font-size: 18px;
   line-height: 20px;
-  color: #757373;
-  background-color: #fff;
-
+  color: #000000;
+  background-color: white !important;
 }
 .cod {
   width: 225px;
@@ -265,12 +263,12 @@ input {
 .input-cod {
   display: block;
   margin: 0 auto;
-  border: 1px solid #000;
+  border: 1px solid #999999;
   border-radius: 5px;
   width: 80px;
   font-size: 16px;
   line-height: 18px;
-  color: #757373;
+  color: #000000;
 }
 
 .img-block {
@@ -325,20 +323,22 @@ input {
   position: absolute;
   display: block;
   left: -25px;
-  top: -3px;
+  top: 0;
   width: 14px;
   height: 14px;
-  border: 1px solid #000000;
+  border: 1px solid #737373;
   border-radius: 3px;
 }
 
 .filter-input-checkbox:checked + label::after {
-  content: '✔';
-  position: absolute;
-  display: block;
-  left: -23px;
-  top: -1px;
-  font-size: 14px;
+   content: "";
+    background: url(../img/chek1.svg) 0 0 no-repeat;
+    position: absolute;
+    display: block;
+    width: 12px;
+    height: 12px;
+    left: -24px;
+    top: 0px;
 }
 
 .button {
@@ -346,13 +346,12 @@ input {
   display: block;
   padding: 5px 25px;
   text-align: center;
-  border: 1px solid #727272;
+  border: 1px solid #999999;
   border-radius: 3px;
-  margin-bottom: 3px;
   cursor: pointer;
   font-size: 18px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 400;
   color: #444;
   background-color: #dbc0c7;
 

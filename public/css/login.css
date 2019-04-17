@@ -183,7 +183,7 @@
 }
 
 .registration-block {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .registration-block li {
   margin-bottom: 10px;
@@ -207,18 +207,18 @@
 }
 
 .block-tel-email {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .input {
   width: 100%;
 }
 .wrapper-pas {
-  width: 290px;
+  width: 250px;
   margin: 0 auto;
 }
 
 .input-pas {
-  width: 240px;
+  width: 100%;
 }
 
 .prompt {
@@ -248,14 +248,13 @@ label {
 
 input {
   border: none;
-  padding: 5px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid #000;
-  font-family: 'Comfortaa', cursive;
+  padding: 4px;
+  border-bottom: 1px solid #999999;
+  font-weight: 400;
   font-size: 18px;
   line-height: 20px;
-  color: #757373;
-  background-color: #fff;
+  color: #000000;
+  background-color: white !important;
 
 }
 
@@ -294,22 +293,25 @@ input {
   position: absolute;
   display: block;
   left: -25px;
-  top: -2px;
+  top: 0;
   width: 14px;
   height: 14px;
-  border: 1px solid #000000;
+  border: 1px solid #737373;
   border-radius: 3px;
 }
 
 .filter-input-checkbox:checked + label::after {
-  content: '✔';
-  position: absolute;
-  display: block;
-  left: -23px;
-  top: -1px;
-  font-size: 14px;
+  content: "";
+    background: url(../img/chek1.svg) 0 0 no-repeat;
+    position: absolute;
+    display: block;
+    width: 12px;
+    height: 12px;
+    left: -24px;
+    top: 0px;
 }
 .pas {
+  display: block;
   text-align: center;
   color: #000000;
   font-size: 16px;
@@ -336,7 +338,7 @@ input {
   border: none;
   background-color: #fff;
   outline: none;
-  text-decoration: underline;
+  
 }
 .btn-log:hover,
 .btn-log:focus {
@@ -350,11 +352,10 @@ input {
   border: 1px solid #727272;
   border-radius: 3px;
   color: #444444;
-  margin-bottom: 3px;
   cursor: pointer;
   font-size: 18px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 400;
   background-color: #dbc0c7;
   margin-bottom: 30px;
 }
@@ -483,12 +484,6 @@ input {
   }
 
 
-  .registration-block {
-    margin-bottom: 20px;
-  }
-  .input {
-    width: 100%;
-  }
 
   .prompt {
     font-size: 12px;
@@ -507,7 +502,6 @@ input {
   }
 
   .input-pas {
-    width: 235px;
     font-size: 16px;
     line-height: 18px;
   }
