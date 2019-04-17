@@ -137,7 +137,7 @@ ul {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    border-bottom: 1px solid #737373;
+    
     -webkit-transition: max-height 1.5s;
     -o-transition: max-height 1.5s;
     transition: max-height 1.5s;
@@ -395,13 +395,13 @@ ul {
     stroke: red;
 }
 
-.check:hover path,
-.check:focus path {
+.check-img:hover path,
+.check-img:focus path {
     stroke: red;
 }
 
-.check:hover .ligh,
-.check:focus .ligh {
+.check-img:hover .ligh,
+.check-img:focus .ligh {
     fill: red;
 }
 
