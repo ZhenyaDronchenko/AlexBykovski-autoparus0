@@ -21,6 +21,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class UniversalPageBrandAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $uploader;
 
     private $helper;

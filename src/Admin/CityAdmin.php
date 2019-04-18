@@ -18,6 +18,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class CityAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $uploader = null;
 
     private $helper;
