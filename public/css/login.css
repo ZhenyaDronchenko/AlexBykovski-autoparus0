@@ -302,7 +302,7 @@ input {
 
 .filter-input-checkbox:checked + label::after {
   content: "";
-    background: url(/img/check-b.svg) 0 0 no-repeat;
+    background: url(/img/chek1.svg) 0 0 no-repeat;
     position: absolute;
     display: block;
     width: 12px;
