@@ -1,6 +1,5 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-  border-top: 1px solid #444;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -170,11 +169,11 @@
   margin: 0;
   font-size: 30px;
   line-height: 32px;
+  letter-spacing: 1px;
   font-weight: 400;
   color: #f66666;
   text-align: center;
   margin-bottom: 30px;
-  font-family: 'Roboto', sans-serif;
 }
 
 .registration-title::before { /* второй слой */
@@ -369,7 +368,6 @@ input {
   line-height: 18px;
   font-weight: 400;
   color: #000000;
-  font-family: 'Roboto', sans-serif;
   margin-bottom: 60px;
 }
 
@@ -461,7 +459,6 @@ input {
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
-  font-family: 'Roboto', sans-serif;
   margin-bottom: 20px;
 }
 
