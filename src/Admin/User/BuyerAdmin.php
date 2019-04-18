@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class BuyerAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $baseRouteName = 'admin_app_buyer';
     protected $baseRoutePattern = 'buyer';
 
