@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class CodeOBD2ErrorAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
     protected $parentAssociationMapping = 'type';
 
     /** @var EntityManagerInterface */

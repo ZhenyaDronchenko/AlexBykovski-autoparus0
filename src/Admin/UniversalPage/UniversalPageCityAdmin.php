@@ -21,6 +21,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class UniversalPageCityAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $uploader;
 
     private $helper;
@@ -87,6 +89,11 @@ class UniversalPageCityAdmin extends AbstractAdmin
             'template' => 'admin/universal-page/city/show-url.html.twig'
         ]);
         $listMapper->addIdentifier('headline1', TextType::class, ['label' => 'Заголовок', 'sortable' => false]);
+        $listMapper->addIdentifier('copyButton', null, [
+            'label' => false,
+            'mapped' => false,
+            'template' => 'admin/universal-page/city/copy-link.html.twig',
+        ]);
     }
 
     public function prePersist($page)

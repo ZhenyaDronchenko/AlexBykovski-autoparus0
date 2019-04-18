@@ -10,6 +10,10 @@ use App\Entity\Phone\PhoneBrand;
 use App\Entity\Phone\PhoneModel;
 use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
+use App\Entity\UniversalPage\UniversalPage;
+use App\Entity\UniversalPage\UniversalPageBrand;
+use App\Entity\UniversalPage\UniversalPageCity;
+use App\Entity\UniversalPage\UniversalPageSparePart;
 use App\Entity\User;
 use App\Entity\UserData\UserEngine;
 use App\Entity\UserData\UserOBD2ErrorCode;
@@ -36,7 +40,6 @@ class AdminController extends Controller
     public function authorizeAdminAsUserAction(
         Request $request,
         User $user,
-        UserPasswordEncoderInterface $encoder,
         TokenStorageInterface $tokenStorage
     )
     {
@@ -226,6 +229,51 @@ class AdminController extends Controller
         return $this->redirectToRoute("admin_app_error_typeobd2error_error_codeobd2error_edit", [
             "id" => $type->getId(),
             "childId" => $code->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/copy-universal-page/{type}/{id}", name="admin_copy_universal_page")
+     */
+    public function copyUniversalPageAction(Request $request, $type, $id)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $redirectRoute = null;
+        $page = null;
+
+        switch ($type){
+            case UniversalPage::UNIVERSAL_PAGE_BRAND:
+                $redirectRoute = "admin_app_universalpage_universalpagebrand_edit";
+                $page = $em->getRepository(UniversalPageBrand::class)->find($id);
+
+                break;
+            case UniversalPage::UNIVERSAL_PAGE_CITY:
+                $redirectRoute = "admin_app_universalpage_universalpagecity_edit";
+                $page = $em->getRepository(UniversalPageCity::class)->find($id);
+
+                break;
+            case UniversalPage::UNIVERSAL_PAGE_SPARE_PART:
+                $redirectRoute = "admin_app_universalpage_universalpagesparepart_edit";
+                $page = $em->getRepository(UniversalPageSparePart::class)->find($id);
+
+                break;
+            default:
+                break;
+        }
+
+        if(!($page instanceof UniversalPage)){
+            return $this->redirectToRoute("sonata_admin_redirect");
+        }
+
+        $newPage = $page->copy();
+
+        $em->persist($newPage);
+        $em->flush();
+        $em->refresh($newPage);
+
+        return $this->redirectToRoute($redirectRoute, [
+            "id" => $newPage->getId(),
         ]);
     }
 }

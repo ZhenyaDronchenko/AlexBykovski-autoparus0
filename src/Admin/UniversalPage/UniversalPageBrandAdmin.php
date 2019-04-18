@@ -21,6 +21,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class UniversalPageBrandAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $uploader;
 
     private $helper;
@@ -88,6 +90,11 @@ class UniversalPageBrandAdmin extends AbstractAdmin
             'route' => ['name' => 'show']
         ]);
         $listMapper->addIdentifier('headline1', TextType::class, ['label' => 'Заголовок', 'sortable' => false]);
+        $listMapper->addIdentifier('copyButton', null, [
+            'label' => false,
+            'mapped' => false,
+            'template' => 'admin/universal-page/brand/copy-link.html.twig',
+        ]);
     }
 
     public function prePersist($page)

@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

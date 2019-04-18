@@ -11,6 +11,9 @@ monolog:
             level: debug
         console:
             type:  console
+        rollbar:
+            type: service
+            id: Rollbar\Monolog\Handler\RollbarHandler
 #        main:
 #            type: stream
 #            path: "%kernel.logs_dir%/%kernel.environment%.log"

@@ -21,8 +21,6 @@ use Symfony\Component\Routing\RouterInterface;
 class SparePartAdmin extends AbstractAdmin
 {
     protected $maxPerPage = 192;
-    protected $pagerType = "simple";
-    protected $maxPageLinks = 192;
 
     protected $uploader = null;
 

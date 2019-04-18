@@ -19,8 +19,6 @@ use Symfony\Component\Routing\RouterInterface;
 class PhoneSparePartAdmin extends AbstractAdmin
 {
     protected $maxPerPage = 192;
-    protected $pagerType = "simple";
-    protected $maxPageLinks = 192;
 
     protected $uploader = null;
 

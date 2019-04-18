@@ -15,6 +15,8 @@ use Symfony\Component\Form\Form;
 
 class DefaultImageAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $uploader = null;
 
     private $helper;

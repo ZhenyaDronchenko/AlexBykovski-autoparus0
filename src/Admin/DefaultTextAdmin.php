@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class DefaultTextAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('description', TextType::class, ['label' => 'Название текста']);
