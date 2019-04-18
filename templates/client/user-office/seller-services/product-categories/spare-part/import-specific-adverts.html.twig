@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/import-specific-adverts.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container" ng-controller="ImportSpecificAdvertsCtrl as importCtrl">
+        {% set sellerCompany = app.user.sellerData.sellerCompany %}
+
+        <ul id="breadcrumbs">
+            <li>
+                <a class="user-link user-link--icon"  href="{{ path("show_user_office") }}">
+                    <span class="user-name">{{ app.user.name }} </span>
+                    <img class="user-icon" src="/img/component.png" alt="icon">
+                </a>
+            </li>
+            <li>
+                {% if sellerCompany.isSparePartSeller and sellerCompany.isAutoSeller %}
+                    <a href="{{ path("user_profile_product_categories") }}">/ Товары</a>
+                {% else %}
+                    <a nohref>/ Товары </a>
+                {% endif %}
+            </li>
+            <li>
+                <a href="{{ path("user_profile_product_categories_spare_part") }}">/ Автозапчасти </a>
+            </li>
+            <li>
+                <a class="current">/ Импорт прайс-листа</a>
+            </li>
+        </ul>
+
+        <section class="price">
+            <h1 class="price-title">{{ default_text(14).headline }}</h1>
+            <a class="btn price-btn" onclick="document.getElementById('upload-file-input').click()">Выбрать файл для загрузки</a>
+            <input id="upload-file-input" type="file" style="display: none" custom-on-change="importCtrl.uploadedFile">
+            <div class="price-block">
+                <span>Фаил не выбран</span>
+                <span>Фаил выбран</span>
+            </div>
+            <p class="price-name">Название файла для загрузки</p>
+            <div class="price-item">
+                <button type="submit" class="btn">Загрузить</button>
+                <span>Загрузка прошла успешно</span>
+            </div>
+            <div class="price-text">{{ default_text(14).text | raw }}</div>
+        </section>
+
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/controller/user-profile/product-categories/spare-part/import-specific-adverts-controller.js'></script>
+{% endblock %}
