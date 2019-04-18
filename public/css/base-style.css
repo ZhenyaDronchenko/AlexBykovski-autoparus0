@@ -58,6 +58,16 @@ ul {
     align-items: center;
     border-bottom: 1px solid #737373;
 }
+.block-logo {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: flex-end;
+    -ms-align-items: center;
+    align-items: center;
+}
 .block-logo img {
     margin-right: 10px;
     width: 55px;
@@ -137,7 +147,7 @@ ul {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    
+    border-bottom: 1px solid #737373;
     -webkit-transition: max-height 1.5s;
     -o-transition: max-height 1.5s;
     transition: max-height 1.5s;

@@ -29,12 +29,14 @@
     width: 500px;
 }
 .user-name {
+    margin-top: 15px;
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
     color: #000000;
 }
 .user-company {
+    margin-top: 10px;
     font-weight: 400;
     font-size: 16px;
     line-height: 18px;
@@ -464,9 +466,7 @@
     display: -ms-flexbox;
     display: flex;
     margin-bottom: 15px;
-    -ms-flex-wrap: wrap;
-    -o-flex-wrap: wrap;
-    flex-wrap: wrap;
+    
     -webkit-box-align: baseline;
     -ms-flex-align: baseline;
     align-items: baseline;
@@ -478,7 +478,7 @@
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    margin-right: 10px;
+   
 
 }
 
@@ -567,10 +567,16 @@
     line-height: 15px;
     color: #444;
 }
+.item-link {
+    
+    font-size: 14px;
+    line-height: 15px;
+    color: #444;
+}
 
 .current {
-    font-size: 18px;
-    line-height: 18px;
+   font-size: 14px;
+    line-height: 15px;
     color: #444;
     cursor: default;
 }
@@ -1230,9 +1236,7 @@ textarea {
         font-size: 14px;
         line-height: 16px;
     }
-    .btn-block  li {
-
-    }
+ 
 
     .user-logo {
         position: relative;
@@ -1372,7 +1376,6 @@ textarea {
 
     .user-item {
         padding: 10px 0;
-        padding-top: 0;
         border-bottom: 1px solid #737373;
     }
 
@@ -1434,17 +1437,17 @@ textarea {
     }
     .time {
         font-size: 10px;
-        line-height: 16px;
+        line-height: 14px;
     }
 
     .adress  {
         display: block;
-        font-size: 16px;
-        line-height: 18px;
-    }
-    .date {
         font-size: 14px;
         line-height: 16px;
+    }
+    .date {
+        font-size: 12px;
+        line-height: 14px;
     }
 
     .text-block {
@@ -1462,14 +1465,21 @@ textarea {
         width: 12px;
         height: 14px;
     }
-    .item-link {
-        font-size: 14px;
-        line-height: 16px;
-
-    }
+    .breadcrumbs li {
+    margin-right: 3px;
+    font-size: 12px;
+    line-height: 13px;
+    color: #444;
+}
+.item-link {
+    
+    font-size: 12px;
+    line-height: 13px;
+    color: #444;
+}
     .current {
-        font-size: 14px;
-        line-height: 16px;
+        font-size: 12px;
+        line-height: 13px;
     }
     .item-link img {
         width: 16px;
