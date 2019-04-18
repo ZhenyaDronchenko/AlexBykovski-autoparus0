@@ -1,6 +1,5 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 1px solid #444;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -146,7 +145,6 @@
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
 }
 
 .city-title::before { /* второй слой */
@@ -159,7 +157,6 @@
 #text1 {
     margin: 0;
     margin-bottom: 7px;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
@@ -179,7 +176,7 @@
     display: block;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     padding: 5px 10px;
     padding-bottom: 3px;
     color: #000000;
@@ -207,9 +204,9 @@
 .form7 {
     width: 200px;
     padding-left: 5px;
-    border: none;
     background-color: #fff;
-    border-bottom: 1px solid #444;
+    border: none;
+    border-bottom: 1px solid #737373;
     cursor: pointer;
     outline: none;
     color: black;
@@ -248,7 +245,7 @@
 
 
 #model li {
-    margin-right: 20px;
+    margin: 0 10px;
     margin-bottom: 20px;
 }
 .model-link {
@@ -270,6 +267,7 @@
 .model-link img {
     width: 80px;
     height: 80px;
+     
 }
 .model-link img:hover {
     -webkit-filter: grayscale(100%);
@@ -323,7 +321,6 @@
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
     color: #f66666;;
 }
 
@@ -336,7 +333,6 @@
     margin-bottom: 20px;
     font-size: 16px;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
     text-align: justify;
 }
 
@@ -376,13 +372,11 @@
     }
 
     .form7 {
-        border-bottom: 2px solid #444444;
         margin: 0 auto;
-
     }
     #model li {
-        margin-right: 10px;
-        margin-bottom: 10px;
+        margin: 0 7px;
+        margin-bottom: 15px;
     }
 
     .model-link img {
@@ -460,9 +454,7 @@
     }
 
     .form7 {
-
         margin: 0 auto;
-        border-bottom: 2px solid #444444;
     }
 
     .city-subtitle {
@@ -482,15 +474,14 @@
     .city-subtext {
         margin: 0;
         margin-bottom: 15px;
-        font-family: 'Roboto', sans-serif;
         -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
         order: 2;
     }
 
     #model li {
-        margin-right: 10px;
-        margin-bottom: 10px;
+        margin: 0 7px;
+        margin-bottom: 15px;
     }
 
     .model-link img {
