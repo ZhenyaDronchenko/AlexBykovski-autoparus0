@@ -45,19 +45,14 @@
             </div>
             <ul class="brand-block" ng-cloak>
                 {% for city in capitals %}
-                    <li><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}'>{{ city.name }}</a></li>
+                    <li><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.object.url}|merge(routeParams)) }}' title="{{ city.title }}">{{ city.object.name }}</a></li>
                 {% endfor %}
                 {% for city in regionalCities %}
-                    <li><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}'>{{ city.name }}</a></li>
+                    <li><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.object.url}|merge(routeParams)) }}' title="{{ city.title }}">{{ city.object.name }}</a></li>
                 {% endfor %}
-                {#{% for city in otherCities %}#}
-                    {#<li ng-show="showAll"><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}'>{{ city.name }}</a></li>#}
-                {#{% endfor %}#}
             </ul>
 
-            <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}">Все Города</a>
-            {#<a class="button" nohref ng-hide="showAll" ng-click="showAll = true" ng-cloak>Все Города</a>#}
-            {#<a class="button" nohref ng-show="showAll" ng-click="showAll = false" ng-cloak>&lt;&lt;&lt;&lt;&lt;&lt;&lt;<</a>#}
+            <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
 
             <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
             <div class="subtext">{{ page.text2 | raw }}</div>
@@ -109,13 +104,13 @@
                     <span itemprop="price" content="111.00"></span>
                     <table>
                         <tr>
-                            <td class="tabl tab">Запчасть</td><td class="tab">{{ sparePart.alternativeName1 }}</td>
+                            <td class="tabl tab">Запчасть:</td><td class="tab">{{ sparePart.alternativeName1 }}</td>
                         </tr>
                         <tr>
-                            <td class="tabl">Марка</td><td>{{ brand.name }} ({{ brand.brandRu }})</td>
+                            <td class="tabl">Марка:</td><td>{{ brand.name }} ({{ brand.brandRu }})</td>
                         </tr>
                         <tr>
-                            <td class="tabl">Модель</td><td>{{ model ? model.name : "Все модели" }}</td>
+                            <td class="tabl">Модель:</td><td>{{ model ? model.name : "Все модели" }}</td>
                         </tr>
                         <tr>
                             <td class="tabl"><link itemprop="availability" href="http://schema.org/InStock"/>Наличие:</td><td>Запчасть в наличии</td>

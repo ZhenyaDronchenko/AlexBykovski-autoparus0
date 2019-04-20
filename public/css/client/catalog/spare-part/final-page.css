@@ -1,6 +1,5 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 2px solid #444;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -167,7 +166,9 @@
     padding-top: 35px;
     padding-bottom: 65px;
 }
-
+a {
+    display: block;
+}
 .year-title {
     margin: 0;
     margin-bottom: 20px;
@@ -177,7 +178,7 @@
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
+    
 }
 .year-title::before { /* второй слой */
     content: attr(data-text);
@@ -190,7 +191,6 @@
 #text1 {
     margin: 0;
     margin-bottom: 7px;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
@@ -209,7 +209,7 @@
     border-top: 1px solid #737373;
     border-bottom: 1px solid #737373;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 .block-product__title {
     margin: 0;
@@ -229,7 +229,7 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .review {
@@ -273,27 +273,28 @@
 .card-img {
     position: relative;
     margin-left: 12px;
-    border: 2px solid #737373;
+    border: 2px solid #999999;
     width: 255px;
     height: 170px;
     margin-right: 60px;
 }
 
 .link-main {
-    position: absolute;
-    bottom: -17px;
-    left: -13px;
-    padding: 7px 15px;
-    padding-bottom: 6px;
-    border: 2px solid #737373;
+     position: absolute;
+    bottom: -10px;
+    left: -10px;
+    padding: 4px 15px;
+    padding-bottom: 3px;
+    border: 2px solid #999999;
     border-radius: 5px;
     color: #000000;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     background-color: #ffffff;
+    cursor: default;
 }
-.link-main:hover,
+
 .link:hover {
     border: 2px solid red;
 }
@@ -322,7 +323,7 @@
     border-radius: 5px;
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: 400;
     top: 5px;
     left: 5px;
     background-color: #fff;
@@ -352,7 +353,7 @@
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 2px solid #000000;
+    border: 2px solid #999999;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -364,7 +365,7 @@
     display: block;
     font-size: 16px;
     line-height: 18px;
-    font-weight: 700;
+    font-weight: 400;
     padding: 5px 15px;
     padding-bottom: 3px;
     color: #444;
@@ -374,7 +375,7 @@
     border-radius: 5px;
     text-align: center;
     margin-left: auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .button:hover {
@@ -389,13 +390,13 @@
     margin-bottom: 15px;
     font-size: 22px;
     line-height: 26px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .description__title {
     margin: 0;
     font-size: 18px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
     text-align: center;
     margin-bottom: 15px;
 }
@@ -409,7 +410,7 @@
     justify-content: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+
 }
 
 .card-contact a {
@@ -427,9 +428,9 @@
 
 .contact {
     color: #7c82c5;
-    font-size: 18px;
-    line-height: 20px;
-    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    font-weight: 400;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -451,8 +452,6 @@
 .time-text {
     margin: 0;
     margin-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 1px;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
@@ -468,8 +467,8 @@
     flex-wrap: wrap;
     width: 100%;
     font-size: 16px;
-    line-height: 18px;
-    font-weight: 700;
+    line-height: 20px;
+    font-weight: 400;
 }
 .week {
     display: -webkit-box;
@@ -498,17 +497,17 @@
     border: 1px solid transparent;
     font-size: 16px;
     line-height: 18px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .blue {
     background-color: #7c82c5;
-    border: 1px solid black;
+    border: 1px solid #999999;
     border-radius: 3px;
 }
 
 .red {
     background-color: red;
-    border: 1px solid black;
+    border: 1px solid #999999;
     border-radius: 3px;
 }
 
@@ -516,8 +515,8 @@
     display: block;
     margin-left: 15px;
     font-size: 16px;
-    line-height: 18px;
-    font-weight: 700;
+    line-height: 20px;
+    font-weight: 400;
 }
 
 .adress-text-img {
@@ -528,7 +527,7 @@
     margin-bottom: 7px;
     font-size: 16px;
     line-height: 18px;
-    font-weight: 700;
+    font-weight: 400;
     margin-right: 10px;
 }
 
@@ -536,15 +535,15 @@
     margin: 0;
     font-size: 16px;
     line-height: 18px;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 .unp-number {
     display: block;
     margin-bottom: 10px;
-    font-size: 16px;
-    line-height: 18px;
-    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
 }
 
 .block {
@@ -571,14 +570,14 @@
     font-size: 22px;
     line-height: 24px;
     color: #ff0000;
-    font-weight: 700;
+    font-weight: 400;
     margin-right: 10px;
 }
 .block-price-r {
     font-size: 16px;
     line-height: 18px;
     color: #000;
-    font-weight: 700;
+    font-weight: 400;
 }
 .block-price-n::before { /* второй слой */
     content: attr(data-text);
@@ -589,7 +588,7 @@
     font-size: 18px;
     line-height: 20px;
     color: #000;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 
@@ -633,7 +632,7 @@
     color: #444;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 400;
     margin-bottom: 10px;
 }
 .block-btn:hover {
@@ -641,16 +640,18 @@
 }
 
 .un-btn{
-    display: block;
+     display: block;
     font-size: 16px;
     line-height: 18px;
     padding: 5px 15px;
+padding-bottom: 4px;
     background-color: #dbc0c7;
-    border: 1px solid #737373;
+    border: 1px solid #757373;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 400;
     margin-left: auto;
+    cursor: #444;
 }
 .un-btn:hover {
     background-color: #d2a2af;
@@ -686,7 +687,6 @@
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
     margin-bottom: 20px;
 }
 .year-subtitle::before { /* второй слой */
@@ -698,7 +698,7 @@
     margin-bottom: 30px;
     font-size: 16px;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
+
 }
 
 
@@ -710,7 +710,7 @@
     font-weight: 400;
     padding: 10px 5px;
     border: 3px solid #ccc;
-    font-family: 'Roboto', sans-serif;
+
 }
 
 .overlay1,
@@ -771,7 +771,7 @@
     cursor: pointer;
     border: 2px solid #000;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 
@@ -793,7 +793,7 @@
     cursor: pointer;
     border: 2px solid #000;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 }
@@ -808,7 +808,7 @@
     margin-bottom: 15px;
     color: #000;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 26px;
     text-transform: uppercase;
     text-align: center;
@@ -821,7 +821,6 @@
     font-size: 16px;
     font-weight: 300;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -883,7 +882,6 @@
     }
     .block-product {
         padding-bottom: 0;
-        margin-bottom: 15px;
     }
     .block-title {
         margin-bottom: 10px;
@@ -930,11 +928,11 @@
     .card-contact {
         margin: 0 auto;
         margin-bottom: 10px;
-        width: 210px;
+        width: 270px;
     }
 
     .adress {
-        width: 210px;
+        width: 100%;
         margin: 0 auto;
         margin-bottom: 10px;
 
@@ -946,9 +944,7 @@
     }
     .time-text {
         text-align: center;
-        margin-bottom: 10px;
-        font-size: 14px;
-        line-height: 16px;
+        
     }
     .week {
         margin: 0 auto;
@@ -960,7 +956,12 @@
     }
     .adress-text {
         margin-bottom: 7px;
+        text-align: center;
     }
+        .adress-text-city {
+    text-align: center;
+}
+
 
     .adress-text::after {
         top: 0;
@@ -1260,9 +1261,9 @@
         font-size: 16px;
         line-height: 18px;
     }
-    .un-btn{
+    .un-btn {
         display: block;
-        margin: 0 auto;
+        margin-left: auto;
         font-size: 16px;
         line-height: 18px;
         padding: 5px 15px;
@@ -1270,7 +1271,7 @@
         border: 1px solid #757373;
         border-radius: 5px;
         cursor: pointer;
-        font-weight: 700;
+        font-weight: 400;
 
     }
     .overlay1 .modal {
@@ -1322,9 +1323,11 @@
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        justify-content: flex-end;
     }
     .unp-number {
         margin-right: 15px;
+         margin-bottom: 0;
     }
     .card-block {
         -webkit-box-orient: vertical;
@@ -1346,13 +1349,42 @@
         color: #000000;
     }
     .card-time {
-        margin-bottom: 7px;
+       margin: 0 auto;
+        width: 270px;
+        margin-bottom: 10px;
     }
     .block-price span {
-        font-weight: 700;
+        font-weight: 400;
         font-size: 20px;
         line-height: 22px;
     }
+
+     .adress {
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-align-items: center;
+        -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+        align-items: baseline;
+        margin-bottom: 15px;
+        text-align: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+    .time-text {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+.adress-text {
+    margin: 0;
+    margin-right: 5px;
+    
+}
 
 
     .block-text {

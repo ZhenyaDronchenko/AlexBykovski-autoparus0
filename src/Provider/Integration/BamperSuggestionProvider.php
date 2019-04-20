@@ -46,7 +46,7 @@ class BamperSuggestionProvider
             $phones[] = preg_replace('/(\(\d{2}\))/', ' ${1} ', $phone);
         });
 
-        return $phones;
+        return array_slice($phones, 0, 2);
     }
 
     protected function getExternalData($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock)

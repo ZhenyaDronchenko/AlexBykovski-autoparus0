@@ -44,7 +44,7 @@
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
             </div>
-            <a href="{{ path("show_spare_part_catalog_final_page", routeParams) }}"><button type="button" class="button">Только в наличии!</button></a>
+            <a href="{{ path("show_spare_part_catalog_final_page", routeParams) }}" title="{{ choiceInStockTitle }}"><button type="button" class="button">Только в наличии!</button></a>
 
             {% for advert in specificAdverts %}
                 {% set sellerData = advert.sellerAdvertDetail.sellerData %}
