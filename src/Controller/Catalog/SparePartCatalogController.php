@@ -15,6 +15,7 @@ use App\Entity\City;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Provider\Integration\BamperSuggestionProvider;
+use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
 use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -117,7 +118,14 @@ class SparePartCatalogController extends Controller
     /**
      * @Route("/{urlSP}/{urlBrand}/{urlModel}", name="show_spare_part_catalog_choice_city")
      */
-    public function showCatalogChoiceCityAction(Request $request, $urlSP, $urlBrand, $urlModel, VariableTransformer $transformer)
+    public function showCatalogChoiceCityAction(
+        Request $request,
+        $urlSP,
+        $urlBrand,
+        $urlModel,
+        VariableTransformer $transformer,
+        TitleProvider $titleProvider
+    )
     {
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
@@ -144,20 +152,48 @@ class SparePartCatalogController extends Controller
         $page = $em->getRepository(CatalogSparePartChoiceCity::class)->findAll()[0];
         $transformParameters = $model instanceof Model ? [$sparePart, $brand, $model] : [$sparePart, $brand];
 
+        $parsedCapitals = [];
+        $parsedRegionalCities = [];
+
+        foreach ($capitals as $city){
+            $parsedCapitals[] = [
+                "object" => $city,
+                "title" => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceInStock::class,
+                    array_merge($transformParameters, [$city])),
+            ];
+        }
+
+        foreach ($regionalCities as $city){
+            $parsedRegionalCities[] = [
+                "object" => $city,
+                "title" => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceInStock::class,
+                    array_merge($transformParameters, [$city])),
+            ];
+        }
+
         return $this->render('client/catalog/spare-part/choice-city.html.twig', [
-            'capitals' => $capitals,
-            'regionalCities' => $regionalCities,
+            'capitals' => $parsedCapitals,
+            'regionalCities' => $parsedRegionalCities,
             'brand' => $brand,
             'sparePart' => $sparePart,
             'model' => $model instanceof Model ? $model : null,
             'page' => $transformer->transformPage($page, $transformParameters),
+            'allCitiesTitle' => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceInStock::class, $transformParameters),
         ]);
     }
 
     /**
      * @Route("/{urlSP}/{urlBrand}/{urlModel}/{urlCity}", name="show_spare_part_catalog_in_stock")
      */
-    public function showCatalogInStockAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer, BamperSuggestionProvider $suggestionProvider)
+    public function showCatalogInStockAction(
+        Request $request,
+        $urlSP,
+        $urlBrand,
+        $urlModel,
+        $urlCity,
+        VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
+        TitleProvider $titleProvider)
     {
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
@@ -207,6 +243,7 @@ class SparePartCatalogController extends Controller
             'specificAdverts' => $specificAdverts,
             'generalAdverts' => $generalAdverts,
             'bamberSuggestions' => $bamberSuggestions,
+            'choiceInStockTitle' => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceFinalPage::class, $transformParameters),
         ]);
     }
 
