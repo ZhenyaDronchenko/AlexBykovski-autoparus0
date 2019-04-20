@@ -33,13 +33,14 @@
                 <span ng-click="hideTextClass = 'text1Show'" ng-show="hideTextClass === 'text1Hide'" id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
                 <span ng-click="hideTextClass = 'text1Hide'" ng-show="hideTextClass === 'text1Show'" id='allText'> &lt;&lt;&lt;&lt;&lt;&lt;&lt; </span>
             </div>
-            <form class='modform' action="" method="get">
+            <form class='modform' action="" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <input id="brand-autocomplete" class='form7' name="search"
-                auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
-                method-search="searchBrands" identifier-field="brand-autocomplete"
-                placeholder="Марка авто:" type="search">
+                    auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                    method-search="searchBrands" identifier-field="brand-autocomplete"
+                    placeholder="Марка авто:" type="search"
+                   scroll-to-element scroll-by-click="true" before-top="30">
             </form>
-            <div class="model-block" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+            <div class="model-block">
                 <ul class='show-m' id='model' ng-show="showAll">
                     {% for brand in allBrands %}
                         <li>

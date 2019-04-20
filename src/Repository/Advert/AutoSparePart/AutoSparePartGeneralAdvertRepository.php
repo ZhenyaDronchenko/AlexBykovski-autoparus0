@@ -63,8 +63,8 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
         $model = $filterType->getModel();
         $city = $filterType->getCity();
         $stockTypes = $filterType->getInStock() ?
-            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
-            [AutoSparePartSpecificAdvert::IN_STOCK_TYPE];
+            [AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
+            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE];
 
         return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes);
     }

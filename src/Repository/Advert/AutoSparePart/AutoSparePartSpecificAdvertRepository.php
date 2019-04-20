@@ -88,6 +88,9 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
     public function findAllForCatalog(CatalogAdvertFilterType $filterType)
     {
         $qb = $this->createQueryBuilder('spAdv');
+        $stockTypes = $filterType->getInStock() ?
+            [AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
+            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE];
 
         if($filterType->getBrand()){
             $qb->andWhere("spAdv.brand = :brand")
@@ -112,11 +115,8 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
                 ->setParameter("city", $filterType->getCity()->getName());
         }
 
-        if($filterType->getInStock() !== null){
-            $qb->andWhere("spAdv.stockType = :inStock")
-                ->setParameter("inStock", $filterType->getInStock() ?
-                    AutoSparePartSpecificAdvert::IN_STOCK_TYPE : AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE);
-        }
+        $qb->andWhere("spAdv.stockType IN(:stockTypes)")
+            ->setParameter("stockTypes", $stockTypes);
 
         return $qb->getQuery()
             ->getResult();
