@@ -163,7 +163,7 @@
 
 /*city*/
 .year {
-    padding-top: 35px;
+    padding-top: 40px;
     padding-bottom: 65px;
 }
 a {
@@ -171,7 +171,7 @@ a {
 }
 .year-title {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
     line-height: 28px;
@@ -428,8 +428,8 @@ a {
 
 .contact {
     color: #7c82c5;
-    font-size: 20px;
-    line-height: 22px;
+    font-size: 18px;
+    line-height: 20px;
     font-weight: 400;
     margin-bottom: 10px;
     text-align: center;
@@ -446,7 +446,7 @@ a {
     display: none;
 }
 .card-time {
-    width: 295px;
+    width: 230px;
 
 }
 .time-text {
@@ -627,6 +627,7 @@ a {
     font-size: 16px;
     line-height: 18px;
     padding: 5px 10px;
+    padding-bottom: 4px;
     background-color: #dbc0c7;
     border: 1px solid #737373;
     color: #444;
@@ -843,6 +844,7 @@ padding-bottom: 4px;
     .year-title {
         font-size: 24px;
         line-height: 22px;
+        margin-bottom: 20px;
     }
 
 
@@ -1039,6 +1041,7 @@ padding-bottom: 4px;
         font-size: 14px;
         line-height: 16px;
         padding: 5px 5px;
+        padding-bottom: 4px;
     }
     .contact-img {
         display: inline-block;
@@ -1255,6 +1258,7 @@ padding-bottom: 4px;
         font-size: 14px;
         line-height: 16px;
         padding: 5px 15px;
+        padding-bottom: 4px;
     }
 
     .contact-b {
@@ -1407,12 +1411,7 @@ padding-bottom: 4px;
         font-size: 14px;
         line-height: 16px;
         padding: 5px 5px;
-    }
-
-    .contact {
-        font-size: 18px;
-        line-height: 20px;
-
+        padding-bottom: 4px;
     }
 
 

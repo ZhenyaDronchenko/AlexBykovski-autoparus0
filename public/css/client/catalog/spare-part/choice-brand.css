@@ -133,7 +133,7 @@
 
 /*city*/
 .city {
-    padding-top: 50px;
+    padding-top: 40px;
     padding-bottom: 60px;
 }
 .city-title {
@@ -343,7 +343,7 @@
         padding: 0 10px;
     }
     .city {
-        padding-bottom: 45px;
+        padding-bottom: 30px;
     }
     .text1Hide {
         max-height: 55px;
@@ -356,6 +356,7 @@
     .city-title {
         font-size: 22px;
         line-height: 24px;
+        margin-bottom: 20px;
 
     }
 
@@ -418,10 +419,7 @@
     .container {
         width: auto; }
 
-    .city {
-
-        padding-bottom: 45px;
-    }
+    
     .text1Hide {
         max-height: 55px;
         overflow: hidden;
