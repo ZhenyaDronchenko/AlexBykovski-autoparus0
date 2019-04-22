@@ -152,13 +152,13 @@
 
 /*code*/
 .brand {
-    padding-top: 35px;
+    padding-top: 40px;
     padding-bottom: 65px;
 }
 
 .brand-title {
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
     line-height: 28px;
@@ -183,7 +183,7 @@
 
 #allText {
     border: none;
-    margin-left: auto;
+    text-align: right;
     background-color: #fff;
     display: none;
     font-weight: 700;
@@ -501,11 +501,10 @@ tr {
     }
 
     .brand {
-        padding-top: 30px;
         padding-bottom: 50px;
     }
     .brand-title {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         font-size: 22px;
         line-height: 24px;
     }

@@ -1,26 +1,40 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
-.breadcrumbs {
+#breadcrumbs {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     padding-top: 5px;
 }
 
-.breadcrumbs li {
+#breadcrumbs li {
     margin-right: 5px;
 
 }
+.more {
+    display: none;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    color: #444;
+}
 
-.breadcrumbs a {
+#breadcrumbs a {
     font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 18px;
     color: #444;
     position: relative;
     -webkit-transition-duration: 0.2s;
     -o-transition-duration: 0.2s;
     transition-duration: 0.2s;
 }
+.user-icon {
+    display: none;
+}
 
-.link:hover{
+.user-link:hover,
+.link:hover {
     color: black;
     -webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
@@ -28,21 +42,94 @@
 }
 
 .current {
-    font-weight: bold;
+    cursor: default;
+}
+.opened {
+    background-color: transparent;
 }
 
-
-@media  (max-width: 480px) {
+@media  (max-width: 575px) {
     .container {
-        width: auto; }
-    .breadcrumbs a {
-        font-size: 16px;
-        line-height: 18px;
-        color: #444;
-        position: relative;
+        width: auto;
+    }
+    #breadcrumbs {
+        padding-top: 3px;
     }
 
+    .user-name {
+        display: none;
+    }
+    .opened {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .opened li {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    .opened .more {
+        display: none;
+    }
+
+    .user-icon {
+        display: block;
+    }
+    .link-b {
+        margin-right: 5px;
+    }
+
+    .close-menu {
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .user-link {
+        width: 10px;
+        height: 10px;
+    }
+
+
+    .user-icon {
+        display: block;
+        width: 16px;
+        height: 16px;
+    }
+    .more {
+        display: block;
+        cursor: pointer;
+        font-size: 12px;
+        line-height: 14px;
+    }
+    #breadcrumbs a {
+        line-height: 20px;
+        font-size: 12px;
+    }
+    .model-block {
+        padding-top: 5px;
+    }
+
+    .user-link--icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    #breadcrumbs li {
+        margin-right: 0;
+    }
 }
+@media (min-width: 576px) and (max-width: 767px) {
+    .container {
+        width: auto;
+    }
+}
+/*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 /*mod*/
 .model-block {

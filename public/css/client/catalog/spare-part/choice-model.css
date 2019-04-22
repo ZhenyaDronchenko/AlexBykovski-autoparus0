@@ -133,7 +133,7 @@
 
 /*city*/
 .city {
-    padding-top: 50px;
+    padding-top: 40px;
     padding-bottom: 60px;
 }
 a {
@@ -249,7 +249,6 @@ a {
 .mod-link img {
     width: 90px;
     height: 60px;
-     border: 1px solid red;
 }
 
 .mod-link:hover {
@@ -334,9 +333,7 @@ a {
         width: auto;
         padding: 0 10px;
     }
-    .city {
-        padding-bottom: 45px;
-    }
+    
     .text1Hide {
         max-height: 55px;
         overflow: hidden;
@@ -348,6 +345,7 @@ a {
     .city-title {
         font-size: 22px;
         line-height: 24px;
+        margin-bottom: 20px;
 
     }
 
@@ -438,10 +436,7 @@ a {
     .container {
         width: auto; }
 
-    .city {
-
-        padding-bottom: 45px;
-    }
+ 
     .text1Hide {
         max-height: 55px;
         overflow: hidden;

@@ -9,9 +9,26 @@
 
 {% block body %}
     <main class="container" ng-init="showAll = false;">
-        <ul class="breadcrumbs">
-            <li><a class="link" href="{{ path("homepage") }}">Главная /</a></li>
-            <li><a class="current" href=""> Каталог</a></li>
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">Каталог</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </li>
         </ul>
 
         <section class="model-block">
