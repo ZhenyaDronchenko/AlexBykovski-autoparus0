@@ -18,7 +18,8 @@
             captureUncaught: true,
             payload: {
                 environment: 'prod'
-            }
+            },
+            uncaughtErrorLevel: 'error'
         });
     }]);
 })(window.angular);

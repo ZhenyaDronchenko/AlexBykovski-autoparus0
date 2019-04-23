@@ -58,7 +58,7 @@
                     <ul ng-repeat="error in importCtrl.errors">
                         <li style="color: red" ng-bind="error"></li>
                     </ul>
-                    <span style="font-size: 17px; color: black" ng-bind-html="importCtrl.specialMessage"></span>
+                    <span style="font-size: 17px; color: black" ng-show="importCtrl.showSpecialMessage">Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>
                     <img ng-show="importCtrl.longActionActive" id="preloader-posts" src="/img/preload-gear.svg"/>
                 </div>
             </div>

@@ -27,16 +27,13 @@ class FileUpload
     const UNIVERSAL_PAGE_BRAND = 'universal-page-brand';
     const UNIVERSAL_PAGE_CITY = 'universal-page-city';
     const UNIVERSAL_PAGE_SPARE_PART = 'universal-page-spare-part';
+    const IMPORT_SPECIFIC_ADVERT = 'import-specific-advert';
 
     const IMAGE_FOLDER = "images/";
 
-    private static $allowedMimeTypes = array(
-        'image/jpeg',
-        'image/jpg',
-        'image/png',
-        'image/gif',
-        'image/webp'
-    );
+    const CSV_MIME_TYPE = "text/csv";
+
+    private $allowedMimeTypes;
 
     private $filesystem;
 
@@ -45,6 +42,18 @@ class FileUpload
     public function __construct(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
+        $this->allowedMimeTypes = [
+            'image/jpeg',
+            'image/jpg',
+            'image/png',
+            'image/gif',
+            'image/webp'
+        ];
+    }
+
+    public function setAllowMimeTypes(array $types)
+    {
+        $this->allowedMimeTypes = $types;
     }
 
     public function setFolder($folder){
@@ -57,16 +66,11 @@ class FileUpload
 
     public function upload(UploadedFile $file, $blob = null, $path = null)
     {
-        if (!in_array($file->getClientMimeType(), self::$allowedMimeTypes)) {
+        if (!in_array($file->getClientMimeType(), $this->allowedMimeTypes)) {
             throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
         }
 
-        if(is_null($path)){
-            $filename = sprintf('%s/%s/%s/%s.%s', $this->getFolder(), date('Y'), date('m'), uniqid(), $file->getClientOriginalExtension());
-        }
-        else{
-            $filename = $path;
-        }
+        $filename = !is_null($path) ? $path : $this->getFilePath($file);
 
         $adapter = $this->filesystem->getAdapter();
 
@@ -132,5 +136,16 @@ class FileUpload
         unlink(self::IMAGE_FOLDER . $currentPath);
 
         return $newPath;
+    }
+
+    public function getFilePath(UploadedFile $file, $additionalBeforeName = null)
+    {
+        $fileName = uniqid();
+
+        if($additionalBeforeName){
+            $fileName = $additionalBeforeName . '_' . $fileName;
+        }
+
+        return sprintf('%s/%s/%s/%s.%s', $this->getFolder(), date('Y'), date('m'), $fileName, $file->getClientOriginalExtension());
     }
 }

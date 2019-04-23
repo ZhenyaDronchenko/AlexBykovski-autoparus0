@@ -100,6 +100,11 @@ services:
         tags:
             - { name: 'monolog.logger', channel: 'security' }
 
+    app.import_advert.import_checker:
+        class:  App\ImportAdvert\ImportChecker
+        arguments: []
+        public: true
+
 fos_user:
     db_driver: orm
     firewall_name: main
