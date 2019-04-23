@@ -21,10 +21,10 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}"><span class="line">/</span><span itemprop="name">{{ code.id ? "OBD2" : "Уточнить" }}</span></a><meta itemprop="position" content="2">
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}"><span class="line">/</span><span itemprop="name">OBD2</span></a><meta itemprop="position" content="2">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}" itemprop="item" title="{{ titleChoiceCode }}"><span class="line">/</span><span itemprop="name">{{ code.id ? "Ошибка " ~ type.designation : "Перепроверить" }}</span><meta itemprop="position" content="3"></a>
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}" itemprop="item" title="{{ titleChoiceCode }}"><meta itemprop="position" content="3"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ type.designation ~ code.code }}</span><meta itemprop="position" content="4"></a>
@@ -37,7 +37,11 @@
             <div class="code-block">
                 <b class="name">Ошибка {{ type.designation ~ code.code }}</b>
                 <p class="code-text">{{ page.text3 | raw }}</p>
-                <a href="{{ path("show_obd2_error_catalog_choice_reason", {urlType: type.url, urlCode: code.url}) }}" title="Причины повлекшие возникновения ошибки {{ type.designation ~ code.code }}"><button class="btn button" type="button">Причины возникновения ошибки</button></a>
+                {% if code.id %}
+                    <a href="{{ path("show_obd2_error_catalog_choice_reason", {urlType: type.url, urlCode: code.url}) }}" title="Причины повлекшие возникновения ошибки {{ type.designation ~ code.code }}"><button class="btn button" type="button">Причины возникновения ошибки</button></a>
+                {% else %}
+                    <a href="{{ path("show_obd2_error_catalog_choice_type") }}" title="Причины повлекшие возникновения ошибки {{ type.designation ~ code.code }}"><button class="btn button" type="button">Уточнить</button></a>
+                {% endif %}
             </div>
 
             <h1 class="subtitle" data-text="{{ page.headline2 }}"></h1>
