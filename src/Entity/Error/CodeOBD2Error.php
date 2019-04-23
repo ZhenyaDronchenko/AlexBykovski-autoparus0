@@ -10,6 +10,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CodeOBD2Error
 {
+    const ABSENT_CODE_RU_TRANSCRIPT = "К сожалению, в нашей базе не найдено описание данной ошибки на русском языке";
+    const ABSENT_CODE_EN_TRANSCRIPT = "Отсутствует описание ошибки";
+    const ABSENT_CODE_REASON = "К сожалению, мы не можем дать Вам компитентную информацию о причинах возникновения данной ошибки.";
+    const ABSENT_CODE_ADVICE = "На данный момент мы не можем предложить Вам квалифицированную помощь в решение вопроса с данной ошибкой";
+
+    const DEFAULT_URL_TO_CATALOG = "dvs";
+
     static $variables = [
         "[CODEOBD2]" => "getCode",
         "[URLCODEOBD2]" => "getUrl",
@@ -325,5 +332,19 @@ class CodeOBD2Error
     public function increaseCounter(): void
     {
         ++$this->counter;
+    }
+
+    static function getAbsentCode($type = null, $url = null)
+    {
+        $code = new CodeOBD2Error();
+        $code->setType($type);
+        $code->setUrl($url);
+        $code->setUrlToCatalog(self::DEFAULT_URL_TO_CATALOG);
+        $code->setReason(self::ABSENT_CODE_REASON);
+        $code->setAdvice(self::ABSENT_CODE_ADVICE);
+        $code->setTranscriptEn(self::ABSENT_CODE_EN_TRANSCRIPT);
+        $code->setTranscriptRu(self::ABSENT_CODE_RU_TRANSCRIPT);
+
+        return $code;
     }
 }
