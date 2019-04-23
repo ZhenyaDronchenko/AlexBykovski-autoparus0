@@ -1,140 +1,101 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 5px;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
-.link:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+.link-b:hover {
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
-@media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-    }
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 14px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
+@media  (max-width: 480px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
 }
-/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
 /*city*/
 .city {
-    padding-top: 40px;
-    padding-bottom: 60px;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
 .city-title {
     margin: 0;
@@ -156,9 +117,9 @@
 }
 #text1 {
     margin: 0;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     color: #000000;
     font-weight: 400;
     text-align: justify;
@@ -166,7 +127,7 @@
 #allText {
     text-align: right;
     display: none;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 14px;
     color: #ff0000;
     margin-right: 20px;
@@ -193,10 +154,14 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     -ms-align-items: center;
-    align-items: center;
-    margin-bottom: 40px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 20px;
 }
 
 .form7 {
@@ -314,7 +279,7 @@
 .city-subtitle {
     margin: 0;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: 24px;
     line-height: 26px;
     font-weight: 400;
@@ -328,9 +293,9 @@
 }
 .city-subtext {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     text-align: justify;
 }
 
@@ -341,10 +306,10 @@
         padding: 0 10px;
     }
     .city {
-        padding-bottom: 30px;
+        padding-top: 25px;
     }
     .text1Hide {
-        max-height: 55px;
+        max-height: 60px;
         overflow: hidden;
 
     }
@@ -353,10 +318,13 @@
     }
     .city-title {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
         margin-bottom: 20px;
 
     }
+.city-desc {
+    margin-bottom: 30px;
+}
 
 
     .modform {
@@ -416,8 +384,13 @@
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
+ .city {
+        padding-top: 25px;
+    }
+    .city-desc {
+    margin-bottom: 30px;
+}
 
-    
     .text1Hide {
         max-height: 55px;
         overflow: hidden;
@@ -446,6 +419,7 @@
     .city-title {
         font-size: 22px;
         line-height: 24px;
+        margin-bottom: 20px;
 
     }
 
@@ -457,7 +431,7 @@
 
         text-align: center;
         font-size: 20px;
-        line-height: 22px;
+        line-height: 24px;
 
         -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
