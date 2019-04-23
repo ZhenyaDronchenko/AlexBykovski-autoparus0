@@ -21,13 +21,13 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}">/ <span itemprop="name">OBD2</span></a><meta itemprop="position" content="2">
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}"><span class="line">/</span><span itemprop="name">OBD2</span></a><meta itemprop="position" content="2">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}" itemprop="item" title="{{ titleChoiceCode }}">/ <span itemprop="name">{{ type.type }}</span><meta itemprop="position" content="3"></a>
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}" itemprop="item" title="{{ titleChoiceCode }}"><meta itemprop="position" content="3"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" nohref itemprop="item">/ <span itemprop="name">{{ type.designation ~ code.code }}</span><meta itemprop="position" content="4"></a>
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ type.designation ~ code.code }}</span><meta itemprop="position" content="4"></a>
             </li>
         </ul>
 

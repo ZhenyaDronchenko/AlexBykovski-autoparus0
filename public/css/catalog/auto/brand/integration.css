@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #737373;
 
 }
 
@@ -17,7 +17,7 @@
 }
 
 .block-price span {
-    font-weight: 700;
+    font-weight: 400;
     font-size: 22px;
     line-height: 24px;
     color: #d22856;
@@ -60,7 +60,7 @@
 .contact {
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     color: #000000;
     margin-bottom: 5px;
 }
@@ -86,7 +86,7 @@
     }
 
     .block-price span {
-        font-weight: 700;
+        font-weight: 400;
         font-size: 20px;
         line-height: 22px;
     }
@@ -198,7 +198,7 @@
     }
 
     .block-price span {
-        font-weight: 700;
+        font-weight: 400;
         font-size: 18px;
         line-height: 20px;
     }
