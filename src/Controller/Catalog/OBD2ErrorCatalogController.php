@@ -152,6 +152,8 @@ class OBD2ErrorCatalogController extends Controller
             "type" => $type,
         ]);
 
+        $code = $code ?: CodeOBD2Error::getAbsentCode($type, $urlCode);
+
         if(!($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error)){
             return $this->redirect($request->headers->get('referer'));
         }
@@ -183,6 +185,8 @@ class OBD2ErrorCatalogController extends Controller
             "url" => $urlCode,
             "type" => $type,
         ]);
+
+        $code = $code ?: CodeOBD2Error::getAbsentCode($type, $urlCode);
 
         if(!($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error)){
             return $this->redirect($request->headers->get('referer'));
