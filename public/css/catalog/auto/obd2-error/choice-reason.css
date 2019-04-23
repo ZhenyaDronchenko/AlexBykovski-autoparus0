@@ -1,153 +1,95 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 1px solid #444;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-.dotdotdot {
-    display: none;
-    font-size: 10px;
-    line-height: 20px;
-    letter-spacing: 3px;
-    color: #444;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
 .link-b:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
-@media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-    #breadcrumbs li:first-child {
-        margin-right: 0;
-
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
+@media  (max-width: 480px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
 }
-/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
 /*code*/
@@ -158,14 +100,13 @@
 
 .title {
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
 }
 .title::before { /* второй слой */
     content: attr(data-text);
@@ -175,21 +116,22 @@
 
 .text {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     color: #000000;
     font-weight: 400;
 }
+
 .code-block {
     margin: 40px auto;
     padding: 20px;
-    width: 400px;
+    width: 70%;
     border: 3px solid #ccc;
 }
 .name {
     display: block;
-    font-size: 18px;
+    text-align: center;
+    font-size: 20px;
     line-height: 22px;
     color: #000;
     font-weight: 700;
@@ -197,25 +139,28 @@
 }
 .code-text {
     margin: 0;
-    margin-bottom: 20px;
-    font-size: 20px;
-    line-height: 24px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 20px;
     color: #000;
     font-weight: 400;
 }
-.button {
-    margin: 0 auto;
+a {
     display: block;
-    padding: 5px 25px;
+}
+.button {
+    display: block;
+    margin: 0 auto;
+    padding: 5px 15px;
+    padding-bottom: 4px;
     text-align: center;
-    border: 1px solid #727272;
+    border: 1px solid #737373;
     border-radius: 3px;
     color: #444444;
-    margin-bottom: 3px;
     cursor: pointer;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     background-color: #dbc0c7;
 }
 .button:hover {
@@ -226,11 +171,10 @@
     margin-bottom: 20px;
     text-align: center;
     font-size: 24px;
-    line-height: 26px;
+    line-height: 28px;
+    color: #f66666;
     font-weight: 400;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
-    color: #f66666;
 }
 .subtitle::before { /* второй слой */
     content: attr(data-text);
@@ -245,23 +189,28 @@
     -ms-flex-pack: center;
     justify-content: center;
     -ms-align-items: center;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    padding-top: 30px;
 }
 
 
 .city-icon li {
-    margin-right: 16px;
-    margin-bottom: 15px;
+    margin: 0 15px;
+    margin-bottom: 30px;
 }
 
 .city-icon img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
 }
 
+.city-icon a:hover {
+        -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
 
 
 @media (max-width: 480px) {
@@ -270,46 +219,47 @@
         padding: 0 10px;
     }
 
-    .code {
-        padding-top: 30px;
-        padding-bottom: 45px;
+     .code {
+        padding-top: 25px;
+        padding-bottom: 50px;
     }
     .code-block {
-        margin: 40px auto;
-        padding: 10px;
+        margin: 30px auto;
+        padding: 15px 10px;
         width: 100%;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
     .name {
-        font-size: 16px;
+        font-size: 18px;
         line-height: 20px;
     }
     .code-text {
-        font-size: 18px;
-        line-height: 22px;
-    }
-    .button {
-        padding: 5px 15px;
         font-size: 16px;
         line-height: 18px;
     }
-    .title {
-        margin-bottom: 15px;
+    .button {
+        padding: 5px 10px;
+        font-size: 15px;
+        line-height: 18px;
+    }
+      .title {
         font-size: 22px;
         line-height: 24px;
+        margin-bottom: 20px;
     }
 
 
     .subtitle {
         font-size: 20px;
-        line-height: 22px;
-        margin-bottom: 15px;
+        line-height: 24px;
     }
+
 
     .city-icon img {
         width: 60px;
         height: 60px;
+        border: 1px solid red;
     }
     .city-link span {
         font-size: 14px;
@@ -317,8 +267,8 @@
     }
 
     .city-icon li {
-        margin-right: 6px;
-        margin-bottom: 7px;
+        margin: 0 10px;
+        margin-bottom: 20px;
     }
 }
 @media (min-width: 481px) and (max-width: 767px) {
@@ -331,32 +281,12 @@
     }
 
     .city-icon li {
-        margin-right: 5px;
-        margin-bottom: 7px;
-    }
-
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-    .container {
-        width: auto; }
-
-    .city-icon li {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-    .city-icon img {
-        width: 70px;
-        height: 70px;
+        margin: 0 7px;
+        margin-bottom: 15px;
     }
 
 }
 
-@media (min-width: 1024px) and (max-width: 1199px) {
-    .container {
-        width: auto; }
-    .city-icon li {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-}
+
+
 /*city END*/

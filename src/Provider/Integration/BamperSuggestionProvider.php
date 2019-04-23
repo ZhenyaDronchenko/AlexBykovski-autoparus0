@@ -55,7 +55,7 @@ class BamperSuggestionProvider
 
         $response = $this->request($url);
 
-        $crawler = new Crawler($response);
+        $crawler = new Crawler(null);
 
         if(!$crawler->filter("select#zapchast > option[selected]")->count() ||
             !$crawler->filter("select#marka > option[selected]")->count() ||
