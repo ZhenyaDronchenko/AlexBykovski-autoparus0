@@ -12,51 +12,30 @@
     {% set nextPath = "show_brand_catalog_in_stock" %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
-        <div id='breadcrumbsWrapp' itemscope="" itemtype="http://schema.org/BreadcrumbList">
-            <ul id="breadcrumbs-one">
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="Главная" href="{{ path("homepage") }}">
-                      <span itemprop="name">Главная</span>
-                      <meta itemprop="position" content="1">
-                  </a>
-              </span>
-                </li>
-                <li class='dotdotdot' onclick='dotClick()'>  ...  /</li>
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="магазин" href="{{ path("show_brand_catalog_choice_brand") }}">
-                      <span itemprop="name">Каталог</span>
-                      <meta itemprop="position" content="2">
-                  </a>
-              </span>
-                </li>
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="выбранный город" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}">
-                      <span itemprop="name">{{ brand.brandEn }}</span>
-                      <meta itemprop="position" content="2">
-                  </a>
-              </span>
-                </li>
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="выбранная марка" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}">
-                      <span itemprop="name">{{ model.modelEn }}</span>
-                      <meta itemprop="position" content="3">
-                  </a>
-              </span>
-                </li>
-                <li>
-              <span itemscope="" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
-                  <a itemprop="item" title="запчасть" href class="current">
-                      <span itemprop="name">{{ sparePart.alternativeName1 }}</span>
-                      <meta itemprop="position" content="4">
-                  </a>
-              </span>
-                </li>
-            </ul>
-        </div>
+    <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус.бай" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="12px" height="12px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="Каталог"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="Тайтл третьей крошки"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="3"></a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"itemprop="item" title="Тайтл четвертой крошки"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span><meta itemprop="position" content="4"></a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">{{ sparePart.alternativeName1 }}</span><meta itemprop="position" content="5"></a>
+            </li>
+        </ul>
 
         <section class="delivery">
             <h1 class="delivery-title">{{ page.headline1 }}</h1>
@@ -79,11 +58,10 @@
                     {% endfor %}
                 </ul>
             </div>
-            {% for advert in adverts %}
-                {% set sparePartImg = advert.sellerAdvertDetail.sellerData.photo ? image_url(advert.sellerAdvertDetail.sellerData.photo) : image_url(sparePart.logo, "spare_part") %}
-                <div class="block-product">
+
+<div class="block-product">
                     <div class="block-title">
-                        <p class="block-product__title">{{ advert.getSellerCompany().companyName }}</p>
+                        <p class="block-product__title">ООО "СуперАСуп"</p>
                         <div class="review">
                             <span class="star rev"></span>
                             <span class="star rev"></span>
@@ -96,61 +74,107 @@
                     <div class="card-product">
                         <div class="card-img">
                             <div class="image">
-                                <img src="{{ sparePartImg }}" alt="foto">
+                                                                <img src="/images/business_profile/2019/02/5c5983c87c700.jpg" alt="foto">
                             </div>
-
-                            {#<span class="price">7555 <span>Бел. Р.</span></span>#}
-                            <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
+                            <a class="link-main" href="#">В наличии, Новые</a>
                             <div class="link-button">
-                                <a class="link map" href="#"></a>
-                                <a class="link deliver" href="#"></a>
-                                <a class="link phone" href="#"></a>
+                                <a class="link show-seller-address" nohref="" data-address="Беларусь, Минск, ул. Железнодорожная, д. 33А">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="red" d="M25 47.7741L24.2284 46.6575C23.6481 45.8166 10 25.9678 10 18C10 9.72938 16.7294 3 25 3C33.2706 3 40 9.72938 40 18C40 25.9678 26.3519 45.8166 25.7716 46.6575L25 47.7741ZM25 4.875C17.7625 4.875 11.875 10.7625 11.875 18C11.875 24.3628 22.0797 40.0828 25 44.4506C27.9203 40.0828 38.125 24.3628 38.125 18C38.125 10.7625 32.2375 4.875 25 4.875Z"></path>
+                                        <path fill="red" d="M25 24.5625C21.3822 24.5625 18.4375 21.6188 18.4375 18C18.4375 14.3813 21.3822 11.4375 25 11.4375C28.6178 11.4375 31.5625 14.3813 31.5625 18C31.5625 21.6188 28.6178 24.5625 25 24.5625ZM25 13.3125C22.4153 13.3125 20.3125 15.4153 20.3125 18C20.3125 20.5847 22.4153 22.6875 25 22.6875C27.5847 22.6875 29.6875 20.5847 29.6875 18C29.6875 15.4153 27.5847 13.3125 25 13.3125Z"></path>
+                                    </svg>
+                                </a>
+                                <a class="link show-seller-delivery-guarantee" nohref="" data-delivery="" data-guarantee="">
+                                    <svg width="50" height="44" viewBox="0 0 50 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M31.6667 39C31.6667 39.368 31.368 39.6667 31 39.6667H29.6667C29.2987 39.6667 29 39.368 29 39C29 38.632 29.2987 38.3333 29.6667 38.3333H31C31.368 38.3333 31.6667 38.632 31.6667 39ZM45 39C45 39.368 44.7013 39.6667 44.3333 39.6667H33.6667C33.2987 39.6667 33 39.368 33 39C33 38.632 33.2987 38.3333 33.6667 38.3333H44.3333C44.7013 38.3333 45 38.632 45 39ZM26.3333 39C26.3333 39.368 26.0347 39.6667 25.6667 39.6667H19C18.632 39.6667 18.3333 39.368 18.3333 39C18.3333 38.632 18.632 38.3333 19 38.3333H25.6667C26.0347 38.3333 26.3333 38.632 26.3333 39ZM15.6667 39C15.6667 39.368 15.368 39.6667 15 39.6667H5.66667C5.29867 39.6667 5 39.368 5 39C5 38.632 5.29867 38.3333 5.66667 38.3333H15C15.368 38.3333 15.6667 38.632 15.6667 39ZM6.33333 25.6667C6.33333 25.2987 6.632 25 7 25H8.89333L8.61133 23.098C8.55733 22.734 8.80867 22.3947 9.17267 22.3407C9.53933 22.2893 9.87667 22.538 9.93067 22.902L10.242 25H15C15.368 25 15.6667 25.2987 15.6667 25.6667C15.6667 26.0347 15.368 26.3333 15 26.3333H7C6.632 26.3333 6.33333 26.0347 6.33333 25.6667ZM7 19.6667H8.03933L7.75733 17.7647C7.70333 17.4007 7.95467 17.0613 8.31867 17.0073C8.68533 16.9567 9.02267 17.2047 9.076 17.5687L9.388 19.6667H15C15.368 19.6667 15.6667 19.9653 15.6667 20.3333C15.6667 20.7013 15.368 21 15 21H7C6.632 21 6.33333 20.7013 6.33333 20.3333C6.33333 19.9653 6.632 19.6667 7 19.6667ZM15 33C14.6327 33 14.3333 32.7007 14.3333 32.3333C14.3333 31.966 14.6327 31.6667 15 31.6667C15.3673 31.6667 15.6667 31.966 15.6667 32.3333C15.6667 32.7007 15.3673 33 15 33ZM15 30.3333C13.8973 30.3333 13 31.2307 13 32.3333C13 33.436 13.8973 34.3333 15 34.3333C16.1027 34.3333 17 33.436 17 32.3333C17 31.2307 16.1027 30.3333 15 30.3333ZM37.6667 33C37.2993 33 37 32.7007 37 32.3333C37 31.966 37.2993 31.6667 37.6667 31.6667C38.034 31.6667 38.3333 31.966 38.3333 32.3333C38.3333 32.7007 38.034 33 37.6667 33ZM37.6667 30.3333C36.564 30.3333 35.6667 31.2307 35.6667 32.3333C35.6667 33.436 36.564 34.3333 37.6667 34.3333C38.7693 34.3333 39.6667 33.436 39.6667 32.3333C39.6667 31.2307 38.7693 30.3333 37.6667 30.3333ZM37.6667 35.6667C35.8287 35.6667 34.3333 34.1713 34.3333 32.3333C34.3333 30.4953 35.8287 29 37.6667 29C39.5047 29 41 30.4953 41 32.3333C41 34.1713 39.5047 35.6667 37.6667 35.6667ZM44.138 21.862L42.3107 20.0347L41.6667 12.3333C41.6667 10.4953 40.1713 9 38.3333 9H33.6667C33.2987 9 33 9.29867 33 9.66667C33 10.0347 33.2987 10.3333 33.6667 10.3333H38.3333C39.4173 10.3333 40.3333 11.2493 40.3353 12.3887L40.942 19.6667H38.7453L39.5967 17.9647C39.7613 17.6353 39.6273 17.2353 39.298 17.07C38.968 16.9053 38.5687 17.0393 38.4033 17.3687L37.2547 19.6667H33.6667C33.2987 19.6667 33 19.9653 33 20.3333C33 20.7013 33.2987 21 33.6667 21H41.3907L43.1953 22.8047C43.5753 23.1847 43.6653 24.0587 43.6667 24.3333V31.6667H42.28C41.9553 29.4087 40.0133 27.6667 37.6667 27.6667C35.0933 27.6667 33 29.76 33 32.3333C33 34.9067 35.0933 37 37.6667 37C40.0133 37 41.9553 35.258 42.28 33H44.3333C44.7013 33 45 32.7013 45 32.3333V24.3333C45 24.1687 44.976 22.6993 44.138 21.862ZM15 35.6667C13.162 35.6667 11.6667 34.1713 11.6667 32.3333C11.6667 30.4953 13.162 29 15 29C16.838 29 18.3333 30.4953 18.3333 32.3333C18.3333 34.1713 16.838 35.6667 15 35.6667ZM31 5H9.66667C7.82867 5 6.33333 6.49533 6.33333 8.33333C6.33333 8.36667 6.336 8.39933 6.34067 8.432L7.226 14.3333H5.66667C5.29867 14.3333 5 14.632 5 15C5 15.368 5.29867 15.6667 5.66667 15.6667H15C15.368 15.6667 15.6667 15.368 15.6667 15C15.6667 14.632 15.368 14.3333 15 14.3333H8.574L7.66733 8.28733C7.692 7.206 8.57933 6.33333 9.66667 6.33333H30.3333V31.6667H19.6133C19.2887 29.4087 17.3467 27.6667 15 27.6667C12.4267 27.6667 10.3333 29.76 10.3333 32.3333C10.3333 34.9067 12.4267 37 15 37C17.3467 37 19.2887 35.258 19.6133 33H31C31.368 33 31.6667 32.7013 31.6667 32.3333V5.66667C31.6667 5.29867 31.368 5 31 5Z" fill="black"></path>
+                                    </svg>
+                                </a>
+                                <a class="link" href="tel:+375  (44)  730 - 11 - 77">
+                                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M29.3478 33.543C29.3478 33.543 32.722 31.6114 33.6053 31.1472C34.4862 30.6814 35.3987 30.5639 35.9528 30.9022C36.792 31.4156 43.8386 36.103 44.432 36.518C45.0253 36.9339 45.3111 38.1214 44.4953 39.2847C43.6828 40.448 39.9345 45.048 38.3462 44.9988C36.7553 44.9472 30.1412 44.8022 17.6687 32.3264C5.19875 19.8548 5.05125 13.2389 5.00042 11.6481C4.94958 10.0581 9.54957 6.30896 10.7129 5.49563C11.8779 4.68314 13.0671 4.98897 13.4804 5.56063C13.9504 6.21146 18.5837 13.2356 19.0937 14.0406C19.4429 14.5906 19.3145 15.5081 18.8487 16.3898C18.3854 17.2731 16.4537 20.6473 16.4537 20.6473C16.4537 20.6473 17.8154 22.9697 22.4204 27.5739C27.0262 32.1789 29.3478 33.543 29.3478 33.543Z" stroke="black" stroke-width="2" stroke-miterlimit="10"></path>
+                                    </svg>
+                                </a>
+
                             </div>
                         </div>
                         <div class="card-description">
-                            <p class="description">{{ sparePart.name }} к {{ brand.name }} {{ model.name }}</p>
+                            <p class="description">Амортизаторы задней подвески к AUDI 80 (1991-1995), B4</p>
                             <div class="card-contact">
-                                {% set sellerPhone = advert.getSellerCompany().getSellerData().getClient().phone %}
-                                <a href="tel:{{ sellerPhone }}" class="contact">{{ sellerPhone }}</a>
-                                {% if advert.getSellerCompany().additionalPhone %}
-                                    <a href="tel:{{ advert.getSellerCompany().additionalPhone }}" class="contact">{{ advert.getSellerCompany().additionalPhone }}</a>
-                                {% endif %}
-                            </div>
-                            <p class="time-text">{{ advert.comment }}</p>
+                                                                    <a href="tel:+375  (44)  730 - 11 - 77" class="contact click-ok-phone" data-text="+375  (44)  730 - 11 - 77"></a>
+                                                                    <a href="tel:+375  (44)  730 - 11 - 77" class="contact click-ok-phone" data-text="+375  (44)  730 - 11 - 77"></a>
+                                                                    <a href="tel:+375  (44)  730 - 11 - 77" class="contact click-ok-phone" data-text="+375  (44)  730 - 11 - 77"></a>
+                                                                                                                            </div>
+                            <p class="time-text">Запчасти для легковых и грузовых автомобилей всех марок и моделей.</p>
                             <div class="card-block">
                                 <div class="adress">
-                                    <p class="adress-text">Беларусь</p>
-                                    <p class="adress-text-city">{{ advert.getSellerCompany().city }}, {{  advert.getSellerCompany().address }}</p>
+                                    <p class="adress-text">
+                                        <svg class="adress-text-img" width="18" height="18" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="red" d="M25 47.7741L24.2284 46.6575C23.6481 45.8166 10 25.9678 10 18C10 9.72938 16.7294 3 25 3C33.2706 3 40 9.72938 40 18C40 25.9678 26.3519 45.8166 25.7716 46.6575L25 47.7741ZM25 4.875C17.7625 4.875 11.875 10.7625 11.875 18C11.875 24.3628 22.0797 40.0828 25 44.4506C27.9203 40.0828 38.125 24.3628 38.125 18C38.125 10.7625 32.2375 4.875 25 4.875Z"></path>
+                                            <path fill="red" d="M25 24.5625C21.3822 24.5625 18.4375 21.6188 18.4375 18C18.4375 14.3813 21.3822 11.4375 25 11.4375C28.6178 11.4375 31.5625 14.3813 31.5625 18C31.5625 21.6188 28.6178 24.5625 25 24.5625ZM25 13.3125C22.4153 13.3125 20.3125 15.4153 20.3125 18C20.3125 20.5847 22.4153 22.6875 25 22.6875C27.5847 22.6875 29.6875 20.5847 29.6875 18C29.6875 15.4153 27.5847 13.3125 25 13.3125Z"></path>
+                                        </svg>Беларусь, Минск,</p>
+                                    <p class="adress-text-city">ул. Железнодорожная, д. 33А</p>
                                 </div>
                                 <div class="card-time">
-                                    {% set workflow = advert.getSellerCompany().workflow %}
+                                                                        
                                     <div class="week">
-                                        <span class="day blue{{ workflow.isMondayWork() ? "-check" : "" }}"></span>
-                                        <span class="day blue{{ workflow.isTuesdayWork() ? "-check" : "" }}"></span>
-                                        <span class="day blue{{ workflow.isWednesdayWork() ? "-check" : "" }}"></span>
-                                        <span class="day blue{{ workflow.isThursdayWork() ? "-check" : "" }}"></span>
-                                        <span class="day blue{{ workflow.isFridayWork() ? "-check" : "" }}"></span>
-                                        {% if workflow.isWorkWeekday %}
-                                            <span class="day-time">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span>
-                                        {% endif %}
-                                    </div>
+                                        <span class="day blue">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                            <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                        <span class="day blue">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                            <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                        <span class="day blue">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                              <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                        <span class="day blue">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                              <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                        <span class="day blue">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                              <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                                                                    <span class="day-time">08:00 - 22:00</span>
+                                                                            </div>
                                     <div class="weekend">
                                         <span class="day"></span>
                                         <span class="day"></span>
                                         <span class="day"></span>
-                                        <span class="day red{{ workflow.isSaturdayWork() ? "-check" : "" }}"></span>
-                                        <span class="day red{{ workflow.isSundayWork() ? "-check" : "" }}"></span>
-                                        {% if workflow.isWorkWeekend %}
-                                            <span class="day-time">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span>
-                                        {% endif %}
-                                    </div>
+                                        <span class="day red">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                            <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                        <span class="day red">
+                                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" version="1.1" width="15px" height="15px">
+                                            <path fill="#fff" style=" " d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z "></path>
+                                          </svg>
+                                        </span>
+                                                                                    <span class="day-time">08:00 - 22:00</span>
+                                                                            </div>
                                 </div>
-                                <div class="unp">УНП {{ advert.getSellerCompany().unp }}</div>
+                                <div class="unp">
+                                    <span class="unp-number">УНП:</span>
+                                    <span class="unp-number">391399801</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
+
+
+
+
+           
+
             {{ render(controller('App\\Controller\\BamperController::showSuggestionsForBrandModelSparePartAction', routeParams)) }}
             <div class="delivery-admin">
                 <div class="admin-text">{{ page.text3 | raw }}</div>

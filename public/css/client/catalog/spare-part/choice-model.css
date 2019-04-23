@@ -191,7 +191,8 @@ a {
     font-weight: 400;
     background-color: #dbc0c7;
 }
-.button:hover {
+.button:hover,
+.button:focus  {
     background-color: #d2a2af;
 }
 
@@ -200,11 +201,9 @@ a {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    -webkit-box-align: baseline;
-    -ms-flex-align: baseline;
-    align-items: baseline;
+     justify-content: center;
+   -ms-align-items: center;
+   align-items: center;
     margin-bottom: 40px;
 }
 
@@ -312,7 +311,7 @@ a {
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;;
+    color: #f66666;
 }
 
 .city-subtitle::before { /* второй слой */
