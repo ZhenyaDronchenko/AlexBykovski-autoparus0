@@ -14,7 +14,7 @@ class GalleryPhotoRepository extends EntityRepository
             ->join("gph.gallery", "g")
             ->join("g.client", "cl")
             ->where("cl.id IN(:ids)")
-            ->setParameter("ids", [34, 29, 28, 27, 26, 24])
+            ->setParameter("ids", [34, 29, 28, 27, 26, 24, 50])
             ->orderBy("im.createdAt", "DESC");
 
         if($offset){
