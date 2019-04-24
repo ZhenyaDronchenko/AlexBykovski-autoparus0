@@ -30,7 +30,7 @@
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 {% set modelUrl = model ? model.url : constant('App\\Entity\\Catalog\\SparePart\\CatalogSparePartChoiceModel::ALL_MODELS_URL') %}
-                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_city", {"urlSP" : sparePart.url, "urlBrand" : brand.url, "urlModel" : modelUrl}) }}" itemprop="item" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model ? model.modelEn : "" }}"><span class="line">/</span> <span itemprop="name">{{ model ? model.modelEn : "Все модели" }}</span> <span class="line">/</span><meta itemprop="position" content="5"></a>
+                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_city", {"urlSP" : sparePart.url, "urlBrand" : brand.url, "urlModel" : modelUrl}) }}" itemprop="item" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model ? model.modelEn : "" }}"><span class="line">/</span> <span itemprop="name">{{ model ? model.modelEn : "Все модели" }}</span><span class="line">/</span><meta itemprop="position" content="5"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" nohref itemprop="item"><span itemprop="name">{{ city ? city.name : "Все города" }}</span><meta itemprop="position" content="6"></a>
@@ -365,3 +365,42 @@
     <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
     <script src="/js/client/pages/catalog/seller-advert-actions.js"></script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

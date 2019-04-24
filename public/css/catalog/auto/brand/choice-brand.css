@@ -1,147 +1,108 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 5px;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
-.link:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+.link-b:hover {
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
-@media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-    }
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 14px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
+@media  (max-width: 767px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
 }
-/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
 /*mod*/
 .model-block {
-    padding-top: 40px;
-    padding-bottom: 60px;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
 .model-title {
  margin: 0;
     margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
@@ -154,34 +115,29 @@
     margin-bottom: 20px;
 }
 #text1 {
-    margin: 0;
+      margin: 0;
+    margin-bottom: 10px;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     color: #000000;
     font-weight: 400;
 }
 #allText {
-    text-align: right;
+   text-align: right;
     display: none;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 14px;
-    color: #d22856;
+    color: #ff0000;
+    margin-right: 20px;
 }
 
 
 
-.text1hide {
-    max-height: auto;
-}
-
-.text1show {
-    max-height: auto;
-}
 
 .subtext {
     margin: 0;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
 }
 
 .modform {
@@ -286,9 +242,9 @@
 .model-subtitle {
      margin: 0;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: 24px;
-    line-height: 26px;
+    line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
     color: #f66666;
@@ -303,7 +259,7 @@
         width: auto;
     }
     .model-block {
-        padding-bottom: 50px;
+    padding-top: 25px;
     }
     .text1Hide {
         max-height: 48px;
@@ -316,22 +272,22 @@
     }
     .model-title {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
         margin-bottom: 20px;
     }
+    .modform {
+    margin-bottom: 30px;
+}
     .mod-avto {
         margin: 0;
         margin-left: auto;
         font-size: 14px;
-        line-height: 16px;
+        line-height: 18px;
     }
     .model-text {
         margin-bottom: 0;
     }
-    #text1 {
-        font-size: 14px;
-        line-height: 16px;
-    }
+  
     .mod-text-b {
         margin-bottom: 45px;
         margin-top: 10px;
@@ -341,7 +297,6 @@
 
     
   
-
     #allText{
         font-size: 13px;
     }
@@ -350,10 +305,6 @@
         margin: 0 auto;
     }
     
-
-    .showMoreBrands {
-        max-height: auto;
-    }
 
 
     #brandImg5 li {
@@ -368,17 +319,17 @@
     }
 
     .mod-subtitle {
-        font-size: 18px;
-        line-height: 20px;
+        font-size: 20px;
+        line-height: 24px;
 
     }
    
     .mod-link-line {
-        border-top: 1px solid black;
+        border-top: 1px solid #737373;
     }
     .subtext {
         font-size: 14px;
-        line-height: 16px;
+        line-height: 18px;
     }
 
 }
@@ -386,12 +337,11 @@
     .container {
         width: auto; }
     .model-block {
-        padding-bottom: 50px;
+        padding-top: 25px;
     }
     .text1Hide {
         max-height: 48px;
         overflow: hidden;
-
     }
     #allText {
         display: block;
@@ -399,17 +349,17 @@
     }
     .model-title {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
+        margin-bottom: 20px;
     }
+      .modform {
+    margin-bottom: 30px;
+}
 
     .model-text {
         margin-bottom: 0;
     }
-    #text1 {
-        font-size: 14px;
-        line-height: 16px;
-    }
-
+  
 
     .showLess5 {
         max-height: 470px;
@@ -422,17 +372,19 @@
 
    
     .mod-link-line {
-        border-top: 1px solid black;
+        border-top: 1px solid #737373;
     }
     .subtext {
 
         font-size: 14px;
-        line-height: 16px;
+        line-height: 18px;
+    }
+    .mod-subtitle {
+        font-size: 20px;
+        line-height: 24px;
+
     }
 }
-
-
-
 
 
 

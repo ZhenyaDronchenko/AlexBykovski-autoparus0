@@ -1,4 +1,3 @@
-
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
@@ -10,8 +9,7 @@
 }
   
 .line {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0 3px;
   }
 
 #breadcrumbs a {
@@ -40,7 +38,7 @@ color: black;
 cursor: default;
 }
 
-@media  (max-width: 481px) {
+@media  (max-width: 767px) {
   .container {
     width: auto; 
   }
@@ -48,8 +46,8 @@ cursor: default;
   padding-top: 3px;
 }
   .line {
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
   }
 .user-name {
     display: none;
@@ -59,10 +57,7 @@ cursor: default;
   display: block;
 }
 
-.close-menu {
-  font-size: 14px;
-  cursor: pointer;
-}
+
 .user-link {
   width: 10px;
   height: 10px;
@@ -70,13 +65,13 @@ cursor: default;
 
 .user-icon {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 #breadcrumbs a {
-    line-height: 20px;
-    font-size: 11px;
+    line-height: 18px;
+    font-size: 10px;
   }
   .model-block {
     padding-top: 5px;
@@ -84,7 +79,7 @@ cursor: default;
  
 .user-link--icon {
   width: 16px;
-    height: 16px;
+    height: 12px;
 }
    
  
@@ -93,29 +88,22 @@ cursor: default;
 }
 
 }
-@media  (max-width: 767px) {
-  .container {
-    width: auto; 
-  }
-  #breadcrumbs a {
-    line-height: 20px;
-    font-size: 11px;
-  }
-}
+
  /*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 /*mod*/
 .mod {
-   padding-top: 40px;
-    padding-bottom: 60px;
+   padding-top: 35px;
+    padding-bottom: 65px;
 }
 .mod-title {
    margin: 0;
     margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
@@ -126,11 +114,12 @@ cursor: default;
     -webkit-text-stroke: .03em #ff0000;
 }
 .mod-text {
-    margin: 0;
-    margin-bottom: 20px;
-    margin-top: 15px;
+   margin: 0;
+    margin-bottom: 10px;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
+    color: #000000;
+    font-weight: 400;
 }
 
 
@@ -139,16 +128,20 @@ cursor: default;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-   justify-content: center;
+   -webkit-box-pack: center;
+       -ms-flex-pack: center;
+           justify-content: center;
    -ms-align-items: center;
-   align-items: center;
-    margin-bottom: 40px;
+   -webkit-box-align: center;
+       -ms-flex-align: center;
+           align-items: center;
+    margin-bottom: 30px;
     margin-top: 30px;
 }
 
 
 .form7 {
-    width: 450px;
+    width: 600px;
     padding-left: 5px;
     border: none;
     background-color: #fff;
@@ -162,13 +155,12 @@ cursor: default;
 }
 
 #showAll5 {
-    max-width: 50px;
-    text-align: center;
-    margin: 0 auto;
-    margin-bottom: 40px;
-    color: #d22856;
-    cursor: pointer;
-   font-size: 14px;
+      text-align: right;
+    display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    margin-right: 20px;
 }
 
 #showAll5:hover {
@@ -177,13 +169,12 @@ cursor: default;
 
 #brandImg5 {
     width: 100%;
-
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     overflow: hidden;
 }
 
@@ -198,13 +189,19 @@ cursor: default;
 
 #brandImg5 li {
 margin: 0 auto;
-    width: 450px;
+    width: 500px;
 }
 
 .mod-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-weight: 400;
   height: 85px;
   border-bottom: 1px solid #737373;
@@ -216,12 +213,12 @@ margin: 0 auto;
 }
 .mod-link span {
   display: block;
-  width: 300px;
+  width: 350px;
     font-size: 18px;
   line-height: 22px;
   color: #444444;
   letter-spacing: 1px;
-  font-weight: 300;
+  font-weight: 400;
   padding-bottom: 5px;
 
 }
@@ -261,6 +258,9 @@ margin: 0 auto;
     .container {
         width: auto;
     }
+    .mod {
+    padding-top: 25px;
+    }
     .mod-link span {
   display: block;
   width: 70%;
@@ -270,7 +270,7 @@ margin: 0 auto;
 
     .mod-title {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
         margin-bottom: 20px;
     }
 
@@ -292,9 +292,9 @@ margin: 0 auto;
 
     .form7 {
          width: 100%;
+         font-size: 16px;
+    line-height: 18px;
     }
-
-  
 
     .showLess5 {
         max-height: 330px;
@@ -312,7 +312,7 @@ margin: 0 auto;
     }
     .mod-link {
         height: 70px;
-    font-weight: 700;
+    font-weight: 400;
 padding: 10px 3px;
       font-size: 13px;
     line-height: 16px;
@@ -339,11 +339,27 @@ padding: 10px 3px;
     .container {
         width: auto; }
    
-
-.form7 {
-         width: 450px;
+ .mod {
+    padding-top: 25px;
+    }
+ .form7 {
+         width: 100%;
     }
 
+#brandImg5 li {
+    margin: 0 auto;
+    width: 450px;
+}
+.mod-link span {
+    width: 340px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .mod-link img {
+    width: 105px;
+    height: 70px;
+  
+}
     .mod-title {
         font-size: 22px;
         line-height: 26px;
@@ -356,32 +372,29 @@ padding: 10px 3px;
         
     }
   
-    
+     .mod-link-line {
+        border-top: 1px solid #737373;
+    }
 }
-@media (min-width: 768px) and (max-width: 969px) {
+
+@media (min-width: 1024px) and (max-width: 1199px) {
     .container {
         width: auto; }
 #brandImg5 li {
-    width: 340px;
-} 
-.mod-link {
-  height: 70px;
-}
-
-.mod-link img {
-  width: 90px;
-  height: 60px;
+    margin: 0 auto;
+    width: 450px;
 }
 .mod-link span {
-  display: block;
-  width: 200px;
-    font-size: 14px;
-    line-height: 18px;
+    width: 325px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .mod-link img {
+    width: 105px;
+    height: 70px;
+  
 }
-
-
 }
-
 @media (max-width: 575px) {
     .link {
         display: block;
