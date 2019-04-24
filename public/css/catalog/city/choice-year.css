@@ -1,26 +1,5 @@
-
-.container {
-  max-width: 1170px;
-  margin: 0 auto;
-  padding: 0 15px;  
-}
-
-a {
-  display: block;
-  text-decoration: none;
-  cursor: pointer;
-}
-
- ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-
- /*ХЛЕБНЫЕ КРОШКИ*/
+/*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-   border-top: 2px solid #444;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -30,26 +9,11 @@ a {
 }
   
 .line {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0 3px;
   }
-.dotdotdot {
-    display: none;
-        font-size: 10px;
-    line-height: 20px;
-    letter-spacing: 3px;
-    color: #444;
-
-}
-.more {
-  display: none;
-  font-size: 0.9em;
-  letter-spacing: 2px;
-  color: #444; 
-}
 
 #breadcrumbs a {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 font-size: 16px;
 line-height: 18px;
 color: #444;
@@ -73,11 +37,8 @@ color: black;
 .current {
 cursor: default;
 }
-.opened {
-    background-color: transparent;
-}
 
-@media  (max-width: 575px) {
+@media  (max-width: 767px) {
   .container {
     width: auto; 
   }
@@ -85,64 +46,32 @@ cursor: default;
   padding-top: 3px;
 }
   .line {
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
   }
 .user-name {
     display: none;
   }
-.opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            
-    }
-  .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
 
-    .opened .more {
-        display: none;
-    }
-  
 .user-icon {
   display: block;
 }
 
 
-.close-menu {
-  font-size: 14px;
-  cursor: pointer;
-}
 .user-link {
   width: 10px;
   height: 10px;
 }
 
-.opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
 .user-icon {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
- .more {
-  display: block;
-  cursor: pointer;
-   font-size: 12px;
-  line-height: 18px;
-  margin-left: 5px;
-  }
+
 #breadcrumbs a {
-    line-height: 20px;
-    font-size: 11px;
+    line-height: 18px;
+    font-size: 10px;
   }
   .model-block {
     padding-top: 5px;
@@ -150,59 +79,51 @@ cursor: default;
  
 .user-link--icon {
   width: 16px;
-    height: 16px;
+    height: 12px;
 }
    
  
-
  #breadcrumbs li:nth-child(2) {
     margin-right: 3px;
 }
 
-.more {
-        display: block;
-        cursor: pointer;
-   
-    }
+}
 
-.opened .more {
-        display: none;
-    }
-}
-@media (min-width: 576px) and (max-width: 767px) {
-  .container {
-    width: auto; 
-  }
-}
  /*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 
 /*mod*/
 .model{
-  padding-top: 40px;
-  padding-bottom: 60px;
+ padding-top: 35px;
+    padding-bottom: 65px;
 }
 h1 {
-  margin: 0;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 26px;
-  line-height: 30px;
-  color: #ff0000;
+   margin: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
 
 }
-
-
+h1::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
+}
+a {
+  display: block;
+}
 p {
-  margin: 0;
-  margin-bottom: 10px;
-  font-size: 16px;
-  line-height: 18px;
-  font-family: 'Roboto', sans-serif;
-  color: #000000;
-  font-weight: 400;
-  text-align: justify;
+margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    font-weight: 400;
 }
 
 .brand-block {
@@ -226,12 +147,13 @@ p {
     margin-right: 15px;
     margin-left: 15px;
     margin-bottom: 20px;
-    width: 100px; 
+    
 }
 
 .link-c {
+  width: 100px; 
   padding: 5px;
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   text-align: center;
   border: 1px solid #727272;
   border-radius: 3px;
@@ -239,13 +161,13 @@ p {
   cursor: pointer;
   font-size: 20px;
   line-height: 22px;
-  font-weight: 700;
+  font-weight: 400;
   background-color: #faeeee;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 .link-c:hover {
-   color: #ff0000;
+   background-color: #d2a2af;
 }
 
 .btn {
@@ -257,7 +179,7 @@ p {
     border: 1px solid #757373;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: 700; 
+    font-weight: 400; 
     margin: 30px 0;
     margin-left: auto;
 }
@@ -266,19 +188,31 @@ p {
 }
 h2 {
   margin: 0;
-  text-align: center;
-  font-size: 24px;
-  line-height: 26px;
-  margin-bottom: 20px;
-  color: #ff0000;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #f66666;
+}
+h2::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 h3 {
-  margin: 0;
-  text-align: center;
-  font-size: 22px;
-  line-height: 24px;
-  margin-bottom: 20px;
-  color: #ff0000;
+   margin: 0;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #f66666;
+}
+h3::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 .model-block {
   display: -webkit-box;
@@ -334,12 +268,13 @@ h3 {
     padding: 0 10px;
   }
 .model {
-  padding-bottom: 50px;
+  padding-top: 25px;
 }
   
   h1 {
     font-size: 22px;
-    line-height: 24px;
+    line-height: 26px;
+    margin-bottom: 20px;
   }
   
 
@@ -351,7 +286,7 @@ h3 {
     margin-right: 8px;
 margin-left: 0;
     margin-bottom: 15px;
-    width: 90px;
+    
 }
 .brand-block li:nth-child(3n){
     margin-right: 0;
@@ -359,16 +294,17 @@ margin-left: 0;
 .link-c {
   font-size: 14px;
   line-height: 16px;
+  width: 90px;
 }
 
 
 h2 {
   font-size: 20px;
-  line-height: 22px;
+  line-height: 24px;
 }
 h3 {
   font-size: 18px;
-  line-height: 20px;
+  line-height: 22px;
 }
 .model-block  li {
   margin-right: 5px;
@@ -386,10 +322,13 @@ h3 {
     width: auto; 
   }
 
-
+ .mod {
+    padding-top: 25px;
+    }
   h1 {
     font-size: 22px;
-    line-height: 24px;
+    line-height: 26px;
+    margin-bottom: 20px;
   }
   .brand-block {
    margin: 30px auto;
@@ -403,17 +342,21 @@ margin-left: 0;
     margin-bottom: 15px;
     width: 130px;
 }
+.link-c {
+  width: 130px;
+}
+
 .brand-block li:nth-child(3n){
     margin-right: 0;
 }
 
 h2 {
   font-size: 20px;
-  line-height: 22px; 
+  line-height: 24px; 
 }
 h3 {
   font-size: 18px;
-  line-height: 20px; 
+  line-height: 22px; 
 }
 .model-block  li {
   margin-right: 5px;
@@ -431,13 +374,8 @@ h3 {
     width: auto; }
 
 
-.brand-block li {
-    margin-left: 7px;
-    margin-right: 7px;
-    width: 65px;
-   }
 .link-c {
-  padding: 5px;
+  width: 80px;
   font-size: 16px;
   line-height: 20px;
 }
@@ -449,7 +387,7 @@ h3 {
  .brand-block li {
     margin-left: 10px;
     margin-right: 10px;
-    width: 90px;
+   
     
 }
 .block-text {
@@ -457,7 +395,7 @@ h3 {
   }
 .link-c {
   font-size: 18px;
- 
+  width: 90px;
   }
   .model-block {
     margin-bottom: 20px;
