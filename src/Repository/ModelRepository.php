@@ -93,4 +93,29 @@ class ModelRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findModelForImport($text, Brand $brand)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m')
+            ->where("m.brand = :brand");
+
+        $orX = $qb->expr()->orX(
+            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') = :textUpper',
+            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') LIKE :textLike',
+            'm.name = :textUpper',
+            'm.name LIKE :textLike',
+            'm.modelEn = :text',
+            'm.modelEn = :textWithoutYear'
+        );
+
+        return $qb->andWhere($orX)
+            ->setParameter("brand",  $brand)
+            ->setParameter('text', $text )
+            ->setParameter('textLike', '%' . $text . '%'  )
+            ->setParameter('textUpper', strtoupper($text) )
+            ->setParameter('textWithoutYear', trim(preg_replace("/\d{4}\-\d{4}/", "", $text)) )
+            ->getQuery()
+            ->getResult();
+    }
 }

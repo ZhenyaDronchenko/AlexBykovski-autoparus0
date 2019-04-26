@@ -32,15 +32,15 @@
 
         <section class="price">
             <h1 class="price-title">{{ default_text(14).headline }}</h1>
-            <a class="btn price-btn" onclick="document.getElementById('upload-file-input').click()">Выбрать файл для загрузки</a>
-            <input id="upload-file-input" type="file" style="display: none" custom-on-change="importCtrl.uploadedFile" ng-disabled="importCtrl.isImportProcess || importCtrl.isUploadAndCheckProcess">
+            <a class="btn price-btn" onclick="document.getElementById('upload-file-input').click()" ng-show="!importCtrl.isImportProcess && !importCtrl.isUploadAndCheckProcess">Выбрать файл для загрузки</a>
+            <input id="upload-file-input" type="file" style="display: none" custom-on-change="importCtrl.uploadedFile">
             <div class="price-block" style="text-align: center; display: block;">
                 <span ng-hide="importCtrl.fileName" style="color: red">Файл не выбран</span>
                 <span ng-show="importCtrl.fileName" style="color: green">Файл выбран</span>
             </div>
             <p class="price-name" ng-bind="'Имя файла: ' + importCtrl.fileName" ng-show="importCtrl.fileName"></p>
             <div class="price-item">
-                <button type="submit" class="btn" ng-show="importCtrl.isPossibleImport" ng-disabled="importCtrl.isImportProcess">Импортировать</button>
+                <button type="button" class="btn" ng-show="importCtrl.isPossibleImport && !importCtrl.isImportProcess" ng-click="importCtrl.importFile()">Импортировать</button>
                 <div>
                     {#<span style="font-size: 17px;" ng-style="importCtrl.specialStyle">Файл загружается на сервер. Пожалуйста, подождите...</span>#}
                     {#<span style="font-size: 17px">Файл успешно загружен</span>#}
@@ -55,6 +55,7 @@
                     {#<span style="font-size: 17px">Данные импортированы. Вы можете проверить их <a href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}">здесь</a></span>#}
                     {#<span style="font-size: 17px; color: black">При импорте файл произошли ошибки. Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>#}
                     <span style="font-size: 17px;" ng-style="importCtrl.messageStyle" ng-bind-html="importCtrl.message"></span>
+                    <span style="font-size: 17px; color: black" ng-show="importCtrl.showErrorsAfterSuccessImport">Данные строки не были импортированы из-за ошибок:</span>
                     <ul ng-repeat="error in importCtrl.errors">
                         <li style="color: red" ng-bind="error"></li>
                     </ul>

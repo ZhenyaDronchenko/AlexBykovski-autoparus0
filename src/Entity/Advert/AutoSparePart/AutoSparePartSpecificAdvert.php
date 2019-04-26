@@ -20,6 +20,8 @@ class AutoSparePartSpecificAdvert
     const IN_STOCK_TYPE = "in_stock";
     const UNDER_ORDER_TYPE = "under_order";
 
+    const USED_TYPE = "used";
+
     const CONDITIONS_FORM = [
         "used" => "Б/У",
         "new" => "Новая(й)",

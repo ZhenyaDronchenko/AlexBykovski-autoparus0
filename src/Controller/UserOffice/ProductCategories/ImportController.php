@@ -2,7 +2,9 @@
 
 namespace App\Controller\UserOffice\ProductCategories;
 
+use App\Entity\Client\Client;
 use App\ImportAdvert\ImportChecker;
+use App\ImportAdvert\ImportUploader;
 use App\Upload\FileUpload;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,10 +76,29 @@ class ImportController extends Controller
             return new JsonResponse($response);
         }
 
+        return new JsonResponse($importChecker->isCorrectFileToImportSpecificAdvert($filePath));
+    }
 
-        return new JsonResponse([
-            "file" => $importChecker->isCorrectFileToImportSpecificAdvert($filePath),
-            "success" => true,
-        ]);
+    /**
+     * @Route("/ajax/import-file/specific-adverts", name="import_ajax_import_file_specific_adverts", options={"expose"=true})
+     */
+    public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
+    {
+        $response = [
+            "success" => false,
+        ];
+        /** @var Client $client */
+        $client = $this->getUser();
+
+        $folder = $this->getParameter("upload_directory");
+        $filePath = $folder . '/' . json_decode($request->getContent(), true)["path"];
+
+        if(!file_exists($filePath)){
+            $response["errors"] = ["Файл не найден. Обратитесь в техподдержку"];
+
+            return new JsonResponse($response);
+        }
+
+        return new JsonResponse($importer->importFile($filePath, $client->getSellerData()->getAdvertDetail()));
     }
 }

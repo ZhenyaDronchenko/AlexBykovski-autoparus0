@@ -41,7 +41,7 @@ class SparePartCategoryController extends Controller
     }
 
     /**
-     * @Route("/list-adverts", name="user_profile_product_categories_spare_part_list_adverts")
+     * @Route("/list-adverts", name="user_profile_product_categories_spare_part_list_adverts", options={"expose"=true})
      */
     public function showListAdvertsAction(Request $request, SpecificAdvertListProvider $provider)
     {

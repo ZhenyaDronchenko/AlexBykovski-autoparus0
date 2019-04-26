@@ -102,7 +102,7 @@ services:
 
     app.import_advert.import_checker:
         class:  App\ImportAdvert\ImportChecker
-        arguments: []
+        arguments: ['@doctrine.orm.entity_manager']
         public: true
 
 fos_user:

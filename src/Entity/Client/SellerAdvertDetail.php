@@ -4,6 +4,7 @@ namespace App\Entity\Client;
 
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -121,6 +122,11 @@ class SellerAdvertDetail
         $this->autoSparePartSpecificAdverts = $autoSparePartSpecificAdverts;
     }
 
+    public function addAutoSparePartSpecificAdvert(AutoSparePartSpecificAdvert $advert)
+    {
+        $this->autoSparePartSpecificAdverts->add($advert);
+    }
+
     public function getAutoSparePartGeneralAdvertsBrands($isOnlyIds = false)
     {
         $brands = [];
@@ -136,5 +142,15 @@ class SellerAdvertDetail
         }
 
         return $brands;
+    }
+
+    public function hasSameImportSpecificAdvert(AutoSparePartSpecificAdvert $advertToCompare)
+    {
+        return count(array_filter($this->autoSparePartSpecificAdverts->getValues(), function(AutoSparePartSpecificAdvert $advert) use ($advertToCompare){
+            return $advert->getBrand()->getId() === $advertToCompare->getBrand()->getId() &&
+                $advert->getModel()->getId() === $advertToCompare->getModel()->getId() &&
+                $advert->getSparePart() === $advertToCompare->getSparePart() &&
+                $advert->getYear() === $advertToCompare->getYear();
+        })) > 0;
     }
 }
