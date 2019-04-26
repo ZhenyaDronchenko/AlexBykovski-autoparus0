@@ -22,20 +22,17 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("turbo_catalog_choice_brand") }}" itemprop="item" title="{{ choiceBrandTitle }}">/
-                    <span itemprop="name">Поиск</span>
+                <a class="link-b" href="{{ path("turbo_catalog_choice_brand") }}" itemprop="item" title="{{ choiceBrandTitle }}"><span class="line">/</span><span itemprop="name">Поиск</span>
                     <meta itemprop="position" content="2">
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("turbo_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ choiceModelTitle }}">/
-                    <span itemprop="name">{{ brand.brandEn }}</span>
+                <a class="link-b" href="{{ path("turbo_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ choiceModelTitle }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span>
                     <meta itemprop="position" content="3">
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" nohref itemprop="item">/
-                    <span itemprop="name">{{ model.modelEn }}</span>
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span>
                     <meta itemprop="position" content="4">
                 </a>
             </li>

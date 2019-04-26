@@ -49,7 +49,7 @@
             </form>
             <ul class='showMoreModel' id='brandImg5'>
                 {% for sparePart in popularSpareParts %}
-                    <li><a class="mod-link" href="{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}"><span>{{ sparePart.name }}</span><img src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
+                    <li><a class="mod-link " href="{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}"><span>{{ sparePart.name }}</span><img src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
                 {% endfor %}
                 {% for sparePart in unpopularSpareParts %}
                     <li ng-show="showAll"><a class="mod-link-t" href='{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}'>{{ sparePart.name }}</a></li>

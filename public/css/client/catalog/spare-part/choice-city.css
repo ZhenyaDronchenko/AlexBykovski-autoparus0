@@ -475,10 +475,10 @@ tr {
         line-height: 16px;
 }
 
-    .turbo-subtitle {
+   .brand-subtitle {
         font-size: 20px;
-        line-height: 22px;
-        margin-bottom: 15px;
+        line-height: 24px;
+        
     }
     .img-wrapper {
         display: none;
@@ -656,19 +656,13 @@ tr {
 .brand-block li {
     margin:  0 10px;
     margin-bottom: 20px;
-    
-    
 }
-
-
- 
     .link {
          width: 140px;
         font-size: 18px;
         line-height: 20px;
     }
 
-   
     table {
 
         width: 100%;

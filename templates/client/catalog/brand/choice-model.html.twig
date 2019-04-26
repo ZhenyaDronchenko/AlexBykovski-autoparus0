@@ -49,7 +49,7 @@
             <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
                 {% for model in allModels %}
                     <li>
-                        <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_choice_spare_part", {"urlModel" : model.url}|merge(routeParams)) }}">
+                        <a class="mod-link  {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_choice_spare_part", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
                             <img src="{{ image_url(model.logo, "model") }}" alt="{{ model.name }}" title="Запчасти для {{ brand.name }} {{ model.name }}">
                         </a>

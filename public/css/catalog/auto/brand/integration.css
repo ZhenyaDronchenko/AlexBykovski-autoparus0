@@ -57,13 +57,6 @@
     background-color:  #ebebebe;
 }
 
-.contact {
-    font-size: 18px;
-    line-height: 20px;
-    font-weight: 400;
-    color: #000000;
-    margin-bottom: 5px;
-}
 
 .contact:last-child {
     margin-bottom: 0px;
@@ -172,11 +165,6 @@
         padding: 5px 5px;
     }
 
-    .contact {
-        font-size: 16px;
-        line-height: 18px;
-
-    }
 }
 
 @media (max-width: 480px) {
@@ -225,9 +213,5 @@
         padding: 5px 5px;
     }
 
-    .contact {
-        font-size: 16px;
-        line-height: 18px;
-
-    }
+    
 }

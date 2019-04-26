@@ -1,174 +1,115 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 1px solid #444;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-.dotdotdot {
-    display: none;
-    font-size: 10px;
-    line-height: 20px;
-    letter-spacing: 3px;
-    color: #444;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
 .link-b:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
-@media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
-
-    #breadcrumbs li:nth-child(2) {
-        margin-right: 3px;
-    }
-
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
+@media  (max-width: 481px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
-}
-/*END ХЛЕБНЫЕ КРОШКИ*/
+  .line {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+.user-name {
+    display: none;
+  }
 
+.user-icon {
+  display: block;
+}
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 20px;
+    font-size: 11px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 /*code*/
 .turbo {
-    padding-top: 30px;
-    padding-bottom: 65px;
+    padding-top: 35px;
+    padding-bottom: 65px;;
 }
-
+p {
+    margin: 0;
+    margin-bottom: 10px;
+}
 .turbo-title {
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
 }
 .turbo-title::before { /* второй слой */
     content: attr(data-text);
@@ -181,10 +122,10 @@
     font-size: 18px;
     line-height: 20px;
     padding: 3px;
-    color: #757373;
+    color: #000000;
     border: none;
     width: 220px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #737373;
     background-color: #fff;
     margin-bottom: 30px;
 
@@ -195,22 +136,25 @@
 
 #text1 {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     color: #000000;
     font-weight: 400;
 }
 
 
 #allText {
+   border: none;
     text-align: right;
+    background-color: #fff;
     display: none;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 14px;
     color: #ff0000;
     padding-top: 5px;
-    margin-right: 7%;
+      margin-right: 20px;
+    cursor: pointer;
+    outline: none;
 }
 
 
@@ -230,12 +174,17 @@
     margin-bottom: 20px;
 }
 .mod-list li {
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin: 0 10px;
+    margin-bottom: 20px;
 }
 .mod-link img {
     width: 80px;
     height: 80px;
+    border: 1px solid red;
+}
+.mod-link img:hover {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
 .turbo-subtitle {
@@ -243,10 +192,9 @@
     margin-bottom: 20px;
     text-align: center;
     font-size: 24px;
-    line-height: 26px;
+    line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
     color: #f66666;
 }
 .turbo-subtitle::before { /* второй слой */
@@ -258,9 +206,8 @@
 
 .turbo-text {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     color: #000000;
     font-weight: 400;
 }
@@ -276,37 +223,38 @@
     }
 
     .turbo {
-        padding-top: 30px;
-        padding-bottom: 50px;
+        padding-top: 25px;
+       
     }
-    .title {
-        margin-bottom: 15px;
+    .turbo-title {
+        margin-bottom: 20px;
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
     .text-block {
         margin-bottom: 25px;
     }
 
     .mod-list li {
-        margin-right: 10px;
+        margin: 0 auto;
         margin-bottom: 15px;
     }
     .mod-link img {
+         margin: 0 7px;
         width: 60px;
         height: 60px;
     }
     .mod-list {
         margin-bottom: 20px;
     }
-    .subtitle {
+    .turbo-subtitle {
         font-size: 20px;
-        line-height: 22px;
-        margin-bottom: 15px;
+        line-height: 24px;
+       
     }
 
     .text1Hide {
-        max-height: 55px;
+        max-height: 95px;
         overflow: hidden;
     }
     #allText {
@@ -316,31 +264,31 @@
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
+ .turbo {
+        padding-top: 25px;
+       
+    }
 
-
+       .turbo-title {
+        margin-bottom: 20px;
+        font-size: 22px;
+        line-height: 26px;
+    }
     .mod-list li {
-        margin-right: 15px;
+       margin: 0 auto;
         margin-bottom: 15px;
     }
     .mod-link img {
-        width: 70px;
-        height: 70px;
+         margin: 0 7px;
+        width: 60px;
+        height: 60px;
+    }
+  .turbo-subtitle {
+        font-size: 20px;
+        line-height: 24px;
+       
     }
 
-
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-    .container {
-        width: auto; }
-
-
-
 }
 
-@media (min-width: 1024px) and (max-width: 1199px) {
-    .container {
-        width: auto; }
-
-
-}
 /*city END*/

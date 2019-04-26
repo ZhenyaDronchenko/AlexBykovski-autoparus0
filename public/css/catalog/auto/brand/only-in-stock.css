@@ -96,8 +96,8 @@ cursor: default;
 /*  BLOCK-is */
 
 .delivery {
-    padding-top: 40px;
-    padding-bottom: 60px;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
 
 .delivery-title {
@@ -105,7 +105,7 @@ cursor: default;
     margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
@@ -115,38 +115,53 @@ cursor: default;
     content: attr(data-text);
     -webkit-text-stroke: .03em #ff0000;
 }
-.delivery-dsc {
-    margin-bottom: 20px;
-
-}
-
-#text1 {
+p {
     margin: 0;
-    font-size: 16px;
-    line-height: 18px;
-    font-weight: 400;
     margin-bottom: 10px;
+}
+#text1 {
+     margin: 0;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    font-weight: 400;
+    text-align: justify;
 }
 
 #allText {
+    border: none;
+    text-align: right;
+    background-color: #fff;
     display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 5px;
+      margin-right: 20px;
+    cursor: pointer;
+    outline: none;
 }
 .delivery-on {
    margin: 30px 0;
+   margin-bottom: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: flex-end;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
 }
 
 .delivery-on a {
-    padding: 5px 15px;
-   padding-bottom: 4px;
+    padding: 4px 10px;
+   padding-bottom: 3px;
     text-align: center;
     border: 1px solid #737373;
     border-radius: 3px;
     color: #444444;
     cursor: pointer;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
     background-color: #faeeee;
     -webkit-box-sizing: border-box;
@@ -167,9 +182,13 @@ cursor: default;
 
 .delivery-img {
     margin-bottom: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 .img-small {
@@ -200,7 +219,7 @@ cursor: default;
 }
 .delivery-text {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
@@ -211,28 +230,22 @@ cursor: default;
     .container {
         width: auto;
     }
-  
+  .delivery {
+    padding-top: 25px;
+}
 
     .delivery-title {
          margin-bottom: 20px;
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
-    .delivery-dsc {
-        margin-bottom: 10px;
-    }
+  
 
     #text1 {
         font-size: 14px;
         line-height: 16px;
     }
 
-    #allText {
-        display: block;
-        font-size: 16px;
-        color: #FF2E23;
-        text-align: right;
-    }
 
 
     .text1Hide {
@@ -256,11 +269,19 @@ cursor: default;
     }
 
 
-   
+   .delivery-on a {
+    font-size: 12px;
+    line-height: 14px;
+}
+
 
     .delivery-img {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: space-between;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
 
 
     }
@@ -287,10 +308,12 @@ cursor: default;
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
-
+  .delivery {
+    padding-top: 25px;
+}
 
     .delivery-title {
-        margin-bottom: 5px;
+        margin-bottom: 20px;
         font-size: 22px;
         line-height: 26px;
     }
@@ -303,12 +326,7 @@ cursor: default;
         line-height: 18px;
     }
 
-    #allText {
-        display: block;
-        font-size: 18px;
-        color: #FF2E23;
-        text-align: right;
-    }
+    
 
     .text1Hide {
         max-height: 55px;
@@ -319,8 +337,12 @@ cursor: default;
 
   
     .delivery-img {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: space-between;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
         
 
     }
@@ -805,23 +827,27 @@ padding-bottom: 4px;
     background-color: #d2a2af;
 }
 .arrows-btn {
+    display: block;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding-top: 20px;
     margin: 0 auto;
-    color: #ff0000;
+    margin-top: 20px;
+    padding: 4px 10px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    color: #444444;
     font-size: 16px;
     line-height: 20px;
     border: none;
-    border-bottom: 1px solid red;
+   background-color: #faeeee;
+    border: 1px solid #757373;
     cursor: pointer;
-    background-color: transparent;
+    border-radius: 3px;
 }
 
 .arrows-btn:hover {
-    color: #000;
-    border-bottom: 1px solid transparent;
+   background-color: #d2a2af;
 }
 
 
@@ -982,7 +1008,7 @@ padding-bottom: 4px;
         padding-bottom: 55px;
     }
     .text1Hide {
-        max-height: 60px;
+        max-height: 45px;
         overflow: hidden;
 
     }
@@ -1475,7 +1501,9 @@ padding-bottom: 4px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        justify-content: flex-end;
+        -webkit-box-pack: end;
+            -ms-flex-pack: end;
+                justify-content: flex-end;
     }
     .unp-number {
         margin-right: 15px;

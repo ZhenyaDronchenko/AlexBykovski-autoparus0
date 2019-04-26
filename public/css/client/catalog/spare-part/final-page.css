@@ -588,23 +588,27 @@ padding-bottom: 4px;
     background-color: #d2a2af;
 }
 .arrows-btn {
+    display: block;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding-top: 20px;
     margin: 0 auto;
-    color: #ff0000;
+    margin-top: 20px;
+    padding: 4px 10px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    color: #444444;
     font-size: 16px;
     line-height: 20px;
     border: none;
-    border-bottom: 1px solid red;
+   background-color: #faeeee;
+    border: 1px solid #757373;
     cursor: pointer;
-    background-color: transparent;
+    border-radius: 3px;
 }
 
 .arrows-btn:hover {
-    color: #000;
-    border-bottom: 1px solid transparent;
+   background-color: #d2a2af;
 }
 
 

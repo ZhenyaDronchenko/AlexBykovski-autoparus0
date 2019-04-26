@@ -1,151 +1,93 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding-top: 5px;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-.dotdotdot {
-    display: none;
-    font-size: 10px;
-    line-height: 20px;
-    letter-spacing: 3px;
-    color: #444;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
 .link-b:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
-@media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .link-b {
-        margin-right: 3px;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
-
-
-
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
+@media  (max-width: 481px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
+  .line {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
+}
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 20px;
+    font-size: 11px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
 }
 /*END ХЛЕБНЫЕ КРОШКИ*/
 
@@ -158,14 +100,14 @@
 
 .brand-title {
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
+    
 }
 .brand-title::before { /* второй слой */
     content: attr(data-text);
@@ -175,27 +117,29 @@
 .text-block {
     width: 85%;
 }
-
+p {
+    margin: 0;
+    margin-bottom: 10px;
+}
 #text1 {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     color: #000000;
     font-weight: 400;
 }
 
 
 #allText {
-    border: none;
-    margin-left: auto;
+   border: none;
+    text-align: right;
     background-color: #fff;
     display: none;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 14px;
     color: #ff0000;
     padding-top: 5px;
-    margin-right: 7%;
+      margin-right: 20px;
     cursor: pointer;
     outline: none;
 }
@@ -222,29 +166,30 @@
 
 }
 .brand-block li {
-    margin-right: 33px;
+     margin:  0 15px;
     margin-bottom: 20px;
-    width: 160px;
 }
 
 .link {
+     width: 160px;
     padding: 5px;
-    padding-bottom: 3px;
+    padding-bottom: 4px;
     text-align: center;
-    border: 1px solid #727272;
+    border: 1px solid #737373;
     border-radius: 3px;
     color: #444444;
     cursor: pointer;
     font-size: 20px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
     background-color: #faeeee;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 .link:hover {
-    color: #ff0000;
+    background-color: #d2a2af;
 }
+
 
 
 .button {
@@ -252,17 +197,17 @@
     display: block;
     margin: 0 auto;
     padding: 5px;
-    padding-bottom: 3px;
+    padding-bottom: 4px;
     background-color: #dbc0c7;
-    border: 1px solid #727272;
+    border: 1px solid #737373;
     border-radius: 5px;
     text-align: center;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     color: #444444;
     cursor: pointer;
     outline: none;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .button:hover {
@@ -274,10 +219,9 @@
     margin-bottom: 20px;
     text-align: center;
     font-size: 24px;
-    line-height: 26px;
+    line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    font-family: 'Roboto', sans-serif;
     color: #f66666;
 }
 .turbo-subtitle::before { /* второй слой */
@@ -292,10 +236,6 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    -ms-align-items: flex-start;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -304,7 +244,6 @@
 
 .subtext {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
@@ -330,6 +269,7 @@
 .img-wrapper img {
     width: 120px;
     height: 80px;
+    border: 1px solid red;
 }
 
 
@@ -342,40 +282,40 @@
     }
 
     .brand {
-        padding-top: 30px;
-        padding-bottom: 50px;
+        padding-top: 25px;
+    
     }
     .brand-title {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
 
     .text-block {
         width: 100%;
     }
-    .brand-block {
+       .brand-block {
         margin: 0 auto;
         width: 300px;
-        margin-bottom: 10px;
+       
     }
     .brand-block li {
-        margin-right: 8px;
+        margin: 0 5px;
         margin-bottom: 15px;
-        width: 93px;
     }
-    .brand-block li:nth-child(3n){
-        margin-right: 0;
-    }
-    .link {
+      .link {
+        width: 90px;
         font-size: 14px;
         line-height: 16px;
     }
-
+    .button {
+     width: 110px;
+        font-size: 14px;
+        line-height: 16px;
+}
     .turbo-subtitle {
-        font-size: 20px;
-        line-height: 22px;
-        margin-bottom: 15px;
+     font-size: 20px;
+        line-height: 24px;
     }
     .img-wrapper {
         display: none;
@@ -390,21 +330,35 @@
     .subtext {
         width: 100%;
     }
+    .subtext-block {
+        margin-bottom: 30px;
+    }
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
 
-
-    .brand-block li {
-        margin-right: 20px;
-        margin-bottom: 20px;
-        width: 130px;
+ .brand {
+        padding-top: 25px;
+    
     }
+            .brand-block {
+        margin: 0 auto;
+        width: 450px;
+    }
+.brand-block li {
+        margin: 0 10px;
+        margin-bottom: 20px;
+    }
+   
     .link {
+        width: 120px;
         font-size: 16px;
         line-height: 18px;
     }
+    .button {
+    width: 130px;
+}
     .text2Hide {
         max-height: 95px;
     }
@@ -417,29 +371,20 @@
     .subtext {
         width: 100%;
     }
-    .brand-block {
-        margin: 0 auto;
-        width: 450px;
-        margin-bottom: 10px;
-    }
-
-    .brand-block li:nth-child(3n){
-        margin-right: 0;
-    }
+   
 }
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {
         width: auto; }
-    .brand-block {
+ .brand-block {
         margin: 0 auto;
-        width: 730px;
-        margin-bottom: 10px;
+        width: 650px;
     }
-
-    .brand-block li:nth-child(3n){
-        margin-right: 0;
+.brand-block li {
+        margin: 0 20px;
+        margin-bottom: 30px;
     }
-
+   
     .text-block {
         width: 80%;
     }
@@ -453,17 +398,22 @@
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
         width: auto; }
-    .brand-block li {
+  .brand-block li {
         margin-right: 20px;
         margin-bottom: 20px;
         width: 140px;
-
     }
+.brand-block li {
+    margin:  0 10px;
+    margin-bottom: 20px; 
+}
 
     .link {
+         width: 140px;
         font-size: 18px;
         line-height: 20px;
     }
+
 
 
 }

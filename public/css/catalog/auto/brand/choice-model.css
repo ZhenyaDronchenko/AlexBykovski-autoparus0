@@ -98,6 +98,9 @@ cursor: default;
     padding-top: 35px;
     padding-bottom: 65px;
 }
+h3 {
+    margin: 0;
+}
 .model-title {
    margin: 0;
     margin-bottom: 30px;
@@ -116,7 +119,6 @@ cursor: default;
 
 #text1 {
       margin: 0;
-    margin-bottom: 10px;
     font-size: 16px;
     line-height: 20px;
     color: #000000;
@@ -336,7 +338,9 @@ cursor: default;
     margin-bottom: 30px;
 }
     .form7 {
-        width: 100%;
+        width: 85%;
+        font-size: 16px;
+        line-height: 18px;
       }
 
     #showAll5 {

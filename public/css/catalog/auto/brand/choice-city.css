@@ -97,8 +97,8 @@ cursor: default;
 /*  BLOCK-is */
 
 .delivery {
-    padding-top: 40px;
-    padding-bottom: 60px;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
 
 .delivery-title {
@@ -106,7 +106,7 @@ cursor: default;
     margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
@@ -116,29 +116,43 @@ cursor: default;
     content: attr(data-text);
     -webkit-text-stroke: .03em #ff0000;
 }
-.delivery-dsc {
-    margin-bottom: 20px;
 
+p {
+    margin: 0;
+    margin-bottom: 10px;
 }
-
 #text1 {
     margin: 0;
     font-size: 16px;
-    line-height: 18px;
+    line-height: 20px;
     font-weight: 400;
-    margin-bottom: 10px;
 }
 
 #allText {
+    border: none;
+    text-align: right;
+    background-color: #fff;
     display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 5px;
+      margin-right: 20px;
+    cursor: pointer;
+    outline: none;
 }
 .delivery-city {
-    margin: 30px 0;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
+.city-btn {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
 
+}
 .city {
     display: flex;
     justify-content: space-around;
@@ -147,6 +161,7 @@ cursor: default;
 .city a {
      width: 160px;
     padding: 5px;
+    margin-bottom: 20px;    
     padding-bottom: 4px;
     text-align: center;
     border: 1px solid #737373;
@@ -198,7 +213,7 @@ cursor: default;
     margin: 0;
     text-align: center;
     font-size: 24px;
-    line-height: 26px;
+    line-height: 28px;
     font-weight: 400;
     color: #f66666;
     letter-spacing: 1px;
@@ -221,12 +236,15 @@ cursor: default;
     .container {
         width: auto;
     }
-  
+  .delivery {
+    padding-top: 25px;
+    
+}
 
     .delivery-title {
     margin-bottom: 20px;
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
     .delivery-dsc {
         margin-bottom: 10px;
@@ -262,11 +280,10 @@ cursor: default;
         width: 90px;
         font-size: 14px;
         line-height: 16px;
+        margin-bottom: 15px;
     }
 
-    .block1 {
-        margin-bottom: 10px;
-    }
+    
     .item-text {
         margin: 0;
         font-size: 18px;
@@ -308,7 +325,10 @@ cursor: default;
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
-
+  .delivery {
+    padding-top: 25px;
+    
+}
    
     .delivery-title {
         font-size: 22px;
@@ -349,20 +369,7 @@ cursor: default;
         font-size: 16px;
         line-height: 18px;
     }
-
-    .block1 {
-        margin-bottom: 20px;
-    }
-
-
-   
   
-
-    .admin-text {
-        margin: 0;
-        font-size: 22px;
-        line-height: 24px;
-    }
 
     .delivery-img {
         display: flex;
@@ -383,7 +390,6 @@ cursor: default;
 
 
     .delivery-subtitle {
-     
         font-size: 20px;
         line-height: 24px;
     }
@@ -594,8 +600,6 @@ cursor: default;
     background-color: #dbc0c7;
     border-radius: 5px;
     text-align: center;
-    margin-left: auto;
-    margin-bottom: 20px;
 }
 
 .button:hover {
@@ -630,7 +634,6 @@ cursor: default;
     justify-content: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-bottom: 15px;
 }
 
 .card-contact a {
@@ -878,23 +881,27 @@ padding-bottom: 4px;
     background-color: #d2a2af;
 }
 .arrows-btn {
+    display: block;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding-top: 20px;
     margin: 0 auto;
-    color: #ff0000;
+    margin-top: 20px;
+    padding: 4px 10px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    color: #444444;
     font-size: 16px;
     line-height: 20px;
     border: none;
-    border-bottom: 1px solid red;
+   background-color: #faeeee;
+    border: 1px solid #757373;
     cursor: pointer;
-    background-color: transparent;
+    border-radius: 3px;
 }
 
 .arrows-btn:hover {
-    color: #000;
-    border-bottom: 1px solid transparent;
+   background-color: #d2a2af;
 }
 
 
@@ -1055,7 +1062,7 @@ padding-bottom: 4px;
         padding-bottom: 55px;
     }
     .text1Hide {
-        max-height: 60px;
+        max-height: 45px;
         overflow: hidden;
 
     }
