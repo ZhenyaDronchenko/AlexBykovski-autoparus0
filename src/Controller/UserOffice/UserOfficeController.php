@@ -236,6 +236,14 @@ class UserOfficeController extends Controller
     }
 
     /**
+     * @Route("/import-specific-adverts", name="user_office_import_specific_adverts")
+     */
+    public function showImportSpecificAdvertsAction(Request $request)
+    {
+        return $this->render('client/user-office/seller-services/product-categories/spare-part/import-specific-adverts.html.twig', []);
+    }
+
+    /**
      * @Route("/get-models-by-brand", name="get_models_by_brand")
      */
     public function getModelsByBrandAction(Request $request, ClientCarProvider $provider){

@@ -23,9 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -44,7 +41,7 @@ class SparePartCategoryController extends Controller
     }
 
     /**
-     * @Route("/list-adverts", name="user_profile_product_categories_spare_part_list_adverts")
+     * @Route("/list-adverts", name="user_profile_product_categories_spare_part_list_adverts", options={"expose"=true})
      */
     public function showListAdvertsAction(Request $request, SpecificAdvertListProvider $provider)
     {

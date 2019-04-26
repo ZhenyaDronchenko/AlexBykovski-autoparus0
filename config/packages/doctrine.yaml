@@ -31,3 +31,4 @@ doctrine:
             string_functions:
                 REGEXP: DoctrineExtensions\Query\Mysql\Regexp
                 REPLACE: DoctrineExtensions\Query\Mysql\Replace
+                SUBSTRING_INDEX: DoctrineExtensions\Query\Mysql\SubstringIndex

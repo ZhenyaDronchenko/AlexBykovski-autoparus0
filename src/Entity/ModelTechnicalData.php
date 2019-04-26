@@ -290,4 +290,18 @@ class ModelTechnicalData
             return $item->getType() == $type;
         });
     }
+
+    public function getGearBoxByType($type)
+    {
+        return array_filter($this->gearBoxTypes->getValues(), function(GearBoxType $item) use ($type){
+            return $item->getType() === $type;
+        });
+    }
+
+    public function getVehicleType($type)
+    {
+        return array_filter($this->gearBoxTypes->getValues(), function(GearBoxType $item) use ($type){
+            return $item->getType() === $type;
+        });
+    }
 }

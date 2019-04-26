@@ -63,7 +63,7 @@ class GeneralController extends Controller
     }
 
     /**
-     * @Route("/about", name="general_about_page")
+     * @Route("/about", name="general_about_page", options={"expose"=true})
      */
     public function showAboutPageAction(Request $request, InfoPageProvider $provider)
     {

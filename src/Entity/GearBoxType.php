@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GearBoxType
 {
+    const AUTOMATIC_TYPE = "автомат";
+    const MECHANICS_TYPE = "механика";
+
     /**
      * @var integer
      *
