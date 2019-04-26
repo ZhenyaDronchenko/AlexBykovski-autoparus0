@@ -73,23 +73,23 @@ class SecurityController extends Controller
         ]);
     }
 
-    /**
-     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
-     *
-     * @Route("/registration/as-user", name="registration_as_user")
-     */
-    public function registrationAsUserAction(
-        Request $request,
-        UserPasswordEncoderInterface $encoder,
-        TokenStorageInterface $tokenStorage)
-    {
-        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["email" => "mr2@tut.by"]);
-        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-        $tokenStorage->setToken($token);
-        $request->getSession()->set('_security_main', serialize($token));
-
-        return $this->redirectToRoute("homepage");
-    }
+//    /**
+//     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+//     *
+//     * @Route("/registration/as-user", name="registration_as_user")
+//     */
+//    public function registrationAsUserAction(
+//        Request $request,
+//        UserPasswordEncoderInterface $encoder,
+//        TokenStorageInterface $tokenStorage)
+//    {
+//        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["email" => "mr2@tut.by"]);
+//        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+//        $tokenStorage->setToken($token);
+//        $request->getSession()->set('_security_main', serialize($token));
+//
+//        return $this->redirectToRoute("homepage");
+//    }
 
     /**
      * @Route("/edit-registration-form", name="edit_registration_form")

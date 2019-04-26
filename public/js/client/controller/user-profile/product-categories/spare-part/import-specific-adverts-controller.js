@@ -44,7 +44,6 @@
                 url: Routing.generate('import_ajax_upload_file_specific_adverts'),
                 headers: {'Content-Type': undefined}
             }).then(function (response) {
-                console.log(response);
                 self.longActionActive = false;
 
                 if(response.data.success){
@@ -108,14 +107,12 @@
             self.message = FILE_IMPORTING;
             self.isImportProcess = true;
             self.isPossibleImport = false;
-            console.log(pathToFile);
 
             $http({
                 method: 'POST',
                 data: {"path" : pathToFile},
                 url: Routing.generate('import_ajax_import_file_specific_adverts'),
             }).then(function (response) {
-                console.log(response);
                 self.longActionActive = false;
                 self.isImportProcess = false;
 
@@ -148,7 +145,6 @@
         }
 
         function handleResponse(message, errors, showSpecial) {
-            console.log("handleResponse");
             self.errors = errors ? errors : [];
             self.message = message;
             self.messageStyle.color = errors || showSpecial ? "red" : "green";
