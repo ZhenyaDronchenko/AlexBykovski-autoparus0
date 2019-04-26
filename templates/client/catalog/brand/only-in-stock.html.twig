@@ -36,7 +36,7 @@
                 <a class="link-b" href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.url}) }}" "itemprop="item" title="Тайтл четвертой крошки"><span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName1 }}</span><meta itemprop="position" content="5"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">{{ city ? city.name : "Все города" }}</span><meta itemprop="position" content="6"></a>
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ city ? city.name : "Все города" }}</span><meta itemprop="position" content="6"></a>
             </li>
         </ul>
 
@@ -271,6 +271,8 @@
                         </div>
                     </div>
                 </div>
+
+                <button class="arrows-btn">Показать еще продавцов</button>
 
 
 

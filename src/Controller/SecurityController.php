@@ -74,6 +74,24 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Security("is_granted('IS_AUTHENTICATED_ANONYMOUSLY')")
+     *
+     * @Route("/registration/as-user", name="registration_as_user")
+     */
+    public function registrationAsUserAction(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        TokenStorageInterface $tokenStorage)
+    {
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["email" => "mr2@tut.by"]);
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $tokenStorage->setToken($token);
+        $request->getSession()->set('_security_main', serialize($token));
+
+        return $this->redirectToRoute("homepage");
+    }
+
+    /**
      * @Route("/edit-registration-form", name="edit_registration_form")
      */
     public function editPersonalDataAction(
@@ -96,6 +114,7 @@ class SecurityController extends Controller
             $client->setPassword($password);
             $client->setUsername($client->getEmail());
             $sender->createAndSendActivateCode($client);
+            $client->setEnabled(true);
 
             $em->persist($client);
             $em->flush();

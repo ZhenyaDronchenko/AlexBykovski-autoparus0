@@ -97,6 +97,9 @@ cursor: default;
     padding-top: 35px;
     padding-bottom: 65px;
 }
+h3 {
+    margin: 0;
+}
 .model-title {
  margin: 0;
     margin-bottom: 30px;
@@ -116,7 +119,6 @@ cursor: default;
 }
 #text1 {
       margin: 0;
-    margin-bottom: 10px;
     font-size: 16px;
     line-height: 20px;
     color: #000000;
@@ -147,6 +149,7 @@ cursor: default;
     justify-content: center;
     -ms-align-items: center;
     align-items: center;
+    margin-top: 30px;
     margin-bottom: 40px;
 }
 
@@ -308,12 +311,13 @@ cursor: default;
 
 
     #brandImg5 li {
-        margin: 0 10px;
+        margin: 0 auto;
         margin-bottom: 20px;
     }
 
 
     .mod-link img {
+        margin: 0 7px;
          width: 60px;
         height: 60px;
     }
