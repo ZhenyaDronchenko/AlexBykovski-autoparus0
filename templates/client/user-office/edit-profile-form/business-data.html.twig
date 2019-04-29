@@ -73,7 +73,7 @@
                             {% set scrollToElement = true %}
                         {% endif %}
                 >УНП
-                    {{ form_widget(form.unp, {attr: {"placeholder": "", class: "choice-input"}}) }}
+                    {{ form_widget(form.unp, {attr: {"placeholder": "", class: "choice-input input-unp"}}) }}
                 </label>
                 {% for key, error in form.unp.vars.errors.form.getErrors(true)%}
                     <span class="check">{{ error.message }}</span>
@@ -97,7 +97,7 @@
                         {% set scrollToElement = true %}
                     {% endif %}
             >
-                {{ form_widget(form.address, {attr: {"placeholder": "Адрес:", class: "choice-input"}}) }}
+                {{ form_widget(form.address, {attr: {"placeholder": "Адрес:", class: "choice-input input-str"}}) }}
                 {% for key, error in form.address.vars.errors.form.getErrors(true)%}
                     <span class="check">{{ error.message }}</span>
                 {% endfor %}

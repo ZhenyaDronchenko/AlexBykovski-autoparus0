@@ -1,152 +1,95 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 2px solid black;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
 .link-b:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
 @media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-
-    }
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
-
-
-
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
 }
-/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
 
@@ -159,17 +102,18 @@
 
 .title-main {
     margin: 0;
-    font-size: 26px;
-    line-height: 28px;
-    font-weight: 700;
-    color: #ff0000;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 15px;
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
 }
 
 .title-main::before { /* второй слой */
     content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 
@@ -179,6 +123,7 @@
     background-color: #fff;
     vertical-align: middle;
     outline: none;
+    padding: 0;
 }
 .help:hover svg {
     fill: red;
@@ -200,7 +145,12 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.select-s {
+    margin-top: 0;
+    
 }
 fieldset {
     border: none;
@@ -212,7 +162,7 @@ label {
     font-size: 20px;
     line-height: 22px;
     color: #000000;
-    font-weight: 700;
+    font-weight: 400;
 
 }
 
@@ -220,27 +170,41 @@ input {
     border: none;
     padding: 5px;
     border-bottom: 1px solid #757373;
-    font-family: 'Comfortaa', cursive;
     font-size: 18px;
     line-height: 20px;
-    color: #757373;
+    color: #000000;
     background-color: #fff;
-
 }
 
 select {
     font-size: 18px;
     line-height: 20px;
     padding: 3px;
-    color: #757373;
+    color: #000000;
     border: none;
     border-bottom: 1px solid #757373;
     margin-left: 10px;
     background-color: #fff;
 
 }
-
-
+.engine-select {
+    width: 200px;
+}
+.volume-select {
+    width: 100px;
+}
+.type-select {
+    width: 150px;
+}
+.body-select {
+    width: 200px;
+}
+.kpp-select {
+    width: 200px;
+}
+.drive-select {
+    width: 200px;
+}
 textarea {
     display: block;
     -webkit-box-sizing: border-box;
@@ -249,17 +213,16 @@ textarea {
     margin: 0 auto;
     margin-bottom: 30px;
     padding: 5px;
-    border: 1px solid #000000;
-    font-family: 'Comfortaa', cursive;
+    border: 1px solid #737373;
     font-size: 16px;
     line-height: 18px;
-    color: #757373;
+    color: #000000;
 }
 .select-item {
     margin-right: 80px;
 }
 .select-i {
-    margin-right: 90px;
+    margin: 0 30px;
     margin-bottom: 20px;
 }
 .mark-select-m {
@@ -273,9 +236,7 @@ textarea {
 .mark-select-y {
     width: 80px;
 }
-.part {
-    margin-bottom: 30px;
-}
+
 .input-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -321,11 +282,11 @@ textarea {
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .state-item {
-    width: 380px;
+    width: 270px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -347,7 +308,7 @@ textarea {
     margin-bottom: 12px;
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .state-select {
 
@@ -418,7 +379,7 @@ textarea {
     top: -1px;
     width: 16px;
     height: 16px;
-    border: 2px solid #000000;
+    border: 1px solid #737373;
     border-radius: 50%;
 }
 
@@ -463,7 +424,7 @@ textarea {
 .add-img {
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: 400;
     color: #000;
     margin-right: 50px;
     text-decoration: underline;
@@ -480,7 +441,7 @@ textarea {
 
 .price-c {
     display: block;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 .name-input {
     width: 150px;
@@ -502,7 +463,7 @@ textarea {
     line-height: 18px;
     font-weight: 400;
     color: #000000;
-    font-family: 'Roboto', sans-serif;
+    
 }
 
 
@@ -512,7 +473,6 @@ textarea {
     line-height: 18px;
     font-weight: 400;
     color: #000000;
-    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -521,9 +481,7 @@ textarea {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+    justify-content: space-between;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
@@ -533,17 +491,16 @@ textarea {
     display: block;
     padding: 5px 25px;
     text-align: center;
-    border: 1px solid #000000;
+    border: 1px solid #737373;
     border-radius: 3px;
-    color: #000000;
+    color: #444444;
     margin-bottom: 3px;
     cursor: pointer;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
-    color: #000000;
+    font-weight: 400;
     background-color: #dbc0c7;
-    margin-right: 50px;
+    margin: 0 30px;
     margin-bottom: 20px;
 }
 .btn:hover {
@@ -593,16 +550,16 @@ textarea {
     right: 7px;
     top: 7px;
     cursor: pointer;
-    border: 2px solid #000;
+    border: 1px solid #737373;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 
 }
 
 .modal-close:hover {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 
 
@@ -611,8 +568,8 @@ textarea {
     margin-bottom: 15px;
     color: #000;
     font-size: 24px;
-    font-weight: 700;
-    line-height: 26px;
+    font-weight: 400;
+    line-height: 28px;
     text-transform: uppercase;
     text-align: center;
 
@@ -624,7 +581,7 @@ textarea {
     font-size: 16px;
     font-weight: 300;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
+  
 }
 
 
@@ -641,12 +598,14 @@ textarea {
     }
 
     .prod {
+        padding-top: 25px;
         padding-bottom: 45px;
     }
 
     .title-main {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
+        margin-bottom: 20px;
     }
 
 
@@ -677,7 +636,7 @@ textarea {
     }
 
     select {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 18px;
     }
     .select-item {
@@ -685,7 +644,7 @@ textarea {
         margin-bottom: 10px;
     }
     .select-i {
-        margin-right: 0;
+        margin: 0;
         margin-bottom: 10px;
     }
     .mark-select-m {
@@ -694,17 +653,14 @@ textarea {
     }
 
     .mark-select-c {
-        width: 250px;
+        width: 220px;
 
     }
 
     .mark-select-y {
         width: 70px;
     }
-    .part {
-        margin-bottom: 30px;
-    }
-
+   
     .part-input {
         width: 97%;
     }
@@ -715,6 +671,11 @@ textarea {
         line-height: 14px;
 
     }
+
+
+    .engine-select {
+    width: 180px;
+}
     .prompt--l {
         padding-left: 50px;
     }
@@ -729,13 +690,13 @@ textarea {
     }
 
     .state-item {
-        width: 285px;
+        width: 225px;
         margin-bottom: 15px;
     }
     .state-item--m {
         width: 220px;
         margin-bottom: 25px;
-        margin-right: 28px;
+        margin-left: 30px;
     }
 
     .state-title {
@@ -745,7 +706,7 @@ textarea {
 
     .part-number {
         width: 155px;
-        margin-left: auto;
+       
     }
     .num-input {
         width: 95%;
@@ -826,14 +787,12 @@ textarea {
 
 
     .btn {
-        padding: 5px 15px;
-        font-size: 16px;
-        line-height: 18px;
-        font-weight: 700;
-        color: #000000;
-        background-color: #dbc0c7;
-        margin-right: 0;
-        margin-bottom: 20px;
+        padding: 4px 7px;
+        margin-bottom: 3px;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0;
+        margin-bottom: 15px;
     }
 
 
@@ -862,12 +821,14 @@ textarea {
     }
 
     .prod {
+        padding-top: 25px;
         padding-bottom: 45px;
     }
 
     .title-main {
         font-size: 22px;
         line-height: 24px;
+        margin-bottom: 20px;
     }
 
     .select {
@@ -919,10 +880,7 @@ textarea {
     .mark-select-y {
         width: 70px;
     }
-    .part {
-        margin-bottom: 30px;
-    }
-
+   
     .part-input {
         width: 430px;
     }
@@ -947,13 +905,13 @@ textarea {
     }
 
     .state-item {
-        width: 335px;
+        width: 255px;
         margin-bottom: 20px;
     }
     .state-item--m {
         width: 245px;
-        margin-right: 33px;
-        margin-bottom: 30px;
+        margin-right: 0;
+        margin-left: 40px;
     }
 
     .state-title {
@@ -963,7 +921,7 @@ textarea {
 
     .part-number {
         width: 190px;
-        margin-left: auto;
+    
     }
     .num-input {
         width: 95%;
@@ -1013,7 +971,6 @@ textarea {
     }
 
     .price-c {
-        margin-bottom: 25px;
         text-align: center;
     }
     .name-input {
@@ -1041,13 +998,12 @@ textarea {
     }
 
     .btn {
-        padding: 5px 15px;
+        padding: 5px 10px;
+        padding-bottom: 4px;
         font-size: 16px;
         line-height: 18px;
-        font-weight: 700;
-        color: #000000;
-        background-color: #dbc0c7;
-        margin-right: 0;
+       
+        margin: 0;
         margin-bottom: 20px;
     }
     .modal {
@@ -1093,7 +1049,6 @@ textarea {
     }
 
     .state-item {
-        width: 375px;
         margin-right: 20px;
         margin-bottom: 20px;
     }
@@ -1121,7 +1076,15 @@ textarea {
         font-size: 18px;
         line-height: 20px;
     }
-
+.btn-list {
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+    -ms-align-items: center;
+    align-items: center;
+}
 }
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
@@ -1133,5 +1096,13 @@ textarea {
     .select-i {
         margin-right: 35px;
     }
+    .btn {
+    padding: 5px 15px;
+    margin-bottom: 4px;
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0 20px;
+    margin-bottom: 20px;
+}
 }
 /*Profil END*/
