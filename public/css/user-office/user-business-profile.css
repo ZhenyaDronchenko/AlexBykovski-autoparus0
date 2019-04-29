@@ -109,18 +109,18 @@
 /*business*/
 
 .business {
-    padding-top: 45px;
+    padding-top: 35px;
     padding-bottom: 65px;
 }
 .business-form {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 .block {
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 .title {
     font-size: 26px;
-    line-height: 28px;
+    line-height: 30px;
     font-weight: 400;
     color: #f66666;
     text-align: center;
@@ -166,7 +166,6 @@ label {
 label span {
     font-size: 16px;
     line-height: 22px;
-    font-family: 'Roboto';
 
 }
 ::-webkit-input-placeholder {color:#000000;}
@@ -202,7 +201,7 @@ label span {
 
 }
 .business-option li {
-    margin: 0 25px;
+    margin: 0 30px;
     margin-bottom: 20px;
 }
 
@@ -217,7 +216,7 @@ label span {
 
 }
 .choice-input {
-    width: 98%;
+    width: 97%;
     border: none;
     padding: 0 5px;
     border-bottom: 1px solid #757373;
@@ -228,7 +227,7 @@ label span {
     border-radius: 0;
 }
 .choice-b {
-    width: 64%;
+    width: 60%;
 }
 .city-input {
     width: 100px;
@@ -237,21 +236,17 @@ label span {
     line-height: 18px;
     color: #757373;
 }
-.choice-unp {
-    width: 21%;
 
-}
 .choice-input-unp {
     width: 72%;
     margin-left: 7px;
 }
 .choice-city {
-    width: 400px;
     color: #757373;
 }
 
 .choice-str {
-    width: 590px;
+    width: 48%;
 }
 .choice-input--str {
     width: 450px;
@@ -259,15 +254,21 @@ label span {
 }
 
 .name-select {
-    width: 70%;
-    font-size: 18px;
-    line-height: 20px;
+    width: 195px;
+    font-size: 20px;
+    line-height: 22px;
     color: #000000;
     border: none;
     border-bottom: 1px solid #757373;
     background: white;
     -webkit-appearance: none;
     border-radius: 0;
+}
+.input-unp {
+    width: 130px;
+}
+.input-str {
+    width: 98%;
 }
 .visually-hidden {
     position: absolute;
@@ -727,7 +728,7 @@ textarea {
     }
 
     .business {
-        padding-top: 40px;
+        padding-top: 25px;
         padding-bottom: 55px;
     }
     .block {
@@ -735,7 +736,7 @@ textarea {
     }
     .title {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
 
         width: 280px;
     }
@@ -762,16 +763,17 @@ textarea {
     }
 
     .choice-input {
-        font-size: 17px;
-        line-height: 20px;
+        font-size: 16px;
+        line-height: 18px;
+    
     }
 
     .choice-b {
-        width: 98%;
+        width: 100%;
     }
 
     .choice-unp {
-        width: 70%;
+        width: 100%;
 
     }
     .choice-city {
@@ -794,9 +796,7 @@ textarea {
         margin-bottom: 0;
 
     }
-    .name-select {
-        width: 60%;
-    }
+   
     .block-item:last-child {
         margin-bottom: 0;
     }
@@ -941,6 +941,8 @@ textarea {
         width: 170px;
         margin: 0 auto;
         margin-bottom: 12px;
+            font-size: 14px;
+    line-height: 16px;
     }
     .phone input:last-child {
         margin-bottom: 0;
@@ -983,11 +985,16 @@ textarea {
     .country {
         margin-right: 20px;
     }
+    .name-select {
+    font-size: 18px;
+    line-height: 20px;
+}
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
     .business {
+        padding-top: 25px;
         padding-bottom: 55px;
     }
     .business-option li:nth-child(3) {
@@ -1011,10 +1018,11 @@ textarea {
     .choice-input {
         font-size: 18px;
         line-height: 20px;
+           
     }
 
     .choice-b {
-        width: 90%;
+        width: 98%;
     }
 
     .choice-unp {
@@ -1150,11 +1158,11 @@ textarea {
     .phone input {
         width: 135px;
         padding: 5px;
-        border: 1px solid #000000;
+        border: 1px solid #737373;
         border-radius: 3px;
-        font-size: 14px;
-        line-height: 16px;
-        color: #757373;
+        font-size: 12px;
+        line-height: 14px;
+        color: #444444;
     }
     .info {
         width: 100%;
@@ -1205,17 +1213,19 @@ textarea {
         line-height: 20px;
     }
 
-
+.choice-unp {
+    width: 30%;
+}
     .choice-city {
         width: 180px;
         color: #757373;
     }
 
     .choice-str {
-        width: 340px;
+        width: 45%;
     }
     .choice-b {
-        width: 70%;
+        width: 60%;
     }
     .business-option li {
         margin: 0 15px;
@@ -1233,8 +1243,7 @@ textarea {
     .name-select {
         width: 60%;
     }
-}
-
+ }
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
         width: auto; }
@@ -1246,10 +1255,11 @@ textarea {
         width: 465px;
     }
     .choice-b {
-        width: 68%;
+        width: 65%;
     }
-    .choice-city {
-        width: 415px;
-    }
+    
+    .choice-unp {
+    width: 20%;
+}
 }
 /*Profil END*/

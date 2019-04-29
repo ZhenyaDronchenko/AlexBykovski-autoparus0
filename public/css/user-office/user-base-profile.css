@@ -109,7 +109,7 @@
 /*user*/
 
 .user-form {
-  padding-top: 50px;
+  padding-top: 35px;
   padding-bottom: 65px;
 }
 
@@ -145,8 +145,13 @@
   -ms-flex-wrap: wrap;
   -o-flex-wrap: wrap;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 20px;
 }
 fieldset {
   border: none;
@@ -324,6 +329,8 @@ select {
 
 
 .btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 
   font-size: 20px;
@@ -443,18 +450,23 @@ select {
   }
 
   .user-form {
-    padding-bottom: 45px;
+    padding-top: 25px;
   }
 
 
   .wrapper-title {
-    display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
     display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     margin: 0 auto;
   }
   .wrapper-title--user {
@@ -465,7 +477,7 @@ select {
     margin: 0 auto;
     font-size: 22px;
     line-height: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   label {
@@ -685,17 +697,19 @@ select {
   .title {
     width: 345px;
     margin: 0 auto;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
   }
-
+.user-form {
+    padding-top: 25px;
+  }
 
   .modal {
     top: 50px;
     width: 80%;
   }
   .modal-title {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 20px;
     line-height: 22px;
   }

@@ -6,7 +6,7 @@
         {% endif %}
 >
     {{ form_widget(form._token) }}
-    <div class="select">
+    <div class="select select-s">
         <label class="select-item"
                 {% if not scrollToElement and form.condition.vars.errors.form.getErrors(true) | length %}
         scroll-to-element
@@ -157,19 +157,22 @@
     </label>
 
     <ul class="btn-list">
-        <li>
-            {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit"}}) }}
-        </li>
-        <li>
-            {{ form_widget(form.submitAdd, {attr: {class: "btn", "data-name" : "submitAdd"}}) }}
-        </li>
-        <li>
+    <li>
             {{ form_widget(form.submitAutoContinue, {attr: {class: "btn", "data-name" : "submitAutoContinue"}}) }}
         </li>
         <li>
             {{ form_widget(form.submitSparePartContinue, {attr: {class: "btn", "data-name" : "submitSparePartContinue"}}) }}
         </li>
+         <li>
+            {{ form_widget(form.submitAdd, {attr: {class: "btn", "data-name" : "submitAdd"}}) }}
+        </li>
+        <li>
+            {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit"}}) }}
+        </li>
+       
+        
     </ul>
+    <span class="load">Подождите, идет загрузка</span>
 
     {{ form_widget(form.submitButtonName)}}
     <div class="mod-text">{{ default_text(15).text | raw }}</div>
