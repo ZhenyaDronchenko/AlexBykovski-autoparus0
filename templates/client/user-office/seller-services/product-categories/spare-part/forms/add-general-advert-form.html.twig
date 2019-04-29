@@ -168,6 +168,7 @@
 
         {#<a class="btn btn-o" href="#">Посмотреть поданное объявление</a>#}
     </div>
+     <span class="load">Подождите, идет загрузка объявления.</span>
     {% if isValid and not isConfirmBrand %}
         <span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}
         scroll-to-element

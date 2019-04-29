@@ -132,28 +132,29 @@
 
 /*mod*/
 .select-block {
-    padding-top: 25px;
+    padding-top: 35px;
     padding-bottom: 65px;
 }
 .select-title {
-    margin: 0;
-    margin-bottom: 10px;
+     margin: 0;
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 28px;
+    font-size: 26px;
     line-height: 30px;
-    color: #ff0000;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
 }
 
 
 .select-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+   content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 .select-text {
     margin: 0;
     margin-bottom: 15px;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 18px;
 }
@@ -161,9 +162,13 @@
 .select-subtext {
     margin: 0;
     margin-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 18px;
+}
+.select-subtext a {
+color: #ff0000;
+font-size: 20px;
+    line-height: 22px;
 }
 .city-list {
     display: -webkit-box;
@@ -232,7 +237,7 @@
 .city-link span {
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     color: #000;
 }
 .button {
@@ -241,11 +246,11 @@
     margin-bottom: 15px;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     padding: 5px 10px;
     padding-bottom: 3px;
-    color: #000000;
-    border: 1px solid black;
+    color: #444444;
+    border: 1px solid #737373;
     cursor: pointer;
     background-color: #dbc0c7;
     border-radius: 5px;
@@ -257,16 +262,18 @@
     margin-bottom: 25px;
 }
 .model-title {
-    margin: 0;
-    margin-bottom: 10px;
+     margin: 0;
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 26px;
-    line-height: 30px;
-    color: #ff0000;
+    font-size: 24px;
+    line-height: 38px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
 }
 .model-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+     content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 .mod-list {
@@ -297,15 +304,17 @@
 
 .part-title {
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
     font-size: 24px;
-    line-height: 36px;
-    color: #ff0000;
+    line-height: 28px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
 }
 .part-title::before { /* второй слой */
     content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+    -webkit-text-stroke: .03em #ff0000;
 }
 .part-list {
     display: -webkit-box;
@@ -339,13 +348,12 @@
         padding: 0 5px;
     }
     .select-block {
-        padding-top: 20px;
+        padding-top: 25px;
         padding-bottom: 40px;
     }
     .select-title {
-        margin-bottom: 5px;
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
 
     .select-text {
@@ -353,7 +361,9 @@
         font-size: 14px;
         line-height: 16px;
     }
-
+ .select-text p {
+        margin-left: 0;
+    }
     .select-subtext {
         margin-bottom: 15px;
         font-size: 14px;
@@ -410,10 +420,9 @@
         margin: 0 auto;
     }
     .model-title {
-        margin: 0;
-        margin-bottom: 5px;
+ 
         font-size: 20px;
-        line-height: 22px;
+        line-height: 24px;
     }
 
     .mod-list {
@@ -465,13 +474,13 @@
         width: auto; }
 
     .select-block {
-        padding-top: 20px;
-        padding-bottom: 40px;
+        padding-top: 25px;
+      
     }
     .select-title {
-        margin-bottom: 5px;
+       
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
 
     .select-text {

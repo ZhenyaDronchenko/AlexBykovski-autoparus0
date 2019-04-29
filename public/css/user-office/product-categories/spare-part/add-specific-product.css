@@ -391,8 +391,8 @@ textarea {
 .filter-input-radio:checked + label::after {
     content: "";
     position: absolute;
-    top: 5px;
-    left: -34px;
+        top: 3px;
+    left: -36px;
     width: 8px;
     height: 8px;
     background-color: #000000;
@@ -456,7 +456,13 @@ textarea {
     text-align: center;
     margin-bottom: 15px;
 }
-
+.load {
+    display: block;
+    font-size: 18px;
+    line-height: 20px;
+    color: green;
+    text-align: center;
+}
 .subtext {
     margin: 0;
     font-size: 16px;
@@ -481,7 +487,9 @@ textarea {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
@@ -718,27 +726,7 @@ textarea {
         color: red;
 
     }
-    .filter-input-radio + label::before {
-        left: -30px;
-        top: -1px;
-        width: 13px;
-        height: 13px;
-    }
-    .state-option {
-        padding-left: 30px;
-        margin-bottom: 10px;
-    }
-    .status-option {
-        padding-left: 30px;
-        margin-bottom: 10px;
-    }
-
-    .filter-input-radio:checked + label::after {
-        top: 4px;
-        left: -25px;
-        width: 7px;
-        height: 7px;
-    }
+   
     textarea {
         font-size: 14px;
         line-height: 16px;
@@ -1077,13 +1065,16 @@ textarea {
         line-height: 20px;
     }
 .btn-list {
-    -webkit-flex-direction: column;
     -moz-flex-direction: column;
     -ms-flex-direction: column;
     -o-flex-direction: column;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
     -ms-align-items: center;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 }
 @media (min-width: 1024px) and (max-width: 1199px) {
