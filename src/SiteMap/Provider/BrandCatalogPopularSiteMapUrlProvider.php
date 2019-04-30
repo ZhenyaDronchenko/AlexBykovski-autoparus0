@@ -93,7 +93,7 @@ class BrandCatalogPopularSiteMapUrlProvider implements SiteMapUrlProvider
     {
         $urls = [];
         $brandUrls = $this->em->getRepository(Brand::class)->findPopularUrlsForSiteMap();
-        $sparePartUrls = $this->em->getRepository(SparePart::class)->findPopularUrlByBrandUrl();
+        $sparePartUrls = $this->em->getRepository(SparePart::class)->findPopularUrlsForSiteMap();
 
         foreach ($sparePartUrls as $sparePartUrl){
             $urls[] = $this->router->generate("show_spare_part_catalog_choice_brand", ["url" => $sparePartUrl["url"]], UrlGeneratorInterface::ABSOLUTE_URL);

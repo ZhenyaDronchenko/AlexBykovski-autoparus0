@@ -42,6 +42,17 @@ class SparePartRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findPopularUrlsForSiteMap()
+    {
+        return $this->createQueryBuilder('spp')
+            ->select('spp.url')
+            ->where("spp.active = :trueValue")
+            ->where("spp.popular = :trueValue")
+            ->setParameter("trueValue", true)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllOnlyField($field, $isSort = false)
     {
         $qb = $this->createQueryBuilder('spp')
