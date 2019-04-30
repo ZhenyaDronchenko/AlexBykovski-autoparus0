@@ -1,126 +1,95 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 2px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 5px;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    line-height: 20px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
-.link:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+.link-b:hover {
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    font-weight: bold;
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
 @media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-
-    .user-name {
-        display: none;
-    }
-
-    .opened li {
-        display: block;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .current-w {
-        font-weight: bold;
-        cursor: default;
-    }
-    .close-menu {
-        color: #d22856;
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-    .link {
-        display: none;
-    }
-    .opened .link {
-        display: block;
-    }
-    .user-icon {
-        display: block;
-        width: 10px;
-        height: 10px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 14px;
-    }
-
-    #breadcrumbs a {
-        font-size: 14px;
-        line-height: 13px;
-
-    }
-    .user-link--icon {
-        width: 12px;
-        height: 13px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 3px;
-    }
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs a {
-        font-size: 14px;
-        line-height: 16px;
-        margin-right: 3px;
-    }
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
+}
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
 
 }
-/*ХЛЕБНЫЕ КРОШКИ*/
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
 /*price*/
@@ -128,43 +97,43 @@
 .price {
     width: 80%;
     margin: 0 auto;
-    padding-top: 20px;
+    padding-top: 35px;
     text-align: center;
 }
 
 .price-title {
-    margin: 0;
+     margin: 0;
     font-size: 26px;
-    line-height: 28px;
-    font-weight: 700;
-    color: #000000;
-    margin-bottom: 15px;
+    line-height: 30px;
+    font-weight: 400;
+     color: #f66666;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
 }
 
 .btn {
-    display: block;
     margin: 0 auto;
-    padding: 7px 25px;
+    display: block;
+    padding: 5px 25px;
     text-align: center;
-    border: 1px solid #000000;
+    border: 1px solid #737373;
     border-radius: 3px;
-    color: #000000;
+    color: #444444;
     margin-bottom: 3px;
     cursor: pointer;
-    font-size: 20px;
-    line-height: 22px;
-    font-weight: 700;
-    color: #000000;
-    background-color: #ededed;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    background-color: #dbc0c7;
+    margin-bottom: 20px;
+}
+.btn:hover {
+    background-color: #d2a2af;
 }
 
 .price-btn {
     width: 400px;
-}
-
-.btn:hover {
-    background-color:  #000000;
-    color: #ffffff;
 }
 
 
@@ -188,7 +157,7 @@
     margin: 0;
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: 400;
     color: #000000;
     margin-bottom: 10px;
 }
@@ -219,19 +188,20 @@
     }
     .price {
         width: 100%;
-        padding-top: 10px;
+        padding-top: 25px;
     }
 
     .price-title {
         font-size: 20px;
         line-height: 22px;
-        margin-bottom: 10px;
+       
     }
 
     .btn {
+        padding: 5px 15px;
+        padding-bottom: 4px;
         font-size: 16px;
         line-height: 18px;
-        padding: 7px 15px;
     }
 
     .price-btn {
@@ -284,20 +254,16 @@
 
     .price {
         width: 100%;
-        padding-top: 10px;
+        padding-top: 25px;
     }
 
     .price-title {
         font-size: 24px;
         line-height: 26px;
-        margin-bottom: 15px;
+       
     }
 
-    .btn {
-        font-size: 18px;
-        line-height: 20px;
-    }
-
+   
     .price-btn {
         width: 300px;
     }

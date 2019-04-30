@@ -12,20 +12,14 @@
             <li>
                 <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Главная">
                     <span class="user-name">{{ app.user.name }}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="user-icon" x="0px" y="0px" viewBox="0 0 16 16"  xml:space="preserve" width="20px" height="20px">
-              <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="1,8.5 8,2 15,8.5 "/>
-                        <polyline style="fill:none;stroke:#000000;stroke-miterlimit:10;" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-            </svg>
+                    <svg class="user-icon" width="20px" height="20px" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="#737373" stroke-width="3"/>
+                    </svg>
                 </a>
             </li>
             <li><a class="link-b" href="{{ path("user_profile_product_categories") }}"><span class="line">/</span>Товары </a></li>
             <li><a class="link-b" href="{{ path("user_profile_product_categories_spare_part") }}"><span class="line">/</span>Автозапчасти</a></li>
-            <li><a class="current"><span class="line">/</span>
-                    {% if isEditAction %}
-                        <span itemprop="name">Редактирование объявления</span>
-                    {% else %}
-                        <span itemprop="name">Добавление объявления</span>
-                    {% endif %}
+            <li><a class="current"><span class="line">/</span>{% if isEditAction %}<span itemprop="name">Редактирование объявления</span>{% else %}<span itemprop="name">Добавление объявления</span>{% endif %}
                 </a>
             </li>
         </ul>

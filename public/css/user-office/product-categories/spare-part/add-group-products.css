@@ -1,175 +1,120 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 2px solid black;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
 .link-b:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
 @media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-
-    }
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 11px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
-
-
-
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
 }
-/*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 
 /*user*/
 
 .prod {
-    padding-top: 40px;
+    padding-top: 35px;
     padding-bottom: 65px;
 }
 
 .title-main {
     margin: 0;
     font-size: 26px;
-    line-height: 28px;
-    font-weight: 700;
-    color: #ff0000;
+    line-height: 30px;
+    font-weight: 400;
+     color: #f66666;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
 }
 
 .title-main::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+ content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 .block-product {
@@ -193,7 +138,7 @@
 .product {
     font-size: 20px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
     border: 1px solid #DCDBDB;
     padding: 7px 0;
     text-align: center;
@@ -237,16 +182,16 @@
     margin: 0;
     margin-bottom: 10px;
     font-size: 24px;
-    line-height: 26px;
-    font-weight: 700;
-    color: #ff0000;
+    line-height: 28px;
+    font-weight: 400;
+     color: #f66666;
     text-align: center;
     margin-bottom: 30px;
 }
 
 .subtitle::before { /* второй слой */
     content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 
@@ -317,7 +262,7 @@ label {
     font-size: 20px;
     line-height: 22px;
     color: #000000;
-    font-weight: 700;
+    font-weight: 400;
 
 }
 
@@ -325,19 +270,18 @@ input {
     border: none;
     padding: 5px;
     border-bottom: 1px solid #757373;
-    font-family: 'Comfortaa', cursive;
     font-size: 18px;
     line-height: 20px;
-    color: #757373;
+    color: #000000;
     background-color: #fff;
 
 }
 
 select {
-    font-size: 18px;
+     font-size: 18px;
     line-height: 20px;
     padding: 3px;
-    color: #757373;
+    color: #000000;
     border: none;
     border-bottom: 1px solid #757373;
     margin-left: 10px;
@@ -364,11 +308,6 @@ select {
 .mark-select-y {
     width: 80px;
 }
-.part {
-    margin-bottom: 30px;
-
-
-}
 
 .part-input {
     display: block;
@@ -390,8 +329,6 @@ select {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-flex-wrap: wrap;
-    -moz-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -406,7 +343,9 @@ select {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    align-items: baseline;
+    -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+            align-items: baseline;
 }
 .state-item--m {
     width: 280px;
@@ -419,7 +358,7 @@ select {
     margin-bottom: 12px;
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .state-select {
 
@@ -490,7 +429,7 @@ select {
     top: -1px;
     width: 16px;
     height: 16px;
-    border: 2px solid #000000;
+    border: 1px solid #737373;
     border-radius: 50%;
 }
 
@@ -502,8 +441,8 @@ select {
 .filter-input-radio:checked + label::after {
     content: "";
     position: absolute;
-    top: 5px;
-    left: -34px;
+     top: 3px;
+    left: -36px;
     width: 8px;
     height: 8px;
     background-color: #000000;
@@ -519,11 +458,10 @@ textarea {
     margin: 0 auto;
     margin-bottom: 30px;
     padding: 5px;
-    border: 1px solid #000000;
-    font-family: 'Comfortaa', cursive;
+    border: 1px solid #737373;
     font-size: 16px;
     line-height: 18px;
-    color: #757373;
+    color: #000000;
 }
 
 
@@ -541,8 +479,6 @@ textarea {
     -webkit-box-align: end;
     -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-flex-wrap: wrap;
-    -moz-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -591,7 +527,7 @@ textarea {
     line-height: 18px;
     font-weight: 400;
     color: #000000;
-    font-family: 'Roboto', sans-serif;
+ 
 }
 
 
@@ -601,7 +537,7 @@ textarea {
     line-height: 18px;
     font-weight: 400;
     color: #000000;
-    font-family: 'Roboto', sans-serif;
+ 
     text-align: justify;
 }
 
@@ -616,7 +552,7 @@ textarea {
     justify-content: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+ 
 }
 
 
@@ -624,15 +560,14 @@ textarea {
     display: block;
     padding: 5px 25px;
     text-align: center;
-    border: 1px solid #000000;
+    border: 1px solid #737373;
     border-radius: 3px;
-    color: #000000;
+    color: #444444;
     margin-bottom: 3px;
     cursor: pointer;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
-    color: #000000;
+    font-weight: 400;
     background-color: #dbc0c7;
     margin-right: 50px;
     margin-bottom: 20px;
@@ -642,7 +577,13 @@ textarea {
 }
 
 
-
+.load {
+    display: block;
+    font-size: 18px;
+    line-height: 20px;
+    color: green;
+    text-align: center;
+}
 
 /*-----tab2-----------*/
 
@@ -661,15 +602,15 @@ textarea {
 
 .status-block {
     width: 48%;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #737373;
 }
 
 .status-title {
     margin: 0;
     margin-bottom: 15px;
-    font-size: 20px;
-    line-height: 22px;
-    font-weight: 700;
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: 400;
     text-align: center;
 }
 
@@ -677,12 +618,12 @@ textarea {
     display: block;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     padding: 5px 25px;
     padding-bottom: 3px;
     margin: 0 auto;
-    color: #000000;
-    border: 1px solid black;
+    color: #444444;
+    border: 1px solid 737373;
     cursor: pointer;
     background-color: #dbc0c7;
     border-radius: 3px;
@@ -741,8 +682,12 @@ textarea {
 }
 .select-ch {
     margin-bottom: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .prompt-a {
@@ -803,17 +748,19 @@ textarea {
     top: 0;
     width: 18px;
     height: 18px;
-    border: 2px solid #000000;
+    border: 1px solid #737373;
     border-radius: 3px;
 }
 
 .filter-input-checkbox:checked + label::after {
-    content: '✔';
+    content: "";
+    background: url("/img/chek.svg") 0 0 no-repeat;
     position: absolute;
     display: block;
-    left: -38px;
-    top: 0;
-    font-size: 18px;
+    width: 16px;
+    height: 16px;
+    left: -41px;
+    top: 0px;
 }
 
 .pay-name {
@@ -874,13 +821,13 @@ textarea {
     position: fixed;
     top: 100px;
     left: 50%;
-    width: 450px;
+    width: 60%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
-    padding: 45px 10px;
+    padding: 50px 10px;
 }
 
 .modal-close {
@@ -898,9 +845,9 @@ textarea {
     right: 7px;
     top: 7px;
     cursor: pointer;
-    border: 2px solid #444;
+    border: 1px solid #737373;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 
@@ -917,8 +864,8 @@ textarea {
     margin: 0;
     margin-bottom: 15px;
     color: #000;
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 400;
     line-height: 26px;
     text-transform: uppercase;
     text-align: center;
@@ -929,9 +876,9 @@ textarea {
     margin: 0;
     color: #000;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
+    
 }
 @media (max-width: 480px) {
     .container {
@@ -940,12 +887,13 @@ textarea {
     }
 
     .prod {
+        padding-top: 25px;
         padding-bottom: 45px;
     }
 
     .title-main {
         font-size: 22px;
-        line-height: 28px;
+        line-height: 26px;
     }
 
     .product {
@@ -958,7 +906,7 @@ textarea {
     }
     .subtitle {
         font-size: 20px;
-        line-height: 26px;
+        line-height: 24px;
 
     }
 
@@ -981,13 +929,16 @@ textarea {
 
 
     .select {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
         -ms-align-items: flex-start;
-        align-items: flex-start;
+        -webkit-box-align: start;
+            -ms-flex-align: start;
+                align-items: flex-start;
     }
 
     label {
@@ -1042,11 +993,12 @@ textarea {
     }
     .state {
         margin-bottom: 30px;
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
     }
 
     .state-item {
@@ -1076,21 +1028,7 @@ textarea {
         line-height: 12px;
         color: red;
     }
-    .filter-input-radio + label::before {
-        left: -30px;
-        top: -1px;
-    }
-    .state-option {
-        padding-left: 30px;
-    }
-    .status-option {
-        padding-left: 30px;
-
-    }
-
-    .filter-input-radio:checked + label::after {
-        left: -24px;
-    }
+   
     textarea {
         font-size: 14px;
         line-height: 16px;
@@ -1128,13 +1066,16 @@ textarea {
     }
 
     .btn-list {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
         -ms-align-items: center;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
 
@@ -1142,9 +1083,7 @@ textarea {
         padding: 5px 12px;
         font-size: 14px;
         line-height: 16px;
-        font-weight: 700;
-        color: #000000;
-        background-color: #dbc0c7;
+        font-weight: 400;
         margin-right: 0;
     }
 
@@ -1152,11 +1091,12 @@ textarea {
     /*-----tab2-----------*/
 
     .status {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
 
     }
 
@@ -1181,11 +1121,12 @@ textarea {
 
 
     .pay-block {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
     }
 
     .pay-option {
@@ -1222,7 +1163,6 @@ textarea {
         width: 80%;
     }
     .modal-title {
-        margin-bottom: 15px;
         font-size: 20px;
         line-height: 22px;
     }
@@ -1237,12 +1177,13 @@ textarea {
     }
 
     .prod {
+        padding-top: 25px;
         padding-bottom: 45px;
     }
 
     .title-main {
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
 
     }
 
@@ -1256,7 +1197,7 @@ textarea {
 
     .subtitle {
         font-size: 20px;
-        line-height: 22px;
+        line-height: 24px;
     }
 
     .modal-title {
@@ -1275,13 +1216,16 @@ textarea {
 
 
     .select {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
         -ms-align-items: center;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     label {
@@ -1335,12 +1279,12 @@ textarea {
         padding-left: 50px;
     }
     .state {
-
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
     }
 
     .state-item {
@@ -1370,22 +1314,7 @@ textarea {
         line-height: 14px;
         color: red;
     }
-    .filter-input-radio + label::before {
-        left: -30px;
-        top: -1px;
-    }
-    .state-option {
-        padding-left: 30px;
-        margin-bottom: 10px;
-    }
-    .status-option {
-        padding-left: 30px;
-        margin-bottom: 10px;
-    }
-
-    .filter-input-radio:checked + label::after {
-        left: -24px;
-    }
+   
     textarea {
         font-size: 14px;
         line-height: 16px;
@@ -1426,22 +1355,24 @@ textarea {
 
 
     .btn-list {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
         -ms-align-items: center;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .btn {
         padding: 5px 15px;
         font-size: 16px;
         line-height: 18px;
-        font-weight: 700;
-        color: #000000;
-        background-color: #dbc0c7;
+        font-weight: 400;
+   
         margin-right: 0;
         margin-bottom: 20px;
     }
@@ -1449,17 +1380,20 @@ textarea {
     /*-----tab2-----------*/
 
     .status {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
         -ms-align-items: center;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
     }
 
     .status-block {
-        width: 330px;
+        width: 430px;
         margin-bottom: 25px;
     }
     .status-block:last-child {
@@ -1479,11 +1413,12 @@ textarea {
 
 
     .pay-block {
-        -webkit-flex-direction: column;
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+                flex-direction: column;
     }
 
     .pay-option {
@@ -1542,7 +1477,9 @@ textarea {
         margin-right: 20px;
     }
     .state {
-        justify-content: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
     }
 
     .state-item {
@@ -1557,10 +1494,11 @@ textarea {
     }
 
     .part-number {
-        display: -webkit-flex;
         display: -moz-flex;
         display: -ms-flex;
         display: -o-flex;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         width: 400px;
     }

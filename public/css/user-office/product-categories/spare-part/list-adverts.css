@@ -1,176 +1,118 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    border-top: 2px solid black;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
-
-#breadcrumbs li {
-    margin-right: 7px;
-
-}
-
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+  
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
-    display: none;
+  display: none;
 }
 
 .user-link:hover,
 .link-b:hover {
-    color: black;
-    -webkit-transform: scale(1.05);
+color: black;
+-webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
-    transform: scale(1.05);
+        transform: scale(1.05);
 }
 
 .current {
-    cursor: default;
-}
-.opened {
-    background-color: transparent;
+cursor: default;
 }
 
 @media  (max-width: 575px) {
-    .container {
-        width: auto;
-    }
-    #breadcrumbs {
-        padding-top: 3px;
-    }
-
-    .user-name {
-        display: none;
-    }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
-
-    .user-icon {
-        display: block;
-    }
-    .link-b {
-        margin-right: 5px;
-
-    }
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .opened .link-b {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 18px;
-    }
-    #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
-
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    #breadcrumbs li {
-        margin-right: 0;
-    }
-
-
-
-    .more {
-        display: block;
-        cursor: pointer;
-
-    }
-
-    .opened .more {
-        display: none;
-    }
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
 }
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
-}
-/*END ХЛЕБНЫЕ КРОШКИ*/
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
 
+.user-icon {
+  display: block;
+}
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
 /*user*/
 
 .prod {
-    padding-top: 30px;
+    padding-top: 35px;
     padding-bottom: 65px;
 }
 
 .title {
-    margin: 0;
-    margin-bottom: 10px;
+      margin: 0;
     font-size: 26px;
-    line-height: 28px;
-    font-weight: 700;
-    color: #ff0000;
+    line-height: 30px;
+    font-weight: 400;
+     color: #f66666;
     text-align: center;
     margin-bottom: 30px;
+    letter-spacing: 1px;
 }
 
 .title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+   content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 .block-product {
@@ -193,7 +135,7 @@
     width: 100%;
     font-size: 20px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
     border: 1px solid #DCDBDB;
     padding: 7px 0;
     text-align: center;
@@ -240,16 +182,16 @@
     margin: 0;
     margin-bottom: 10px;
     font-size: 24px;
-    line-height: 26px;
-    font-weight: 700;
-    color: #ff0000;
+    line-height: 28px;
+    font-weight: 400;
+      color: #f66666;
     text-align: center;
     margin-bottom: 20px;
 }
 
 .subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #000000;
+     content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
 }
 
 
@@ -265,8 +207,25 @@
 }
 
 .modal {
+    margin: 0 auto;
     display: none;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 15px 30px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 0 10px #000;
+    -moz-box-shadow: 0 0 10px #000;
+    -o-box-shadow: 0 0 10px #000;
+    -ms-box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px #000;
+    z-index: 0;
     margin-bottom: 30px;
+
 }
 
 .modal--show {
@@ -278,8 +237,8 @@
     margin-bottom: 10px;
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
-    color: #ff0000;
+    font-weight: 400;
+   color: #f66666;
     text-align: center;
 }
 
@@ -290,7 +249,7 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 18px;
-    font-family: 'Roboto', sans-serif;
+   
 }
 
 .button-close {
@@ -300,9 +259,9 @@
     cursor: pointer;
     outline: none;
     background-color: #fff;
-    font-size: 18px;
-    line-height: 20px;
-    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
     text-align: center;
 }
 .button-close:hover {
@@ -340,7 +299,7 @@
 .marka b {
     font-size: 22px;
     line-height: 24px;
-    font-weight: 700;
+    font-weight: 400;
     color: #d22856;
 }
 
@@ -384,7 +343,7 @@
 .item-1 {
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
     margin-right: 5px;
 }
 .wrapper {
@@ -442,7 +401,7 @@
 .point span {
     font-size: 16px;
     line-height: 18px;
-    font-weight: 700;
+    font-weight: 400;
 }
 
 
@@ -460,10 +419,10 @@
     display: block;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
-    color: #000000;
+    font-weight: 400;
+    color: #444444;
     border: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #737373;
     background-color: transparent;
     outline: none;
     margin-bottom: 15px;
@@ -481,7 +440,7 @@
     padding: 0 20px;
     font-size: 20px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
     color: #000000;
     margin-bottom: 15px;
 }
@@ -493,7 +452,6 @@
     line-height: 18px;
     font-weight: 400;
     color: #000000;
-    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -504,7 +462,6 @@
     line-height: 18px;
     font-weight: 400;
     color: #000000;
-    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -525,15 +482,14 @@
     display: block;
     padding: 5px 25px;
     text-align: center;
-    border: 1px solid #000000;
+    border: 1px solid #737373;
     border-radius: 3px;
-    color: #000000;
+    color: #444444;
     margin-bottom: 3px;
     cursor: pointer;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
-    color: #000000;
+    font-weight: 400;
     background-color: #dbc0c7;
 }
 .btn:hover {
@@ -588,7 +544,7 @@
     line-height: 18px;
     color: #757373;
     width: 480px;
-    border: 1px solid #000000;
+    border: 1px solid #737373;
     border-radius: 5px;
 }
 
@@ -632,7 +588,7 @@ td {
     text-align: center;
     font-size: 18px;
     line-height: 20px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .promo-price span {
     padding-top: 3px;
@@ -674,7 +630,6 @@ td {
 .text-prom,
 .text-adm {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
@@ -684,7 +639,7 @@ td {
 .text-p span {
     font-size: 18px;
     line-height: 22px;
-    font-weight: 700;
+    font-weight: 400;
 }
 .img-list {
     width: 100%;
@@ -707,7 +662,7 @@ td {
 
 
 
-.icon {
+.icon-pic {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -720,7 +675,7 @@ td {
     margin-left: auto;
 }
 
-.icon a {
+.icon-pic a {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -733,7 +688,7 @@ td {
     align-items: center;
 }
 
-.icon img {
+.icon-pic img {
     width: 30px;
     height: 30px;
 }
@@ -761,7 +716,6 @@ td {
     margin-right: 5px;
 }
 .pagination-item {
-    font-family: 'Roboto', sans-serif;
     color: #000;
     font-size: 18px;
     line-height: 20px;
@@ -799,14 +753,14 @@ td {
         margin-left: 7px;
     }
     .prod {
-        padding-top: 20px;
-        padding-bottom: 45px;
+        padding-top: 25px;
+        padding-bottom: 50px;
     }
 
     .title {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         font-size: 22px;
-        line-height: 24px;
+        line-height: 26px;
     }
 
     .product {
@@ -832,29 +786,23 @@ td {
     }
 
     .subtitle {
-        margin-bottom: 10px;
         font-size: 20px;
-        line-height: 22px;
-        margin-bottom: 10px;
+        line-height: 26px;
     }
     .help {
         padding: 0;
     }
 
-    .help svg {
-        width: 25px;
-        height: 25px;
-    }
+    
 
     .modal {
-        margin-bottom: 15px;
-    }
-
+    padding: 15px 10px;
+}
 
     .modal-title {
         font-size: 18px;
-        line-height: 20px;
-        font-weight: 700;
+        line-height: 22px;
+        font-weight: 400;
     }
 
     .modal-text {
@@ -969,6 +917,7 @@ td {
 
 
     .btn-list {
+
         -moz-flex-direction: column;
         -ms-flex-direction: column;
         -o-flex-direction: column;
@@ -980,7 +929,7 @@ td {
     .btn-list li{
         margin: 0 auto;
         margin-bottom: 10px;
-        width: 300px;
+
     }
     .btn {
         display: block;
@@ -1090,7 +1039,6 @@ td {
     .text-prom,
     .text-adm {
         margin: 0;
-        font-family: 'Roboto', sans-serif;
         font-size: 16px;
         line-height: 20px;
         font-weight: 400;
@@ -1118,11 +1066,11 @@ td {
     }
 
 
-    .icon {
+    .icon-pic {
         width: 150px;
     }
 
-    .icon img {
+    .icon-pic img {
         width: 20px;
         height: 20px;
     }
@@ -1178,11 +1126,7 @@ td {
         padding: 0;
     }
 
-    .help svg {
-        width: 25px;
-        height: 25px;
-    }
-
+  
     .modal {
         margin-bottom: 15px;
     }
@@ -1191,7 +1135,7 @@ td {
     .modal-title {
         font-size: 18px;
         line-height: 20px;
-        font-weight: 700;
+        font-weight: 400;
     }
 
     .modal-text {
@@ -1450,11 +1394,11 @@ td {
     }
 
 
-    .icon {
+    .icon-pic {
         width: 140px;
     }
 
-    .icon img {
+    .icon-pic img {
         width: 20px;
         height: 20px;
     }
@@ -1609,13 +1553,13 @@ td {
     }
 
 
-    .icon {
+    .icon-pic {
         width: 160px;
     }
 
 
 
-    .icon img {
+    .icon-pic img {
         width: 20px;
         height: 20px;
     }
