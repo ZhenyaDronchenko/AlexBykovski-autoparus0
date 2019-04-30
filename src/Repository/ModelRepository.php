@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Brand;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class ModelRepository extends EntityRepository
 {
@@ -68,15 +69,22 @@ class ModelRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findAllByBrandUrl($brandUrl)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m');
+
+        return $this->findByBrandUrl($qb, $brandUrl)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findAllUrlByBrandUrl($brandUrl)
     {
-        return $this->createQueryBuilder('m')
-            ->select('m.url')
-            ->join("m.brand", "br")
-            ->where("m.active = :trueValue")
-            ->andWhere("br.url = :brandUrl")
-            ->setParameter("trueValue", true)
-            ->setParameter("brandUrl", $brandUrl)
+        $qb = $this->createQueryBuilder('m')
+            ->select('m.url');
+
+        return $this->findByBrandUrl($qb, $brandUrl)
             ->getQuery()
             ->getResult();
     }
@@ -117,5 +125,14 @@ class ModelRepository extends EntityRepository
             ->setParameter('textWithoutYear', trim(preg_replace("/\d{4}\-\d{4}/", "", $text)) )
             ->getQuery()
             ->getResult();
+    }
+
+    private function findByBrandUrl(QueryBuilder $queryBuilder, $brandUrl)
+    {
+        return $queryBuilder->join("m.brand", "br")
+            ->where("m.isPopular = :trueValue")
+            ->andWhere("br.url = :brandUrl")
+            ->setParameter("trueValue", true)
+            ->setParameter("brandUrl", $brandUrl);
     }
 }

@@ -63,7 +63,7 @@ class BrandRepository extends EntityRepository
     public function findPopularUrlsForSiteMap()
     {
         return $this->createQueryBuilder('br')
-            ->select('br.url')
+            ->select('br.url, br.brandEn')
             ->where("br.popular = :trueValue")
             ->setParameter("trueValue", true)
             ->getQuery()

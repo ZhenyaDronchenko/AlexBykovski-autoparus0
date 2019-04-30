@@ -44,10 +44,6 @@ class ImportChecker
     {
         $result = $this->checkExtension($filePath);
 
-        return [
-            "success" => true,
-            "errors" => [],
-        ];
         if($result !== true){
             return $result["errors"];
         }
