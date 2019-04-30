@@ -310,15 +310,22 @@
 
             {% set hasOurAdverts = specificAdverts | length > 0 or generalAdverts | length > 0 %}
             {% set hasBamberAdverts = bamberSuggestions | length > 0 %}
-            {% if bamberSuggestions | length > 0 %}
-                <div ng-init="showSuggestions = {{ hasOurAdverts ? 'false' : 'true' }}" ng-show="showSuggestions" ng-cloak>
-                    {% include('/client/catalog/bamper/spare-part-suggestions.html.twig') with {"suggestions" : bamberSuggestions} %}
-                </div>
 
-                {% if hasOurAdverts %}
-                    <button class="arrows-btn" ng-click="showSuggestions = !showSuggestions">Показать еще продавцов</button>
+            {% if not city or city.url == constant('App\\Entity\\City::CAPITAL') %}
+                {% if bamberSuggestions | length > 0 %}
+                    <div ng-init="showSuggestions = {{ hasOurAdverts ? 'false' : 'true' }}" ng-show="showSuggestions" ng-cloak>
+                        {% include('/client/catalog/bamper/spare-part-suggestions.html.twig') with {"suggestions" : bamberSuggestions} %}
+                    </div>
+
+                    {% if hasOurAdverts %}
+                        <button class="arrows-btn" ng-click="showSuggestions = !showSuggestions">Показать еще продавцов</button>
+                    {% endif %}
                 {% endif %}
+            {% else %}
+                {% set params = routeParams|merge({'urlCity': constant('App\\Entity\\City::ALL_CITIES')}) %}
+                <a href="{{ path(app.request.attributes.get('_route'), params) }}"><button class="arrows-btn">Показать Все города</button></a>
             {% endif %}
+
             {% if not hasOurAdverts and not hasBamberAdverts %}
                 <div class="text-item">{{ page.text3 | raw }}</div>
             {% endif %}
