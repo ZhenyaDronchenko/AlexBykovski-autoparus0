@@ -2,6 +2,7 @@
 
 namespace App\Repository\Advert\AutoSparePart;
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\City;
@@ -64,7 +65,8 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
         $city = $filterType->getCity();
         $stockTypes = $filterType->getInStock() ?
             [AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
-            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE];
+            [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE,
+                AutoSparePartGeneralAdvert::STOCK_TYPE_CHECK_AVAILABILITY];
 
         return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes);
     }
