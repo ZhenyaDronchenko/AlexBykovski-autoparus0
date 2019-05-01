@@ -142,8 +142,7 @@ p {
     outline: none;
 }
 .delivery-on {
-   margin: 30px 0;
-   margin-bottom: 15px;
+   margin-top: 25px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -166,6 +165,7 @@ p {
     background-color: #faeeee;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .delivery-on a:hover {
@@ -272,6 +272,9 @@ p {
    .delivery-on a {
     font-size: 12px;
     line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
 }
 
 
@@ -366,6 +369,13 @@ p {
         font-size: 16px;
         line-height: 14px;
     }
+   .delivery-on a {
+    font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+}
 
 }
 
@@ -1245,6 +1255,7 @@ padding-bottom: 4px;
         left: 50%;
         width: 80%;
     }
+
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {

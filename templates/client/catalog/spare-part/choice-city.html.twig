@@ -51,6 +51,8 @@
                     <li><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.object.url}|merge(routeParams)) }}' title="{{ city.title }}">{{ city.object.name }}</a></li>
                 {% endfor %}
             </ul>
+            <button class="allText-1"> >>>>>>> </button>
+
 
             <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
 

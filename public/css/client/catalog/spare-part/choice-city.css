@@ -139,6 +139,19 @@ cursor: default;
 #allText:hover {
     color: #000;
 }
+
+.allText-1 {
+    border: none;
+    background-color: #fff;
+    display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 5px;
+      margin: 10px auto;
+    cursor: pointer;
+    outline: none;
+}
 .text-block {
     margin-bottom: 40px;
 }
@@ -456,7 +469,7 @@ tr {
 
     .brand-block {
         margin: 0 auto;
-        width: 300px;
+        width: 310px;
        
     }
     .brand-block li {
@@ -465,9 +478,9 @@ tr {
     }
    
     .link {
-        width: 90px;
-        font-size: 14px;
-        line-height: 16px;
+        width: 95px;
+        font-size: 12px;
+        line-height: 14px;
     }
     .button {
      width: 110px;

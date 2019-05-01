@@ -464,19 +464,26 @@
     flex-grow: 1;
     width: 60%;
 }
-.time {
+.date {
+     font-family: 'Roboto';
+    text-align: right;
     font-size: 14px;
-    line-height: 18px;
+    line-height: 16px;
+    font-weight: 300;
+}
+
+.time {
+    font-size: 12px;
+    line-height: 16px;
     margin-left: 10px;
 }
 
 
-.date {
-    text-align: right;
-    font-size: 16px;
-    line-height: 20px;
+.icon span {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
 }
-
 
 .adress-text-img {
     margin-right: 5px;
@@ -494,9 +501,10 @@
 
 .adress-text {
     margin: 0;
+     font-family: 'Roboto';
     margin-bottom: 7px;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
    
 
@@ -1528,6 +1536,7 @@ textarea {
     .modal6 {
         top: 0;
         width: 100%;
+        
     }
 
     .button-title-m {
@@ -1538,8 +1547,8 @@ textarea {
         font-size: 14px;
     }
     .img-cont {
-        width: 300px;
-        height: auto;
+       height: 80vh;
+        
 
     }
     .modal-img {
@@ -1679,6 +1688,10 @@ textarea {
     }
     .choice-block {
     margin-bottom: 0; 
+}
+.icon span {
+    font-size: 12px;
+        line-height: 14px;
 }
 }
 @media (min-width: 481px) and (max-width: 767px) {
@@ -2023,6 +2036,10 @@ textarea {
 
         max-height: 240px;
     }
+    .icon span {
+    font-size: 16px;
+        line-height: 18px;
+}
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {

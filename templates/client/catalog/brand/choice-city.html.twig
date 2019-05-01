@@ -43,21 +43,17 @@
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
             </div>
-            <div class="delivery-city">
-                {% set capital = capitals|first %}
-                {% set allCitiesPath = constant('App\\Entity\\City::ALL_CITIES') %}
-                <ul class="city block1">
-                    <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : capital.isActive ? capital.url : allCitiesPath}|merge(routeParams)) }}">{{ capital.name }}</a></li>
-                    {% for city in otherCities|slice(0, 2) %}
-                        <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.isActive ? city.url : allCitiesPath}|merge(routeParams)) }}">{{ city.name }}</a></li>
-                    {% endfor %}
-                </ul>
-                <ul class="city block2">
-                    {% for city in otherCities|slice(2, 4) %}
-                        <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.isActive ? city.url : allCitiesPath}|merge(routeParams)) }}">{{ city.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
+            <ul class="brand-block" ng-cloak>
+                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/minsk' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Минске">Минск</a></li>
+                                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/brest' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Бресте">Брест</a></li>
+                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/vitebsk' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Витебске">Витебск</a></li>
+                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/gomel' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Гомеле">Гомель</a></li>
+                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/grodno' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Гродно">Гродно</a></li>
+                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/mogilev' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Могилеве">Калинковичии</a></li>
+                                    <li><a class="link-o" href='/zapchasti/amortizator_zad_lev/audi/a4_b7/molodechno' title="Задняя левая амортизаторная стойка к Audi A4 (B7) в Молодечно">Калинковичии</a></li>
+                            </ul>
+            <button class="allText-1"> >>>>>>> </button>
+
             <div class="city-btn">
             <a class="button" href="#">Все Города</a>
              </div>

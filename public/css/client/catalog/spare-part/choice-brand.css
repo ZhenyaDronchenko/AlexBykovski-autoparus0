@@ -228,8 +228,9 @@ cursor: default;
 
 }
 .model-link img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+   
      
 }
 .model-link img:hover {
@@ -343,11 +344,11 @@ cursor: default;
     }
     #model li {
         margin: 0 auto;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .model-link img {
-         margin: 0 7px;
+         margin: 0 4px;
         width: 60px;
         height: 60px;
     }
@@ -452,11 +453,11 @@ cursor: default;
 
     #model li {
         margin: 0 auto;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .model-link img {
-         margin: 0 7px;
+         margin: 0 5px;
         width: 60px;
         height: 60px;
     }
