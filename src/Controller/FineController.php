@@ -7,6 +7,7 @@ use App\Entity\CheckFine\CheckFineTrafficPolice;
 use App\Entity\CheckFine\CheckFineTrafficPoliceByCity;
 use App\Entity\City;
 use App\Entity\General\MainPage;
+use App\Entity\General\NotFoundPage;
 use App\Entity\UserData\PotentialUserCheckFine;
 use App\Form\Type\PotentialUserCheckFineType;
 use App\Provider\CheckFine\CheckFineTrafficPoliceProvider;
@@ -16,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FineController extends Controller
@@ -85,7 +87,7 @@ class FineController extends Controller
         $city = $em->getRepository(City::class)->findOneBy(["url" => $cityUrl]);
 
         if(!($city instanceof City)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $popularBrands = [];

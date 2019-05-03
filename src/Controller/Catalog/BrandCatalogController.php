@@ -12,12 +12,14 @@ use App\Entity\Catalog\Brand\CatalogBrandChoiceInStock;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceModel;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart;
 use App\Entity\City;
+use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -55,7 +57,7 @@ class BrandCatalogController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
 
         if(!($brand instanceof Brand)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $allModels = $em->getRepository(Model::class)->findBy([
@@ -89,7 +91,7 @@ class BrandCatalogController extends Controller
         $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
 
         if(!($brand instanceof Brand) || !($model instanceof Model)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $popularSpareParts = $em->getRepository(SparePart::class)->findBy(
@@ -131,7 +133,7 @@ class BrandCatalogController extends Controller
         $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) || !($model instanceof Model)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $capitals = $em->getRepository(City::class)->findBy(
@@ -174,7 +176,7 @@ class BrandCatalogController extends Controller
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
             !($model instanceof Model) || !($city instanceof City) && !$isAllCities){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogBrandChoiceInStock::class)->findAll()[0];
@@ -207,7 +209,7 @@ class BrandCatalogController extends Controller
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
             !($model instanceof Model) || !($city instanceof City) && !$isAllCities){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogBrandChoiceFinalPage::class)->findAll()[0];
