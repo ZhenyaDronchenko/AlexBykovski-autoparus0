@@ -168,7 +168,7 @@
                             </a>
                         </li>
                         <li>
-                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? path("sonata_admin_dashboard") : path("show_user_office") ) : "login" %}
+                            {% set personLink = app.user ? (app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) ? path("sonata_admin_dashboard") : path("show_user_office") ) : path("login") %}
                             <a class="navigation-link cbutton cbutton--effect-boris" href="{{ personLink }}" title="Персональный профиль пользователя">
                                 <svg class="user" width="40" height="40" viewBox="0 0 50 50" fill="none">
                                     <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3.5"/>
