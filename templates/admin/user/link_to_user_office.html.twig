@@ -1,5 +1,5 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
-    <a class="btn btn-primary" href="{{ path("admin_authorize_as_user", {id: object.id}) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
+    <a class="btn btn-primary" href="{{ path('show_user_office', {'_switch_user': object.email}) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i></a>
 {% endblock %}

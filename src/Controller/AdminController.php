@@ -33,24 +33,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends Controller
 {
     /**
-     * @Route("/authorize-as-user/{id}", name="admin_authorize_as_user")
-     *
-     * @ParamConverter("user", class="App:User", options={"id" = "id"})
-     */
-    public function authorizeAdminAsUserAction(
-        Request $request,
-        User $user,
-        TokenStorageInterface $tokenStorage
-    )
-    {
-        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-        $tokenStorage->setToken($token);
-        $request->getSession()->set('_security_main', serialize($token));
-
-        return $this->redirectToRoute("homepage");
-    }
-
-    /**
      * @Route("/admin-remove-brand-logo/{id}", name="admin_remove_brand_logo")
      *
      * @ParamConverter("brand", class="App:Brand", options={"id" = "id"})

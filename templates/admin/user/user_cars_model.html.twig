@@ -1,7 +1,7 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field %}
-    {% for car in object.cars %}
+    {% for car in object.cars if car.model %}
         <div>{{ car.model.name }}</div>
     {% endfor %}
 {% endblock %}
