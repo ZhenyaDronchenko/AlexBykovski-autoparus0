@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NotFoundPage
 {
+    const DEFAULT_MESSAGE = "Данная страница не существует!";
+
     /**
      * @var integer
      *

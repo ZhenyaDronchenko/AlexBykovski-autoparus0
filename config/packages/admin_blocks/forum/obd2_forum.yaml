@@ -1,0 +1,40 @@
+services:
+    # 1st from OBD2Forum
+    admin.forum.obd2_forum.brand:
+        class: App\Admin\Forum\OBD2Forum\OBD2ForumChoiceBrandAdmin
+        arguments: [~, App\Entity\Forum\OBD2Forum\OBD2ForumChoiceBrand, 'App\Admin\Controller\Forum\OBD2Forum\OBD2ForumChoiceBrandAdminController']
+        tags:
+            - { name: sonata.admin, group: Форум OBD2, manager_type: orm, label: Выбор марки }
+        public: true
+
+    # 2nd from OBD2Forum
+    admin.forum.obd2_forum.type:
+        class: App\Admin\Forum\OBD2Forum\OBD2ForumChoiceTypeAdmin
+        arguments: [~, App\Entity\Forum\OBD2Forum\OBD2ForumChoiceType, 'App\Admin\Controller\Forum\OBD2Forum\OBD2ForumChoiceTypeAdminController']
+        tags:
+            - { name: sonata.admin, group: Форум OBD2, manager_type: orm, label: Выбор типа }
+        public: true
+
+    # 3rd from OBD2Forum
+    admin.forum.obd2_forum.code:
+        class: App\Admin\Forum\OBD2Forum\OBD2ForumChoiceCodeAdmin
+        arguments: [~, App\Entity\Forum\OBD2Forum\OBD2ForumChoiceCode, 'App\Admin\Controller\Forum\OBD2Forum\OBD2ForumChoiceCodeAdminController']
+        tags:
+            - { name: sonata.admin, group: Форум OBD2, manager_type: orm, label: Выбор кода }
+        public: true
+
+    # 4th from OBD2Forum
+    admin.forum.obd2_forum.model:
+        class: App\Admin\Forum\OBD2Forum\OBD2ForumChoiceModelAdmin
+        arguments: [~, App\Entity\Forum\OBD2Forum\OBD2ForumChoiceModel, 'App\Admin\Controller\Forum\OBD2Forum\OBD2ForumChoiceModelAdminController']
+        tags:
+            - { name: sonata.admin, group: Форум OBD2, manager_type: orm, label: Выбор модели }
+        public: true
+
+    # 1st from OBD2Forum
+    admin.forum.obd2_forum.final_page:
+        class: App\Admin\Forum\OBD2Forum\OBD2ForumFinalPageAdmin
+        arguments: [~, App\Entity\Forum\OBD2Forum\OBD2ForumFinalPage, 'App\Admin\Controller\Forum\OBD2Forum\OBD2ForumFinalPageAdminController']
+        tags:
+            - { name: sonata.admin, group: Форум OBD2, manager_type: orm, label: Финальная страница }
+        public: true
