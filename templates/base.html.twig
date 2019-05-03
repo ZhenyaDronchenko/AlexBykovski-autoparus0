@@ -54,7 +54,11 @@
                     <ul class='nav-list nav-list-m'>
                         {% if app.user %}
                             {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
-                            <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
+                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <li class='item-text'><a href="{{ path(app.user.isSeller() ? 'admin_app_seller_list' : 'admin_app_buyer_list', {'_switch_user': '_exit'}) }}">Выйти из пользователя</a></li>
+                            {% else %}
+                                <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
+                            {% endif %}
                             {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
                                 <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Admin</a></li>
                             {% else %}

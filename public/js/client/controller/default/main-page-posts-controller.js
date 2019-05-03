@@ -8,7 +8,7 @@
         let url = null;
         let params = {
             "limit" : 5,
-            "offset" : 0,
+            "offset" : -5,
         };
         this.posts = [];
         //image from https://loading.io/
@@ -45,8 +45,6 @@
                 }
 
                 preloader.css("display", "none");
-
-                console.log(self.posts.length);
             }, function (response) {
                 console.log("error");
             });
@@ -54,7 +52,6 @@
 
         function updateScrollTrigger(id){
             $(window).on("scroll", function() {
-                console.log(id);
                 let hT = $(id).offset().top;
                 let hH = $(id).outerHeight();
                 let wH = $(window).height();

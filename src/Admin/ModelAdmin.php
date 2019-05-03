@@ -117,7 +117,7 @@ class ModelAdmin extends AbstractAdmin
             'mapped' => false],
             ["help" => $helpLogo]
         );
-        $formMapper->add('popular', CheckboxType::class, ['label' => 'Популярная модель', 'required' => false]);
+        $formMapper->add('isPopular', CheckboxType::class, ['label' => 'Популярная модель', 'required' => false]);
         $formMapper->add('technicalData.engineTypes',  EntityType::class,
             [
                 'label' => 'Тип ДВС [ENGINE_TYPE]:',
