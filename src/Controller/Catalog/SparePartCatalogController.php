@@ -12,6 +12,7 @@ use App\Entity\Catalog\SparePart\CatalogSparePartChoiceInStock;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceModel;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceSparePart;
 use App\Entity\City;
+use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Provider\Integration\BamperSuggestionProvider;
@@ -21,6 +22,7 @@ use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -58,7 +60,7 @@ class SparePartCatalogController extends Controller
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $url]);
 
         if(!($sparePart instanceof SparePart)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -89,7 +91,7 @@ class SparePartCatalogController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -134,7 +136,7 @@ class SparePartCatalogController extends Controller
         $model = $isAllModels ? $urlModel : $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) || !($model instanceof Model) && !$isAllModels){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -207,7 +209,7 @@ class SparePartCatalogController extends Controller
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
             !($model instanceof Model) && !$isAllModels || !($city instanceof City) && !$isAllCities){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -264,7 +266,7 @@ class SparePartCatalogController extends Controller
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
             !($model instanceof Model) && !$isAllModels || !($city instanceof City) && !$isAllCities){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */

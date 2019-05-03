@@ -18,6 +18,7 @@ use App\Entity\City;
 use App\Entity\Error\CodeOBD2Error;
 use App\Entity\Error\TypeOBD2Error;
 use App\Entity\General\MainPage;
+use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\UserData\UserOBD2ErrorCode;
@@ -28,6 +29,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -80,7 +82,7 @@ class OBD2ErrorCatalogController extends Controller
         $type = $em->getRepository(TypeOBD2Error::class)->findOneBy(["url" => $urlType]);
 
         if(!($type instanceof TypeOBD2Error)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $form = $this->createForm(ErrorCodeSearchType::class);
@@ -155,7 +157,7 @@ class OBD2ErrorCatalogController extends Controller
         $code = $code ?: CodeOBD2Error::getAbsentCode($type, $urlCode);
 
         if(!($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogOBD2ErrorChoiceTranscript::class)->findAll()[0];
@@ -189,7 +191,7 @@ class OBD2ErrorCatalogController extends Controller
         $code = $code ?: CodeOBD2Error::getAbsentCode($type, $urlCode);
 
         if(!($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var CatalogOBD2ErrorChoiceReason $page */

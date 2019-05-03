@@ -3,6 +3,7 @@
 namespace App\Controller\Phone;
 
 use App\Entity\City;
+use App\Entity\General\NotFoundPage;
 use App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoiceCity;
 use App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneBrand;
 use App\Entity\Phone\Catalog\Work\CatalogPhoneWorkChoicePhoneModel;
@@ -15,6 +16,7 @@ use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -51,7 +53,7 @@ class PhoneWorkCatalogController extends Controller
         $sparePart = $em->getRepository(PhoneSparePart::class)->findOneBy(["url" => $url]);
 
         if(!($sparePart instanceof PhoneSparePart)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -82,7 +84,7 @@ class PhoneWorkCatalogController extends Controller
         $brand = $em->getRepository(PhoneBrand::class)->findOneBy(["url" => $urlBrand]);
 
         if(!($sparePart instanceof PhoneSparePart) || !($brand instanceof PhoneBrand)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -119,7 +121,7 @@ class PhoneWorkCatalogController extends Controller
         $model = $em->getRepository(PhoneModel::class)->findOneBy(["url" => $urlModel]);
 
         if(!($sparePart instanceof PhoneSparePart) || !($brand instanceof PhoneBrand) || !($model instanceof PhoneModel)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */
@@ -159,7 +161,7 @@ class PhoneWorkCatalogController extends Controller
 
         if(!($sparePart instanceof PhoneSparePart) || !($brand instanceof PhoneBrand) ||
             !($model instanceof PhoneModel) || !($city instanceof City)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         /** @var EntityManagerInterface $em */

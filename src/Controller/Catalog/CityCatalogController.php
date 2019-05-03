@@ -11,6 +11,7 @@ use App\Entity\Catalog\City\CatalogCityChoiceSparePart;
 use App\Entity\Catalog\City\CatalogCityChoiceYear;
 use App\Entity\City;
 use App\Entity\General\MainPage;
+use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Provider\TitleProvider;
@@ -18,6 +19,7 @@ use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -69,7 +71,7 @@ class CityCatalogController extends Controller
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
 
         if(!($city instanceof City)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceBrand::class)->findAll()[0];
@@ -129,7 +131,7 @@ class CityCatalogController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
 
         if(!($brand instanceof Brand) || !($city instanceof City)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceModel::class)->findAll()[0];
@@ -197,7 +199,7 @@ class CityCatalogController extends Controller
         ]);
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceYear::class)->findAll()[0];
@@ -262,7 +264,7 @@ class CityCatalogController extends Controller
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year)){
-            return $this->redirect($request->headers->get('referer'));
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceSparePart::class)->findAll()[0];
