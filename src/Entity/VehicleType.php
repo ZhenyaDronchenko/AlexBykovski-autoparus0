@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class VehicleType
 {
+    static $variables = [
+        "[BODY_TYPE]" => "getType",
+    ];
+
     /**
      * @var integer
      *
@@ -25,6 +29,13 @@ class VehicleType
      * @ORM\Column(type="string")
      */
     private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $url;
 
     /**
      * @return int
@@ -58,8 +69,33 @@ class VehicleType
         $this->type = $type;
     }
 
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
+
     public function __toString()
     {
         return (string)$this->id;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }

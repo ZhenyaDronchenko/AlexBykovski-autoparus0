@@ -456,4 +456,16 @@ class Model implements VariableInterface
 
         return $yearFrom <= $year && $year <= $yearTo;
     }
+
+    public function hasVehicleType($type)
+    {
+        /** @var VehicleType $vehicleType */
+        foreach ($this->getTechnicalData()->getVehicleTypes() as $vehicleType) {
+            if($vehicleType->getType() === $type){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
