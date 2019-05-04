@@ -1,10 +1,267 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+		<link rel='stylesheet' href='/css/client/forum/final-page.css'>
 {% endblock %}
 
 {% block body %}
+
+<main class="container">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
+            <span class="user-name" itemprop="name">Главная</span>
+            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+            <meta itemprop="position" content="1">
+          </a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">OBD2 форум</span></a><meta itemprop="position" content="2"></li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал четвертой крошки"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал пятой крошки"><span class="line">/</span><span itemprop="name">[LETTERTYPEOBD2] [CODEOBD2]</span><meta itemprop="position" content="5"></a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[ENMODEL]</span><meta itemprop="position" content="6"></a>
+        </li>
+      </ul>
+
+      <section class="model">
+        <h1>Заголовок H1 из админки</h1>
+        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+         
+        <div class="btn-list">
+          <button type="button" class="btn-form btn-show1">Поделиться опытом</button> 
+          <button type="button" class="btn-form btn-show2">Задать вопрос...</button> 
+        </div>
+
+        <ul class="items">
+          <li class="user-item user-item--line">
+            <div class="prod">
+              <div class='user-block'>
+                <div class="icon-t"><span>?</span></div>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class='breadcrumbs-block'>
+                <ul class="breadcrumbs">
+                  <li><a class="item-link" href="#">Toyota</a></li>
+                  <li><a class="item-link" href="#">/ Avensis T25</a></li>
+                  <li><a class="item-link" href="#">/ P 4444</a></li>
+                </ul>
+                <span class="date">12.11.2019</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <button class="btn btn-o btn-show3">Добавить комментарий</button>
+          </li> 
+
+          <li class="user-item">
+            <div class="prod">
+              <div class='user-block'>
+                <div class="icon-t"><span>!</span></div>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class='breadcrumbs-block'>
+                <ul class="breadcrumbs">
+                  <li><a class="item-link" href="#">Toyota</a></li>
+                  <li><a class="item-link" href="#">/ Avensis T25</a></li>
+                  <li><a class="item-link" href="#">/ P 4444</a></li>
+                </ul>
+                <span class="date">12.11.2019</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/user1.jpg" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <button class="btn btn-o btn-show4">Добавить комментарий</button>
+          </li> 
+        </ul>
+
+        <h2>Заголовок H2 из админки</h2>
+        
+        <p>текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки</p>
+        <button class="btn btn-show5">Универсальная кнопка</button>
+      </section>
+     </main>
+
+
+
+
+    <div class="overlay1">
+      <div class="modal1">
+        <div class="modal-header">
+          <button class="button-home button-close1"><img src="img/left-arrow1.png" alt="Назад"></button>
+          <button class="button-home">Опубликовать</button>
+        </div>
+        
+        <h3 class="modal-title">Вопрос: (№31)</h3>
+        <textarea name="text" rows="17" placeholder="Опишите подробно суть Вашего вопроса"></textarea>
+        <p class="modal-text">Текст из каталогов текстов № (31 из каталога текстов), Текст из каталогов текстов № (31 из каталога текстов), Текст из каталогов текстов № (31 из каталога текстов), Текст из каталогов текстов № (31 из каталога текстов), Текст из каталогов текстов № (31 из каталога текстов), Текст из каталогов текстов № (31 из каталога текстов), Текст из каталогов текстов № (31 из каталога текстов)</p>
+        <div class="btn-block">
+          <button class="button button-close1">Отменить</button>
+          <button class="button">Опубликовать</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay2">
+      <div class="modal2">
+        <div class="modal-header">
+          <button class="button-home button-close2"><img src="img/left-arrow1.png" alt="Назад"></button>
+          <button class="button-home">Опубликовать</button>
+        </div>
+       
+        <h3 class="modal-title">Вопрос: (№32)</h3>
+        <textarea name="text" rows="17" placeholder="Опишите подробно суть Вашего вопроса"></textarea>
+        <p class="modal-text">Текст из каталогов текстов № (32 из каталога текстов), Текст из каталогов текстов № (32 из каталога текстов), Текст из каталогов текстов № (32 из каталога текстов), Текст из каталогов текстов № (32 из каталога текстов), Текст из каталогов текстов № (32 из каталога текстов), Текст из каталогов текстов № (32 из каталога текстов), Текст из каталогов текстов № (32 из каталога текстов)</p>
+        <div class="btn-block">
+          <button class="button button-close2">Отменить</button>
+          <button class="button">Опубликовать</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay3">
+      <div class="modal3">
+        <div class="modal-header">
+          <button class="button-home button-close3"><img src="img/left-arrow1.png" alt="Назад"></button>
+          <button class="button-home">Опубликовать</button>
+        </div>
+       
+        <h3 class="modal-title">Вопрос: (№33)</h3>
+        <textarea name="text" rows="17" placeholder="Опишите подробно суть Вашего вопроса"></textarea>
+        <p class="modal-text">Текст из каталогов текстов № (33 из каталога текстов), Текст из каталогов текстов № (33 из каталога текстов), Текст из каталогов текстов № (33 из каталога текстов), Текст из каталогов текстов № (33 из каталога текстов), Текст из каталогов текстов № (33 из каталога текстов), Текст из каталогов текстов № (33 из каталога текстов), Текст из каталогов текстов № (33 из каталога текстов)</p>
+        <div class="btn-block">
+          <button class="button button-close3">Отменить</button>
+          <button class="button">Опубликовать</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay4">
+      <div class="modal4">
+        <div class="modal-header">
+          <button class="button-home button-close4"><img src="img/left-arrow1.png" alt="Назад"></button>
+          <button class="button-home">Опубликовать</button>
+        </div>
+        
+        <h3 class="modal-title">Вопрос: (№34)</h3>
+        <textarea name="text" rows="17" placeholder="Опишите подробно суть Вашего вопроса"></textarea>
+        <p class="modal-text">Текст из каталогов текстов № (34 из каталога текстов), Текст из каталогов текстов № (34 из каталога текстов), Текст из каталогов текстов № (34 из каталога текстов), Текст из каталогов текстов № (34 из каталога текстов), Текст из каталогов текстов № (34 из каталога текстов), Текст из каталогов текстов № (34 из каталога текстов), Текст из каталогов текстов № (34 из каталога текстов)</p>
+        <div class="btn-block">
+          <button class="button button-close4">Отменить</button>
+          <button class="button">Опубликовать</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    
+
+  <div class="overlay">
+    <div class="modal">
+      <button class="modal-close button-close2" type="button">
+         <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+        <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+        <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+        </svg>
+      </button>
+      <p class="modal-text">Задать вопрос, оставить комментарий и написать история своего опыта могут только зарегестрированные пользователи. Если Вы зарегестрированы, то авторизуйтесь. </p>
+      <button class="button button-m" type="button">Войти</button>
+      
+      <span>или</span>
+      
+      <a href="#" class="pas">Зарегестрируйтесь</a>
+      
+      <button class="button" type="button">Регистрация</button>
+    </div>
+  </div>
+
+  <div class="overlay5">
+    <div class="modal5">
+      
+      <div class="modal-header">
+        <button class="button-home button-close5"><img src="img/left-arrow1.png" alt="Назад"></button>
+        <a href="#" class="button-home">Войти</a>
+      </div>
+      <button class="modal-close button-close3 modal-close-h" type="button">
+         <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+        <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+        <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+        </svg>
+      </button>
+        
+      <h3 class="modal-title">Форум ошибок OBD2</h3>
+      <p class="modal-text">Задать вопрос пользователям форума или написать историю своего опыта могут только зарегестрированные пользователи. Если Вы зарегестрированы, то авторизуйтесь. </p>
+      <a href="#" class="button button-m" type="button">Войти</a>
+      
+      <p class="modal-text">Если Вы не зарегистрированы у нас на сайте, то добро пожаловать на Autoparus.by</p>
+      
+      <a href="#" class="button button-m">Регистрация</a>
+
+      <p class="modal-text">Регистрация проста и не займет много времени</p>
+      <button class="btn btn-mobile button-close5">Свернуть</button>
+    </div>
+  </div>
+
+     
 {% endblock %}

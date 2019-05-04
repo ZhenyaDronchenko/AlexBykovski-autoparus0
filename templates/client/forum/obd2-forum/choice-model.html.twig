@@ -4,7 +4,140 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/forum/choice-model.css'>
 {% endblock %}
 
 {% block body %}
+ <main class="container">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
+            <span class="user-name" itemprop="name">Главная</span>
+            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+            <meta itemprop="position" content="1">
+          </a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">OBD2 ошибки</span></a><meta itemprop="position" content="2"></li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал четвертой крошки"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[LETTERTYPEOBD2] [CODEOBD2]</span><meta itemprop="position" content="5"></a>
+        </li>
+      </ul>
+
+      <section class="model">
+        <h1>Заголовок H1 из админки</h1>
+        <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
+         
+        <form class='modform' action="#" method="get">
+          <input class='form7' name="search" placeholder="Модель авто:" type="search">  
+        </form>
+        <div class="btn-list">
+          <button type="button" class="btn-form btn-show1">Поделиться опытом</button> 
+          <button type="button" class="btn-form btn-show2">Задать вопрос...</button> 
+        </div>
+
+        <ul class="items">
+          <li class="user-item user-item--line">
+            <div class="prod">
+              <div class='user-block'>
+                <div class="icon-t"><span>?</span></div>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class='breadcrumbs-block'>
+                <ul class="breadcrumbs">
+                  <li><a class="item-link" href="#">Toyota</a></li>
+                  <li><a class="item-link" href="#">/ Avensis T25</a></li>
+                  <li><a class="item-link" href="#">/ P 4444</a></li>
+                </ul>
+                <span class="date">12.11.2019</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <button class="btn btn-o btn-show3">Добавить комментарий</button>
+          </li> 
+
+          <li class="user-item">
+            <div class="prod">
+              <div class='user-block'>
+                <div class="icon-t"><span>!</span></div>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class='breadcrumbs-block'>
+                <ul class="breadcrumbs">
+                  <li><a class="item-link" href="#">Toyota</a></li>
+                  <li><a class="item-link" href="#">/ Avensis T25</a></li>
+                  <li><a class="item-link" href="#">/ P 4444</a></li>
+                </ul>
+                <span class="date">12.11.2019</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <div class="comment">
+              <div class='user-block'>
+                <div class="icon"><img src="img/user1.jpg" alt="Пользователь"></div>
+                <span class="user-n">Иванов Иван Иванович</span>
+              </div>
+              <div class="text-block">
+                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+              </div>
+            </div>
+            <button class="btn btn-o btn-show4">Добавить комментарий</button>
+          </li> 
+        </ul>
+
+        <h2>Заголовок H2 из админки</h2>
+        
+        <p>текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки</p>
+        <button class="btn btn-show5">Универсальная кнопка</button>
+      </section>
+     </main>
+
 {% endblock %}

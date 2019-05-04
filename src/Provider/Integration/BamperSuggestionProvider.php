@@ -18,7 +18,7 @@ class BamperSuggestionProvider
 
     public function provide(Brand $brand, ?Model $model, SparePart $sparePart, City $city = null, $inStock = true)
     {
-        if(!$brand || !$model || !$sparePart || !(!$city || $city->getUrl() === City::CAPITAL)){
+        if(!$brand || !$model || !$sparePart){
             return [];
         }
 
@@ -55,7 +55,7 @@ class BamperSuggestionProvider
 
         $response = $this->request($url);
 
-        $crawler = new Crawler($response);
+        $crawler = new Crawler(null);
 
         if(!$crawler->filter("select#zapchast > option[selected]")->count() ||
             !$crawler->filter("select#marka > option[selected]")->count() ||
