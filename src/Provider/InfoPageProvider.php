@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\General\InfoPageBase;
 use App\Entity\SparePart;
+use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 
 class InfoPageProvider
@@ -17,19 +18,22 @@ class InfoPageProvider
         "general_about_page" => "getAlternativeName4",
     ];
 
-    const ORDER_CITY = ["Минск", "Брест", "Витебск", "Гродно", "Гомель", "Могилев"];
-
     /** @var EntityManagerInterface */
     private $em;
+
+    /** @var VariableTransformer */
+    private $transformer;
 
     /**
      * InfoPageProvider constructor.
      *
      * @param EntityManagerInterface $em
+     * @param VariableTransformer $transformer
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, VariableTransformer $transformer)
     {
         $this->em = $em;
+        $this->transformer = $transformer;
     }
 
     public function getCities(InfoPageBase $infoPage)
@@ -37,34 +41,31 @@ class InfoPageProvider
         /** @var City $capital */
         $capital = $this->em->getRepository(City::class)->findOneBy(["type" => City::CAPITAL_TYPE]);
         /** @var City[] $regionalCities */
-        $regionalCities = $this->em->getRepository(City::class)->findBy(["type" => City::REGIONAL_CITY_TYPE]);
-
-        $capitalUrlMethod = InfoPageBase::CITY_LINKS[$capital->getUrl()];
+        $regionalCities = $this->em->getRepository(City::class)->findBy(
+            ["type" => City::REGIONAL_CITY_TYPE],
+            ["name" => "ASC"]
+        );
 
         $cities = [
             [
                 "name" => $capital->getName(),
                 "logo" => $capital->getLogo(),
                 "prepositional" => $capital->getPrepositional(),
-                "url" => $infoPage->$capitalUrlMethod(),
+                "url" => $this->transformer->transformPage($infoPage->getCityLink(), [$capital]),
+                "title" => $this->transformer->transformPage($infoPage->getCityTitle(), [$capital]),
             ]
         ];
 
 
         foreach ($regionalCities as $city){
-            $cityUrlMethod = InfoPageBase::CITY_LINKS[$city->getUrl()];
-
             $cities[] = [
                 "name" => $city->getName(),
                 "logo" => $city->getLogo(),
                 "prepositional" => $city->getPrepositional(),
-                "url" => $infoPage->$cityUrlMethod(),
+                "url" => $this->transformer->transformPage($infoPage->getCityLink(), [$city]),
+                "title" => $this->transformer->transformPage($infoPage->getCityTitle(), [$city]),
             ];
         }
-
-        usort($cities, function($city1, $city2){
-            return array_search($city1["name"], self::ORDER_CITY) > array_search($city2["name"], self::ORDER_CITY);
-        });
 
         return $cities;
     }

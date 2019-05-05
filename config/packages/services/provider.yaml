@@ -26,7 +26,7 @@ services:
 
     app.provider.info_page_provider:
         class:  App\Provider\InfoPageProvider
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@app.transformer.variable']
         public: true
 
     app.provider.universal_page_provider:
