@@ -6,15 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class InfoPageBase
 {
-    const CITY_LINKS = [
-        "minsk" => "getMinskUrl",
-        "brest" => "getBrestUrl",
-        "vitebsk" => "getVitebskUrl",
-        "grodno" => "getGrodnoUrl",
-        "gomel" => "getGomelUrl",
-        "mogilev" => "getMogilevUrl",
-    ];
-
     /**
      * @var integer
      *
@@ -78,42 +69,14 @@ abstract class InfoPageBase
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $minskUrl;
+    protected $cityLink;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $brestUrl;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $vitebskUrl;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $gomelUrl;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $grodnoUrl;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $mogilevUrl;
+    protected $cityTitle;
 
     /**
      * @return int
@@ -247,96 +210,32 @@ abstract class InfoPageBase
     /**
      * @return null|string
      */
-    public function getMinskUrl(): ?string
+    public function getCityLink(): ?string
     {
-        return $this->minskUrl;
+        return $this->cityLink;
     }
 
     /**
-     * @param null|string $minskUrl
+     * @param null|string $cityLink
      */
-    public function setMinskUrl(?string $minskUrl): void
+    public function setCityLink(?string $cityLink): void
     {
-        $this->minskUrl = $minskUrl;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getBrestUrl(): ?string
-    {
-        return $this->brestUrl;
-    }
-
-    /**
-     * @param null|string $brestUrl
-     */
-    public function setBrestUrl(?string $brestUrl): void
-    {
-        $this->brestUrl = $brestUrl;
+        $this->cityLink = $cityLink;
     }
 
     /**
      * @return null|string
      */
-    public function getVitebskUrl(): ?string
+    public function getCityTitle(): ?string
     {
-        return $this->vitebskUrl;
+        return $this->cityTitle;
     }
 
     /**
-     * @param null|string $vitebskUrl
+     * @param null|string $cityTitle
      */
-    public function setVitebskUrl(?string $vitebskUrl): void
+    public function setCityTitle(?string $cityTitle): void
     {
-        $this->vitebskUrl = $vitebskUrl;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getGomelUrl(): ?string
-    {
-        return $this->gomelUrl;
-    }
-
-    /**
-     * @param null|string $gomelUrl
-     */
-    public function setGomelUrl(?string $gomelUrl): void
-    {
-        $this->gomelUrl = $gomelUrl;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getGrodnoUrl(): ?string
-    {
-        return $this->grodnoUrl;
-    }
-
-    /**
-     * @param null|string $grodnoUrl
-     */
-    public function setGrodnoUrl(?string $grodnoUrl): void
-    {
-        $this->grodnoUrl = $grodnoUrl;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getMogilevUrl(): ?string
-    {
-        return $this->mogilevUrl;
-    }
-
-    /**
-     * @param null|string $mogilevUrl
-     */
-    public function setMogilevUrl(?string $mogilevUrl): void
-    {
-        $this->mogilevUrl = $mogilevUrl;
+        $this->cityTitle = $cityTitle;
     }
 }
