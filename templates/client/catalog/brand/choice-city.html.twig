@@ -14,7 +14,7 @@
     <main class="container">
     <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="12px" height="12px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -24,13 +24,13 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="{{ choiceBrandTitle }}"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2">
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", parameters) }}"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ choiceModelTitle }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="3"></a>
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", parameters) }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="3"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"itemprop="item" title="{{ choiceSparePartTitle }}"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span><meta itemprop="position" content="4"></a>
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters) }}"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span><meta itemprop="position" content="4"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">{{ sparePart.alternativeName1 }}</span><meta itemprop="position" content="5"></a>

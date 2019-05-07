@@ -32,7 +32,7 @@ class BrandCatalogController extends Controller
     /**
      * @Route("", name="show_brand_catalog_choice_brand")
      */
-    public function showChoiceBrandPageAction(Request $request, TitleProvider $titleProvider)
+    public function showChoiceBrandPageAction(Request $request)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -46,7 +46,6 @@ class BrandCatalogController extends Controller
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
             'page' => $em->getRepository(CatalogBrandChoiceBrand::class)->findAll()[0],
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
         ]);
     }
 
@@ -56,7 +55,6 @@ class BrandCatalogController extends Controller
     public function showChoiceModelPageAction(
         Request $request,
         VariableTransformer $transformer,
-        TitleProvider $titleProvider,
         $urlBrand)
     {
         /** @var EntityManagerInterface $em */
@@ -78,14 +76,14 @@ class BrandCatalogController extends Controller
         });
 
         $page = $em->getRepository(CatalogBrandChoiceModel::class)->findAll()[0];
+        $transformParameters = [$brand];
 
         return $this->render('client/catalog/brand/choice-model.html.twig', [
             'allModels' => $allModels,
             'popularModels' => $popularModels,
-            'page' => $transformer->transformPage($page, [$brand]),
+            'page' => $transformer->transformPage($page, $transformParameters),
             'brand' => $brand,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceBrand::class, [$brand]),
+            'parameters' => $transformParameters,
         ]);
     }
 
@@ -95,7 +93,6 @@ class BrandCatalogController extends Controller
     public function showChoiceSparePartPageAction(
         Request $request,
         VariableTransformer $transformer,
-        TitleProvider $titleProvider,
         $urlBrand,
         $urlModel
     )
@@ -117,26 +114,19 @@ class BrandCatalogController extends Controller
             ["name" => "ASC"]
         );
 
-        $unpopularSpareParts = $em->getRepository(SparePart::class)->findBy(
-            [
-                "active" => true,
-                "popular" => false
-            ],
-            ["name" => "ASC"]
-        );
+        $allSpareParts = $em->getRepository(SparePart::class)->findBy([], ["name" => "ASC"]);
 
         $page = $em->getRepository(CatalogBrandChoiceSparePart::class)->findAll()[0];
-        $parameters = [$brand, $model];
+
+        $transformParameters = [$brand, $model];
 
         return $this->render('client/catalog/brand/choice-spare-part.html.twig', [
             'popularSpareParts' => $popularSpareParts,
-            'unpopularSpareParts' => $unpopularSpareParts,
-            'page' => $transformer->transformPage($page, $parameters),
+            'allSpareParts' => $allSpareParts,
+            'page' => $transformer->transformPage($page, $transformParameters),
             'brand' => $brand,
             'model' => $model,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceBrand::class, $parameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceModel::class, $parameters),
+            'parameters' => $transformParameters,
         ]);
     }
 
@@ -146,7 +136,6 @@ class BrandCatalogController extends Controller
     public function showChoiceCityPageAction(
         Request $request,
         VariableTransformer $transformer,
-        TitleProvider $titleProvider,
         $urlBrand,
         $urlModel,
         $urlSP
@@ -176,20 +165,17 @@ class BrandCatalogController extends Controller
 
         $page = $em->getRepository(CatalogBrandChoiceCity::class)->findAll()[0];
 
-        $parameters = [$sparePart, $brand, $model];
+        $transformParameters = [$sparePart, $brand, $model];
 
         return $this->render('client/catalog/brand/choice-city.html.twig', [
             'capitals' => $capitals,
             'otherCities' => $othersCities,
-            'page' => $transformer->transformPage($page, $parameters),
+            'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
             'adverts' => $adverts,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceBrand::class, $parameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceModel::class, $parameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceSparePart::class, $parameters),
+            'parameters' => $transformParameters,
         ]);
     }
 
@@ -199,7 +185,6 @@ class BrandCatalogController extends Controller
     public function showCatalogInStockAction(
         Request $request,
         VariableTransformer $transformer,
-        TitleProvider $titleProvider,
         $urlSP,
         $urlBrand,
         $urlModel,
@@ -231,11 +216,7 @@ class BrandCatalogController extends Controller
             'model' => $model,
             'adverts' => $adverts,
             'city' => $isAllCities ? null : $city,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceModel::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceSparePart::class, $transformParameters),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceCity::class, $transformParameters),
+            'parameters' => $transformParameters,
         ]);
     }
 
@@ -245,7 +226,6 @@ class BrandCatalogController extends Controller
     public function showCatalogFinalPageAction(
         Request $request,
         VariableTransformer $transformer,
-        TitleProvider $titleProvider,
         $urlSP,
         $urlBrand,
         $urlModel,
@@ -278,12 +258,7 @@ class BrandCatalogController extends Controller
             'model' => $model,
             'adverts' => $adverts,
             'city' => $isAllCities ? null : $city,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceModel::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceSparePart::class, $transformParameters),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceCity::class, $transformParameters),
-            'choiceInStockTitle' => $titleProvider->getSinglePageTitle(CatalogBrandChoiceInStock::class, $transformParameters),
+            'parameters' => $transformParameters,
         ]);
     }
 }

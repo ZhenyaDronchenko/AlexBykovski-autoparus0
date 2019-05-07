@@ -22,3 +22,9 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: twig.extension }
+
+    App\Twig\TitleTransformerExtension:
+        class: App\Twig\TitleTransformerExtension
+        arguments: ['@app.provider.title_provider']
+        tags:
+            - { name: twig.extension }
