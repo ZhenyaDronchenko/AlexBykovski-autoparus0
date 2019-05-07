@@ -11,7 +11,7 @@
 {% block body %}
     {% set nextPath = "show_brand_catalog_in_stock" %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container">
+    <main class="container" ng-init="showAll = false">
     <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -33,7 +33,7 @@
                 <a class="link-b" href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters) }}"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span><meta itemprop="position" content="4"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">{{ sparePart.alternativeName1 }}</span><meta itemprop="position" content="5"></a>
+                <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">{{ sparePart.alternativeName5 }}</span><meta itemprop="position" content="5"></a>
             </li>
         </ul>
 
@@ -44,23 +44,33 @@
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
             </div>
             <div class="delivery-city">
-                {% set capital = capitals|first %}
                 {% set allCitiesPath = constant('App\\Entity\\City::ALL_CITIES') %}
-                <ul class="city block1">
-                    <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : capital.isActive ? capital.url : allCitiesPath}|merge(routeParams)) }}">{{ capital.name }}</a></li>
-                    {% for city in otherCities|slice(0, 2) %}
-                        <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.isActive ? city.url : allCitiesPath}|merge(routeParams)) }}">{{ city.name }}</a></li>
-                    {% endfor %}
-                </ul>
-                <ul class="city block2">
-                    {% for city in otherCities|slice(2, 4) %}
-                        <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.isActive ? city.url : allCitiesPath}|merge(routeParams)) }}">{{ city.name }}</a></li>
-                    {% endfor %}
-                </ul>
+                {% for city in regionalCities %}
+                    {% set openClass = loop.index0 % 4 == 0 ? "block1" : (loop.index0 + 2) % 4 == 0 ? "block2" : "" %}
+                    {% if openClass %}
+                        <ul class="city {{ openClass }}">
+                    {% endif %}
+                            <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                    {% if loop.index % 2 == 0 %}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+
+                {% for city in otherCities %}
+                    {% set openClass = loop.index0 % 4 == 0 ? "block1" : (loop.index0 + 2) % 4 == 0 ? "block2" : "" %}
+                    {% if openClass %}
+                        <ul class="city {{ openClass }}" ng-show="showAll">
+                    {% endif %}
+                            <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                    {% if loop.index % 2 == 0 %}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
             </div>
+            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
             <div class="city-btn">
-            <a class="button" href="#">Все Города</a>
-             </div>
+                <a class="button" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : allCitiesPath}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters) }}">Все Города</a>
+            </div>
 
 <div class="block-product">
                     <div class="block-title">

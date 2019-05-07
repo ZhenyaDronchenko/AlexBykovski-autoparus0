@@ -1672,5 +1672,18 @@ padding-bottom: 4px;
     }
 }
 
+#showAll5 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+#showAll5:hover {
+    color: #000000;
+}
+
 
 /*city END*/

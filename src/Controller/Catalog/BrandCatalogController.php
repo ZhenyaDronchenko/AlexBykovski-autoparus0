@@ -151,13 +151,21 @@ class BrandCatalogController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-        $capitals = $em->getRepository(City::class)->findBy(
+        $capital = $em->getRepository(City::class)->findOneBy(
             ["type" => City::CAPITAL_TYPE],
             ["name" => "ASC"]
         );
 
-        $othersCities = $em->getRepository(City::class)->findBy(
+        $regionalCities = $em->getRepository(City::class)->findBy(
             ["type" => City::REGIONAL_CITY_TYPE],
+            ["name" => "ASC"]
+        );
+
+        $othersCities = $em->getRepository(City::class)->findBy(
+            [
+                "type" => City::OTHERS_TYPE,
+                "active" => true,
+            ],
             ["name" => "ASC"]
         );
 
@@ -168,7 +176,7 @@ class BrandCatalogController extends Controller
         $transformParameters = [$sparePart, $brand, $model];
 
         return $this->render('client/catalog/brand/choice-city.html.twig', [
-            'capitals' => $capitals,
+            'regionalCities' => array_merge([$capital], $regionalCities),
             'otherCities' => $othersCities,
             'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
