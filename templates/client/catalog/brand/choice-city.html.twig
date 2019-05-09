@@ -85,17 +85,39 @@
                 </div>
             {% endif %}
             <ul class="delivery-img">
-                    <li><a href="{{ path("show_brand_catalog_choice_brand") }}"><img class="img-small" src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandRu }}" title="Автозапчасти для {{ brand.brandRu }}"></a></li>
-                    <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}"><img class="img-big" src="{{ image_url(model.logo, "model") }}" alt="{{ model.modelRu }}" title="Запчасти для {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
-                    <li><a href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}"><img class="img-big" src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} к {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
-                    <li><a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : "toyota_rus"}) }}"><img class="img-small" src="{{ image_url(default_image(27).image) }}" alt="Город" title="{{ sparePart.alternativeName3 }} к {{ brand.brandRu }} {{ model.modelRu }}"></a></li>
+                <li>
+                    <a href="{{ path("show_brand_catalog_choice_brand") }}">
+                        <img class="img-small" src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandRu }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", parameters) }}">
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}">
+                        <img class="img-big" src="{{ image_url(model.logo, "model") }}" alt="{{ model.modelRu }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", parameters) }}">
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path("show_brand_catalog_choice_spare_part", {"urlBrand" : brand.url, "urlModel" : model.url}) }}">
+                        <img class="img-big" src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters) }}">
+                    </a>
+                </li>
+                <li>
+                    {% set toyotaRus = get_object("App\\Entity\\Brand", "findOneBy", {"url" : "toyota_rus"}) %}
+                    {% set lastLinkParameters = {"model" : model, "sparePart" : sparePart} %}
+                    {% set lastLinkParameters = toyotaRus ? lastLinkParameters|merge({"brand": toyotaRus}) : lastLinkParameters %}
+                    <a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : "toyota_rus"}) }}">
+                        <img class="img-small" src="{{ image_url(default_image(27).image) }}" alt="Город" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", lastLinkParameters) }}">
+                    </a>
+                </li>
             </ul>
             <h2 class="delivery-subtitle">{{ page.headline2 }}</h2>
             <div class="delivery-text">{{ page.text2 | raw }}</div>
         </section>
     </main>
+
+    {% include('/client/catalog/show-adverts/advert-modals.html.twig') with {} %}
 {% endblock %}
 
 {% block javascripts %}
     <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
+    <script src="/js/client/pages/catalog/seller-advert-actions.js"></script>
 {% endblock %}

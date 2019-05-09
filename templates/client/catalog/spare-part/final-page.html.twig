@@ -71,41 +71,7 @@
         </section>
     </main>
 
-    <div id="seller-address-modal" class="overlay1">
-        <div class="modal">
-            <button id="close-seller-address-modal" class="modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                </svg>
-            </button>
-            <div class="modal-map" id="seller-address">
-            </div>
-        </div>
-    </div>
-
-    <div id="seller-delivery-guarantee-modal" class="overlay2">
-        <section class="modal">
-            <button id="close-seller-delivery-guarantee-modal" class="modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                    <line fill="#000" stroke="#000000" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                </svg>
-            </button>
-            <div id="exist-delivery-guarantee">
-                <h1 class="modal-title">Доставка</h1>
-                <p id="delivery-text" class="modal-text"></p>
-                <h2>Гарантии</h2>
-                <p id="guarantee-text" class="modal-text"></p>
-            </div>
-            <div id="absent-delivery-guarantee">
-                <h1 class="modal-title"></h1>
-                <p class="modal-text">
-                    Возможность доставки, гарантийные обязательства, возможность возврата и замены товара уточняйте у продавца  по телефону.
-                </p>
-            </div>
-        </section>
-    </div>
+    {% include('/client/catalog/show-adverts/advert-modals.html.twig') with {} %}
 {% endblock %}
 
 {% block javascripts %}
