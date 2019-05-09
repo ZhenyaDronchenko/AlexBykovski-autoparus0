@@ -14,7 +14,7 @@
 
     <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус.бай" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -24,7 +24,7 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="Тайтл второй крошки"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", parameters) }}"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="3"></a>
             </li>
@@ -37,12 +37,13 @@
             </div>
 
             
-                <form class='modform' action="#" method="get">
+                <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                     <input id="model-autocomplete" class='form7' name="search"
                            auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
                            method-search="searchModels" identifier-field="model-autocomplete"
                            request-parameters='{"brand": "{{ brand.url }}"}'
-                           placeholder="Модель авто:" type="search" >
+                           placeholder="Модель авто:" type="search"
+                           scroll-to-element scroll-by-click="true" before-top="30">
                 </form>
             
 
@@ -51,7 +52,7 @@
                     <li>
                         <a class="mod-link  {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_choice_spare_part", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
-                            <img src="{{ image_url(model.logo, "model") }}" alt="{{ model.name }}" title="Запчасти для {{ brand.name }} {{ model.name }}">
+                            <img src="{{ image_url(model.thumbnailLogo, "model") }}" alt="{{ model.name }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters|merge({"model" : model})) }}">
                         </a>
                     </li>
                 {% endfor %}
@@ -61,15 +62,15 @@
                     <li>
                         <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_choice_spare_part", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
-                            <img src="{{ image_url(model.logo, "model") }}" alt="{{ model.name }}" title="Запчасти для {{ brand.name }} {{ model.name }}">
+                            <img src="{{ image_url(model.thumbnailLogo, "model") }}" alt="{{ model.name }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters|merge({"model" : model})) }}">
                         </a>
                     </li>
                 {% endfor %}
             </ul>
 
 
-            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
-            <div ng-click="showAll = false" ng-show="showAll" id='showAll5'>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div ng-click="showAll = false" ng-show="showAll" id='showAll5' class="initiator-scroll">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
             <div class='mod-avto-btn'>
                 <a href="{{ page.returnButtonLink }}" class="mod-avto">{{ page.returnButtonText }}</a>
             </div>

@@ -4,6 +4,7 @@ namespace App\Controller\Catalog;
 
 use App\Entity\Admin;
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
@@ -12,10 +13,14 @@ use App\Entity\Catalog\Brand\CatalogBrandChoiceInStock;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceModel;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart;
 use App\Entity\City;
+use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Provider\Integration\BamperSuggestionProvider;
+use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
+use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,14 +48,17 @@ class BrandCatalogController extends Controller
         return $this->render('client/catalog/brand/choice-brand.html.twig', [
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
-            'page' => $em->getRepository(CatalogBrandChoiceBrand::class)->findAll()[0]
+            'page' => $em->getRepository(CatalogBrandChoiceBrand::class)->findAll()[0],
         ]);
     }
 
     /**
      * @Route("/{urlBrand}", name="show_brand_catalog_choice_model")
      */
-    public function showChoiceModelPageAction(Request $request, $urlBrand, VariableTransformer $transformer)
+    public function showChoiceModelPageAction(
+        Request $request,
+        VariableTransformer $transformer,
+        $urlBrand)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -71,19 +79,26 @@ class BrandCatalogController extends Controller
         });
 
         $page = $em->getRepository(CatalogBrandChoiceModel::class)->findAll()[0];
+        $transformParameters = [$brand];
 
         return $this->render('client/catalog/brand/choice-model.html.twig', [
             'allModels' => $allModels,
             'popularModels' => $popularModels,
-            'page' => $transformer->transformPage($page, [$brand]),
+            'page' => $transformer->transformPage($page, $transformParameters),
             'brand' => $brand,
+            'parameters' => $transformParameters,
         ]);
     }
 
     /**
      * @Route("/{urlBrand}/{urlModel}", name="show_brand_catalog_choice_spare_part")
      */
-    public function showChoiceSparePartPageAction(Request $request, $urlBrand, $urlModel, VariableTransformer $transformer)
+    public function showChoiceSparePartPageAction(
+        Request $request,
+        VariableTransformer $transformer,
+        $urlBrand,
+        $urlModel
+    )
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -102,29 +117,33 @@ class BrandCatalogController extends Controller
             ["name" => "ASC"]
         );
 
-        $unpopularSpareParts = $em->getRepository(SparePart::class)->findBy(
-            [
-                "active" => true,
-                "popular" => false
-            ],
-            ["name" => "ASC"]
-        );
+        $allSpareParts = $em->getRepository(SparePart::class)->findBy([], ["name" => "ASC"]);
 
         $page = $em->getRepository(CatalogBrandChoiceSparePart::class)->findAll()[0];
 
+        $transformParameters = [$brand, $model];
+
         return $this->render('client/catalog/brand/choice-spare-part.html.twig', [
             'popularSpareParts' => $popularSpareParts,
-            'unpopularSpareParts' => $unpopularSpareParts,
-            'page' => $transformer->transformPage($page, [$brand, $model]),
+            'allSpareParts' => $allSpareParts,
+            'page' => $transformer->transformPage($page, $transformParameters),
             'brand' => $brand,
             'model' => $model,
+            'parameters' => $transformParameters,
         ]);
     }
 
     /**
      * @Route("/{urlBrand}/{urlModel}/{urlSP}", name="show_brand_catalog_choice_city")
      */
-    public function showChoiceCityPageAction(Request $request, $urlBrand, $urlModel, $urlSP, VariableTransformer $transformer)
+    public function showChoiceCityPageAction(
+        Request $request,
+        VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
+        $urlBrand,
+        $urlModel,
+        $urlSP
+    )
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -136,35 +155,59 @@ class BrandCatalogController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-        $capitals = $em->getRepository(City::class)->findBy(
+        $capital = $em->getRepository(City::class)->findOneBy(
             ["type" => City::CAPITAL_TYPE],
             ["name" => "ASC"]
         );
 
-        $othersCities = $em->getRepository(City::class)->findBy(
+        $regionalCities = $em->getRepository(City::class)->findBy(
             ["type" => City::REGIONAL_CITY_TYPE],
             ["name" => "ASC"]
         );
 
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
+        $othersCities = $em->getRepository(City::class)->findBy(
+            [
+                "type" => City::OTHERS_TYPE,
+                "active" => true,
+            ],
+            ["name" => "ASC"]
+        );
 
         $page = $em->getRepository(CatalogBrandChoiceCity::class)->findAll()[0];
 
+        $transformParameters = [$sparePart, $brand, $model];
+        $catalogFilter = new CatalogAdvertFilterType($brand, $model, $sparePart, null, null);
+
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, null, false);
+
         return $this->render('client/catalog/brand/choice-city.html.twig', [
-            'capitals' => $capitals,
+            'regionalCities' => array_merge([$capital], $regionalCities),
             'otherCities' => $othersCities,
-            'page' => $transformer->transformPage($page, [$sparePart, $brand, $model]),
+            'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
-            'adverts' => $adverts,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
+            'bamberSuggestions' => $bamberSuggestions,
+            'parameters' => $transformParameters,
         ]);
     }
 
     /**
      * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_brand_catalog_in_stock")
      */
-    public function showCatalogInStockAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
+    public function showCatalogInStockAction(
+        Request $request,
+        VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
+        $urlSP,
+        $urlBrand,
+        $urlModel,
+        $urlCity
+    )
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -182,22 +225,37 @@ class BrandCatalogController extends Controller
         $page = $em->getRepository(CatalogBrandChoiceInStock::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
         $cityParameter = $city instanceof City ? $city : null;
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, $cityParameter);
+        $catalogFilter = new CatalogAdvertFilterType($brand, $model, $sparePart, $cityParameter, null);
+
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, false);
 
         return $this->render('client/catalog/brand/only-in-stock.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
-            'adverts' => $adverts,
             'city' => $isAllCities ? null : $city,
+            'parameters' => $transformParameters,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
+            'bamberSuggestions' => $bamberSuggestions,
         ]);
     }
 
     /**
      * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}/in_stock", name="show_brand_catalog_final_page")
      */
-    public function showCatalogFinalPageAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer)
+    public function showCatalogFinalPageAction(
+        Request $request,
+        VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
+        $urlSP,
+        $urlBrand,
+        $urlModel,
+        $urlCity
+    )
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -216,15 +274,22 @@ class BrandCatalogController extends Controller
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
 
         $cityParameter = $city instanceof City ? $city : null;
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, $cityParameter, [AutoSparePartGeneralAdvert::STOCK_TYPE_IN_STOCK]);
+        $catalogFilter = new CatalogAdvertFilterType($brand, $model, $sparePart, $cityParameter, true);
+
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, true);
 
         return $this->render('client/catalog/brand/final-page.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
-            'adverts' => $adverts,
             'city' => $isAllCities ? null : $city,
+            'parameters' => $transformParameters,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
+            'bamberSuggestions' => $bamberSuggestions,
         ]);
     }
 }

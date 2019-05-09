@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class BamperController extends Controller
 {
     /**
-     * @Route("/get-ads/{urlBrand}/{urlModel}/{urlSP}/", name="show_suggestions_brand_model_spare_part")
-     * @Route("/get-ads/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_suggestions_brand_model_spare_part_with_city")
+     * @Route("/get-ads/{urlBrand}/{urlModel}/{urlSP}/", name="show_suggestions_brand_model_spare_part", options={"expose"=true})
+     * @Route("/get-ads/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_suggestions_brand_model_spare_part_with_city", options={"expose"=true})
      */
     public function showSuggestionsForBrandModelSparePartAction(Request $request, $urlBrand, $urlModel, $urlSP, BamperSuggestionProvider $suggestionProvider)
     {
@@ -33,11 +33,17 @@ class BamperController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
         $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
         $city = $urlCity ? $em->getRepository(City::class)->findOneBy(["url" => $urlCity]) : null;
+        $isAjax = $request->query->has("ajax");
 
         $suggestions = [];
 
         if($sparePart instanceof SparePart && $brand instanceof Brand && $model instanceof Model){
-            $suggestions = $suggestionProvider->provide($brand, $model, $sparePart, $city);
+            $inStock = $isAjax ? $request->query->has("in_stock") : true;
+            $suggestions = $suggestionProvider->provide($brand, $model, $sparePart, $city, $inStock);
+        }
+
+        if($isAjax){
+            return new JsonResponse($suggestions);
         }
 
         return $this->render('client/catalog/integration.html.twig', [

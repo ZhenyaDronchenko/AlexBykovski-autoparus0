@@ -12,7 +12,7 @@
     <main class="container" ng-init="showAll = false">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус.бай" itemprop="item">
+          <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
             <span class="user-name" itemprop="name">Главная</span>
             <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
               <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -22,11 +22,11 @@
           </a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2">
+          <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", parameters) }}"><span class="line">/</span><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2">
         </li>
 
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span></a><meta itemprop="position" content="3">
+          <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", parameters) }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span></a><meta itemprop="position" content="3">
         </li>
 
        
@@ -41,23 +41,36 @@
                 {{ page.text1 | raw }}
             </div>
 
-            <form class='modform' action="#" method="get">
+            <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <input id="spare-part-autocomplete" class="form7" type="search"
-                       auto-сomplete-autoparus add-url="{{ path("show_spare_part_catalog_choice_spare_part") }}"
+                       auto-сomplete-autoparus add-url="{{ path("show_brand_catalog_choice_spare_part", routeParams) }}"
                        method-search="searchSpareParts" identifier-field="spare-part-autocomplete"
-                       name="search" placeholder="Наименование запчасти:">
+                       name="search" placeholder="Наименование запчасти:"
+                       scroll-to-element scroll-by-click="true" before-top="30">
             </form>
-            <ul class='showMoreModel' id='brandImg5'>
+            <ul class='showMoreModel' id='brandImg5' ng-hide="showAll">
                 {% for sparePart in popularSpareParts %}
-                    <li><a class="mod-link " href="{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}"><span>{{ sparePart.name }}</span><img src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
+                    <li>
+                        <a class="mod-link " href="{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}">
+                            <span>{{ sparePart.name|replace({"(" : "<br />("})|raw  }}</span>
+                            <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters|merge({"sparePart" : sparePart})) }}">
+                        </a>
+                    </li>
                 {% endfor %}
-                {% for sparePart in unpopularSpareParts %}
-                    <li ng-show="showAll"><a class="mod-link-t" href='{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}'>{{ sparePart.name }}</a></li>
+            </ul>
+            <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
+                {% for sparePart in allSpareParts %}
+                    <li>
+                        <a class="mod-link " href="{{ path("show_brand_catalog_choice_city", {"urlSP" : sparePart.url}|merge(routeParams)) }}">
+                            <span>{{ sparePart.name|replace({"(" : "<br />("})|raw  }}</span>
+                            <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters|merge({"sparePart" : sparePart})) }}">
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
 
-            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
-            <div ng-click="showAll = false" ng-show="showAll" id='showAll5'>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div ng-click="showAll = false" ng-show="showAll" id='showAll5' class="initiator-scroll">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
             <h2 class='mod-subtitle'>{{ page.headline2 }}</h2>
 
             <div class='mod-text-b'>{{ page.text2 | raw }}</div>

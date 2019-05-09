@@ -1,0 +1,25 @@
+<div ng-controller="IntegrationAdsCtrl as integration">
+    <div ng-init="integration.init({{ hasOurAdverts ? 'false' : 'true' }}, '{{ adverts | json_encode }}')"
+         ng-show="integration.showSuggestions" ng-cloak>
+        {% include('/client/catalog/bamper/spare-part-suggestions.html.twig') with {"suggestions" : adverts} %}
+    </div>
+
+    {% if hasOurAdverts %}
+        <button class="arrows-btn"
+            {% if (adverts | length) %}
+                ng-click="integration.showSuggestions = !integration.showSuggestions"
+            {% else %}
+                {{ app.request.uri }}
+                {% set inStockParam = "/in_stock" in app.request.uri ? {"in_stock" : "in_stock"} : {} %}
+                {% set requestParams = app.request.attributes.get('_route_params') | merge(inStockParam) | json_encode %}
+                ng-click="integration.loadAdverts('{{ requestParams }}')" ng-hide="integration.showSuggestions"
+            {% endif %}
+        >
+            Показать еще продавцов
+        </button>
+    {% endif %}
+
+    <div class="delivery-admin" style="min-height: auto;" ng-show="integration.showAbsent" ng-cloak>
+        <div class="admin-text" style="text-align: center;">{{ string_transform("К сожалению, продавцов [RODZAP] для [BRAND] [MODEL] больше не найдено", parameters) }}</div>
+    </div>
+</div>
