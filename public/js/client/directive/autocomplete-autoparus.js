@@ -47,7 +47,15 @@
                                 .appendTo( ul );
                         }
 
-                        let url = addUrl[addUrl.length - 1] === "/" ? addUrl + item.url : addUrl + '/' + item.url ;
+                        let url = addUrl[addUrl.length - 1] === "/" ? addUrl : addUrl + '/';
+
+                        if(url.indexOf("__search-item__") > -1){
+                            url = url.replace("__search-item__", item.url);
+                        }
+                        else{
+                            url += item.url;
+                        }
+
 
                         return $( "<li class='ui-menu-item'>" )
                             .append( "<a class='ui-menu-item-wrapper' href='" + url + "'>" + item.label + "</a></div>" )

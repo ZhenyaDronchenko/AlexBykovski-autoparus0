@@ -67,8 +67,9 @@
             <div>{{ page.text1 | raw }}</div>
 
             <form class='modform' action="#" method="get">
+                {% set autocompleteParams = {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : "__search-item__"} %}
                 <input id="spare-part-autocomplete" class="form7" type="search"
-                       auto-сomplete-autoparus add-url="{{ path("show_city_catalog_choice_spare_part", routeParams) }}"
+                       auto-сomplete-autoparus add-url="{{ path("show_brand_catalog_in_stock", autocompleteParams) }}"
                        method-search="searchSpareParts" identifier-field="spare-part-autocomplete" is-preload-data="true"
                        name="search" placeholder="Введите наименование запчасти:"
                        scroll-to-element scroll-by-click="true" before-top="30">
@@ -80,7 +81,7 @@
                     {% for sparePart in popularSpareParts %}
                         <li ng-hide="showAll">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="">
-                                <span>{{ sparePart.alternativeName1 }}</span>
+                                <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
                             </a>
                         </li>
@@ -88,7 +89,7 @@
                     {% for sparePart in unpopularSpareParts %}
                         <li ng-show="showAll">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="">
-                                <span>{{ sparePart.alternativeName1 }}</span>
+                                <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
                             </a>
                         </li>
