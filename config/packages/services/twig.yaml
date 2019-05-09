@@ -34,3 +34,9 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: twig.extension }
+
+    App\Twig\StringVariableTransformerExtension:
+        class: App\Twig\StringVariableTransformerExtension
+        arguments: ['@app.transformer.variable']
+        tags:
+            - { name: twig.extension }

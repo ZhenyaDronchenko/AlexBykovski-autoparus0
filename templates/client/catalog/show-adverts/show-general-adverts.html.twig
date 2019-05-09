@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="card-description">
-                <p class="description">{{ sparePart.alternativeName3 }} для {{ brand.name }} {{ model ? model.name : "" }}</p>
+                <p class="description">{{ string_transform(titleTemplate, templateParameters) }}</p>
                 <div class="card-contact">
                     {% if sellerCompany.additionalPhone %}
                         <a href="tel:{{ sellerCompany.additionalPhone }}" class="contact click-ok-phone" data-text="{{ sellerCompany.additionalPhone }}"></a>

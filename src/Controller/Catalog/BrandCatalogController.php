@@ -250,6 +250,7 @@ class BrandCatalogController extends Controller
     public function showCatalogFinalPageAction(
         Request $request,
         VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
         $urlSP,
         $urlBrand,
         $urlModel,
@@ -273,16 +274,22 @@ class BrandCatalogController extends Controller
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
 
         $cityParameter = $city instanceof City ? $city : null;
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, $cityParameter, [AutoSparePartGeneralAdvert::STOCK_TYPE_IN_STOCK]);
+        $catalogFilter = new CatalogAdvertFilterType($brand, $model, $sparePart, $cityParameter, true);
+
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $bamberSuggestions = $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, true);
 
         return $this->render('client/catalog/brand/final-page.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
-            'adverts' => $adverts,
             'city' => $isAllCities ? null : $city,
             'parameters' => $transformParameters,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
+            'bamberSuggestions' => $bamberSuggestions,
         ]);
     }
 }

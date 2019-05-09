@@ -45,8 +45,12 @@
             </div>
             <a href="{{ path("show_spare_part_catalog_final_page", routeParams) }}" title="{{ choiceInStockTitle }}"><button type="button" class="button">Только в наличии!</button></a>
 
-            {% include('/client/catalog/show-adverts/show-specific-adverts.html.twig') with {"adverts" : specificAdverts} %}
-            {% include('/client/catalog/show-adverts/show-general-adverts.html.twig') with {"adverts" : generalAdverts} %}
+            {% set templateParameters = {"brand" : brand, "sparePart" : sparePart} %}
+            {% set templateParameters = city ? templateParameters|merge({"city" : city}) : templateParameters %}
+            {% set templateParameters = model ? templateParameters|merge({"model" : model}) : templateParameters %}
+
+            {% include('/client/catalog/show-adverts/show-specific-adverts.html.twig') with {"adverts" : specificAdverts, "titleTemplate" : "[ZAP3] для [BRAND] [MODEL]", "templateParameters" : templateParameters} %}
+            {% include('/client/catalog/show-adverts/show-general-adverts.html.twig') with {"adverts" : generalAdverts, "titleTemplate" : "[ZAP3] для [BRAND] [MODEL]", "templateParameters" : templateParameters} %}
 
             {% set hasOurAdverts = specificAdverts | length > 0 or generalAdverts | length > 0 %}
             {% set hasBamberAdverts = bamberSuggestions | length > 0 %}
