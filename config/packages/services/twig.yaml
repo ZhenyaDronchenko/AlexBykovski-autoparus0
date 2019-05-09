@@ -28,3 +28,9 @@ services:
         arguments: ['@app.provider.title_provider']
         tags:
             - { name: twig.extension }
+
+    App\Twig\ObjectProviderExtension:
+        class: App\Twig\ObjectProviderExtension
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }

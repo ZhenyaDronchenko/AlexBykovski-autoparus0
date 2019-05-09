@@ -1,0 +1,9 @@
+{% if adverts | length > 0 %}
+    <div ng-init="showSuggestions = {{ hasOurAdverts ? 'false' : 'true' }}" ng-show="showSuggestions" ng-cloak>
+        {% include('/client/catalog/bamper/spare-part-suggestions.html.twig') with {"suggestions" : adverts} %}
+    </div>
+
+    {% if hasOurAdverts %}
+        <button class="arrows-btn" ng-click="showSuggestions = !showSuggestions">Показать еще продавцов</button>
+    {% endif %}
+{% endif %}

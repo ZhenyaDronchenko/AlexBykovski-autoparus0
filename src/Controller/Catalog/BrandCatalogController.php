@@ -4,6 +4,7 @@ namespace App\Controller\Catalog;
 
 use App\Entity\Admin;
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
@@ -16,8 +17,10 @@ use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Provider\Integration\BamperSuggestionProvider;
 use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
+use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,6 +139,7 @@ class BrandCatalogController extends Controller
     public function showChoiceCityPageAction(
         Request $request,
         VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
         $urlBrand,
         $urlModel,
         $urlSP
@@ -169,11 +173,14 @@ class BrandCatalogController extends Controller
             ["name" => "ASC"]
         );
 
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
-
         $page = $em->getRepository(CatalogBrandChoiceCity::class)->findAll()[0];
 
         $transformParameters = [$sparePart, $brand, $model];
+        $catalogFilter = new CatalogAdvertFilterType($brand, $model, $sparePart, null, null);
+
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $bamberSuggestions = $suggestionProvider->provide($brand, $model, $sparePart, null, false);
 
         return $this->render('client/catalog/brand/choice-city.html.twig', [
             'regionalCities' => array_merge([$capital], $regionalCities),
@@ -182,7 +189,9 @@ class BrandCatalogController extends Controller
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
-            'adverts' => $adverts,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
+            'bamberSuggestions' => $bamberSuggestions,
             'parameters' => $transformParameters,
         ]);
     }
@@ -193,6 +202,7 @@ class BrandCatalogController extends Controller
     public function showCatalogInStockAction(
         Request $request,
         VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
         $urlSP,
         $urlBrand,
         $urlModel,
@@ -215,16 +225,22 @@ class BrandCatalogController extends Controller
         $page = $em->getRepository(CatalogBrandChoiceInStock::class)->findAll()[0];
         $transformParameters = $city instanceof City ? [$sparePart, $brand, $model, $city] : [$sparePart, $brand, $model];
         $cityParameter = $city instanceof City ? $city : null;
-        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model, $cityParameter);
+        $catalogFilter = new CatalogAdvertFilterType($brand, $model, $sparePart, $cityParameter, null);
+
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $bamberSuggestions = $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, false);
 
         return $this->render('client/catalog/brand/only-in-stock.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
             'sparePart' => $sparePart,
             'brand' => $brand,
             'model' => $model,
-            'adverts' => $adverts,
             'city' => $isAllCities ? null : $city,
             'parameters' => $transformParameters,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
+            'bamberSuggestions' => $bamberSuggestions,
         ]);
     }
 
