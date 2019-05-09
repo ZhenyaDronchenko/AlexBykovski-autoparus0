@@ -1,26 +1,22 @@
-<div ng-controller="IntegrationAdsCtrl as integration">
-    {% for key, suggestion in suggestions %}
-        <div class="block" ng-init="integration.initAd('{{ key }}')">
-            <div class="block-price">
-                {% if suggestion.price != "0.00" and suggestion.price != "00.00" %}
-                    <div class="block-price-item">
-                        <span class="block-price-n" data-text="{{ suggestion.price }}"></span>
-                        <span class="block-price-r">Руб</span>
-                    </div>
-                {% endif %}
-                <div class="block-price-city">
-                    <svg class="adress-text-img" width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="red" d="M25 47.7741L24.2284 46.6575C23.6481 45.8166 10 25.9678 10 18C10 9.72938 16.7294 3 25 3C33.2706 3 40 9.72938 40 18C40 25.9678 26.3519 45.8166 25.7716 46.6575L25 47.7741ZM25 4.875C17.7625 4.875 11.875 10.7625 11.875 18C11.875 24.3628 22.0797 40.0828 25 44.4506C27.9203 40.0828 38.125 24.3628 38.125 18C38.125 10.7625 32.2375 4.875 25 4.875Z"/>
-                        <path fill="red" d="M25 24.5625C21.3822 24.5625 18.4375 21.6188 18.4375 18C18.4375 14.3813 21.3822 11.4375 25 11.4375C28.6178 11.4375 31.5625 14.3813 31.5625 18C31.5625 21.6188 28.6178 24.5625 25 24.5625ZM25 13.3125C22.4153 13.3125 20.3125 15.4153 20.3125 18C20.3125 20.5847 22.4153 22.6875 25 22.6875C27.5847 22.6875 29.6875 20.5847 29.6875 18C29.6875 15.4153 27.5847 13.3125 25 13.3125Z"/>
-                    </svg>{{ suggestion.city }}
-                </div>
+<div>
+    <div class="block" ng-repeat="(key, advert) in integration.adverts">
+        <div class="block-price">
+            <div class="block-price-item" ng-show="advert.price != '0.00' && advert.price != '00.00'">
+                <span class="block-price-n" data-text="{[{advert.price}]}"></span>
+                <span class="block-price-r">Руб</span>
             </div>
-            <p class="block-text">{{ suggestion.description }}</p>
-            <div class="block-tel">
-                <button class="block-btn" ng-click="integration.getPhones('{{ suggestion.url }}', '{{ key }}')">Показать телефоны</button>
-                <a ng-show="integration.phonesShow_{{ key }}" ng-repeat="phone in integration.phones_{{ key }}" ng-href="tel:{[{phone}]}" ng-click="integration.clickPhone($event)" class="contact click-ok-phone" data-text="{[{phone}]}"></a>
+            <div class="block-price-city">
+                <svg class="adress-text-img" width="20" height="20" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="red" d="M25 47.7741L24.2284 46.6575C23.6481 45.8166 10 25.9678 10 18C10 9.72938 16.7294 3 25 3C33.2706 3 40 9.72938 40 18C40 25.9678 26.3519 45.8166 25.7716 46.6575L25 47.7741ZM25 4.875C17.7625 4.875 11.875 10.7625 11.875 18C11.875 24.3628 22.0797 40.0828 25 44.4506C27.9203 40.0828 38.125 24.3628 38.125 18C38.125 10.7625 32.2375 4.875 25 4.875Z"/>
+                    <path fill="red" d="M25 24.5625C21.3822 24.5625 18.4375 21.6188 18.4375 18C18.4375 14.3813 21.3822 11.4375 25 11.4375C28.6178 11.4375 31.5625 14.3813 31.5625 18C31.5625 21.6188 28.6178 24.5625 25 24.5625ZM25 13.3125C22.4153 13.3125 20.3125 15.4153 20.3125 18C20.3125 20.5847 22.4153 22.6875 25 22.6875C27.5847 22.6875 29.6875 20.5847 29.6875 18C29.6875 15.4153 27.5847 13.3125 25 13.3125Z"/>
+                </svg>{[{advert.city}]}
             </div>
-            {#<span class="unp-text">УНП:  391399801</span>#}
         </div>
-    {% endfor %}
+        <p class="block-text" ng-bind="advert.description"></p>
+        <div class="block-tel">
+            <button class="block-btn" ng-click="integration.getPhones(advert.url, key)">Показать телефоны</button>
+            <a ng-show="integration.phonesShow[key]" ng-repeat="phone in integration.phones[key]" ng-href="tel:{[{phone}]}" ng-click="integration.clickPhone($event)" class="contact click-ok-phone" data-text="{[{phone}]}"></a>
+        </div>
+        {#<span class="unp-text">УНП:  391399801</span>#}
+    </div>
 </div>

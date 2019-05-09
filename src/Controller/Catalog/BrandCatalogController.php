@@ -180,7 +180,7 @@ class BrandCatalogController extends Controller
 
         $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
-        $bamberSuggestions = $suggestionProvider->provide($brand, $model, $sparePart, null, false);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, null, false);
 
         return $this->render('client/catalog/brand/choice-city.html.twig', [
             'regionalCities' => array_merge([$capital], $regionalCities),
@@ -229,7 +229,7 @@ class BrandCatalogController extends Controller
 
         $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
-        $bamberSuggestions = $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, false);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, false);
 
         return $this->render('client/catalog/brand/only-in-stock.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),
@@ -278,7 +278,7 @@ class BrandCatalogController extends Controller
 
         $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
-        $bamberSuggestions = $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, true);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, $cityParameter, true);
 
         return $this->render('client/catalog/brand/final-page.html.twig', [
             'page' => $transformer->transformPage($page, $transformParameters),

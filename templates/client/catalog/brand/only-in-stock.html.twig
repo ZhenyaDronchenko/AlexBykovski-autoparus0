@@ -58,7 +58,7 @@
             {% set hasBamberAdverts = bamberSuggestions | length > 0 %}
 
             {% if not city or city.url == constant('App\\Entity\\City::CAPITAL') %}
-                {% include('/client/catalog/show-adverts/show-bamper-adverts.html.twig') with {"adverts" : bamberSuggestions, "hasOurAdverts" : hasOurAdverts} %}
+                {% include('/client/catalog/show-adverts/show-bamper-adverts.html.twig') with {"adverts" : bamberSuggestions, "hasOurAdverts" : hasOurAdverts, "parameters" : parameters} %}
             {% else %}
                 {% set params = routeParams|merge({'urlCity': constant('App\\Entity\\City::ALL_CITIES')}) %}
                 <a href="{{ path("show_spare_part_catalog_in_stock", params) }}" style="display: contents;"><button class="arrows-btn">Смотреть по всем городам</button></a>

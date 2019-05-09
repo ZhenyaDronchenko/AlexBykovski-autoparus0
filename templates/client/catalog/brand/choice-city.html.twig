@@ -78,7 +78,7 @@
             {% set hasOurAdverts = specificAdverts | length > 0 or generalAdverts | length > 0 %}
             {% set hasBamberAdverts = bamberSuggestions | length > 0 %}
 
-            {% include('/client/catalog/show-adverts/show-bamper-adverts.html.twig') with {"adverts" : bamberSuggestions, "hasOurAdverts" : hasOurAdverts} %}
+            {% include('/client/catalog/show-adverts/show-bamper-adverts.html.twig') with {"adverts" : bamberSuggestions, "hasOurAdverts" : hasOurAdverts, "parameters" : parameters} %}
             {% if not hasOurAdverts and not hasBamberAdverts %}
                 <div class="delivery-admin">
                     <div class="admin-text">{{ page.text3 | raw }}</div>
