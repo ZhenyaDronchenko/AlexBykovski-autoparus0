@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
         <div class="main-page" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" content="Автопарус" />
@@ -40,11 +41,11 @@
                 </form>
             </div>
 
-            <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}')">
+            <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ routeParams | json_encode }}')">
                 <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts" ng-cloak>
                     <div class="post-block">
-                        <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
-                        <b class="name" ng-bind="post.userName"></b>
+                        <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                        <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
                         <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
                             <span class="points"></span>
                             <span class="points"></span>
@@ -54,7 +55,9 @@
 
                     <div class="content-wrapper">
                         <div class="foto">
-                            <img ng-src="{[{post.image}]}" alt="Картинка">
+                            <a ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                                <img ng-src="{[{post.image}]}" alt="Картинка">
+                            </a>
                         </div>
 
                         <div class="user-block">

@@ -2,7 +2,6 @@
 
 namespace App\Entity\Client;
 
-
 use App\Entity\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GalleryPhoto
 {
+    const SIMPLE_TYPE = "simple";
+    const BUSINESS_TYPE = "business";
+
     /**
      * @var integer
      *
@@ -59,15 +61,40 @@ class GalleryPhoto
     private $cars;
 
     /**
+     * @var Collection
+     *
+     * One GalleryPhoto has many GalleryPhotoBusinessActivities. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="App\Entity\Client\GalleryPhotoBusinessActivity", mappedBy="galleryPhoto", cascade={"persist", "remove"})
+     */
+    private $businessActivities;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $type;
+
+    /**
      * GalleryPhoto constructor.
      * @param Image $image
      * @param Gallery $gallery
+     * @param string $type
      */
-    public function __construct(Image $image, Gallery $gallery)
+    public function __construct(Image $image, Gallery $gallery, string $type = self::SIMPLE_TYPE)
     {
         $this->image = $image;
         $this->gallery = $gallery;
+        $this->type = $type;
         $this->cars = new ArrayCollection();
+        $this->businessActivities = new ArrayCollection();
+
+        if($type == self::SIMPLE_TYPE){
+            $this->setUserCars();
+        }
+        else {
+            $this->setUserBusinessActivities();
+        }
     }
 
     /**
@@ -150,6 +177,38 @@ class GalleryPhoto
         $this->cars = $cars;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getBusinessActivities(): Collection
+    {
+        return $this->businessActivities;
+    }
+
+    /**
+     * @param Collection $businessActivities
+     */
+    public function setBusinessActivities(Collection $businessActivities): void
+    {
+        $this->businessActivities = $businessActivities;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
     public function toArray()
     {
         return [
@@ -160,6 +219,8 @@ class GalleryPhoto
             "path" => "/images/" . $this->getImage()->getImage(),
             "description" => $this->getDescription(),
             "cars" => $this->getCarsArray(),
+            "businessActivities" => $this->getBusinessActivitiesArray(),
+            "type" => $this->getType(),
         ];
     }
 
@@ -180,6 +241,16 @@ class GalleryPhoto
             "address" => $address,
             "date" => $this->getImage()->getCreatedAt()->format("d.m.Y"),
             "time" => $this->getImage()->getCreatedAt()->format("H:i"),
+            "type" => $this->type,
+            "userId" => $user->getId(),
+            "city" => $this->type === self::BUSINESS_TYPE && $this->businessActivities->count() ?
+                $this->businessActivities->first()->getCity() : null,
+            "activity" => $this->type === self::BUSINESS_TYPE && $this->businessActivities->count() ?
+                $this->businessActivities->first()->getActivity() : null,
+            "brand" => $this->type === self::SIMPLE_TYPE && $this->cars->count() ?
+                $this->cars->first()->getBrand() : null,
+            "model" => $this->type === self::SIMPLE_TYPE && $this->cars->count() ?
+                $this->cars->first()->getModel() : null,
         ];
     }
 
@@ -200,6 +271,45 @@ class GalleryPhoto
         $this->setCars($galleryCars);
     }
 
+    public function setUserBusinessActivities()
+    {
+        $company = $this->getGallery()->getClient()->getSellerData() ?
+            $this->getGallery()->getClient()->getSellerData()->getSellerCompany() : null;
+
+        if(!$company || !$company->getCity()){
+            return false;
+        }
+
+        $businessActivities = new ArrayCollection();
+
+        if($company->isSparePartSeller()){
+            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_SPARE_PART_SELLER);
+            $businessActivities->add($galleryBusinessActivity);
+        }
+
+        if($company->isAutoSeller()){
+            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_AUTO_SELLER);
+            $businessActivities->add($galleryBusinessActivity);
+        }
+
+        if($company->isService()){
+            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_SERVICE);
+            $businessActivities->add($galleryBusinessActivity);
+        }
+
+        if($company->isNews()){
+            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_NEWS);
+            $businessActivities->add($galleryBusinessActivity);
+        }
+
+        if($company->isTourism()){
+            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_TOURISM);
+            $businessActivities->add($galleryBusinessActivity);
+        }
+
+        $this->setBusinessActivities($businessActivities);
+    }
+
     public function getCarsArray()
     {
         $cars = [];
@@ -210,5 +320,40 @@ class GalleryPhoto
         }
 
         return $cars;
+    }
+
+    public function getBusinessActivitiesArray()
+    {
+        $businessActivities = [];
+
+        /** @var GalleryPhotoBusinessActivity $activity */
+        foreach ($this->businessActivities as $activity){
+            $businessActivities[] = $activity->toArray();
+        }
+
+        return $businessActivities;
+    }
+
+    /** GalleryPhotoCar|GalleryPhotoBusinessActivity|boolean */
+    public function getFilter($id)
+    {
+        if($this->type === self::SIMPLE_TYPE){
+            /** @var GalleryPhotoCar $car */
+            foreach ($this->cars as $car){
+                if($car->getId() == $id){
+                    return $car;
+                }
+            }
+        }
+        else{
+            /** @var GalleryPhotoBusinessActivity $activity */
+            foreach ($this->businessActivities as $activity){
+                if($activity->getId() == $id){
+                    return $activity;
+                }
+            }
+        }
+
+        return false;
     }
 }

@@ -14,14 +14,16 @@
         //image from https://loading.io/
         let preloader = $("#preloader-posts");
 
-        function init(urlS){
+        function init(urlS, paramsS){
             url = urlS;
+            Object.assign(params, angular.fromJson(paramsS));
+            console.log(params);
 
             updatePosts();
         }
 
         function updatePosts() {
-            if(params.offset + params.limit >= MAX_COUNT || preloader.is("visible")){
+            if(params.offset + params.limit >= MAX_COUNT || params.offset + params.limit > self.posts.length || preloader.is("visible")){
                 return false;
             }
 
@@ -40,7 +42,7 @@
                     self.posts.push(post);
                 });
 
-                if(self.posts.length % 5 === 0){
+                if(self.posts.length % 5 === 0 && self.posts.length){
                     updateScrollTrigger("#post-" + self.posts[self.posts.length - 2].id);
                 }
 
@@ -65,7 +67,34 @@
             });
         }
 
+        function getUserFilterUrl(userId) {
+            return Routing.generate('homepage_filter_user', {"userId" : userId})
+        }
+
+        function getBrandModelFilterUrl(urlBrand, urlModel) {
+            if(!urlBrand){
+                return "";
+            }
+
+            if(!urlModel){
+                return Routing.generate('homepage_filter_brand', {"urlBrand" : urlBrand})
+            }
+
+            return Routing.generate('homepage_filter_brand_model', {"urlBrand" : urlBrand, "urlModel" : urlModel})
+        }
+
+        function getCityActivityFilterUrl(urlCity, urlActivity) {
+            if(!urlCity || !urlActivity){
+                return "";
+            }
+
+            return Routing.generate('homepage_filter_city_activity', {"urlCity" : urlCity, "urlActivity" : urlActivity})
+        }
+
         this.init = init;
+        this.getUserFilterUrl = getUserFilterUrl;
+        this.getBrandModelFilterUrl = getBrandModelFilterUrl;
+        this.getCityActivityFilterUrl = getCityActivityFilterUrl;
 
     }]);
 })(window.autoparusApp);
