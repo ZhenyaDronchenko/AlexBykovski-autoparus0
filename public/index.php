@@ -5,8 +5,6 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 
-ini_set('memory_limit', '-1');
-
 require __DIR__.'/../vendor/autoload.php';
 
 // The check is to ensure we don't use .env in production

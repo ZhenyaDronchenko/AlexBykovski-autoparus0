@@ -17,7 +17,6 @@
         function init(urlS, paramsS){
             url = urlS;
             Object.assign(params, angular.fromJson(paramsS));
-            console.log(params);
 
             updatePosts();
         }
