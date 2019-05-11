@@ -6,7 +6,6 @@ use App\Entity\Brand;
 use App\Entity\Client\Client;
 use App\Entity\Client\Gallery;
 use App\Entity\Client\GalleryPhoto;
-use App\Entity\Client\GalleryPhotoCar;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
@@ -464,6 +463,7 @@ class UserOfficeController extends Controller
         $coordinates = $request->request->get("coordinates");
         $coordinates = $coordinates ? json_decode($coordinates, true) : null;
         $description = $request->request->get("description");
+        $postType = $request->request->get("type") == GalleryPhoto::BUSINESS_TYPE ? GalleryPhoto::BUSINESS_TYPE : GalleryPhoto::SIMPLE_TYPE;
 
         $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
         $path = $uploader->upload($file);
@@ -473,8 +473,7 @@ class UserOfficeController extends Controller
         $image->setGeoLocation($geoLocation);
 
         if(!$galleryPhoto){
-            $galleryPhoto = new GalleryPhoto($image, $client->getGallery());
-            $galleryPhoto->setUserCars();
+            $galleryPhoto = new GalleryPhoto($image, $client->getGallery(), $postType);
 
             $em->persist($galleryPhoto);
         }
@@ -529,21 +528,23 @@ class UserOfficeController extends Controller
     }
 
     /**
-     * @Route("/remove-gallery-car-ajax/{id}", name="remove_gallery_car_ajax", options={"expose"=true})
+     * @Route("/remove-gallery-filter-ajax/{id}/{postId}", name="remove_gallery_filter_ajax", options={"expose"=true})
      *
-     * @ParamConverter("galleryPhotoCar", class="App\Entity\Client\GalleryPhotoCar", options={"id" = "id"})
+     * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "postId"})
      */
-    public function removeGalleryCarAction(Request $request, GalleryPhotoCar $galleryPhotoCar)
+    public function removeGalleryFilterAction(Request $request, $id, GalleryPhoto $galleryPhoto)
     {
-        if($galleryPhotoCar->getGalleryPhoto()->getGallery()->getClient()->getId() !== $this->getUser()->getId()){
+        $filter = $galleryPhoto->getFilter($id);
+
+        if($galleryPhoto->getGallery()->getClient()->getId() !== $this->getUser()->getId() || !$filter){
             return new JsonResponse(["success" => false]);
         }
 
         $em = $this->getDoctrine()->getManager();
 
-        $galleryPhoto = $galleryPhotoCar->getGalleryPhoto();
+        $galleryPhoto = $filter->getGalleryPhoto();
 
-        $em->remove($galleryPhotoCar);
+        $em->remove($filter);
         $em->flush();
 
         $em->refresh($galleryPhoto);

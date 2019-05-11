@@ -7,8 +7,9 @@
         const ADD_LINK = Routing.generate('user_office_add_gallery_photo_ajax');
         const EDIT_LINK = Routing.generate('user_office_edit_gallery_photo_ajax', {"id" : "__id__"});
         const ALL_POSTS_LINK = Routing.generate('user_office_get_all_gallery_ajax');
-        const REMOVE_GALLERY_CAR_LINK = Routing.generate('remove_gallery_car_ajax', {"id" : "__id__"});
+        const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_gallery_filter_ajax', {"id" : "__id__", "postId" : "__post_id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
+        const SIMPLE_TYPE = "simple";
 
         let self = this;
         let closeRemoveConfirm = $("#close-popup-5");
@@ -27,14 +28,16 @@
             }
         }
         
-        function getNewPost() {
+        function getNewPost(type) {
             return {
                 "address": "",
                 "date": "",
                 "description": "",
                 "id": null,
                 "path": "",
-                "time": ""
+                "time": "",
+                "type" : type ? type : SIMPLE_TYPE,
+                "userId" : "",
             };
         }
 
@@ -48,6 +51,7 @@
                 $(this), fileName, null, null,
                 function (formData) {
                     formData.append('description', self.activePost.description);
+                    formData.append('type', self.activePost.type);
 
                     $.ajax(urlEdit, {
                         method: "POST",
@@ -115,12 +119,12 @@
             });
         }
 
-        function removeGalleryCar(id) {
+        function removeGalleryFilter(id, postId) {
             if(!id){
                 return false;
             }
 
-            $.ajax(REMOVE_GALLERY_CAR_LINK.replace("__id__", id), {
+            $.ajax(REMOVE_GALLERY_FILTER_LINK.replace("__id__", id).replace("__post_id__", postId), {
                 method: "POST",
                 success(data) {
                     if(data.success) {
@@ -140,6 +144,6 @@
         this.editPost = editPost;
         this.closeModals = closeModals;
         this.removePost = removePost;
-        this.removeGalleryCar = removeGalleryCar;
+        this.removeGalleryFilter = removeGalleryFilter;
     }]);
 })(window.autoparusApp);
