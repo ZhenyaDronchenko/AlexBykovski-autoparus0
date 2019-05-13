@@ -11,7 +11,7 @@
     <main class="container" ng-init="showAll = false;">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус.бай" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -37,25 +37,34 @@
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
             </div>
 
-            <form class='modform' action="#" method="get">
+            <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <input id="brand-autocomplete" class='form7' name="search" placeholder="Марка авто:" type="search"
                        auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
-                       method-search="searchBrands" identifier-field="brand-autocomplete">
+                       method-search="searchBrands" identifier-field="brand-autocomplete"
+                       scroll-to-element scroll-by-click="true" before-top="30">
             </form>
 
             <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
                 {% for brand in allBrands %}
-                    <li><a class="mod-link" href='{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}'><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="Запчасти для {{ brand.brandEn }}"></a></li>
+                    <li>
+                        <a class="mod-link" href='{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}'>
+                            <img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", {"brand" : brand}) }}">
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
             <ul class='showMoreModel' id='brandImg5' ng-hide="showAll">
                 {% for brand in popularBrands %}
-                    <li><a class="mod-link" href='{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}'><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="Запчасти для {{ brand.brandEn }}"></a></li>
+                    <li>
+                        <a class="mod-link" href='{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}'>
+                            <img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.name }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", {"brand" : brand}) }}">
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
 
-            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' onclick="scrollToElement('#brand-autocomplete')">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
-            <div ng-click="showAll = false" ng-show="showAll" id='showAll5' onclick="scrollToElement('#brand-autocomplete')">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+            <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+            <div ng-click="showAll = false" ng-show="showAll" id='showAll5' class="initiator-scroll">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
 
             <h2 class='model-subtitle'>{{ page.headline2 }}</h2>
             <div class='subtext'>{{ page.text2 | raw }}</div>

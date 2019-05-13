@@ -27,6 +27,10 @@ class BamperSuggestionProvider
         $modelYearTo = $model->getTechnicalData()->getYearTo();
         $crawler = $this->getExternalData($brand->getUrlConnectBamperIncludeBase(), $model->getUrlConnectBamperIncludeBase(), $modelYearFrom, $modelYearTo, $sparePart->getUrlConnectBamperIncludeBase(), $cityUrl, $inStock);
 
+        if(!$crawler){
+            return [];
+        }
+
         $suggestions = $this->parseSuggestions($crawler);
 
         return $suggestions;
@@ -51,6 +55,10 @@ class BamperSuggestionProvider
 
     protected function getExternalData($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock)
     {
+        if(!$brandUrl || !$modelUrl || !$sparePartUrl){
+            return false;
+        }
+
         $url = $this->generateUrl($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock);
 
         $response = $this->request($url);

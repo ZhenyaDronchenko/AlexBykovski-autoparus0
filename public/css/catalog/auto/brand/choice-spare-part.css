@@ -154,8 +154,7 @@ cursor: default;
 }
 
 #showAll5 {
-      text-align: right;
-    display: none;
+    text-align: center;
     font-weight: 400;
     font-size: 14px;
     color: #ff0000;

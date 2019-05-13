@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
+use App\Entity\City;
+use App\Entity\Client\Client;
 use App\Entity\Client\GalleryPhoto;
+use App\Entity\Client\SellerCompany;
 use App\Entity\Model;
 use App\Entity\Phone\PhoneBrand;
 use App\Entity\Phone\PhoneModel;
 use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
+use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -190,21 +194,49 @@ class SearchController extends Controller
      */
     public function searchPostsAction(Request $request)
     {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
         $requestData = json_decode($request->getContent(), true);
         $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
         $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
+
+        $user = isset($requestData["userId"]) ? $em->getRepository(Client::class)->find($requestData["userId"]) : null;
+        $brand = isset($requestData["urlBrand"]) ? $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["urlBrand"]]) : null;
+        $model = isset($requestData["urlModel"]) ? $em->getRepository(Model::class)->findOneBy(["url" => $requestData["urlModel"]]) : null;
+        $city = isset($requestData["urlCity"]) ? $em->getRepository(City::class)->findOneBy(["url" => $requestData["urlCity"]]) : null;
+        $activity = isset($requestData["urlActivity"]) && array_key_exists($requestData["urlActivity"], SellerCompany::$activities) ?
+            SellerCompany::$activities[$requestData["urlActivity"]] : null;
+        $filter = new PostsFilterType($user, $brand, $model, $city, $activity, $limit, $offset);
 
         if(!is_numeric($offset) || !is_numeric($limit)){
             return new JsonResponse([]);
         }
 
-        $photos = $this->getDoctrine()->getRepository(GalleryPhoto::class)->findAllByCreatedAt($offset, $limit);
+        $photos = $em->getRepository(GalleryPhoto::class)->findAllByFilter($filter);
 
         $parsedPhotos= [];
 
         /** @var GalleryPhoto $photo */
         foreach ($photos as $photo){
-            $parsedPhotos[] = $photo->toSearchArray();
+            $parsedPhoto = $photo->toSearchArray();
+
+            if($parsedPhoto["city"]){
+                $city = $em->getRepository(City::class)->findOneBy(["name" => $parsedPhoto["city"]]);
+                $parsedPhoto["city"] = $city ? $city->getUrl() : null;
+            }
+
+            if($parsedPhoto["brand"]){
+                $brand = $em->getRepository(Brand::class)->findOneBy(["name" => $parsedPhoto["brand"]]);
+                $parsedPhoto["brand"] = $brand ? $brand->getUrl() : null;
+            }
+
+            if($parsedPhoto["model"]){
+                $model = $em->getRepository(Model::class)->findOneBy(["name" => $parsedPhoto["model"]]);
+                $parsedPhoto["model"] = $model ? $model->getUrl() : null;
+            }
+
+            $parsedPhotos[] = $parsedPhoto;
         }
 
         return new JsonResponse($parsedPhotos);

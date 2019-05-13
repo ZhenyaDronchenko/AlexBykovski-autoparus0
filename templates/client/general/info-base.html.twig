@@ -30,7 +30,7 @@
 
             <ul class="city-block">
                 {% for city in cities %}
-                    <li><a class="city-link" href="{{ city.url }}"><img src="{{ image_url(city.logo, 'city') }}" alt="{{ city.name }}" title="События в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
+                    <li><a class="city-link" href="{{ city.url }}"><img src="{{ image_url(city.logo, 'city') }}" alt="{{ city.name }}" title="{{ city.title }}"><span>{{ city.name }}</span></a></li>
                 {% endfor %}
             </ul>
 

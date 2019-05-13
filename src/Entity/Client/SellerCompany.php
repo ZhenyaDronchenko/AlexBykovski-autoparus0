@@ -11,6 +11,28 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SellerCompany
 {
+    const ACTIVITY_URL_SPARE_PART_SELLER = "spare-part-seller";
+    const ACTIVITY_URL_AUTO_SELLER = "auto-seller";
+    const ACTIVITY_URL_SERVICE = "service";
+    const ACTIVITY_URL_NEWS = "news";
+    const ACTIVITY_URL_TOURISM = "tourism";
+
+    static $activities = [
+        self::ACTIVITY_URL_SPARE_PART_SELLER => "Авто-мото запчасти",
+        self::ACTIVITY_URL_AUTO_SELLER => "Авто-мото транспорт",
+        self::ACTIVITY_URL_SERVICE => "Услуги / СТО / Сервисы",
+        self::ACTIVITY_URL_NEWS => "Новости / Статьи",
+        self::ACTIVITY_URL_TOURISM => "Туризм / Путешествия",
+    ];
+
+    static $activitiesField = [
+        self::ACTIVITY_URL_SPARE_PART_SELLER => "isSparePartSeller",
+        self::ACTIVITY_URL_AUTO_SELLER => "isAutoSeller",
+        self::ACTIVITY_URL_SERVICE => "isService",
+        self::ACTIVITY_URL_NEWS => "isNews",
+        self::ACTIVITY_URL_TOURISM => "isTourism",
+    ];
+
     /**
      * @var integer
      *

@@ -108,7 +108,10 @@
                                         {% endif %}
                                     </ul>
                                 {% endif %}
-                                <button class="btn-bis" type="button">Добавить бизнес пост</button>
+                                <button class="btn-bis" type="button"
+                                        onclick="document.getElementById('trigger-edit-gallery-photo').click()"
+                                        ng-click="gallery.activePost = gallery.getNewPost('business')"
+                                >Добавить бизнес пост</button>
                             </div>
                         {% endif %}
                     </div>
