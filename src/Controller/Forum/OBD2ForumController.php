@@ -41,16 +41,16 @@ class OBD2ForumController extends Controller
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
-//        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
-//
-//        $popularBrands = array_filter($allBrands, function(Brand $brand){
-//            return $brand->isPopular();
-//        });
+        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
+
+        $popularBrands = array_filter($allBrands, function(Brand $brand){
+            return $brand->isPopular();
+        });
 
         return $this->render('client/forum/obd2-forum/choice-brand.html.twig', [
-//            'allBrands' => $allBrands,
-//            'popularBrands' => $popularBrands,
-            'page' => $em->getRepository(OBD2ForumChoiceBrand::class)->findAll()[0]
+            'allBrands' => $allBrands,
+            'popularBrands' => $popularBrands,
+            'page' => $em->getRepository(OBD2ForumChoiceBrand::class)->findAll()[0],
         ]);
     }
 

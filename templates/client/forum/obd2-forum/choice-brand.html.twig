@@ -5,7 +5,7 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-		<link rel='stylesheet' href='/css/client/forum/choice-brand.css'>
+    <link rel='stylesheet' href='/css/client/forum/choice-brand.css'>
 {% endblock %}
 
 {% block body %}
@@ -45,8 +45,8 @@
                 <ul class='show-m' id='model' ng-show="showAll">
                     {% for brand in allBrands %}
                         <li>
-                            <a class="model-link" href='{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'>
-                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ sparePart.alternativeName1 }} для автомобилей {{ brand.brandEn }}">
+                            <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand", {"brand" : brand}) }}">
                             </a>
                         </li>
                     {% endfor %}
@@ -54,8 +54,8 @@
                 <ul class='show-m' id='model' ng-hide="showAll">
                     {% for brand in popularBrands %}
                         <li>
-                            <a class="model-link" href='{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'>
-                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ sparePart.alternativeName1 }} для автомобилей {{ brand.brandEn }}">
+                            <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand", {"brand" : brand}) }}">
                             </a>
                         </li>
                     {% endfor %}
