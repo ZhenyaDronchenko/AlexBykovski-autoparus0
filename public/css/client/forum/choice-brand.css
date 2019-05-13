@@ -1,0 +1,478 @@
+/*ХЛЕБНЫЕ КРОШКИ*/
+#breadcrumbs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
+}
+  
+.line {
+    margin: 0 3px;
+  }
+
+#breadcrumbs a {
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+}
+.user-icon {
+  display: none;
+}
+
+.user-link:hover,
+.link-b:hover {
+color: black;
+-webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+        transform: scale(1.05);
+}
+
+.current {
+cursor: default;
+}
+
+@media  (max-width: 480px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
+}
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
+}
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+/*city*/
+.city {
+    padding-top: 35px;
+    padding-bottom: 65px;
+}
+.city-title {
+    margin: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: 400;
+    color: #f66666;
+    letter-spacing: 1px;
+}
+
+.city-title::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
+}
+.city-desc {
+    margin-bottom: 40px;
+}
+#text1 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    font-weight: 400;
+    text-align: justify;
+}
+#allText {
+    text-align: right;
+    display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.button {
+    display: block;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 5px 10px;
+    padding-bottom: 3px;
+    color: #000000;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #dbc0c7;
+    border-radius: 5px;
+}
+.button:hover {
+    background-color: #d2a2af;
+}
+
+.modform {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 20px;
+}
+
+.form7 {
+    width: 200px;
+    padding-left: 5px;
+    background-color: #fff;
+    border: none;
+    border-bottom: 1px solid #737373;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    font-size: 18px;
+    line-height: 20px;
+
+}
+
+
+
+.model-block {
+    margin-bottom: 40px;
+}
+
+#model {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+
+.show {
+    max-height: 195px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+
+#model li {
+    margin: 0 10px;
+    margin-bottom: 20px;
+}
+.model-link {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+}
+.model-link img {
+    width: 80px;
+    height: 80px;
+     
+}
+.model-link img:hover {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.arrows-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0 auto;
+    color: #ff0000;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.arrows-btn:hover {
+    color: #000;
+    border: 1px solid transparent;
+}
+.arrows-btn--show {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid red;
+}
+
+#button-mod {
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    color: #ff7c01;
+    padding-top: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+#button-mod:hover,
+#button-mod:focus {
+    color: #000;
+}
+.city-subtitle {
+    margin: 0;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #f66666;
+}
+
+.city-subtitle::before { /* второй слой */
+    content: attr(data-text);
+    -webkit-text-stroke: .03em #ff0000;
+}
+.city-subtext {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: justify;
+}
+
+
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+        padding: 0 10px;
+    }
+    .city {
+        padding-top: 25px;
+    }
+    .text1Hide {
+        max-height: 60px;
+        overflow: hidden;
+
+    }
+    #allText {
+        display: block;
+    }
+    .city-title {
+        font-size: 22px;
+        line-height: 26px;
+        margin-bottom: 20px;
+
+    }
+.city-desc {
+    margin-bottom: 30px;
+}
+
+
+    .modform {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+
+    }
+
+    .form7 {
+        margin: 0 auto;
+    }
+    #model li {
+        margin: 0 auto;
+        margin-bottom: 15px;
+    }
+
+    .model-link img {
+         margin: 0 7px;
+        width: 60px;
+        height: 60px;
+    }
+    .city-subtitle {
+        text-align: center;
+        font-size: 20px;
+        line-height: 24px;
+
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+    }
+
+    .city-subtext {
+        margin: 0;
+        margin-bottom: 10px;
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+
+    .button {
+        font-size: 14px;
+        line-height: 16px;
+        color: #000000;
+        margin-left: auto;
+    }
+    .show {
+        max-height: 350px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    .container {
+        width: auto; }
+ .city {
+        padding-top: 25px;
+    }
+    .city-desc {
+    margin-bottom: 30px;
+}
+
+    .text1Hide {
+        max-height: 55px;
+        overflow: hidden;
+    }
+
+    .modform {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+
+    }
+
+    #allText {
+        display: block;
+    }
+
+    .city-link span {
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .city-title {
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 20px;
+
+    }
+
+    .form7 {
+        margin: 0 auto;
+    }
+
+    .city-subtitle {
+
+        text-align: center;
+        font-size: 20px;
+        line-height: 24px;
+
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+    }
+    .model-title {
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .city-subtext {
+        margin: 0;
+        margin-bottom: 15px;
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+
+    #model li {
+        margin: 0 auto;
+        margin-bottom: 15px;
+    }
+
+    .model-link img {
+         margin: 0 7px;
+        width: 60px;
+        height: 60px;
+    }
+    .show {
+        max-height: 375px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .button {
+        font-size: 14px;
+        line-height: 16px;
+        color: #000000;
+        margin-left: auto;
+    }
+
+}
+
+/*city END*/ 
