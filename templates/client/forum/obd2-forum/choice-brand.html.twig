@@ -46,7 +46,7 @@
                     {% for brand in allBrands %}
                         <li>
                             <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
-                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand", {"brand" : brand}) }}">
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
                             </a>
                         </li>
                     {% endfor %}
@@ -55,7 +55,7 @@
                     {% for brand in popularBrands %}
                         <li>
                             <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
-                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand", {"brand" : brand}) }}">
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
                             </a>
                         </li>
                     {% endfor %}

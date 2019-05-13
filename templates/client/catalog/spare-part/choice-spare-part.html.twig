@@ -41,12 +41,12 @@
             <div class="model-block" ng-cloak>
                 <ul class='show-m' id='model' ng-show="showAll">
                     {% for sparePart in allSpareParts %}
-                        <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
+                        <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"urlSP" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
                     {% endfor %}
                 </ul>
                 <ul class='show-m' id='model' ng-hide="showAll">
                     {% for sparePart in popularSpareParts %}
-                        <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
+                        <li><a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href='{{ path("show_spare_part_catalog_choice_brand", {"urlSP" : sparePart.url}) }}'><span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span><img src="{{ image_url(sparePart.thumbnailLogo, 'spare_part') }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.name }} бу и новые запчасти"></a></li>
                     {% endfor %}
                 </ul>
 
