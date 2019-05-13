@@ -141,43 +141,25 @@ p {
     cursor: pointer;
     outline: none;
 }
-.delivery-city {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.allText-1 {
+    border: none;
+    background-color: #fff;
+    display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 5px;
+      margin: 10px auto;
+    cursor: pointer;
+    outline: none;
 }
 .city-btn {
-    margin-bottom: 30px;
+   
     display: flex;
     justify-content: center;
 
 }
-.city {
-    display: flex;
-    justify-content: space-around;
-    width: 50%;
-}
-.city a {
-     width: 160px;
-    padding: 5px;
-    margin-bottom: 20px;    
-    padding-bottom: 4px;
-    text-align: center;
-    border: 1px solid #737373;
-    border-radius: 3px;
-    color: #444444;
-    cursor: pointer;
-    font-size: 20px;
-    line-height: 22px;
-    font-weight: 400;
-    background-color: #faeeee;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.city a:hover {
-    background-color: #d2a2af;
-}
+
 
 .brand-block {
     display: -webkit-box;
@@ -220,7 +202,117 @@ p {
 .link-o:hover {
     background-color: #d2a2af;
 }
+.block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid #737373;
+}
+.block-price-item {
+  margin-bottom: 10px;
+}
+.block-price {
+  width: 150px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #000000;
+}
+.block-price-n {
+  font-size: 22px;
+  line-height: 24px;
+  color: #ff0000;
+  font-weight: 700;
+  margin-right: 10px;
+}
+.block-price-r {
+  font-size: 16px;
+  line-height: 18px;
+  color: #000;
+  font-weight: 700;
+}
+.block-price-n::before { /* Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ ÑÐ»Ð¾Ð¹ */
+  content: attr(data-text);
+  -webkit-text-stroke: .03em #000000;
+}
+.block-price-city {
 
+  font-size: 18px;
+  line-height: 20px;
+  color: #000;
+  font-weight: 700;
+}
+
+.button {
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    padding-bottom: 4px;
+    background-color: #dbc0c7;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    color: #444444;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 40px;
+}
+
+.button:hover {
+    background-color: #d2a2af;
+}
+.block-text {
+  width: 600px;
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #000000;
+}
+.unp-text{
+  display: none;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #000000;
+  margin-left: auto;
+}
+
+.block-tel {
+  width: 225px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.block-btn{
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  line-height: 18px;
+    padding: 5px 10px;
+    background-color: #dbc0c7;
+    border: 1px solid #757373;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700; 
+    margin-bottom: 10px;
+}
+.block-btn:hover {
+  background-color: #d2a2af;
+}
 
 .button {
     width: 150px;
@@ -416,6 +508,63 @@ p {
         font-size: 14px;
         line-height: 16px;
     }
+
+       .block-price-item {
+     margin-bottom: 0; 
+}
+
+.block {
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  padding: 10px 0;
+}
+.block-price {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.card-contact a {
+    margin-right: 0;
+}
+.block-text {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 18px;
+}
+.unp-text {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  line-height: 14px;
+}
+.block-tel {
+  width: 210px;
+  margin: 0 auto;
+}
+
+.block-btn{
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  line-height: 16px;
+    padding: 5px 5px;
+}
+.contact-img {
+  display: inline-block;
+  margin-left: 5px;
+}
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
@@ -508,6 +657,51 @@ p {
         font-size: 16px;
         line-height: 14px;
     }
+    .block-price-item {
+     margin-bottom: 0; 
+}
+
+.block {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 15px 0;
+}
+.block-price {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+
+
+.block-text {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 18px;
+}
+.unp-text {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  line-height: 16px;
+}
+.block-tel {
+  width: 210px;
+  margin: 0 auto;
+}
 
 }
 
@@ -968,7 +1162,7 @@ p {
 }
 
 .block-tel {
-    width: 225px;
+    width: 250px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1391,7 +1585,6 @@ padding-bottom: 4px;
         line-height: 14px;
     }
     .block-tel {
-        width: 210px;
         margin: 0 auto;
     }
 
@@ -1445,8 +1638,8 @@ padding-bottom: 4px;
     .text1Hide {
         max-height: 55px;
         overflow: hidden;
-
     }
+
     #allText {
         display: block;
     }
@@ -1454,15 +1647,11 @@ padding-bottom: 4px;
     .year-title {
         font-size: 24px;
         line-height: 24px;
-
     }
-
-
 
     .city-subtitle {
         font-size: 22px;
         line-height: 24px;
-
     }
 
     .contact-img {
@@ -1473,6 +1662,7 @@ padding-bottom: 4px;
     .block-product {
         padding-bottom: 0;
     }
+
     .block-product__title {
         margin-bottom: 5px;
     }
@@ -1609,11 +1799,8 @@ padding-bottom: 4px;
         line-height: 16px;
     }
     .block-tel {
-        width: 210px;
         margin: 0 auto;
     }
-
-
 
     .block-btn{
         display: block;
@@ -1759,9 +1946,6 @@ padding-bottom: 4px;
         color: #000000;
     }
 
-    .block-tel {
-        width: 200px;
-    }
 
 
 

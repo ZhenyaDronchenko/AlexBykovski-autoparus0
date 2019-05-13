@@ -1,40 +1,32 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
 }
 
-#breadcrumbs li {
-    margin-right: 5px;
-
-}
-.more {
-    display: none;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    color: #444;
-}
+.line {
+    margin: 0 3px;
+  }
 
 #breadcrumbs a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
-    color: #444;
-    position: relative;
-    -webkit-transition-duration: 0.2s;
-    -o-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+    font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
 }
 .user-icon {
     display: none;
 }
 
-.user-link:hover,
-.link:hover {
+.user-link:hover {
     color: black;
     -webkit-transform: scale(1.05);
     -ms-transform: scale(1.05);
@@ -44,11 +36,9 @@
 .current {
     cursor: default;
 }
-.opened {
-    background-color: transparent;
-}
 
-@media  (max-width: 575px) {
+
+@media  (max-width: 767px) {
     .container {
         width: auto;
     }
@@ -56,71 +46,40 @@
     .user-name {
         display: none;
     }
-    .opened {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-    }
-    .opened li {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-
-    .opened .more {
-        display: none;
-    }
+    #breadcrumbs {
+  padding-top: 3px;
+}
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
 
     .user-icon {
         display: block;
-    }
-    .link {
-        display: none;
-    }
-
-    .close-menu {
-        font-size: 14px;
-        cursor: pointer;
-    }
-    .user-link {
-        width: 10px;
-        height: 10px;
-    }
-
-    .opened .link {
-        display: block;
-    }
-    .user-icon {
-        display: block;
-        width: 16px;
-        height: 16px;
-    }
-    .more {
-        display: block;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 14px;
+         width: 14px;
+  height: 14px;
     }
     #breadcrumbs a {
-        line-height: 20px;
-        font-size: 12px;
-    }
-    .model-block {
-        padding-top: 5px;
-    }
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
 
-    .user-link--icon {
-        width: 20px;
-        height: 20px;
-    }
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+    
 
-    #breadcrumbs li {
-        margin-right: 0;
-    }
+   
+
+    
+    
 }
 @media (min-width: 576px) and (max-width: 767px) {
     .container {
@@ -291,17 +250,22 @@ font-size: 20px;
 }
 
 .mod-list li {
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin: 0 10px;
+    margin-bottom: 20px;
 }
 .mod-list li:last-child {
     margin-right: 0;
 }
 .mod-link img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
 }
-
+.mod-link img:hover,
+.mod-link img:focus {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition: transform 1s;
+}
 .part-title {
     margin: 0;
     margin-bottom: 20px;
@@ -330,8 +294,8 @@ font-size: 20px;
 }
 
 .part-list li {
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin: 0 10px;
+    margin-bottom: 20px;
 }
 .part-list li:last-child {
     margin-right: 0;
@@ -340,7 +304,16 @@ font-size: 20px;
     width: 120px;
     height: 80px;
 }
-
+.part-link img:hover,
+.part-link img:focus {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition: transform 1s;
+}
+p {
+    margin: 0;
+    margin-bottom: 10px;
+}
 
 @media (max-width: 480px) {
     .container {
@@ -383,6 +356,7 @@ font-size: 20px;
         width: 310px;
         margin: 0 auto;
         margin-bottom: 15px;
+        margin-top: 30px;
     }
     .city-link {
         padding: 10px 3px;
@@ -439,24 +413,17 @@ font-size: 20px;
         height: 60px;
     }
     .mod-list li {
-        margin-right: 10px;
+        margin: 0 4px;
         margin-bottom: 10px;
     }
 
     .part-title {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         font-size: 18px;
         line-height: 20px;
     }
     .part-list li {
-        margin-right: 10px;
-        margin-bottom: 10px;
-    }
-    .part-list li:nth-child(5) {
-        margin-right: 0;
-    }
-    .part-list {
-        margin-bottom: 10px;
+        margin: 0 5px;
         margin-bottom: 10px;
     }
     .part-list--center {
@@ -577,8 +544,30 @@ font-size: 20px;
     }
 
     .part-link img {
-        width: 80px;
+        width: 90px;
         height: 60px;
+    }
+     .mod-link img {
+        width: 60px;
+        height: 60px;
+    }
+    .mod-list li {
+        margin: 0 4px;
+        margin-bottom: 10px;
+    }
+
+    .part-title {
+        margin-bottom: 20px;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .part-list li {
+        margin: 0 5px;
+        margin-bottom: 10px;
+    }
+
+    .part-list--center {
+        margin: 0 auto;
     }
 }
 @media (min-width: 768px) and (max-width: 1023px) {

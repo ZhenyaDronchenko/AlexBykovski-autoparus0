@@ -541,7 +541,7 @@ a {
 }
 
 .block-tel {
-    width: 225px;
+    width: 230px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -549,6 +549,10 @@ a {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+}
+h3 {
+    margin: 0;
+    margin-bottom: 15px;
 }
 
 .block-btn{
@@ -783,11 +787,11 @@ padding-bottom: 4px;
     }
 
     .button {
-        font-size: 14px;
-    line-height: 16px;
-    padding: 4px 10px;
-    padding-bottom: 3px;
-
+        font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
     }
 .year-desc {
     margin-bottom: 30px;
@@ -969,7 +973,7 @@ padding-bottom: 4px;
         line-height: 14px;
     }
     .block-tel {
-        width: 210px;
+       
         margin: 0 auto;
     }
 
@@ -1190,16 +1194,15 @@ padding-bottom: 4px;
         line-height: 16px;
     }
     .block-tel {
-        width: 210px;
         margin: 0 auto;
     }
 
   .button {
-        font-size: 14px;
-    line-height: 16px;
-    padding: 4px 10px;
-    padding-bottom: 3px;
-
+     font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
     }
 
     .block-btn{
@@ -1335,12 +1338,6 @@ padding-bottom: 4px;
         font-weight: 400;
         color: #000000;
     }
-
-    .block-tel {
-        width: 200px;
-    }
-
-
 
     .block-btn{
         display: block;

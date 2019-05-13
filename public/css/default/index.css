@@ -175,6 +175,7 @@
 }
 .text-block {
     width: 77%;
+    margin-bottom: 10px;
 }
 .text-block-w {
     width: 100%;
@@ -307,6 +308,8 @@
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
+     max-height: calc(100vh - 70px);
+    overflow-y: auto;
 }
 
 .modal1 {
@@ -434,6 +437,7 @@
     text-align: center;
     margin: 10px;
     margin-top: 20px;
+    margin-bottom: 0;
     padding: 10px 0;
     cursor: pointer;
 }
@@ -565,7 +569,6 @@
 
 
     .sail-f {
-        margin: 0 auto;
         margin-top: 7px;
         margin-bottom: 50px;
     }
@@ -675,7 +678,6 @@
     }
 
     .sail-f {
-        margin: 0 auto;
         margin-top: 7px;
         margin-bottom: 65px;
     }

@@ -286,11 +286,12 @@ h2::before { /* второй слой */
 }
  
 #model li {
-   margin: 0 10px;
-        margin-bottom: 20px;
+   margin: 0 auto;
+        margin-bottom: 10px;
 }
 
 .model-link img {
+   margin: 0 4px;
   width: 60px;
   height: 60px;
 }
@@ -332,6 +333,16 @@ h2 {
 }
 .show {
     max-height: 280px;
+}
+#model li {
+   margin: 0 auto;
+        margin-bottom: 10px;
+}
+
+.model-link img {
+  margin: 0 4px;
+  width: 60px;
+  height: 60px;
 }
 }
 

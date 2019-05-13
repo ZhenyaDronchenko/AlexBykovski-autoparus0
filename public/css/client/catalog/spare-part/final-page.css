@@ -611,7 +611,10 @@ padding-bottom: 4px;
    background-color: #d2a2af;
 }
 
-
+h3 {
+    margin: 0;
+    margin-bottom: 15px;
+}
 
 .year-subtitle {
     margin: 0;
@@ -783,10 +786,11 @@ padding-bottom: 4px;
 
 
     .button {
-              font-size: 14px;
-    line-height: 16px;
-    padding: 4px 10px;
-    padding-bottom: 3px;
+      font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
     }
 
     .card-block {
@@ -1231,6 +1235,14 @@ padding-bottom: 4px;
         top: 50px;
         left: 50%;
         width: 80%;
+    }
+     .button {
+        font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+
     }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
