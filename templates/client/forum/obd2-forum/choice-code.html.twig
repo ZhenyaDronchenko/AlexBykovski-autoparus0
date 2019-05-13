@@ -8,10 +8,11 @@
 {% endblock %}
 
 {% block body %}
+    {% set templateParameters = {"brand" : brand, "type": type} %}
     <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="index.html" title="{{ titleHomepage }}" itemprop="item">
+                <a class="user-link user-link--icon" href="index.html" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -21,13 +22,13 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="тайтл второй крошки"><span class="line">/</span>
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span>
                 <span itemprop="name">OBD2 ошибки</span>
                     <meta itemprop="position" content="2">
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="тайтл третьей крошки"><span class="line">/</span>
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span>
                 <span itemprop="name">[ENBRAND]</span>
                     <meta itemprop="position" content="3">
                 </a>
