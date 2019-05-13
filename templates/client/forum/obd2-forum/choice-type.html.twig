@@ -11,7 +11,7 @@
     <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -21,11 +21,18 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_spare_part") }}" itemprop="item" title="тайтл второй крошки"><span class="line">/</span><span itemprop="name">OBD2 ошибки</span></a><meta itemprop="position" content="2">
+                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_spare_part") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">OBD2 ошибки</span>
+                </a>
+                <meta itemprop="position" content="2">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" itemprop="item" itemprop="item"><span class="line">/</span><span itemprop="name">[ENBRAND]</span>
-                    <meta itemprop="position" content="3"></a></li>
+                <a class="current" itemprop="item" itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ brand.brandEn }}</span>
+                    <meta itemprop="position" content="3"></a>
+            </li>
         </ul>
 
         <section class="engine">

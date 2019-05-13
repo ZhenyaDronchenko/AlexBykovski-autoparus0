@@ -67,21 +67,29 @@ class OBD2ForumController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-//        $allModels = $em->getRepository(Model::class)->findBy([
-//            "active" => true,
-//            "brand" => $brand,
-//        ],
-//            ["name" => "ASC"]);
-//
-//        $popularModels = array_filter($allModels, function(Model $model){
-//            return $model->isPopular();
-//        });
+        $types = $em->getRepository(TypeOBD2Error::class)->findAll();
+
+        $parsedTypes = [];
+
+        /** @var TypeOBD2Error $type */
+        foreach ($types as $type){
+            $designation = $type->getDesignation();
+
+            $parsedTypes[$type->getDesignation()] = $type->toArray();
+
+            if($designation === TypeOBD2Error::P_TYPE){
+                $parsedTypes[TypeOBD2Error::SECOND_BUTTON_P] = $type->toArray();
+            }
+        }
+
+        uksort($parsedTypes, function($key1, $key2){
+            return array_search($key1, TypeOBD2Error::TYPE_CATALOG_ORDER) > array_search($key2, TypeOBD2Error::TYPE_CATALOG_ORDER);
+        });
 
         $page = $em->getRepository(OBD2ForumChoiceType::class)->findAll()[0];
 
         return $this->render('client/forum/obd2-forum/choice-type.html.twig', [
-//            'allModels' => $allModels,
-//            'popularModels' => $popularModels,
+            'types' => $parsedTypes,
             'page' => $transformer->transformPage($page, [$brand]),
             'brand' => $brand,
         ]);
