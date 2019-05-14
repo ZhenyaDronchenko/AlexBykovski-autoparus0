@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block body %}
-
-<main class="container">
+  {% set templateParameters = {"brand" : brand, "type": type, "code" : code, "model" : model} %}
+  <main class="container">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
+          <a class="user-link user-link--icon" href="index.html" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
             <span class="user-name" itemprop="name">Главная</span>
             <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
               <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -23,15 +23,15 @@
           </a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">OBD2 форум</span></a><meta itemprop="position" content="2"></li>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span><span itemprop="name">OBD2 форум</span></a><meta itemprop="position" content="2"></li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал четвертой крошки"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceCode", templateParameters) }}"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал пятой крошки"><span class="line">/</span><span itemprop="name">[LETTERTYPEOBD2] [CODEOBD2]</span><meta itemprop="position" content="5"></a>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceModel", templateParameters) }}"><span class="line">/</span><span itemprop="name">[LETTERTYPEOBD2] [CODEOBD2]</span><meta itemprop="position" content="5"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[ENMODEL]</span><meta itemprop="position" content="6"></a>
@@ -140,7 +140,7 @@
         <p>текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки</p>
         <button class="btn btn-show5">Универсальная кнопка</button>
       </section>
-     </main>
+   </main>
 
 
 

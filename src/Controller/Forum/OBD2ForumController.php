@@ -152,7 +152,7 @@ class OBD2ForumController extends Controller
                     $em->flush();
 
                     return $this->redirectToRoute("obd2_forum_choice_model",
-                        ["urlBrand" => $brand, "urlType" => $type->getUrl(), "urlCode" => $code->getUrl()]);
+                        ["urlBrand" => $brand->getUrl(), "urlType" => $type->getUrl(), "urlCode" => $code->getUrl()]);
                 }
             }
         }

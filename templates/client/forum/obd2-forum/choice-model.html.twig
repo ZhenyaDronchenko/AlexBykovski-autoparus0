@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block body %}
- <main class="container">
+{% set templateParameters = {"brand" : brand, "type": type, "code" : code} %}
+{% set routeParams = app.request.attributes.get('_route_params') %}
+  <main class="container">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a class="user-link user-link--icon" href="index.html" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -21,12 +23,12 @@
           </a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">OBD2 ошибки</span></a><meta itemprop="position" content="2"></li>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span><span itemprop="name">OBD2 ошибки</span></a><meta itemprop="position" content="2"></li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал четвертой крошки"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
+          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceCode", templateParameters) }}"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[LETTERTYPEOBD2] [CODEOBD2]</span><meta itemprop="position" content="5"></a>
@@ -36,13 +38,18 @@
       <section class="model">
         <h1>Заголовок H1 из админки</h1>
         <p>текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки, текст 1 из админки</p>
-         
+
         <form class='modform' action="#" method="get">
-          <input class='form7' name="search" placeholder="Модель авто:" type="search">  
+          <input id="model-autocomplete" class='form7' name="search"
+                 auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
+                 method-search="searchModels" identifier-field="model-autocomplete"
+                 request-parameters='{"brand": "{{ brand.url }}"}'
+                 placeholder="Модель авто:" type="search"
+                 scroll-to-element scroll-by-click="true" before-top="30">
         </form>
         <div class="btn-list">
-          <button type="button" class="btn-form btn-show1">Поделиться опытом</button> 
-          <button type="button" class="btn-form btn-show2">Задать вопрос...</button> 
+          <button type="button" class="btn-form btn-show1">Поделиться опытом</button>
+          <button type="button" class="btn-form btn-show2">Задать вопрос...</button>
         </div>
 
         <ul class="items">
@@ -87,7 +94,7 @@
               </div>
             </div>
             <button class="btn btn-o btn-show3">Добавить комментарий</button>
-          </li> 
+          </li>
 
           <li class="user-item">
             <div class="prod">
@@ -130,11 +137,11 @@
               </div>
             </div>
             <button class="btn btn-o btn-show4">Добавить комментарий</button>
-          </li> 
+          </li>
         </ul>
 
         <h2>Заголовок H2 из админки</h2>
-        
+
         <p>текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки, текст 2 из админки</p>
         <button class="btn btn-show5">Универсальная кнопка</button>
       </section>

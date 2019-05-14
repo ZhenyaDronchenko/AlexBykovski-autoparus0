@@ -41,12 +41,12 @@
                     placeholder="Марка авто:" type="search"
                    scroll-to-element scroll-by-click="true" before-top="30">
             </form>
-            <div class="model-block">
+            <div class="model-block" ng-cloak>
                 <ul class='show-m' id='model' ng-show="showAll">
                     {% for brand in allBrands %}
                         <li>
                             <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
-                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="OBD2 {{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
                             </a>
                         </li>
                     {% endfor %}
@@ -55,51 +55,18 @@
                     {% for brand in popularBrands %}
                         <li>
                             <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
-                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="OBD2 {{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
                 <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все марки</button>
-                <button id='button-mod' class="initiator-scroll" type="button" ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 
             <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
             <div class='city-subtext'>{{ page.text2 | raw }}</div>
+
+            <a class="ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
         </section>
     </main>
-
-    {#<main class="container" ng-init="showAll = false;">#}
-        {#<section class="marka">#}
-            {#<h1 class="marka-title">{{ page.headline1 }}</h1>#}
-            {#<div class="marka-text">{{ page.text1 | raw }}</div>#}
-
-            {#<div class='marka-search'>#}
-                {#<form class='markaform' action="" method="get">#}
-                    {#<input id="brand-autocomplete" class='form6' name="search"#}
-                           {#auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"#}
-                           {#method-search="searchBrands" identifier-field="brand-autocomplete"#}
-                           {#placeholder="Марка авто:" type="search" >#}
-                {#</form>#}
-            {#</div>#}
-
-            {#<ul class='showMoreModel' id='brandImg4' ng-show="showAll">#}
-                {#{% for brand in allBrands %}#}
-                    {#<li><a class="marka-link" href='{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'><span>{{ brand.name }}</span> <img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="{{ sparePart.name }} для {{ brand.name }}"></a></li>#}
-                {#{% endfor %}#}
-            {#</ul>#}
-            {#<ul class='showMoreModel' id='brandImg4' ng-hide="showAll">#}
-                {#{% for brand in popularBrands %}#}
-                    {#<li><a class="marka-link" href='{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}'><span>{{ brand.name }}</span> <img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="{{ sparePart.name }} для {{ brand.name }}"></a></li>#}
-                {#{% endfor %}#}
-            {#</ul>#}
-
-            {#<div id='showAll4' ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>#}
-            {#<div id='showAll4' ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>#}
-
-            {#<h2 class='marka-subtitle'>{{ page.headline2 }}</h2>#}
-
-            {#<div class='marka-text-b'>{{ page.text2 | raw }}</div>#}
-        {#</section>#}
-    {#</main>#}
 {% endblock %}
