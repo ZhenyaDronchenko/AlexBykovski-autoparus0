@@ -124,6 +124,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     cursor: pointer;
+        transform: translate(0,-55px);
 }
 
 .foto img {
@@ -272,8 +273,8 @@
 .date {
     display: inline-block;
     margin-right: 15px;
-    font-size: 15px;
-    line-height: 17px;
+    font-size: 14px;
+    line-height: 16px;
 }
 .date-block {
     display: -moz-flex;
@@ -285,6 +286,7 @@
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
+    margin-top: 15px;
 }
 .overlay1,
 .overlay6 {
@@ -592,6 +594,7 @@
     .foto {
         width: 100%;
         height: auto;
+        transform: translate(0,0);
     }
     .foto img {
         width: 100%;
@@ -622,7 +625,7 @@
         flex-direction: column;
         padding-right: 0;
         padding-left: 0;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
     .text-block {
         width: 100%;
@@ -702,6 +705,7 @@
         margin: 0 auto;
         width: 450px;
         height: auto;
+        transform: translate(0,0);
     }
     .foto img {
         width: 100%;

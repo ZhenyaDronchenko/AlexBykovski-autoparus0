@@ -55,7 +55,21 @@
                     {% endfor %}
                 </ul>
             </div>
+
+            <ul class="brand-block">
+                <li><a class="link-o" href="#" title="...">Минск</a></li>
+                <li><a class="link-o" href="#" title="...">Брест</a></li>
+                <li><a class="link-o" href="#" title="...">Витебск</a></li>
+                <li><a class="link-o" href="#" title="...">Гомель</a></li>
+                <li><a class="link-o" href="#" title="...">Гродно</a></li>
+                <li><a class="link-o" href="#" title="...">Могилев</a></li>
+            </ul>
+            <button class="allText-1"> >>>>>>> </button>
+
+
+
             <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+
             <div class="city-btn">
                 <a class="button" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : allCitiesPath}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters) }}">Все Города</a>
             </div>

@@ -100,7 +100,9 @@ cursor: default;
 a {
     display: block;
 }
-
+.admin-text {
+    margin-top: 10px;
+}
 .year-title {
     margin: 0;
     margin-bottom: 30px;

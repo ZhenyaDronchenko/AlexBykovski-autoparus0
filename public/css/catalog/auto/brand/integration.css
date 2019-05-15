@@ -61,9 +61,7 @@
 }
 
 
-.contact:last-child {
-    margin-bottom: 0px;
-}
+
 
 @media (min-width: 768px) and  (max-width: 1023px) {
     .container {
