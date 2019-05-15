@@ -43,30 +43,16 @@
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
             </div>
-            <div class="delivery-city" ng-cloak>
-                {% set allCitiesPath = constant('App\\Entity\\City::ALL_CITIES') %}
-                <ul class="brand-block">
-                    {% for city in regionalCities %}
-                        <li><a class="link-o" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
-                    {% endfor %}
+            {% set allCitiesPath = constant('App\\Entity\\City::ALL_CITIES') %}
+            <ul class="brand-block" ng-cloak>
+                {% for city in regionalCities %}
+                    <li><a class="link-o" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                {% endfor %}
 
-                    {% for city in otherCities %}
-                        <li ng-show="showAll"><a class="link-o" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <ul class="brand-block">
-                <li><a class="link-o" href="#" title="...">Минск</a></li>
-                <li><a class="link-o" href="#" title="...">Брест</a></li>
-                <li><a class="link-o" href="#" title="...">Витебск</a></li>
-                <li><a class="link-o" href="#" title="...">Гомель</a></li>
-                <li><a class="link-o" href="#" title="...">Гродно</a></li>
-                <li><a class="link-o" href="#" title="...">Могилев</a></li>
+                {% for city in otherCities %}
+                    <li ng-show="showAll"><a class="link-o" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                {% endfor %}
             </ul>
-            <button class="allText-1"> >>>>>>> </button>
-
-
 
             <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
 
