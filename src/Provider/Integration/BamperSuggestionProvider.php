@@ -18,7 +18,7 @@ class BamperSuggestionProvider
 
     public function provide(Brand $brand, ?Model $model, SparePart $sparePart, City $city = null, $inStock = true)
     {
-        if(!$brand || !$model || !$sparePart || !(!$city || $city->getUrl() === City::CAPITAL)){
+        if(!$brand || !$model || !$sparePart){
             return [];
         }
 

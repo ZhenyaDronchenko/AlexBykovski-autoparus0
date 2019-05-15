@@ -1,10 +1,70 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/forum/choice-brand.css'>
 {% endblock %}
 
 {% block body %}
+ <main class="container" ng-init="showAll = false;">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+           
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">OBD2 ошибки</span><meta itemprop="position" content="2"></a>
+            </li>
+        </ul>
+
+        <section class="city">
+            <h1 class="city-title" data-text="{{ page.headline1 }}"></h1>
+            <div class='city-desc'>
+                <div id='text1'>{{ page.text1 | raw }}</div>
+            </div>
+            <form class='modform' action="" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <input id="brand-autocomplete" class='form7' name="search"
+                    auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                    method-search="searchBrands" identifier-field="brand-autocomplete"
+                    placeholder="Марка авто:" type="search"
+                   scroll-to-element scroll-by-click="true" before-top="30">
+            </form>
+            <div class="model-block" ng-cloak>
+                <ul class='show-m' id='model' ng-show="showAll">
+                    {% for brand in allBrands %}
+                        <li>
+                            <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="OBD2 {{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <ul class='show-m' id='model' ng-hide="showAll">
+                    {% for brand in popularBrands %}
+                        <li>
+                            <a class="model-link" href='{{ path("obd2_forum_choice_type", {"urlBrand" : brand.url}) }}'>
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="OBD2 {{ brand.brandEn }}" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", {"brand" : brand}) }}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все марки</button>
+            </div>
+
+            <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
+            <div class='city-subtext'>{{ page.text2 | raw }}</div>
+
+            <a class="ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+        </section>
+    </main>
 {% endblock %}

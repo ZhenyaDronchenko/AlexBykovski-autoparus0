@@ -25,7 +25,7 @@
                 <a class="link-b" href="{{ path("show_spare_part_catalog_choice_spare_part") }}" itemprop="item" title="Запчасти для автомобилей"><span class="line">/</span><span itemprop="name">Запчасти</span></a><meta itemprop="position" content="2">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}" itemprop="item" title="{{ sparePart.name }}"><span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span><meta itemprop="position" content="3"></a>
+                <a class="link-b" href="{{ path("show_spare_part_catalog_choice_brand", {"urlSP" : sparePart.url}) }}" itemprop="item" title="{{ sparePart.name }}"><span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span><meta itemprop="position" content="3"></a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="link-b" href="{{ path("show_spare_part_catalog_choice_model", {"urlSP" : sparePart.url, "urlBrand" : brand.url}) }}" itemprop="item" title="{{ sparePart.alternativeName1 }} для автомобилей {{ brand.brandEn }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="4"></a>
@@ -51,6 +51,8 @@
                     <li><a class="link" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.object.url}|merge(routeParams)) }}' title="{{ city.title }}">{{ city.object.name }}</a></li>
                 {% endfor %}
             </ul>
+
+            <button class="allText-1"> >>>>>>> </button>
 
             <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
 

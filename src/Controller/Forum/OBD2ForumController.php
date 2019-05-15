@@ -22,9 +22,12 @@ use App\Entity\Forum\OBD2Forum\OBD2ForumFinalPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Entity\UserData\UserOBD2ErrorCode;
+use App\Form\Type\ErrorCodeSearchType;
 use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,16 +44,16 @@ class OBD2ForumController extends Controller
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
-//        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
-//
-//        $popularBrands = array_filter($allBrands, function(Brand $brand){
-//            return $brand->isPopular();
-//        });
+        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
+
+        $popularBrands = array_filter($allBrands, function(Brand $brand){
+            return $brand->isPopular();
+        });
 
         return $this->render('client/forum/obd2-forum/choice-brand.html.twig', [
-//            'allBrands' => $allBrands,
-//            'popularBrands' => $popularBrands,
-            'page' => $em->getRepository(OBD2ForumChoiceBrand::class)->findAll()[0]
+            'allBrands' => $allBrands,
+            'popularBrands' => $popularBrands,
+            'page' => $em->getRepository(OBD2ForumChoiceBrand::class)->findAll()[0],
         ]);
     }
 
@@ -67,21 +70,29 @@ class OBD2ForumController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-//        $allModels = $em->getRepository(Model::class)->findBy([
-//            "active" => true,
-//            "brand" => $brand,
-//        ],
-//            ["name" => "ASC"]);
-//
-//        $popularModels = array_filter($allModels, function(Model $model){
-//            return $model->isPopular();
-//        });
+        $types = $em->getRepository(TypeOBD2Error::class)->findAll();
+
+        $parsedTypes = [];
+
+        /** @var TypeOBD2Error $type */
+        foreach ($types as $type){
+            $designation = $type->getDesignation();
+
+            $parsedTypes[$type->getDesignation()] = $type->toArray();
+
+            if($designation === TypeOBD2Error::P_TYPE){
+                $parsedTypes[TypeOBD2Error::SECOND_BUTTON_P] = $type->toArray();
+            }
+        }
+
+        uksort($parsedTypes, function($key1, $key2){
+            return array_search($key1, TypeOBD2Error::TYPE_CATALOG_ORDER) > array_search($key2, TypeOBD2Error::TYPE_CATALOG_ORDER);
+        });
 
         $page = $em->getRepository(OBD2ForumChoiceType::class)->findAll()[0];
 
         return $this->render('client/forum/obd2-forum/choice-type.html.twig', [
-//            'allModels' => $allModels,
-//            'popularModels' => $popularModels,
+            'types' => $parsedTypes,
             'page' => $transformer->transformPage($page, [$brand]),
             'brand' => $brand,
         ]);
@@ -101,30 +112,58 @@ class OBD2ForumController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-//        $popularSpareParts = $em->getRepository(SparePart::class)->findBy(
-//            [
-//                "active" => true,
-//                "popular" => true
-//            ],
-//            ["name" => "ASC"]
-//        );
-//
-//        $unpopularSpareParts = $em->getRepository(SparePart::class)->findBy(
-//            [
-//                "active" => true,
-//                "popular" => false
-//            ],
-//            ["name" => "ASC"]
-//        );
+        $form = $this->createForm(ErrorCodeSearchType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $text = $form->get("code")->getData();
+
+            if(!$text || strlen($text) !== 4 || !ctype_digit($text)){
+                $form->get("code")->addError(new FormError("Неверный код. Код должен состоять из 4 цифр."));
+            }
+            else {
+
+                $code = $em->getRepository(CodeOBD2Error::class)->findOneBy([
+                    "code" => $text,
+                    "type" => $type,
+                ]);
+
+                if (!($code instanceof CodeOBD2Error)) {
+                    $form->get("code")->addError(new FormError("Данная ошибка не найдена <br/> Возможно она пока не внесена в базу"));
+
+                    $userCode = $em->getRepository(UserOBD2ErrorCode::class)->findOneBy([
+                        "code" => $text,
+                        "type" => $type,
+                    ]);
+
+                    if (!($userCode instanceof UserOBD2ErrorCode)) {
+                        $newUserCode = new UserOBD2ErrorCode($text, $type, $this->getUser());
+
+                        $em->persist($newUserCode);
+                    } else {
+                        $userCode->increaseCounter();
+                    }
+
+                    $em->flush();
+                } else {
+                    $code->increaseCounter();
+
+                    $em->flush();
+
+                    return $this->redirectToRoute("obd2_forum_choice_model",
+                        ["urlBrand" => $brand->getUrl(), "urlType" => $type->getUrl(), "urlCode" => $code->getUrl()]);
+                }
+            }
+        }
 
         $page = $em->getRepository(OBD2ForumChoiceCode::class)->findAll()[0];
 
         return $this->render('client/forum/obd2-forum/choice-code.html.twig', [
-//            'popularSpareParts' => $popularSpareParts,
-//            'unpopularSpareParts' => $unpopularSpareParts,
-            'page' => $transformer->transformPage($page, [$brand, $type]),
-            'brand' => $brand,
-            'type' => $type,
+            'page' => $transformer->transformPage($page, [$type]),
+            "type" => $type,
+            "brand" => $brand,
+            "form" => $form->createView(),
         ]);
     }
 

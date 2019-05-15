@@ -52,12 +52,12 @@ class SparePartCatalogController extends Controller
     }
 
     /**
-     * @Route("/{url}", name="show_spare_part_catalog_choice_brand")
+     * @Route("/{urlSP}", name="show_spare_part_catalog_choice_brand")
      */
-    public function showCatalogChoiceBrandAction(Request $request, $url, VariableTransformer $transformer)
+    public function showCatalogChoiceBrandAction(Request $request, $urlSP, VariableTransformer $transformer)
     {
         $em = $this->getDoctrine()->getManager();
-        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $url]);
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
 
         if(!($sparePart instanceof SparePart)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);

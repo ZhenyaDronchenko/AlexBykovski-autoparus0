@@ -131,13 +131,13 @@
                     {% set businessLinkId = not isSeller ? "initiator-open-popup7" : "initiator-open-popup6" %}
                     <a id="{{ businessLinkId }}" class="icon us-btn5 open-popup-button" nohref>
                         <i class="fa fa-suitcase"></i>
-                        {{ isHasAdverts ? "Мои объявления" : "Business" }}
+                        <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
                     </a>
                 </li>
                 <li>
                     <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()">
                         <i class="fa fa-camera"></i>
-                        Фотогалерея
+                        <span>Фотогалерея</span>
                     </a>
                 </li>
                 <li>

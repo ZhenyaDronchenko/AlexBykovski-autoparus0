@@ -4,7 +4,57 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/forum/choice-type.css'>
 {% endblock %}
 
 {% block body %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("obd2_forum_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">OBD2 ошибки</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" itemprop="item" itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ brand.brandEn }}</span>
+                    <meta itemprop="position" content="3"></a>
+            </li>
+        </ul>
+
+        <section class="engine">
+            <h1 class="title" data-text="{{ page.headline1 }}"></h1>
+            <div class="text">{{ page.text1 | raw }}</div>
+            <ul class="engine-block">
+                {% set templateParameters = {"brand" : brand} %}
+
+                {% for key, type in types %}
+                    <li>
+                        <a class="engine-link"
+                           title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceCode", templateParameters|merge({"type" : type})) }}"
+                           href="{{ path("obd2_forum_choice_code", {"urlBrand": brand.url, "urlType": type["url"]}) }}">{{ key }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h2 class="subtitle" data-text="{{ page.headline2 }}"></h2>
+            <div class="text text-m">{{ page.text2 | raw }}</div>
+
+            <a class="ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+        </section>
+    </main>
 {% endblock %}

@@ -43,29 +43,17 @@
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
             </div>
-            <div class="delivery-city">
+            <div class="delivery-city" ng-cloak>
                 {% set allCitiesPath = constant('App\\Entity\\City::ALL_CITIES') %}
-                {% for city in regionalCities %}
-                    {% set openClass = loop.index0 % 4 == 0 ? "block1" : (loop.index0 + 2) % 4 == 0 ? "block2" : "" %}
-                    {% if openClass %}
-                        <ul class="city {{ openClass }}">
-                    {% endif %}
-                            <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
-                    {% if loop.index % 2 == 0 %}
-                        </ul>
-                    {% endif %}
-                {% endfor %}
+                <ul class="brand-block">
+                    {% for city in regionalCities %}
+                        <li><a class="link-o" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                    {% endfor %}
 
-                {% for city in otherCities %}
-                    {% set openClass = loop.index0 % 4 == 0 ? "block1" : (loop.index0 + 2) % 4 == 0 ? "block2" : "" %}
-                    {% if openClass %}
-                        <ul class="city {{ openClass }}" ng-show="showAll">
-                    {% endif %}
-                            <li><a href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
-                    {% if loop.index % 2 == 0 %}
-                        </ul>
-                    {% endif %}
-                {% endfor %}
+                    {% for city in otherCities %}
+                        <li ng-show="showAll"><a class="link-o" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
             <div ng-click="showAll = true" ng-hide="showAll" id='showAll5' class="initiator-scroll">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
             <div class="city-btn">

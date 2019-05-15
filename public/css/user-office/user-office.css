@@ -465,19 +465,24 @@
     width: 60%;
 }
 .time {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 16px;
     margin-left: 10px;
 }
 
-
 .date {
+    font-family: 'Roboto';
     text-align: right;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
 }
 
-
+.icon span {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 400;
+}
 .adress-text-img {
     margin-right: 5px;
 }
@@ -486,17 +491,17 @@
     display: -ms-flexbox;
     display: flex;
     margin-bottom: 15px;
-    
     -webkit-box-align: baseline;
     -ms-flex-align: baseline;
     align-items: baseline;
 }
 
 .adress-text {
+    font-family: 'Roboto';
     margin: 0;
     margin-bottom: 7px;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
    
 
@@ -1538,9 +1543,7 @@ textarea {
         font-size: 14px;
     }
     .img-cont {
-        width: 300px;
-        height: auto;
-
+       height: 80vh;
     }
     .modal-img {
         width: 300px;
@@ -1679,6 +1682,10 @@ textarea {
     }
     .choice-block {
     margin-bottom: 0; 
+}
+.icon span {
+    font-size: 12px;
+        line-height: 14px;
 }
 }
 @media (min-width: 481px) and (max-width: 767px) {
@@ -2023,6 +2030,10 @@ textarea {
 
         max-height: 240px;
     }
+       .icon span {
+    font-size: 16px;
+        line-height: 18px;
+}
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
