@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
- <main class="container" ng-init="showAll = false; hideTextClass = 'text1Hide';">
+ <main class="container" ng-init="showAll = false;">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -30,9 +30,7 @@
         <section class="city">
             <h1 class="city-title" data-text="{{ page.headline1 }}"></h1>
             <div class='city-desc'>
-                <div id='text1' ng-class="hideTextClass">{{ page.text1 | raw }}</div>
-                <span ng-click="hideTextClass = 'text1Show'" ng-show="hideTextClass === 'text1Hide'" id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
-                <span ng-click="hideTextClass = 'text1Hide'" ng-show="hideTextClass === 'text1Show'" id='allText'> &lt;&lt;&lt;&lt;&lt;&lt;&lt; </span>
+                <div id='text1'>{{ page.text1 | raw }}</div>
             </div>
             <form class='modform' action="" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <input id="brand-autocomplete" class='form7' name="search"
