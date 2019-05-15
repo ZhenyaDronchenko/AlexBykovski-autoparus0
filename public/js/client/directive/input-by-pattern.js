@@ -10,7 +10,6 @@
                 let pattern = new RegExp(attrs.pattern);
                 let errorMessage = attrs.errorMessage;
                 let errorContainer = attrs.errorContainer ? $(attrs.errorContainer) : "";
-
                 let maxLength = attrs.maxLength ? parseInt(attrs.maxLength) : Number.MAX_VALUE;
                 maxLength = maxLength < 1 ? 0 : maxLength;
 
@@ -25,7 +24,36 @@
                     else if(errorContainer && errorContainer.length){
                         errorContainer.html("");
                     }
-                })
+
+                    handleMaxLengthMessage();
+                });
+
+                $(element).on("keyup", function(e) {
+                        if (e.keyCode === 8) {
+                            handleMaxLengthMessage();
+                        }
+                    }
+                );
+
+                function handleMaxLengthMessage() {
+                    let el = $(attrs.maxLengthMessage);
+
+                    if(!el.length){
+                        return false;
+                    }
+
+                    console.log("here11");
+                    console.log($(element).val().length);
+                    console.log(maxLength);
+                    if($(element).val().length === maxLength){
+                        el.show();
+                    }
+                    else if($(element).val().length < maxLength){
+                        console.log("hide");
+                        console.log(el);
+                        el.hide();
+                    }
+                }
             }
         };
     }]);

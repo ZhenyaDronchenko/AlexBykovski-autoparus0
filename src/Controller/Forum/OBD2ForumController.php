@@ -181,29 +181,14 @@ class OBD2ForumController extends Controller
         if(!($brand instanceof Brand) || !($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
-//
-//        $capitals = $em->getRepository(City::class)->findBy(
-//            ["type" => City::CAPITAL_TYPE],
-//            ["name" => "ASC"]
-//        );
-//
-//        $othersCities = $em->getRepository(City::class)->findBy(
-//            ["type" => City::REGIONAL_CITY_TYPE],
-//            ["name" => "ASC"]
-//        );
-//
-//        $adverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findByParameters($sparePart, $brand, $model);
 
         $page = $em->getRepository(OBD2ForumChoiceModel::class)->findAll()[0];
 
         return $this->render('client/forum/obd2-forum/choice-model.html.twig', [
-//            'capitals' => $capitals,
-//            'otherCities' => $othersCities,
             'page' => $transformer->transformPage($page, [$brand, $type, $code]),
             'brand' => $brand,
             'type' => $type,
             'code' => $code,
-//            'adverts' => $adverts,
         ]);
     }
 
