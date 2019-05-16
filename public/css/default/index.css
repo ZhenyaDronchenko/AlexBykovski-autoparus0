@@ -142,8 +142,7 @@
     display: -ms-flexbox;
     display: flex;
     margin-left: auto;
-    margin-bottom: 25px;
-
+    margin-bottom: 15px;
     width: 73%;
 
 }
@@ -172,7 +171,7 @@
     justify-content: space-between;
     padding-right: 30px;
     padding-left: 30px;
-    margin-bottom: 20px;
+   /* margin-bottom: 20px;*/
 }
 .text-block {
     width: 77%;
@@ -254,7 +253,7 @@
 .time {
     display: inline-block;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 18px;
 }
 
 .adress  {

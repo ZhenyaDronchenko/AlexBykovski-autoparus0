@@ -114,7 +114,12 @@ a {
     content: attr(data-text);
     -webkit-text-stroke: .03em #ff0000;
 }
-
+.admin-text {
+    margin-top: 15px;
+    color: red;
+    font-size: 14px;
+    line-height: 16px;
+}
 .year-desc {
     margin-bottom: 40px;
 }
@@ -804,7 +809,7 @@ h3 {
         flex-direction: column;
     }
 .year-desc {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
     .year-subtitle {
 
