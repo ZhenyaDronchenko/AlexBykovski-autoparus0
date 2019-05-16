@@ -100,8 +100,15 @@ cursor: default;
 a {
     display: block;
 }
+p {
+    margin: 0;  
+    margin-bottom: 10px;
+}
 .admin-text {
-    margin-top: 10px;
+    margin-top: 15px;
+    color: red;
+     font-size: 14px;
+    line-height: 16px;
 }
 .year-title {
     margin: 0;
@@ -123,7 +130,6 @@ a {
 }
 #text1 {
     margin: 0;
-    margin-bottom: 10px;
     font-size: 16px;
     line-height: 20px;
     color: #000000;
@@ -796,7 +802,7 @@ padding-bottom: 4px;
     margin-bottom: 10px;
     }
 .year-desc {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
     .card-block {
         width: 100%;
