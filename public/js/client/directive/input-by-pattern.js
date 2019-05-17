@@ -42,15 +42,10 @@
                         return false;
                     }
 
-                    console.log("here11");
-                    console.log($(element).val().length);
-                    console.log(maxLength);
                     if($(element).val().length === maxLength){
                         el.show();
                     }
                     else if($(element).val().length < maxLength){
-                        console.log("hide");
-                        console.log(el);
                         el.hide();
                     }
                 }
