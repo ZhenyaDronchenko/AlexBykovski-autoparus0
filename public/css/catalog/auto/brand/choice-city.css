@@ -174,6 +174,7 @@ p {
     -ms-flex-align: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-top: 30px;
 
 }
 .brand-block li {
@@ -454,6 +455,7 @@ p {
 
      .brand-block {
         margin: 0 auto;
+        margin-top: 20px;
         width: 300px;
        
     }
@@ -576,6 +578,7 @@ p {
 }
     .brand-block {
         margin: 0 auto;
+        margin-top: 30px;
         width: 450px;
     }
 .brand-block li {
@@ -728,6 +731,7 @@ p {
     }
      .brand-block {
         margin: 0 auto;
+        margin-top: 30px;
         width: 650px;
     }
 .brand-block li {
@@ -978,7 +982,6 @@ p {
 }
 
 .contact {
-    margin: 0 20px;
     color: #7c82c5;
     font-size: 18px;
     line-height: 20px;
@@ -1992,6 +1995,7 @@ padding-bottom: 4px;
 
 #showAll5 {
     text-align: center;
+    display: none;
     font-weight: 400;
     font-size: 14px;
     color: #ff0000;
