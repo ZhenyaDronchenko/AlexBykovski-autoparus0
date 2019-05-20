@@ -1,0 +1,90 @@
+<ul class="items">
+    <li class="user-item user-item--line" ng-repeat="message in forum.messages">
+        <div class="prod">
+            <div class='user-block'>
+                <div class="icon-t">
+                    <span ng-show="message.type == 'question'">?</span>
+                    <span ng-show="message.type == 'experience'">!</span>
+                </div>
+                <div class="icon"><img ng-src="{[{message.userPhoto}]}" alt="Пользователь"></div>
+                <span class="user-n" ng-bind="message.userName"></span>
+            </div>
+            <div class='breadcrumbs-block'>
+                <ul class="breadcrumbs">
+                    <li><a class="item-link" href="" ng-bind="message.brand">Toyota</a></li>
+                    <li><a class="item-link" href="" ng-bind="message.model">/ Avensis T25</a></li>
+                    <li><a class="item-link" href="" ng-bind="message.errorType + message.errorCode">/ P 4444</a></li>
+                </ul>
+                <span class="date" ng-bind="message.createdAt"></span>
+            </div>
+            <div class="text-block">
+                <p id='text' class='texthide' ng-bind="message.text"></p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+            </div>
+        </div>
+        {#<div class="comment">#}
+            {#<div class='user-block'>#}
+                {#<div class="icon"><img src="/img/avto.png" alt="Пользователь"></div>#}
+                {#<span class="user-n">Иванов Иван Иванович</span>#}
+            {#</div>#}
+            {#<div class="text-block">#}
+                {#<p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>#}
+                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="comment">#}
+            {#<div class='user-block'>#}
+                {#<div class="icon"><img src="img/avto.png" alt="Пользователь"></div>#}
+                {#<span class="user-n">Иванов Иван Иванович</span>#}
+            {#</div>#}
+            {#<div class="text-block">#}
+                {#<p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>#}
+                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+            {#</div>#}
+        {#</div>#}
+        <button class="btn btn-o btn-show3">Добавить комментарий</button>
+    </li>
+
+    {#<li class="user-item">#}
+        {#<div class="prod">#}
+            {#<div class='user-block'>#}
+                {#<div class="icon-t"><span>!</span></div>#}
+                {#<div class="icon"><img src="img/avto.png" alt="Пользователь"></div>#}
+                {#<span class="user-n">Иванов Иван Иванович</span>#}
+            {#</div>#}
+            {#<div class='breadcrumbs-block'>#}
+                {#<ul class="breadcrumbs">#}
+                    {#<li><a class="item-link" href="#">Toyota</a></li>#}
+                    {#<li><a class="item-link" href="#">/ Avensis T25</a></li>#}
+                    {#<li><a class="item-link" href="#">/ P 4444</a></li>#}
+                {#</ul>#}
+                {#<span class="date">12.11.2019</span>#}
+            {#</div>#}
+            {#<div class="text-block">#}
+                {#<p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>#}
+                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="comment">#}
+            {#<div class='user-block'>#}
+                {#<div class="icon"><img src="img/avto.png" alt="Пользователь"></div>#}
+                {#<span class="user-n">Иванов Иван Иванович</span>#}
+            {#</div>#}
+            {#<div class="text-block">#}
+                {#<p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>#}
+                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="comment">#}
+            {#<div class='user-block'>#}
+                {#<div class="icon"><img src="img/user1.jpg" alt="Пользователь"></div>#}
+                {#<span class="user-n">Иванов Иван Иванович</span>#}
+            {#</div>#}
+            {#<div class="text-block">#}
+                {#<p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>#}
+                {#<button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>#}
+            {#</div>#}
+        {#</div>#}
+        {#<button class="btn btn-o btn-show4">Добавить комментарий</button>#}
+    {#</li>#}
+</ul>

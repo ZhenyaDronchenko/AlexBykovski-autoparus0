@@ -5,11 +5,12 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-		<link rel='stylesheet' href='/css/client/forum/final-page.css'>
+      <link rel='stylesheet' href='/css/client/forum/final-page.css'>
 {% endblock %}
 
 {% block body %}
   {% set templateParameters = {"brand" : brand, "type": type, "code" : code, "model" : model} %}
+  {% set routeParams = app.request.attributes.get('_route_params') %}
   <main class="container">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -23,18 +24,18 @@
           </a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span><span itemprop="name">OBD2 форум</span></a><meta itemprop="position" content="2"></li>
+          <a class="link-b" href="{{ path("obd2_forum_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span><span itemprop="name">OBD2 форум</span></a><meta itemprop="position" content="2"></li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span><span itemprop="name">[ENBRAND]</span><meta itemprop="position" content="3"></a>
+          <a class="link-b" href="{{ path("obd2_forum_choice_type", {"urlBrand" : routeParams["urlBrand"]}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="3"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceCode", templateParameters) }}"><span class="line">/</span><span itemprop="name">Ошибка [LETTERTYPEOBD2]</span><meta itemprop="position" content="4"></a>
+          <a class="link-b" href="{{ path("obd2_forum_choice_code", {"urlBrand" : routeParams["urlBrand"], "urlType" : routeParams["urlType"]}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceCode", templateParameters) }}"><span class="line">/</span><span itemprop="name">Ошибка {{ type.designation }}</span><meta itemprop="position" content="4"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceModel", templateParameters) }}"><span class="line">/</span><span itemprop="name">[LETTERTYPEOBD2] [CODEOBD2]</span><meta itemprop="position" content="5"></a>
+          <a class="link-b" href="{{ path("obd2_forum_choice_model", {"urlBrand" : routeParams["urlBrand"], "urlType" : routeParams["urlType"], "urlCode" : routeParams["urlCode"]}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceModel", templateParameters) }}"><span class="line">/</span><span itemprop="name">{{ type.designation }} {{ code.code }}</span><meta itemprop="position" content="5"></a>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[ENMODEL]</span><meta itemprop="position" content="6"></a>
+          <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span><meta itemprop="position" content="6"></a>
         </li>
       </ul>
 
@@ -47,93 +48,7 @@
           <button type="button" class="btn-form btn-show2">Задать вопрос...</button> 
         </div>
 
-        <ul class="items">
-          <li class="user-item user-item--line">
-            <div class="prod">
-              <div class='user-block'>
-                <div class="icon-t"><span>?</span></div>
-                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
-                <span class="user-n">Иванов Иван Иванович</span>
-              </div>
-              <div class='breadcrumbs-block'>
-                <ul class="breadcrumbs">
-                  <li><a class="item-link" href="#">Toyota</a></li>
-                  <li><a class="item-link" href="#">/ Avensis T25</a></li>
-                  <li><a class="item-link" href="#">/ P 4444</a></li>
-                </ul>
-                <span class="date">12.11.2019</span>
-              </div>
-              <div class="text-block">
-                <p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>
-                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-              </div>
-            </div>
-            <div class="comment">
-              <div class='user-block'>
-                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
-                <span class="user-n">Иванов Иван Иванович</span>
-              </div>
-              <div class="text-block">
-                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
-                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-              </div>
-            </div>
-            <div class="comment">
-              <div class='user-block'>
-                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
-                <span class="user-n">Иванов Иван Иванович</span>
-              </div>
-              <div class="text-block">
-                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
-                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-              </div>
-            </div>
-            <button class="btn btn-o btn-show3">Добавить комментарий</button>
-          </li> 
-
-          <li class="user-item">
-            <div class="prod">
-              <div class='user-block'>
-                <div class="icon-t"><span>!</span></div>
-                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
-                <span class="user-n">Иванов Иван Иванович</span>
-              </div>
-              <div class='breadcrumbs-block'>
-                <ul class="breadcrumbs">
-                  <li><a class="item-link" href="#">Toyota</a></li>
-                  <li><a class="item-link" href="#">/ Avensis T25</a></li>
-                  <li><a class="item-link" href="#">/ P 4444</a></li>
-                </ul>
-                <span class="date">12.11.2019</span>
-              </div>
-              <div class="text-block">
-                <p id='text' class='texthide'>Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса, Текст вопроса</p>
-                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-              </div>
-            </div>
-            <div class="comment">
-              <div class='user-block'>
-                <div class="icon"><img src="img/avto.png" alt="Пользователь"></div>
-                <span class="user-n">Иванов Иван Иванович</span>
-              </div>
-              <div class="text-block">
-                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
-                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-              </div>
-            </div>
-            <div class="comment">
-              <div class='user-block'>
-                <div class="icon"><img src="img/user1.jpg" alt="Пользователь"></div>
-                <span class="user-n">Иванов Иван Иванович</span>
-              </div>
-              <div class="text-block">
-                <p id='text' class='texthide'>Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Текст комментария к вопросу, Модельммм Текст комментария к вопросу, Текст комментария к вопросу,Текст комментария к вопросу, </p>
-                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-              </div>
-            </div>
-            <button class="btn btn-o btn-show4">Добавить комментарий</button>
-          </li> 
-        </ul>
+        {% include('/client/forum/obd2-forum/parts/messages.html.twig') %}
 
         <h2>Заголовок H2 из админки</h2>
         
@@ -142,6 +57,6 @@
       </section>
    </main>
 
-    {% include('/client/forum/obd2-forum/modals.html.twig') %}
+    {% include('/client/forum/obd2-forum/parts/modals.html.twig') %}
      
 {% endblock %}

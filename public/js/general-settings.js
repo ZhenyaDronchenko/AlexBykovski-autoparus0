@@ -8,7 +8,7 @@ $(function(){
             $("#" + $(this).attr("id").replace("initiator-open-", "")).show();
             $("body").addClass("modal--show");
         }
-        else{
+        else{;
             $("#popup" + $(this).attr("data-popup-id")).show();
             $("body").addClass("modal--show");
         }

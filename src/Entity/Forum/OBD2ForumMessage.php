@@ -7,15 +7,16 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Forum\OBD2Forum\OBD2ForumMessageRepository")
  * @ORM\Table(name="obd2forum_message")
  */
 class OBD2ForumMessage
 {
     const QUESTION_TYPE = "question";
     const EXPERIENCE_TYPE = "experience";
+
+    static $availableTypes = [self::QUESTION_TYPE, self::EXPERIENCE_TYPE];
 
     /**
      * @var integer
@@ -25,13 +26,6 @@ class OBD2ForumMessage
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $title;
 
     /**
      * @var string
@@ -65,7 +59,7 @@ class OBD2ForumMessage
     /**
      * @var OBD2ForumMessageTechnicalData
      *
-     * @ORM\OneToOne(targetEntity="OBD2ForumMessageTechnicalData", mappedBy="message")
+     * @ORM\OneToOne(targetEntity="OBD2ForumMessageTechnicalData", mappedBy="message", cascade={"persist"})
      */
     private $technicalData;
 
@@ -85,20 +79,17 @@ class OBD2ForumMessage
 
     /**
      * OBD2ForumMessage constructor.
-     * @param string $title
      * @param string $text
      * @param Client $user
      * @param OBD2ForumMessageTechnicalData $technicalData
      * @param string $type
      */
     public function __construct(
-        string $title,
         string $text,
         Client $user,
         OBD2ForumMessageTechnicalData $technicalData,
         $type = self::QUESTION_TYPE)
     {
-        $this->title = $title;
         $this->text = $text;
         $this->user = $user;
         $this->type = $type;
@@ -125,22 +116,6 @@ class OBD2ForumMessage
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
     }
 
     /**
@@ -258,5 +233,21 @@ class OBD2ForumMessage
     public function adddComment(OBD2ForumComment $comment)
     {
         $this->comments->add($comment);
+    }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->id,
+            "userName" => $this->getUser()->getName(),
+            "userPhoto" => $this->getUser()->getPhoto() ? '/images/' . $this->getUser()->getPhoto()->getImage() : "",
+            "brand" => $this->technicalData->getBrand()->getName(),
+            "model" => $this->technicalData->getModel()->getName(),
+            "errorType" => $this->technicalData->getType()->getType(),
+            "errorCode" => $this->technicalData->getCode()->getCode(),
+            "type" => $this->type,
+            "text" => $this->text,
+            "createdAt" => $this->createdAt->format("d.m.Y"),
+        ];
     }
 }

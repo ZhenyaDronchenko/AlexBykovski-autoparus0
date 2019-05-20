@@ -2,16 +2,7 @@
 
 namespace App\Controller\Forum;
 
-use App\Entity\Admin;
-use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Brand;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceFinalPage;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceInStock;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceModel;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart;
-use App\Entity\City;
 use App\Entity\Error\CodeOBD2Error;
 use App\Entity\Error\TypeOBD2Error;
 use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceBrand;
@@ -19,18 +10,21 @@ use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceCode;
 use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceModel;
 use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceType;
 use App\Entity\Forum\OBD2Forum\OBD2ForumFinalPage;
+use App\Entity\Forum\OBD2ForumMessage;
+use App\Entity\Forum\OBD2ForumMessageTechnicalData;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
-use App\Entity\SparePart;
 use App\Entity\UserData\UserOBD2ErrorCode;
 use App\Form\Type\ErrorCodeSearchType;
 use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/forum-obd2")
@@ -184,11 +178,21 @@ class OBD2ForumController extends Controller
 
         $page = $em->getRepository(OBD2ForumChoiceModel::class)->findAll()[0];
 
+        $models = $em->getRepository(Model::class)->findBy(["brand" => $brand]);
+
+        $parsedModels = [];
+
+        /** @var Model $model */
+        foreach ($models as $model) {
+            $parsedModels[$model->getUrl()] = $model->getName();
+        }
+
         return $this->render('client/forum/obd2-forum/choice-model.html.twig', [
             'page' => $transformer->transformPage($page, [$brand, $type, $code]),
             'brand' => $brand,
             'type' => $type,
             'code' => $code,
+            'models' => $parsedModels,
         ]);
     }
 
@@ -224,6 +228,84 @@ class OBD2ForumController extends Controller
             'code' => $code,
             'model' => $model,
 //            'adverts' => $adverts,
+        ]);
+    }
+
+    /**
+     * @Route("/get-messages/with-model/{urlBrand}/{urlType}/{urlCode}/{urlModel}", name="ajax_get_obd2_forum_messages_with_model", options={"expose"=true})
+     * @Route("/get-messages/without-model/{urlBrand}/{urlType}/{urlCode}", name="ajax_get_obd2_forum_messages_without_model", options={"expose"=true})
+     *
+     * @Security("has_role('ROLE_CLIENT')")
+     */
+    public function ajaxGetMessagesAction(Request $request, $urlBrand, $urlType, $urlCode, $urlModel = null)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $type = $em->getRepository(TypeOBD2Error::class)->findOneBy(["url" => $urlType]);
+        $code = $em->getRepository(CodeOBD2Error::class)->findOneBy(["url" => $urlCode]);
+        $model = $urlModel ? $em->getRepository(Model::class)->findOneBy([
+            "url" => $urlModel,
+            "brand" => $brand,
+        ]) : null;
+
+        $content = json_decode($request->getContent(), true);
+
+        if(!($brand instanceof Brand) || !($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error)){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
+        $messages = $em->getRepository(OBD2ForumMessage::class)->findByParameters($brand, $type, $code, $model);
+
+        $parsedMessages = [];
+
+        /** @var OBD2ForumMessage $message */
+        foreach ($messages as $message) {
+            $parsedMessages[] = $message->toArray();
+        }
+
+        return new JsonResponse([
+            "success" => true,
+            "messages" => $parsedMessages,
+        ]);
+    }
+
+    /**
+     * @Route("/add-message/{urlBrand}/{urlType}/{urlCode}/{urlModel}", name="ajax_obd2_forum_add_message", options={"expose"=true})
+     *
+     * @Security("has_role('ROLE_CLIENT')")
+     */
+    public function ajaxAddMessageAction(Request $request, $urlBrand, $urlType, $urlCode, $urlModel)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $type = $em->getRepository(TypeOBD2Error::class)->findOneBy(["url" => $urlType]);
+        $code = $em->getRepository(CodeOBD2Error::class)->findOneBy(["url" => $urlCode]);
+        $model = $em->getRepository(Model::class)->findOneBy([
+            "url" => $urlModel,
+            "brand" => $brand,
+        ]);
+        $messageType = $request->get("type");
+        $message = $request->get("message");
+
+        if(!($brand instanceof Brand) || !($model instanceof Model) ||
+            !($type instanceof TypeOBD2Error) || !($code instanceof CodeOBD2Error) || !$messageType || !$message ||
+            !in_array($messageType, OBD2ForumMessage::$availableTypes)){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
+        $technicalData = new OBD2ForumMessageTechnicalData($brand, $model, $type, $code);
+        $message = new OBD2ForumMessage($message, $this->getUser(), $technicalData, $messageType);
+
+        $em->persist($message);
+        $em->flush();
+
+        $em->refresh($message);
+
+        return new JsonResponse([
+            "success" => true,
+            "message" => $message->toArray(),
         ]);
     }
 }
