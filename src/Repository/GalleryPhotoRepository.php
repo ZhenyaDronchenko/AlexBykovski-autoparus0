@@ -16,9 +16,7 @@ class GalleryPhotoRepository extends EntityRepository
             ->select('gph')
             ->join("gph.image", "im")
             ->join("gph.gallery", "g")
-            ->join("g.client", "cl")
-            ->where("cl.id IN(:ids)")
-            ->setParameter("ids", [34, 29, 28, 27, 26, 24, 50]);
+            ->join("g.client", "cl");
 
         if($filter->getOffset() || $filter->getLimit() === 0){
             $qb->setFirstResult( $filter->getOffset() );
@@ -34,7 +32,7 @@ class GalleryPhotoRepository extends EntityRepository
         }
         else{
             $qb->andWhere("cl.id IN(:ids)")
-                ->setParameter("ids", [34, 29, 28, 27, 26, 24, 50]);
+                ->setParameter("ids", [34, 29, 28, 27, 26, 24, 46, 47, 48, 50, 56]);
         }
 
         if($filter->getBrand() || $filter->getModel()){
