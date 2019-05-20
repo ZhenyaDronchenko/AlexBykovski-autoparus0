@@ -1,0 +1,56 @@
+{% set routeParams = app.request.attributes.get('_route_params') %}
+{% set currentPath = path(app.request.attributes.get('_route'), routeParams) %}
+
+<ul class="items" ng-cloak ng-init="urlBrandModel = '{{ routeParams["urlModel"] is defined ? "" :  currentPath ~ '/__url_model__' }}'" >
+    <li class="user-item user-item--line" ng-repeat="message in forum.messages | orderObjectBy:'id':true">
+        <div class="prod">
+            <div class='user-block'>
+                <div class="icon-t">
+                    <span ng-show="message.type == 'question'">?</span>
+                    <span ng-show="message.type == 'experience'">!</span>
+                </div>
+                <div class="icon"><img ng-src="{[{message.userPhoto}]}" alt="Пользователь"></div>
+                <span class="user-n" ng-bind="message.userName"></span>
+            </div>
+            <div class='breadcrumbs-block'>
+                <ul class="breadcrumbs">
+                    <li><a class="item-link" ng-href="{[{urlBrandModel.replace('__url_model__', message.urlModel)}]}" ng-bind="message.brand"></a></li>
+                    <li><a class="item-link" href="{[{urlBrandModel.replace('__url_model__', message.urlModel)}]}" ng-bind="'/' + message.model"></a></li>
+                    <li><a class="item-link" href ng-bind="'/' + message.errorType + message.errorCode"></a></li>
+                </ul>
+                <span class="date" ng-bind="message.createdAt"></span>
+            </div>
+            <div class="text-block">
+                <p id='text' class='texthide' ng-bind="message.text"></p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+            </div>
+        </div>
+        <div class="comment" ng-repeat="comment in message.comments">
+            <div class='user-block'>
+                <div class="icon"><img ng-src="{[{comment.userPhoto}]}" alt="Пользователь"></div>
+                <span class="user-n" ng-bind="comment.userName"></span>
+            </div>
+            <div class="text-block">
+                <p id='text' class='texthide' ng-bind="comment.text"></p>
+                <button onclick='textbtn()' id='button-t'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+            </div>
+        </div>
+        {% if app.user %}
+            <div class="comment" ng-init="forum.showCommentForm[message.id] = false" ng-show="forum.showCommentForm[message.id]">
+                <div class='user-block'>
+                    <div class="icon"><img src="{{ image_url(app.user.photo, 'user') }}" alt="Пользователь"></div>
+                    <span class="user-n">{{ app.user.name }}</span>
+                </div>
+                <div class="text-block">
+                    <textarea ng-model="forum.comment"></textarea>
+                    <div ng-show="forum.showEmptyCommentError">Введите текст комментария</div>
+                </div>
+            </div>
+            <button class="btn btn-o" ng-click="forum.showCommentForm[message.id] = true; forum.resetAddMessageForm()" ng-hide="forum.showCommentForm[message.id]">Добавить комментарий</button>
+            <button class="btn btn-o" ng-click="forum.showCommentForm[message.id] = false" ng-show="forum.showCommentForm[message.id]">Отменить</button>
+            <button class="btn btn-o" ng-click="forum.addComment(message.id)" ng-show="forum.showCommentForm[message.id]">Опубликовать</button>
+        {% else %}
+            <button class="btn btn-o open-popup-button" data-popup-id="5">Добавить комментарий</button>
+        {% endif %}
+    </li>
+</ul>

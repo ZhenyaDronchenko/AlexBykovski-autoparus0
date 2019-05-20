@@ -1,0 +1,27 @@
+<form id="obd2-code-form" class="code-block" method="post" novalidate>
+    {{ form_widget(form._token) }}
+    <b class="name">{{ type.designation }}</b>
+
+    {{ form_widget(form.code, {attr: { (not is_mobile() ? "autofocus" : "") : (not is_mobile() ? "true" : ""),
+        "class" : "input", "input-by-pattern" : "", "pattern" : "[\\d]", "max-length" : "4",
+        "max-length-message" : "#max-obd2-code-error",
+        "autocomplete" : "off", "search-field" : "", "search-button" : '#' ~ form.submit.vars.id,
+        "scroll-to-element" : "", "scroll-by-click" : "true", "before-top" : "30"}, "type" : "tel"}) }}
+    <button id="{{ form.submit.vars.id }}" name="{{ form.submit.vars.full_name }}" class="btn" type="submit">
+        <svg viewBox="0 0 32 32"  width="25px" height="25px">
+            <path fill="#444" d="M 19 3 C 13.488281 3 9 7.488281 9 13 C 9 15.394531 9.839844 17.589844 11.25 19.3125 L 3.28125 27.28125 L 4.71875 28.71875 L 12.6875 20.75 C 14.410156 22.160156 16.605469 23 19 23 C 24.511719 23 29 18.511719 29 13 C 29 7.488281 24.511719 3 19 3 Z M 19 5 C 23.429688 5 27 8.570313 27 13 C 27 17.429688 23.429688 21 19 21 C 14.570313 21 11 17.429688 11 13 C 11 8.570313 14.570313 5 19 5 Z "/>
+        </svg>
+    </button>
+
+</form>
+
+{% set showMaxLengthError = false %}
+{% set maxLengthError = "Номер OBD2 ошибки всегда содержит 4 символа, пожалуйста проверьте корректность." %}
+{% for key, error in form.code.vars.errors.form.getErrors(true)%}
+    {% if error.message == maxLengthError %}
+        {% set showMaxLengthError = true %}
+    {% else %}
+        <div style="color: red; text-align: center; margin-top: -33px; padding-bottom: 50px;">{{ error.message | raw }}</div>
+    {% endif %}
+{% endfor %}
+<div id="max-obd2-code-error" style="display: {{ showMaxLengthError ? "block" : "none" }}; color: red; text-align: center; margin-top: -33px; padding-bottom: 50px;">Номер OBD2 ошибки всегда содержит 4 символа, пожалуйста проверьте корректность.</div>

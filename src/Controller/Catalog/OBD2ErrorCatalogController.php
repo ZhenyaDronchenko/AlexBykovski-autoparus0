@@ -28,6 +28,7 @@ use App\Transformer\VariableTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -212,6 +213,71 @@ class OBD2ErrorCatalogController extends Controller
             "type" => $type,
             "code" => $code,
             "brands" => $provider->getBrands(),
+        ]);
+    }
+
+    /**
+     * @Route("/ajax/check-code/{urlType}", name="ajax_check_obd2_code")
+     */
+    public function ajaxCheckOBD2CodeAction(Request $request, $urlType, VariableTransformer $transformer)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $type = $em->getRepository(TypeOBD2Error::class)->findOneBy(["url" => $urlType]);
+
+        if(!($type instanceof TypeOBD2Error)){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
+        $form = $this->createForm(ErrorCodeSearchType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $text = $form->get("code")->getData();
+
+            if(!$text || strlen($text) !== 4 || !ctype_digit($text)){
+                $form->get("code")->addError(new FormError("Номер OBD2 ошибки всегда содержит 4 символа, пожалуйста проверьте корректность."));
+            }
+            else {
+                $code = $em->getRepository(CodeOBD2Error::class)->findOneBy([
+                    "code" => $text,
+                    "type" => $type,
+                ]);
+
+                if (!($code instanceof CodeOBD2Error)) {
+                    $form->get("code")->addError(new FormError("Данная ошибка не найдена <br/> Возможно она пока не внесена в базу"));
+
+                    $userCode = $em->getRepository(UserOBD2ErrorCode::class)->findOneBy([
+                        "code" => $text,
+                        "type" => $type,
+                    ]);
+
+                    if (!($userCode instanceof UserOBD2ErrorCode)) {
+                        $newUserCode = new UserOBD2ErrorCode($text, $type, $this->getUser());
+
+                        $em->persist($newUserCode);
+                    } else {
+                        $userCode->increaseCounter();
+                    }
+
+                    $em->flush();
+                } else {
+                    $code->increaseCounter();
+
+                    $em->flush();
+
+                    return new JsonResponse([
+                        "success" => true,
+                        "urlCode" => $code->getUrl(),
+                    ]);
+                }
+            }
+        }
+
+        return $this->render('client/forum/obd2-forum/forms/code-form.twig', [
+            "form" => $form->createView(),
+            "type" => $type,
         ]);
     }
 }

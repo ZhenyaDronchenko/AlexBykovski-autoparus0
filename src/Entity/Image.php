@@ -47,7 +47,6 @@ class Image
      */
     private $geoLocation;
 
-
     /**
      * @var DateTime
      *
