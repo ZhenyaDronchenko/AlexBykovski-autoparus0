@@ -1,9 +1,7 @@
 {% if app.user %}
-    {% if model is defined %}
-        <div ng-init="forum.model = '{{ model.url }}'"></div>
-    {% endif %}
+    <div ng-init="forum.constModel = '{{ model is defined ? model.url : '' }}'"></div>
 
-    <div id="popup1" class="overlay1">
+    <div id="popup1" class="overlay1 message-popup">
         <div class="modal1">
             <div class="modal-header">
                 <button class="button-home close-popup-button" data-popup-id="1"><img src="/img/left-arrow1.png" alt="Назад"></button>
@@ -30,7 +28,7 @@
         </div>
     </div>
 
-    <div id="popup2" class="overlay2">
+    <div id="popup2" class="overlay2 message-popup">
         <div class="modal2">
             <div class="modal-header">
                 <button class="button-home close-popup-button" data-popup-id="2"><img src="/img/left-arrow1.png" alt="Назад"></button>

@@ -243,11 +243,26 @@ class OBD2ForumMessage
             "userPhoto" => $this->getUser()->getPhoto() ? '/images/' . $this->getUser()->getPhoto()->getImage() : "",
             "brand" => $this->technicalData->getBrand()->getName(),
             "model" => $this->technicalData->getModel()->getName(),
+            "urlModel" => $this->technicalData->getModel()->getUrl(),
             "errorType" => $this->technicalData->getType()->getType(),
             "errorCode" => $this->technicalData->getCode()->getCode(),
             "type" => $this->type,
             "text" => $this->text,
             "createdAt" => $this->createdAt->format("d.m.Y"),
+            "comments" => $this->commentsToArray(),
         ];
+    }
+
+    private function commentsToArray()
+    {
+        $comments = [];
+
+        /** @var OBD2ForumComment $comment */
+        foreach ($this->comments as $comment)
+        {
+            $comments[] = $comment->toArray();
+        }
+
+        return $comments;
     }
 }

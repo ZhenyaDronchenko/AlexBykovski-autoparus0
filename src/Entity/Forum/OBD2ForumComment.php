@@ -168,4 +168,14 @@ class OBD2ForumComment
     {
         $this->updatedAt = $updatedAt;
     }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->id,
+            "userPhoto" => $this->getUser()->getPhoto() ? '/images/' . $this->getUser()->getPhoto()->getImage() : "",
+            "userName" => $this->getUser()->getName(),
+            "text" => $this->text,
+        ];
+    }
 }
