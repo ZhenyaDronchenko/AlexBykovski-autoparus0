@@ -47,7 +47,7 @@
 
           <div class="btn-list">
             <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 1 : 5 }}" ng-click="forum.resetAddMessageForm();">Поделиться опытом</button>
-            <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 2 : 5 }}" ng-click="forum.resetAddMessageForm();">Задать вопрос...</button>
+            <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 2 : 5 }}" ng-click="forum.resetAddMessageForm();">Задать вопрос</button>
           </div>
 
           {% include('/client/forum/obd2-forum/parts/messages.html.twig') %}
@@ -55,8 +55,11 @@
           <h2>{{ page.headline2 }}</h2>
 
           <p>{{ page.text2 | raw }}</p>
-          <a class="ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
-          {#<button class="btn btn-show5">Универсальная кнопка</button>#}
+
+          <div class="btn-block">
+              <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            </div>
+
         </section>
      </main>
 

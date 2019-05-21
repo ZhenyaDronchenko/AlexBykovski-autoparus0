@@ -155,7 +155,7 @@ p {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   padding-top: 20px;
 }
 .btn-form {
@@ -202,7 +202,22 @@ h2 {
     text-align: center;
     letter-spacing: 1px;
 }
+select {
+  margin: 0 auto;
+  margin-bottom: 30px;
+  display: block;
+    width: 300px;
+    padding-left: 5px;
+    border: none;
+    background-color: #fff;
+    border-bottom: 1px solid #737373;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    font-size: 18px;
+    line-height: 20px;
 
+}
 
 .prod {
 margin-bottom: 20px;
@@ -223,8 +238,9 @@ margin-bottom: 20px;
 
 }
 .icon {
-width: 60px;
+width: 40px;
 height: 40px;
+border-radius: 50%;
 margin-right: 15px;
 display: -moz-flex;
 display: -ms-flex;
@@ -245,8 +261,9 @@ border: 1px solid #757373;
 
 }
 .icon img {
-  width: 60px;
+width: 40px;
 height: 40px;
+border-radius: 50%;
 }
 .icon-t {
 width: 40px;
@@ -423,7 +440,7 @@ h2 {
     position: fixed;
     top: 110px;
     left: 50%;
-    width: 70%;
+    width: 900px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
         transform: translateX(-50%);
@@ -435,7 +452,7 @@ h2 {
     position: fixed;
     top: 110px;
     left: 50%;
-    width: 70%;
+    width: 900px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
         transform: translateX(-50%);
@@ -625,6 +642,37 @@ font-weight: 400;
    margin: 0 auto;
   margin-bottom: 20px;
 }
+
+.btn-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+    margin: 30px 0;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+}
+.btn-l {
+    padding: 5px 15px;
+    padding-bottom: 4px;
+    background-color: #dbc0c7;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #444444;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn:hover,
+.btn:active {
+    background-color: #d2a2af;
+}
+
+
 @media (max-width: 480px) {
   .container {
     width: auto; 
@@ -669,16 +717,11 @@ font-weight: 400;
 }
 
 .icon {
-width: 45px;
-height: 30px;
 margin-right: 10px;
 
 
 }
-.icon img {
-  width: 45px;
-height: 30px;
-}
+
 .icon-t {
 width: 30px;
 height: 30px;
@@ -714,7 +757,7 @@ font-size: 15px;
      -webkit-box-align: end; 
          -ms-flex-align: end; 
              align-items: flex-end;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 
 }
 .breadcrumbs-block {
@@ -789,13 +832,13 @@ h2 {
     top: 5px;
     width: 98%;
     height: 90%;
-    padding: 40px 0;
+    padding: 40px 10px;
     padding-top: 5px;
   }
   .modal5 {
     top: 5px;
     width: 98%;
-    padding: 40px 0;
+    padding: 40px 10px;
     padding-top: 5px;
   }
   .modal {
@@ -929,7 +972,6 @@ padding: 0 10px;
      -webkit-box-align: end; 
          -ms-flex-align: end; 
              align-items: flex-end;
-  margin-bottom: 40px;
 
 }
 .breadcrumbs-block {
@@ -1030,6 +1072,30 @@ h2 {
 @media (min-width: 768px) and (max-width: 1023px) {
   .container {
     width: auto; }
+        .modal1,
+.modal2,
+.modal3,
+.modal4 {
+    top: 3px;
+    width: 91%;
+    height: 90%;
+    padding: 40px 15px;
+    margin-bottom: 1000px;
+  }
+  .modal5 {
+    top: 3px;
+    width: 91%;
+    height: 90%;
+    padding: 40px 15px;
+    margin-bottom: 1000px;
+  }
+  .modal {
+    top: 3px;
+    width: 85%;
+    padding: 50px 15px;
+    margin-bottom: 1000px;
+
+  }
    
 }
 @media (min-width: 1024px) and (max-width: 1199px) {

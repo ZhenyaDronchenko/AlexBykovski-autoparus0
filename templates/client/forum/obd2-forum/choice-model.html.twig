@@ -52,7 +52,7 @@
             </form>
             <div class="btn-list">
               <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 1 : 5 }}" ng-click="forum.resetAddMessageForm();">Поделиться опытом</button>
-              <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 2 : 5 }}" ng-click="forum.resetAddMessageForm();">Задать вопрос...</button>
+              <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 2 : 5 }}" ng-click="forum.resetAddMessageForm();">Задать вопрос</button>
             </div>
 
 
@@ -62,7 +62,9 @@
 
             <div>{{ page.text2 | raw }}</div>
             {#<button class="btn btn-show5">Универсальная кнопка</button>#}
-            <a class="ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            <div class="btn-block">
+              <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            </div>
           </section>
          </main>
 

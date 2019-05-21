@@ -63,7 +63,10 @@
             <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
             <div class='city-subtext'>{{ page.text2 | raw }}</div>
 
-            <a class="ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            <div class="btn-block">
+              <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            </div>
+
         </section>
     </main>
 {% endblock %}
