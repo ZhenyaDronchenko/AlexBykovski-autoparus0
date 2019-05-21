@@ -124,7 +124,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     cursor: pointer;
-        transform: translate(0,-55px);
+        transform: translate(0,-45px);
 }
 
 .foto img {
@@ -330,14 +330,17 @@
 
 .mike a {
     color: #999999;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 .mike a:hover {
     color: red;
 }
 .mike-img {
     margin: 100px auto;
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -358,7 +361,6 @@
     font-size: 18px;
     line-height: 20px;
     color: #000;
-    font-family: "Roboto";
     text-align: center;
     margin-bottom: 40px;
 }
@@ -532,7 +534,7 @@
     cursor: pointer;
     border: 1px solid #737373;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 2px;
     outline: none;
 }
