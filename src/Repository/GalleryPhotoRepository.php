@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Client\GalleryPhoto;
+use App\Entity\Client\Client;
 use App\Entity\Client\SellerCompany;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityRepository;
@@ -26,13 +26,13 @@ class GalleryPhotoRepository extends EntityRepository
             $qb->setMaxResults( $filter->getLimit() );
         }
 
-        if($filter->getUser()){
+        if($filter->getUsers() instanceof Client){
             $qb->andWhere("cl.id = :clientId")
-                ->setParameter("clientId", $filter->getUser()->getId());
+                ->setParameter("clientId", $filter->getUsers()->getId());
         }
-        else{
+        elseif(count($filter->getUsers())){
             $qb->andWhere("cl.id IN(:ids)")
-                ->setParameter("ids", [34, 29, 28, 27, 26, 24, 46, 47, 48, 50, 56]);
+                ->setParameter("ids", $filter->getUsers());
         }
 
         if($filter->getBrand() || $filter->getModel()){

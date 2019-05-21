@@ -3,6 +3,9 @@
 
     autoparusApp.controller('MainPagePostsCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
         const MAX_COUNT = 100;
+        let filterBrandRoute = "homepage_filter_brand";
+        let filterBrandModelRoute = "homepage_filter_brand_model";
+        let filterCityActivityRoute = "homepage_filter_city_activity";
 
         let self = this;
         let url = null;
@@ -17,6 +20,12 @@
         function init(urlS, paramsS){
             url = urlS;
             Object.assign(params, angular.fromJson(paramsS));
+
+            if(params.hasOwnProperty("allUsers")){
+                filterBrandRoute = "homepage_filter_brand_all_users";
+                filterBrandModelRoute = "homepage_filter_brand_model_all_users";
+                filterCityActivityRoute = "homepage_filter_city_activity_all_users";
+            }
 
             updatePosts();
         }
@@ -76,10 +85,10 @@
             }
 
             if(!urlModel){
-                return Routing.generate('homepage_filter_brand', {"urlBrand" : urlBrand})
+                return Routing.generate(filterBrandRoute, {"urlBrand" : urlBrand})
             }
 
-            return Routing.generate('homepage_filter_brand_model', {"urlBrand" : urlBrand, "urlModel" : urlModel})
+            return Routing.generate(filterBrandModelRoute, {"urlBrand" : urlBrand, "urlModel" : urlModel})
         }
 
         function getCityActivityFilterUrl(urlCity, urlActivity) {
@@ -87,7 +96,7 @@
                 return "";
             }
 
-            return Routing.generate('homepage_filter_city_activity', {"urlCity" : urlCity, "urlActivity" : urlActivity})
+            return Routing.generate(filterCityActivityRoute, {"urlCity" : urlCity, "urlActivity" : urlActivity})
         }
 
         this.init = init;
