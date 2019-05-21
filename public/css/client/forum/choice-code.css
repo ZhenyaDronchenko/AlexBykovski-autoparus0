@@ -196,7 +196,34 @@ input {
 }
 
 
+.btn-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+    margin: 15px 0;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+}
+.btn-l {
+    padding: 5px 15px;
+    padding-bottom: 4px;
+    background-color: #dbc0c7;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #444444;
+    cursor: pointer;
+    outline: none;
+}
 
+.btn-l:hover,
+.btn-l:active {
+    background-color: #d2a2af;
+}
 
 
 @media (max-width: 480px) {

@@ -57,10 +57,13 @@
 
             </form>
             {% for key, error in form.code.vars.errors.form.getErrors(true)%}
-                <div style="color: red; text-align: center; margin-top: -33px; padding-bottom: 50px;">{{ error.message | raw }}</div>
+                <div style="color: blue; text-align: center; margin-top: -33px; padding-bottom: 50px;">{{ error.message | raw }}</div>
             {% endfor %}
             <h1 class="subtitle" data-text="{{ page.headline2 }}"></h1>
             <div class="text text-m">{{ page.text2 | raw }}</div>
+            <div class="btn-block">
+               <a class="btn-l" href="#">Кнопка универсальная</a>
+            </div>
         </section>
     </main>
 {% endblock %}
