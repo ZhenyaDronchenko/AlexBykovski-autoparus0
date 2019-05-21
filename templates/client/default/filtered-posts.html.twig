@@ -8,13 +8,24 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set pageType = app.request.get('_route') == "homepage_filter_user" ? "user" : app.request.get('_route') in ["homepage_filter_brand", "homepage_filter_brand_model"] ? "car" : "business" %}
+    {% set hasModel = routeParams["urlModel"] is defined %}
+
     <main class="container">
         <div class="main-page" itemscope itemtype="https://schema.org/Organization">
             <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ routeParams | json_encode }}')">
                 <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts" ng-cloak>
                     <div class="post-block">
-                        <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
-                        <b class="name" ng-bind="post.userName"></b>
+                        {% if pageType == "user" %}
+                            <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото" ng-show="$first">
+                            <b class="name" ng-bind="post.userName" ng-show="$first"></b>
+                        {% elseif pageType == "car" %}
+                            <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                            <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                        {% else %}
+                            <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
+                            <b class="name" ng-bind="post.userName"></b>
+                        {% endif %}
                         <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
                             <span class="points"></span>
                             <span class="points"></span>
@@ -24,7 +35,13 @@
 
                     <div class="content-wrapper">
                         <div class="foto">
-                            <img ng-src="{[{post.image}]}" alt="Картинка">
+                            {% if hasModel %}
+                                <a ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, null) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                            {% else %}
+                                <a ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                            {% endif %}
+                                <img ng-src="{[{post.image}]}" alt="Картинка">
+                            </a>
                         </div>
 
                         <div class="user-block">
