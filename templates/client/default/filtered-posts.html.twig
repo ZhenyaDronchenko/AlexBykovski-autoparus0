@@ -8,7 +8,7 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    {% set pageType = app.request.get('_route') == "homepage_filter_user" ? "user" : app.request.get('_route') in ["homepage_filter_brand", "homepage_filter_brand_model", "homepage_filter_brand_all_users", "homepage_filter_brand_model_all_users"] ? "car" : "business" %}
+    {% set pageType = app.request.get('_route') in ["homepage_filter_user", "homepage_filter_user_all_users"] ? "user" : app.request.get('_route') in ["homepage_filter_brand", "homepage_filter_brand_model", "homepage_filter_brand_all_users", "homepage_filter_brand_model_all_users"] ? "car" : "business" %}
     {% set hasModel = routeParams["urlModel"] is defined %}
     {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
 

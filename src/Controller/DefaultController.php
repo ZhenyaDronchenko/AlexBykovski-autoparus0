@@ -32,6 +32,7 @@ class DefaultController extends Controller
      * @Route("/car-posts/{urlBrand}", name="homepage_filter_brand", options={"expose"=true})
      * @Route("/car-posts/{urlBrand}/{urlModel}", name="homepage_filter_brand_model", options={"expose"=true})
      * @Route("/business-posts/{urlCity}/{urlActivity}", name="homepage_filter_city_activity", options={"expose"=true})
+     * @Route("/people/user-posts/{userId}", name="homepage_filter_user_all_users", options={"expose"=true})
      * @Route("/people/car-posts/{urlBrand}", name="homepage_filter_brand_all_users", options={"expose"=true})
      * @Route("/people/car-posts/{urlBrand}/{urlModel}", name="homepage_filter_brand_model_all_users", options={"expose"=true})
      * @Route("/people/business-posts/{urlCity}/{urlActivity}", name="homepage_filter_city_activity_all_users", options={"expose"=true})
