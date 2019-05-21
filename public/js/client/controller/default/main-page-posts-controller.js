@@ -3,6 +3,7 @@
 
     autoparusApp.controller('MainPagePostsCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
         const MAX_COUNT = 100;
+        let filterUserRoute = "homepage_filter_user";
         let filterBrandRoute = "homepage_filter_brand";
         let filterBrandModelRoute = "homepage_filter_brand_model";
         let filterCityActivityRoute = "homepage_filter_city_activity";
@@ -22,6 +23,7 @@
             Object.assign(params, angular.fromJson(paramsS));
 
             if(params.hasOwnProperty("allUsers")){
+                filterUserRoute = "homepage_filter_user_all_users";
                 filterBrandRoute = "homepage_filter_brand_all_users";
                 filterBrandModelRoute = "homepage_filter_brand_model_all_users";
                 filterCityActivityRoute = "homepage_filter_city_activity_all_users";
@@ -76,7 +78,7 @@
         }
 
         function getUserFilterUrl(userId) {
-            return Routing.generate('homepage_filter_user', {"userId" : userId})
+            return Routing.generate(filterUserRoute, {"userId" : userId})
         }
 
         function getBrandModelFilterUrl(urlBrand, urlModel) {
