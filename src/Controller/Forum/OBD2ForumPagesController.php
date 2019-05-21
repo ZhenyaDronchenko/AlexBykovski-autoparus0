@@ -160,7 +160,7 @@ class OBD2ForumPagesController extends Controller
         $page = $em->getRepository(OBD2ForumChoiceCode::class)->findAll()[0];
 
         return $this->render('client/forum/obd2-forum/choice-code.html.twig', [
-            'page' => $transformer->transformPage($page, [$type]),
+            'page' => $transformer->transformPage($page, [$brand, $type]),
             "type" => $type,
             "brand" => $brand,
             "form" => $form->createView(),
@@ -184,7 +184,7 @@ class OBD2ForumPagesController extends Controller
 
         $page = $em->getRepository(OBD2ForumChoiceModel::class)->findAll()[0];
 
-        $models = $em->getRepository(Model::class)->findBy(["brand" => $brand]);
+        $models = $em->getRepository(Model::class)->findBy(["brand" => $brand], ["name" => "ASC"]);
 
         $parsedModels = [];
 

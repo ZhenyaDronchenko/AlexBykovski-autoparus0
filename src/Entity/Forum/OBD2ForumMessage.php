@@ -244,7 +244,7 @@ class OBD2ForumMessage
             "brand" => $this->technicalData->getBrand()->getName(),
             "model" => $this->technicalData->getModel()->getName(),
             "urlModel" => $this->technicalData->getModel()->getUrl(),
-            "errorType" => $this->technicalData->getType()->getType(),
+            "errorType" => $this->technicalData->getType()->getDesignation(),
             "errorCode" => $this->technicalData->getCode()->getCode(),
             "type" => $this->type,
             "text" => $this->text,
