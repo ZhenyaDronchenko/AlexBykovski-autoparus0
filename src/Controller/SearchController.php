@@ -202,12 +202,14 @@ class SearchController extends Controller
         $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
 
         $user = isset($requestData["userId"]) ? $em->getRepository(Client::class)->find($requestData["userId"]) : null;
+        $allUsers = isset($requestData["allUsers"]) && $requestData["allUsers"];
         $brand = isset($requestData["urlBrand"]) ? $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["urlBrand"]]) : null;
         $model = isset($requestData["urlModel"]) ? $em->getRepository(Model::class)->findOneBy(["url" => $requestData["urlModel"]]) : null;
         $city = isset($requestData["urlCity"]) ? $em->getRepository(City::class)->findOneBy(["url" => $requestData["urlCity"]]) : null;
         $activity = isset($requestData["urlActivity"]) && array_key_exists($requestData["urlActivity"], SellerCompany::$activities) ?
             SellerCompany::$activities[$requestData["urlActivity"]] : null;
-        $filter = new PostsFilterType($user, $brand, $model, $city, $activity, $limit, $offset);
+        $users = $user ?: ($allUsers ? [] : PostsFilterType::ADMINS);
+        $filter = new PostsFilterType($users, $brand, $model, $city, $activity, $limit, $offset);
 
         if(!is_numeric($offset) || !is_numeric($limit)){
             return new JsonResponse([]);

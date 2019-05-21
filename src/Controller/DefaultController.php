@@ -18,6 +18,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Route("/people", name="homepage_all_users")
      */
     public function showHomePageAction(Request $request)
     {
@@ -31,6 +32,9 @@ class DefaultController extends Controller
      * @Route("/car-posts/{urlBrand}", name="homepage_filter_brand", options={"expose"=true})
      * @Route("/car-posts/{urlBrand}/{urlModel}", name="homepage_filter_brand_model", options={"expose"=true})
      * @Route("/business-posts/{urlCity}/{urlActivity}", name="homepage_filter_city_activity", options={"expose"=true})
+     * @Route("/people/car-posts/{urlBrand}", name="homepage_filter_brand_all_users", options={"expose"=true})
+     * @Route("/people/car-posts/{urlBrand}/{urlModel}", name="homepage_filter_brand_model_all_users", options={"expose"=true})
+     * @Route("/people/business-posts/{urlCity}/{urlActivity}", name="homepage_filter_city_activity_all_users", options={"expose"=true})
      */
     public function showHomePageWithFilteredPostsAction(
         Request $request,
@@ -51,7 +55,9 @@ class DefaultController extends Controller
         $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
         $activity = array_key_exists($urlActivity, SellerCompany::$activities) ? SellerCompany::$activities[$urlActivity] : null;
-        $filter = new PostsFilterType($user, $brand, $model, $city, $activity);
+        $isAllUsers = strpos($request->get('_route'), "_all_users") !== false;
+        $users = $user ?: ($isAllUsers ? [] : PostsFilterType::ADMINS);
+        $filter = new PostsFilterType($users, $brand, $model, $city, $activity);
 
         $homePage->setFilteredTitle($route, $filter);
         $homePage->setFilteredDescription($route, $filter);

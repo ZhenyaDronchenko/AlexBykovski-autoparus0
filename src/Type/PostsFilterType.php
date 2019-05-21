@@ -10,8 +10,10 @@ use App\Entity\Model;
 
 class PostsFilterType
 {
-    /** @var Client|null */
-    private $user;
+    const ADMINS = [34, 29, 28, 27, 26, 24, 46, 47, 48, 50, 56];
+
+    /** @var Client|array */
+    private $users;
 
     /** @var Brand|null */
     private $brand;
@@ -33,7 +35,7 @@ class PostsFilterType
 
     /**
      * PostsFilterType constructor.
-     * @param Client|null $user
+     * @param Client|array $users
      * @param Brand|null $brand
      * @param Model|null $model
      * @param City|null $city
@@ -42,7 +44,7 @@ class PostsFilterType
      * @param null|integer offset
      */
     public function __construct(
-        ?Client $user,
+        $users,
         ?Brand $brand,
         ?Model $model,
         ?City $city,
@@ -51,7 +53,7 @@ class PostsFilterType
         ?int $offset = null
     )
     {
-        $this->user = $user;
+        $this->users = $users;
         $this->brand = $brand;
         $this->model = $model;
         $this->city = $city;
@@ -61,19 +63,19 @@ class PostsFilterType
     }
 
     /**
-     * @return Client|null
+     * @return Client|array
      */
-    public function getUser(): ?Client
+    public function getUsers()
     {
-        return $this->user;
+        return $this->users;
     }
 
     /**
-     * @param Client|null $user
+     * @param Client|array $users
      */
-    public function setUser(?Client $user): void
+    public function setUsers($users): void
     {
-        $this->user = $user;
+        $this->users = $users;
     }
 
     /**

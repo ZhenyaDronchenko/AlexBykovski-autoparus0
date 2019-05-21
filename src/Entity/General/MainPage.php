@@ -2,6 +2,7 @@
 
 namespace App\Entity\General;
 
+use App\Entity\Client\Client;
 use App\Type\PostsFilterType;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -193,7 +194,7 @@ class MainPage
     {
         switch ($route){
             case self::USER_FILTER_ROUTE:
-                $user = $filter->getUser();
+                $user = $filter->getUsers() instanceof Client ? $filter->getUsers() : null;
                 $name = $user ?
                     ($user->getSellerData() && $user->getSellerData()->getSellerCompany() &&
                         $user->getSellerData()->getSellerCompany()->getCompanyName() ?
@@ -230,7 +231,7 @@ class MainPage
     {
         switch ($route){
             case self::USER_FILTER_ROUTE:
-                $user = $filter->getUser();
+                $user = $filter->getUsers() instanceof Client ? $filter->getUsers() : null;
                 $name = $user ?
                     ($user->getSellerData() && $user->getSellerData()->getSellerCompany() &&
                     $user->getSellerData()->getSellerCompany()->getCompanyName() ?
