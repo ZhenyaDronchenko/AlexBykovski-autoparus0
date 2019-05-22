@@ -202,22 +202,6 @@ h2 {
     text-align: center;
     letter-spacing: 1px;
 }
-select {
-  margin: 0 auto;
-  margin-bottom: 30px;
-  display: block;
-    width: 300px;
-    padding-left: 5px;
-    border: none;
-    background-color: #fff;
-    border-bottom: 1px solid #737373;
-    cursor: pointer;
-    outline: none;
-    color: black;
-    font-size: 18px;
-    line-height: 20px;
-
-}
 
 .prod {
 margin-bottom: 20px;
@@ -331,14 +315,14 @@ font-size: 20px;
 }
 
 .item-link {
-   font-size: 18px;
-  line-height: 20px;
+   font-size: 16px;
+  line-height: 18px;
   color: #000
 }
 .date {
   display: inline-block;
- font-size: 18px;
-  line-height: 20px;
+ font-size: 14px;
+  line-height: 16px;
 }
 
 
@@ -396,8 +380,7 @@ font-size: 20px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 400; 
-    margin-left: auto;
-    margin-top: 30px;
+   margin-right: 15px;
 }
 .btn:hover {
   background-color: #d2a2af;
@@ -554,17 +537,9 @@ margin: 0 auto;
   font-size: 16px;
  
 }
-    .btn-block {
-      width: 60%;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: justify;
-          -ms-flex-pack: justify;
-              justify-content: space-between;
-      margin: 0 auto;
-    }
+ 
     .button {
+      margin: 0 auto;
       display: block;
   border: 1px solid #737373;
      background-color: #dbc0c7;
@@ -630,12 +605,13 @@ font-weight: 400;
     text-decoration: none;
 }
  textarea {
+   margin: 0 auto;
   font-size: 14px;
   line-height: 16px;
   color: #000;
   border: 1px solid #ccc;
-  width: 60%;
-  margin-bottom: 30px;
+  width: 95%;
+  margin-bottom: 10px;
 }
 .button-m {
       width: 120px;
@@ -807,10 +783,7 @@ font-size: 15px;
  font-size: 16px;
   line-height: 18px;
 }
-.date {
- font-size: 16px;
-  line-height: 18px;
-}
+
 
 .text-block {
   margin-bottom: 10px;
@@ -848,9 +821,7 @@ h2 {
     padding: 50px 0;
 
   }
-  textarea {
-    width: 95%;
-}
+
 .form-mod {
     margin-bottom: 30px;
   }
@@ -943,10 +914,6 @@ padding: 0 10px;
   background-color: #faeeee;
   border-radius: 3px;
 }
- textarea {
-    width: 420px;
-}
-
 
 
 .form-input {
@@ -1021,10 +988,6 @@ padding: 0 10px;
  font-size: 16px;
   line-height: 18px;
 }
-.date {
- font-size: 16px;
-  line-height: 18px;
-}
 
 .text-block {
   margin-bottom: 10px;
@@ -1059,10 +1022,7 @@ padding: 0 10px;
  
  
 }
-    .btn-block {
-     width: 420px;
-     
-    }
+    
 h2 {
   font-size: 20px;
   line-height: 24px; 

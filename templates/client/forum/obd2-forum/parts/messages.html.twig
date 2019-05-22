@@ -42,17 +42,21 @@
                     <span class="user-n">{{ app.user.name }}</span>
                 </div>
                 <div class="text-block">
-                    <textarea ng-model="forum.comment" placeholder="..."></textarea>
+                    <textarea ng-model="forum.comment" placeholder="..." rows="5"></textarea>
                     <div ng-show="forum.showEmptyCommentError">Введите текст комментария</div>
                 </div>
             </div>
-            <button class="btn btn-o" ng-click="forum.showCommentForm[message.id] = true; forum.resetAddMessageForm()" ng-hide="forum.showCommentForm[message.id]">Добавить комментарий</button>
+            <div class="btn-block">
+               <button class="btn btn-o" ng-click="forum.showCommentForm[message.id] = true; forum.resetAddMessageForm()" ng-hide="forum.showCommentForm[message.id]">Добавить комментарий</button>
+            </div>
             <div class="block-b">
             <button class="btn btn-o" ng-click="forum.showCommentForm[message.id] = false" ng-show="forum.showCommentForm[message.id]">Отменить</button>
             <button class="btn btn-o" ng-click="forum.addComment(message.id)" ng-show="forum.showCommentForm[message.id]">Опубликовать</button>
             </div>
-        {% else %}
-            <button class="btn btn-o open-popup-button" data-popup-id="5">Добавить комментарий</button>
+        {% else %}btn-block
+            <div class="btn-block">
+               <button class="btn btn-o open-popup-button" data-popup-id="5">Добавить комментарий</button>
+            </div>
         {% endif %}
     </li>
 </ul>

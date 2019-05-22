@@ -21,7 +21,7 @@
     {% if error.message == maxLengthError %}
         {% set showMaxLengthError = true %}
     {% else %}
-        <div style="color: red; text-align: center; margin-top: -33px; padding-bottom: 50px;">{{ error.message | raw }}</div>
+        <div style="color: blue; text-align: center; margin-top: -33px; padding-bottom: 50px;">{{ error.message | raw }}</div>
     {% endif %}
 {% endfor %}
 <div id="max-obd2-code-error" style="display: {{ showMaxLengthError ? "block" : "none" }}; color: red; text-align: center; margin-top: -33px; padding-bottom: 50px;">Номер OBD2 ошибки всегда содержит 4 символа, пожалуйста проверьте корректность.</div>
