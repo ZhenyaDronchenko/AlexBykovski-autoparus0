@@ -7,11 +7,13 @@ use App\Entity\City;
 use App\Entity\Client\Client;
 use App\Entity\Client\SellerCompany;
 use App\Entity\General\MainPage;
+use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
@@ -22,8 +24,16 @@ class DefaultController extends Controller
      */
     public function showHomePageAction(Request $request)
     {
+        /** @var MainPage $homePage */
+        $homePage = $this->getDoctrine()->getManager()->getRepository(MainPage::class)->findAll()[0];
+        $filter = new PostsFilterType([], null, null, null, null);
+        $route = $request->get('_route');
+
+        $homePage->setFilteredTitle($route, $filter);
+        $homePage->setFilteredDescription($route, $filter);
+
         return $this->render('client/default/index.html.twig', [
-            "homePage" => $this->getDoctrine()->getManager()->getRepository(MainPage::class)->findAll()[0],
+            "homePage" => $homePage,
         ]);
     }
 
@@ -55,9 +65,14 @@ class DefaultController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
         $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
-        $activity = array_key_exists($urlActivity, SellerCompany::$activities) ? SellerCompany::$activities[$urlActivity] : null;
-        $isAllUsers = strpos($request->get('_route'), "_all_users") !== false;
+        $activity = $urlActivity && array_key_exists($urlActivity, SellerCompany::$activities) ? SellerCompany::$activities[$urlActivity] : null;
+        $isAllUsers = strpos($route, "_all_users") !== false;
         $users = $user ?: ($isAllUsers ? [] : PostsFilterType::ADMINS);
+
+        if($userId && !$user || $urlBrand && !$brand || $urlModel && !$model || $urlCity && !$city || $urlActivity && !$activity){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
         $filter = new PostsFilterType($users, $brand, $model, $city, $activity);
 
         $homePage->setFilteredTitle($route, $filter);
