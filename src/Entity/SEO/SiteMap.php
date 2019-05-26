@@ -20,6 +20,7 @@ class SiteMap
         "Сайт-мап Каталог от Запчасти + OBD2 ошибки" => "spare_part_catalog_obd2_minsk",
         "Сайт-мап Каталог от запчасти + OBD2 ошибки по всем городам" => "spare_part_catalog_obd2_all_cities",
         "Сайт-мап Каталога от марки (только популярные) + OBD2 + turbo + city" => "brand_catalog_obd2_turbo_city",
+        "Сайт-мап Форум OBD2 + OBD2 Ошибки + Универсальные страницы" => "forum_obd2_errors_obd2_universal_pages",
     ];
 
     const TYPE_BRAND_CATALOG = "brand_catalog";
@@ -27,6 +28,7 @@ class SiteMap
     const TYPE_SPARE_PART_CATALOG_OBD2_MINSK = "spare_part_catalog_obd2_minsk";
     const TYPE_SPARE_PART_CATALOG_OBD2_ALL_CITIES = "spare_part_catalog_obd2_all_cities";
     const TYPE_BRAND_CATALOG_OBD2_TURBO_CITY = "brand_catalog_obd2_turbo_city";
+    const TYPE_FORUM_OBD2_ERRORS_OBD2_UNIVERSAL_PAGES = "forum_obd2_errors_obd2_universal_pages";
 
     /**
      * @var integer

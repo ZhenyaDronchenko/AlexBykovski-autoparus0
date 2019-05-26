@@ -29,7 +29,7 @@
             </li>
             {% if sparePart %}
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="link-b" href="{{ path("show_spare_part_catalog_choice_brand", {"url" : sparePart.url}) }}" itemprop="item"
+                    <a class="link-b" href="{{ path("show_spare_part_catalog_choice_brand", {"urlSP" : sparePart.url}) }}" itemprop="item"
                        title="{{ previousPageTitle }}"><span class="line">/</span><span
                                 itemprop="name">{{ sparePart.alternativeName5 }}</span>
                         <meta itemprop="position" content="3">
