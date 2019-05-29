@@ -1,33 +1,50 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ page.title }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/choice-spare-part.css'>
+{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container" ng-init="showAll = false;">
+        <ul id="breadcrumbs">
+            <li >
+                <a class="user-link user-link--icon" href="index.html">
+                <span class="user-name">Главная</span>
+                <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                  <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                  <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                </svg>
+              </a>
+            </li>
+
+            <li>
+              <a class="current" href="#"><span class="line">/</span>Телефоны</a>
+            </li>
+        </ul>
+
         <section class="catalog1">
             <div class=catalog1-text>
                 {{ page.text1 | raw }}
             </div>
 
-            <div class='parts-search' id="search-autocomplete-container">
-                <form class='catalog1form' action="" method="get">
+            <form class='modform' action="" method="get">
 
-                    <input id="work-autocomplete" class="form5" type="search"
-                           auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
-                           method-search="searchPhoneWork" identifier-field="work-autocomplete"
-                           name="search" placeholder="Вид работы">
-                </form>
-            </div>
+                <input id="work-autocomplete" class="form7" type="search"
+                       auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
+                       method-search="searchPhoneWork" identifier-field="work-autocomplete"
+                       name="search" placeholder="Вид работы">
+            </form>
 
-            <ul class='showMoreModel' id='brandImg3' ng-show="showAll">
+            <ul class='showMoreModel' id='model' ng-show="showAll">
                 {% for sparePart in allSpareParts %}
-                    <li><a href='{{ path("show_phone_work_catalog_choice_phone_brand", {"url" : sparePart.url}) }}'>{{ sparePart.work|replace({'(': "<br> ("}) | raw }}</a></li>
+                    <li><a class="mod-link" href='{{ path("show_phone_work_catalog_choice_phone_brand", {"url" : sparePart.url}) }}'>{{ sparePart.work|replace({'(': "<br> ("}) | raw }}</a></li>
                 {% endfor %}
             </ul>
-            <ul class='showMoreModel' id='brandImg3' ng-hide="showAll">
+            <ul class='showMoreModel' id='model' ng-hide="showAll">
                 {% for sparePart in popularSpareParts %}
-                    <li><a href='{{ path("show_phone_work_catalog_choice_phone_brand", {"url" : sparePart.url}) }}'>{{ sparePart.work|replace({'(': "<br> ("}) | raw }}</a></li>
+                    <li><a class="mod-link" href='{{ path("show_phone_work_catalog_choice_phone_brand", {"url" : sparePart.url}) }}'>{{ sparePart.work|replace({'(': "<br> ("}) | raw }}</a></li>
                 {% endfor %}
             </ul>
 
