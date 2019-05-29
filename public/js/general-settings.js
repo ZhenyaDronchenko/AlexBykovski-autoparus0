@@ -54,38 +54,17 @@ function addImagePreview(file, callback) {
     }
 }
 
-function getImageByCoordinatesFromImage(image64, coordinates, isBlob, callback) {
-    const canvas = document.createElement('canvas');
+function getImageByCoordinatesFromImage(blob, isBlob, callback) {
+    if(isBlob){
+        return callback(blob);
+    }
 
-    const img = new Image();
-    img.src = image64;
+    const file = new File([blob], "preview_image" + (new Date()).getTime(), {
+        type: 'image/jpeg',
+        lastModified: Date.now()
+    });
 
-    img.onload = () => {
-        const sourceX = coordinates["x"];
-        const sourceY = coordinates["y"];
-        const width = coordinates["x2"] - sourceX;
-        const height = coordinates["y2"] - sourceY;
-
-        canvas.width = width;
-        canvas.height = height;
-        const context = canvas.getContext('2d');
-
-        context.drawImage(img, sourceX, sourceY, width, height, 0, 0, width, height);
-
-        context.canvas.toBlob((blob) => {
-            if(isBlob){
-                return callback(blob);
-            }
-
-            const file = new File([blob], "preview_image" + (new Date()).getTime(), {
-                type: 'image/jpeg',
-                lastModified: Date.now()
-            });
-
-            callback(file);
-
-        }, 'image/jpeg', 1);
-    };
+    callback(file);
 }
 
 function compress(file, sizes, callback) {
@@ -131,19 +110,6 @@ function compress(file, sizes, callback) {
         };
         reader.onerror = error => console.log(error);
     };
-}
-
-function getImageData(imageData, callback) {
-    let img = new Image();
-
-    img.onload = function(){
-        callback({
-            "width" : img.width,
-            "height" : img.height,
-        });
-    };
-
-    img.src = imageData;
 }
 
 function getImageScaledSizes(width, height, maxSize) {

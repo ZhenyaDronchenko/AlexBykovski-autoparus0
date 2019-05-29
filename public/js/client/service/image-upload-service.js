@@ -23,7 +23,7 @@
             this.uploadUrl = uploadUrl;
             this.imgPhoto = imgPhoto;
             this.customUploadToServer = customUploadToServer;
-            this.jCropApi = null;
+            this.cropper = null;
             this.isBlockedUpload = false;
             this.imageSizes = imageSizes;
         };
@@ -66,87 +66,48 @@
         };
 
         this.addCropper = function() {
-            let JcropAPI = this.previewImage.data('Jcrop');
+            let element = $('#image-preview-container-gallery');
+            element.croppie('destroy');
 
-            if(JcropAPI) {
-                JcropAPI.destroy();
-            }
+            let image_crop = element.croppie({
+                enableExif: true,
+                viewport: {
+                    width: 300,
+                    height: 200,
+                    type: 'square'
+                },
+                boundary: {
+                    width: element.width(),
+                    height: element.height(),
+                },
+                showZoomer: false,
+            });
 
-            getImageData(this.previewImage.attr("src"), function(data){
-                const trueSize = self.getJCropTrueSize(data["width"], data["height"], (self.cropperContentSize * 4 / 3));
-                const trueWidth = trueSize[0];
-                const trueHeight = trueSize[1];
-                const widthSelected = trueWidth > trueHeight ? self.cropperContentSize : self.cropperContentSize / (trueHeight / trueWidth);
-                const heightSelected = trueHeight > trueWidth ? self.cropperContentSize : self.cropperContentSize / (trueWidth / trueHeight);
-                let elemToResize = $("#cropper-modal");
+            self.cropper = image_crop;
 
-                if(data["width"] > data["height"]){
-                    elemToResize.width(Math.max(Math.min(data["width"], window.screen.availWidth), 840));
-
-                    if(detectmob()){
-                        elemToResize.width(window.screen.availWidth);
-                    }
-                }
-                else{
-                    elemToResize.find("#image-preview-container").height(data["height"]);
-                }
-
-                $.Jcrop.component.DragState.prototype.touch = null;
-
-                self.previewImage.Jcrop({
-                    aspectRatio: self.imageSizes ? self.imageSizes[0]/self.imageSizes[1] : 3 / 2,
-                    maxSize: [trueWidth, trueHeight],
-                    boxWidth: self.cropperContentSize,
-                    boxHeight: self.cropperContentSize,
-                    setSelect: self.getJCropDefaultSelected(widthSelected, heightSelected),
-                }, function () { self.jCropApi = this; });
+            image_crop.croppie('bind', {
+                url: self.previewImage.attr("src")
             });
         };
 
         this.processCroppedImage = function(dialogInstance) {
-            getImageByCoordinatesFromImage(this.previewImage.attr("src"), this.jCropApi.ui.selection.last, true, function(file){
+            $("#dialog-cropper-container-gallery").css({
+                "display" : "block",
+                "opacity" : "0",
+            });
+
+            $('#image-preview-container-gallery').croppie('result', {
+                type: 'blob',
+                size: 'original'
+            }).then(function (response) {
+                $("#dialog-cropper-container-gallery").removeAttr("style");
+
                 const formData = new FormData();
 
-                formData.append('file', file, (new Date()).getTime() + self.fileName);
+                formData.append('file', response, (new Date()).getTime() + self.fileName);
 
                 self.sendFileToServer(dialogInstance, formData);
             });
-        };
-
-        this.getJCropTrueSize = function(width, height, maxSize) {
-            if(width > height){
-                const defaultScale = width / height;
-
-                return [maxSize, maxSize/defaultScale];
-            }
-
-            const defaultScale = height / width;
-
-            return [maxSize/defaultScale, maxSize];
-        };
-
-        this.getJCropDefaultSelected = function(width, height) {
-            if(self.imageSizes){
-                const coef = self.imageSizes[0] / self.imageSizes[1];
-                const heightModified = height * coef;
-                const xWidth = width > heightModified ? heightModified : width;
-                const yHeight = width > heightModified ? height : width / coef;
-
-                let startX = width > heightModified ? (width - xWidth)/2 : 0;
-                let startY = width > heightModified ? 0 : (height - yHeight)/2;
-
-                return [startX, startY, xWidth, yHeight];
-            }
-            else{
-                const heightModified = height * 1.5;
-                const xWidth = width > heightModified ? heightModified : width;
-                const yHeight = width > heightModified ? height : width / 1.5;
-
-                let startX = width > heightModified ? (width - xWidth)/2 : 0;
-                let startY = width > heightModified ? 0 : (height - yHeight)/2;
-
-                return [startX, startY, xWidth, yHeight];
-            }
         };
 
         this.sendFileToServer = function(dialogInstance, formData) {
@@ -159,7 +120,7 @@
                 formData.append('coordinates', coordinates);
 
                 self.customUploadToServer(formData);
-                self.jCropApi.destroy();
+                $('#image-preview-container-gallery').croppie('destroy');
             });
         };
 
@@ -168,7 +129,7 @@
                 self.cropperContainer.removeClass("modal--show");
                 $("body").removeClass("modal--show");
                 self.input.val('');
-                self.jCropApi.destroy();
+                $('#image-preview-container-gallery').croppie('destroy');
             });
 
             $(".save-button-cropper-dialog:visible").off().on("click", function(){

@@ -3,12 +3,12 @@ services:
         class: App\Admin\User\BuyerAdmin
         arguments: [~, App\Entity\Client\Client, ~]
         tags:
-            - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Покупатели }
+            - { name: sonata.admin, group: Профили, manager_type: orm, label: ﻿Все профили }
         public: true
 
     admin.users.seller:
         class: App\Admin\User\SellerAdmin
         arguments: [~, App\Entity\Client\Client, ~]
         tags:
-            - { name: sonata.admin, group: Пользователи, manager_type: orm, label: Продавцы }
+            - { name: sonata.admin, group: Профили, manager_type: orm, label: ﻿Бизнес профили }
         public: true
