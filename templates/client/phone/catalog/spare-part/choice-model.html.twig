@@ -1,10 +1,31 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ page.title }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/choice-model.css'>
+{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container" ng-init="showAll = false;">
+        ul id="breadcrumbs">
+            <li >
+              <a class="user-link user-link--icon" href="index.html">
+                <span class="user-name">Главная</span>
+                <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                  <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                  <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="link-b" href="#"><span class="line">/</span>Телефоны</a>
+            </li>
+           
+            <li>
+              <a class="current" href="#"><span class="line">/</span>[TELBRAND]</a>
+            </li>
+        </ul>
         <section class="mod">
             <div class="mod-text">{{ page.text1 | raw }}</div>
 
@@ -19,7 +40,7 @@
                 <a href="{{ page.returnButtonLink }}" class="mod-avto">{{ page.returnButtonText }}</a>
             </div>
 
-            <ul class='showMoreModel' id='brandImg5' ng-show="showAll">
+            <ul class='model-block showMoreModel' id='brandImg5' ng-show="showAll">
                 {% for model in allModels %}
                     <li><a class="mod-link mod-link-line" href="{{ path("show_phone_spare_part_catalog_choice_phone_spare_part", {"urlModel" : model.url}|merge(routeParams)) }}">
                             <span>{{ model.name }}<br>{{ model.modelRu }}</span>
@@ -28,7 +49,7 @@
                     </li>
                 {% endfor %}
             </ul>
-            <ul class='showMoreModel' id='brandImg5' ng-hide="showAll">
+            <ul class='model-block showMoreModel' id='brandImg5' ng-hide="showAll">
                 {% for model in popularModels %}
                     <li>
                         <a class="mod-link mod-link-line" href="{{ path("show_phone_spare_part_catalog_choice_phone_spare_part", {"urlModel" : model.url}|merge(routeParams)) }}">

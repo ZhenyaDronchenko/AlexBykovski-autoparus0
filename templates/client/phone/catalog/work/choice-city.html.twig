@@ -6,6 +6,32 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 {% block body %}
     <main class="container" ng-init="showAll = false;">
+        <ul id="breadcrumbs">
+        <li >
+          <a class="user-link user-link--icon" href="index.html">
+            <span class="user-name">Главная</span>
+            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a class="link-b" href="#"><span class="line">/</span>Телефоны</a>
+        </li>
+
+        <li>
+          <a class="link-b" href="#"><span class="line">/</span>Ремонт</a>
+        </li>
+
+        <li>
+          <a class="link-b" href="#"><span class="line">/</span>[TELBRAND]</a>
+        </li>
+
+        <li>
+          <a class="current" href="#"><span class="line">/</span>[TELMODEL]</a>
+        </li>
+      </ul>
         {% set routeParams = app.request.attributes.get('_route_params') %}
         <div class=city-text>
             {{ page.text1 | raw }}
@@ -60,6 +86,16 @@
             </div>
 
         </div>
+
+        <ul class="brand-block">
+            <li><a class="link" href="/zapchasti/akb/audi/100_c4/minsk" title="Аккумулятор АКБ к Audi 100, C4 в Минске">Минск</a></li>
+            <li><a class="link" href="/zapchasti/akb/audi/100_c4/brest" title="Аккумулятор АКБ к Audi 100, C4 в Бресте">Брест</a></li>
+            <li><a class="link" href="/zapchasti/akb/audi/100_c4/vitebsk" title="Аккумулятор АКБ к Audi 100, C4 в Витебске">Витебск</a></li>
+            <li><a class="link" href="/zapchasti/akb/audi/100_c4/gomel" title="Аккумулятор АКБ к Audi 100, C4 в Гомеле">Гомель</a></li>
+            <li><a class="link" href="/zapchasti/akb/audi/100_c4/grodno" title="Аккумулятор АКБ к Audi 100, C4 в Гродно">Гродно</a></li>
+            <li><a class="link" href="/zapchasti/akb/audi/100_c4/mogilev" title="Аккумулятор АКБ к Audi 100, C4 в Могилеве">Могилев</a></li>
+        </ul>
+        <a class="button" href="/zapchasti/akb/audi/100_c4/all_cities" title="Аккумулятор АКБ к Audi 100, C4 в ">Все Города</a>
 
         <div class='cities-b'>
             <div>{{ page.text2 | raw }}</div>
