@@ -1,3 +1,6 @@
+const BASE_IMAGE_WIDTH = 1080;
+const BASE_IMAGE_HEIGHT = 720;
+
 $(function(){
     $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
     $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
@@ -8,7 +11,7 @@ $(function(){
             $("#" + $(this).attr("id").replace("initiator-open-", "")).show();
             $("body").addClass("modal--show");
         }
-        else{;
+        else{
             $("#popup" + $(this).attr("data-popup-id")).show();
             $("body").addClass("modal--show");
         }
@@ -67,37 +70,43 @@ function getImageByCoordinatesFromImage(blob, isBlob, callback) {
     callback(file);
 }
 
-function compress(file, sizes, callback) {
+function convertBase64ToImage(image64, callback) {
+    const img = new Image();
+    img.src = image64;
+
+    img.onload = () => {
+        callback(img);
+    };
+}
+
+function resizeAndCompressImage(file, callback) {
     const fileName = file.name;
     const reader = new FileReader();
+
     reader.readAsDataURL(file);
+
     reader.onload = event => {
         const img = new Image();
         img.src = event.target.result;
 
         img.onload = () => {
-            let width = null;
-            let height = null;
-            if(sizes){
-                if(sizes.length === 1){
-                    sizes = getImageScaledSizes(img.width, img.height, sizes[0]);
-                }
-
-                width = sizes[0];
-                height = sizes[1];
-
-            }
-            else {
-                width = 900 > img.width ? img.width : 900;
-                height = 600 > img.height ? img.height : 600;
-            }
-
+            const SCALE = img.width / img.height;
             const elem = document.createElement('canvas');
-            elem.width = width;
-            elem.height = height;
+
+            if(img.width > img.height){
+                elem.width = img.width > BASE_IMAGE_WIDTH ? BASE_IMAGE_WIDTH : img.width;
+                elem.height = elem.width / SCALE;
+            }
+            else{
+                elem.height = img.height > BASE_IMAGE_HEIGHT ? BASE_IMAGE_HEIGHT : img.height;
+                elem.width = elem.height * SCALE;
+            }
+
             const ctx = elem.getContext('2d');
+
             // img.width and img.height will give the original dimensions
-            ctx.drawImage(img, 0, 0, width, height);
+            ctx.drawImage(img, 0, 0, elem.width, elem.height);
+
             ctx.canvas.toBlob((blob) => {
                 const file = new File([blob], fileName, {
                     type: 'image/jpeg',

@@ -155,7 +155,7 @@ class Image
             return false;
         }
 
-        $this->setImage(FileUpload::fileToWebP($this->getImage()));
+        //$this->setImage(FileUpload::fileToWebP($this->getImage()));
 
         return true;
     }

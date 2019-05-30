@@ -832,3 +832,7 @@ ul {
 [ng\:cloak], [ng-cloak], .ng-cloak {
     display: none !important;
 }
+
+.croppie-container-class .cr-boundary{
+    padding-left: 100%;
+}

@@ -6,7 +6,7 @@
 
         this.init = function(cropperContentSize,
                              previewImage,
-                             cropperContainer,
+                             cropperModal,
                              dialogContentSize,
                              input,
                              fileName,
@@ -16,22 +16,21 @@
                              imageSizes) {
             this.cropperContentSize = cropperContentSize;
             this.previewImage = previewImage;
-            this.cropperContainer = cropperContainer;
+            this.cropperModal = cropperModal;
             this.dialogContentSize = dialogContentSize;
             this.input = input;
             this.fileName = fileName;
             this.uploadUrl = uploadUrl;
             this.imgPhoto = imgPhoto;
             this.customUploadToServer = customUploadToServer;
-            this.cropper = null;
             this.isBlockedUpload = false;
             this.imageSizes = imageSizes;
         };
 
         this.processUploadImage = function(initFile, callback) {
-            let sizes = this.cropperContentSize ? [this.cropperContentSize] : null;
+            //self.workAfterCompress(initFile);
 
-            compress(initFile, sizes, function(file){
+            resizeAndCompressImage(initFile, function(file){
                 if(callback) {
                     return callback(file);
                 }
@@ -51,7 +50,7 @@
 
         this.addDialog = function() {
             $("body").addClass("modal--show");
-            this.cropperContainer.addClass("modal--show");
+            this.cropperModal.addClass("modal--show");
 
             self.addCropper();
 
@@ -66,24 +65,34 @@
         };
 
         this.addCropper = function() {
-            let element = $('#image-preview-container-gallery');
-            element.croppie('destroy');
+            const SCALE = this.imageSizes && this.imageSizes.length === 2 ? this.imageSizes[0]/this.imageSizes[1] : 1.5;
+            destroyCroppie();
 
-            let image_crop = element.croppie({
+            let viewPortWidth = window.screen.availHeight/4 * SCALE;
+            let viewPortHeight = window.screen.availHeight/4;
+
+            if(window.screen.availHeight > window.screen.availWidth){
+                viewPortWidth = window.screen.availWidth/4 * SCALE;
+                viewPortHeight = window.screen.availWidth/4;
+            }
+
+            let image_crop = this.cropperModal.find(".cropper-container").croppie({
                 enableExif: true,
                 viewport: {
-                    width: 300,
-                    height: 200,
+                    width: viewPortWidth,
+                    height: viewPortHeight,
                     type: 'square'
                 },
                 boundary: {
-                    width: element.width(),
-                    height: element.height(),
+                    width: window.screen.availWidth/2,
+                    height: window.screen.availHeight/2,
                 },
+                mouseWheelZoom: true,
                 showZoomer: false,
+                customClass: "croppie-container-class"
             });
 
-            self.cropper = image_crop;
+            console.log(image_crop);
 
             image_crop.croppie('bind', {
                 url: self.previewImage.attr("src")
@@ -91,16 +100,24 @@
         };
 
         this.processCroppedImage = function(dialogInstance) {
-            $("#dialog-cropper-container-gallery").css({
-                "display" : "block",
-                "opacity" : "0",
-            });
+            const WIDTH = this.imageSizes && this.imageSizes.length === 2 ? this.imageSizes[0] : 1080;
+            const HEIGHT = this.imageSizes && this.imageSizes.length === 2 ? this.imageSizes[1] : 720;
 
-            $('#image-preview-container-gallery').croppie('result', {
+            if(!this.cropperModal.is(":visible")){
+                this.cropperModal.css({
+                    "display" : "block",
+                    "opacity" : "0",
+                });
+            }
+
+            this.cropperModal.find(".cropper-container").croppie('result', {
                 type: 'blob',
-                size: 'original'
+                size: {
+                    width: WIDTH,
+                    height: HEIGHT
+                }
             }).then(function (response) {
-                $("#dialog-cropper-container-gallery").removeAttr("style");
+                self.cropperModal.removeAttr("style");
 
                 const formData = new FormData();
 
@@ -120,16 +137,15 @@
                 formData.append('coordinates', coordinates);
 
                 self.customUploadToServer(formData);
-                $('#image-preview-container-gallery').croppie('destroy');
             });
         };
 
         function updateSaveCloseButtons() {
             $(".cancel-button-cropper-dialog:visible").off().on("click", function(){
-                self.cropperContainer.removeClass("modal--show");
+                self.cropperModal.removeClass("modal--show");
                 $("body").removeClass("modal--show");
                 self.input.val('');
-                $('#image-preview-container-gallery').croppie('destroy');
+                destroyCroppie();
             });
 
             $(".save-button-cropper-dialog:visible").off().on("click", function(){
@@ -144,11 +160,18 @@
             });
 
             $(".change-image-button-cropper-dialog:visible").off().on("click", function(){
-                self.cropperContainer.removeClass("modal--show");
+                self.cropperModal.removeClass("modal--show");
                 $("body").removeClass("modal--show");
                 self.input.val('');
                 $("#gallery-input-" + $(this).attr("data-photo-id")).trigger("click");
             });
+        }
+
+        function destroyCroppie() {
+            let element = self.cropperModal.find(".cropper-container");
+
+            element.croppie("destroy");
+            element.removeClass("croppie-container-class");
         }
     });
 })(window.autoparusApp);
