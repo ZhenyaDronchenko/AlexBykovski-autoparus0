@@ -29,3 +29,10 @@ services:
         tags:
             - { name: sonata.admin, group: Каталог текстов, manager_type: orm, label: Каталог текстов, on_top: true}
         public: true
+
+    admin.article.article:
+        class: App\Admin\ArticleAdmin
+        arguments: [~, App\Entity\Article\Article, ~, "@app.file_upload", '%upload_image_directory%']
+        tags:
+            - { name: sonata.admin, group: Статьи, manager_type: orm, label: Статьи, on_top: true}
+        public: true

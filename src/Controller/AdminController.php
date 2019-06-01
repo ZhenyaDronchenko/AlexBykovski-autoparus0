@@ -19,6 +19,7 @@ use App\Entity\UserData\UserEngine;
 use App\Entity\UserData\UserOBD2ErrorCode;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -257,5 +258,27 @@ class AdminController extends Controller
         return $this->redirectToRoute($redirectRoute, [
             "id" => $newPage->getId(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/ajax/get-models-by-brand/{id}", name="admin_ajax_get_models_by_brand", options={"expose"=true})
+     *
+     * @ParamConverter("brand", class="App\Entity\Brand", options={"id" = "id"})
+     */
+    public function getModelsByBrandAction(Request $request, Brand $brand)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $models = $em->getRepository(Model::class)->findBy(["brand" => $brand]);
+
+        $parsedModels = [];
+
+        /** @var Model $model */
+        foreach ($models as $model){
+            $parsedModels[$model->getId()] = $model->getName();
+        }
+
+        return new JsonResponse($parsedModels);
     }
 }

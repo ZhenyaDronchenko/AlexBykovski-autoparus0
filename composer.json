@@ -35,7 +35,9 @@
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "*",
         "symfony/swiftmailer-bundle": "^3.2",
-        "symfony/yaml": "*"
+        "symfony/twig-bridge": "4.2.8",
+        "symfony/yaml": "*",
+        "twig/twig": "2.10"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.6",

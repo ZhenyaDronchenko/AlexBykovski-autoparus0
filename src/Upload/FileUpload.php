@@ -28,6 +28,7 @@ class FileUpload
     const UNIVERSAL_PAGE_CITY = 'universal-page-city';
     const UNIVERSAL_PAGE_SPARE_PART = 'universal-page-spare-part';
     const IMPORT_SPECIFIC_ADVERT = 'import-specific-advert';
+    const ARTICLE = 'article';
 
     const IMAGE_FOLDER = "images/";
 

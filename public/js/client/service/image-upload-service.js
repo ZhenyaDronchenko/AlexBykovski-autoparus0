@@ -76,6 +76,7 @@
                 viewPortHeight = window.screen.availWidth/4;
             }
 
+            //https://foliotek.github.io/Croppie/
             let image_crop = this.cropperModal.find(".cropper-container").croppie({
                 enableExif: true,
                 viewport: {
