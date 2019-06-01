@@ -2,6 +2,8 @@
 
 namespace App\Helper;
 
+use App\Entity\Article\ArticleBanner;
+use App\Entity\Article\ArticleImage;
 use App\Entity\Brand;
 use App\Entity\Image;
 use App\Entity\Model;
@@ -59,8 +61,7 @@ class AdminHelper
 
     static function getImagesData($object)
     {
-
-        switch (get_class($object)){
+        switch (str_replace('Proxies\\__CG__\\', "", get_class($object))){
             case Model::class:
                 return self::getModelImages($object);
             case SparePart::class:
@@ -71,6 +72,10 @@ class AdminHelper
             case UniversalPageBrand::class:
             case UniversalPageCity::class:
                 return self::getUniversalPageImages($object);
+            case ArticleImage::class:
+                return self::getArticleImageImages($object);
+            case ArticleBanner::class:
+                return self::getArticleBannerImages($object);
             default:
                 return [];
         }
@@ -143,5 +148,32 @@ class AdminHelper
         }
 
         return $images;
+    }
+
+    static function getArticleImageImages(ArticleImage $image)
+    {
+        return [
+            [
+                "image" => $image->getImage(),
+                "width" => ResizeImageHandler::DEFAULT_WIDTH,
+                "height" => ResizeImageHandler::DEFAULT_HEIGHT,
+            ],
+            [
+                "image" => $image->getImageThumbnail(),
+                "width" => ResizeImageHandler::DEFAULT_WIDTH,
+                "height" => ResizeImageHandler::DEFAULT_HEIGHT / 2,
+            ],
+        ];
+    }
+
+    static function getArticleBannerImages(ArticleBanner $banner)
+    {
+        return [
+            [
+                "image" => $banner->getImage(),
+                "width" => ResizeImageHandler::DEFAULT_WIDTH,
+                "height" => ResizeImageHandler::DEFAULT_HEIGHT,
+            ],
+        ];
     }
 }
