@@ -212,7 +212,7 @@ class ArticleImage
             return false;
         }
 
-        $this->image = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::ARTICLE_IMAGE_WIDTH, ResizeImageHandler::ARTICLE_IMAGE_HEIGHT);
+        $this->image = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::ARTICLE_IMAGE_WIDTH, ResizeImageHandler::ARTICLE_IMAGE_HEIGHT, false);
         $this->imageThumbnail = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::ARTICLE_IMAGE_WIDTH_THUMBNAIL, ResizeImageHandler::ARTICLE_IMAGE_HEIGHT_THUMBNAIL);
     }
 

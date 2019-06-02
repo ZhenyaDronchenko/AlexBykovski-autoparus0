@@ -5,12 +5,14 @@ sonata_admin:
             - { type: sonata.admin.block.admin_list, position: left }
     assets:
         extra_stylesheets:
+            - 'bower-components/Croppie/croppie.css'
             - 'css/admin/general.css'
             - 'css/admin/model.css'
             - 'css/admin/spare-part.css'
         extra_javascripts:
+            - 'bower-components/Croppie/croppie.min.js'
+            - 'js/general-settings.js'
             - 'js/admin/spare-part.js'
-            - 'js/admin/article-image.js'
             - 'js/admin/article-image.js'
 
 sonata_block:

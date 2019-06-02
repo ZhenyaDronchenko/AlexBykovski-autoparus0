@@ -65,9 +65,13 @@ class FileUpload
         return $this->folder ?: $folder = self::GENERAL;
     }
 
-    public function upload(UploadedFile $file, $blob = null, $path = null)
+    public function upload($file, $blob = null, $path = null)
     {
-        if (!in_array($file->getClientMimeType(), $this->allowedMimeTypes)) {
+        if (is_string($file) && preg_match('/^data:image\/(\w+);base64,/', $file, $type)) {
+            return $this->uploadBase64Image($file);
+        }
+
+        if (!($file instanceof UploadedFile) || !in_array($file->getClientMimeType(), $this->allowedMimeTypes)) {
             throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
         }
 
@@ -93,7 +97,7 @@ class FileUpload
 
             if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
                 // invalid image type
-                return null;
+                throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $type));
             }
 
             $base64string = base64_decode($base64string);
