@@ -94,12 +94,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    app.security.login_success_handler:
-        class: App\Security\Authentication\Handler\LoginSuccessHandler
-        arguments:  ['@router']
-        tags:
-            - { name: 'monolog.logger', channel: 'security' }
-
     app.import_advert.import_checker:
         class:  App\ImportAdvert\ImportChecker
         arguments: ['@doctrine.orm.entity_manager']

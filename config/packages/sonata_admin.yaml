@@ -1,5 +1,6 @@
 sonata_admin:
-    title: 'Sonata Admin'
+    title: 'Автопарус'
+    title_logo: /img/Logo1.svg
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
@@ -14,6 +15,19 @@ sonata_admin:
             - 'js/general-settings.js'
             - 'js/admin/spare-part.js'
             - 'js/admin/article-image.js'
+
+    security:
+        handler: sonata.admin.security.handler.role
+        information:
+            EDIT: EDIT
+            LIST: LIST
+            CREATE: CREATE
+            VIEW: VIEW
+            DELETE: DELETE
+            EXPORT: EXPORT
+            OPERATOR: OPERATOR
+            MASTER: MASTER
+        role_super_admin: ROLE_ADMIN
 
 sonata_block:
     blocks:

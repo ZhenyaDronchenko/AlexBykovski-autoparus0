@@ -34,6 +34,7 @@ abstract class User extends BaseUser
     const ROLE_BUYER = "ROLE_BUYER";
     const ROLE_ADMIN = "ROLE_ADMIN";
     const ROLE_CLIENT = "ROLE_CLIENT";
+    const ROLE_ADMIN_ARTICLE_WRITER = "ROLE_ADMIN_ARTICLE_WRITER";
 
     /**
      * @var integer
@@ -60,7 +61,7 @@ abstract class User extends BaseUser
      *
      * @ORM\Column(type="string", unique=true, length=64)
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var DateTime

@@ -28,15 +28,14 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * @Security("has_role('ROLE_ADMIN')")
- */
 class AdminController extends Controller
 {
     /**
      * @Route("/admin-remove-brand-logo/{id}", name="admin_remove_brand_logo")
      *
      * @ParamConverter("brand", class="App:Brand", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removeBrandLogoAction(Request $request, Brand $brand)
     {
@@ -53,6 +52,8 @@ class AdminController extends Controller
      * @Route("/admin-remove-model-logo/{id}", name="admin_remove_model_logo")
      *
      * @ParamConverter("model", class="App:Model", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removeModelLogoAction(Request $request, Model $model)
     {
@@ -69,6 +70,8 @@ class AdminController extends Controller
      * @Route("/admin-remove-spare-part-logo/{id}", name="admin_remove_spare_part_logo")
      *
      * @ParamConverter("sparePart", class="App:SparePart", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removeSparePartLogoAction(Request $request, SparePart $sparePart)
     {
@@ -85,6 +88,8 @@ class AdminController extends Controller
      * @Route("/admin-remove-city-logo/{id}", name="admin_remove_city_logo")
      *
      * @ParamConverter("city", class="App:City", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removeCityLogoAction(Request $request, City $city)
     {
@@ -101,6 +106,8 @@ class AdminController extends Controller
      * @Route("/admin-remove-phone-brand-logo/{id}", name="admin_remove_phone_brand_logo")
      *
      * @ParamConverter("brand", class="App\Entity\Phone\PhoneBrand", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removePhoneBrandLogoAction(Request $request, PhoneBrand $brand)
     {
@@ -117,6 +124,8 @@ class AdminController extends Controller
      * @Route("/admin-remove-phone-model-logo/{id}", name="admin_remove_phone_model_logo")
      *
      * @ParamConverter("model", class="App\Entity\Phone\PhoneModel", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removePhoneModelLogoAction(Request $request, PhoneModel $model)
     {
@@ -133,6 +142,8 @@ class AdminController extends Controller
      * @Route("/admin-remove-phone-spare-part-logo/{id}", name="admin_remove_phone_spare_part_logo")
      *
      * @ParamConverter("sparePart", class="App\Entity\Phone\PhoneSparePart", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removePhoneSparePartLogoAction(Request $request, PhoneSparePart $sparePart)
     {
@@ -149,6 +160,8 @@ class AdminController extends Controller
      * @Route("/admin-reject-user-engine/{id}", name="admin_reject_user_engine")
      *
      * @ParamConverter("engine", class="App\Entity\UserEngine", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function rejectUserEngineAction(Request $request, UserEngine $userEngine)
     {
@@ -165,6 +178,8 @@ class AdminController extends Controller
      * @Route("/admin-reject-user-obd2-error-code/{id}", name="admin_reject_user_obd2_error_code")
      *
      * @ParamConverter("engine", class="App\Entity\UserData\UserOBD2ErrorCode", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function rejectUserOBD2ErrorCodeAction(Request $request, UserOBD2ErrorCode $userOBD2ErrorCode)
     {
@@ -181,6 +196,8 @@ class AdminController extends Controller
      * @Route("/admin-approve-user-obd2-error-code/{id}", name="admin_approve_user_obd2_error_code")
      *
      * @ParamConverter("engine", class="App\Entity\UserData\UserOBD2ErrorCode", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveUserOBD2ErrorCodeAction(Request $request, UserOBD2ErrorCode $userOBD2ErrorCode)
     {
@@ -217,6 +234,8 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/copy-universal-page/{type}/{id}", name="admin_copy_universal_page")
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function copyUniversalPageAction(Request $request, $type, $id)
     {
@@ -264,6 +283,8 @@ class AdminController extends Controller
      * @Route("/admin/ajax/get-models-by-brand/{id}", name="admin_ajax_get_models_by_brand", options={"expose"=true})
      *
      * @ParamConverter("brand", class="App\Entity\Brand", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN') or has_role('ROLE_ADMIN_ARTICLE_WRITER')")
      */
     public function getModelsByBrandAction(Request $request, Brand $brand)
     {

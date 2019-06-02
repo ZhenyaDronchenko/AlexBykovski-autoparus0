@@ -16,7 +16,6 @@ $(document).ready(function (ev) {
     let modalFooter = $('#modalAfterFooter');
 
     brandEl.off('change').on('change', function (ev) {
-        $('#modalAfterFooter').modal();
         const BRAND_ID = $(this).val();
 
         modelEl.html(EMPTY_OPTION);
@@ -34,9 +33,6 @@ $(document).ready(function (ev) {
                 console.error('Error due request');
             },
         });
-
-
-        console.log($(this).val());
     });
 
     function setModels(models) {
@@ -50,7 +46,7 @@ $(document).ready(function (ev) {
         }
     }
 
-    $(".article-images-container").off('change').on('change', ".file-for-cropper", function (ev) {
+    $("body").off('change').on('change', ".file-for-cropper", function (ev) {
         modalFooter.modal();
 
         let modalCropperContainer = modalFooter.find(".modal-body");

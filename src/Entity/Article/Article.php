@@ -2,6 +2,7 @@
 
 namespace App\Entity\Article;
 
+use App\Entity\User;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -133,6 +134,14 @@ class Article
      * @ORM\Column(type="integer", options={"default" : 0})
      */
     private $directViews;
+
+    /**
+     * @var User|null
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
+     */
+    private $creator;
 
     /**
      * Article constructor.
@@ -397,5 +406,21 @@ class Article
     public function setDirectViews(int $directViews): void
     {
         $this->directViews = $directViews;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param User|null $creator
+     */
+    public function setCreator(?User $creator): void
+    {
+        $this->creator = $creator;
     }
 }
