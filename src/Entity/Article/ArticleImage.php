@@ -72,7 +72,7 @@ class ArticleImage
      *
      * Many features have one product. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="articleImages")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $article;
 

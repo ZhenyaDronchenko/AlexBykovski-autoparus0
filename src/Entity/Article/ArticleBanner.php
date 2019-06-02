@@ -38,7 +38,7 @@ class ArticleBanner
      *
      * Many ArticleBanners have one Article. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="banners")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $article;
 

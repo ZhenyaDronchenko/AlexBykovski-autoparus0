@@ -70,8 +70,8 @@ class Article
      * @var ArticleImage
      *
      * One Article has One ArticleImage.
-     * @ORM\OneToOne(targetEntity="ArticleImage", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="main_image_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="ArticleImage", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $mainArticleImage;
 
@@ -79,7 +79,7 @@ class Article
      * @var Collection
      *
      * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="ArticleImage", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ArticleImage", mappedBy="article", cascade={"persist"}, orphanRemoval=true)
      */
     private $articleImages;
 
@@ -87,7 +87,7 @@ class Article
      * @var Collection
      *
      * One Article has many ArticleBanners. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="ArticleBanner", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ArticleBanner", mappedBy="article", cascade={"persist"}, orphanRemoval=true)
      */
     private $banners;
 
