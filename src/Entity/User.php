@@ -220,6 +220,15 @@ abstract class User extends BaseUser
         $this->isHelper = $isHelper;
     }
 
+    public function toggleRole($role)
+    {
+        if($this->hasRole($role)){
+            return $this->removeRole($role);
+        }
+
+        return $this->addRole($role);
+    }
+
     public function isBuyer()
     {
         return $this->hasRole(User::ROLE_BUYER);

@@ -15,6 +15,7 @@ sonata_admin:
             - 'js/general-settings.js'
             - 'js/admin/spare-part.js'
             - 'js/admin/article-image.js'
+            - 'js/admin/user/ajax-requests.js'
 
     security:
         handler: sonata.admin.security.handler.role

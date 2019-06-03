@@ -280,6 +280,30 @@ class AdminController extends Controller
     }
 
     /**
+     * @Route("/admin/ajax/toggle-role/{id}", name="admin_ajax_toggle_role_for_user")
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @ParamConverter("user", class="App\Entity\User", options={"id" = "id"})
+     */
+    public function ajaxToggleRoleForUserAction(Request $request, User $user)
+    {
+        $role = $request->get("role");
+
+        if(!$user || !$role){
+            return new JsonResponse(["success" => false]);
+        }
+
+        $user->toggleRole($role);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse([
+            "success" => true,
+        ]);
+    }
+
+    /**
      * @Route("/admin/ajax/get-models-by-brand/{id}", name="admin_ajax_get_models_by_brand", options={"expose"=true})
      *
      * @ParamConverter("brand", class="App\Entity\Brand", options={"id" = "id"})
