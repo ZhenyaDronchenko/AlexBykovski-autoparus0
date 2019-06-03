@@ -19,7 +19,6 @@ $(document).ready(function (ev) {
                 if(data.success){
                     toggleBooleanLabel(element)
                 }
-                console.log(data);
             },
             error(data) {
                 console.error('Error due request');
