@@ -30,6 +30,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 abstract class User extends BaseUser
 {
+    //https://stackoverflow.com/questions/14154505/how-to-use-roles-in-sonataadminbundle
     const ROLE_SELLER = "ROLE_SELLER";
     const ROLE_BUYER = "ROLE_BUYER";
     const ROLE_ADMIN = "ROLE_ADMIN";

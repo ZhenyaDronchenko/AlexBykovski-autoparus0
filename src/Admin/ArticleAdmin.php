@@ -75,6 +75,9 @@ class ArticleAdmin extends AbstractAdmin
             'label' => 'Пилотное изображение',
             'required' => false,
             "useAllFields" => true,
+            "attr" => [
+                "class" => "single-image-for-cropper-container"
+            ],
         ]);
         $formMapper->add('articleImages', CollectionType::class, [
             'label' => 'Другие изображения',

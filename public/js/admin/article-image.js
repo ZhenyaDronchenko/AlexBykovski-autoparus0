@@ -100,7 +100,13 @@ $(document).ready(function (ev) {
                     height: IMAGE_HEIGHT
                 }
             }).then(function (response) {
-                fileInput.parents(".sonata-collection-row").find(".file-path-for-cropper").val(response);
+                let parent = fileInput.parents(".sonata-collection-row");
+
+                if(!parent.length){
+                    parent = fileInput.parents(".single-image-for-cropper-container");
+                }
+
+                parent.find(".file-path-for-cropper").val(response);
                 modalFooter.modal('hide');
             });
         });
