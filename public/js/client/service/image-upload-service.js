@@ -93,8 +93,6 @@
                 customClass: "croppie-container-class"
             });
 
-            console.log(image_crop);
-
             image_crop.croppie('bind', {
                 url: self.previewImage.attr("src")
             });

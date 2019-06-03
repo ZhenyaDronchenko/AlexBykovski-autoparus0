@@ -8,13 +8,13 @@ use App\Entity\Article\ArticleTheme;
 use App\Entity\Brand;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Model;
+use App\Entity\User;
 use App\Form\Type\Admin\ArticleBannerFormType;
 use App\Form\Type\Admin\ArticleImageFormType;
 use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -22,13 +22,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ArticleAdmin extends AbstractAdmin
 {
@@ -55,8 +53,12 @@ class ArticleAdmin extends AbstractAdmin
     {
         /** @var Article $article */
         $article = $this->getSubject();
-        $helpMainImage = $article->getMainArticleImage() && $article->getMainArticleImage()->getImage() ?
-            $this->helper->getImagesHelp($this->helper->getImagesData($article->getMainArticleImage())) : "";
+        /** @var User */
+        $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+
+        if($article->getId() && $article->getCreator() !== $user){
+            throw new AccessDeniedException('У вас нет доступа к этим данным!');
+        }
 
         $brand = $article->getDetail() ? $article->getDetail()->getBrand() : null;
         $model = $article->getDetail() ? $article->getDetail()->getModel() : null;
@@ -69,21 +71,21 @@ class ArticleAdmin extends AbstractAdmin
             'label' => 'Автор статьи',
             'required' => false,
         ]);
-        $formMapper->add(
-            'mainArticleImage_image',
-            FileType::class,
-            ['label' => 'Пилотное изображение', 'required' => false, 'mapped' => false],
-            ["help" => $helpMainImage]);
-        $formMapper->add('mainArticleImage.comment', TextType::class, ['label' => 'Комментарий к изображению', 'required' => false]);
-        $formMapper->add('mainArticleImage.author', TextType::class, ['label' => 'Автор', 'required' => false]);
-        $formMapper->add('mainArticleImage.imageText', TextType::class, ['label' => 'Текст на изображению', 'required' => false]);
-        $formMapper->add('mainArticleImage.text', CKEditorType::class, ['label' => 'Первый текст статьи', 'required' => false]);
+        $formMapper->add('mainArticleImage', ArticleImageFormType::class, [
+            'label' => 'Пилотное изображение',
+            'required' => false,
+            "useAllFields" => true,
+            'help_html' => true,
+        ]);
         $formMapper->add('articleImages', CollectionType::class, [
             'label' => 'Другие изображения',
             'entry_type' => ArticleImageFormType::class,
             'allow_delete' => true,
             'allow_add' => true,
             'required' => false,
+            'attr' => [
+                "class" => "article-images-container"
+            ],
         ]);
         $formMapper->add('banners', CollectionType::class, [
             'label' => 'Баннеры',
@@ -178,6 +180,10 @@ class ArticleAdmin extends AbstractAdmin
 
     public function prePersist($article)
     {
+        /** @var User */
+        $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+        $article->setCreator($user);
+
         $this->uploadFiles($this->getForm(), $article);
         $this->saveModel($this->getForm()->get("model")->getData(), $article);
     }
@@ -190,10 +196,24 @@ class ArticleAdmin extends AbstractAdmin
         $article->setUpdatedAt(new DateTime());
     }
 
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        $rootAlias = $query->getRootAlias();
+        /** @var User */
+        $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+
+        $query->where($rootAlias . '.creator = :user')
+            ->setParameter('user', $user)
+            ->orderBy($rootAlias . '.createdAt', 'ASC');
+
+        return $query;
+    }
+
     protected function uploadFiles(Form $form, Article $article)
     {
         $this->uploader->setFolder(FileUpload::ARTICLE);
-        $this->uploadMainImage($form->get('mainArticleImage_image')->getData(), $article);
+        $this->uploadMainImage($form->get('mainArticleImage')->get("filePath")->getData(), $article);
         $this->uploadArticleImages($form->get('articleImages'), $article);
         $this->uploadArticleBanners($form->get('banners'), $article);
     }
@@ -210,7 +230,7 @@ class ArticleAdmin extends AbstractAdmin
     private function uploadArticleImages(Form $images, Article $article)
     {
         foreach ($images as $image){
-            $file = $image->get("file")->getData();
+            $file = $image->get("filePath")->getData();
             /** @var ArticleImage $articleImage */
             $articleImage = $image->getData();
 

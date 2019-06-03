@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.hasRole('ROLE_ADMIN_ARTICLE_WRITER') %}
+        <span class="label label-success toggle-user-role-by-admin" data-user-id="{{ object.id }}" data-role="ROLE_ADMIN_ARTICLE_WRITER" style="cursor: pointer;">да</span>
+    {% else %}
+        <span class="label label-danger toggle-user-role-by-admin" data-user-id="{{ object.id }}" data-role="ROLE_ADMIN_ARTICLE_WRITER" style="cursor: pointer;">нет</span>
+    {% endif %}
+{% endblock %}

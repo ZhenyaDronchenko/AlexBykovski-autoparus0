@@ -1,4 +1,10 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN_ARTICLE_WRITER:
+            - ROLE_ADMIN_ARTICLE_ARTICLE_CREATE
+            - ROLE_ADMIN_ARTICLE_ARTICLE_EDIT
+            - ROLE_ADMIN_ARTICLE_ARTICLE_LIST
+
     encoders:
         App\Entity\User: bcrypt
 
@@ -23,7 +29,6 @@ security:
                 login_path: login
                 check_path: login
                 username_parameter: _username
-                success_handler: app.security.login_success_handler
 
             logout:
                 path: /logout
@@ -38,5 +43,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_ADMIN_ARTICLE_WRITER] }
         # - { path: ^/profile, roles: ROLE_USER }

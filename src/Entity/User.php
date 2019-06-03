@@ -34,6 +34,8 @@ abstract class User extends BaseUser
     const ROLE_BUYER = "ROLE_BUYER";
     const ROLE_ADMIN = "ROLE_ADMIN";
     const ROLE_CLIENT = "ROLE_CLIENT";
+    const ROLE_ADMIN_ARTICLE_WRITER = "ROLE_ADMIN_ARTICLE_WRITER";
+    const ROLE_SHOW_POSTS_HOMEPAGE = "ROLE_SHOW_POSTS_HOMEPAGE";
 
     /**
      * @var integer
@@ -60,7 +62,7 @@ abstract class User extends BaseUser
      *
      * @ORM\Column(type="string", unique=true, length=64)
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var DateTime
@@ -217,6 +219,15 @@ abstract class User extends BaseUser
     public function setIsHelper(bool $isHelper): void
     {
         $this->isHelper = $isHelper;
+    }
+
+    public function toggleRole($role)
+    {
+        if($this->hasRole($role)){
+            return $this->removeRole($role);
+        }
+
+        return $this->addRole($role);
     }
 
     public function isBuyer()

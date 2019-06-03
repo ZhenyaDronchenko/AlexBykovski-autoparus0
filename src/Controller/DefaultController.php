@@ -67,7 +67,7 @@ class DefaultController extends Controller
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
         $activity = $urlActivity && array_key_exists($urlActivity, SellerCompany::$activities) ? SellerCompany::$activities[$urlActivity] : null;
         $isAllUsers = strpos($route, "_all_users") !== false;
-        $users = $user ?: ($isAllUsers ? [] : PostsFilterType::ADMINS);
+        $users = $user ?: ($isAllUsers ? '' : PostsFilterType::USERS_ACCESS_POST_HOMEPAGE);
 
         if($userId && !$user || $urlBrand && !$brand || $urlModel && !$model || $urlCity && !$city || $urlActivity && !$activity){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);

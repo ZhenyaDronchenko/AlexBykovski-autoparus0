@@ -72,7 +72,7 @@ class ArticleImage
      *
      * Many features have one product. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="articleImages")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $article;
 
@@ -212,7 +212,7 @@ class ArticleImage
             return false;
         }
 
-        $this->image = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::ARTICLE_IMAGE_WIDTH, ResizeImageHandler::ARTICLE_IMAGE_HEIGHT);
+        $this->image = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::ARTICLE_IMAGE_WIDTH, ResizeImageHandler::ARTICLE_IMAGE_HEIGHT, false);
         $this->imageThumbnail = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::ARTICLE_IMAGE_WIDTH_THUMBNAIL, ResizeImageHandler::ARTICLE_IMAGE_HEIGHT_THUMBNAIL);
     }
 

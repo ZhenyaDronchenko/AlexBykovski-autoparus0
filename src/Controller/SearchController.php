@@ -208,7 +208,7 @@ class SearchController extends Controller
         $city = isset($requestData["urlCity"]) ? $em->getRepository(City::class)->findOneBy(["url" => $requestData["urlCity"]]) : null;
         $activity = isset($requestData["urlActivity"]) && array_key_exists($requestData["urlActivity"], SellerCompany::$activities) ?
             SellerCompany::$activities[$requestData["urlActivity"]] : null;
-        $users = $user ?: ($allUsers ? [] : PostsFilterType::ADMINS);
+        $users = $user ?: ($allUsers ? '' : PostsFilterType::USERS_ACCESS_POST_HOMEPAGE);
         $filter = new PostsFilterType($users, $brand, $model, $city, $activity, $limit, $offset);
 
         if(!is_numeric($offset) || !is_numeric($limit)){

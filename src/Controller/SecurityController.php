@@ -114,7 +114,7 @@ class SecurityController extends Controller
             $client->setPassword($password);
             $client->setUsername($client->getEmail());
             $sender->createAndSendActivateCode($client);
-            $client->setEnabled(true);
+            $client->setEnabled(false);
 
             $em->persist($client);
             $em->flush();
@@ -238,7 +238,7 @@ class SecurityController extends Controller
 
             $handler->authorizeUser($user);
 
-            if($user instanceof Admin){
+            if($user instanceof Admin || $user->hasRole(User::ROLE_ADMIN_ARTICLE_WRITER)){
                 $redirectUrl = $this->generateUrl("sonata_admin_dashboard");
             }
             else{

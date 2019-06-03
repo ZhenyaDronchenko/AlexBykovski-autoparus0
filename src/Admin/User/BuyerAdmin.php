@@ -18,6 +18,7 @@ class BuyerAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('id', TextType::class, ['label' => 'ID', 'sortable' => false])
             ->addIdentifier('name', TextType::class, ['label' => 'Имя/Nick', 'sortable' => false])
             ->addIdentifier('email', TextType::class, ['label' => 'e-mail', 'sortable' => false])
             ->addIdentifier('phone', TextType::class, ['label' => 'Телефон', 'sortable' => false])
@@ -27,6 +28,8 @@ class BuyerAdmin extends AbstractAdmin
             ->addIdentifier('isEnabled', 'boolean', ['label' => 'Актив', 'sortable' => false])
             ->addIdentifier('isHelper', 'boolean', ['label' => "helper", 'sortable' => false])
             ->addIdentifier('toPersonOffice', null, ['label' => false, 'template' => 'admin/user/link_to_user_office.html.twig', 'sortable' => false, 'mapped' => false])
+            ->addIdentifier('isCopywriter', 'boolean', ['label' => "Копирайтер", 'template' => 'admin/user/role/is_copy_writer.html.twig', 'sortable' => false])
+            ->addIdentifier('isShowPostsHomepage', 'boolean', ['label' => "Посты", 'template' => 'admin/user/role/is_show_posts_homepage.html.twig', 'sortable' => false])
         ;
     }
 

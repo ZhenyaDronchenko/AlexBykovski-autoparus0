@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Client\Client;
 use App\Entity\Client\SellerCompany;
+use App\Entity\User;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityRepository;
 
@@ -11,7 +12,6 @@ class GalleryPhotoRepository extends EntityRepository
 {
     public function findAllByFilter(PostsFilterType $filter)
     {
-
         $qb = $this->createQueryBuilder('gph')
             ->select('gph')
             ->join("gph.image", "im")
@@ -30,9 +30,9 @@ class GalleryPhotoRepository extends EntityRepository
             $qb->andWhere("cl.id = :clientId")
                 ->setParameter("clientId", $filter->getUsers()->getId());
         }
-        elseif(count($filter->getUsers())){
-            $qb->andWhere("cl.id IN(:ids)")
-                ->setParameter("ids", $filter->getUsers());
+        elseif($filter->getUsers() === PostsFilterType::USERS_ACCESS_POST_HOMEPAGE){
+            $qb->where('cl.roles LIKE :role')
+                ->setParameter('role', '%' . User::ROLE_SHOW_POSTS_HOMEPAGE . '%');
         }
 
         if($filter->getBrand() || $filter->getModel()){

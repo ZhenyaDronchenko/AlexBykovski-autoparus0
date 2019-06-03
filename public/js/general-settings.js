@@ -2,9 +2,11 @@ const BASE_IMAGE_WIDTH = 1080;
 const BASE_IMAGE_HEIGHT = 720;
 
 $(function(){
-    $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
-    $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
-    $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
+    if(typeof $("body").mask === "function") {
+        $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
+        $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
+        $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
+    }
 
     $(document).on("click", ".open-popup-button", function (ev) {
         if($(this).attr("id") && $(this).attr("id").indexOf("initiator-open-") > -1){
@@ -154,4 +156,28 @@ function getLocation(callback) {
 
 function detectmob() {
     return window.innerWidth <= 800 && window.innerHeight <= 600;
+}
+
+function addBootstrapModalAfterFooter() {
+    if($("#modalAfterFooter").length){
+        return false;
+    }
+
+    let modalHtml =
+        '<div id="modalAfterFooter" class="modal" tabindex="-1" role="dialog">' +
+            '<div class="modal-dialog" role="document">' +
+                '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                    '</div>' +
+                    '<div class="modal-body">' +
+                    '</div>' +
+                    '<div class="modal-footer">' +
+                        '<button id="save-modal-after-footer" type="button" class="btn btn-primary">Сохранить</button>' +
+                        '<button id="close-modal-after-footer" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+    $("body").append($(modalHtml));
 }

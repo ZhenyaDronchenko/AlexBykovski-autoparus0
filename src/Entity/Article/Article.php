@@ -2,6 +2,7 @@
 
 namespace App\Entity\Article;
 
+use App\Entity\User;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -70,8 +71,8 @@ class Article
      * @var ArticleImage
      *
      * One Article has One ArticleImage.
-     * @ORM\OneToOne(targetEntity="ArticleImage", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="main_image_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="ArticleImage", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(name="main_image_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $mainArticleImage;
 
@@ -79,7 +80,7 @@ class Article
      * @var Collection
      *
      * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="ArticleImage", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ArticleImage", mappedBy="article", cascade={"persist"}, orphanRemoval=true)
      */
     private $articleImages;
 
@@ -87,7 +88,7 @@ class Article
      * @var Collection
      *
      * One Article has many ArticleBanners. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="ArticleBanner", mappedBy="article", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ArticleBanner", mappedBy="article", cascade={"persist"}, orphanRemoval=true)
      */
     private $banners;
 
@@ -133,6 +134,14 @@ class Article
      * @ORM\Column(type="integer", options={"default" : 0})
      */
     private $directViews;
+
+    /**
+     * @var User|null
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
+     */
+    private $creator;
 
     /**
      * Article constructor.
@@ -397,5 +406,21 @@ class Article
     public function setDirectViews(int $directViews): void
     {
         $this->directViews = $directViews;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param User|null $creator
+     */
+    public function setCreator(?User $creator): void
+    {
+        $this->creator = $creator;
     }
 }
