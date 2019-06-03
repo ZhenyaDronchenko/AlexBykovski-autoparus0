@@ -10,9 +10,10 @@ use App\Entity\Model;
 
 class PostsFilterType
 {
-    const ADMINS = [34, 29, 28, 27, 26, 24, 46, 47, 48, 50, 56];
+    //const ADMINS = [34, 29, 28, 27, 26, 24, 46, 47, 48, 50, 56];
+    const USERS_ACCESS_POST_HOMEPAGE = "USERS_ACCESS_POST_HOMEPAGE";
 
-    /** @var Client|array */
+    /** @var Client|string */
     private $users;
 
     /** @var Brand|null */
@@ -35,7 +36,7 @@ class PostsFilterType
 
     /**
      * PostsFilterType constructor.
-     * @param Client|array $users
+     * @param Client|string $users
      * @param Brand|null $brand
      * @param Model|null $model
      * @param City|null $city
@@ -63,7 +64,7 @@ class PostsFilterType
     }
 
     /**
-     * @return Client|array
+     * @return Client|string
      */
     public function getUsers()
     {
@@ -71,7 +72,7 @@ class PostsFilterType
     }
 
     /**
-     * @param Client|array $users
+     * @param Client|string $users
      */
     public function setUsers($users): void
     {

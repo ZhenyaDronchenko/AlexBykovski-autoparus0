@@ -35,6 +35,7 @@ abstract class User extends BaseUser
     const ROLE_ADMIN = "ROLE_ADMIN";
     const ROLE_CLIENT = "ROLE_CLIENT";
     const ROLE_ADMIN_ARTICLE_WRITER = "ROLE_ADMIN_ARTICLE_WRITER";
+    const ROLE_SHOW_POSTS_HOMEPAGE = "ROLE_SHOW_POSTS_HOMEPAGE";
 
     /**
      * @var integer
