@@ -75,7 +75,6 @@ class ArticleAdmin extends AbstractAdmin
             'label' => 'Пилотное изображение',
             'required' => false,
             "useAllFields" => true,
-            'help_html' => true,
         ]);
         $formMapper->add('articleImages', CollectionType::class, [
             'label' => 'Другие изображения',
