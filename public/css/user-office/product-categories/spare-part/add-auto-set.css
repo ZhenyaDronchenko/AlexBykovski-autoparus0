@@ -170,6 +170,9 @@ input {
     line-height: 20px;
     color: #000000;
     background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
+
 }
 
 select {
@@ -181,6 +184,8 @@ select {
     border-bottom: 1px solid #757373;
     margin-left: 10px;
     background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
 
 }
 .engine-select {
@@ -382,6 +387,8 @@ textarea {
     font-size: 16px;
     line-height: 18px;
     color: #000000;
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 .img-block {
@@ -622,6 +629,9 @@ textarea {
         width: 170px;
 
     }
+    .kpp-select {
+    width: 195px;
+}
 
     .mark-select-c {
         width: 220px;
@@ -645,7 +655,7 @@ textarea {
 
 
     .engine-select {
-        width: 180px;
+        width: 170px;
     }
     .prompt--l {
         padding-left: 50px;
@@ -948,15 +958,7 @@ textarea {
         align-items: center;
     }
 
-    .btn {
-        padding: 5px 10px;
-        padding-bottom: 4px;
-        font-size: 16px;
-        line-height: 18px;
-
-        margin: 0;
-        margin-bottom: 20px;
-    }
+    
     .modal {
         top: 50px;
         width: 80%;
@@ -1039,6 +1041,7 @@ textarea {
         -ms-flex-align: center;
         align-items: center;
     }
+
 }
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
@@ -1050,14 +1053,7 @@ textarea {
     .select-i {
         margin-right: 35px;
     }
-    .btn {
-        padding: 5px 15px;
-        margin-bottom: 4px;
-        font-size: 16px;
-        line-height: 18px;
-        margin: 0 20px;
-        margin-bottom: 20px;
-    }
+  
 }
 
 .button {
@@ -1108,7 +1104,7 @@ textarea {
     user-select: none;
 }
 .list {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 .list li {
     margin-bottom: 15px;
@@ -1138,8 +1134,9 @@ textarea {
     -webkit-text-stroke: .03em #000000;
 }
 .list-name {
+    width: 70%;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 24px;
     font-weight: 700;
 }
 
@@ -1210,7 +1207,12 @@ textarea {
     }
 
 
-
+ .list-name {
+    width: 100%;
+     font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    }
 
 
 }
@@ -1230,16 +1232,34 @@ textarea {
     .input {
         width: 400px;
     }
+    .list-name {
+    width: 100%;
+     font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    }
 }
 @media (min-width: 768px) and  (max-width: 1023px) {
     .container {
         width: auto; }
-
+   .name-input {
+    width: 110px;
+       
+}
+.list-name {
+    width: 58%;
+     font-size: 18px;
+    line-height: 20px;
+    }
 
 }
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
         width: auto; }
+        .list-name {
+    width: 60%;
+
+}
 
 }
 /* pay block*/
