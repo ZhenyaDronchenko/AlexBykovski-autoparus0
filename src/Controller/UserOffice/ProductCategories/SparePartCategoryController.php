@@ -9,6 +9,7 @@ use App\Entity\Client\Client;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\UserData\UserEngine;
+use App\Form\Type\Advert\AutoSetType;
 use App\Form\Type\SparePartGeneralAdvertType;
 use App\Form\Type\SparePartSpecificAdvertType;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
@@ -362,6 +363,71 @@ class SparePartCategoryController extends Controller
         return new JsonResponse([
             "adverts" => $provider->getAdverts($filterType),
             "countPages" => $provider->getCountPagesAdverts($filterType),
+        ]);
+    }
+
+    /**
+     * @Route("/add-auto-set", name="user_profile_product_categories_spare_part_add_auto_set")
+     */
+    public function addAutoSetAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+        $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
+
+        $isFormSubmitted = array_key_exists("spare_part_specific_advert", $_POST);
+
+        $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => $isFormSubmitted]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            return new JsonResponse(["ok"]);
+            $fileData = $form->get("image")->getData();
+            $newEmptyName = $request->request->get("engineNameEmpty");
+
+//            if($newEmptyName){
+//                $advert->setEngineName(strtoupper($newEmptyName));
+//            }
+
+//            if($newEmptyName || $advert->getEngineType() &&
+//                !count($advert->getModel()->getEngineCapacities($advert->getEngineType())) && $advert->getEngineCapacity()){
+//                $userEngine = UserEngine::createByAutoSparePartSpecificAdvert($advert);
+//
+//                $em->persist($userEngine);
+//            }
+
+//            if($fileData){
+//                $path = $uploader->uploadBase64Image($fileData);
+//                $advert->setImage($path);
+//            }
+//
+//            $em->persist($advert);
+            $em->flush();
+
+            return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
+                "form" => $form->createView(),
+            ]);
+        }
+        elseif ($form->isSubmitted() && !$form->isValid()){
+            $newEngineName = $request->request->get("engineNameEmpty");
+            $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => false]);
+            $form->handleRequest($request);
+
+            return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
+                "form" => $form->createView(),
+                "engineNameEmpty" => $newEngineName
+            ]);
+        }
+
+        $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => false]);
+
+        return $this->render('client/user-office/seller-services/product-categories/spare-part/add-auto-set.html.twig', [
+            "form" => $form->createView(),
         ]);
     }
 }
