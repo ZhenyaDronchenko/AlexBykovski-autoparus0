@@ -1,13 +1,16 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('AddAutoSetCtrl', ['$scope', '$http', '$compile',
-        function($scope, $http, $compile) {
+    autoparusApp.controller('AddAutoSetCtrl', ['$scope', '$http', '$compile', 'ImageUploadService',
+        function($scope, $http, $compile, ImageUploadService) {
+        const IMAGE_WIDTH = 540;
+        const IMAGE_HEIGHT = 380;
         let formSelector = null;
         let url = null;
         let submitButtonName = "";
         let fileSelector = "";
-        let isDisableSparePart = false;
+        let self = this;
+        this.allSparePartsChecked = false;
 
         function init(formSelectorS, submitButtonNameS, fileIdS){
             formSelector = formSelectorS;
@@ -18,6 +21,7 @@
         }
 
         function request(url, data, callback) {
+            $("#preloader").show();
             $http({
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
@@ -53,10 +57,12 @@
                     $("#upload-image-input").change(function(e){
                         let file = e.target.files[0];
 
-                        addImagePreview(file, function(viewImage){
-                            $(fileSelector).val(viewImage);
-                            $("#preview-image").attr("src", viewImage);
-                        });
+                        ImageUploadService.processUploadImage(file, function(fileCompressed){
+                            addImagePreview(fileCompressed, function(viewImage){
+                                $(fileSelector).val(viewImage);
+                                $("#preview-image").attr("src", viewImage);
+                            });
+                        }, [IMAGE_WIDTH, IMAGE_HEIGHT]);
                     });
                 }
             });
@@ -78,7 +84,20 @@
             });
         }
 
+        function toggleSpareParts() {
+           self.allSparePartsChecked = !self.allSparePartsChecked;
+           let checkboxes = $(".checkbox-spare-part");
+
+           if(self.allSparePartsChecked){
+               checkboxes.attr("checked", true);
+           }
+           else{
+               checkboxes.attr("checked", false);
+           }
+        }
+
         this.init = init;
+        this.toggleSpareParts = toggleSpareParts;
 
     }]);
 })(window.autoparusApp);

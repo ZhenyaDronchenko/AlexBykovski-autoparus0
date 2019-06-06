@@ -81,9 +81,11 @@ function convertBase64ToImage(image64, callback) {
     };
 }
 
-function resizeAndCompressImage(file, callback) {
+function resizeAndCompressImage(file, callback, sizes) {
     const fileName = file.name;
     const reader = new FileReader();
+    const baseWidth = sizes ? sizes[0] : BASE_IMAGE_WIDTH;
+    const baseHeight = sizes ? sizes[1] : BASE_IMAGE_HEIGHT;
 
     reader.readAsDataURL(file);
 
@@ -96,11 +98,11 @@ function resizeAndCompressImage(file, callback) {
             const elem = document.createElement('canvas');
 
             if(img.width > img.height){
-                elem.width = img.width > BASE_IMAGE_WIDTH ? BASE_IMAGE_WIDTH : img.width;
+                elem.width = img.width > baseWidth ? baseWidth : img.width;
                 elem.height = elem.width / SCALE;
             }
             else{
-                elem.height = img.height > BASE_IMAGE_HEIGHT ? BASE_IMAGE_HEIGHT : img.height;
+                elem.height = img.height > baseHeight ? baseHeight : img.height;
                 elem.width = elem.height * SCALE;
             }
 

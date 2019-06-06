@@ -9,10 +9,11 @@ use App\Entity\Client\Client;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\UserData\UserEngine;
-use App\Form\Type\Advert\AutoSetType;
+use App\Form\Type\Advert\AutoSetFormType;
 use App\Form\Type\SparePartGeneralAdvertType;
 use App\Form\Type\SparePartSpecificAdvertType;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
+use App\Type\AutoSetType;
 use App\Type\AutoSparePartSpecificAdvertFilterType;
 use App\Upload\FileUpload;
 use DateTime;
@@ -380,45 +381,82 @@ class SparePartCategoryController extends Controller
         $uploader = $this->get("app.file_upload");
         $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
 
-        $isFormSubmitted = array_key_exists("spare_part_specific_advert", $_POST);
+        $isFormSubmitted = array_key_exists("auto_set_form", $_POST);
+        $autoSet = new AutoSetType();
 
-        $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => $isFormSubmitted]);
+        $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => $isFormSubmitted]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            return new JsonResponse(["ok"]);
             $fileData = $form->get("image")->getData();
             $newEmptyName = $request->request->get("engineNameEmpty");
 
-//            if($newEmptyName){
-//                $advert->setEngineName(strtoupper($newEmptyName));
-//            }
+            $spareParts = array_filter($autoSet->getSpareParts(), function ($item){
+                return $item["isChecked"];
+            });
 
-//            if($newEmptyName || $advert->getEngineType() &&
-//                !count($advert->getModel()->getEngineCapacities($advert->getEngineType())) && $advert->getEngineCapacity()){
-//                $userEngine = UserEngine::createByAutoSparePartSpecificAdvert($advert);
-//
-//                $em->persist($userEngine);
-//            }
+            if(!count($spareParts)){
+                $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
+                $form->handleRequest($request);
+                $form->get("engineNameEmpty")->addError(new FormError("Выберите хотя бы 1 запчасть"));
 
-//            if($fileData){
-//                $path = $uploader->uploadBase64Image($fileData);
-//                $advert->setImage($path);
-//            }
-//
-//            $em->persist($advert);
+                return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
+                    "form" => $form->createView(),
+                    "engineNameEmpty" => $newEmptyName
+                ]);
+            }
+
+            $autoSet->setEngineName($newEmptyName ? strtoupper($newEmptyName) : $autoSet->getEngineName());
+            $path = $fileData ? $uploader->uploadBase64Image($fileData) : "";
+
+            if($newEmptyName){
+                $userEngine = new UserEngine($autoSet->getEngineType(), $autoSet->getEngineName(), $autoSet->getEngineCapacity(), $autoSet->getModel());
+                $em->persist($userEngine);
+            }
+
+            foreach ($spareParts as $sparePart) {
+                $advert = new AutoSparePartSpecificAdvert($client->getSellerData()->getAdvertDetail());
+
+                $advert->setByAutoSet($autoSet, $sparePart);
+                $advert->setImage($path);
+
+                $em->persist($advert);
+            }
+
             $em->flush();
 
-            return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
-                "form" => $form->createView(),
-            ]);
+            switch($form->get('submitButtonName')->getData()){
+                case "submitContinue":
+                    $autoSet->clearForContinue();
+
+                    $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
+
+                    return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
+                        "form" => $form->createView(),
+                    ]);
+
+                default:
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_list_adverts");
+
+                    return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
+                        "form" => $form->createView(),
+                        "redirectUrl" => $redirectUrl,
+                    ]);
+            }
         }
         elseif ($form->isSubmitted() && !$form->isValid()){
             $newEngineName = $request->request->get("engineNameEmpty");
-            $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => false]);
+            $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
             $form->handleRequest($request);
-            $form->get("engineNameEmpty")->addError(new FormError("Выберите хотя бы 1 запчасть"));
+
+            $spareParts = array_filter($autoSet->getSpareParts(), function ($item){
+                return $item["isChecked"];
+            });
+
+            if(!count($spareParts)){
+                $form->get("engineNameEmpty")->addError(new FormError("Выберите хотя бы 1 запчасть"));
+            }
 
             return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
                 "form" => $form->createView(),
@@ -426,7 +464,7 @@ class SparePartCategoryController extends Controller
             ]);
         }
 
-        $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => false]);
+        $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
 
         return $this->render('client/user-office/seller-services/product-categories/spare-part/add-auto-set.html.twig', [
             "form" => $form->createView(),

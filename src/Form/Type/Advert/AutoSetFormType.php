@@ -3,14 +3,13 @@
 namespace App\Form\Type\Advert;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
-use App\Entity\Client\SellerAdvertDetail;
 use App\Form\DataTransformer\IdToBrandTransformer;
 use App\Form\DataTransformer\IdToDriveTypeTransformer;
 use App\Form\DataTransformer\IdToGearBoxTypeTransformer;
 use App\Form\DataTransformer\IdToModelTransformer;
 use App\Form\DataTransformer\IdToVehicleTypeTransformer;
-use App\Form\Type\Advert\SparePartCostFormType;
 use App\Provider\Form\SparePartAdvertDataProvider;
+use App\Type\AutoSetType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -23,9 +22,10 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotEqualTo;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-class AutoSetType extends AbstractType
+class AutoSetFormType extends AbstractType
 {
     /** @var SparePartAdvertDataProvider */
     private $provider;
@@ -75,12 +75,8 @@ class AutoSetType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $object = $builder->getData();
-        $isExistObject = $object instanceof AutoSparePartSpecificAdvert && $object->getId();
-        $object = $isExistObject ? $object : new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
-        $sparePartChoices = $this->provider->getSparePartsForAutoSet();
-
         $isFormSubmitted = $options["isFormSubmitted"];
+        $spareParts = $this->provider->getSparePartsForAutoSet();
 
         $builder
             ->add('brand', ChoiceType::class, [
@@ -92,23 +88,23 @@ class AutoSetType extends AbstractType
             ])
             ->add('model', ChoiceType::class, [
                 'label' => "Модель",
-                'choices' => $this->provider->getModels($object->getBrand(), true),
+                'choices' => $this->provider->getModels(null, true),
             ])
             ->add('year', ChoiceType::class, [
                 'label' => "Год",
-                'choices' => $this->provider->getYears($object->getModel(), true),
+                'choices' => $this->provider->getYears(null, true),
             ])
             ->add('engineType', ChoiceType::class, [
                 'label' => "Тип Двигателя",
-                'choices' => $this->provider->getEngineTypes($object->getModel(), true),
+                'choices' => $this->provider->getEngineTypes(null, true),
             ])
             ->add('engineCapacity', ChoiceType::class, [
                 'label' => "Объем Двигателя",
-                'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType(), true),
+                'choices' => $this->provider->getEngineCapacities(null, null, true),
             ])
             ->add('engineName', ChoiceType::class, [
                 'label' => "Марка двигателя",
-                'choices' => $this->provider->getEngineNames($object->getModel(), $object->getEngineType(), null, true),
+                'choices' => $this->provider->getEngineNames(null, null, null, true),
             ])
             ->add('engineNameEmpty', TextType::class, [
                 'label' => false,
@@ -117,15 +113,15 @@ class AutoSetType extends AbstractType
             ])
             ->add('gearBoxType', ChoiceType::class, [
                 'label' => "Тип КПП",
-                'choices' => $this->provider->getGearBoxTypes($object->getModel(), true),
+                'choices' => $this->provider->getGearBoxTypes(null, true),
             ])
             ->add('vehicleType', ChoiceType::class, [
                 'label' => "Тип Кузова",
-                'choices' => $this->provider->getVehicleTypes($object->getModel(), true),
+                'choices' => $this->provider->getVehicleTypes(null, true),
             ])
             ->add('driveType', ChoiceType::class, [
                 'label' => "Тип Привода",
-                'choices' => $this->provider->getDriveTypes($object->getModel(), true),
+                'choices' => $this->provider->getDriveTypes(null, true),
             ])
             ->add('condition', ChoiceType::class, [
                 'label' => "Состояние",
@@ -155,7 +151,7 @@ class AutoSetType extends AbstractType
             ->add('spareParts', CollectionType::class, [
                 'label' => false,
                 'entry_type' => SparePartCostFormType::class,
-                'data' => $sparePartChoices,
+                'data' => $spareParts,
                 'allow_add' => false,
                 'allow_delete' => false,
             ])
@@ -171,31 +167,36 @@ class AutoSetType extends AbstractType
         ;
 
         if(!$isFormSubmitted) {
-            $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($builder) {
-                /** @var AutoSparePartSpecificAdvert $object */
-                $object = $event->getData() ?: new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
+            $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($builder, $spareParts) {
+                /** @var AutoSetType $object */
+                $object = $event->getData();
                 $form = $event->getForm();
+                $brand = $object->getBrand();
+                $model = $object->getModel();
+                $engineType = $object->getEngineType();
+                $years = $this->provider->getYears($model);
 
                 $form
                     ->add('model', ChoiceType::class, [
                         'label' => "Модель",
                         'choices' => $this->provider->getModels($object->getBrand()),
-                        'constraints' => [
+                        'constraints' => !$brand ? [] :[
                             new NotNull(['message' => 'Выберите модель']),
                             new NotBlank(['message' => 'Выберите модель']),
                         ],
                     ])
                     ->add('year', ChoiceType::class, [
                         'label' => "Год",
-                        'choices' => $this->provider->getYears($object->getModel()),
-                        'constraints' => [
+                        'choices' => $years,
+                        'constraints' => !$model ? [] : [
                             new NotNull(['message' => 'Выберите год']),
+                            new NotEqualTo(['value' => 0, 'message' => 'Выберите год']),
                         ],
                     ])
                     ->add('engineType', ChoiceType::class, [
                         'label' => "Тип Двигателя",
                         'choices' => $this->provider->getEngineTypes($object->getModel()),
-                        'constraints' => [
+                        'constraints' => !$model ? [] : [
                             new NotNull(['message' => 'Выберите тип двигателя']),
                             new NotBlank(['message' => 'Выберите тип двигателя']),
                         ],
@@ -203,7 +204,7 @@ class AutoSetType extends AbstractType
                     ->add('engineCapacity', ChoiceType::class, [
                         'label' => "Объем Двигателя",
                         'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType()),
-                        'constraints' => [
+                        'constraints' => !$engineType ? [] : [
                             new NotNull(['message' => 'Выберите объём']),
                             new NotBlank(['message' => 'Выберите объём']),
                         ],
@@ -215,7 +216,7 @@ class AutoSetType extends AbstractType
                     ->add('gearBoxType', ChoiceType::class, [
                         'label' => "Тип КПП",
                         'choices' => $this->provider->getGearBoxTypes($object->getModel()),
-                        'constraints' => [
+                        'constraints' => !$model ? [] : [
                             new NotNull(['message' => 'Выберите КПП']),
                             new NotBlank(['message' => 'Выберите КПП']),
 
@@ -224,7 +225,7 @@ class AutoSetType extends AbstractType
                     ->add('vehicleType', ChoiceType::class, [
                         'label' => "Тип Кузова",
                         'choices' => $this->provider->getVehicleTypes($object->getModel()),
-                        'constraints' => [
+                        'constraints' => !$model ? [] : [
                             new NotNull(['message' => 'Выберите Тип кузова']),
                             new NotBlank(['message' => 'Выберите Тип кузова']),
                         ],
@@ -232,10 +233,17 @@ class AutoSetType extends AbstractType
                     ->add('driveType', ChoiceType::class, [
                         'label' => "Тип Привода",
                         'choices' => $this->provider->getDriveTypes($object->getModel()),
-                        'constraints' => [
+                        'constraints' => !$model ? [] : [
                             new NotNull(['message' => 'Выберите Тип привода']),
                             new NotBlank(['message' => 'Выберите Тип привода']),
                         ],
+                    ])
+                    ->add('spareParts', CollectionType::class, [
+                        'label' => false,
+                        'entry_type' => SparePartCostFormType::class,
+                        'data' => $object->getSpareParts() && count($object->getSpareParts()) ? $object->getSpareParts() : $spareParts,
+                        'allow_add' => false,
+                        'allow_delete' => false,
                     ])
                 ;
             });
@@ -251,7 +259,7 @@ class AutoSetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => null,
+            'data_class' => AutoSetType::class,
             'validation_groups' => [],
             'isFormSubmitted' => false,
         ]);

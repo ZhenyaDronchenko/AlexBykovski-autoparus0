@@ -30,7 +30,7 @@ class IdToModelTransformer implements DataTransformerInterface
             return $model->getId();
         }
 
-        return null;
+        return 0;
     }
 
     /**

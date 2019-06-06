@@ -130,7 +130,6 @@ class SparePartAdvertDataProvider extends ClientCarProvider
         /** @var SparePart $sparePart */
         foreach ($spareParts as $sparePart){
             $choices[] = [
-                "id" => $sparePart["id"],
                 "name" => $sparePart["name"],
                 "isChecked" => false,
                 "cost" => "",

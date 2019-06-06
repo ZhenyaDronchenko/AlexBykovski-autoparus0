@@ -6,7 +6,12 @@
         {% endif %}
 >
     {{ form_widget(form._token) }}
-    <div class="select select-s">
+    <div class="select select-s"
+            {% if not scrollToElement and (form.vars.errors.form.getErrors(true) | length) == 0 %}
+                scroll-to-element before-top="200"
+                {% set scrollToElement = true %}
+            {% endif %}
+    >
         <label class="select-item"
                 {% if not scrollToElement and form.brand.vars.errors.form.getErrors(true) | length %}
                     scroll-to-element
@@ -182,7 +187,8 @@
         {{ form_widget(form.image) }}
     </div>
 
-    <button class="btn" type="button">Отметить все</button>
+    <button class="btn" type="button" ng-hide="addAutoSet.allSparePartsChecked" ng-click="addAutoSet.toggleSpareParts()">Отметить все</button>
+    <button class="btn" type="button" ng-show="addAutoSet.allSparePartsChecked" ng-click="addAutoSet.toggleSpareParts()">Убрать все</button>
 
     <div
         {% if not scrollToElement and form.engineNameEmpty.vars.errors.form.getErrors(true) | length %}
@@ -205,16 +211,19 @@
             {% endif %}
 
             <li class="item">
-                {{ form_widget(sparePart.isChecked, {attr: {class: "visually-hidden filter-input filter-input-checkbox" }}) }}
+                {{ form_widget(sparePart.isChecked, {attr: {class: "visually-hidden filter-input filter-input-checkbox checkbox-spare-part" }}) }}
                 <label class="list-name" for="{{ sparePart.isChecked.vars.id }}">{{ label }}</label>
                 <label class="price-c">
-                    {{ form_widget(sparePart.cost, {attr: {class: "name-input", "placeholder": "Цена" }}) }}
+                    {{ form_widget(sparePart.cost, {attr: {class: "name-input", "placeholder": "Цена", "input-by-pattern": "", "pattern" : "[\\d\\.]" }}) }}
                     BYN (Бел Руб)
                 </label>
             </li>
         {% endfor %}
     </ul>
-    <span class="load">Подождите, идет подача объявлений</span>
+    <div id="preloader" style="display: none;">
+        <span class="load">Подождите, идет проверка и подача объявлений</span>
+        <img id="preloader-posts" src="/img/preload-gear.svg"/>
+    </div>
     <ul class="btn-list">
         <li>
             {{ form_widget(form.submit, {attr: {class: "button", "data-name" : "submit"}}) }}

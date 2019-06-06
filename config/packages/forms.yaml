@@ -24,7 +24,7 @@ services:
             - { name: form.type }
 
     app.form.auto_set_type:
-        class: App\Form\Type\Advert\AutoSetType
+        class: App\Form\Type\Advert\AutoSetFormType
         arguments:
             $provider: "@app.provider.form.spare_part_advert_provider"
             $brandTransformer: "@app.form.transformer.id_to_brand"
