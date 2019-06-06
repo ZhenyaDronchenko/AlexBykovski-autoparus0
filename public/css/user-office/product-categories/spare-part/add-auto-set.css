@@ -255,6 +255,15 @@ select {
     color: red;
     text-align: center;
 }
+.state-check {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    padding-top: 3px;
+    color: red;
+}
 .prompt--l {
     padding-left: 70px;
 }
@@ -381,7 +390,7 @@ textarea {
     box-sizing: border-box;
     width: 95%;
     margin: 0 auto;
-    margin-bottom: 30px;
+   
     padding: 5px;
     border: 1px solid #737373;
     font-size: 16px;
@@ -1323,7 +1332,7 @@ textarea {
 
 .filter-input-checkbox:checked + label::after {
     content: "";
-    background: url(../img/chek.svg) 0 0 no-repeat;
+    background: url(/img/chek.svg) 0 0 no-repeat;
     position: absolute;
     display: block;
     width: 16px;
