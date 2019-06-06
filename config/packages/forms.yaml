@@ -23,6 +23,18 @@ services:
         tags:
             - { name: form.type }
 
+    app.form.auto_set_type:
+        class: App\Form\Type\Advert\AutoSetType
+        arguments:
+            $provider: "@app.provider.form.spare_part_advert_provider"
+            $brandTransformer: "@app.form.transformer.id_to_brand"
+            $modelTransformer: "@app.form.transformer.id_to_model"
+            $vehicleTypeTransformer: "@app.form.transformer.id_to_vehicle_type"
+            $driveTypeTransformer: "@app.form.transformer.id_to_drive_type"
+            $gearBoxTypeTransformer: "@app.form.transformer.id_to_gear_box_type"
+        tags:
+            - { name: form.type }
+
     app.form.seller_company_type:
         class: App\Form\Type\SellerCompanyType
         arguments: ["@doctrine.orm.entity_manager"]

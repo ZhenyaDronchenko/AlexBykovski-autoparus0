@@ -93,30 +93,18 @@ class AutoSetType extends AbstractType
             ->add('model', ChoiceType::class, [
                 'label' => "Модель",
                 'choices' => $this->provider->getModels($object->getBrand(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите модель']),
-                ],
             ])
             ->add('year', ChoiceType::class, [
                 'label' => "Год",
                 'choices' => $this->provider->getYears($object->getModel(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите год']),
-                ],
             ])
             ->add('engineType', ChoiceType::class, [
                 'label' => "Тип Двигателя",
                 'choices' => $this->provider->getEngineTypes($object->getModel(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите тип двигателя']),
-                ],
             ])
             ->add('engineCapacity', ChoiceType::class, [
                 'label' => "Объем Двигателя",
                 'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите объём']),
-                ],
             ])
             ->add('engineName', ChoiceType::class, [
                 'label' => "Марка двигателя",
@@ -130,23 +118,14 @@ class AutoSetType extends AbstractType
             ->add('gearBoxType', ChoiceType::class, [
                 'label' => "Тип КПП",
                 'choices' => $this->provider->getGearBoxTypes($object->getModel(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите КПП']),
-                ],
             ])
             ->add('vehicleType', ChoiceType::class, [
                 'label' => "Тип Кузова",
                 'choices' => $this->provider->getVehicleTypes($object->getModel(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите Тип кузова']),
-                ],
             ])
             ->add('driveType', ChoiceType::class, [
                 'label' => "Тип Привода",
                 'choices' => $this->provider->getDriveTypes($object->getModel(), true),
-                'constraints' => [
-                    new NotNull(['message' => 'Выберите Тип привода']),
-                ],
             ])
             ->add('condition', ChoiceType::class, [
                 'label' => "Состояние",
@@ -176,7 +155,9 @@ class AutoSetType extends AbstractType
             ->add('spareParts', CollectionType::class, [
                 'label' => false,
                 'entry_type' => SparePartCostFormType::class,
-                'data' => $sparePartChoices
+                'data' => $sparePartChoices,
+                'allow_add' => false,
+                'allow_delete' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => "Добавить выбранные позиции"
@@ -201,6 +182,7 @@ class AutoSetType extends AbstractType
                         'choices' => $this->provider->getModels($object->getBrand()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите модель']),
+                            new NotBlank(['message' => 'Выберите модель']),
                         ],
                     ])
                     ->add('year', ChoiceType::class, [
@@ -215,6 +197,7 @@ class AutoSetType extends AbstractType
                         'choices' => $this->provider->getEngineTypes($object->getModel()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите тип двигателя']),
+                            new NotBlank(['message' => 'Выберите тип двигателя']),
                         ],
                     ])
                     ->add('engineCapacity', ChoiceType::class, [
@@ -222,6 +205,7 @@ class AutoSetType extends AbstractType
                         'choices' => $this->provider->getEngineCapacities($object->getModel(), $object->getEngineType()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите объём']),
+                            new NotBlank(['message' => 'Выберите объём']),
                         ],
                     ])
                     ->add('engineName', ChoiceType::class, [
@@ -233,6 +217,8 @@ class AutoSetType extends AbstractType
                         'choices' => $this->provider->getGearBoxTypes($object->getModel()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите КПП']),
+                            new NotBlank(['message' => 'Выберите КПП']),
+
                         ],
                     ])
                     ->add('vehicleType', ChoiceType::class, [
@@ -240,6 +226,7 @@ class AutoSetType extends AbstractType
                         'choices' => $this->provider->getVehicleTypes($object->getModel()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите Тип кузова']),
+                            new NotBlank(['message' => 'Выберите Тип кузова']),
                         ],
                     ])
                     ->add('driveType', ChoiceType::class, [
@@ -247,13 +234,9 @@ class AutoSetType extends AbstractType
                         'choices' => $this->provider->getDriveTypes($object->getModel()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите Тип привода']),
+                            new NotBlank(['message' => 'Выберите Тип привода']),
                         ],
                     ])
-//                    ->add('spareParts', CollectionType::class, [
-//                        'label' => false,
-//                        'entry_type' => SparePartCostFormType::class,
-//                        'data' => $sparePartChoices
-//                    ])
                 ;
             });
         }

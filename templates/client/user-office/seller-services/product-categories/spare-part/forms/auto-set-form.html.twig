@@ -184,21 +184,32 @@
 
     <button class="btn" type="button">Отметить все</button>
 
+    <div
+        {% if not scrollToElement and form.engineNameEmpty.vars.errors.form.getErrors(true) | length %}
+            scroll-to-element
+            {% set scrollToElement = true %}
+        {% endif %}
+    >
+        {% for key, error in form.engineNameEmpty.vars.errors.form.getErrors(true)%}
+            <span class="prompt prompt--l">{{ error.message }}</span>
+        {% endfor %}
+    </div>
     <ul class="list">
         {% set lastLetter = '' %}
         {% for sparePart in form.spareParts %}
-            {% if lastLetter != sparePart.name.vars.value[:1] %}
-                {% set lastLetter = sparePart.name.vars.value[:1] %}
+            {% set label = sparePart.isChecked.vars.label %}
+            {% if lastLetter != label[:1] %}
+                {% set lastLetter = label[:1] %}
 
                 <li class="letter" data-text="{{ lastLetter }}"></li>
             {% endif %}
 
             <li class="item">
                 {{ form_widget(sparePart.isChecked, {attr: {class: "visually-hidden filter-input filter-input-checkbox" }}) }}
-                <label class="list-name" for="{{ sparePart.isChecked.vars.id }}">{{ sparePart.name.vars.value }}</label>
+                <label class="list-name" for="{{ sparePart.isChecked.vars.id }}">{{ label }}</label>
                 <label class="price-c">
-                    {{ form_widget(sparePart.cost, {attr: {class: "name-input" }}) }}
-                    {{ sparePart.cost.vars.label }}
+                    {{ form_widget(sparePart.cost, {attr: {class: "name-input", "placeholder": "Цена" }}) }}
+                    BYN (Бел Руб)
                 </label>
             </li>
         {% endfor %}

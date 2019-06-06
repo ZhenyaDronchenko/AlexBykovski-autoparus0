@@ -371,6 +371,7 @@ class SparePartCategoryController extends Controller
      */
     public function addAutoSetAction(Request $request)
     {
+        ini_set("memory_limit", -1);
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Client $client */
@@ -417,6 +418,7 @@ class SparePartCategoryController extends Controller
             $newEngineName = $request->request->get("engineNameEmpty");
             $form = $this->createForm(AutoSetType::class, null, ["isFormSubmitted" => false]);
             $form->handleRequest($request);
+            $form->get("engineNameEmpty")->addError(new FormError("Выберите хотя бы 1 запчасть"));
 
             return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig', [
                 "form" => $form->createView(),
