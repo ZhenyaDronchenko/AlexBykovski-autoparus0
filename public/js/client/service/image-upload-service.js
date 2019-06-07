@@ -27,7 +27,7 @@
             this.imageSizes = imageSizes;
         };
 
-        this.processUploadImage = function(initFile, callback) {
+        this.processUploadImage = function(initFile, callback, sizes) {
             //self.workAfterCompress(initFile);
 
             resizeAndCompressImage(initFile, function(file){
@@ -37,7 +37,7 @@
 
                 self.workAfterCompress(file);
 
-            });
+            }, sizes);
         };
 
         this.workAfterCompress = function(file) {

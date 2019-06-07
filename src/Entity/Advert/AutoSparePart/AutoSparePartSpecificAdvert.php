@@ -8,6 +8,7 @@ use App\Entity\DriveType;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\VehicleType;
+use App\Type\AutoSetType;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -577,6 +578,25 @@ class AutoSparePartSpecificAdvert
         $advert->setSparePart($this->sparePart);
 
         return $advert;
+    }
+
+    public function setByAutoSet(AutoSetType $autoSet, $sparePart = null)
+    {
+        $this->brand = $autoSet->getBrand();
+        $this->model = $autoSet->getModel();
+        $this->year = $autoSet->getYear();
+        $this->engineType = $autoSet->getBrand();
+        $this->engineCapacity = $autoSet->getEngineCapacity();
+        $this->engineName = $autoSet->getEngineName();
+        $this->gearBoxType = $autoSet->getGearBoxType();
+        $this->vehicleType = $autoSet->getVehicleType();
+        $this->driveType = $autoSet->getDriveType();
+        $this->condition = $autoSet->getCondition();
+        $this->stockType = $autoSet->getStockType();
+        $this->comment = $autoSet->getComment();
+
+        $this->sparePart = $sparePart["name"];
+        $this->cost = $sparePart["cost"];
     }
 
     public function toArray()
