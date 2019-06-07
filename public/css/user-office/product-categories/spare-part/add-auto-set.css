@@ -456,11 +456,16 @@ textarea {
 }
 .load {
     margin: 10px 0;
+    margin-right: 10px;
     display: block;
     font-size: 14px;
-    line-height: 24px;
+    line-height: 16px;
     color: green;
     text-align: center;
+}
+#preloader-posts {
+    width: 16px;
+    height: 16px;
 }
 .text {
     margin: 0;
@@ -576,7 +581,16 @@ textarea {
     line-height: 20px;
 }
 
-
+#preloader {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+}
 @media (max-width: 480px) {
     .container {
         width: auto;
