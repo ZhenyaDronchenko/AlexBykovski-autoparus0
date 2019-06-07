@@ -21,7 +21,8 @@
         }
 
         function request(url, data, callback) {
-            $("#preloader").show();
+            $("#preloader").css("display", "flex");
+
             $http({
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
