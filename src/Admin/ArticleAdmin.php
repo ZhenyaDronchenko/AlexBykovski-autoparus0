@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -30,6 +31,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ArticleAdmin extends AbstractAdmin
 {
+    protected $maxPerPage = 192;
+
     protected $uploader = null;
 
     private $helper;
@@ -275,5 +278,18 @@ class ArticleAdmin extends AbstractAdmin
         $array = array_values(SellerCompany::$activities);
 
         return array_combine($array, $array);
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+
+        unset($actions["delete"]);
+
+        return $actions;
+    }
+
+    public function configureRoutes(RouteCollection $collection) {
+        $collection->remove('export');
     }
 }
