@@ -4,7 +4,105 @@
 {#{% block meta_description %}{{ page.description }}{% endblock %}#}
 
 {% block stylesheets %}
+	<link rel='stylesheet' href='/css/client/catalog/article/show-article.css'>
 {% endblock %}
 
 {% block body %}
+  <main class="container">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
+            <span class="user-name" itemprop="name">Главная</span>
+            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+            </svg>
+            <meta itemprop="position" content="1">
+          </a>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Статьи</span></a><meta itemprop="position" content="2">
+        </li>
+
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">Категория статьи</span></a><meta itemprop="position" content="3">
+        </li>
+
+       
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">Заголовок статьи ...</span><meta itemprop="position" content="4"></a>
+        </li>
+      </ul>
+
+      <section class="news" itemscope itemtype="http://schema.org/Article">
+        <div class="date-block">
+          <span class="date"  itemprop="datePublished" content="2019-02-18">18.02.2019</span>
+          <span class="time">15:56</span>
+        </div>
+        <h1 itemprop="headline name">Основной заголовок статьи</h1>
+        <link itemprop="mainEntityOfPage" href="https://www.autoparus.by">
+        <div class="wrapper">
+          <div class="block-left">
+            
+            <meta itemprop="dateModified" content="2019-02-15">
+            <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+              <meta itemprop="name" content="Автопарус">
+              <meta itemprop="telephone" content="+375 029 333 22 33">
+<meta itemprop="address" content="г. Минск, ул. Московская, д. 3">
+              <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                <meta itemprop="url image" content="img/logo.png" style="display:none;">
+                <meta itemprop="width" content="60">
+                <meta itemprop="height" content="60">
+              </span>
+            </span>
+            <h2 itemprop="alternativeHeadline">Развернутый подзаголовок статьи</h2>
+           
+
+            <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+              <p><img src="img/maz1.jpg" alt="Фото статьи" itemprop="image"></p>
+              <figcaption>
+                  Краткий комментарий к фото
+                  <span itemprop="name">Автор: Петр</span>
+              </figcaption>
+            </figure>
+
+            <p itemprop="description">Текст из СК Эдитора,  Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора</p>
+
+            <ul class="foto" itemprop="articleBody">
+              <li class="foto-item">
+                <img src="img/maz1.jpg" alt="Изображение статьи" itemprop="image">
+                <p class="foto-text">Текст из СК Эдитора,  Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора</p>
+              </li>
+
+              <li class="foto-item">
+                <img src="img/maz1.jpg" alt="">
+                <p class="foto-text">Текст из СК Эдитора,  Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора</p>
+              </li>
+
+              <li class="foto-item">
+                <img src="img/maz1.jpg" alt="">
+              </li> 
+            </ul>
+          </div>
+          <div class="block-right">
+            <h2>Автозапчасти</h2>
+            <form class='modform' action="#" method="get">
+              <select class='form7'>
+                <option selected>Марка авто:</option>
+                <option>Honda</option>
+                <option>Toyota</option>
+                <option>Opel</option>
+                <option>BMW</option>
+                <option>Mersedes-Benz</option>   
+              </select>
+            </form>
+            <div class="block-img">
+              <img class="img-w" src="img/maz1.jpg" alt="">
+              <img class="img-w" src="img/maz1.jpg" alt="">
+              <img class="img-w" src="img/maz1.jpg" alt="">
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 {% endblock %}
