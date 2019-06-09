@@ -40,357 +40,89 @@
                     <a class="form-link" href="{{ homePage.middleLink ? homePage.middleLink : ""}}">{{ homePage.middleText }}</a>
                 </form>
             </div>
-<!-- для десктопа -->
-            <div class="article">
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
+            {% if not is_mobile() and articles is defined %}
+                {% if articles[constant('App\\Type\\ArticleFilterType::SORT_UPDATED')] %}
+                    <div class="article">
+                        {% for articleArray in articles[constant('App\\Type\\ArticleFilterType::SORT_UPDATED')] if articleArray.object.detail.themes | length > 0 %}
+                        {% set article = articleArray.object %}
+                            <a href="{{ path("article_catalog_show_article", {"theme" : article.detail.themes.first.url, "urlArticle" : article.id}) }}" class="article-link">
+                                <div class="article-foto">
+                                    <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Изображение">
+                                    <span class="article-ban" data-text="Последняя новость"></span>
+                                </div>
+                                <h2 class="article-title">{{ article.headline1 }}</h2>
+                                <h3 class="article-subtitle">{{ article.headline1 }}</h3>
 
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
+                                <div class="article-block">
+                                    <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                                    <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
                     </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
+                {% endif %}
+                {% if articles[constant('App\\Type\\ArticleFilterType::SORT_VIEWS')] %}
+                    <div class="article">
+                        {% for articleArray in articles[constant('App\\Type\\ArticleFilterType::SORT_VIEWS')] if articleArray.object.detail.themes | length > 0 %}
+                            {% set article = articleArray.object %}
+                            <a href="{{ path("article_catalog_show_article", {"theme" : article.detail.themes.first.url, "urlArticle" : article.id}) }}" class="article-link">
+                                <div class="article-foto">
+                                    <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Изображение">
+                                    <span class="article-ban" data-text="Последняя новость"></span>
+                                </div>
+                                <h2 class="article-title">{{ article.headline1 }}</h2>
+                                <h3 class="article-subtitle">{{ article.headline1 }}</h3>
 
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
+                                <div class="article-block">
+                                    <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                                    <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
                     </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
+                {% endif %}
+            {% elseif articles is defined %}
+                {% if articles[constant('App\\Type\\ArticleFilterType::SORT_UPDATED')] %}
+                    <div class="article">
+                        {% for articleArray in articles[constant('App\\Type\\ArticleFilterType::SORT_UPDATED')] if articleArray.object.detail.themes | length > 0 %}
+                            {% set article = articleArray.object %}
+                            <a href="{{ path("article_catalog_show_article", {"theme" : article.detail.themes.first.url, "urlArticle" : article.id}) }}" class="article-link">
+                                <h2 class="article-title">{{ article.headline1 }}</h2>
+                                <div class="article-foto">
+                                    <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                                </div>
 
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
+                                <h3 class="article-subtitle">{{ article.headline1 }}</h3>
 
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
+                                <div class="article-block">
+                                    <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                                    <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
                     </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
+                {% endif %}
+                {% if articles[constant('App\\Type\\ArticleFilterType::SORT_VIEWS')] %}
+                    <div class="article">
+                        {% for articleArray in articles[constant('App\\Type\\ArticleFilterType::SORT_VIEWS')] if articleArray.object.detail.themes | length > 0 %}
+                        {% set article = articleArray.object %}
+                            <a href="{{ path("article_catalog_show_article", {"theme" : article.detail.themes.first.url, "urlArticle" : article.id}) }}" class="article-link">
+                                <h2 class="article-title">{{ article.headline1 }}</h2>
+                                <div class="article-foto">
+                                    <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                                </div>
 
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
+                                <h3 class="article-subtitle">{{ article.headline1 }}</h3>
 
-              </div>
-
-
-               <div class="article">
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
+                                <div class="article-block">
+                                    <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                                    <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
                     </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-              </div>
-
-              <!-- для мобильной -->
-            <div class="article">
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                      <span class="article-ban" data-text="Последняя новость"></span>
-                    </div>
-                    <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-              </div>
-
-
-               <div class="article">
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-                <a href="#" class="article-link">
-                  <h2 class="article-title">Основной Заголовок статьи на три строки статьи на три строки</h2>
-                  <div class="article-foto">
-                      <img src="img/maz1.jpg" alt="Картинка">
-                    </div>
-                
-                    <h3 class="article-subtitle">Подзаголовок статьи на три строки статьи на три строки</h3>
-                    
-                    <div class="article-block">
-                      <span class="article-date">18.02.2019</span>
-                      <span class="article-time">15:56</span>
-                    </div>
-                </a>
-
-              </div>
+                {% endif %}
+            {% endif %}
 
             {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
 

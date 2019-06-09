@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article\Article;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Client\Client;
@@ -9,6 +10,7 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
+use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,6 +26,8 @@ class DefaultController extends Controller
      */
     public function showHomePageAction(Request $request)
     {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
         /** @var MainPage $homePage */
         $homePage = $this->getDoctrine()->getManager()->getRepository(MainPage::class)->findAll()[0];
         $filter = new PostsFilterType([], null, null, null, null);
@@ -32,8 +36,28 @@ class DefaultController extends Controller
         $homePage->setFilteredTitle($route, $filter);
         $homePage->setFilteredDescription($route, $filter);
 
+        $updatedArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED));
+
+        $notIds = [];
+
+        foreach ($updatedArticles as $article){
+            $notIds[] = $article["object"]->getId();
+        }
+
+        $articles = $route === "homepage_all_users" ? [] : [
+            ArticleFilterType::SORT_UPDATED => $em->getRepository(Article::class)
+                ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED)),
+            ArticleFilterType::SORT_VIEWS => $em->getRepository(Article::class)
+                ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_VIEWS), $notIds),
+        ];
+
+//        var_dump(gettype($articles[ArticleFilterType::SORT_UPDATED][0]["object"]));
+//        die;
+
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
+            "articles" => $articles,
         ]);
     }
 

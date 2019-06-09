@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{#{% block title %}{{ page.title }}{% endblock %}#}
-{#{% block meta_description %}{{ page.description }}{% endblock %}#}
+{% block title %}Лента публикаций Autoparus.by, Auto parus buy{% endblock %}
+{% block meta_description %}Общая лента публикаций на сайте Autoparus.by Все категории публикаций и статей.{% endblock %}
 
 {% block stylesheets %}
-	<link rel='stylesheet' href='/css/client/catalog/article/choice-theme.css'>
+<link rel='stylesheet' href='/css/client/catalog/article/choice-article.css'>
 {% endblock %}
 
 {% block body %}
-	<main class="container">
+	 <main class="container">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="/" title="Автопарус.бай" itemprop="item">
@@ -20,16 +20,98 @@
                     <meta itemprop="position" content="1">
                 </a>
             </li>
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Статьи</span></a><meta itemprop="position" content="2">
-        </li>
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">Выбранная категория</span><meta itemprop="position" content="3"></a>
+                <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">Статьи</span><meta itemprop="position" content="2"></a>
             </li>
         </ul>
-      <h1 class="title" data-text="Выбранная категория"></h1>
-     
+      <h1 class="title" data-text="Лента публикаций">
+        <button class="select-open" type="button">
+          <svg  version="1.1" viewBox="0 0 32 32" width="30" height="30" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#737373" d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/></svg>
+        </button>
+      </h1>
+      <ul class="select">
+        <li class="select-item">
+          <a href="#">Авто</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Мото</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Электро</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Вело</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Афиша</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">События</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Проишествия</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Сообщества</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Путешествия</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Туризм</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Спорт</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Культура</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Люди</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Работа</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Технологии</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Экономика</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Автоспорт</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Мотоспорт</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Велоспорт</a>
+        </li>
+
+        <li class="select-item">
+          <a href="#">Тест-драйв</a>
+        </li>
+                               
+      </ul>
      
       <div class="catalog">
         <a href="#" class="catalog-link">
@@ -102,4 +184,8 @@
 
       </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/catalog/article/choice-article.js"></script>
 {% endblock %}
