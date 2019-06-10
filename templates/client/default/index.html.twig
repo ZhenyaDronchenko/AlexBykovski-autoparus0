@@ -3,6 +3,8 @@
 {% block meta_description %}{{ homePage.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/default/index.css'>
 {% endblock %}
 
@@ -51,7 +53,7 @@
                                     <span class="article-ban" data-text="Последняя новость"></span>
                                 </div>
                                 <h2 class="article-title">{{ article.headline1 }}</h2>
-                                <h3 class="article-subtitle">{{ article.headline1 }}</h3>
+                                <h3 class="article-subtitle">{{ article.headline2 }}</h3>
 
                                 <div class="article-block">
                                     <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
@@ -92,7 +94,7 @@
                                     <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                                 </div>
 
-                                <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline1 }}</h3>
+                                <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
 
                                 <div class="article-block">
                                     <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
@@ -112,7 +114,7 @@
                                     <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                                 </div>
 
-                                <h3 class="article-subtitle">{{ article.headline1 }}</h3>
+                                <h3 class="article-subtitle">{{ article.headline2 }}</h3>
 
                                 <div class="article-block">
                                     <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
@@ -123,6 +125,16 @@
                     </div>
                 {% endif %}
             {% endif %}
+
+            {#<div class="owl-carousel">#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+            {#</div>#}
 
             {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
 
@@ -277,5 +289,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
 {% endblock %}

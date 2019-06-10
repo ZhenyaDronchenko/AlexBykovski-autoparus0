@@ -29,6 +29,8 @@ $(function(){
             $("body").removeClass("modal--show");
         }
     });
+
+    $(".owl-carousel").owlCarousel();
 });
 
 function scrollToElement(selector) {
