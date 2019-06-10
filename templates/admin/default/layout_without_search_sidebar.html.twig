@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block sonata_sidebar_search %}
+    {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
+        {{ parent() }}
+    {% endif %}
+{% endblock sonata_sidebar_search %}
+
+{% block side_bar_after_nav_content %}
+{% endblock %}
+
+{% block sonata_admin_content_actions_wrappers %}
+    {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
+        <div class="nav navbar-left btn-group">
+            <a href="{{ path("show_user_office") }}" class="btn btn-primary navbar-btn btn-sm">Перейти в личный кабинет копирайтера, журналиста, рерайтера</a>
+        </div>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

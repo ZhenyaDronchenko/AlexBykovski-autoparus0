@@ -1,0 +1,18 @@
+{% if options | length %}
+    <h2>{{ selectHeadline }}</h2>
+    <form class='modform'>
+        <select class='form7' onChange="window.location.replace(this.options[this.selectedIndex].value)">
+            <option selected>{{ nullOption }}</option>
+            {% for option in options %}
+                <option value="{{ link|replace({'__link__': option['url']}) }}">{{ option.label }}</option>
+            {% endfor %}
+        </select>
+    </form>
+{% endif %}
+
+{% set banner = article.banners | length > bannerIndex and article.banners.get(bannerIndex).image ? article.banners.get(bannerIndex) : null %}
+{% if banner %}
+    <div class="block-img">
+        <a href="{{ banner.link ? banner.link : ""  }}"><img class="img-w" src="{{ banner.image ? image_url(banner.image) : "" }}" alt=""></a>
+    </div>
+{% endif %}

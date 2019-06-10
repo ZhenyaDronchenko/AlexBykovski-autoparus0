@@ -2,32 +2,15 @@
 
 namespace App\Controller\Catalog;
 
-use App\Entity\Admin;
-use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
+use App\Entity\Article\Article;
+use App\Entity\Article\ArticleTheme;
 use App\Entity\Brand;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceFinalPage;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceInStock;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceModel;
-use App\Entity\Catalog\Brand\CatalogBrandChoiceSparePart;
-use App\Entity\Catalog\Turbo\CatalogTurboChoiceBrand;
-use App\Entity\Catalog\Turbo\CatalogTurboChoiceCity;
-use App\Entity\Catalog\Turbo\CatalogTurboChoiceFinalPage;
-use App\Entity\Catalog\Turbo\CatalogTurboChoiceModel;
-use App\Entity\Catalog\Turbo\CatalogTurboChoiceSparePart;
-use App\Entity\City;
-use App\Entity\General\MainPage;
-use App\Entity\General\NotFoundPage;
-use App\Entity\Model;
 use App\Entity\SparePart;
-use App\Provider\TitleProvider;
-use App\Transformer\VariableTransformer;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/stati")
@@ -39,25 +22,61 @@ class ArticleCatalogController extends Controller
      */
     public function showChoiceThemePageAction(Request $request)
     {
+        $themes = $this->getDoctrine()->getRepository(ArticleTheme::class)->findBy([], ["theme" => "DESC"]);
+
         return $this->render('client/catalog/article/choice-theme.html.twig', [
+            "themes" => $themes
         ]);
     }
 
     /**
-     * @Route("/{theme}", name="article_catalog_choice_article")
+     * @Route("/{urlTheme}", name="article_catalog_choice_article")
      */
-    public function showChoiceArticlePageAction(Request $request, $theme)
+    public function showChoiceArticlePageAction(Request $request, $urlTheme)
     {
+        $theme = $this->getDoctrine()->getRepository(ArticleTheme::class)->findOneBy(["url" => $urlTheme]);
+
         return $this->render('client/catalog/article/choice-article.html.twig', [
+            "theme" => $theme ?: new ArticleTheme()
         ]);
     }
 
     /**
-     * @Route("/{theme}/{urlArticle}", name="article_catalog_show_article")
+     * @Route("/{urlTheme}/{id}", name="article_catalog_show_article", options={"expose"=true})
+     *
+     * @ParamConverter("article", class="App\Entity\Article\Article", options={"id" = "id"})
      */
-    public function showArticlePageAction(Request $request, $theme, $urlArticle)
+    public function showArticlePageAction(Request $request, $urlTheme, Article $article)
     {
+        $theme = $this->getDoctrine()->getRepository(ArticleTheme::class)->findOneBy(["url" => $urlTheme]);
+
+        $brands = $this->getDoctrine()->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
+        $spareParts = $this->getDoctrine()->getRepository(SparePart::class)->findBy(["active" => true], ["name" => "ASC"]);
+
+        $parsedBrands = [];
+        $parsedSpareParts = [];
+
+        /** @var Brand $brand */
+        foreach ($brands as $brand){
+            $parsedBrands[] = [
+                "label" => $brand->getName(),
+                "url" => $brand->getUrl(),
+            ];
+        }
+
+        /** @var SparePart $sparePart */
+        foreach ($spareParts as $sparePart){
+            $parsedSpareParts[] = [
+                "label" => $sparePart->getName(),
+                "url" => $sparePart->getUrl(),
+            ];
+        }
+
         return $this->render('client/catalog/article/show-article.html.twig', [
+            "article" => $article,
+            "theme" => $theme ?: new ArticleTheme(),
+            "brands" => $parsedBrands,
+            "spareParts" => $parsedSpareParts,
         ]);
     }
 }

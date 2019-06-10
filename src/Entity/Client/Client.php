@@ -304,6 +304,17 @@ class Client extends User
         return $galleryPhotos;
     }
 
+    public function getFullAddress($useCountry = false)
+    {
+        $address = "";
+
+        if($useCountry){
+            $address = $this->country . ' ';
+        }
+
+        return $address . $this->city . ' ' . $this->address;
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

@@ -36,3 +36,5 @@ services:
         tags:
             - { name: sonata.admin, group: Статьи, manager_type: orm, label: Статьи, on_top: true}
         public: true
+        calls:
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]

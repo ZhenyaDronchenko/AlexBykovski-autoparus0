@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Article\Article;
+use App\Entity\Article\ArticleTheme;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Client\Client;
@@ -12,6 +14,7 @@ use App\Entity\Phone\PhoneBrand;
 use App\Entity\Phone\PhoneModel;
 use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
+use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -242,5 +245,43 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedPhotos);
+    }
+
+    /**
+     * @Route("/articles", name="search_articles")
+     */
+    public function searchArticlesAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $requestData = json_decode($request->getContent(), true);
+        $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
+        $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
+        $theme = isset($requestData["urlTheme"]) ? $em->getRepository(ArticleTheme::class)->findOneBy(["url" => $requestData["urlTheme"]]) : null;
+        $themesSearch = $theme ? [$theme] : [];
+
+
+        $filter = new ArticleFilterType(ArticleFilterType::SORT_UPDATED, $themesSearch, $limit, $offset);
+
+        if(!is_numeric($offset) || !is_numeric($limit)){
+            return new JsonResponse([]);
+        }
+
+        $articles = $em->getRepository(Article::class)->findAllByFilter($filter);
+
+        $parsedArticles = [];
+
+        foreach ($articles as $article){
+            $parsedArticle = $article["object"]->toSearchArray();
+
+            if(!$parsedArticle){
+                continue;
+            }
+
+            $parsedArticles[] = $parsedArticle;
+        }
+
+        return new JsonResponse($parsedArticles);
     }
 }

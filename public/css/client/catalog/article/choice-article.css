@@ -122,197 +122,6 @@
     content: attr(data-text);
     -webkit-text-stroke: .03em #ff0000;
 }
-.select-open {
-      width: 30px;
-    height: 30px;
-    border: none;
-    cursor: pointer;
-    background-color: #fff;
-    vertical-align: top;
-    outline: none;
-    padding: 0;
-    margin-left: 10px;
-}
-
-.select-open svg:hover path,
-.select-open svg:focus path {
-    fill: red;
-}
-
-
-/*selact*/
-
-.select {
-  display: none;
-   
-}
-.select-item {
-      margin: 0 12px;
-    margin-bottom: 10px;
-    width: 140px;
-}
-.select-item a {
-  display: block;
-    font-size: 18px;
-    line-height: 20px;
-    color: #000000;
-    font-weight: 400;
-    text-align: center;
-}
-.select-item a:hover,
-.select-item a:focus {
-    color: red;
-}
-.modal--show {
-   padding-top: 15px;
-    margin-bottom: 20px;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    -o-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
-.modal--hidden {
-  display: none;
-}
-/*.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    -webkit-clip-path: inset(100%);
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-}
-
-.select-item label {
-    position: relative;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-label {
-    font-size: 18px;
-    line-height: 20px;
-    color: #000000;
-    font-weight: 400;
-}
-
-.checkbox + label::before {
-    content: "";
-    position: absolute;
-    display: block;
-        left: -30px;
-    top: 2px;
-    width: 18px;
-    height: 18px;
-    border: 1px solid #737373;
-    border-radius: 3px;
-}
-.checkbox:checked + label::after {
-    content: "";
-    background: url(../img/chek.svg) 0 0 no-repeat;
-    position: absolute;
-    display: block;
-    width: 16px;
-    height: 16px;
-    left: -29px;
-    top: 2px;
-}*/
-@media (max-width: 480px) {
-  .container {
-    width: auto; 
-  }
-  .select {
-    width: 290px;
-  margin: 0 auto;
-      margin-bottom: 40px;
-    
-}
-  .select-item {
-      margin-bottom: 10px;
-      width: 120px; 
-}
-
-.select-item a {
-    font-size: 16px;
-    line-height: 18px;
-}
-
-.title {
-    font-size: 22px;
-    line-height: 26px;
-
-}
-.select-open svg {
-  width: 24px;
-  height: 24px;
-}
-}
-@media (min-width: 481px) and  (max-width: 767px) {
-  .container {
-    width: auto; 
-  }
-  .select {
-    width: 450px;
-  margin: 0 auto;
-      margin-bottom: 40px;
-    
-}
-  .select-item {
-      margin-bottom: 10px;
-      width: 120px; 
-}
-
-.select-item a {
-    font-size: 16px;
-    line-height: 18px;
-}
-
-.title {
-    font-size: 22px;
-    line-height: 26px;
-
-}
-.select-open svg {
-  width: 24px;
-  height: 24px;
-}
-}
-@media (min-width: 768px) and  (max-width: 1023px) {
-  .container {
-    width: auto; 
-  }
-  .select {
-    width: 730px;
-  margin: 0 auto;
-      margin-bottom: 40px;
-    
-}
-}
-@media (min-width: 1024px) and  (max-width: 1199px) {
-  .container {
-    width: auto; 
-  }
-  .select {
-    width: 990px;
-  margin: 0 auto;
-      margin-bottom: 40px;
-    
-}
-}
-
-/*selact end*/
 
 .text {
    margin: 0;
@@ -468,7 +277,7 @@ p {
   height: 180px;  
   border: 1px solid #ccc;
 
-} 
+}
 
 .comment {
     margin: 0;
@@ -476,13 +285,17 @@ p {
     line-height: 18px;
     color: #000000;
     font-weight: 400;
-     text-align: justify;
-         height: 55px;
+    text-align: justify;
+    height: 55px;
     overflow: hidden;
-  }
+}
 
-
-
+.add-three-dots-3-lines{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .container {
@@ -585,6 +398,4 @@ h3 {
 }
 
   /*  MAIN END */
-
-
 

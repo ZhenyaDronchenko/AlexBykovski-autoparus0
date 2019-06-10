@@ -30,6 +30,9 @@ sonata_admin:
             MASTER: MASTER
         role_super_admin: ROLE_ADMIN
 
+    templates:
+        layout:  'admin/default/layout_without_search_sidebar.html.twig'
+
 sonata_block:
     blocks:
         sonata.admin.block.admin_list:

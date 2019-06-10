@@ -1,108 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{#{% block title %}{{ page.title }}{% endblock %}#}
-{#{% block meta_description %}{{ page.description }}{% endblock %}#}
+{% block title %}{{ article.title }}{% endblock %}
+{% block meta_description %}{{ article.description }}{% endblock %}
 
 {% block stylesheets %}
 	<link rel='stylesheet' href='/css/client/catalog/article/show-article.css'>
 {% endblock %}
 
 {% block body %}
-  <main class="container">
-      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="user-link user-link--icon" href="index.html" title="Тайтал первой крошки" itemprop="item">
-            <span class="user-name" itemprop="name">Главная</span>
-            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
-              <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-            </svg>
-            <meta itemprop="position" content="1">
-          </a>
-        </li>
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал второй крошки"><span class="line">/</span><span itemprop="name">Статьи</span></a><meta itemprop="position" content="2">
-        </li>
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Статьи</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
 
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="link-b" href="#" itemprop="item" title="Тайтал третьей крошки"><span class="line">/</span><span itemprop="name">Категория статьи</span></a><meta itemprop="position" content="3">
-        </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}" itemprop="item"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ theme.theme }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+            </li>
 
-       
-        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">Заголовок статьи ...</span><meta itemprop="position" content="4"></a>
-        </li>
-      </ul>
 
-      <section class="news" itemscope itemtype="http://schema.org/Article">
-        <div class="date-block">
-          <span class="date"  itemprop="datePublished" content="2019-02-18">18.02.2019</span>
-          <span class="time">15:56</span>
-        </div>
-        <h1 itemprop="headline name">Основной заголовок статьи</h1>
-        <link itemprop="mainEntityOfPage" href="https://www.autoparus.by">
-        <div class="wrapper">
-          <div class="block-left">
-            
-            <meta itemprop="dateModified" content="2019-02-15">
-            <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-              <meta itemprop="name" content="Автопарус">
-              <meta itemprop="telephone" content="+375 029 333 22 33">
-<meta itemprop="address" content="г. Минск, ул. Московская, д. 3">
-              <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                <meta itemprop="url image" content="img/logo.png" style="display:none;">
-                <meta itemprop="width" content="60">
-                <meta itemprop="height" content="60">
-              </span>
-            </span>
-            <h2 itemprop="alternativeHeadline">Развернутый подзаголовок статьи</h2>
-           
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" href="" itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ article.headline1 }}</span>
+                    <meta itemprop="position" content="4">
+                </a>
+            </li>
+        </ul>
 
-            <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-              <p><img src="img/maz1.jpg" alt="Фото статьи" itemprop="image"></p>
-              <figcaption>
-                  Краткий комментарий к фото
-                  <span itemprop="name">Автор: Петр</span>
-              </figcaption>
-            </figure>
-
-            <p itemprop="description">Текст из СК Эдитора,  Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора</p>
-
-            <ul class="foto" itemprop="articleBody">
-              <li class="foto-item">
-                <img src="img/maz1.jpg" alt="Изображение статьи" itemprop="image">
-                <p class="foto-text">Текст из СК Эдитора,  Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора</p>
-              </li>
-
-              <li class="foto-item">
-                <img src="img/maz1.jpg" alt="">
-                <p class="foto-text">Текст из СК Эдитора,  Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора, Текст из СК Эдитора</p>
-              </li>
-
-              <li class="foto-item">
-                <img src="img/maz1.jpg" alt="">
-              </li> 
-            </ul>
-          </div>
-          <div class="block-right">
-            <h2>Автозапчасти</h2>
-            <form class='modform' action="#" method="get">
-              <select class='form7'>
-                <option selected>Марка авто:</option>
-                <option>Honda</option>
-                <option>Toyota</option>
-                <option>Opel</option>
-                <option>BMW</option>
-                <option>Mersedes-Benz</option>   
-              </select>
-            </form>
-            <div class="block-img">
-              <img class="img-w" src="img/maz1.jpg" alt="">
-              <img class="img-w" src="img/maz1.jpg" alt="">
-              <img class="img-w" src="img/maz1.jpg" alt="">
+        <section class="news" itemscope itemtype="http://schema.org/Article">
+            <div class="date-block">
+                <span class="date" itemprop="datePublished"
+                      content="{{ article.updatedAt | date("Y-m-d") }}">{{ article.updatedAt | date("d-m-Y") }}</span>
+                <span class="time">{{ article.updatedAt | date("H:i") }}</span>
             </div>
-          </div>
-        </div>
-      </section>
+            <h1 itemprop="headline name">{{ article.headline1 }}</h1>
+            <link itemprop="mainEntityOfPage" href="{{ url("homepage") }}">
+            <div class="wrapper">
+                <div class="block-left">
+                    <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
+                    <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                        <meta itemprop="name" content="Автопарус">
+                        <meta itemprop="telephone" content="{{ article.creator.phone }}">
+                        <meta itemprop="address" content="{{ article.creator.getFullAddress }}">
+                        <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                            <meta itemprop="url image" content="{{ article.creator.photo ? image_url(article.creator.photo.image) : "" }}" style="display:none;">
+                            <meta itemprop="width" content="60">
+                            <meta itemprop="height" content="60">
+                        </span>
+                    </span>
+                    <h2 itemprop="alternativeHeadline">{{ article.headline2 }}</h2>
+
+
+                    <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
+                        <figcaption>
+                            {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
+                            <span itemprop="name">Автор: {{ article.author }}</span>
+                        </figcaption>
+                    </figure>
+
+                    <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
+
+                    <ul class="foto" itemprop="articleBody">
+                        {% for articleImage in article.articleImages %}
+                            <li class="foto-item">
+                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи" itemprop="image">
+                                <p class="foto-text">{{ articleImage.text | raw }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="block-right">
+                    {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти", "nullOption" : "Марка авто:", "options" : brands, "link" : path("show_brand_catalog_choice_model", {"urlBrand" : "__link__"}), "bannerIndex" : 0} %}
+                    {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "OBD2 форум", "nullOption" : "Марка авто:", "options" : brands, "link" : path("obd2_forum_choice_type", {"urlBrand" : "__link__"}), "bannerIndex" : 1} %}
+                    {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Короткие посты", "nullOption" : "Марка авто:", "options" : brands, "link" : path("homepage_filter_brand", {"urlBrand" : "__link__"}), "bannerIndex" : 2} %}
+                    {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти", "nullOption" : "Запчасть:", "options" : spareParts, "link" : path("show_spare_part_catalog_choice_brand", {"urlSP" : "__link__"}), "bannerIndex" : 3} %}
+
+                    {% set bannerIndex = 4 %}
+                    {% for banner in article.banners[4:] %}
+                        {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "", "nullOption" : "", "options" : [], "link" : '', "bannerIndex" : bannerIndex} %}
+
+                        {% set bannerIndex = bannerIndex + 1 %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
     </main>
 {% endblock %}

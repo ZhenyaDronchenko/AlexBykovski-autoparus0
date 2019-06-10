@@ -26,6 +26,14 @@ class ArticleTheme
      */
     private $theme;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $url;
+
     /**
      * @return int
      */
@@ -56,5 +64,21 @@ class ArticleTheme
     public function setTheme(string $theme): void
     {
         $this->theme = $theme;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
     }
 }

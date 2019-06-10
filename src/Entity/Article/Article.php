@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Article\ArticleRepository")
+ *
  * @ORM\Table(name="article")
  */
 class Article
@@ -422,5 +423,40 @@ class Article
     public function setCreator(?User $creator): void
     {
         $this->creator = $creator;
+    }
+
+    public function toSearchArray()
+    {
+        $themes = [];
+
+        if($this->detail->getThemes()->count()){
+            /** @var ArticleTheme $theme */
+            foreach ($this->detail->getThemes() as $theme){
+                $themes[] = [
+                    "name" => $theme->getTheme(),
+                    "url" => $theme->getUrl(),
+                ];
+            }
+        }
+
+        if(!count($themes)){
+            return null;
+        }
+
+        return [
+            "id" => $this->id,
+            "headline1" => $this->headline1,
+            "headline2" => $this->headline2,
+            "mainImage" => [
+                "thumbImage" => $this->mainArticleImage->getImageThumbnail() ?
+                    '/images/' . $this->mainArticleImage->getImageThumbnail() : "",
+                "text" => $this->mainArticleImage->getText(),
+            ],
+            "updatedAt" => [
+                "date" => $this->updatedAt->format("d-m-Y"),
+                "time" => $this->updatedAt->format("H:i"),
+            ],
+            "themes" => $themes,
+        ];
     }
 }
