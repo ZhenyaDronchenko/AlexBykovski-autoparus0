@@ -4,14 +4,15 @@
 {% block meta_description %}Общая лента публикаций на сайте Autoparus.by Все категории публикаций и статей.{% endblock %}
 
 {% block stylesheets %}
-<link rel='stylesheet' href='/css/client/catalog/article/choice-article.css'>
+<link rel='stylesheet' href='/css/client/catalog/article/choice-theme.css'>
 {% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
 	 <main class="container">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="/" title="Автопарус.бай" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -20,172 +21,47 @@
                     <meta itemprop="position" content="1">
                 </a>
             </li>
-
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">Статьи</span><meta itemprop="position" content="2"></a>
+                <a class="current" href="" itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">Статьи</span>
+                    <meta itemprop="position" content="2">
+                </a>
             </li>
         </ul>
-      <h1 class="title" data-text="Лента публикаций">
-        <button class="select-open" type="button">
+      <h1 class="title" data-text="Лента публикаций" ng-init="showCategories = false">
+        <button class="select-open" type="button" ng-class="{'modal--hidden' : showCategories}" ng-click="showCategories = !showCategories">
           <svg  version="1.1" viewBox="0 0 32 32" width="30" height="30" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#737373" d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/></svg>
         </button>
       </h1>
-      <ul class="select">
-        <li class="select-item">
-          <a href="#">Авто</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Мото</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Электро</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Вело</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Афиша</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">События</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Проишествия</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Сообщества</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Путешествия</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Туризм</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Спорт</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Культура</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Люди</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Работа</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Технологии</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Экономика</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Автоспорт</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Мотоспорт</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Велоспорт</a>
-        </li>
-
-        <li class="select-item">
-          <a href="#">Тест-драйв</a>
-        </li>
-                               
+      <ul class="select" ng-class="{'modal--show' : showCategories}">
+          {% for theme in themes %}
+              <li class="select-item">
+                  <a href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}">{{ theme.theme }}</a>
+              </li>
+          {% endfor %}
       </ul>
-     
-      <div class="catalog">
-        <a href="#" class="catalog-link">
-            <h2>Основной Заголовок статьи на четыре-семь слов</h2>
-            <h3>Развернутый подзаголовок статьи восемь-двенадцать слов</h3>
+
+         {% set countInPackage = is_mobile() ? 5 : 9 %}
+      <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__", "urlTheme" : "__theme__"}) }}', {{ countInPackage }})" ng-cloak>
+        <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
+            <h2 ng-bind="article.headline1"></h2>
+            <h3 class="add-three-dots-3-lines" ng-bind="article.headline2"></h3>
             <div class="foto">
-               <img src="img/maz1.jpg" alt="Картинка">
+               <img ng-src="{[{article.mainImage['thumbImage']}]}" alt="Изображение">
             </div>
-            <div class="comment">Пост к фото текст на три строчки ..., Пост к фото текст три строчки, Пост к фото текст три строчки...., Пост к фото текст три строчки, Пост к фото текст три строчки, Пост к фото текст три строчки ... Пост к фото текст три строчки, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, МагазинПост к фото текст,м Пост к фото текст,Пост к фото текст ... </div>
+            <div class="comment add-three-dots-3-lines" ng-bind-html="article.mainImage['text']"></div>
             <div class="date-block">
-              <span class="date">18.02.2019</span>
-              <span class="time">15:56</span>
+              <span class="date" ng-bind="article.updatedAt['date']"></span>
+              <span class="time" ng-bind="article.updatedAt['time']"></span>
             </div>
           </a>
 
-          <a href="#" class="catalog-link">
-            <h2>Основной Заголовок статьи на четыре-семь слов</h2>
-            <h3>Развернутый подзаголовок статьи восемь-двенадцать слов</h3>
-            <div class="foto">
-               <img src="img/maz1.jpg" alt="Картинка">
-            </div>
-            <div class="comment">Пост к фото текст на три строчки ..., Пост к фото текст три строчки, Пост к фото текст три строчки...., Пост к фото текст три строчки, Пост к фото текст три строчки, Пост к фото текст три строчки ... Пост к фото текст три строчки, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, МагазинПост к фото текст,м Пост к фото текст,Пост к фото текст ... </div>
-            <div class="date-block">
-              <span class="date">18.02.2019</span>
-              <span class="time">15:56</span>
-            </div>
-          </a>
-
-
-          <a href="#" class="catalog-link">
-            <h2>Основной Заголовок статьи на четыре-семь слов</h2>
-            <h3>Развернутый подзаголовок статьи восемь-двенадцать слов</h3>
-            <div class="foto">
-               <img src="img/maz1.jpg" alt="Картинка">
-            </div>
-            <div class="comment">Пост к фото текст на три строчки ..., Пост к фото текст три строчки, Пост к фото текст три строчки...., Пост к фото текст три строчки, Пост к фото текст три строчки, Пост к фото текст три строчки ... Пост к фото текст три строчки, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, МагазинПост к фото текст,м Пост к фото текст,Пост к фото текст ... </div>
-            <div class="date-block">
-              <span class="date">18.02.2019</span>
-              <span class="time">15:56</span>
-            </div>
-          </a>
-
-
-          <a href="#" class="catalog-link">
-            <h2>Основной Заголовок статьи на четыре-семь слов</h2>
-            <h3>Развернутый подзаголовок статьи восемь-двенадцать слов</h3>
-            <div class="foto">
-               <img src="img/maz1.jpg" alt="Картинка">
-            </div>
-            <div class="comment">Пост к фото текст на три строчки ..., Пост к фото текст три строчки, Пост к фото текст три строчки...., Пост к фото текст три строчки, Пост к фото текст три строчки, Пост к фото текст три строчки ... Пост к фото текст три строчки, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст,Пост к фото текст, Пост к фото текст, Пост к фото текст, Пост к фото текст, МагазинПост к фото текст,м Пост к фото текст,Пост к фото текст ... </div>
-            <div class="date-block">
-              <span class="date">18.02.2019</span>
-              <span class="time">15:56</span>
-            </div>
-          </a>
-
-
-          <a href="#" class="catalog-link">
-            <h2>Основной Заголовок статьи на четыре-семь слов</h2>
-            <h3>Развернутый подзаголовок статьи восемь-двенадцать слов</h3>
-            <div class="foto">
-               <img src="img/maz1.jpg" alt="Картинка">
-            </div>
-            <div class="comment">Пост к фото текст на три строчки ..., Пост к фото текст три строчки, Пост к фото текст три строчки....  </div>
-            <div class="date-block">
-              <span class="date">18.02.2019</span>
-              <span class="time">15:56</span>
-            </div>
-          </a>
-
+          <img id="preloader-articles" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
       </div>
     </main>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="/js/catalog/article/choice-article.js"></script>
+    <script src="/js/client/controller/catalog/article/article-controller.js"></script>
 {% endblock %}

@@ -424,4 +424,39 @@ class Article
     {
         $this->creator = $creator;
     }
+
+    public function toSearchArray()
+    {
+        $themes = [];
+
+        if($this->detail->getThemes()->count()){
+            /** @var ArticleTheme $theme */
+            foreach ($this->detail->getThemes() as $theme){
+                $themes[] = [
+                    "name" => $theme->getTheme(),
+                    "url" => $theme->getUrl(),
+                ];
+            }
+        }
+
+        if(!count($themes)){
+            return null;
+        }
+
+        return [
+            "id" => $this->id,
+            "headline1" => $this->headline1,
+            "headline2" => $this->headline2,
+            "mainImage" => [
+                "thumbImage" => $this->mainArticleImage->getImageThumbnail() ?
+                    '/images/' . $this->mainArticleImage->getImageThumbnail() : "",
+                "text" => $this->mainArticleImage->getText(),
+            ],
+            "updatedAt" => [
+                "date" => $this->updatedAt->format("d-m-Y"),
+                "time" => $this->updatedAt->format("H:i"),
+            ],
+            "themes" => $themes,
+        ];
+    }
 }
