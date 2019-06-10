@@ -33,7 +33,8 @@ class ArticleRepository extends EntityRepository
         }
 
         if(count($filter->getThemes())){
-            $qb->andWhere("d.themes = :themes")
+            $qb->join("d.themes", "theme")
+                ->andWhere("theme IN (:themes)")
                 ->setParameter("themes", $filter->getThemes());
         }
 

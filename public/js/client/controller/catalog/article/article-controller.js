@@ -23,10 +23,8 @@
             urlToArticle = urlToArticleS;
             articlesPerPackage = articlesPerPackageS;
 
-            params = {
-                "limit" : articlesPerPackage,
-                "offset" : -articlesPerPackage,
-            };
+            params["limit"] = articlesPerPackage;
+            params["offset"] = -articlesPerPackage;
 
             updateArticles();
         }
