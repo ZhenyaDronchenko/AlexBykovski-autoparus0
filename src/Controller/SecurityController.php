@@ -110,16 +110,23 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $encoder->encodePassword($client, $client->getPassword());
-            $client->setPassword($password);
-            $client->setUsername($client->getEmail());
-            $sender->createAndSendActivateCode($client);
-            $client->setEnabled(false);
+            $sameUsername = $em->getRepository(Client::class)->findOneBy(["username" => $client->getEmail()]);
 
-            $em->persist($client);
-            $em->flush();
+            if($sameUsername instanceof Client){
+                $form->get("email")->addError(new FormError("Этот email уже зарегистрирован."));
+            }
+            else {
+                $password = $encoder->encodePassword($client, $client->getPassword());
+                $client->setPassword($password);
+                $client->setUsername($client->getEmail());
+                $sender->createAndSendActivateCode($client);
+                $client->setEnabled(false);
 
-            $isValid = true;
+                $em->persist($client);
+                $em->flush();
+
+                $isValid = true;
+            }
         }
 
         return $this->render('client/security/form/registration-form.html.twig', [
