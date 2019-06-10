@@ -57,16 +57,13 @@ class TitleTransformerExtension extends Twig_Extension
 
     private function fileGetContentsCurl($url)
     {
-        $ch = curl_init();
+        if(strlen($url) < 2){
+            return "";
+        }
 
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $url = $url[0] === '/' && $url[1] !== '/' ? "https://www.autoparus.by" . $url : $url;
 
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        return $data;
+        return file_get_contents($url, true);
     }
+
 }
