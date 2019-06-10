@@ -6,11 +6,14 @@ use App\Entity\Image;
 use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="client")
+ *
+ * @ORM\HasLifecycleCallbacks()
  */
 class Client extends User
 {
@@ -299,5 +302,20 @@ class Client extends User
         krsort($galleryPhotos);
 
         return $galleryPhotos;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createAndSetThumbnailLogo(LifecycleEventArgs $args)
+    {
+        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
+
+        if(array_key_exists("email", $changeSet) || !$this->id){
+            $this->username = $this->email;
+        }
+
+        return true;
     }
 }
