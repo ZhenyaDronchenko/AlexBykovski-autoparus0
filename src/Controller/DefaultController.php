@@ -52,9 +52,6 @@ class DefaultController extends Controller
                 ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_VIEWS), $notIds),
         ];
 
-//        var_dump(gettype($articles[ArticleFilterType::SORT_UPDATED][0]["object"]));
-//        die;
-
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
             "articles" => $articles,
