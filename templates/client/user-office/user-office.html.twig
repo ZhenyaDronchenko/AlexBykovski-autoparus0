@@ -56,9 +56,6 @@
 
                 <div class="profil-items">
                     <div class="user-info user-info-r">
-                        {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
-                            <a class="button-rp" href="{{ path("sonata_admin_dashboard") }}">Админка статей и публикаций</a>
-                        {% endif %}
                         {% if isSeller %}
                             <div class="user-logo user-logo-r" user-upload-link
                                  link-selector="#business-profile-photo-link"
@@ -77,6 +74,9 @@
                                 <input id="business-profile-photo-input" type="file" style="display: none">
                             </div>
                             <div class="user-edit">
+                                {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
+                                    <a class="button-rp" href="{{ path("sonata_admin_dashboard") }}">Админка статей и публикаций</a>
+                                {% endif %}
                                 <a href="{{ path("show_user_business_office") }}" class="button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
                                 {% if app.user.sellerData %}
                                     <ul class="btn-block">
