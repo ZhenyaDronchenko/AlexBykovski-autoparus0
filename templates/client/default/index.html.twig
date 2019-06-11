@@ -42,7 +42,7 @@
                     <a class="form-link" href="{{ homePage.middleLink ? homePage.middleLink : ""}}">{{ homePage.middleText }}</a>
                 </form>
             </div>
-            <div class="article owl-carousel" data-owl-carousel='{"center" : true, "items" : 1, "loop" : true, "margin" : 10, "responsive" : {"481" : {"items" : 2}, "768" : {"items" : 4}, "1024" : {"items" : 6}}}'>
+            <div class="article owl-carousel owl-theme" data-owl-carousel='{"center" : true, "items" : 2, "loop" : true, "margin" : 10, "responsive" : {"576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}}'>
                 {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
                     {% set article = articleArray.object %}
                     <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
