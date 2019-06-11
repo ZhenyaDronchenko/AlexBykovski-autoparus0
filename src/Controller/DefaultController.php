@@ -45,12 +45,10 @@ class DefaultController extends Controller
             $notIds[] = $article["object"]->getId();
         }
 
-        $articles = $route === "homepage_all_users" ? [] : [
-            ArticleFilterType::SORT_UPDATED => $em->getRepository(Article::class)
-                ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED)),
-            ArticleFilterType::SORT_VIEWS => $em->getRepository(Article::class)
-                ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_VIEWS), $notIds),
-        ];
+        $viewsArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_VIEWS), $notIds);
+
+        $articles = $route === "homepage_all_users" ? [] : array_merge($updatedArticles, $viewsArticles);
 
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
