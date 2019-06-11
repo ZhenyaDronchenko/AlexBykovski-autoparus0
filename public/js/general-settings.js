@@ -30,7 +30,7 @@ $(function(){
         }
     });
 
-    $(".owl-carousel").owlCarousel();
+    //$(".owl-carousel").owlCarousel();
 });
 
 function scrollToElement(selector) {
