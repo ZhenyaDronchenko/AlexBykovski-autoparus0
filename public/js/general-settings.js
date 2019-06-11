@@ -30,7 +30,15 @@ $(function(){
         }
     });
 
-    $(".owl-carousel").owlCarousel();
+
+    $.each($(".owl-carousel"), function (index, item) {
+        console.log(item);
+        let attr = $(item).data("owl-carousel");
+        attr = attr ? attr : {};
+        console.log(attr);
+
+        $(item).owlCarousel(attr);
+    });
 });
 
 function scrollToElement(selector) {
