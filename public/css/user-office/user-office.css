@@ -216,10 +216,10 @@
 .btn-bis {
     display: block;
     margin: 0 auto;
-    font-size: 12px;
-    line-height: 14px;
-    padding: 3px 10px;
-    padding-bottom: 2px;
+    font-size: 14px;
+    line-height: 15px;
+    padding: 4px 10px;
+    padding-bottom: 3px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -434,7 +434,7 @@
 }
 
 .item-1 {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 16px;
     font-weight: 400;
     margin-right: 5px;
@@ -655,7 +655,7 @@
     position: fixed;
     top: 40px;
     left: 50%;
-    width: 700px;
+    width: 850px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -671,7 +671,7 @@
     position: fixed;
     top: 40px;
     left: 50%;
-    width: 840px;
+    width: 850px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -683,9 +683,9 @@
 }
 .modal5 {
     position: fixed;
-    top: 40px;
+    top: 80px;
     left: 50%;
-    width: 730px;
+    width: 80px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -1027,7 +1027,7 @@ textarea {
 
 /*  DEL  */
 .del {
-    padding: 15px 20px;
+    padding: 40px 20px;
     border: 7px solid #efefef ;
 }
 
@@ -1112,6 +1112,7 @@ textarea {
 }
 .btn-gray {
     border: 2px solid #cccccc;
+        padding: 7px;
 }
 
 .del-text {
@@ -1129,7 +1130,7 @@ textarea {
         width: 100%;
     }
     .del {
-        padding: 15px 10px;
+      
         border: 5px solid #efefef ;
     }
     .del-btn {
@@ -1340,8 +1341,8 @@ textarea {
     .button-rp {
         padding: 4px;
         padding-bottom: 3px;
-        font-size: 9px;
-        line-height: 12px;
+        font-size: 12px;
+        line-height: 14px;
     }
     .user-about li {
         margin-bottom: 7px;
@@ -1403,6 +1404,7 @@ textarea {
     .user-item {
         padding: 10px 0;
         border-bottom: 1px solid #737373;
+        padding-bottom: 5px;
     }
 
 
@@ -1422,7 +1424,7 @@ textarea {
     }
 
     .tool {
-        width: 270px;
+        width: 200px;
         margin-bottom: 10px;
     }
     .tool-rdc img,
@@ -1433,8 +1435,8 @@ textarea {
     }
 
     .item-1 {
-        font-size: 14px;
-        line-height: 16px;
+        font-size: 12px;
+        line-height: 14px;
     }
 
     .prod {
@@ -1468,7 +1470,6 @@ textarea {
     }
 
     .adress  {
-        display: block;
         font-size: 14px;
         line-height: 16px;
     }
@@ -1499,14 +1500,13 @@ textarea {
     color: #444;
 }
 .item-link {
-    
-    font-size: 12px;
-    line-height: 13px;
+    font-size: 10px;
+    line-height: 12px;
     color: #444;
 }
     .current {
-        font-size: 12px;
-        line-height: 13px;
+        font-size: 10px;
+        line-height: 12px;
     }
     .item-link img {
         width: 16px;
@@ -1535,6 +1535,9 @@ textarea {
         width: 100%;
     }
 
+    .modal4{
+        height: 80vh;
+    }
     .button-title-m {
         font-size: 18px;
     }
@@ -1677,8 +1680,9 @@ textarea {
         line-height: 18px;
     }
     .adress-text-city {
-        font-size: 14px;
-        line-height: 18px;
+        font-size: 12px;
+        line-height: 14px;
+        font-family: 'Roboto';
     }
     .choice-block {
     margin-bottom: 0; 
@@ -2133,6 +2137,13 @@ textarea {
         top: 105px;
         left: 585px;
     }
+    .del-btn li {
+    margin: 0px 10px;
+}
+.modal5 {
+    
+    width: 720px;
+    }
 }
 @media (min-width: 1024px) and  (max-width: 1199px) {
     .container {
@@ -2182,7 +2193,7 @@ textarea {
 }
 
 .texthide{
-    max-height: 58px;
+    max-height: 50px;
     overflow: hidden;
 }
 /*  MAIN END */

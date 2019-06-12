@@ -82,7 +82,7 @@
                                     <ul class="btn-block">
                                         {% if app.user.sellerData.sellerCompany.isSparePartSeller%}
                                             <li>
-                                                <a class="user-btn" href="{{ path("user_profile_product_categories_spare_part") }}" data-text="Авто-мото запчасти"></a>
+                                                <a class="user-btn" href="{{ path("user_profile_product_categories_spare_part") }}" data-text="Авто - мото запчасти"></a>
                                                 <a href="{{ path("user_profile_product_categories_spare_part") }}">
                                                     <button class="btn">Добавить объявление</button>
                                                 </a>
@@ -90,7 +90,7 @@
                                         {% endif %}
                                         {% if app.user.sellerData.sellerCompany.isAutoSeller %}
                                             <li>
-                                                <a class="user-btn" href="{{ path("user_profile_product_categories") }}" data-text="Авто-мото транспорт"></a>
+                                                <a class="user-btn" href="{{ path("user_profile_product_categories") }}" data-text="Авто - мото транспорт"></a>
                                                 <a href="{{ path("user_profile_product_categories") }}">
                                                     <button class="btn">Добавить объявление</button>
                                                 </a>
@@ -98,7 +98,7 @@
                                         {% endif %}
                                         {% if app.user.sellerData.sellerCompany.isService %}
                                             <li>
-                                                <a class="user-btn" data-text="Услуги / СТО / Сервисы"></a>
+                                                <a class="user-btn" data-text="СТО - Автосервисы "></a>
                                                 <button class="btn">Добавить объявление</button>
                                             </li>
                                         {% endif %}
@@ -265,7 +265,6 @@
                     </li>
                 </ul>
                 <p class="del-subtitle">В случае удаления элемент будет удален из базы без возможности восстановления</p>
-                <a href="{{ path("homepage") }}" class="parus">Autoparus.by</a>
 
             </section>
         </div>
