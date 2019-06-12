@@ -35,7 +35,7 @@
             <div class="header">
                 <div class="block-logo">
                     <img src="/img/Logo1.svg" alt="Логотип">
-                    <a class="header-logo" href='{{ path("homepage") }}' data-text="Автопарус"></a>
+                    <a class="header-logo" href='{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}' data-text="Автопарус"></a>
                 </div>
                 <button class="burger" onclick='menuActive()' type="button">
                     <span id='g-1' class='gamburger'></span>
@@ -93,7 +93,7 @@
                 <nav class="navigation">
                     <ul class="navigation-block">
                         <li>
-                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("homepage") }}" title="Главная">
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}" title="Главная">
                                 <svg class="home" x="0px" y="0px" viewBox="0 0 16 16" width="40" height="40">
                                     <polyline fill="none"  stroke="#444444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
                                     <polyline fill="none" stroke="#444444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5 13.5,13.5 13.5,7 "/>
