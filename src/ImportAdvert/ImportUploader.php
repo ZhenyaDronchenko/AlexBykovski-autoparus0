@@ -156,13 +156,13 @@ class ImportUploader
         $brandIndex = array_search(ImportChecker::BRAND_HEADER, $headers);
 
         if(!trim($line[$brandIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::BRAND_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
         }
 
         $brand = $this->em->getRepository(Brand::class)->findOneBy(["brandEn" => trim($line[$brandIndex])]);
 
         if(!$brand){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::BRAND_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
         }
 
         return $brand;
@@ -173,13 +173,13 @@ class ImportUploader
         $sparePartIndex = array_search(ImportChecker::SPARE_PART_HEADER, $headers);
 
         if(!trim($line[$sparePartIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::SPARE_PART_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
         }
 
         $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$sparePartIndex]));
 
         if(!is_array($sparePart ) || !count($sparePart)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::SPARE_PART_HEADER . ' | ' . $line[$sparePartIndex])];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
         }
 
         if(count($sparePart) > 1){
@@ -204,7 +204,7 @@ class ImportUploader
                 return $beforeBracketSame;
             }
 
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index, ImportChecker::SPARE_PART_HEADER . ' | ' . $line[$sparePartIndex])];
+            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
         }
 
         return array_values($sparePart)[0]->getName();
@@ -215,17 +215,36 @@ class ImportUploader
         $modelIndex = array_search(ImportChecker::MODEL_HEADER, $headers);
 
         if(!trim($line[$modelIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::MODEL_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
         }
 
         $model = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$modelIndex]), $brand);
 
         if(!is_array($model) || !count($model)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::MODEL_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
         }
 
         if(count($model) > 1){
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index, ImportChecker::MODEL_HEADER .  count($model))];
+            $year = (int)trim($line[array_search(ImportChecker::YEAR_HEADER, $headers)]);
+            $difference = PHP_INT_MIN;
+            $modelForYear = null;
+
+            /** @var Model $item */
+            foreach ($model as $item){
+                $modelYearDiff = $item->getTechnicalData()->getYearTo() - $year;
+
+                if($item->getTechnicalData()->getYearFrom() <= $year && $year <= $item->getTechnicalData()->getYearTo() && $difference < $modelYearDiff){
+                    $difference = $modelYearDiff;
+                    $modelForYear = $item;
+                }
+            }
+
+            if($modelForYear){
+                return $modelForYear;
+            }
+
+            //return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER . ' | ' . count($model) . ' | ' . $brand->getId() . ' | ' . $year . ' | ' . trim($line[$modelIndex]))];
+            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
         }
 
         return array_values($model)[0];
@@ -237,11 +256,11 @@ class ImportUploader
         $year = (int)trim($line[$yearIndex]);
 
         if(!$year){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::YEAR_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::YEAR_HEADER)];
         }
 
         if(!($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo())){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportChecker::YEAR_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::YEAR_HEADER)];
         }
 
         return $year;

@@ -108,21 +108,23 @@ class ModelRepository extends EntityRepository
             ->select('m')
             ->where("m.brand = :brand");
 
+//        $orX = $qb->expr()->orX(
+//            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') = :textUpper',
+//            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') LIKE :textLike',
+//            'm.name = :textUpper',
+//            'm.name LIKE :textLike',
+//            'm.modelEn = :text',
+//            'm.modelEn = :textWithoutYear'
+//        );
+
         $orX = $qb->expr()->orX(
-            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') = :textUpper',
-            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') LIKE :textLike',
-            'm.name = :textUpper',
-            'm.name LIKE :textLike',
-            'm.modelEn = :text',
-            'm.modelEn = :textWithoutYear'
+            'UPPER(m.name) = :textUpper',
+            'REPLACE(UPPER(TRIM(SUBSTRING_INDEX(m.name, \'(\', 1 ))), \'-\', \' \') = :textUpper'
         );
 
         return $qb->andWhere($orX)
             ->setParameter("brand",  $brand)
-            ->setParameter('text', $text )
-            ->setParameter('textLike', '%' . $text . '%'  )
-            ->setParameter('textUpper', strtoupper($text) )
-            ->setParameter('textWithoutYear', trim(preg_replace("/\d{4}\-\d{4}/", "", $text)) )
+            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
             ->getQuery()
             ->getResult();
     }
