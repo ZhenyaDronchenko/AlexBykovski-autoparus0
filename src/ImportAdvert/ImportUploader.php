@@ -84,7 +84,7 @@ class ImportUploader
                 $this->em->persist($advert);
 
                 if($count > 0 && $count % 50 === 0){
-                    //$this->em->flush();
+                    $this->em->flush();
                 }
             }
             elseif(is_array($advert)){
@@ -92,7 +92,7 @@ class ImportUploader
             }
         }
 
-        //$this->em->flush();
+        $this->em->flush();
 
         if(!$count){
             return [["Нет корретных данных для импорта"], $count];
@@ -159,13 +159,17 @@ class ImportUploader
             return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
         }
 
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(["brandEn" => trim($line[$brandIndex])]);
+        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$brandIndex]));
 
-        if(!$brand){
+        if(!is_array($brand) || !count($brand)){
             return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
         }
 
-        return $brand;
+        if(count($brand) > 1){
+            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
+        }
+
+        return array_values($brand)[0];
     }
 
     private function getSparePart($headers, $line, $index)

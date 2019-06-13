@@ -72,37 +72,37 @@
             self.longActionActive = true;
             self.message = FILE_CHECKING;
 
-            self.longActionActive = false;
-            self.isUploadAndCheckProcess = false;
-            handleResponse(FILE_CHECKED_CORRECT);
-            self.isPossibleImport = true;
+            // self.longActionActive = false;
+            // self.isUploadAndCheckProcess = false;
+            // handleResponse(FILE_CHECKED_CORRECT);
+            // self.isPossibleImport = true;
+            //
+            // importFile()
 
-            importFile()
+            $http({
+                method: 'POST',
+                data: {"path" : pathToFile},
+                url: Routing.generate('import_ajax_check_is_correct_file_specific_adverts'),
+            }).then(function (response) {
+                self.longActionActive = false;
+                self.isUploadAndCheckProcess = false;
 
-            // $http({
-            //     method: 'POST',
-            //     data: {"path" : pathToFile},
-            //     url: Routing.generate('import_ajax_check_is_correct_file_specific_adverts'),
-            // }).then(function (response) {
-            //     self.longActionActive = false;
-            //     self.isUploadAndCheckProcess = false;
-            //
-            //     if(response.data.success){
-            //         handleResponse(FILE_CHECKED_CORRECT);
-            //         self.isPossibleImport = true;
-            //     }
-            //     else{
-            //         handleResponse(FILE_CHECKED_FAILED, response.data.errors, true);
-            //     }
-            //
-            // }, function (response) {
-            //     self.longActionActive = false;
-            //     self.isUploadAndCheckProcess = false;
-            //
-            //     console.error(response);
-            //
-            //     handleResponse(FILE_CHECKED_FAILED, null, true);
-            // });
+                if(response.data.success){
+                    handleResponse(FILE_CHECKED_CORRECT);
+                    self.isPossibleImport = true;
+                }
+                else{
+                    handleResponse(FILE_CHECKED_FAILED, response.data.errors, true);
+                }
+
+            }, function (response) {
+                self.longActionActive = false;
+                self.isUploadAndCheckProcess = false;
+
+                console.error(response);
+
+                handleResponse(FILE_CHECKED_FAILED, null, true);
+            });
         }
 
         function importFile() {
