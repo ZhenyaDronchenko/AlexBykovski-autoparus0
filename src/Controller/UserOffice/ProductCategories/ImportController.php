@@ -48,7 +48,6 @@ class ImportController extends Controller
         }
         catch (\Exception $exception){
             $response["errors"] = ["Серверная ошибка при загрузке файла"];
-            $response["errors1"] = [$exception->getMessage()];
 
             return new JsonResponse($response);
         }
