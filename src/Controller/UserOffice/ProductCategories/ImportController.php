@@ -42,12 +42,13 @@ class ImportController extends Controller
 
         try {
             $uploader->setFolder(FileUpload::IMPORT_SPECIFIC_ADVERT);
-            $uploader->setAllowMimeTypes([FileUpload::CSV_MIME_TYPE]);
+            $uploader->setAllowMimeTypes([FileUpload::CSV_MIME_TYPE, FileUpload::EXCEL_MIME_TYPE]);
 
             $path = $uploader->upload($file, null, $uploader->getFilePath($file, $this->getUser()->getId()));
         }
         catch (\Exception $exception){
             $response["errors"] = ["Серверная ошибка при загрузке файла"];
+            $response["errors1"] = [$exception->getMessage()];
 
             return new JsonResponse($response);
         }

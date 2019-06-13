@@ -6,25 +6,25 @@ use App\Entity\Brand;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 
-class ImportChecker
+class ImportCheckerCSV
 {
-    const IMPORT_FILE_EXTENSION = "xls";
+    const IMPORT_FILE_EXTENSION = "csv";
 
-    const BRAND_HEADER = "МАРКА";
-    const MODEL_HEADER = "МОДЕЛЬ";
-    const YEAR_HEADER = "ГОД";
-    const SPARE_PART_HEADER = "НАИМЕНОВАНИЕ ЗАПЧАСТИ";
+    const BRAND_HEADER = "Марка";
+    const MODEL_HEADER = "Модель";
+    const YEAR_HEADER = "Год";
+    const SPARE_PART_HEADER = "Запчасть";
 
-    const ENGINE_TYPE_HEADER = "ТОПЛИВО";
-    const ENGINE_CAPACITY_HEADER = "ОБЪЕМ ДВИГАТЕЛЯ";
-    const GEAR_BOX_TYPE_HEADER = "КОРОБКА";
-    const VEHICLE_TYPE_HEADER = "ТИП КУЗОВА";
-    const NUMBER_SPARE_PART_HEADER = "ОРИГИНАЛЬНЫЙ НОМЕР";
+    const ENGINE_TYPE_HEADER = "Топливо";
+    const ENGINE_CAPACITY_HEADER = "Объём";
+    const GEAR_BOX_TYPE_HEADER = "Коробка";
+    const VEHICLE_TYPE_HEADER = "Тип кузова";
+    const NUMBER_SPARE_PART_HEADER = "Оригинальный номер";
     const DESCRIPTION_HEADER = "Описание";
-    const IMAGE_HEADER = "ФОТО";
-    const COST_HEADER = "ЦЕНА";
+    const IMAGE_HEADER = "Фото";
+    const COST_HEADER = "Цена";
 
     static $requiredFields = [self::BRAND_HEADER, self::MODEL_HEADER, self::YEAR_HEADER, self::SPARE_PART_HEADER];
 
@@ -73,7 +73,7 @@ class ImportChecker
     {
         $response = ["errors" => []];
 
-        $reader = new Xls();
+        $reader = new Csv();
 
         $spreadsheet = $reader->load($file);
 

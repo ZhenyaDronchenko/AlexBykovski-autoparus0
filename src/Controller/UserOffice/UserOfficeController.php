@@ -239,6 +239,8 @@ class UserOfficeController extends Controller
      */
     public function showImportSpecificAdvertsAction(Request $request)
     {
+//        var_dump(strtok("Консоль салона (кулисная часть)", '('));
+//        die;
         return $this->render('client/user-office/seller-services/product-categories/spare-part/import-specific-adverts.html.twig', []);
     }
 
