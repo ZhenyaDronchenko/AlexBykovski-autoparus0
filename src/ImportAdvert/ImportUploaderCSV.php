@@ -10,9 +10,9 @@ use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 
-class ImportUploader
+class ImportUploaderCSV
 {
     const ERROR_EMPTY_DATA = "Строка %d: нет данных или не найдено соответствие по полю: %s";
     const ERROR_MULTIPLE_DATA = "Строка %d: найдено несколько соответствий по полю: %s";
@@ -51,7 +51,7 @@ class ImportUploader
      */
     private function getFileData($file)
     {
-        $reader = new Xls();
+        $reader = new Csv();
 
         $spreadsheet = $reader->load($file);
 
@@ -153,62 +153,37 @@ class ImportUploader
 
     private function getBrand($headers, $line, $index)
     {
-        $brandIndex = array_search(ImportChecker::BRAND_HEADER, $headers);
+        $brandIndex = array_search(ImportCheckerCSV::BRAND_HEADER, $headers);
 
         if(!trim($line[$brandIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::BRAND_HEADER)];
         }
 
-        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$brandIndex]));
+        $brand = $this->em->getRepository(Brand::class)->findOneBy(["brandEn" => trim($line[$brandIndex])]);
 
-        if(!is_array($brand) || !count($brand)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
+        if(!$brand){
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::BRAND_HEADER)];
         }
 
-        if(count($brand) > 1){
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
-        }
-
-        return array_values($brand)[0];
+        return $brand;
     }
 
     private function getSparePart($headers, $line, $index)
     {
-        $sparePartIndex = array_search(ImportChecker::SPARE_PART_HEADER, $headers);
+        $sparePartIndex = array_search(ImportCheckerCSV::SPARE_PART_HEADER, $headers);
 
         if(!trim($line[$sparePartIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::SPARE_PART_HEADER)];
         }
 
         $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$sparePartIndex]));
 
         if(!is_array($sparePart ) || !count($sparePart)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::SPARE_PART_HEADER)];
         }
 
         if(count($sparePart) > 1){
-            $fullSame = null;
-            $beforeBracketSame = null;
-
-            /** @var SparePart $item */
-            foreach ($sparePart as $item){
-                if(trim($item->getName()) === $line[$sparePartIndex]){
-                    $fullSame = $item->getName();
-                }
-
-                if(trim(strtok($item->getName(), '(')) === $line[$sparePartIndex]){
-                    $beforeBracketSame = $item->getName();
-                }
-            }
-
-            if($fullSame){
-                return $fullSame;
-            }
-            elseif ($beforeBracketSame){
-                return $beforeBracketSame;
-            }
-
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
+            return [sprintf(self::ERROR_MULTIPLE_DATA, $index, ImportCheckerCSV::SPARE_PART_HEADER)];
         }
 
         return array_values($sparePart)[0]->getName();
@@ -216,39 +191,20 @@ class ImportUploader
 
     private function getModel($headers, $line, $index, Brand $brand)
     {
-        $modelIndex = array_search(ImportChecker::MODEL_HEADER, $headers);
+        $modelIndex = array_search(ImportCheckerCSV::MODEL_HEADER, $headers);
 
         if(!trim($line[$modelIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::MODEL_HEADER)];
         }
 
         $model = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$modelIndex]), $brand);
 
         if(!is_array($model) || !count($model)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::MODEL_HEADER)];
         }
 
         if(count($model) > 1){
-            $year = (int)trim($line[array_search(ImportChecker::YEAR_HEADER, $headers)]);
-            $difference = PHP_INT_MIN;
-            $modelForYear = null;
-
-            /** @var Model $item */
-            foreach ($model as $item){
-                $modelYearDiff = $item->getTechnicalData()->getYearTo() - $year;
-
-                if($item->getTechnicalData()->getYearFrom() <= $year && $year <= $item->getTechnicalData()->getYearTo() && $difference < $modelYearDiff){
-                    $difference = $modelYearDiff;
-                    $modelForYear = $item;
-                }
-            }
-
-            if($modelForYear){
-                return $modelForYear;
-            }
-
-            //return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER . ' | ' . count($model) . ' | ' . $brand->getId() . ' | ' . $year . ' | ' . trim($line[$modelIndex]))];
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
+            return [sprintf(self::ERROR_MULTIPLE_DATA, $index, ImportCheckerCSV::MODEL_HEADER)];
         }
 
         return array_values($model)[0];
@@ -256,15 +212,15 @@ class ImportUploader
 
     private function getYear($headers, $line, $index, Model $model)
     {
-        $yearIndex = array_search(ImportChecker::YEAR_HEADER, $headers);
+        $yearIndex = array_search(ImportCheckerCSV::YEAR_HEADER, $headers);
         $year = (int)trim($line[$yearIndex]);
 
         if(!$year){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::YEAR_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::YEAR_HEADER)];
         }
 
         if(!($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo())){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::YEAR_HEADER)];
+            return [sprintf(self::ERROR_EMPTY_DATA, $index, ImportCheckerCSV::YEAR_HEADER)];
         }
 
         return $year;
@@ -272,7 +228,7 @@ class ImportUploader
 
     private function getEngineType($headers, $line, Model $model)
     {
-        $engineTypeIndex = array_search(ImportChecker::ENGINE_TYPE_HEADER, $headers);
+        $engineTypeIndex = array_search(ImportCheckerCSV::ENGINE_TYPE_HEADER, $headers);
         $engineType = strtolower(trim($line[$engineTypeIndex]));
 
         if(!$engineType){
@@ -286,7 +242,7 @@ class ImportUploader
 
     private function getEngineCapacity($headers, $line, Model $model, $engineType)
     {
-        $engineCapacityIndex = array_search(ImportChecker::ENGINE_CAPACITY_HEADER, $headers);
+        $engineCapacityIndex = array_search(ImportCheckerCSV::ENGINE_CAPACITY_HEADER, $headers);
         $engineCapacity = strtolower(trim($line[$engineCapacityIndex]));
 
         if(!$engineCapacity || $engineType){
@@ -308,7 +264,7 @@ class ImportUploader
 
     private function getGearBoxType($headers, $line, Model $model)
     {
-        $gearBoxTypeIndex = array_search(ImportChecker::GEAR_BOX_TYPE_HEADER, $headers);
+        $gearBoxTypeIndex = array_search(ImportCheckerCSV::GEAR_BOX_TYPE_HEADER, $headers);
         $gearBoxType = strtolower(trim($line[$gearBoxTypeIndex]));
 
         if(!$gearBoxType){
@@ -324,7 +280,7 @@ class ImportUploader
 
     private function getVehicleType($headers, $line, Model $model)
     {
-        $vehicleTypeIndex = array_search(ImportChecker::VEHICLE_TYPE_HEADER, $headers);
+        $vehicleTypeIndex = array_search(ImportCheckerCSV::VEHICLE_TYPE_HEADER, $headers);
         $vehicleType = trim($line[$vehicleTypeIndex]);
 
         if(!$vehicleType){
@@ -338,7 +294,7 @@ class ImportUploader
 
     private function getSparePartNumber($headers, $line)
     {
-        $numberIndex = array_search(ImportChecker::NUMBER_SPARE_PART_HEADER, $headers);
+        $numberIndex = array_search(ImportCheckerCSV::NUMBER_SPARE_PART_HEADER, $headers);
         $number = trim($line[$numberIndex]);
 
         return $number ?: null;
@@ -346,7 +302,7 @@ class ImportUploader
 
     private function getDescription($headers, $line)
     {
-        $descriptionIndex = array_search(ImportChecker::DESCRIPTION_HEADER, $headers);
+        $descriptionIndex = array_search(ImportCheckerCSV::DESCRIPTION_HEADER, $headers);
         $description = trim($line[$descriptionIndex]);
 
         return $description ?: null;
@@ -354,7 +310,7 @@ class ImportUploader
 
     private function getImage($headers, $line)
     {
-        $imageIndex = array_search(ImportChecker::IMAGE_HEADER, $headers);
+        $imageIndex = array_search(ImportCheckerCSV::IMAGE_HEADER, $headers);
         $image = trim($line[$imageIndex]);
 
         return $image ?: null;
@@ -362,7 +318,7 @@ class ImportUploader
 
     private function getCost($headers, $line)
     {
-        $costIndex = array_search(ImportChecker::COST_HEADER, $headers);
+        $costIndex = array_search(ImportCheckerCSV::COST_HEADER, $headers);
         $cost = trim($line[$costIndex]);
 
         return $cost ?: null;

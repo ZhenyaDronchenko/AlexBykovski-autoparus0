@@ -72,6 +72,13 @@
             self.longActionActive = true;
             self.message = FILE_CHECKING;
 
+            // self.longActionActive = false;
+            // self.isUploadAndCheckProcess = false;
+            // handleResponse(FILE_CHECKED_CORRECT);
+            // self.isPossibleImport = true;
+            //
+            // importFile()
+
             $http({
                 method: 'POST',
                 data: {"path" : pathToFile},
@@ -121,7 +128,8 @@
 
                     if(response.data.errors && response.data.errors.length > 0){
                         self.showErrorsAfterSuccessImport = true;
-                        let errors = response.data.errors.length >= 10 ? response.data.errors.slice(0, 10) : response.data.errors;
+                        //let errors = response.data.errors.length >= 10 ? response.data.errors.slice(0, 10) : response.data.errors;
+                        let errors = response.data.errors.length >= 10 ? response.data.errors : response.data.errors;
 
                         handleResponse(message, errors, true);
 

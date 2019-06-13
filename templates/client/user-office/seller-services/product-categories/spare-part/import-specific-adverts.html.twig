@@ -32,7 +32,7 @@
             </li>
         </ul>
 
-        <section class="price">
+        <section class="price" ng-cloak>
             <h1 class="price-title">{{ default_text(14).headline }}</h1>
             <a class="btn price-btn" onclick="document.getElementById('upload-file-input').click()" ng-show="!importCtrl.isImportProcess && !importCtrl.isUploadAndCheckProcess">Выбрать файл для загрузки</a>
             <input id="upload-file-input" type="file" style="display: none" custom-on-change="importCtrl.uploadedFile">

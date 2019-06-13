@@ -84,4 +84,20 @@ class BrandRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findBrandForImport($text)
+    {
+        $qb = $this->createQueryBuilder('br')
+            ->select('br');
+
+        $orX = $qb->expr()->orX(
+            'UPPER(br.name) = :textUpper',
+            'REPLACE(UPPER(TRIM(br.name)), \'-\', \' \') = :textUpper'
+        );
+
+        return $qb->where($orX)
+            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
+            ->getQuery()
+            ->getResult();
+    }
 }

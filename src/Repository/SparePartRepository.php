@@ -86,49 +86,31 @@ class SparePartRepository extends EntityRepository
         $qb = $this->createQueryBuilder('spp')
             ->select('spp');
 
+        $texts = [trim($text)];
+
+        $texts[] = trim(strtok($text, '('));
+        $texts[] = trim(strtok($text, '/'));
+
         $orX = $qb->expr()->orX(
-            'spp.name = :text',
-            'spp.name LIKE :textLike',
-            'spp.alternativeName1 = :text',
-            'spp.alternativeName1 LIKE :textLike',
-            'spp.alternativeName2 = :text',
-            'spp.alternativeName2 LIKE :textLike',
-            'spp.alternativeName3 = :text',
-            'spp.alternativeName3 LIKE :textLike',
-            'spp.alternativeName4 = :text',
-            'spp.alternativeName4 LIKE :textLike',
-            'spp.alternativeName5 = :text',
-            'spp.alternativeName5 LIKE :textLike'
+            'spp.name IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(spp.name, \'(\', 1 )) IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.name,\')\',1),\'(\',-1)) IN (:texts)',
+            'spp.alternativeName1 IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(spp.alternativeName1, \'(\', 1 )) IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName1,\')\',1),\'(\',-1)) IN (:texts)',
+            'spp.alternativeName2 IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(spp.alternativeName2, \'(\', 1 )) IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName2,\')\',1),\'(\',-1)) IN (:texts)',
+            'spp.alternativeName3 IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(spp.alternativeName3, \'(\', 1 )) IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName3,\')\',1),\'(\',-1)) IN (:texts)',
+            'spp.alternativeName4 IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(spp.alternativeName4, \'(\', 1 )) IN (:texts)',
+            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName4,\')\',1),\'(\',-1)) IN (:texts)'
         );
 
         $qb->where($orX)
-            ->setParameter('text', $text )
-            ->setParameter('textLike', '%' . $text . '%' );
-
-        preg_match_all("/\((.*?)\)/", $text, $matches);
-
-        foreach ($matches[1] as $key => $match){
-            $orX = $qb->expr()->orX(
-                'spp.name = :text_' . $key,
-                'spp.name LIKE :textLike_' . $key,
-                'spp.alternativeName1 = :text_' . $key,
-                'spp.alternativeName1 LIKE :textLike_' . $key,
-                'spp.alternativeName2 = :text_' . $key,
-                'spp.alternativeName2 LIKE :textLike_' . $key,
-                'spp.alternativeName3 = :text_' . $key,
-                'spp.alternativeName3 LIKE :textLike_' . $key,
-                'spp.alternativeName4 = :text_' . $key,
-                'spp.alternativeName4 LIKE :textLike_' . $key,
-                'spp.alternativeName5 = :text_' . $key,
-                'spp.alternativeName5 LIKE :textLike_' . $key
-            );
-
-            $qb->orWhere($orX)
-                ->setParameter('text_' . $key, $match )
-                ->setParameter('textLike_' . $key, '%' . $match . '%' );
-        }
-
-
+            ->setParameter('texts', $texts );
 
         return $qb
             ->getQuery()

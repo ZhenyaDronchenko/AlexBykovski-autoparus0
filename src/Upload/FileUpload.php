@@ -33,6 +33,7 @@ class FileUpload
     const IMAGE_FOLDER = "images/";
 
     const CSV_MIME_TYPE = "text/csv";
+    const EXCEL_MIME_TYPE = "application/vnd.ms-excel";
 
     private $allowedMimeTypes;
 
