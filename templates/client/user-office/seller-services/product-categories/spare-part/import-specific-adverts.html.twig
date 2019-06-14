@@ -58,7 +58,7 @@
                     {#<span style="font-size: 17px; color: black">При импорте файл произошли ошибки. Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>#}
                     <span style="font-size: 17px;" ng-style="importCtrl.messageStyle" ng-bind-html="importCtrl.message"></span>
                     <span style="font-size: 17px; color: black" ng-show="importCtrl.showErrorsAfterSuccessImport">Данные строки не были импортированы из-за ошибок:</span>
-                    <ul class="show-import-errors">
+                    <ul class="show-import-errors" ng-show="importCtrl.errors.length > 11">
                         <li style="color: red" ng-bind="error" ng-repeat="error in importCtrl.errors"></li>
                     </ul>
                     <span style="font-size: 17px; color: black" ng-show="importCtrl.showSpecialMessage">Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>
