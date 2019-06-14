@@ -306,5 +306,10 @@ cursor: default;
     }
 }
 
+.show-import-errors{
+    height: 208px;
+    border: 2px solid #737373;
+    overflow-y: scroll;
+}
 
 /*price end*/

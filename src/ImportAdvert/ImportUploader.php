@@ -94,7 +94,7 @@ class ImportUploader
 
         $this->em->flush();
 
-        if(!$count){
+        if(!$count && !count($errors)){
             return [["Нет корретных данных для импорта"], $count];
         }
 
