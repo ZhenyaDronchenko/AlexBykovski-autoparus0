@@ -4,7 +4,7 @@
         {% if isValid is defined and isValid %} redirect-to-url redirect-url="{{ path("show_user_office") }}" {% endif %}>
     {{ form_widget(form._token) }}
     <fieldset class="block">
-        <legend class="title" data-text="Выберите виды деятельности">
+        <legend class="title">Выберите виды деятельности
             <sup>
                 <button class="help open-popup-button" data-popup-id="1" type="button">
                     <svg viewBox="0 0 32 32" width="18px" height="18px">
@@ -45,7 +45,7 @@
     </fieldset>
 
     <fieldset class="block">
-        <legend class="title" data-text="Заполните регистрационные данные">
+        <legend class="title">Заполните регистрационные данные
             <sup>
                 <button class="help open-popup-button" data-popup-id="2" type="button">
                     <svg viewBox="0 0 32 32" width="18px" height="18px">
@@ -106,7 +106,7 @@
     </fieldset>
 
     <fieldset class="block">
-        <legend class="title" data-text="Способы оплаты"></legend>
+        <legend class="title">Способы оплаты</legend>
         <ul class="pay-block"
                 {% if not scrollToElement and form.workflow.isCash.vars.errors.form.getErrors(true) | length %}
                     scroll-to-element
@@ -142,7 +142,7 @@
                 {% set scrollToElement = true %}
             {% endif %}
     >
-        <legend class="title" data-text="Время работы"></legend>
+        <legend class="title">Время работы</legend>
         <div class="time">
             <div class="time-wrapper time-wrapper--border">
                 <div class="time-block">
@@ -215,7 +215,7 @@
 
     <div class="wrapper-block">
         <fieldset class="block-item" ng-init="isDelivery = {{ form.workflow.delivery.vars.value ? "true" : "false"}}">
-            <legend class="title" data-text="Доставка"></legend>
+            <legend class="title">Доставка</legend>
             <ul class="delivery-block">
                 {% for choice in form.workflow.delivery %}
                     <li class="delivery-option">
@@ -231,7 +231,7 @@
         </fieldset>
 
         <fieldset class="block-item" ng-init="isGuarantee = {{ form.workflow.guarantee.vars.value ? "true" : "false"}}">
-            <legend class="title" data-text="Гарантия"></legend>
+            <legend class="title">Гарантия</legend>
             <ul class="delivery-block">
                 {% for choice in form.workflow.guarantee %}
                     <li class="delivery-option">
@@ -249,12 +249,12 @@
     </div>
 
     <fieldset class="block">
-        <legend class="title title-t" data-text="{{ default_text(12).headline }}"></legend>
+        <legend class="title title-t">{{ default_text(12).headline }}</legend>
         {{ form_widget(form.activityDescription, {attr: {"rows": "5" }}) }}
     </fieldset>
 
     <fieldset class="block">
-        <legend class="title" data-text="{{ form.additionalPhone.vars.label }}"></legend>
+        <legend class="title">{{ form.additionalPhone.vars.label }}</legend>
         <div class="phone">
             {{ form_widget(form.additionalPhone, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}
             {{ form_widget(form.additionalPhone2, {attr: {class: "phone-mask", "placeholder" : "Номер телефона"}, type: "tel"}) }}

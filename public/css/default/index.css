@@ -130,7 +130,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     cursor: pointer;
-        transform: translate(0,-30px);
+        transform: translate(0,-45px);
 }
 
 .foto img {
@@ -323,15 +323,12 @@
     position: fixed;
     top: 40px;
     left: 50%;
-    width: 430px;
+    width: 600px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     background-color: #fff;
 padding: 0;
-
-}
-.mike {
 
 }
 
@@ -346,9 +343,8 @@ padding: 0;
 }
 .mike-img {
     margin: 75px auto;
-    margin-bottom: 150px;
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -370,7 +366,7 @@ padding: 0;
     line-height: 20px;
     color: #000;
     text-align: center;
-    margin-bottom: 40px;
+    min-height: 100px;
 }
 .modal-header {
     display: -webkit-box;
@@ -446,7 +442,7 @@ padding: 0;
     line-height: 20px;
     color: #444;
     text-align: center;
-    margin: 10px;
+    margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 0;
     padding: 10px 0;
@@ -656,9 +652,9 @@ padding: 0;
         padding-top: 5px;
     }
     .modal1 {
-            bottom: 35px;
+           
     width: 95%;
-    height: 91vh;
+  
      padding-top: 0; 
     top: 10px;
     }
@@ -777,7 +773,10 @@ padding: 0;
     .button-home span {
         display: none;
     }
-
+.modal1 {
+    width: 90%;
+    }
+    
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -1115,6 +1114,10 @@ ul {
     .nav-list-m .item-o {
         margin-top: 7px;
     }
+    .nav-list-m .band {
+        margin: 20px 0;
+        margin-top: 15px;
+    }
 
 }
 
@@ -1231,6 +1234,16 @@ box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
   padding: 0 5px;
   height: 70px;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+          justify-content: center;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+          align-items: center;
 }
 
 .article-subtitle {

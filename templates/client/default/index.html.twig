@@ -48,7 +48,7 @@
                 {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
                     {% set article = articleArray.object %}
                     <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
-                        <h2 class="article-title">{{ article.headline1 }}</h2>
+                        <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
                         <div class="article-foto">
                             <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                         </div>
@@ -140,11 +140,7 @@
 
     <div id="popup1" class="overlay1 modal--show" style="display: none;">
         <div class="modal1">
-            <button id="initiator-close-popup1" class="modal-close close-popup-button"><svg  x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50" enable-background="new 0 0 50 50" >
-                    <line stroke="#737373" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                    <line stroke="#737373" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                </svg>
-            </button>
+            
             <div class="mike">
                 <div id="microphone-image" class="mike-img">
                     <svg fill="red" viewBox="0 0 40 59.5" width="60" height="80">
@@ -154,6 +150,10 @@
                 </div>
                 <span id="text-from-microphone" class="mike-text"></span>
                 {#<button class="mike-btn">Универсальная кнопка</button>#}
+
+                <button id="initiator-close-popup1"
+                 class="button-cl close-popup-button"><span>Закрыть</span>
+            </button>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <form {% if isValid %} redirect-to-url redirect-url="{{ path("show_user_office") }}" {% endif %} id="cars-form" class="user-form" style="padding-top: 0;" action="#" method="post" novalidate>
     {{ form_widget(form._token) }}
     <fieldset class="block block-m" id="cars-container">
-        <h2 class="title" data-text="Ваша авто-мото техника">
+        <h2 class="title">Ваша авто-мото техника
             <sup>
                 <button class="help open-popup-button" type="button" data-popup-id="3">
                     <svg viewBox="0 0 32 32" width="18px" height="18px">

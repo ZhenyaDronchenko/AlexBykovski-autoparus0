@@ -658,7 +658,7 @@ textarea {
   position: fixed;
   top: 100px;
   left: 50%;
-  width: 900px;
+  width: 850px;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -763,6 +763,7 @@ textarea {
     .choice-input {
         font-size: 16px;
         line-height: 18px;
+        width: 110px;
     
     }
 
@@ -783,7 +784,7 @@ textarea {
         line-height: 22px;
     }
     .choice-str {
-        width: 98%;
+        width: 70%;
     }
     .block-item {
         width: 100%;
@@ -986,6 +987,7 @@ textarea {
         margin-right: 20px;
     }
     .name-select {
+        width: 110px;
     font-size: 18px;
     line-height: 20px;
 }
@@ -1031,12 +1033,10 @@ textarea {
     }*/
     .choice-city {
         display: inline-block;
-        width: 250px;
         color: #757373;
     }
     .country {
         display: inline-block;
-        width: 150px;
     }
     /*.choice-str {
         width: 90%;
@@ -1180,7 +1180,7 @@ textarea {
 
     .modal {
         top: 50px;
-        width: 80%;
+        width: 70%;
     }
     .modal-title {
         margin-bottom: 10px;
@@ -1221,9 +1221,9 @@ textarea {
         color: #757373;
     }
 .modal {
-  top: 70px;
+  top: 50px;
   left: 50%;
-  width: 700px;
+  width: 600px;
  
 }
    /* .choice-str {
@@ -1233,7 +1233,6 @@ textarea {
         width: 60%;
     }*/
     .business-option li {
-        margin: 0 15px;
         margin-bottom: 20px;
     }
 
