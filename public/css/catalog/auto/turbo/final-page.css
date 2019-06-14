@@ -180,7 +180,6 @@ p {
 .mod-link img {
     width: 80px;
     height: 80px;
-    border: 1px solid red;
 }
 .mod-link img:hover {
     -webkit-filter: grayscale(100%);

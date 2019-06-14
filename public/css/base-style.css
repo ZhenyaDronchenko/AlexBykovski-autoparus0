@@ -296,6 +296,10 @@ ul {
     .nav-list-m .item-o {
         margin-top: 7px;
     }
+     .nav-list-m .band {
+        margin: 20px 0;
+        margin-top: 15px;
+    }
 
 }
 

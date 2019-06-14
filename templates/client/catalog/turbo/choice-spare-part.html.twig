@@ -39,16 +39,10 @@
         </ul>
 
         <section class="brand">
-            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>
-            <div class="subtext-block">
-                <div class="img-wrapper">
-                    <a href="{{ path("show_brand_catalog_choice_spare_part", routeParams) }}" style="display: contents; ">
-                        <img src="{{ image_url(model.thumbnailLogo) }}" alt="{{ model.name }}" title="Запчасти для {{ brand.brandEn }} {{ model.modelEn }}">
-                    </a>
-                </div>
-                <div class="text-block">
-                    <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
-                </div>
+            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>      
+                
+            <div class="text-block">
+                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
             </div>
 
             <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
@@ -77,7 +71,10 @@
             </div>
 
             <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
-            <div class="subtext">{{ page.text2 | raw }}</div>
+            <a class="img-r" href="{{ path("show_brand_catalog_choice_spare_part", routeParams) }}"  ">
+                        <img src="{{ image_url(model.thumbnailLogo) }}" alt="{{ model.name }}" title="Запчасти для {{ brand.brandEn }} {{ model.modelEn }}">
+                    </a>
+            <div class="subtext">{{ page.text2 | raw }} </div>
         </section>
     </main>
 {% endblock %}
