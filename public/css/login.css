@@ -254,6 +254,8 @@ input {
   line-height: 20px;
   color: #000000;
   background-color: white !important;
+  -webkit-appearance: none;
+    border-radius: 0;
 
 }
 
@@ -395,7 +397,7 @@ input {
 
 .modal {
   position: fixed;
-  top: 70px;
+  top: 50px;
   left: 50%;
   width: 450px;
   -webkit-transform: translateX(-50%);
@@ -403,7 +405,7 @@ input {
   transform: translateX(-50%);
   text-align: center;
   background-color: #fff;
-  padding: 40px 20px;
+  padding: 50px 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   margin-bottom: 200px;
@@ -424,9 +426,9 @@ input {
   right: 7px;
   top: 7px;
   cursor: pointer;
-  border: 2px solid #727272;
+  border: 1px solid #727272;
   background-color: #fff;
-  border-radius: 50%;
+  border-radius: 5px;
   padding: 2px;
   outline: none;
 
@@ -524,6 +526,7 @@ input {
 
   .modal {
     width: 90%;
+    top: 10px;
     padding: 20px 10px;
     padding-top: 50px;
   }
