@@ -114,9 +114,7 @@ cursor: default;
     -webkit-text-stroke: .03em #ff0000;
 }
 
-.text-block {
-    width: 85%;
-}
+
 p {
     margin: 0;
     margin-bottom: 10px;
@@ -163,7 +161,7 @@ p {
     -ms-flex-align: center;
     align-items: center;
     flex-wrap: wrap;
-
+margin-top: 30px;
 }
 .brand-block li {
      margin:  0 15px;
@@ -266,12 +264,16 @@ p {
     align-items: center;
     margin: 0 auto;
 }
-.img-wrapper img {
+.img-r img {
     width: 120px;
     height: 80px;
-    border: 1px solid red;
 }
 
+
+.img-r {
+    float: right;
+    margin: 15px;
+}
 
 
 

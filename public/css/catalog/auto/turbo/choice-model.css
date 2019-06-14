@@ -128,11 +128,10 @@ p {
     border-bottom: 1px solid #737373;
     background-color: #fff;
     margin-bottom: 40px;
+    margin-top: 30px;
 
 }
-.text-block {
-    width: 85%;
-}
+
 
 #text1 {
     margin: 0;
@@ -282,13 +281,16 @@ p {
             align-items: center;
     margin: 0 auto;
 }
-.img-wrapper img {
+.img-r img {
     width: 120px;
     height: 80px;
-    border: 1px solid red;
 }
 
 
+.img-r {
+    float: right;
+    margin: 15px;
+}
 
 
 @media (max-width: 480px) {

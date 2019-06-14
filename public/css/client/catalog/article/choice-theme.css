@@ -179,56 +179,7 @@
 .modal--hidden {
   display: none;
 }
-/*.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    -webkit-clip-path: inset(100%);
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-}
 
-.select-item label {
-    position: relative;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-label {
-    font-size: 18px;
-    line-height: 20px;
-    color: #000000;
-    font-weight: 400;
-}
-
-.checkbox + label::before {
-    content: "";
-    position: absolute;
-    display: block;
-        left: -30px;
-    top: 2px;
-    width: 18px;
-    height: 18px;
-    border: 1px solid #737373;
-    border-radius: 3px;
-}
-.checkbox:checked + label::after {
-    content: "";
-    background: url(../img/chek.svg) 0 0 no-repeat;
-    position: absolute;
-    display: block;
-    width: 16px;
-    height: 16px;
-    left: -29px;
-    top: 2px;
-}*/
 @media (max-width: 480px) {
   .container {
     width: auto; 
@@ -392,16 +343,20 @@ h2 {
   line-height: 28px;
   font-weight: 400;
   text-align: center;
+  height: 55px;
+  overflow: hidden;
 }
 
 h3 {
   margin: 0;
   margin-bottom: 20px;
-  color: #f66666;
+  color: #999999;
   font-size: 22px;
   line-height: 26px;
   font-weight: 400;
-text-align: center;
+text-align: right;
+ height: 75px;
+  overflow: hidden;
 }
 
 p {
