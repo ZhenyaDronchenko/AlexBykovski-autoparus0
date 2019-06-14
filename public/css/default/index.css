@@ -651,10 +651,8 @@ padding: 0;
         width: 100%;
         padding-top: 5px;
     }
-    .modal1 {
-           
+    .modal1 { 
     width: 95%;
-  
      padding-top: 0; 
     top: 10px;
     }
@@ -1108,16 +1106,6 @@ ul {
         flex-direction: column;
         width: 100%;
     }
-    .nav-list-m .item-m {
-        margin-bottom: 30px;
-    }
-    .nav-list-m .item-o {
-        margin-top: 7px;
-    }
-    .nav-list-m .band {
-        margin: 20px 0;
-        margin-top: 15px;
-    }
 
 }
 
@@ -1351,6 +1339,17 @@ right: 5px;
   width: 155px !important;
   
 }
+    .nav-list-m .item-m {
+        margin-bottom: 30px;
+    }
+    .nav-list-m .item-o {
+        margin-top: 7px;
+    }
+    .nav-list-m .band {
+        margin: 20px 0;
+        margin-top: 15px;
+    }
+
 }
 /*article END*/
 
