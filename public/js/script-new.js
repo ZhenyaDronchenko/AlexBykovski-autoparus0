@@ -457,3 +457,24 @@ function citiesHideShow() {
      }
      elemLi.className = 'opened';
  }
+
+ var popup7 = document.querySelector('.overlay7');
+var openPopupButton7 = document.querySelector('.btn-point');
+
+var closePopupButton7 = popup7.querySelector('.close-popup');
+
+
+openPopupButton7.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  popup7.classList.add('modal--show');
+});
+
+closePopupButton7.addEventListener('click', function () {
+  popup7.classList.remove('modal--show');
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    popup7.classList.remove('modal--show');
+  }
+});

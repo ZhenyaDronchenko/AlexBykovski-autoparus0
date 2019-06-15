@@ -155,6 +155,11 @@
         <ul class="items">
             <li ng-repeat="post in gallery.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}" ng-cloak>
                 <div class="tool">
+                    <button class="btn-point" type="button">
+                            <span class="points"></span>
+                            <span class="points"></span>
+                            <span class="points"></span>
+                        </button>
                     <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="gallery.activePost = post; gallery.editPost()">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
@@ -166,8 +171,33 @@
                 </div>
 
                 <div class="prod">
-                    <img class="prod-foto gallery-photo-image" ng-src="{[{ post.path }]}" alt="">
+                    <div class="img-block">
+                        <img class="prod-foto gallery-photo-image" ng-src="{[{ post.path }]}" alt="">
+
+                        <span class="item-img" data-text="1 / 7"></span>
+
+                        <button class="select-img" type="button"><svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
+                                        <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
+                                    </svg>
+                        </button>
+                        
+
+        </div>
+                    
                     <div class="prod-content">
+                    <button class="btn-sel btn--m" type="button">
+        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+        </svg> Добавить еще фото</button>
+        <button class="btn-sel btn--m" type="button">
+        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+        </svg> Создать заголовок</button>
+        <h2 class="prod-title">Заголовок поста из группы фотографий</h2>
                         <div class="text-block">
                             <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
                             <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
@@ -323,6 +353,26 @@
             </section>
         </div>
     {% endif %}
+
+    <div class="overlay7">
+        <section class="modal7">
+            <div class="modal-header1">
+                <button class="button-home"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h3 class="button-title" data-text="Autoparus.by"></h3>
+               
+                <button class="button-home">
+                    <span>Вперед </span>
+                    <img src="/img/right-arrow1.png" alt="Далее">
+                </button> 
+            </div>
+            <div class="block-modal">
+                <h4 class="button-title-m">Заголовок из КТ 49</h4>
+
+                <div class="modal-text">Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, Текст из КТ 49,Текст из КТ 49,section Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, </div>
+
+            </div>
+            <button class="button-cl close-popup"><span>Закрыть</span></button>
+        </section>
     </div>
 {% endblock %}
 
