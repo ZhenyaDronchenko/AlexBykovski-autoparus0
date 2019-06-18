@@ -1,13 +1,13 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('GalleryCtrl', ["$scope", "$http", "$compile", "$rootScope", "ImageUploadService",
+    autoparusApp.controller('PostsCtrl', ["$scope", "$http", "$compile", "$rootScope", "ImageUploadService",
         function($scope, $http, $compile, $rootScope, ImageUploadService) {
-        const REMOVE_LINK = Routing.generate('user_office_remove_gallery_photo_ajax', {"id" : "__rid__"});
-        const ADD_LINK = Routing.generate('user_office_add_gallery_photo_ajax');
-        const EDIT_LINK = Routing.generate('user_office_edit_gallery_photo_ajax', {"id" : "__id__"});
-        const ALL_POSTS_LINK = Routing.generate('user_office_get_all_gallery_ajax');
-        const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_gallery_filter_ajax', {"id" : "__id__", "postId" : "__post_id__"});
+        const REMOVE_LINK = Routing.generate('posts_remove_post_ajax', {"id" : "__rid__"});
+        const ADD_LINK = Routing.generate('posts_add_post_ajax');
+        const EDIT_LINK = Routing.generate('posts_edit_post_ajax', {"id" : "__id__"});
+        const ALL_POSTS_LINK = Routing.generate('posts_get_all_posts_ajax');
+        const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_post_filter_ajax', {"id" : "__id__", "filterId" : "__post_id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
         const SIMPLE_TYPE = "simple";
 
@@ -34,7 +34,7 @@
                 "date": "",
                 "description": "",
                 "id": null,
-                "path": "",
+                "pathImage": "",
                 "time": "",
                 "type" : type ? type : SIMPLE_TYPE,
                 "userId" : "",
@@ -43,7 +43,7 @@
 
         function editPost(eventUpload) {
             let cropperContainer = $(cropperDialog);
-            let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost.path.replace(/^.*[\\\/]/, '');
+            let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost.pathImage.replace(/^.*[\\\/]/, '');
             let id = self.activePost.id;
             let urlEdit = id ? EDIT_LINK.replace("__id__", id) : ADD_LINK;
 
@@ -60,7 +60,7 @@
                         contentType: false,
                         success(data) {
                             if(data.success) {
-                                self.posts[data.gallery.id] = data.gallery;
+                                self.posts[data.post.id] = data.post;
 
                                 $scope.$evalAsync();
                             }
@@ -77,7 +77,7 @@
                 ImageUploadService.processUploadImage(eventUpload.target.files[0]);
             }
             else{
-                PREVIEW_IMAGE.attr("src", self.activePost.path);
+                PREVIEW_IMAGE.attr("src", self.activePost.pathImage);
                 ImageUploadService.addDialog();
             }
         }

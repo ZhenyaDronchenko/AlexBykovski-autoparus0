@@ -27,7 +27,7 @@ class PostController extends Controller
      * @Route("/add-post-ajax", name="posts_add_post_ajax", options={"expose"=true})
      * @Route("/edit-post-ajax/{id}/", name="posts_edit_post_ajax", options={"expose"=true})
      *
-     * @ParamConverter("post", class="App\Entity\Client\PostPhoto", options={"id" = "id"})
+     * @ParamConverter("postPhoto", class="App\Entity\Client\PostPhoto", options={"id" = "id"})
      */
     public function addEditPostAjaxAction(
         Request $request,
@@ -56,30 +56,26 @@ class PostController extends Controller
         $description = $request->request->get("description");
         $postType = $request->request->get("type") == Post::BUSINESS_TYPE ? Post::BUSINESS_TYPE : Post::SIMPLE_TYPE;
 
-        $uploader->setFolder(FileUpload::USER_OFFICE_POST);
+        $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
         $path = $uploader->upload($file);
 
-        $image = new Image($path);
-        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-        $image->setGeoLocation($geoLocation);
-
         if(!$post){
+            $image = new Image($path);
+            $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+            $image->setGeoLocation($geoLocation);
+
             $post = new Post($client, $image, $postType);
 
             $em->persist($post);
         }
         else{
-            $em->remove($postPhoto->getImage());
-            $em->remove($postPhoto->getImageThumbnail());
-
-            $postPhoto->setImage($image);
+            $postPhoto->getImage()->setImage($path);
         }
 
-        if(!$description) {
+        if($description) {
             $post->setDescription($description);
         }
 
-        $em->persist($image);
         $em->flush();
 
         $em->refresh($post);
@@ -114,7 +110,7 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/get-all-posts-ajax", name="user_office_get_all_posts_ajax", options={"expose"=true})
+     * @Route("/get-all-posts-ajax", name="posts_get_all_posts_ajax", options={"expose"=true})
      */
     public function getAllPosts(Request $request)
     {

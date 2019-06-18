@@ -14,7 +14,6 @@ class PostRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('p')
             ->select('p')
-            ->join("p.image", "im")
             ->join("p.client", "cl");
 
         if($filter->getOffset() || $filter->getLimit() === 0){
@@ -62,7 +61,7 @@ class PostRepository extends EntityRepository
             }
         }
 
-        return $qb->orderBy("im.createdAt", "DESC")
+        return $qb->orderBy("p.createdAt", "DESC")
             ->getQuery()
             ->getResult();
     }

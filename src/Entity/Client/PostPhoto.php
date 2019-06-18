@@ -155,6 +155,12 @@ class PostPhoto
             return false;
         }
 
-        $this->imageThumbnail = ResizeImageHandler::resizeLogo($this, ResizeImageHandler::POST_IMAGE_WIDTH_THUMBNAIL, ResizeImageHandler::POST_IMAGE_HEIGHT_THUMBNAIL);
+        if(!$this->imageThumbnail && $this->image){
+            $this->imageThumbnail = new Image();
+            $this->imageThumbnail->setGeoLocation($this->image->getGeoLocation()->copy());
+            $this->imageThumbnail->setCreatedAt($this->image->getCreatedAt());
+        }
+
+        $this->imageThumbnail->setImage(ResizeImageHandler::resizeLogo($this->getImage()->getImage(), ResizeImageHandler::POST_IMAGE_WIDTH_THUMBNAIL, ResizeImageHandler::POST_IMAGE_HEIGHT_THUMBNAIL));
     }
 }
