@@ -29,6 +29,9 @@ class ResizeImageHandler
     const ARTICLE_IMAGE_HEIGHT_THUMBNAIL = "360";
     const ARTICLE_IMAGE_WIDTH_THUMBNAIL = "540";
 
+    const POST_IMAGE_HEIGHT_THUMBNAIL = "240";
+    const POST_IMAGE_WIDTH_THUMBNAIL = "360";
+
     const JPEG_TYPE = "image/jpeg";
     const PNG_TYPE = "image/png";
     const GIF_TYPE = "image/gif";
