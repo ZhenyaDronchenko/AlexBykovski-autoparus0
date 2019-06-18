@@ -49,7 +49,7 @@
         function editPost(eventUpload) {
             let cropperContainer = $(cropperDialog);
             let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost["images"][0]["path"].replace(/^.*[\\\/]/, '');
-            let id = self.activePost["images"][0]["id"];
+            let id = self.activePost["images"].length ? self.activePost["images"][0]["id"] : null
             let urlEdit = id ? EDIT_LINK.replace("__id__", id) : ADD_LINK;
 
             ImageUploadService.init(cropperContentSize, PREVIEW_IMAGE, cropperContainer, dialogContentSize,
