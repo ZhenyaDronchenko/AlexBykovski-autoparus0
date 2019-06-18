@@ -163,4 +163,12 @@ class PostPhoto
 
         $this->imageThumbnail->setImage(ResizeImageHandler::resizeLogo($this->getImage()->getImage(), ResizeImageHandler::POST_IMAGE_WIDTH_THUMBNAIL, ResizeImageHandler::POST_IMAGE_HEIGHT_THUMBNAIL));
     }
+
+    public function toArray($useThumb = false)
+    {
+        return [
+            "id" => $this->id,
+            "path" => "/images/" . ($useThumb ? $this->imageThumbnail->getImage() : $this->image->getImage()),
+        ];
+    }
 }

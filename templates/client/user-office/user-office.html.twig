@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/user-office/user-office.css'>
 {% endblock %}
 
 {% block body %}
-    <div ng-controller="PostsCtrl as posts" ng-init="posts.init('#dialog-cropper-container-gallery', true)">
+    <div ng-controller="PostsCtrl as posts" ng-init="posts.init('#dialog-cropper-container-gallery', '#dialog-cropper-container-post-photo', true)">
     {% set isSeller = app.user.isSeller() %}
     {% if isSeller %}
         {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
@@ -148,6 +150,7 @@
                     </a>
 
                     <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost">
+                    <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.editPostPhoto">
                 </li>
             </ul>
         </div>
@@ -155,11 +158,11 @@
         <ul class="items">
             <li ng-repeat="post in posts.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}" ng-cloak>
                 <div class="tool">
-                    <button class="btn-point" type="button">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
+                    <button class="btn-point open-popup-button" data-popup-id="7" type="button">
+                        <span class="points"></span>
+                        <span class="points"></span>
+                        <span class="points"></span>
+                    </button>
                     <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="posts.activePost = post; posts.editPost()">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
@@ -171,33 +174,36 @@
                 </div>
 
                 <div class="prod">
-                    <div class="img-block">
-                        <img class="prod-foto gallery-photo-image" ng-src="{[{ post.pathImage }]}" alt="">
+                    <data-owl-carousel class="img-block owl-carousel post-images-{[{post.id}]}" data-options="{items: 1, lazyLoad : true}">
+                        <div class="img-block" owl-carousel-item="" ng-repeat="image in post.images">
+                            <img class="prod-foto gallery-photo-image" ng-src="{[{ image.path }]}" alt="">
 
-                        <span class="item-img" data-text="1 / 7"></span>
+                            <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
 
-                        <button class="select-img" type="button"><svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
-                                        <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
-                                    </svg>
-                        </button>
-                        
-
-        </div>
+                            <button class="select-img" type="button" ng-click="posts.activePost = post;" onclick="document.getElementById('trigger-edit-post-photo').click()">
+                                <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
+                                    <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </data-owl-carousel>
                     
                     <div class="prod-content">
+                    <button class="btn-sel btn--m" type="button" ng-click="posts.activePost = post;" onclick="document.getElementById('trigger-edit-post-photo').click()">
+                        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+                            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+                        </svg> Добавить еще фото
+                    </button>
                     <button class="btn-sel btn--m" type="button">
-        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
-            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
-            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
-            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
-        </svg> Добавить еще фото</button>
-        <button class="btn-sel btn--m" type="button">
-        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
-            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
-            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
-            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
-        </svg> Создать заголовок</button>
-        <h2 class="prod-title">Заголовок поста из группы фотографий</h2>
+                        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+                            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+                        </svg> Создать заголовок
+                    </button>
+                    <h2 class="prod-title">Заголовок поста из группы фотографий</h2>
                         <div class="text-block">
                             <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
                             <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
@@ -280,6 +286,21 @@
         </section>
     </div>
 
+    <div id="dialog-cropper-container-post-photo" class="overlay overlay3">
+        <section class="modal3">
+            <div class="modal-header">
+                <button id="post-photo-cancel" class="button-home button-home-left cancel-button-cropper-dialog"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h2 class="button-title" data-text="Редактирование"><span data-text="изображения"></span></h2>
+                <button class="button-home us-btn3 button-home-right save-button-cropper-dialog"><span>Опубликовать </span> <img src="/img/right-arrow1.png" alt="Опубликовать"></button>
+            </div>
+
+            <div id="image-preview-container-post-photo" class="img-cont cropper-container">
+                <img class="modal-img" src="" alt="Фото" style="display: none">
+            </div>
+            <button class="button-cl" type="button" ng-click="posts.closeModals();" onclick="document.getElementById('trigger-edit-post-photo').click()"><span>Изменить изображение </span></button>
+        </section>
+    </div>
+
     <div id="popup5" class="overlay5">
         <div class="modal5">
             <section class="del">
@@ -354,29 +375,33 @@
         </div>
     {% endif %}
 
-    <div class="overlay7">
+    <div class="overlay7" id="popup7">
         <section class="modal7">
             <div class="modal-header1">
-                <button class="button-home"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <button class="button-home close-popup-button" data-popup-id="7" type="button">
+                    <img src="/img/left-arrow1.png" alt="Назад">
+                    <span> Назад</span>
+                </button>
                 <h3 class="button-title" data-text="Autoparus.by"></h3>
                
-                <button class="button-home">
+                <button class="button-home close-popup-button" data-popup-id="7" type="button">
                     <span>Вперед </span>
                     <img src="/img/right-arrow1.png" alt="Далее">
                 </button> 
             </div>
             <div class="block-modal">
-                <h4 class="button-title-m">Заголовок из КТ 49</h4>
+                <h4 class="button-title-m">{{ default_text(49).headline }}</h4>
 
-                <div class="modal-text">Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, Текст из КТ 49,Текст из КТ 49,section Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, Текст из КТ 49, </div>
-
+                <div class="modal-text">{{ default_text(49).text | raw }}</div>
             </div>
-            <button class="button-cl close-popup"><span>Закрыть</span></button>
+            <button class="button-cl close-popup close-popup-button" data-popup-id="7"><span>Закрыть</span></button>
         </section>
     </div>
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
+    <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/pages/user-profile/user-office.js'></script>
     <script src='/js/client/controller/user-profile/posts-controller.js'></script>
     <script src='/js/client/filter/order-object-by.js'></script>

@@ -275,12 +275,24 @@ class Post
             "address" => $firstImage->getGeoLocation()->getFullAddress(),
             "date" => $this->createdAt->format("d.m.Y"),
             "time" => $this->createdAt->format("H:i"),
-            "pathImage" => "/images/" . $firstImage->getImage(),
+            "images" => $this->photosToArray(),
             "description" => $this->getDescription(),
             "cars" => $this->getCarsArray(),
             "businessActivities" => $this->getBusinessActivitiesArray(),
             "type" => $this->getType(),
         ];
+    }
+
+    public function photosToArray()
+    {
+        $images = [];
+
+        /** @var PostPhoto $postPhoto */
+        foreach ($this->postPhotos->toArray() as $key => $postPhoto){
+            $images[] = $postPhoto->toArray($key !== 0);
+        }
+
+        return $images;
     }
 
     public function toSearchArray()

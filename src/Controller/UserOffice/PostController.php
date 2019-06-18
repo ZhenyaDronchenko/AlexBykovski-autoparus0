@@ -87,6 +87,64 @@ class PostController extends Controller
     }
 
     /**
+     * @Route("/add-post-photo-ajax/{id}/", name="posts_add_post_photo_ajax", options={"expose"=true})
+     * @Route("/edit-post-photo-ajax/{id}/{idPostPhoto}", name="posts_edit_post_photo_ajax", options={"expose"=true})
+     *
+     * @ParamConverter("post", class="App\Entity\Client\Post", options={"id" = "id"})
+     * @ParamConverter("postPhoto", class="App\Entity\Client\PostPhoto", options={"id" = "idPostPhoto"})
+     */
+    public function addEditPostPhotoAjaxAction(
+        Request $request,
+        GeoLocationProvider $provider,
+        Post $post,
+        PostPhoto $postPhoto = null
+    )
+    {
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        if(!$post || $post->getClient()->getId() !== $client->getId()){
+            return new JsonResponse([
+                "success" => false,
+            ]);
+        }
+
+        $file = $request->files->get("file");
+        $ip = $request->getClientIp();
+        $coordinates = $request->request->get("coordinates");
+        $coordinates = $coordinates ? json_decode($coordinates, true) : null;
+
+        $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
+        $path = $uploader->upload($file);
+
+        if(!$postPhoto){
+            $image = new Image($path);
+            $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+            $image->setGeoLocation($geoLocation);
+
+            $postPhoto = new PostPhoto($image, $post);
+
+            $em->persist($postPhoto);
+        }
+        else{
+            $postPhoto->getImage()->setImage($path);
+        }
+
+        $em->flush();
+
+        $em->refresh($post);
+
+        return new JsonResponse([
+            "success" => true,
+            "postPhoto" => $postPhoto->toArray(true),
+        ]);
+    }
+
+    /**
      * @Route("/remove-post-ajax/{id}", name="posts_remove_post_ajax", options={"expose"=true})
      *
      * @ParamConverter("post", class="App\Entity\Client\Post", options={"id" = "id"})
