@@ -90,12 +90,13 @@ class Client extends User
     private $thumbnailPhoto;
 
     /**
-     * @var Gallery
+     * @var Collection
      *
-     * One Client has One Gallery.
-     * @ORM\OneToOne(targetEntity="Gallery", mappedBy="client", cascade={"persist", "remove"})
+     * One Client has many Posts. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="client")
      */
-    private $gallery;
+    private $posts;
+
 
     public function __construct()
     {
@@ -103,8 +104,8 @@ class Client extends User
 
         $this->addRole(User::ROLE_CLIENT);
         $this->cars = new ArrayCollection();
+        $this->posts = new ArrayCollection();
         $this->buyerData = new BuyerData($this);
-        $this->gallery = new Gallery($this);
     }
 
     /**
@@ -234,22 +235,6 @@ class Client extends User
     }
 
     /**
-     * @return Gallery
-     */
-    public function getGallery(): Gallery
-    {
-        return $this->gallery;
-    }
-
-    /**
-     * @param Gallery $gallery
-     */
-    public function setGallery(Gallery $gallery): void
-    {
-        $this->gallery = $gallery;
-    }
-
-    /**
      * @return null|string
      */
     public function getAddress(): ?string
@@ -281,27 +266,43 @@ class Client extends User
         $this->thumbnailPhoto = $thumbnailPhoto;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Collection $posts
+     */
+    public function setPosts(Collection $posts): void
+    {
+        $this->posts = $posts;
+    }
+
     public function isProfileEdited()
     {
         return $this->cars->count() || $this->city;
     }
 
-    public function getGalleryInArray()
+    public function getPostsArray()
     {
-        $galleryPhotos = [];
+        $posts = [];
 
-        if(!$this->gallery){
-            return $galleryPhotos;
+        if(!$this->posts){
+            return $posts;
         }
 
-        /** @var GalleryPhoto $photo */
-        foreach ($this->gallery->getPhotos() as $photo){
-            $galleryPhotos[$photo->getId()] = $photo->toArray();
+        /** @var Post $post */
+        foreach ($this->posts as $post){
+            $posts[$post->getId()] = $post->toArray();
         }
 
-        krsort($galleryPhotos);
+        krsort($posts);
 
-        return $galleryPhotos;
+        return $posts;
     }
 
     public function getFullAddress($useCountry = false)

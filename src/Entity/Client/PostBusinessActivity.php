@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="gallery_photo_business_activity")
+ * @ORM\Table(name="post_business_activity")
  */
-class GalleryPhotoBusinessActivity
+class PostBusinessActivity
 {
     /**
      * @var integer
@@ -41,13 +41,14 @@ class GalleryPhotoBusinessActivity
     private $companyName;
 
     /**
-     * @var GalleryPhoto
+     * @var Post
      *
-     * Many GalleryPhotoCar have one GalleryPhoto. This is the owning side.
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client\GalleryPhoto", inversedBy="businessActivities")
-     * @ORM\JoinColumn(name="gallery_photo_id", referencedColumnName="id")
+     * Many PostCar have one Post. This is the owning side.
+     *
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="businessActivities")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    private $galleryPhoto;
+    private $post;
 
     /**
      * @return int
@@ -114,34 +115,34 @@ class GalleryPhotoBusinessActivity
     }
 
     /**
-     * @return GalleryPhoto
+     * @return Post
      */
-    public function getGalleryPhoto(): GalleryPhoto
+    public function getPost(): Post
     {
-        return $this->galleryPhoto;
+        return $this->post;
     }
 
     /**
-     * @param GalleryPhoto $galleryPhoto
+     * @param Post $post
      */
-    public function setGalleryPhoto(GalleryPhoto $galleryPhoto): void
+    public function setPost(Post $post): void
     {
-        $this->galleryPhoto = $galleryPhoto;
+        $this->post = $post;
     }
 
-    static function getGalleryActivityByClientActivity(GalleryPhoto $galleryPhoto, $activity)
+    static function getPostActivityByClientActivity(Post $post, $activity)
     {
-        $galleryActivity = new GalleryPhotoBusinessActivity();
-        $galleryActivity->setGalleryPhoto($galleryPhoto);
+        $postActivity = new PostBusinessActivity();
+        $postActivity->setPost($post);
 
-        $city = $galleryPhoto->getGallery()->getClient()->getSellerData()->getSellerCompany()->getCity();
-        $companyName = $galleryPhoto->getGallery()->getClient()->getSellerData()->getSellerCompany()->getCompanyName();
+        $city = $post->getClient()->getSellerData()->getSellerCompany()->getCity();
+        $companyName = $post->getClient()->getSellerData()->getSellerCompany()->getCompanyName();
 
-        $galleryActivity->setCity($city);
-        $galleryActivity->setActivity($activity);
-        $galleryActivity->setCompanyName($companyName);
+        $postActivity->setCity($city);
+        $postActivity->setActivity($activity);
+        $postActivity->setCompanyName($companyName);
 
-        return $galleryActivity;
+        return $postActivity;
     }
 
     public function toArray()

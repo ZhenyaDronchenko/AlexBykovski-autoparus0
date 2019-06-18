@@ -3,15 +3,16 @@
 namespace App\Entity\Client;
 
 use App\Entity\Image;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\GalleryPhotoRepository")
- * @ORM\Table(name="gallery_photo")
+ * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Table(name="post")
  */
-class GalleryPhoto
+class Post
 {
     const SIMPLE_TYPE = "simple";
     const BUSINESS_TYPE = "business";
@@ -26,15 +27,12 @@ class GalleryPhoto
     private $id;
 
     /**
-     * @var Image
+     * @var Collection
      *
-     * One GalleryPhoto has One Image.
-     *
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
-     *
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * One Post has many PostPhotos. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="PostPhoto", mappedBy="post", cascade={"persist", "remove"})
      */
-    private $image;
+    private $postPhotos;
 
     /**
      * @var string|null
@@ -44,27 +42,18 @@ class GalleryPhoto
     private $description;
 
     /**
-     * @var Gallery
-     *
-     * Many GalleryPhotos have One Gallery.
-     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="photos")
-     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
-     */
-    private $gallery;
-
-    /**
      * @var Collection
      *
-     * One GalleryPhoto has many GalleryPhotoCars. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="App\Entity\Client\GalleryPhotoCar", mappedBy="galleryPhoto", cascade={"persist", "remove"})
+     * One Post has many PostCars. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="PostCar", mappedBy="post", cascade={"persist", "remove"})
      */
     private $cars;
 
     /**
      * @var Collection
      *
-     * One GalleryPhoto has many GalleryPhotoBusinessActivities. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="App\Entity\Client\GalleryPhotoBusinessActivity", mappedBy="galleryPhoto", cascade={"persist", "remove"})
+     * One Post has many PostBusinessActivities. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="PostBusinessActivity", mappedBy="post", cascade={"persist", "remove"})
      */
     private $businessActivities;
 
@@ -76,18 +65,46 @@ class GalleryPhoto
     private $type;
 
     /**
-     * GalleryPhoto constructor.
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $headline;
+
+    /**
+     * @var Client
+     *
+     * Many Posts have one Client. This is the owning side.
+     *
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="posts")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */
+    private $client;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * Post constructor.
+     *
+     * @param Client $client
      * @param Image $image
-     * @param Gallery $gallery
      * @param string $type
      */
-    public function __construct(Image $image, Gallery $gallery, string $type = self::SIMPLE_TYPE)
+    public function __construct(Client $client, Image $image, string $type = self::SIMPLE_TYPE)
     {
-        $this->image = $image;
-        $this->gallery = $gallery;
         $this->type = $type;
         $this->cars = new ArrayCollection();
         $this->businessActivities = new ArrayCollection();
+        $this->postPhotos = new ArrayCollection();
+        $this->client = $client;
+        $this->createdAt = new DateTime();
+
+        $this->setInitPostPhoto($image);
 
         if($type == self::SIMPLE_TYPE){
             $this->setUserCars();
@@ -114,22 +131,6 @@ class GalleryPhoto
     }
 
     /**
-     * @return Image
-     */
-    public function getImage(): Image
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param Image $image
-     */
-    public function setImage(Image $image): void
-    {
-        $this->image = $image;
-    }
-
-    /**
      * @return null|string
      */
     public function getDescription(): ?string
@@ -143,22 +144,6 @@ class GalleryPhoto
     public function setDescription(?string $description): void
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return Gallery
-     */
-    public function getGallery(): Gallery
-    {
-        return $this->gallery;
-    }
-
-    /**
-     * @param Gallery $gallery
-     */
-    public function setGallery(Gallery $gallery): void
-    {
-        $this->gallery = $gallery;
     }
 
     /**
@@ -209,14 +194,88 @@ class GalleryPhoto
         $this->type = $type;
     }
 
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient(Client $client): void
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setInitPostPhoto(Image $image)
+    {
+        $postPhoto = new PostPhoto($image, $this);
+
+        $this->postPhotos->add($postPhoto);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPostPhotos(): Collection
+    {
+        return $this->postPhotos;
+    }
+
+    /**
+     * @param Collection $postPhotos
+     */
+    public function setPostPhotos(Collection $postPhotos): void
+    {
+        $this->postPhotos = $postPhotos;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHeadline(): ?string
+    {
+        return $this->headline;
+    }
+
+    /**
+     * @param null|string $headline
+     */
+    public function setHeadline(?string $headline): void
+    {
+        $this->headline = $headline;
+    }
+
     public function toArray()
     {
+        /** @var Image $firstImage */
+        $firstImage = $this->getPostPhotos()->first()->getImage();
+
         return [
-            "id" => $this->getId(),
-            "address" => $this->getImage()->getGeoLocation()->getFullAddress(),
-            "date" => $this->getImage()->getCreatedAt()->format("d.m.Y"),
-            "time" => $this->getImage()->getCreatedAt()->format("H:i"),
-            "path" => "/images/" . $this->getImage()->getImage(),
+            "id" => $this->id,
+            "address" => $firstImage->getGeoLocation()->getFullAddress(),
+            "date" => $this->createdAt->format("d.m.Y"),
+            "time" => $this->createdAt->format("H:i"),
+            "images" => $this->photosToArray(),
             "description" => $this->getDescription(),
             "cars" => $this->getCarsArray(),
             "businessActivities" => $this->getBusinessActivitiesArray(),
@@ -224,11 +283,25 @@ class GalleryPhoto
         ];
     }
 
+    public function photosToArray()
+    {
+        $images = [];
+
+        /** @var PostPhoto $postPhoto */
+        foreach ($this->postPhotos->toArray() as $key => $postPhoto){
+            $images[] = $postPhoto->toArray($key !== 0);
+        }
+
+        return $images;
+    }
+
     public function toSearchArray()
     {
-        $user = $this->getGallery()->getClient();
+        $user = $this->getClient();
         $userPhoto = $user->getThumbnailPhoto() ?: null;
-        $geoLocation = $this->getImage()->getGeoLocation();
+        /** @var Image $firstImage */
+        $firstImage = $this->getPostPhotos()->first()->getImage();
+        $geoLocation = $firstImage->getGeoLocation();
         $address = $geoLocation->getCountry();
         $address .= $geoLocation->getCity() ? ", " . $geoLocation->getCity() : "";
 
@@ -236,11 +309,11 @@ class GalleryPhoto
             "id" => $this->getId(),
             "userPhoto" => $userPhoto ? "/images/" . $userPhoto->getImage() : "",
             "userName" => $user->getName(),
-            "image" => $this->getImage()->getImage() ? "/images/" . $this->getImage()->getImage() : "",
+            "image" => $firstImage->getImage() ? "/images/" . $firstImage->getImage() : "",
             "description" => str_replace("\n", "<br>", $this->getDescription()),
             "address" => $address,
-            "date" => $this->getImage()->getCreatedAt()->format("d.m.Y"),
-            "time" => $this->getImage()->getCreatedAt()->format("H:i"),
+            "date" => $this->createdAt->format("d.m.Y"),
+            "time" => $this->createdAt->format("H:i"),
             "type" => $this->type,
             "userId" => $user->getId(),
             "city" => $this->type === self::BUSINESS_TYPE && $this->businessActivities->count() ?
@@ -256,25 +329,25 @@ class GalleryPhoto
 
     public function setUserCars()
     {
-        $cars = $this->getGallery()->getClient()->getCars();
+        $cars = $this->getClient()->getCars();
 
-        $galleryCars = new ArrayCollection();
+        $postCars = new ArrayCollection();
 
         /** @var UserCar $car */
         foreach ($cars as $car){
-            $galleryCar = GalleryPhotoCar::getGalleryCarByClientCar($car);
-            $galleryCar->setGalleryPhoto($this);
+            $postCar = PostCar::getPostCarByClientCar($car);
+            $postCar->setPost($this);
 
-            $galleryCars->add($galleryCar);
+            $postCars->add($postCar);
         }
 
-        $this->setCars($galleryCars);
+        $this->setCars($postCars);
     }
 
     public function setUserBusinessActivities()
     {
-        $company = $this->getGallery()->getClient()->getSellerData() ?
-            $this->getGallery()->getClient()->getSellerData()->getSellerCompany() : null;
+        $company = $this->getClient()->getSellerData() ?
+            $this->getClient()->getSellerData()->getSellerCompany() : null;
 
         if(!$company || !$company->getCity()){
             return false;
@@ -283,28 +356,28 @@ class GalleryPhoto
         $businessActivities = new ArrayCollection();
 
         if($company->isSparePartSeller()){
-            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_SPARE_PART_SELLER);
-            $businessActivities->add($galleryBusinessActivity);
+            $postBusinessActivity = PostBusinessActivity::getPostActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_SPARE_PART_SELLER);
+            $businessActivities->add($postBusinessActivity);
         }
 
         if($company->isAutoSeller()){
-            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_AUTO_SELLER);
-            $businessActivities->add($galleryBusinessActivity);
+            $postBusinessActivity = PostBusinessActivity::getPostActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_AUTO_SELLER);
+            $businessActivities->add($postBusinessActivity);
         }
 
         if($company->isService()){
-            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_SERVICE);
-            $businessActivities->add($galleryBusinessActivity);
+            $postBusinessActivity = PostBusinessActivity::getPostActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_SERVICE);
+            $businessActivities->add($postBusinessActivity);
         }
 
         if($company->isNews()){
-            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_NEWS);
-            $businessActivities->add($galleryBusinessActivity);
+            $postBusinessActivity = PostBusinessActivity::getPostActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_NEWS);
+            $businessActivities->add($postBusinessActivity);
         }
 
         if($company->isTourism()){
-            $galleryBusinessActivity = GalleryPhotoBusinessActivity::getGalleryActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_TOURISM);
-            $businessActivities->add($galleryBusinessActivity);
+            $postBusinessActivity = PostBusinessActivity::getPostActivityByClientActivity($this, SellerCompany::ACTIVITY_URL_TOURISM);
+            $businessActivities->add($postBusinessActivity);
         }
 
         $this->setBusinessActivities($businessActivities);
@@ -314,7 +387,7 @@ class GalleryPhoto
     {
         $cars = [];
 
-        /** @var GalleryPhotoCar $car */
+        /** @var PostCar $car */
         foreach ($this->getCars() as $car){
             $cars[] = $car->toArray();
         }
@@ -326,7 +399,7 @@ class GalleryPhoto
     {
         $businessActivities = [];
 
-        /** @var GalleryPhotoBusinessActivity $activity */
+        /** @var PostBusinessActivity $activity */
         foreach ($this->businessActivities as $activity){
             $businessActivities[] = $activity->toArray();
         }
@@ -334,11 +407,11 @@ class GalleryPhoto
         return $businessActivities;
     }
 
-    /** GalleryPhotoCar|GalleryPhotoBusinessActivity|boolean */
+    /** PostPhotoCar|PostPhotoBusinessActivity|boolean */
     public function getFilter($id)
     {
         if($this->type === self::SIMPLE_TYPE){
-            /** @var GalleryPhotoCar $car */
+            /** @var PostCar $car */
             foreach ($this->cars as $car){
                 if($car->getId() == $id){
                     return $car;
@@ -346,7 +419,7 @@ class GalleryPhoto
             }
         }
         else{
-            /** @var GalleryPhotoBusinessActivity $activity */
+            /** @var PostBusinessActivity $activity */
             foreach ($this->businessActivities as $activity){
                 if($activity->getId() == $id){
                     return $activity;
