@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="gallery_photo_car")
+ * @ORM\Table(name="post_car")
  */
-class GalleryPhotoCar
+class PostCar
 {
     /**
      * @var integer
@@ -41,13 +41,13 @@ class GalleryPhotoCar
     private $engineType;
 
     /**
-     * @var GalleryPhoto
+     * @var Post
      *
-     * Many GalleryPhotoCar have one GalleryPhoto. This is the owning side.
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client\GalleryPhoto", inversedBy="cars")
-     * @ORM\JoinColumn(name="gallery_photo_id", referencedColumnName="id")
+     * Many PostCar have one Post. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="cars")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    private $galleryPhoto;
+    private $post;
 
     /**
      * @return int
@@ -114,34 +114,34 @@ class GalleryPhotoCar
     }
 
     /**
-     * @return GalleryPhoto
+     * @return Post
      */
-    public function getGalleryPhoto(): GalleryPhoto
+    public function getPost(): Post
     {
-        return $this->galleryPhoto;
+        return $this->post;
     }
 
     /**
-     * @param GalleryPhoto $galleryPhoto
+     * @param Post $post
      */
-    public function setGalleryPhoto(GalleryPhoto $galleryPhoto): void
+    public function setPost(Post $post): void
     {
-        $this->galleryPhoto = $galleryPhoto;
+        $this->post = $post;
     }
 
-    static function getGalleryCarByClientCar(UserCar $car)
+    static function getPostCarByClientCar(UserCar $car)
     {
-        $galleryCar = new GalleryPhotoCar();
+        $postCar = new PostCar();
 
         $brand = $car->getBrand() ? $car->getBrand()->getName() : null;
         $model = $car->getModel() ? $car->getModel()->getName() : null;
         $engineType = $car->getEngineType() ? $car->getEngineType()->getType() : null;
 
-        $galleryCar->setBrand($brand);
-        $galleryCar->setModel($model);
-        $galleryCar->setEngineType($engineType);
+        $postCar->setBrand($brand);
+        $postCar->setModel($model);
+        $postCar->setEngineType($engineType);
 
-        return $galleryCar;
+        return $postCar;
     }
 
     public function toArray()

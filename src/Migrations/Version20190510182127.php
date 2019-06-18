@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use App\Entity\Client\GalleryPhoto;
+use App\Entity\Client\Post;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
@@ -27,7 +27,7 @@ final class Version20190510182127 extends AbstractMigration
         $this->addSql('ALTER TABLE gallery_photo_business_activity ADD CONSTRAINT FK_749B166A4B139E37 FOREIGN KEY (gallery_photo_id) REFERENCES gallery_photo (id)');
         $this->addSql('ALTER TABLE gallery_photo ADD type VARCHAR(255) NOT NULL');
 
-        $this->addSql('UPDATE gallery_photo SET `type` = :type', ["type" => GalleryPhoto::SIMPLE_TYPE]);
+        $this->addSql('UPDATE gallery_photo SET `type` = :type', ["type" => Post::SIMPLE_TYPE]);
     }
 
     public function down(Schema $schema) : void

@@ -29,7 +29,7 @@
         {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons"#}
               {#rel="stylesheet">#}
     </head>
-    <body ng-controller="GalleryCtrl as gallery">
+    <body ng-controller="PostsCtrl as postsCtrl">
     {% set isUserOffice = app.request.attributes.get('_route') == "show_user_office" %}
         <header class="container">
             <div class="header">
@@ -127,11 +127,11 @@
                                 </li>
                             {% else %}
                                 <li>
-                                    <a ng-init="gallery.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                    <a ng-init="postsCtrl.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="postsCtrl.activePost = postsCtrl.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
                                         <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
                                     </a>
 
-                                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="gallery.editPost">
+                                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="postsCtrl.editPost">
                                 </li>
                             {% endif %}
                         {% else %}
@@ -210,7 +210,7 @@
                         </button>
                     </div>
 
-                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="gallery.activePost.description"></textarea>
+                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="postsCtrl.activePost.description"></textarea>
                 </section>
             </div>
         {% endif %}
@@ -239,7 +239,7 @@
         <script src='/js/client/directive/custom-on-change.js'></script>
 
         {% if not isUserOffice %}
-            <script src='/js/client/controller/user-profile/gallery-controller.js'></script>
+            <script src='/js/client/controller/user-profile/posts-controller.js'></script>
         {% endif %}
 
         {% block javascripts %}

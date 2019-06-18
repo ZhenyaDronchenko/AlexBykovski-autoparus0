@@ -3,8 +3,13 @@
 namespace App\Command;
 
 use App\Entity\Brand;
+use App\Entity\Client\PostPhoto;
+use App\Entity\GeoLocation;
+use App\Entity\Image;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Handler\ResizeImageHandler;
+use App\Kernel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,44 +33,25 @@ class UpdateLogosCommand extends ContainerAwareCommand
         /** @var EntityManagerInterface $em */
         $this->em = $container->get('doctrine.orm.default_entity_manager');
 
-        //$this->updateModels();
-        //$this->updateSpareParts();
-        $this->updateBrands();
+        $this->updatePostsPhotos();
 
         $output->writeln("<info>Done</info>");
     }
 
-    private function updateModels()
+    private function updatePostsPhotos()
     {
-        $models = $this->em->getRepository(Model::class)->findAll();
+        $postPhotos = $this->em->getRepository(PostPhoto::class)->findAll();
 
-        /** @var Model $model */
-        foreach ($models as $model){
-            $model->updateThumbnailLogo();
-        }
+        /** @var PostPhoto $postPhoto */
+        foreach ($postPhotos as $postPhoto){
+            $baseImage = $postPhoto->getImage();
+            $newIMage = new Image($baseImage->getImage());
+            $newIMage->setCreatedAt($baseImage->getCreatedAt());
+            $newIMage->setGeoLocation($baseImage->getGeoLocation()->copy());
 
-        $this->em->flush();
-    }
+            $this->em->persist($newIMage);
 
-    private function updateSpareParts()
-    {
-        $spareParts = $this->em->getRepository(SparePart::class)->findAll();
-
-        /** @var SparePart $sparePart */
-        foreach ($spareParts as $sparePart){
-            $sparePart->updateThumbnailLogo();
-        }
-
-        $this->em->flush();
-    }
-
-    private function updateBrands()
-    {
-        $brands = $this->em->getRepository(Brand::class)->findAll();
-
-        /** @var Brand $brand */
-        foreach ($brands as $brand){
-            $brand->updateThumbnailLogos();
+            $postPhoto->setImageThumbnail($newIMage);
         }
 
         $this->em->flush();

@@ -7,7 +7,7 @@ use App\Entity\Article\ArticleTheme;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Client\Client;
-use App\Entity\Client\GalleryPhoto;
+use App\Entity\Client\Post;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Model;
 use App\Entity\Phone\PhoneBrand;
@@ -218,11 +218,11 @@ class SearchController extends Controller
             return new JsonResponse([]);
         }
 
-        $photos = $em->getRepository(GalleryPhoto::class)->findAllByFilter($filter);
+        $photos = $em->getRepository(Post::class)->findAllByFilter($filter);
 
         $parsedPhotos= [];
 
-        /** @var GalleryPhoto $photo */
+        /** @var Post $photo */
         foreach ($photos as $photo){
             $parsedPhoto = $photo->toSearchArray();
 

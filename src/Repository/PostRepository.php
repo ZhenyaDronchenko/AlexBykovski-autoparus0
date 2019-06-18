@@ -8,15 +8,13 @@ use App\Entity\User;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityRepository;
 
-class GalleryPhotoRepository extends EntityRepository
+class PostRepository extends EntityRepository
 {
     public function findAllByFilter(PostsFilterType $filter)
     {
-        $qb = $this->createQueryBuilder('gph')
-            ->select('gph')
-            ->join("gph.image", "im")
-            ->join("gph.gallery", "g")
-            ->join("g.client", "cl");
+        $qb = $this->createQueryBuilder('p')
+            ->select('p')
+            ->join("p.client", "cl");
 
         if($filter->getOffset() || $filter->getLimit() === 0){
             $qb->setFirstResult( $filter->getOffset() );
@@ -36,7 +34,7 @@ class GalleryPhotoRepository extends EntityRepository
         }
 
         if($filter->getBrand() || $filter->getModel()){
-            $qb->join("gph.cars", "car");
+            $qb->join("p.cars", "car");
 
             if($filter->getBrand()){
                 $qb->andWhere("car.brand = :brand")
@@ -50,7 +48,7 @@ class GalleryPhotoRepository extends EntityRepository
         }
 
         if($filter->getCity() || $filter->getActivity()){
-            $qb->join("gph.businessActivities", "ba");
+            $qb->join("p.businessActivities", "ba");
 
             if($filter->getCity()){
                 $qb->andWhere("ba.city = :city")
@@ -63,7 +61,7 @@ class GalleryPhotoRepository extends EntityRepository
             }
         }
 
-        return $qb->orderBy("im.createdAt", "DESC")
+        return $qb->orderBy("p.createdAt", "DESC")
             ->getQuery()
             ->getResult();
     }
