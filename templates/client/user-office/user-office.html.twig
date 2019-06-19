@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
-    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
+    {#<link rel='stylesheet' href='/libs/owl.carousel/owl.carousel.css'>#}
+    {#<link rel='stylesheet' href='/libs/owl.carousel/owl.theme.css'>#}
+    {#<link rel='stylesheet' href='/libs/owl.carousel/owl.transitions.css'>#}
+    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick.css'>
+    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick-theme.css'>
     <link rel='stylesheet' href='/css/user-office/user-office.css'>
 {% endblock %}
 
@@ -174,9 +177,9 @@
                 </div>
 
                 <div class="prod">
-                    <data-owl-carousel class="img-block owl-carousel post-images-{[{post.id}]}" data-options="{items: 1, lazyLoad : true}">
-                        <div class="img-block" owl-carousel-item="" ng-repeat="image in post.images">
-                            <img class="prod-foto gallery-photo-image" ng-src="{[{ image.path }]}" alt="">
+                    <div class="img-block post-images-{[{post.id}]}" carousel-element ng-if="post.images.length">
+                        <div class="img-block" carousel-item ng-repeat="image in post.images" ng-cloak>
+                            <img class="prod-foto gallery-photo-image"  ng-src="{[{ image.path }]}" alt="">
 
                             <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
 
@@ -186,7 +189,7 @@
                                 </svg>
                             </button>
                         </div>
-                    </data-owl-carousel>
+                    </div>
                     
                     <div class="prod-content">
                     <button class="btn-sel btn--m" type="button" ng-click="posts.activePost = post;" onclick="document.getElementById('trigger-edit-post-photo').click()">
@@ -400,7 +403,9 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
+    {#<script src='/libs/owl.carousel/owl.carousel.min.js'></script>#}
+    <script src='/bower-components/slick-carousel/slick/slick.min.js'></script>
+    <script src='/bower-components/angular-slick/dist/slick.min.js'></script>
     <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/pages/user-profile/user-office.js'></script>
     <script src='/js/client/controller/user-profile/posts-controller.js'></script>

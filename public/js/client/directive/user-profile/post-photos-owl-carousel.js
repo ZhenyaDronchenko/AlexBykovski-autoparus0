@@ -1,9 +1,9 @@
 (function (autoparusApp) {
     'use strict';
 
-    autoparusApp.directive("owlCarousel", function() {
+    autoparusApp.directive("carouselElement", function() {
         return {
-            restrict: 'E',
+            restrict: 'A',
             transclude: false,
             link: function (scope) {
                 scope.initCarousel = function(element) {
@@ -15,30 +15,40 @@
                     for(var key in customOptions) {
                         defaultOptions[key] = customOptions[key];
                     }
-                    console.log(defaultOptions);
+                    //console.log(defaultOptions);
                     // init carousel
                     var curOwl = $(element).data('owlCarousel');
 
                     if(!angular.isDefined(curOwl)) {
-                        if($(element).hasClass("owl-drag")){
-                            console.log("remove");
-                            //$(element).trigger('refresh.owl.carousel');
-                            //$(element).owlCarousel(defaultOptions);
-                            $(element).trigger('destroy.owl.carousel');
-                            $(element).html($(element).find('.owl-stage-outer').html()).removeClass('owl-loaded');
-                            //$(element).owlCarousel(defaultOptions);
+                        //console.log($(element).hasClass("slick-initialized"));
+                        if($(element).hasClass("slick-initialized")){
+                            console.log("HJHJH");
+                            $(element).slick("unslick");
                         }
-                        else{
-                            console.log("crrrr");
-                            $(element).owlCarousel(defaultOptions);
-                        }
+
+                        $(element).slick({
+                            //fade: true,
+                            //touchMove: true,
+                        });
+                        // if($(element).hasClass("owl-drag")){
+                        //     console.log("remove");
+                        //     //$(element).trigger('refresh.owl.carousel');
+                        //     //$(element).owlCarousel(defaultOptions);
+                        //     $(element).trigger('destroy.owl.carousel');
+                        //     $(element).html($(element).find('.owl-stage-outer').html()).removeClass('owl-loaded');
+                        //     //$(element).owlCarousel(defaultOptions);
+                        // }
+                        // else{
+                        //     console.log("crrrr");
+                        //     $(element).owlCarousel(defaultOptions);
+                        // }
                     }
                 };
             }
         };
     })
 
-    autoparusApp.directive("owlCarouselItem", [function () {
+    autoparusApp.directive("carouselItem", [function () {
         return {
             restrict: 'A',
             //scope: true,
@@ -58,5 +68,7 @@
             }
         };
     }]);
+
+
 
 })(window.autoparusApp);

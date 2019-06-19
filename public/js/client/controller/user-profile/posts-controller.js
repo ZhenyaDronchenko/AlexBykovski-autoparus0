@@ -184,6 +184,13 @@
                 },
             });
         }
+        
+        this.carouselInitializer = function () {
+            console.log("jJJJ");
+            // $(".about-carousel").owlCarousel({
+            //     items: 1
+            // });
+        };
 
         this.init = init;
         this.getNewPost = getNewPost;
