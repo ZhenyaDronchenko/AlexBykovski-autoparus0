@@ -199,14 +199,16 @@
                             <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
                         </svg> Добавить еще фото
                     </button>
-                    <button class="btn-sel btn--m" type="button">
+                    <button class="btn-sel btn--m" type="button" ng-init="posts.openChangeHeadline[post.id] = false;" ng-click="posts.openChangeHeadline[post.id] = true;" ng-hide="posts.openChangeHeadline[post.id]">
                         <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
                             <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
                             <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
                             <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
-                        </svg> Создать заголовок
+                        </svg> <span ng-bind="post.headline ? 'Редактировать заголовок' : 'Создать заголовок'"></span>
                     </button>
-                    <h2 class="prod-title">Заголовок поста из группы фотографий</h2>
+                    <h2 class="prod-title" ng-bind="post.headline" ng-hide="posts.openChangeHeadline[post.id]"></h2>
+                    <input type="text" ng-model="post.headline" ng-show="posts.openChangeHeadline[post.id]">
+                    <button ng-show="posts.openChangeHeadline[post.id]" ng-click="posts.savePostHeadline(post)" >Сохранить заголовок</button>
                         <div class="text-block">
                             <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
                             <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
@@ -403,9 +405,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#<script src='/libs/owl.carousel/owl.carousel.min.js'></script>#}
-    <script src='/bower-components/slick-carousel/slick/slick.min.js'></script>
-    <script src='/bower-components/angular-slick/dist/slick.min.js'></script>
     <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/pages/user-profile/user-office.js'></script>
     <script src='/js/client/controller/user-profile/posts-controller.js'></script>

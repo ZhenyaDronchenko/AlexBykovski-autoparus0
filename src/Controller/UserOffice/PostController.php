@@ -200,4 +200,26 @@ class PostController extends Controller
             "post" => $post->toArray(),
         ]);
     }
+
+    /**
+     * @Route("/save-post-headline-ajax/{id}", name="posts_save_post_headline_ajax", options={"expose"=true})
+     *
+     * @ParamConverter("post", class="App\Entity\Client\Post", options={"id" = "id"})
+     */
+    public function savePostHeadlineAction(Request $request, Post $post)
+    {
+        if($post->getClient()->getId() !== $this->getUser()->getId()){
+            return new JsonResponse(["success" => false]);
+        }
+
+        $headline = $request->request->get("headline");
+        $post->setHeadline($headline);
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse([
+            "success" => true,
+            "asd" => $headline
+        ]);
+    }
 }

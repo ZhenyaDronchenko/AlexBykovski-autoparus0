@@ -280,6 +280,7 @@ class Post
             "cars" => $this->getCarsArray(),
             "businessActivities" => $this->getBusinessActivitiesArray(),
             "type" => $this->getType(),
+            "headline" => $this->getHeadline(),
         ];
     }
 
@@ -289,7 +290,7 @@ class Post
 
         /** @var PostPhoto $postPhoto */
         foreach ($this->postPhotos->toArray() as $key => $postPhoto){
-            $images[] = $postPhoto->toArray($key !== 0);
+            $images[] = $postPhoto->toArray($key === 0);
         }
 
         return $images;

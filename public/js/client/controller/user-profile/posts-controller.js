@@ -10,6 +10,7 @@
         const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_post_filter_ajax', {"id" : "__id__", "filterId" : "__post_id__"});
         const ADD_POST_PHOTO_LINK = Routing.generate('posts_add_post_photo_ajax', {"id" : "__id__"});
         const EDIT_POST_PHOTO_LINK = Routing.generate('posts_edit_post_photo_ajax', {"id" : "__id__", "idPostPhoto" : "__id_post_photo__"});
+        const EDIT_POST_HEADLINE = Routing.generate('posts_save_post_headline_ajax', {"id" : "__id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
         const PREVIEW_IMAGE_POST_PHOTO = $("#image-preview-container-post-photo img");
         const SIMPLE_TYPE = "simple";
@@ -185,6 +186,29 @@
                 },
             });
         }
+
+        //@@todo add handler if don't save on server
+        function savePostHeadline(post) {
+            $.ajax(EDIT_POST_HEADLINE.replace("__id__", post.id), {
+                data: {
+                    headline: post.headline
+                },
+                method: "POST",
+                success(data) {
+                    console.log(data);
+                    if(data.success) {
+                        console.log(post.id);
+                        console.log(self.openChangeHeadline[post.id]);
+                        self.openChangeHeadline[post.id] = false;
+
+                        $scope.$evalAsync();
+                    }
+                },
+                error(data) {
+                    console.error('Error due request');
+                },
+            });
+        }
         
         function waitImages(posts) {
             $.each(posts, function (index, item) {
@@ -222,5 +246,6 @@
         this.closeModals = closeModals;
         this.removePost = removePost;
         this.removeGalleryFilter = removeGalleryFilter;
+        this.savePostHeadline = savePostHeadline;
     }]);
 })(window.autoparusApp);
