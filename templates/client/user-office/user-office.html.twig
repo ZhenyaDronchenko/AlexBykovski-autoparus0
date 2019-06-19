@@ -207,8 +207,8 @@
                         </svg> <span ng-bind="post.headline ? 'Редактировать заголовок' : 'Создать заголовок'"></span>
                     </button>
                     <h2 class="prod-title" ng-bind="post.headline" ng-hide="posts.openChangeHeadline[post.id]"></h2>
-                    <input type="text" ng-model="post.headline" ng-show="posts.openChangeHeadline[post.id]">
-                    <button ng-show="posts.openChangeHeadline[post.id]" ng-click="posts.savePostHeadline(post)" >Сохранить заголовок</button>
+                    <input class="input-title" type="text" ng-model="post.headline" ng-show="posts.openChangeHeadline[post.id]" placeholder="Заголовок">
+                    <button class="input-btn" ng-show="posts.openChangeHeadline[post.id]" ng-click="posts.savePostHeadline(post)" >Сохранить</button>
                         <div class="text-block">
                             <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
                             <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
