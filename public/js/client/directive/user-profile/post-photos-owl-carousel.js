@@ -1,52 +1,66 @@
 (function (autoparusApp) {
     'use strict';
 
-    autoparusApp.directive("carouselElement", function() {
+    autoparusApp.directive("carouselElement", ['$rootScope', function($rootScope) {
         return {
             restrict: 'A',
             transclude: false,
-            link: function (scope) {
+            link: function (scope, element, attrs) {
                 scope.initCarousel = function(element) {
                     // provide any default options you want
                     var defaultOptions = {
                     };
                     var customOptions = scope.$eval($(element).attr('data-options'));
-                    // combine the two options objects
                     for(var key in customOptions) {
                         defaultOptions[key] = customOptions[key];
                     }
-                    //console.log(defaultOptions);
-                    // init carousel
+
                     var curOwl = $(element).data('owlCarousel');
 
                     if(!angular.isDefined(curOwl)) {
-                        //console.log($(element).hasClass("slick-initialized"));
                         if($(element).hasClass("slick-initialized")){
                             console.log("HJHJH");
                             $(element).slick("unslick");
                         }
 
                         $(element).slick({
-                            //fade: true,
-                            //touchMove: true,
+                            //infinite: false,
                         });
-                        // if($(element).hasClass("owl-drag")){
-                        //     console.log("remove");
-                        //     //$(element).trigger('refresh.owl.carousel');
-                        //     //$(element).owlCarousel(defaultOptions);
-                        //     $(element).trigger('destroy.owl.carousel');
-                        //     $(element).html($(element).find('.owl-stage-outer').html()).removeClass('owl-loaded');
-                        //     //$(element).owlCarousel(defaultOptions);
-                        // }
-                        // else{
-                        //     console.log("crrrr");
-                        //     $(element).owlCarousel(defaultOptions);
+
+                        $(element).on('beforeChange', function (event, slick, direction) {
+                             if(direction === 0){
+                                 $rootScope.$broadcast("start-slide-post-images", {
+                                     id: attrs.postId
+                                 });
+
+                                 $(this).off("beforeChange");
+                             }
+                         });
+
+                        // if(!$(element).hasClass("slick-initialized")) {
+                        //     $(element).slick({
+                        //         infinite: false,
+                        //     });
+                        //
+                        //     $(element).on('afterChange', function (event, slick, direction) {
+                        //         console.log("afterCHnage");
+                        //         // left
+                        //     });
+                        //
+                        //     $(element).on('beforeChange', function (event, slick, direction) {
+                        //         console.log("beforeChange");
+                        //         // left
+                        //     });
+                        //     $(element).on('reInit', function (event, slick, direction) {
+                        //         console.log("reInit");
+                        //         // left
+                        //     });
                         // }
                     }
                 };
             }
         };
-    })
+    }]);
 
     autoparusApp.directive("carouselItem", [function () {
         return {
@@ -58,13 +72,6 @@
                 if(scope.$last) {
                     scope.initCarousel(element.parent());
                 }
-                // $(element).owlCarousel({
-                //     "center" : true,
-                //     "items" : 2,
-                //     "loop" : true,
-                //     "margin" : 10,
-                //     "responsive" : {
-                //         "576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}});
             }
         };
     }]);

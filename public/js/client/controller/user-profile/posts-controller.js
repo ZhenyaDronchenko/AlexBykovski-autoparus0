@@ -106,6 +106,7 @@
                             success(data) {
                                 if(data.success) {
                                     self.posts[self.activePost.id].images.push(data.postPhoto);
+                                    //console.log(self.posts[self.activePost.id].images);
 
                                     $scope.$evalAsync();
                                 }
@@ -156,7 +157,7 @@
             $.ajax(ALL_POSTS_LINK, {
                 method: "POST",
                 success(data) {
-                    self.posts = data;
+                    self.posts = waitImages(data);
                     $scope.$evalAsync();
                 },
                 error(data) {
@@ -185,12 +186,34 @@
             });
         }
         
-        this.carouselInitializer = function () {
-            console.log("jJJJ");
-            // $(".about-carousel").owlCarousel({
-            //     items: 1
-            // });
-        };
+        function waitImages(posts) {
+            $.each(posts, function (index, item) {
+                posts[index]["tempImages"] = {};
+
+                $.each(posts[index]["images"], function (indexIm) {
+                    posts[index]["tempImages"][indexIm] = {
+                        id: posts[index]["images"][indexIm]["id"],
+                        path: posts[index]["images"][indexIm]["path"],
+                    };
+
+                    if(indexIm !== 0){
+                        posts[index]["images"][indexIm]["path"] = "";
+                    }
+                })
+            });
+
+            return posts;
+        }
+
+        $rootScope.$on("start-slide-post-images", function(event, args) {
+            if(self.posts.hasOwnProperty(args.id)){
+                $.each(self.posts[args.id]["images"], function (index) {
+                    self.posts[args.id]["images"][index]["path"] = self.posts[args.id]["tempImages"][index]["path"];
+                });
+
+                $scope.$evalAsync();
+            }
+        });
 
         this.init = init;
         this.getNewPost = getNewPost;
