@@ -48,9 +48,13 @@
         }
 
         function editPost(eventUpload) {
+            var currentSlide = $('.post-images-' + self.activePost.id).slick('slickCurrentSlide');
+
+            console.log(currentSlide);
+            return false;
             let cropperContainer = $(cropperDialog);
             let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost["images"][0]["path"].replace(/^.*[\\\/]/, '');
-            let id = self.activePost["images"].length ? self.activePost["images"][0]["id"] : null
+            let id = self.activePost["images"].length ? self.activePost["images"][0]["id"] : null;
             let urlEdit = id ? EDIT_LINK.replace("__id__", id) : ADD_LINK;
 
             ImageUploadService.init(cropperContentSize, PREVIEW_IMAGE, cropperContainer, dialogContentSize,
@@ -106,8 +110,12 @@
                             contentType: false,
                             success(data) {
                                 if(data.success) {
+                                    let countTempImages = Object.keys(self.posts[self.activePost.id].tempImages).length;
+
                                     self.posts[self.activePost.id].images.push(data.postPhoto);
-                                    //console.log(self.posts[self.activePost.id].images);
+                                    self.posts[self.activePost.id].tempImages[countTempImages] = data.postPhoto;
+                                    $('.post-images-' + self.activePost.id).slick("unslick").attr("data-move-slide", self.posts[self.activePost.id].images.length - 1);
+
 
                                     $scope.$evalAsync();
                                 }
@@ -212,32 +220,42 @@
         
         function waitImages(posts) {
             $.each(posts, function (index, item) {
-                posts[index]["tempImages"] = {};
-
-                $.each(posts[index]["images"], function (indexIm) {
-                    posts[index]["tempImages"][indexIm] = {
-                        id: posts[index]["images"][indexIm]["id"],
-                        path: posts[index]["images"][indexIm]["path"],
-                    };
-
-                    if(indexIm !== 0){
-                        posts[index]["images"][indexIm]["path"] = "";
-                    }
-                })
+                posts[index] = waitImagesPost(posts[index]);
             });
 
             return posts;
         }
 
         $rootScope.$on("start-slide-post-images", function(event, args) {
-            if(self.posts.hasOwnProperty(args.id)){
-                $.each(self.posts[args.id]["images"], function (index) {
-                    self.posts[args.id]["images"][index]["path"] = self.posts[args.id]["tempImages"][index]["path"];
+            showAllPostPhotos(args.id);
+        });
+
+        function waitImagesPost(post) {
+            post["tempImages"] = {};
+
+            $.each(post["images"], function (indexIm) {
+                post["tempImages"][indexIm] = {
+                    id: post["images"][indexIm]["id"],
+                    path: post["images"][indexIm]["path"],
+                };
+
+                if(indexIm !== 0){
+                    post["images"][indexIm]["path"] = "";
+                }
+            });
+
+            return post;
+        }
+
+        function showAllPostPhotos(id) {
+            if(self.posts.hasOwnProperty(id)){
+                $.each(self.posts[id]["images"], function (index) {
+                    self.posts[id]["images"][index]["path"] = self.posts[id]["tempImages"][index]["path"];
                 });
 
                 $scope.$evalAsync();
             }
-        });
+        }
 
         this.init = init;
         this.getNewPost = getNewPost;

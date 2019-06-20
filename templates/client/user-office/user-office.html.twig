@@ -177,8 +177,8 @@
                 </div>
 
                 <div class="prod">
-                    <div class="img-block post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
-                        <div class="img-block" carousel-item ng-repeat="image in post.images" ng-cloak>
+                    <div class="img-block post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}" data-move-slide="0">
+                        <div class="img-block" carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak>
                             <img class="prod-foto gallery-photo-image" ng-src="{[{ image.path }]}"  alt="">
 
                             <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
