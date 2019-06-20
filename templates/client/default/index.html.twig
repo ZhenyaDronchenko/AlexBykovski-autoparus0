@@ -10,11 +10,11 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container">
+    <!-- <main class="container">
         <div class="main-page" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" content="Автопарус" />
             <link itemprop="url" href="https://www.autoparus.by/" />
-            <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> <!-- Логотип организации-->
+            <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> 
 
             <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                 <meta itemprop="addressLocality" content="Минск, Беларусь" />
@@ -29,7 +29,7 @@
             </div>
             <link itemprop="sameAs" href="https://vk.com/group" />
             <link itemprop="sameAs" href="https://twitter.com/group" />
-            <div class="main-search">
+             <div class="main-search">
                 <form class="form" action="#" method="get" >
 
                     <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
@@ -136,7 +136,7 @@
                 <img src="/img/windsurfing.png" alt="Парус">
             </div>
         </div>
-    </main>
+    </main> -->
 
     <main class="container">
       <h1 class="visually-hidden">Автопартал "Автопарус"</h1>
@@ -159,9 +159,36 @@
         <link itemprop="sameAs" href="https://vk.com/group" />
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
-        <div class="article-slider">
-          <img src="/img/sl.jpg" alt="">
-        </div>
+        <div class="article owl-carousel owl-theme" data-owl-carousel='{"center" : true, "items" : 2, "loop" : true, "margin" : 10, "responsive" : {"576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}}'>
+                {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
+                    {% set article = articleArray.object %}
+                    <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
+                        <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
+                        <div class="article-foto">
+                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                        </div>
+
+                        <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+
+                        <div class="article-block">
+                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+
+            {#<div class="owl-carousel">#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+                {#<div> Your Content </div>#}
+            {#</div>#}
+
+            {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
 
         <div class="cont-inner">
           <ul class="content">

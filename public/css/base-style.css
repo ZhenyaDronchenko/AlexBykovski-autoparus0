@@ -46,7 +46,7 @@ ul {
 
 
 /*  HEADER  */
-.header {
+/*.header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -82,7 +82,7 @@ ul {
     font-family: 'Comfortaa';
 }
 
-.header-logo::before { /* второй слой */
+.header-logo::before { 
     content: attr(data-text);
     -webkit-text-stroke: .03em #000000;
 }
@@ -281,7 +281,7 @@ ul {
     }
     .nav-list-m .item-text a {
         font-weight: 700;
-        /* font-family: 'Comfortaa';*/
+         font-family: 'Comfortaa';
     }
     .nav-block {
         -webkit-box-orient: vertical;
@@ -356,7 +356,7 @@ ul {
 
 /*header END*/
 
-
+*/
 
 /*Новые стили для хедера*/
 
