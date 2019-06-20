@@ -86,6 +86,80 @@
             </nav>
         </header>
 
+        <div class="container">
+      <header class="header">
+        <div class="header-top">
+          <div class="block-logo">
+            <a><img src="img/mlogo.jpg" alt="Логотип"></a>
+          </div>
+          <button class="burger" onclick='menuActive()' type="button">
+            <span id='g-1' class='gamburger'></span>
+            <span id='g-2' class='gamburger'></span>
+            <span id='g-3' class='gamburger'></span>
+          </button>
+        </div>
+        <div class="header-menu">
+          <div id='menu' class="nav">
+            <div class='nav-block'>
+              <ul class='nav-list nav-list-m'>
+                <li class='item-o'><a href="/zapchasti/">Автозапчасти</a></li>
+                <li class='item'><a href="/brand-catalog">Поиск з/ч по марке</a></li>
+                <li class='item item-m'><a href="/city-catalog/">Поиск з/ч по городу</a></li>
+              </ul>
+              <ul class='nav-list nav-list-m'>
+                <li class='item-text'><a href="/login">Вход</a></li>
+                <li class='item-m item-text'><a href="/registration">Регистрация</a></li>
+                <li><a href="/about">Обратная связь</a></li>
+              </ul>
+            </div>
+            <div class='nav-block'>
+              <ul class='nav-list'>
+                <li><a href="/to_user">Пользователям</a></li>
+                <li class='item'><a href="/to_seller">Продавцам</a></li>
+                <li class='item'><a href="/turbo-catalog">Быстрый поиск з/ч</a></li>
+              </ul>
+              <ul class='nav-list nav-list-m'>
+                <li class='band'><a href="/stati">Лента публикаций</a></li>
+                <li><a href="/obd2">Коды OBD2 ошибок</a></li>
+                <li><a href="/forum-obd2">Форум Ошибок ОBD2</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="header-nav">
+          <nav>
+            <ul class="header-navigation">
+              <li><a class="nav-link" href="#">Автозапчасти</a></li>
+              <li><a class="nav-link" href="#">Заказ-заявки</a></li>
+              <li><a class="nav-link" href="#">OBD2 ошибки</a></li>
+              <li><a class="nav-link" href="#">Продавцам</a></li>
+              <li><a class="nav-link" href="#">О нас</a></li>
+            </ul>
+          </nav>
+          <ul class="registration">
+            <li><a class="registration-link" href="#">Вход</a></li>
+            <li>/</li>
+            <li><a class="registration-link" href="#">Регистрация</a></li>
+          </ul>
+        </div>
+
+        <div class="main-search">
+          <form class="form" action="#" method="get" >
+            <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
+              <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
+                  <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
+                      <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                      <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
+                  </svg>
+              </button>
+              <div class="main-btn">
+                <a class="form-link" href="/brand-catalog">Автозапчасти</a>
+              </div>
+          </form>
+        </div>
+      </header>
+    </div>
+
         {% block body %}{% endblock %}
 
         <footer class="footer">

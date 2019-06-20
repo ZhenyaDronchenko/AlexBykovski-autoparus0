@@ -138,6 +138,394 @@
         </div>
     </main>
 
+    <main class="container">
+      <h1 class="visually-hidden">Автопартал "Автопарус"</h1>
+      <div itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="Автопарус" />
+        <link itemprop="url" href="https://www.autoparus.by/" />
+        <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> <!-- Логотип организации-->
+
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <meta itemprop="addressLocality" content="Минск, Беларусь" />
+            <meta itemprop="postalCode" content="220089" />
+            <meta itemprop="streetAddress" content="Льва Сопеги 11" />
+        </div>
+        <meta itemprop="telephone" content="+375296330073" />
+
+        <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+            <meta itemprop="ratingValue" content="4.5">
+            <meta itemprop="reviewCount" content="2">
+        </div>
+        <link itemprop="sameAs" href="https://vk.com/group" />
+        <link itemprop="sameAs" href="https://twitter.com/group" />
+      </div>
+        <div class="article-slider">
+          <img src="/img/sl.jpg" alt="">
+        </div>
+
+        <div class="cont-inner">
+          <ul class="content">
+            <li class="content-item">
+              <div class="post-block">
+                <a><img class="name-foto1" src="/img/user.jpg" alt="Фото"></a>
+                <a><b class="name">Admin</b></a>
+                <button class="btn" type="button">
+                    <span class="points"></span>
+                    <span class="points"></span>
+                    <span class="points"></span>
+                </button>
+              </div>
+
+              <div class="content-wrapper">
+                  <div class="foto">
+                      <a>
+                        <img src="img/user.jpg" alt="Картинка">
+                      </a>
+                  </div>
+
+                  <div class="user-block">
+                    <h3 class="user-title">Заголовок из каталога заголовков</h3>
+                      <div class="text-block text-block-w">
+                          <div id='text2' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане. Ведь 20 или 30 сил сверху - далеко не впечатляет, не так ли? Зато с доработкой того же Авентадора все справились на ура. ничего серьезного в техническом плане. Ведь 20 или 30 сил сверху - далеко не впечатляет, не так ли? </div>
+                          <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                          <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                      </div>
+                      <div class="date-block">
+                          <span class="date">19:06:2019</span>
+                          <span class="time">15:22</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </li>
+
+                <li class="content-item">
+                    <div class="post-block">
+                        <a><img class="name-foto1" src="img/user.jpg" alt="Фото"></a>
+                        <a><b class="name">Admin</b></a>
+                        <button class="btn" type="button">
+                            <span class="points"></span>
+                            <span class="points"></span>
+                            <span class="points"></span>
+                        </button>
+                    </div>
+
+                    <div class="content-wrapper">
+                        <div class="foto">
+                            <a>
+                                <img src="img/user.jpg" alt="Картинка">
+                            </a>
+                        </div>
+
+                        <div class="user-block">
+                          <h3 class="user-title">Заголовок из каталога заголовков</h3>
+                            <div class="text-block text-block-w">
+                                <div id='text2' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане. Ведь 20 или 30 сил сверху - далеко не впечатляет, не так ли? Зато с доработкой того же Авентадора все справились на ура.ничего серьезного в техническом плане. Ведь 20 или 30 сил сверху - далеко не впечатляет, не так ли? </div>
+                                <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                                <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                            </div>
+                            <div class="date-block">
+                                <span class="date">19:06:2019</span>
+                                <span class="time">15:22</span>
+                                </div>
+                            </div>
+                        </div>
+                   
+                </li>
+            </ul>
+            <div class="filter-column">
+              <form class="filter">
+                <fieldset class="filter-block">
+                  <legend class="filter-title">Автозапчасти</legend>
+
+                    <input list="brand-list" name="brand-list" placeholder="Марка">
+                    <datalist id="brand-list"></datalist>
+
+                    <input class="select-part" name="model-list" list="model-list" placeholder="Модель">
+                    <datalist id="model-list"></datalist>
+
+                    <select class="select-item">
+                      <option>Год</option>
+                      <option>Год</option>
+                    </select>
+
+                    <input list="part-list" name="part-list" placeholder="Наименование з/ч">
+                    <datalist id="part-list"></datalist>
+
+                    <select  name="model" class="select-model">
+                      <option >Тип двигателя</option>
+                    </select>
+
+                    <select class="select-model">
+                      <option>Объем</option>                  
+                      </select>
+                      
+                      <select class="select-model">
+                      <option>Тип кузова</option>
+                    </select>
+
+                    <ul class="part-block">
+                      <li class="part-option">
+                          <input type="checkbox" id="new" name="new" class="visually-hidden filter-checkbox" checked="checked">
+                          <label for="new">Новая</label>
+                      </li>
+                      <li class="part-option">
+                          <input type="checkbox" id="old" name="old" class="visually-hidden filter-checkbox">
+                          <label for="old">Б / у</label>
+                      </li>
+                    </ul>
+                    <p class="select-option">
+                      <input type="checkbox" id="select-option" name="select-option" class="visually-hidden filter-checkbox">
+                          <label for="select-option">Только в наличии</label>
+                    </p>
+
+                  <button class="button">Найти</button>
+                </fieldset>
+              </form>
+            </div>
+            </div>
+
+        <ul class="block-art">
+
+          <li class="art-item">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="art-item">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="art-item">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="art-item">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="baner-block">
+          <img src="img/maz1.jpg" alt="Картинка">
+          <img src="img/maz1.jpg" alt="Картинка">
+          <img src="img/maz1.jpg" alt="Картинка">
+          <img src="img/maz1.jpg" alt="Картинка">
+          <img src="img/maz1.jpg" alt="Картинка">
+          <img src="img/maz1.jpg" alt="Картинка">
+        </div>
+
+        <ul class="block-art">
+
+          <li class="art-select">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="art-select">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="art-select">
+            <div class="art-block">
+              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
+              <a><b class="name">Admin</b></a>
+              <button class="btn" type="button">
+                <span class="points"></span>
+                <span class="points"></span>
+                <span class="points"></span>
+              </button>
+            </div>
+
+            <div class="content-wrapper">
+              <div class="art-foto">
+                <a>
+                  <img src="img/user.jpg" alt="Картинка">
+                </a>
+              </div>
+              <div class="art-user">
+                <div class="text-block text-block-w">
+                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
+                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                <div class="date-block">
+                    <span class="date">19:06:2019</span>
+                    <span class="time">15:22</span>
+                </div>
+              </div>
+            </div>
+          </li> 
+        </ul>
+                                                                                                                      
+        <div class="sail-f">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+        </div>
+    </main>
+
     <div id="popup1" class="overlay1 modal--show" style="display: none;">
         <div class="modal1">
             
