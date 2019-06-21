@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route("/posts/")
+ * @Route("/posts")
  *
  * @Security("has_role('ROLE_CLIENT')")
  */
@@ -155,6 +155,33 @@ class PostController extends Controller
 
         return new JsonResponse([
             "success" => true,
+        ]);
+    }
+
+    /**
+     * @Route("/remove-post-photo-ajax/{id}", name="posts_remove_post_photo_ajax", options={"expose"=true})
+     *
+     * @ParamConverter("postPhoto", class="App\Entity\Client\PostPhoto", options={"id" = "id"})
+     */
+    public function removePostPhotoAjaxAction(Request $request, PostPhoto $postPhoto)
+    {
+        $post = $postPhoto->getPost();
+        if($postPhoto->getPost()->getClient()->getId() !== $this->getUser()->getId()){
+            return new JsonResponse([
+                "success" => false,
+            ]);
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($postPhoto);
+        $em->flush();
+        $em->refresh($post);
+
+        return new JsonResponse([
+            "success" => true,
+            "post" => $post->toArray(),
         ]);
     }
 

@@ -4,6 +4,7 @@
     autoparusApp.controller('PostsCtrl', ["$scope", "$http", "$compile", "$rootScope", "ImageUploadService",
         function($scope, $http, $compile, $rootScope, ImageUploadService) {
         const REMOVE_LINK = Routing.generate('posts_remove_post_ajax', {"id" : "__rid__"});
+        const REMOVE_POST_PHOTO_LINK = Routing.generate('posts_remove_post_photo_ajax', {"id" : "__rid__"});
         const ADD_LINK = Routing.generate('posts_add_post_ajax');
         const EDIT_LINK = Routing.generate('posts_edit_post_ajax', {"id" : "__id__"});
         const ALL_POSTS_LINK = Routing.generate('posts_get_all_posts_ajax');
@@ -141,11 +142,20 @@
             $("body").removeClass("modal--show");
         }
 
-        function removePost(){
-            $.ajax(REMOVE_LINK.replace("__rid__", self.activePost.id), {
+        function removePost(removePhotoId){
+            let link = removePhotoId ? REMOVE_POST_PHOTO_LINK.replace("__rid__", removePhotoId) :
+                REMOVE_LINK.replace("__rid__", self.activePost.id);
+
+            $.ajax(link, {
                 success(data) {
                     if(data.success) {
-                        delete self.posts[self.activePost.id];
+                        if(removePhotoId && data.post){
+                            self.posts[data.post.id] = data.post;
+                        }
+                        else {
+                            delete self.posts[self.activePost.id];
+                        }
+
                         $scope.$evalAsync();
                     }
 
@@ -200,10 +210,7 @@
                 },
                 method: "POST",
                 success(data) {
-                    console.log(data);
                     if(data.success) {
-                        console.log(post.id);
-                        console.log(self.openChangeHeadline[post.id]);
                         self.openChangeHeadline[post.id] = false;
 
                         $scope.$evalAsync();
@@ -221,8 +228,6 @@
 
                 return fullPath ? fullPath.replace(/^.*[\\\/]/, '') : false;
             }
-
-            console.log(eventUpload);
 
             return eventUpload.target.files[0].name;
         }
