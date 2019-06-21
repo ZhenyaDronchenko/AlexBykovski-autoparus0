@@ -7,6 +7,7 @@ use App\Entity\Client\Post;
 use App\Entity\Client\PostPhoto;
 use App\Entity\Image;
 use App\Provider\GeoLocation\GeoLocationProvider;
+use App\Type\PostsFilterType;
 use App\Upload\FileUpload;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -186,11 +187,33 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/get-all-posts-ajax", name="posts_get_all_posts_ajax", options={"expose"=true})
+     * @Route("/ajax/get-posts", name="posts_get_posts_ajax", options={"expose"=true})
      */
-    public function getAllPosts(Request $request)
+    public function searchPostsAction(Request $request)
     {
-        return new JsonResponse($this->getUser()->getPostsArray());
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $requestData = json_decode($request->getContent(), true);
+        $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
+        $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
+
+        $filter = new PostsFilterType($this->getUser(), null, null, null, null, $limit, $offset);
+
+        if(!is_numeric($offset) || !is_numeric($limit)){
+            return new JsonResponse([]);
+        }
+
+        $posts = $em->getRepository(Post::class)->findAllByFilter($filter);
+
+        $parsedPhotos= [];
+
+        /** @var Post $post */
+        foreach ($posts as $post){
+            $parsedPhotos[$post->getId()] = $post->toArray();
+        }
+
+        return new JsonResponse($parsedPhotos);
     }
 
     /**
