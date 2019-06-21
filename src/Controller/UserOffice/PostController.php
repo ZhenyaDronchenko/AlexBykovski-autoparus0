@@ -70,9 +70,10 @@ class PostController extends Controller
         }
         else{
             $postPhoto->getImage()->setImage($path);
+            $postPhoto->updateThumbnailLogos();
         }
 
-        if($description) {
+        if(is_string($description)) {
             $post->setDescription($description);
         }
 
@@ -88,16 +89,13 @@ class PostController extends Controller
 
     /**
      * @Route("/add-post-photo-ajax/{id}/", name="posts_add_post_photo_ajax", options={"expose"=true})
-     * @Route("/edit-post-photo-ajax/{id}/{idPostPhoto}", name="posts_edit_post_photo_ajax", options={"expose"=true})
      *
      * @ParamConverter("post", class="App\Entity\Client\Post", options={"id" = "id"})
-     * @ParamConverter("postPhoto", class="App\Entity\Client\PostPhoto", options={"id" = "idPostPhoto"})
      */
     public function addEditPostPhotoAjaxAction(
         Request $request,
         GeoLocationProvider $provider,
-        Post $post,
-        PostPhoto $postPhoto = null
+        Post $post
     )
     {
         /** @var Client $client */
@@ -121,21 +119,14 @@ class PostController extends Controller
         $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
         $path = $uploader->upload($file);
 
-        if(!$postPhoto){
-            $image = new Image($path);
-            $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-            $image->setGeoLocation($geoLocation);
+        $image = new Image($path);
+        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+        $image->setGeoLocation($geoLocation);
 
-            $postPhoto = new PostPhoto($image, $post);
+        $postPhoto = new PostPhoto($image, $post);
 
-            $em->persist($postPhoto);
-        }
-        else{
-            $postPhoto->getImage()->setImage($path);
-        }
-
+        $em->persist($postPhoto);
         $em->flush();
-
         $em->refresh($post);
 
         return new JsonResponse([
