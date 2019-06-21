@@ -1,68 +1,194 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-auto-set.css'>
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-auto-bigset.css'>
 {% endblock %}
 
 {% block body %}
     <main class="container">
         <ul id="breadcrumbs">
-            <li>
-                <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Главная">
-                    <span class="user-name">{{ app.user.name }}</span>
-                    <svg class="user-icon" width="20px" height="20px" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="#737373" stroke-width="3"/>
-                    </svg>
-                </a>
-            </li>
-            <li><a class="link-b" href="{{ path("user_profile_product_categories") }}"><span class="line">/</span>Товары </a></li>
-            <li><a class="link-b" href="{{ path("user_profile_product_categories_spare_part") }}"><span class="line">/</span>Автозапчасти</a></li>
-            <li><a class="current"><span class="line">/</span><span itemprop="name">Добавление комплекта</span></a></li>
-        </ul>
+        <li>
+            <a class="user-link user-link--icon" href="#" title="Главная">
+                <span class="user-name">Евгений Игоревич</span>
+                <svg class="user-icon" width="20px" height="20px" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="#737373" stroke-width="3"/>
+                </svg>
+            </a>
+        </li>
+        <li><a class="link-b" href="#"><span class="line">/</span>Товары </a></li>
+        <li><a class="link-b" href="#"><span class="line">/</span>Автозапчасти</a></li>
+        <li><a class="current"><span class="line">/</span><span itemprop="name">Добавление комплектов</span></a></li>
+      </ul>
 
-        <section class="prod">
-            <h1 class="title-main" data-text="{{ default_text(45).headline }}">
-                <sup>
-                    <button class="help open-popup-button" type="button" data-popup-id="1">
-                        <svg viewBox="0 0 32 32" width="18px" height="18px">
-                            <path fill="#757373" d="M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 10 C 13.800781 10 12 11.800781 12 14 L 14 14 C 14 12.882813 14.882813 12 16 12 C 17.117188 12 18 12.882813 18 14 C 18 14.765625 17.507813 15.445313 16.78125 15.6875 L 16.375 15.8125 C 15.558594 16.082031 15 16.863281 15 17.71875 L 15 19 L 17 19 L 17 17.71875 L 17.40625 17.59375 C 18.945313 17.082031 20 15.621094 20 14 C 20 11.800781 18.199219 10 16 10 Z M 15 20 L 15 22 L 17 22 L 17 20 Z "/>
-                        </svg>
-                    </button>
-                </sup>
-            </h1>
+      <section class="bigset">
+        <h1 class="title-main">Комплексная подача комплектов</h1>
+        <form class="user-form" action="" method="POST">
+          <select  class="mark-select">
+            <option value="" selected="selected">Выберите марку</option>
+            <option value="14">ACURA</option>
+            <option value="15">ALFA ROMEO</option>
+          </select>
+          <span class="prompt">Выберите марку</span>
 
-            <div id="form-add-auto-set-container"
-                 ng-controller="AddAutoSetCtrl as addAutoSet"
-                 ng-init="addAutoSet.init('#form-add-auto-set', '{{ form.submitButtonName.vars.id }}', '{{ form.image.vars.id }}', null)" get-car-data-by-parameters
-                 brand-id="{{ form.brand.vars.id }}"
-                 model-id="{{ form.model.vars.id }}"
-                 year-id="{{ form.year.vars.id }}"
-                 engine-type-id="{{ form.engineType.vars.id }}"
-                 engine-capacity-id="{{ form.engineCapacity.vars.id }}"
-                 engine-name-id="{{ form.engineName.vars.id }}"
-                 gear-box-type-id="{{ form.gearBoxType.vars.id }}"
-                 vehicle-type-id="{{ form.vehicleType.vars.id }}"
-                 drive-type-id="{{ form.driveType.vars.id }}"
-            >
-                {% include('/client/user-office/seller-services/product-categories/spare-part/forms/auto-set-form.html.twig') with {"form" : form} %}
+          <div class="model-block">
+            <button  type="button" class="btn">Отметить все модели (ENBRAND)</button>
+            <ul class="pay-sel">
+              <li class="pay-item">
+                <input type="checkbox" id="item1" name="item1" class="visually-hidden filter-input filter-input-checkbox spare-part-checkbox" >
+                <label for="item1">Avensis (2003-2008), T25</label>
+              </li>
+
+              <li class="pay-item">
+                <input type="checkbox" id="item2" name="item1" class="visually-hidden filter-input filter-input-checkbox spare-part-checkbox" >
+                <label for="item2">Corola Verso (2007-2012)</label>
+              </li>
+
+              <li class="pay-item">
+                <input type="checkbox" id="item3" name="item1" class="visually-hidden filter-input filter-input-checkbox spare-part-checkbox" >
+                <label for="item3">HC-R (2001-2017)</label>
+              </li>
+
+              <li class="pay-item">
+                <input type="checkbox" id="item4" name="item1" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" >
+                <label for="item4">Corola Verso R (20011-2018), R18</label>
+              </li>
+              <li class="pay-item">
+                <input type="checkbox" id="item5" name="item1" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" >
+                <label for="item5">Hi Lux (2011-2018)</label>
+              </li>
+              
+            </ul>
+          </div>
+
+          <h2 class="subtitle">Отметьте состояние и наличие</h2>
+          <div class="state">
+            <div class="state-item">
+              <div class="state-block">
+                <h3 class="state-title">Состояние:</h3>
+              </div>
+              <ul class="state-select">
+                <li class="state-option">
+                  <input type="radio" id="set1" name="auto_set" required="required" class="visually-hidden filter-input filter-input-radio">
+                  <label for="set1" class="required">Б/У</label>
+                </li>
+                <li class="state-option">
+                  <input type="radio" id="set2" name="auto_set" required="required" class="visually-hidden filter-input filter-input-radio" value="new" checked="checked">
+                  <label for="set2" class="required">Новая(й)</label>
+                </li>
+              </ul>
             </div>
 
-            <div class="text">{{ default_text(45).text | raw }}</div>
-        </section>
+            <div class="state-item state-item--m">
+              <div class="state-block">
+                <h3 class="state-title">Наличие:</h3>
+              </div>
+              <ul class="state-select">
+                <li class="state-option">
+                  <input type="radio" id="set3" name="auto_set1" required="required" class="visually-hidden filter-input filter-input-radio"  checked="checked">
+                  <label for="set3" class="required">В наличии</label>
+              </li>
+                <li class="state-option">
+                  <input type="radio" id="set4" name="auto_set1" class="visually-hidden filter-input filter-input-radio">
+                  <label for="set4" class="required">На заказ</label>
+              </li>
+            </ul>
+          </div>
+          </div>
+
+          <div>
+            <textarea  required="required" rows="5" placeholder="Описание:"></textarea>
+            <span class="state-check">Введите описание</span>
+          </div>
+
+          <div class="img-block">
+            <a id="initiator-upload-image" nohref="" class="add-img">Добавить изображение:</a>
+            <input id="upload-image-input" type="file" style="display: none">
+            <img id="preview-image" class="img" src="img/maz1.jpg" alt="">
+            <input type="hidden" autocomplete="off">
+          </div>
+
+          <section class="set-list">
+            <h2 class="subtitle">Отметьте предлагаемые товары</h2>
+            <button class="btn" type="button">Отметить все запчасти (товары)</button>
+            <span class="prompt prompt--l">Выберите хотя бы одну запчасть</span>
+            <ul class="list">
+                                                        
+              <li class="letter" data-text="A"></li>
+            
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_0_isChecked" name="auto_set_form[spareParts][0][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_0_isChecked">Android автомагнитола (мультимедийная система)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_0_cost" name="auto_set_form[spareParts][0][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                                  
+                  <li class="letter" data-text="А"></li>
+              
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_1_isChecked" name="auto_set_form[spareParts][1][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_1_isChecked">Автоковрики салона, багажника (ковры салона, багажника)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_1_cost" name="auto_set_form[spareParts][1][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                  
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_2_isChecked" name="auto_set_form[spareParts][2][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_2_isChecked">Автономный отопитель (отопитель салона автомобиля)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_2_cost" name="auto_set_form[spareParts][2][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                  
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_3_isChecked" name="auto_set_form[spareParts][3][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_3_isChecked">Аккумулятор, АКБ батарея (аккумуляторная батарея)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_3_cost" name="auto_set_form[spareParts][3][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                  
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_4_isChecked" name="auto_set_form[spareParts][4][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_4_isChecked">Активатор лючка бака (соленоид открытия багажника)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_4_cost" name="auto_set_form[spareParts][4][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+            
+            </ul>
+          </section>
+
+          <ul class="btn-list">
+            <li>
+                <button type="submit" class="button" data-name="submit" disabled="">Добавить выбранные позиции</button>
+            </li>
+            <li>
+                <button type="submit" class="button" disabled="">Добавить и продолжить добавление с выбранными позициями запчастей</button>
+            </li>
+        </ul>
+
+        <p>Просмотр поданных товаров Вы сможете осушествить в разделе просмотр поданных объявлений в подразделе товарные объявления.</p>
+
+        </form>
+      </section>
     </main>
 
-    <div id="popup1" class="overlay1">
-        <section class="modal">
-            <button class="modal-close close-popup-button" data-popup-id="1">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-            <line fill="#000" stroke="#737373" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                    <line fill="#000" stroke="#737373" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-            </svg>
-            </button>
-            <h1 class="modal-title">{{ default_text(51).headline }}</h1>
-            <div class="modal-text">{{ default_text(51).text | raw }}</div>
-        </section>
+    <div id="popup2" class="overlay2">
+      <div class="modal2">
+        <div id="preloader" style="display: none;">
+          <span class="load">Подождите, идет проверка и подача объявлений</span>
+          <img id="preloader-posts" src="/img/preload-gear.svg"/>
+        </div>
+      </div>
     </div>
+    
 {% endblock %}
 
 {% block javascripts %}
