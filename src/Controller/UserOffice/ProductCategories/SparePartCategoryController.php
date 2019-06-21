@@ -470,4 +470,107 @@ class SparePartCategoryController extends Controller
             "form" => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/add-auto-big-set", name="user_profile_product_categories_spare_part_add_auto_big_set")
+     */
+    public function addAutoBigSetAction(Request $request)
+    {
+        ini_set("memory_limit", -1);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Client $client */
+        $client = $this->getUser();
+        /** @var FileUpload $uploader */
+        $uploader = $this->get("app.file_upload");
+        $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
+
+        $isFormSubmitted = array_key_exists("auto_set_form", $_POST);
+        $autoSet = new AutoSetType();
+
+        $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => $isFormSubmitted]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $fileData = $form->get("image")->getData();
+            $newEmptyName = $request->request->get("engineNameEmpty");
+
+            $spareParts = array_filter($autoSet->getSpareParts(), function ($item) {
+                return $item["isChecked"];
+            });
+
+            if (!count($spareParts)) {
+                $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
+                $form->handleRequest($request);
+                $form->get("engineNameEmpty")->addError(new FormError("Выберите хотя бы 1 запчасть"));
+
+                return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-big-set-form.html.twig', [
+                    "form" => $form->createView(),
+                    "engineNameEmpty" => $newEmptyName
+                ]);
+            }
+
+            $autoSet->setEngineName($newEmptyName ? strtoupper($newEmptyName) : $autoSet->getEngineName());
+            $path = $fileData ? $uploader->uploadBase64Image($fileData) : "";
+
+            if ($newEmptyName) {
+                $userEngine = new UserEngine($autoSet->getEngineType(), $autoSet->getEngineName(), $autoSet->getEngineCapacity(), $autoSet->getModel());
+                $em->persist($userEngine);
+            }
+
+            foreach ($spareParts as $sparePart) {
+                $advert = new AutoSparePartSpecificAdvert($client->getSellerData()->getAdvertDetail());
+
+                $advert->setByAutoSet($autoSet, $sparePart);
+                $advert->setImage($path);
+
+                $em->persist($advert);
+            }
+
+            $em->flush();
+
+            switch ($form->get('submitButtonName')->getData()) {
+                case "submitContinue":
+                    $autoSet->clearForContinue();
+
+                    $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
+
+                    return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-big-set-form.html.twig', [
+                        "form" => $form->createView(),
+                    ]);
+
+                default:
+                    $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_list_adverts");
+
+                    return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-big-set-form.html.twig', [
+                        "form" => $form->createView(),
+                        "redirectUrl" => $redirectUrl,
+                    ]);
+            }
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $newEngineName = $request->request->get("engineNameEmpty");
+            $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
+            $form->handleRequest($request);
+
+            $spareParts = array_filter($autoSet->getSpareParts(), function ($item) {
+                return $item["isChecked"];
+            });
+
+            if (!count($spareParts)) {
+                $form->get("engineNameEmpty")->addError(new FormError("Выберите хотя бы 1 запчасть"));
+            }
+
+            return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/auto-big-set-form.html.twig', [
+                "form" => $form->createView(),
+                "engineNameEmpty" => $newEngineName
+            ]);
+        }
+
+        $form = $this->createForm(AutoSetFormType::class, $autoSet, ["isFormSubmitted" => false]);
+
+        return $this->render('client/user-office/seller-services/product-categories/spare-part/add-auto-big-set.html.twig', [
+            "form" => $form->createView(),
+        ]);
+    }
 }

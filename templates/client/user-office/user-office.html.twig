@@ -153,12 +153,12 @@
                     </a>
 
                     <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost">
-                    <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.editPostPhoto">
+                    <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.addPostPhoto">
                 </li>
             </ul>
         </div>
 
-        <ul class="items">
+        <ul class="items" ng-init="posts.removePostPhoto = null;">
             <li ng-repeat="post in posts.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}" ng-cloak>
                 <div class="tool">
                     <button class="btn-point open-popup-button" data-popup-id="7" type="button">
@@ -166,24 +166,29 @@
                         <span class="points"></span>
                         <span class="points"></span>
                     </button>
-                    <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="posts.activePost = post; posts.editPost()">
+                    <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="posts.activePost = post; posts.editPost()" ng-show="post.images.length === 1">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
                     </a>
-                    <a href="" class="tool-close us-btn4 open-popup-button" data-popup-id="5" ng-click="posts.activePost = post">
+                    <a href="" class="tool-close us-btn4 open-popup-button" data-popup-id="5" ng-click="posts.activePost = post; posts.removePostPhoto = null">
                         <span class="item-1">Удалить</span>
                         <img src="/img/trash-can.svg" alt="Удалить">
                     </a>
                 </div>
 
                 <div class="prod">
-                    <div class="img-block post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
-                        <div class="img-block" carousel-item ng-repeat="image in post.images" ng-cloak>
+                    <div class="img-block post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}" data-move-slide="{[{ post.moveSlide ? post.moveSlide : 0 }]}">
+                        <div class="img-block" carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak>
                             <img class="prod-foto gallery-photo-image" ng-src="{[{ image.path }]}"  alt="">
 
                             <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
 
-                            <button class="select-img" type="button" ng-click="posts.activePost = post;" onclick="document.getElementById('trigger-edit-post-photo').click()">
+                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length > 1">
+                                <svg fill="#444" viewBox="0 0 24 24" width="20px" height="20px">
+                                    <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
+                                </svg>
+                            </button>
+                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length > 1">
                                 <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
                                     <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
                                 </svg>
@@ -291,7 +296,7 @@
         </section>
     </div>
 
-    <div id="dialog-cropper-container-post-photo" class="overlay overlay3">
+    <div id="dialog-cropper-container-post-photo" class="overlay overlay8">
         <section class="modal3">
             <div class="modal-header">
                 <button id="post-photo-cancel" class="button-home button-home-left cancel-button-cropper-dialog"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
@@ -313,7 +318,7 @@
                 <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
                 <ul class="del-btn">
                     <li>
-                        <a class="btn-m btn-red" href="" ng-click="posts.removePost()">
+                        <a class="btn-m btn-red" href="" ng-click="posts.removePost(posts.removePostPhoto)">
                             <span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon">
                         </a>
                     </li>
@@ -321,7 +326,7 @@
                         <a id="close-popup-5" class="btn-m btn-gray close-popup-button" data-popup-id="5" href="">Отменить удаление</a>
                     </li>
                     <li class="btn-edit">
-                        <a class="btn-m btn-green close-popup-button" data-popup-id="5" href="" ng-click="posts.editPost()">
+                        <a class="btn-m btn-green close-popup-button" data-popup-id="5" href="" ng-click="posts.editPost(posts.removePostPhoto)">
                             <span>Редактировать</span><img src="/img/cra.png" alt="icon">
                         </a>
                     </li>

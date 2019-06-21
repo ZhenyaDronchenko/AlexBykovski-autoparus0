@@ -4,12 +4,12 @@
     autoparusApp.controller('PostsCtrl', ["$scope", "$http", "$compile", "$rootScope", "ImageUploadService",
         function($scope, $http, $compile, $rootScope, ImageUploadService) {
         const REMOVE_LINK = Routing.generate('posts_remove_post_ajax', {"id" : "__rid__"});
+        const REMOVE_POST_PHOTO_LINK = Routing.generate('posts_remove_post_photo_ajax', {"id" : "__rid__"});
         const ADD_LINK = Routing.generate('posts_add_post_ajax');
         const EDIT_LINK = Routing.generate('posts_edit_post_ajax', {"id" : "__id__"});
         const ALL_POSTS_LINK = Routing.generate('posts_get_all_posts_ajax');
         const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_post_filter_ajax', {"id" : "__id__", "filterId" : "__post_id__"});
         const ADD_POST_PHOTO_LINK = Routing.generate('posts_add_post_photo_ajax', {"id" : "__id__"});
-        const EDIT_POST_PHOTO_LINK = Routing.generate('posts_edit_post_photo_ajax', {"id" : "__id__", "idPostPhoto" : "__id_post_photo__"});
         const EDIT_POST_HEADLINE = Routing.generate('posts_save_post_headline_ajax', {"id" : "__id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
         const PREVIEW_IMAGE_POST_PHOTO = $("#image-preview-container-post-photo img");
@@ -49,14 +49,18 @@
 
         function editPost(eventUpload) {
             let cropperContainer = $(cropperDialog);
-            let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost["images"][0]["path"].replace(/^.*[\\\/]/, '');
-            let id = self.activePost["images"].length ? self.activePost["images"][0]["id"] : null
-            let urlEdit = id ? EDIT_LINK.replace("__id__", id) : ADD_LINK;
+            let fileName = getFileNameEditPost(eventUpload);
+            let id = !eventUpload ? self.activePost["images"][0]["id"] : eventUpload;
+            let urlEdit = Number.isInteger(id) ? EDIT_LINK.replace("__id__", id) : ADD_LINK;
+
+            if(!fileName){
+                return false;
+            }
 
             ImageUploadService.init(cropperContentSize, PREVIEW_IMAGE, cropperContainer, dialogContentSize,
                 $(this), fileName, null, null,
                 function (formData) {
-                    formData.append('description', self.activePost.description);
+                    formData.append('description', self.activePost.description ? self.activePost.description : "");
                     formData.append('type', self.activePost.type);
 
                     $.ajax(urlEdit, {
@@ -66,6 +70,7 @@
                         contentType: false,
                         success(data) {
                             if(data.success) {
+                                data.post["moveSlide"] = id ? getPhotoIndexById(id) : 0;
                                 self.posts[data.post.id] = data.post;
 
                                 $scope.$evalAsync();
@@ -79,55 +84,56 @@
                     });
                 });
 
-            if(eventUpload) {
-                ImageUploadService.processUploadImage(eventUpload.target.files[0]);
+            if(Number.isInteger(eventUpload) || !eventUpload){
+                PREVIEW_IMAGE.attr("src", getExistImageEditPost(eventUpload));
+                ImageUploadService.addDialog();
             }
             else{
-                PREVIEW_IMAGE.attr("src", self.activePost["images"][0]["path"]);
-                ImageUploadService.addDialog();
+                ImageUploadService.processUploadImage(eventUpload.target.files[0]);
             }
         }
 
-            function editPostPhoto(eventUpload) {
-                let cropperContainer = $(cropperDialogPostPhoto);
-                let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost["images"][0]["path"].replace(/^.*[\\\/]/, '');
-                console.log(self.activePost);
-                let id = self.activePost["images"][0]["id"];
-                //let urlEdit = id ? EDIT_LINK.replace("__id__", id) : ADD_LINK;
-                let urlEdit = ADD_POST_PHOTO_LINK.replace("__id__", self.activePost.id);
-
-                ImageUploadService.init(cropperContentSize, PREVIEW_IMAGE_POST_PHOTO, cropperContainer, dialogContentSize,
-                    $(this), fileName, null, null,
-                    function (formData) {
-                        $.ajax(urlEdit, {
-                            method: "POST",
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            success(data) {
-                                if(data.success) {
-                                    self.posts[self.activePost.id].images.push(data.postPhoto);
-                                    //console.log(self.posts[self.activePost.id].images);
-
-                                    $scope.$evalAsync();
-                                }
-
-                                closeModals();
-                            },
-                            error(data) {
-                                console.error('Upload error');
-                            },
-                        });
-                    });
-
-                if(eventUpload) {
-                    ImageUploadService.processUploadImage(eventUpload.target.files[0]);
-                }
-                else{
-                    //PREVIEW_IMAGE_POST_PHOTO.attr("src", self.activePost["images"][0]["path"]);
-                    ImageUploadService.addDialog();
-                }
+        function addPostPhoto(eventUpload) {
+            if(!eventUpload){
+                return false;
             }
+
+            let cropperContainer = $(cropperDialogPostPhoto);
+            let fileName = eventUpload ? eventUpload.target.files[0].name : self.activePost["images"][0]["path"].replace(/^.*[\\\/]/, '');
+            let urlEdit = ADD_POST_PHOTO_LINK.replace("__id__", self.activePost.id);
+
+            ImageUploadService.init(cropperContentSize, PREVIEW_IMAGE_POST_PHOTO, cropperContainer, dialogContentSize,
+                $(this), fileName, null, null,
+                function (formData) {
+                    $.ajax(urlEdit, {
+                        method: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success(data) {
+                            if(data.success) {
+                                let countTempImages = Object.keys(self.posts[self.activePost.id].tempImages).length;
+
+                                self.posts[self.activePost.id].images.push(data.postPhoto);
+                                self.posts[self.activePost.id].tempImages[countTempImages] = data.postPhoto;
+                                self.posts[self.activePost.id].moveSlide = self.posts[self.activePost.id].images.length - 1;
+
+                                $('.post-images-' + self.activePost.id).slick("unslick");
+
+                                $scope.$evalAsync();
+                            }
+
+                            closeModals();
+                        },
+                        error(data) {
+                            console.error('Upload error');
+                        },
+                    }
+                );
+            });
+
+            ImageUploadService.processUploadImage(eventUpload.target.files[0]);
+        }
 
         function closeModals() {
             $(cropperDialog).removeClass("modal--show");
@@ -136,11 +142,20 @@
             $("body").removeClass("modal--show");
         }
 
-        function removePost(){
-            $.ajax(REMOVE_LINK.replace("__rid__", self.activePost.id), {
+        function removePost(removePhotoId){
+            let link = removePhotoId ? REMOVE_POST_PHOTO_LINK.replace("__rid__", removePhotoId) :
+                REMOVE_LINK.replace("__rid__", self.activePost.id);
+
+            $.ajax(link, {
                 success(data) {
                     if(data.success) {
-                        delete self.posts[self.activePost.id];
+                        if(removePhotoId && data.post){
+                            self.posts[data.post.id] = data.post;
+                        }
+                        else {
+                            delete self.posts[self.activePost.id];
+                        }
+
                         $scope.$evalAsync();
                     }
 
@@ -195,10 +210,7 @@
                 },
                 method: "POST",
                 success(data) {
-                    console.log(data);
                     if(data.success) {
-                        console.log(post.id);
-                        console.log(self.openChangeHeadline[post.id]);
                         self.openChangeHeadline[post.id] = false;
 
                         $scope.$evalAsync();
@@ -209,40 +221,88 @@
                 },
             });
         }
+
+        function getFileNameEditPost(eventUpload) {
+            if(Number.isInteger(eventUpload) || !eventUpload){
+                let fullPath = getExistImageEditPost(eventUpload);
+
+                return fullPath ? fullPath.replace(/^.*[\\\/]/, '') : false;
+            }
+
+            return eventUpload.target.files[0].name;
+        }
+
+        function getExistImageEditPost(photoId) {
+            if(!Number.isInteger(photoId)){
+                return self.activePost["images"].length ? self.activePost["images"][0]["path"] : "";
+            }
+
+            for (let index in self.activePost["images"]) {
+                if(self.activePost["images"][index]["id"] === photoId){
+                    return self.activePost["images"][index]["path"];
+                }
+            }
+
+            return false;
+        }
+
+            function getPhotoIndexById(photoId) {
+                if(!Number.isInteger(photoId)){
+                    return 0;
+                }
+
+                for (let index in self.activePost["images"]) {
+                    if(self.activePost["images"][index]["id"] === photoId){
+                        return index;
+                    }
+                }
+
+                return 0;
+            }
         
         function waitImages(posts) {
             $.each(posts, function (index, item) {
-                posts[index]["tempImages"] = {};
-
-                $.each(posts[index]["images"], function (indexIm) {
-                    posts[index]["tempImages"][indexIm] = {
-                        id: posts[index]["images"][indexIm]["id"],
-                        path: posts[index]["images"][indexIm]["path"],
-                    };
-
-                    if(indexIm !== 0){
-                        posts[index]["images"][indexIm]["path"] = "";
-                    }
-                })
+                posts[index] = waitImagesPost(posts[index]);
             });
 
             return posts;
         }
 
         $rootScope.$on("start-slide-post-images", function(event, args) {
-            if(self.posts.hasOwnProperty(args.id)){
-                $.each(self.posts[args.id]["images"], function (index) {
-                    self.posts[args.id]["images"][index]["path"] = self.posts[args.id]["tempImages"][index]["path"];
+            showAllPostPhotos(args.id);
+        });
+
+        function waitImagesPost(post) {
+            post["tempImages"] = {};
+
+            $.each(post["images"], function (indexIm) {
+                post["tempImages"][indexIm] = {
+                    id: post["images"][indexIm]["id"],
+                    path: post["images"][indexIm]["path"],
+                };
+
+                if(indexIm !== 0){
+                    post["images"][indexIm]["path"] = "";
+                }
+            });
+
+            return post;
+        }
+
+        function showAllPostPhotos(id) {
+            if(self.posts.hasOwnProperty(id) && self.posts[id].hasOwnProperty("tempImages")){
+                $.each(self.posts[id]["images"], function (index) {
+                    self.posts[id]["images"][index]["path"] = self.posts[id]["tempImages"][index]["path"];
                 });
 
                 $scope.$evalAsync();
             }
-        });
+        }
 
         this.init = init;
         this.getNewPost = getNewPost;
         this.editPost = editPost;
-        this.editPostPhoto = editPostPhoto;
+        this.addPostPhoto = addPostPhoto;
         this.closeModals = closeModals;
         this.removePost = removePost;
         this.removeGalleryFilter = removeGalleryFilter;
