@@ -37,6 +37,10 @@
 
                             <input id="user-photo-input" type="file" style="display: none">
                         </div>
+                        {% if app.user.email == "admin3@autoparus.by" %}
+                            <button onclick="capturePhoto();">Capture Photo</button>
+                            <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Gallery!!</button>
+                        {% endif %}
                         <div class="user-wrapper">
                             <a href="{{ path("show_user_base_profile") }}" class="button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} персональный профиль</a>
                             <ul class="user-about">
