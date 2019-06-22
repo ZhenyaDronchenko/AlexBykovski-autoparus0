@@ -80,7 +80,7 @@
                             </div>
                             <div class="user-edit">
                                 {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
-                                    <a class="button-rp" href="{{ path("sonata_admin_dashboard") }}">Админка статей и публикаций</a>
+                                    <a class="button-rp" href="{{ path("admin_app_article_article_list") }}">Админка статей и публикаций</a>
                                 {% endif %}
                                 <a href="{{ path("show_user_business_office") }}" class="button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
                                 {% if app.user.sellerData %}
@@ -171,7 +171,7 @@
                         <img src="/img/cra.png" alt="Редактировать">
                     </a>
                     <a href="" class="tool-close us-btn4 open-popup-button" data-popup-id="5" ng-click="posts.activePost = post; posts.removePostPhoto = null">
-                        <span class="item-1">Удалить</span>
+                        <span class="item-1">Удалить пост</span>
                         <img src="/img/trash-can.svg" alt="Удалить">
                     </a>
                 </div>
