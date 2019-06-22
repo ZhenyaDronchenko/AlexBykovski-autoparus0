@@ -7,13 +7,14 @@
         const REMOVE_POST_PHOTO_LINK = Routing.generate('posts_remove_post_photo_ajax', {"id" : "__rid__"});
         const ADD_LINK = Routing.generate('posts_add_post_ajax');
         const EDIT_LINK = Routing.generate('posts_edit_post_ajax', {"id" : "__id__"});
-        const ALL_POSTS_LINK = Routing.generate('posts_get_all_posts_ajax');
+        const GET_POSTS_LINK = Routing.generate('posts_get_posts_ajax');
         const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_post_filter_ajax', {"id" : "__id__", "filterId" : "__post_id__"});
         const ADD_POST_PHOTO_LINK = Routing.generate('posts_add_post_photo_ajax', {"id" : "__id__"});
         const EDIT_POST_HEADLINE = Routing.generate('posts_save_post_headline_ajax', {"id" : "__id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
         const PREVIEW_IMAGE_POST_PHOTO = $("#image-preview-container-post-photo img");
         const SIMPLE_TYPE = "simple";
+        const COUNT_IMAGE_PACKAGE = 10;
 
         let self = this;
         let closeRemoveConfirm = $("#close-popup-5");
@@ -21,16 +22,21 @@
         let cropperContentSize = dialogContentSize * 0.6;
         let cropperDialog = null;
         let cropperDialogPostPhoto = null;
+        let preloader = $("#preloader-posts");
+
+        let paramsSearchPosts = {
+            "limit" : 2,
+            "offset" : 0,
+        };
 
         this.activePost = null;
-        this.posts = {};
-
+        this.posts = [];
         function init(cropperDialogS, cropperDialogPostPhotoS, isUploadPosts) {
             cropperDialog = cropperDialogS;
             cropperDialogPostPhoto = cropperDialogPostPhotoS;
 
             if (isUploadPosts){
-                getPosts();
+                updatePosts();
             }
         }
         
@@ -169,17 +175,44 @@
             });
         }
 
-        function getPosts() {
-            $.ajax(ALL_POSTS_LINK, {
-                method: "POST",
-                success(data) {
-                    self.posts = waitImages(data);
-                    $scope.$evalAsync();
-                },
-                error(data) {
-                    console.error('Error due request');
-                },
+        function updatePosts() {
+            if(paramsSearchPosts.offset + paramsSearchPosts.limit > (Object.keys(self.posts).length + 12) || preloader.is("visible")){
+                return false;
+            }
+
+            preloader.css("display", "block");
+
+            $http({
+                method: 'POST',
+                url: GET_POSTS_LINK,
+                data: paramsSearchPosts
+            }).then(function (data) {
+                handleUploadedPosts(data.data);
+
+                $scope.$evalAsync();
+            }, function (data) {
+                console.error('Error due request');
             });
+        }
+
+        function handleUploadedPosts(data) {
+            for(let id in data){
+                if(!self.posts.hasOwnProperty(id)){
+                    self.posts[id] = data[id];
+                    waitImages([self.posts[id]]);
+                }
+            }
+
+            paramsSearchPosts["offset"] = paramsSearchPosts["limit"] + paramsSearchPosts["offset"];
+            paramsSearchPosts["limit"] = COUNT_IMAGE_PACKAGE;
+
+            const keys = Object.keys(self.posts);
+
+            if(keys.length > 1){
+                updateScrollTrigger("#post-" + self.posts[keys[keys.length - 2]].id);
+            }
+
+            preloader.css("display", "none");
         }
 
         function removeGalleryFilter(id, postId) {
@@ -246,19 +279,19 @@
             return false;
         }
 
-            function getPhotoIndexById(photoId) {
-                if(!Number.isInteger(photoId)){
-                    return 0;
-                }
-
-                for (let index in self.activePost["images"]) {
-                    if(self.activePost["images"][index]["id"] === photoId){
-                        return index;
-                    }
-                }
-
+        function getPhotoIndexById(photoId) {
+            if(!Number.isInteger(photoId)){
                 return 0;
             }
+
+            for (let index in self.activePost["images"]) {
+                if(self.activePost["images"][index]["id"] === photoId){
+                    return index;
+                }
+            }
+
+            return 0;
+        }
         
         function waitImages(posts) {
             $.each(posts, function (index, item) {
@@ -297,6 +330,21 @@
 
                 $scope.$evalAsync();
             }
+        }
+
+        function updateScrollTrigger(id){
+            $(window).on("scroll", function() {
+                let hT = $(id).offset().top;
+                let hH = $(id).outerHeight();
+                let wH = $(window).height();
+                let wS = $(this).scrollTop();
+
+                if (wS > (hT+hH-wH)){
+                    updatePosts();
+
+                    $(window).off();
+                }
+            });
         }
 
         this.init = init;
