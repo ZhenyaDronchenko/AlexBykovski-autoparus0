@@ -135,8 +135,7 @@
                     </a>
                 </li>
                 <li>
-                    {% set businessLinkId = not isSeller ? "initiator-open-popup7" : "initiator-open-popup6" %}
-                    <a id="{{ businessLinkId }}" class="icon us-btn5 open-popup-button" nohref>
+                    <a class="icon us-btn5 open-popup-button" nohref data-popup-id="{{ not isSeller ? 9 : 6 }}">
                         <i class="fa fa-suitcase"></i>
                         <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
                     </a>
@@ -339,9 +338,9 @@
     </div>
 
     {% if not isSeller %}
-        <div id="popup7" class="overlay4">
+        <div id="popup9" class="overlay9">
             <section class="modal4">
-                <button id="initiator-close-popup7" class="modal-close close-popup-button" type="button">
+                <button class="modal-close close-popup-button" data-popup-id="9" type="button">
                     <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
                         <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
                         <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>

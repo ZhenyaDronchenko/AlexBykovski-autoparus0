@@ -652,7 +652,8 @@
 .overlay5,
 .overlay6,
 .overlay7,
-.overlay8 {
+.overlay8,
+.overlay9 {
     width: 100%;
     height: 100%;
     position: fixed;

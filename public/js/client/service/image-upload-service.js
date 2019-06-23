@@ -65,15 +65,19 @@
         };
 
         this.addCropper = function() {
+            let galleryContainer = $("#image-preview-container-gallery");
             const SCALE = this.imageSizes && this.imageSizes.length === 2 ? this.imageSizes[0]/this.imageSizes[1] : 1.5;
+            const containerHeight = galleryContainer.height();
+            const containerWidth = galleryContainer.width();
+
             destroyCroppie();
 
-            let viewPortWidth = window.screen.availHeight/4 * SCALE;
-            let viewPortHeight = window.screen.availHeight/4;
+            let viewPortWidth = containerHeight * SCALE;
+            let viewPortHeight = containerHeight;
 
-            if(window.screen.availHeight > window.screen.availWidth){
-                viewPortWidth = window.screen.availWidth/4 * SCALE;
-                viewPortHeight = window.screen.availWidth/4;
+            if(viewPortWidth > containerWidth){
+                viewPortWidth = containerWidth;
+                viewPortHeight = viewPortWidth / SCALE;
             }
 
             //https://foliotek.github.io/Croppie/
@@ -85,16 +89,16 @@
                     type: 'square'
                 },
                 boundary: {
-                    width: window.screen.availWidth/2,
-                    height: window.screen.availHeight/2,
+                    width: containerWidth,
+                    height: containerHeight,
                 },
                 mouseWheelZoom: true,
                 showZoomer: false,
                 customClass: "croppie-container-class"
             });
 
-            image_crop.croppie('bind', {
-                url: self.previewImage.attr("src")
+            image_crop.croppie('bind', {url: self.previewImage.attr("src")}).then(function () {
+                image_crop.croppie('setZoom', 0)
             });
         };
 
