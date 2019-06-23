@@ -35,11 +35,8 @@
                                 </svg>
                             </a>
 
-                            <input id="user-photo-input" type="file" style="display: none">
+                            <input id="user-photo-input" type="file" style="display: none" accept="image/*">
                         </div>
-                        {% if app.user.email == "admin3@autoparus.by" %}
-                            <input type="file" accept="image/*">
-                        {% endif %}
                         <div class="user-wrapper">
                             <a href="{{ path("show_user_base_profile") }}" class="button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} персональный профиль</a>
                             <ul class="user-about">
@@ -79,7 +76,7 @@
                                     </svg>
                                 </a>
 
-                                <input id="business-profile-photo-input" type="file" style="display: none">
+                                <input id="business-profile-photo-input" type="file" style="display: none" accept="image/*">
                             </div>
                             <div class="user-edit">
                                 {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
@@ -155,8 +152,8 @@
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </a>
 
-                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost">
-                    <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.addPostPhoto">
+                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost" accept="image/*">
+                    <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.addPostPhoto" accept="image/*">
                 </li>
             </ul>
         </div>
