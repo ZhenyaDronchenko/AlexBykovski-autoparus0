@@ -29,6 +29,8 @@
     width: 500px;
 }
 .user-name {
+    display: block;
+    text-align: right;
     margin-top: 15px;
     font-size: 18px;
     line-height: 20px;
@@ -36,12 +38,13 @@
     color: #000000;
 }
 .user-company {
+      display: block;
+    text-align: right;
     margin-top: 15px;
     font-weight: 400;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
-    text-align: left;
 }
 .foto-user-wrapper {
     display: -moz-flex;
@@ -278,7 +281,7 @@
     margin-bottom: 15px;
 }
 .user-btn {
-    color: #ff0000;
+    color: #2980b9;
     text-decoration: none;
     font-weight: 400;
     font-size: 18px;
@@ -320,7 +323,7 @@
 .user-avto {
     text-decoration: none;
     cursor: default;
-    color: #ff0000;
+    color: #2980b9;
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
@@ -437,6 +440,7 @@
     -ms-grid-row-align: end;
     align-self: flex-end;
     outline: none;
+        margin-left: 20px;
 }
 
 .points {
@@ -1129,7 +1133,7 @@ textarea {
    margin: 0;
    margin-bottom: 20px;
    text-align: center;
-    color: #ff0000;
+        color: #2980b9;
     font-size: 20px;
     line-height: 22px;
     font-weight: 400;
@@ -1302,6 +1306,11 @@ textarea {
     .container {
         width: auto;
     }
+
+    .btn-point {
+        margin-left: 10px;
+}
+
     .modal5 {
         top: 0;
         width: 100%;
@@ -1512,7 +1521,7 @@ textarea {
     }
 
     .user-edit {
-        width: 71%;
+        width: 70%;
 
     }
     .user-link-left {
@@ -1808,7 +1817,7 @@ textarea {
         padding-bottom: 1px;
         font-size: 8px;
         line-height: 12px;
-        width: 90px;
+        width: 100px;
     }
     .user-btn {
         font-size: 12px;
@@ -1919,7 +1928,7 @@ textarea {
     }
 
     .btn {
-        width: 130px;
+        width: 145px;
         font-size: 11px;
         line-height: 12px;
     }

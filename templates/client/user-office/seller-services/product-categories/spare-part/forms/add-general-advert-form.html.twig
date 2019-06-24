@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <h2 class="subtitle" data-text="Выберите марку или условие - Все марки" ng-click="editAdvert.method()">
+    <h2 class="subtitle" ng-click="editAdvert.method()">Выберите марку или условие - Все марки
         <sup>
             <button id="open-overlay2" type="button" class="help">
                 <svg viewBox="0 0 32 32" width="18px" height="18px">
@@ -120,12 +120,12 @@
         {% endif %}
     </div>
 
-    <h2 class="subtitle" data-text="Отметьте предлагаемые товары"
+    <h2 class="subtitle"
             {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}
                 scroll-to-element
                 {% set scrollToElement = true %}
             {% endif %}
-    ></h2>
+    >Отметьте предлагаемые товары</h2>
 
     <button ng-cloak id="hide-all-spare-parts-button" type="button" ng-click="editAdvert.checkAllSpareParts(); editAdvert.isCheckedAllSpareParts = true" class="btn-filter btn-filter--r" ng-hide="editAdvert.isCheckedAllSpareParts">Отметить все запчасти (товары)</button>
     <button ng-cloak id="show-all-spare-parts-button" type="button" ng-click="editAdvert.uncheckAllSpareParts(); editAdvert.isCheckedAllSpareParts = false" class="btn-filter btn-filter--r" ng-show="editAdvert.isCheckedAllSpareParts">Снять выбор запчастей (товаров)</button>
