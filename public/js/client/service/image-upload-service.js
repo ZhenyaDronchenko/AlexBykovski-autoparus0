@@ -65,7 +65,7 @@
         };
 
         this.addCropper = function() {
-            let galleryContainer = $("#image-preview-container-gallery");
+            let galleryContainer = this.cropperModal.find(".cropper-container");
             const SCALE = this.imageSizes && this.imageSizes.length === 2 ? this.imageSizes[0]/this.imageSizes[1] : 1.5;
             const containerHeight = galleryContainer.height();
             const containerWidth = galleryContainer.width();
