@@ -186,10 +186,10 @@
 
                             <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
 
-                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length > 
+                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length">
                                 <img src="/img/cra.png" alt="Редактировать">
                             </button>
-                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length >
+                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length">
                                 <img src="/img/trash-can.svg" alt="Удалить">
                             </button>
                         </div>

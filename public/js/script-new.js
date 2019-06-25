@@ -459,17 +459,19 @@ function citiesHideShow() {
  }
 
 
- var popup2 = document.querySelector('.overlay2');
+var popup2 = document.querySelector('.overlay2');
 var openPopupButton2 = document.querySelector('.button');
 
 
-openPopupButton2.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  popup2.classList.add('modal--show');
-});
+if(openPopupButton2){
+    openPopupButton2.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        popup2.classList.add('modal--show');
+    });
 
-document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 27) {
-    popup.classList.remove('modal--show');
-  }
-}); 
+    document.addEventListener('keydown', function (evt) {
+        if (evt.keyCode === 27) {
+            popup2.classList.remove('modal--show');
+        }
+    });
+}
