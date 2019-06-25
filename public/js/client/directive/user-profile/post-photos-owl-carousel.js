@@ -10,9 +10,15 @@
                     let el = $(element);
 
                     if(!el.hasClass("slick-initialized")){
-                        el.slick({});
+                        el.slick({
+                            dots: el.find("[carousel-item]").length > 1,
+                        });
 
-                        el.slick("slickGoTo", el.attr("data-move-slide"));
+                        const NEXT_MODE_SLIDE = el.attr("data-move-slide");
+
+                        if(NEXT_MODE_SLIDE){
+                            el.slick("slickGoTo", NEXT_MODE_SLIDE);
+                        }
                     }
 
                     el.on('beforeChange', function (event, slick, direction) {

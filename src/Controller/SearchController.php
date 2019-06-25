@@ -218,33 +218,33 @@ class SearchController extends Controller
             return new JsonResponse([]);
         }
 
-        $photos = $em->getRepository(Post::class)->findAllByFilter($filter);
+        $posts = $em->getRepository(Post::class)->findAllByFilter($filter);
 
-        $parsedPhotos= [];
+        $parsedPosts = [];
 
-        /** @var Post $photo */
-        foreach ($photos as $photo){
-            $parsedPhoto = $photo->toSearchArray();
+        /** @var Post $post */
+        foreach ($posts as $post){
+            $parsedPost= $post->toSearchArray();
 
-            if($parsedPhoto["city"]){
-                $city = $em->getRepository(City::class)->findOneBy(["name" => $parsedPhoto["city"]]);
-                $parsedPhoto["city"] = $city ? $city->getUrl() : null;
+            if($parsedPost["city"]){
+                $city = $em->getRepository(City::class)->findOneBy(["name" => $parsedPost["city"]]);
+                $parsedPost["city"] = $city ? $city->getUrl() : null;
             }
 
-            if($parsedPhoto["brand"]){
-                $brand = $em->getRepository(Brand::class)->findOneBy(["name" => $parsedPhoto["brand"]]);
-                $parsedPhoto["brand"] = $brand ? $brand->getUrl() : null;
+            if($parsedPost["brand"]){
+                $brand = $em->getRepository(Brand::class)->findOneBy(["name" => $parsedPost["brand"]]);
+                $parsedPost["brand"] = $brand ? $brand->getUrl() : null;
             }
 
-            if($parsedPhoto["model"]){
-                $model = $em->getRepository(Model::class)->findOneBy(["name" => $parsedPhoto["model"]]);
-                $parsedPhoto["model"] = $model ? $model->getUrl() : null;
+            if($parsedPost["model"]){
+                $model = $em->getRepository(Model::class)->findOneBy(["name" => $parsedPost["model"]]);
+                $parsedPost["model"] = $model ? $model->getUrl() : null;
             }
 
-            $parsedPhotos[] = $parsedPhoto;
+            $parsedPosts[] = $parsedPost;
         }
 
-        return new JsonResponse($parsedPhotos);
+        return new JsonResponse($parsedPosts);
     }
 
     /**

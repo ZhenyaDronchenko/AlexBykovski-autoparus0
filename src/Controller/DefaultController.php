@@ -37,22 +37,11 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED));
-
-        $notIds = [];
-
-        foreach ($updatedArticles as $article){
-            $notIds[] = $article["object"]->getId();
-        }
-
-        $viewsArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_VIEWS), $notIds);
-
-        $articles = $route === "homepage_all_users" ? [] : array_merge($updatedArticles, $viewsArticles);
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
 
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
-            "articles" => $articles,
+            "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
         ]);
     }
 

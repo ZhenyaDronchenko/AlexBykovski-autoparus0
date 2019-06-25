@@ -399,7 +399,6 @@ margin: 0;
     color: #000000;
     font-weight: 400;
     text-align: justify;
-    height: 90px;
     overflow: hidden;
 }
 
@@ -420,8 +419,14 @@ margin: 0;
 #allText:focus {
     color: #000;
 }
-.text1Hide {
-    max-height: 80px;
+
+.text3Hide {
+    max-height: 55px;
+    overflow: hidden;
+}
+
+.text5Hide {
+    max-height: 91px;
     overflow: hidden;
 }
 

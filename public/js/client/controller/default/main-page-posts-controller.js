@@ -1,8 +1,9 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('MainPagePostsCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
-        const MAX_COUNT = 100;
+    autoparusApp.controller('MainPagePostsCtrl', ['$scope', '$http', '$sce', '$rootScope',
+        function($scope, $http, $sce, $rootScope) {
+        const MAX_COUNT = 106;
         let filterUserRoute = "homepage_filter_user";
         let filterBrandRoute = "homepage_filter_brand";
         let filterBrandModelRoute = "homepage_filter_brand_model";
@@ -11,8 +12,8 @@
         let self = this;
         let url = null;
         let params = {
-            "limit" : 5,
-            "offset" : -5,
+            "limit" : 8,
+            "offset" : -8,
         };
         this.posts = [];
         //image from https://loading.io/
@@ -49,11 +50,11 @@
                 $.each(response.data, function (index, post) {
                     $sce.trustAsHtml(post["description"]);
 
-                    self.posts.push(post);
+                    self.posts.push(waitImagesPost(post));
                 });
 
-                if(self.posts.length % 5 === 0 && self.posts.length){
-                    updateScrollTrigger("#post-" + self.posts[self.posts.length - 2].id);
+                if(self.posts.length % 8 === 0 && self.posts.length > 2){
+                    updateScrollTrigger("#post-" + self.posts[self.posts.length - 3].id);
                 }
 
                 preloader.css("display", "none");
@@ -64,6 +65,10 @@
 
         function updateScrollTrigger(id){
             $(window).on("scroll", function() {
+                if($(id).length < 1){
+                    return false;
+                }
+
                 let hT = $(id).offset().top;
                 let hH = $(id).outerHeight();
                 let wH = $(window).height();
@@ -100,6 +105,19 @@
 
             return Routing.generate(filterCityActivityRoute, {"urlCity" : urlCity, "urlActivity" : urlActivity})
         }
+
+        $rootScope.$on("start-slide-post-images", function(event, args) {
+            console.log("here");
+            console.log(args.id);
+            for (let index in self.posts){
+                if(Number.parseInt(self.posts[index].id) === Number.parseInt(args.id)){
+                    console.log("show");
+                    showAllPostPhotos(self.posts[index]);
+                }
+            }
+
+            $scope.$evalAsync();
+        });
 
         this.init = init;
         this.getUserFilterUrl = getUserFilterUrl;

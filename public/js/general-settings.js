@@ -31,11 +31,11 @@ $(function(){
     });
 
 
-    $.each($(".owl-carousel"), function (index, item) {
-        let attr = $(item).data("owl-carousel");
+    $.each($(".slick-carousel"), function (index, item) {
+        let attr = $(item).data("slick-options");
         attr = attr ? attr : {};
 
-        $(item).owlCarousel(attr);
+        $(item).slick(attr);
     });
 });
 
@@ -190,4 +190,31 @@ function addBootstrapModalAfterFooter() {
         '</div>';
 
     $("body").append($(modalHtml));
+}
+
+function waitImagesPost(post) {
+    post["tempImages"] = {};
+
+    $.each(post["images"], function (indexIm) {
+        console.log(indexIm);
+        post["tempImages"][indexIm] = {
+            id: post["images"][indexIm]["id"],
+            path: post["images"][indexIm]["path"],
+        };
+
+        if(indexIm !== 0){
+            post["images"][indexIm]["path"] = "";
+        }
+    });
+
+    return post;
+}
+
+function showAllPostPhotos(post) {
+    console.log(post);
+    if(post.hasOwnProperty("tempImages")){
+        $.each(post["images"], function (index) {
+            post["images"][index]["path"] = post["tempImages"][index]["path"];
+        });
+    }
 }
