@@ -20,6 +20,8 @@ class FileUpload
     const AUTO_SPARE_PART_SPECIFIC_ADVERT = "auto-spare-part-specific-advert";
     const USER_OFFICE_GALLERY = "user-office-gallery";
 
+    const GENERAL_MAIN_PAGE = "general-main-page";
+
     const PHONE_BRAND = 'phone_brand';
     const PHONE_MODEL = 'phone_model';
     const PHONE_SPARE_PART = 'phone_spare_part';

@@ -90,7 +90,10 @@
       <header class="header">
         <div class="header-top">
           <div class="block-logo">
-            <a><img src="img/mlogo.jpg" alt="Логотип"></a>
+          {% set mainPage = get_object("App\\Entity\\General\\MainPage", "findBy", {})[0] %}
+            <a href="{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}">
+                <img src="{{ image_url(mainPage.logo) }}" alt="www.Autoparus.by">
+            </a>
           </div>
           <button class="burger" onclick='menuActive()' type="button">
             <span id='g-1' class='gamburger'></span>
@@ -129,17 +132,21 @@
         <div class="header-nav">
           <nav>
             <ul class="header-navigation">
-              <li><a class="nav-link" href="#">Автозапчасти</a></li>
-              <li><a class="nav-link" href="#">Заказ-заявки</a></li>
-              <li><a class="nav-link" href="#">OBD2 ошибки</a></li>
-              <li><a class="nav-link" href="#">Продавцам</a></li>
-              <li><a class="nav-link" href="#">О нас</a></li>
+              <li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}" title="{{ title_provider({"link" : path("show_brand_catalog_choice_brand")}) }}">Автозапчасти</a></li>
+              <li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}" title="{{ title_provider({"link" : path("show_city_catalog_choice_city")}) }}">Заказ-заявки</a></li>
+              <li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}" title="{{ title_provider({"link" : path("obd2_forum_choice_brand")}) }}">OBD2 ошибки</a></li>
+              <li><a class="nav-link" href="{{ path("general_to_seller_page") }}" title="{{ title_provider({"link" : path("general_to_seller_page")}) }}">Продавцам</a></li>
+              <li><a class="nav-link" href="{{ path("general_to_users_page") }}" title="{{ title_provider({"link" : path("general_to_users_page")}) }}">О нас</a></li>
             </ul>
           </nav>
           <ul class="registration">
-            <li><a class="registration-link" href="#">Вход</a></li>
-            <li>/</li>
-            <li><a class="registration-link" href="#">Регистрация</a></li>
+              {% if app.user %}
+                  <li><a class="registration-link" href="{{ path("show_user_office") }}" title="{{ title_provider({"link" : path("show_user_office")}) }}">Личный кабинет</a></li>
+              {% else %}
+                  <li><a class="registration-link" href="{{ path("login") }}" title="{{ title_provider({"link" : path("login")}) }}">Вход</a></li>
+                  <li>/</li>
+                  <li><a class="registration-link" href="{{ path("registration") }}" title="{{ title_provider({"link" : path("registration")}) }}">Регистрация</a></li>
+              {% endif %}
           </ul>
         </div>
 

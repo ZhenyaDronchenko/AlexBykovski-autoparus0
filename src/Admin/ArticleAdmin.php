@@ -89,7 +89,9 @@ class ArticleAdmin extends AbstractAdmin
             'allow_add' => true,
             'required' => false,
             'attr' => [
-                "class" => "article-images-container"
+                "class" => "article-images-container",
+                "data-image-width" => 1080,
+                "data-image-height" => 720,
             ],
         ]);
         $formMapper->add('banners', CollectionType::class, [
