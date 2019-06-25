@@ -430,6 +430,11 @@ margin: 0;
     overflow: hidden;
 }
 
+.text5BigHide {
+    max-height: 101px;
+    overflow: hidden;
+}
+
 .user-list {
     margin-top: 10px;
     display: -webkit-box;

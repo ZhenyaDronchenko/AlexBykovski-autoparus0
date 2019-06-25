@@ -15,8 +15,6 @@
                 getCountLines();
 
                 $(triggerOpen).ready(function () {
-                    console.log(lines);
-                    console.log(countLines);
                    if(lines > countLines){
                         $(element).removeClass(classMore).addClass(classLess);
                         $(triggerOpen).show();

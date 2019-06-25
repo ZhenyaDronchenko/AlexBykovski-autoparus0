@@ -196,7 +196,6 @@ function waitImagesPost(post) {
     post["tempImages"] = {};
 
     $.each(post["images"], function (indexIm) {
-        console.log(indexIm);
         post["tempImages"][indexIm] = {
             id: post["images"][indexIm]["id"],
             path: post["images"][indexIm]["path"],
@@ -211,7 +210,6 @@ function waitImagesPost(post) {
 }
 
 function showAllPostPhotos(post) {
-    console.log(post);
     if(post.hasOwnProperty("tempImages")){
         $.each(post["images"], function (index) {
             post["images"][index]["path"] = post["tempImages"][index]["path"];

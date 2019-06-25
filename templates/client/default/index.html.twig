@@ -268,128 +268,32 @@
             </div>
 
         <ul class="block-art">
-
-          <li class="art-item">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
-
-            <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
+          <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
+              <div class="art-block">
+                  <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                  <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                  <button class="btn open-popup-button" type="button" data-popup-id="7">
+                      <span class="points"></span>
+                      <span class="points"></span>
+                      <span class="points"></span>
+                  </button>
               </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="art-item">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
 
             <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
-              </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <div class="art-foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                    <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                        <img ng-src="{[{image.path}]}" alt="Картинка">
+                    </a>
                 </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="art-item">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
-
-            <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
-              </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="art-item">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
-
-            <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
-              </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
+                  <div class="art-user">
+                      <div class="text-block text-block-w">
+                          <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
+                      </div>
+                      <div class="date-block">
+                          <span class="date" ng-bind="post.date"></span>
+                          <span class="time" ng-bind="post.time"></span>
+                      </div>
+                  </div>
             </div>
           </li>
         </ul>
@@ -401,99 +305,34 @@
         </div>
 
         <ul class="block-art">
-
-          <li class="art-select">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
-
-            <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
-              </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+            <li id="post-{[{post.id}]}" class="art-select" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 6):6" ng-cloak>
+                <div class="art-block">
+                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                    <button class="btn open-popup-button" type="button" data-popup-id="7">
+                        <span class="points"></span>
+                        <span class="points"></span>
+                        <span class="points"></span>
+                    </button>
                 </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
-            </div>
-          </li>
 
-          <li class="art-select">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
-
-            <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
-              </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <div class="content-wrapper">
+                    <div class="art-foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                            <img ng-src="{[{image.path}]}" alt="Картинка">
+                        </a>
+                    </div>
+                    <div class="art-user">
+                        <div class="text-block text-block-w">
+                            <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
+                        </div>
+                        <div class="date-block">
+                            <span class="date" ng-bind="post.date"></span>
+                            <span class="time" ng-bind="post.time"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <li class="art-select">
-            <div class="art-block">
-              <a><img class="name-foto" src="img/user.jpg" alt="Фото"></a>
-              <a><b class="name">Admin</b></a>
-              <button class="btn" type="button">
-                <span class="points"></span>
-                <span class="points"></span>
-                <span class="points"></span>
-              </button>
-            </div>
-
-            <div class="content-wrapper">
-              <div class="art-foto">
-                <a>
-                  <img src="img/user.jpg" alt="Картинка">
-                </a>
-              </div>
-              <div class="art-user">
-                <div class="text-block text-block-w">
-                  <div id='text1' class='text1Show'>Ferrari F12 Berlinetta DMC Spia Вот почему, как только дело доходит до этой Феррари, все именитые тюнеры не могут предоставить ничего серьезного в техническом плане.</div>
-                  <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                  <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                </div>
-                <div class="date-block">
-                    <span class="date">19:06:2019</span>
-                    <span class="time">15:22</span>
-                </div>
-              </div>
-            </div>
-          </li> 
+            </li>
         </ul>
         <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
         <div class="sail-f">

@@ -107,11 +107,8 @@
         }
 
         $rootScope.$on("start-slide-post-images", function(event, args) {
-            console.log("here");
-            console.log(args.id);
             for (let index in self.posts){
                 if(Number.parseInt(self.posts[index].id) === Number.parseInt(args.id)){
-                    console.log("show");
                     showAllPostPhotos(self.posts[index]);
                 }
             }
