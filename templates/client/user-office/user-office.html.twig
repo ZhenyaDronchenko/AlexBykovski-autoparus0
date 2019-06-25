@@ -165,6 +165,10 @@
                         <span class="points"></span>
                         <span class="points"></span>
                     </button>
+                    <a href="#" class="tool-del" ng-click="posts.activePost = post; posts.editPost()" ng-show="post.images.length === 1">
+                        <span class="item-1">Удалить весь пост</span>
+                    
+                    </a>
                     <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="posts.activePost = post; posts.editPost()" ng-show="post.images.length === 1">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
@@ -182,15 +186,11 @@
 
                             <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
 
-                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length > 1">
-                                <svg fill="#444" viewBox="0 0 24 24" width="20px" height="20px">
-                                    <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
-                                </svg>
+                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length > 
+                                <img src="/img/cra.png" alt="Редактировать">
                             </button>
-                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length > 1">
-                                <svg fill="#444" viewBox="0 0 24 24" width="16px" height="16px">
-                                    <path d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z "></path>
-                                </svg>
+                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length >
+                                <img src="/img/trash-can.svg" alt="Удалить">
                             </button>
                         </div>
                     </div>

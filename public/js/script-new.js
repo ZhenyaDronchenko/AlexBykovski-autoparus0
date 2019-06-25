@@ -457,3 +457,19 @@ function citiesHideShow() {
      }
      elemLi.className = 'opened';
  }
+
+
+ var popup2 = document.querySelector('.overlay2');
+var openPopupButton2 = document.querySelector('.button');
+
+
+openPopupButton2.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  popup2.classList.add('modal--show');
+});
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    popup.classList.remove('modal--show');
+  }
+}); 

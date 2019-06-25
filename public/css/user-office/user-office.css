@@ -430,6 +430,10 @@
     margin-right: 15px;
     margin-left: auto;
 }
+.tool-del {
+  margin: 0 auto;
+}
+
 .btn-point {
     position: relative;
     background-color: transparent;
@@ -1110,6 +1114,10 @@ textarea {
     cursor: pointer;
 }
 
+.select-img img {
+    width: 20px;
+    height: 20px;
+}
 .btn-sel {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1265,9 +1273,8 @@ textarea {
 }
 
 .input-title {
-    display: block;
-   margin: 0 auto;
     width: 70%;
+    margin-right: 15px;
     margin-bottom: 10px;
     font-size: 16px;
     line-height: 18px;
@@ -1281,7 +1288,6 @@ textarea {
     border-radius: 0;
 }
 .input-btn {
-    margin: 0 auto;
     margin-bottom: 10px;
     display: block;
     padding: 5px 25px;

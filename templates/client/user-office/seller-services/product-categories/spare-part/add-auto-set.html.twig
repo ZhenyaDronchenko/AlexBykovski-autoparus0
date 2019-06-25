@@ -21,7 +21,7 @@
         </ul>
 
         <section class="prod">
-            <h1 class="title-main" data-text="{{ default_text(45).headline }}">
+            <h1 class="title-main">{{ default_text(45).headline }}
                 <sup>
                     <button class="help open-popup-button" type="button" data-popup-id="1">
                         <svg viewBox="0 0 32 32" width="18px" height="18px">
@@ -62,6 +62,15 @@
             <h1 class="modal-title">{{ default_text(51).headline }}</h1>
             <div class="modal-text">{{ default_text(51).text | raw }}</div>
         </section>
+    </div>
+
+    <div id="popup2" class="overlay2">
+        <div class="modal2">
+            <div id="preloader" style="display: none;">
+        <span class="load">Подождите, идет проверка и подача объявлений</span>
+        <img id="preloader-posts" src="/img/preload-gear.svg"/>
+    </div>
+        </div>
     </div>
 {% endblock %}
 
