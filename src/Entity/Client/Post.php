@@ -268,11 +268,11 @@ class Post
     public function toArray()
     {
         /** @var Image $firstImage */
-        $firstImage = $this->getPostPhotos()->first()->getImage();
+        $firstImage = $this->getPostPhotos()->first() ? $this->getPostPhotos()->first()->getImage() : null;
 
         return [
             "id" => $this->id,
-            "address" => $firstImage->getGeoLocation()->getFullAddress(),
+            "address" => $firstImage ? $firstImage->getGeoLocation()->getFullAddress() : "",
             "date" => $this->createdAt->format("d.m.Y"),
             "time" => $this->createdAt->format("H:i"),
             "images" => $this->photosToArray(),
