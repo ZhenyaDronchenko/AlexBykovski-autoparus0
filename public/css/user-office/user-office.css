@@ -1638,8 +1638,8 @@ textarea {
         flex-direction: column;
     }
 .img-block {
-   
-    width: 100%;
+   margin: 0 auto;
+    width: 95%;
         height: auto;
 }
     .prod-foto {
