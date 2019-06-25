@@ -115,6 +115,10 @@ cursor: default;
     -webkit-text-stroke: .03em #ff0000;
 }
 
+h3 {
+    font-weight: 400;
+}
+
 .block-product {
     display: -moz-flex;
     display: -ms-flex;

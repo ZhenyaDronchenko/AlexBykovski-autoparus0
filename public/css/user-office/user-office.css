@@ -29,6 +29,8 @@
     width: 500px;
 }
 .user-name {
+    display: block;
+    text-align: right;
     margin-top: 15px;
     font-size: 18px;
     line-height: 20px;
@@ -36,12 +38,13 @@
     color: #000000;
 }
 .user-company {
+      display: block;
+    text-align: right;
     margin-top: 15px;
     font-weight: 400;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
-    text-align: left;
 }
 .foto-user-wrapper {
     display: -moz-flex;
@@ -278,7 +281,7 @@
     margin-bottom: 15px;
 }
 .user-btn {
-    color: #ff0000;
+    color: #2980b9;
     text-decoration: none;
     font-weight: 400;
     font-size: 18px;
@@ -320,7 +323,7 @@
 .user-avto {
     text-decoration: none;
     cursor: default;
-    color: #ff0000;
+    color: #2980b9;
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
@@ -427,6 +430,10 @@
     margin-right: 15px;
     margin-left: auto;
 }
+.tool-del {
+  margin: 0 auto;
+}
+
 .btn-point {
     position: relative;
     background-color: transparent;
@@ -437,6 +444,7 @@
     -ms-grid-row-align: end;
     align-self: flex-end;
     outline: none;
+        margin-left: 20px;
 }
 
 .points {
@@ -651,7 +659,9 @@
 .overlay4,
 .overlay5,
 .overlay6,
-.overlay7 {
+.overlay7,
+.overlay8,
+.overlay9 {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -1104,6 +1114,10 @@ textarea {
     cursor: pointer;
 }
 
+.select-img img {
+    width: 20px;
+    height: 20px;
+}
 .btn-sel {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1127,7 +1141,7 @@ textarea {
    margin: 0;
    margin-bottom: 20px;
    text-align: center;
-    color: #ff0000;
+        color: #2980b9;
     font-size: 20px;
     line-height: 22px;
     font-weight: 400;
@@ -1259,9 +1273,8 @@ textarea {
 }
 
 .input-title {
-    display: block;
-   margin: 0 auto;
     width: 70%;
+    margin-right: 15px;
     margin-bottom: 10px;
     font-size: 16px;
     line-height: 18px;
@@ -1275,7 +1288,6 @@ textarea {
     border-radius: 0;
 }
 .input-btn {
-    margin: 0 auto;
     margin-bottom: 10px;
     display: block;
     padding: 5px 25px;
@@ -1300,6 +1312,11 @@ textarea {
     .container {
         width: auto;
     }
+
+    .btn-point {
+        margin-left: 10px;
+}
+
     .modal5 {
         top: 0;
         width: 100%;
@@ -1510,7 +1527,7 @@ textarea {
     }
 
     .user-edit {
-        width: 71%;
+        width: 70%;
 
     }
     .user-link-left {
@@ -1627,8 +1644,8 @@ textarea {
         flex-direction: column;
     }
 .img-block {
-   
-    width: 100%;
+   margin: 0 auto;
+    width: 95%;
         height: auto;
 }
     .prod-foto {
@@ -1806,7 +1823,7 @@ textarea {
         padding-bottom: 1px;
         font-size: 8px;
         line-height: 12px;
-        width: 90px;
+        width: 100px;
     }
     .user-btn {
         font-size: 12px;
@@ -1917,7 +1934,7 @@ textarea {
     }
 
     .btn {
-        width: 130px;
+        width: 145px;
         font-size: 11px;
         line-height: 12px;
     }

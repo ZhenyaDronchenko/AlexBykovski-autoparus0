@@ -245,7 +245,7 @@ class SecurityController extends Controller
 
             $handler->authorizeUser($user);
 
-            if($user instanceof Admin || $user->hasRole(User::ROLE_ADMIN_ARTICLE_WRITER)){
+            if($user instanceof Admin){
                 $redirectUrl = $this->generateUrl("sonata_admin_dashboard");
             }
             else{

@@ -7,6 +7,7 @@ use App\Entity\Client\Post;
 use App\Entity\Client\PostPhoto;
 use App\Entity\Image;
 use App\Provider\GeoLocation\GeoLocationProvider;
+use App\Type\PostsFilterType;
 use App\Upload\FileUpload;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route("/posts/")
+ * @Route("/posts")
  *
  * @Security("has_role('ROLE_CLIENT')")
  */
@@ -70,9 +71,10 @@ class PostController extends Controller
         }
         else{
             $postPhoto->getImage()->setImage($path);
+            $postPhoto->updateThumbnailLogos();
         }
 
-        if($description) {
+        if(is_string($description)) {
             $post->setDescription($description);
         }
 
@@ -88,16 +90,13 @@ class PostController extends Controller
 
     /**
      * @Route("/add-post-photo-ajax/{id}/", name="posts_add_post_photo_ajax", options={"expose"=true})
-     * @Route("/edit-post-photo-ajax/{id}/{idPostPhoto}", name="posts_edit_post_photo_ajax", options={"expose"=true})
      *
      * @ParamConverter("post", class="App\Entity\Client\Post", options={"id" = "id"})
-     * @ParamConverter("postPhoto", class="App\Entity\Client\PostPhoto", options={"id" = "idPostPhoto"})
      */
     public function addEditPostPhotoAjaxAction(
         Request $request,
         GeoLocationProvider $provider,
-        Post $post,
-        PostPhoto $postPhoto = null
+        Post $post
     )
     {
         /** @var Client $client */
@@ -121,21 +120,14 @@ class PostController extends Controller
         $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
         $path = $uploader->upload($file);
 
-        if(!$postPhoto){
-            $image = new Image($path);
-            $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-            $image->setGeoLocation($geoLocation);
+        $image = new Image($path);
+        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
+        $image->setGeoLocation($geoLocation);
 
-            $postPhoto = new PostPhoto($image, $post);
+        $postPhoto = new PostPhoto($image, $post);
 
-            $em->persist($postPhoto);
-        }
-        else{
-            $postPhoto->getImage()->setImage($path);
-        }
-
+        $em->persist($postPhoto);
         $em->flush();
-
         $em->refresh($post);
 
         return new JsonResponse([
@@ -168,11 +160,60 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/get-all-posts-ajax", name="posts_get_all_posts_ajax", options={"expose"=true})
+     * @Route("/remove-post-photo-ajax/{id}", name="posts_remove_post_photo_ajax", options={"expose"=true})
+     *
+     * @ParamConverter("postPhoto", class="App\Entity\Client\PostPhoto", options={"id" = "id"})
      */
-    public function getAllPosts(Request $request)
+    public function removePostPhotoAjaxAction(Request $request, PostPhoto $postPhoto)
     {
-        return new JsonResponse($this->getUser()->getPostsArray());
+        $post = $postPhoto->getPost();
+        if($postPhoto->getPost()->getClient()->getId() !== $this->getUser()->getId()){
+            return new JsonResponse([
+                "success" => false,
+            ]);
+        }
+
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($postPhoto);
+        $em->flush();
+        $em->refresh($post);
+
+        return new JsonResponse([
+            "success" => true,
+            "post" => $post->toArray(),
+        ]);
+    }
+
+    /**
+     * @Route("/ajax/get-posts", name="posts_get_posts_ajax", options={"expose"=true})
+     */
+    public function searchPostsAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $requestData = json_decode($request->getContent(), true);
+        $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
+        $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
+
+        $filter = new PostsFilterType($this->getUser(), null, null, null, null, $limit, $offset);
+
+        if(!is_numeric($offset) || !is_numeric($limit)){
+            return new JsonResponse([]);
+        }
+
+        $posts = $em->getRepository(Post::class)->findAllByFilter($filter);
+
+        $parsedPhotos= [];
+
+        /** @var Post $post */
+        foreach ($posts as $post){
+            $parsedPhotos[$post->getId()] = $post->toArray();
+        }
+
+        return new JsonResponse($parsedPhotos);
     }
 
     /**
