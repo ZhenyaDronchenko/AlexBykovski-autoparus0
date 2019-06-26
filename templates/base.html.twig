@@ -99,32 +99,46 @@
           </button>
         </div>
         <div class="header-menu">
-          <div id='menu' class="nav">
-            <div class='nav-block'>
-              <ul class='nav-list nav-list-m'>
-                <li class='item-o'><a href="/zapchasti/">Автозапчасти</a></li>
-                <li class='item'><a href="/brand-catalog">Поиск з/ч по марке</a></li>
-                <li class='item item-m'><a href="/city-catalog/">Поиск з/ч по городу</a></li>
-              </ul>
-              <ul class='nav-list nav-list-m'>
-                <li class='item-text'><a href="/login">Вход</a></li>
-                <li class='item-m item-text'><a href="/registration">Регистрация</a></li>
-                <li><a href="/about">Обратная связь</a></li>
-              </ul>
+            <div id='menu' class="nav">
+                <div class='nav-block'>
+                    <ul class='nav-list nav-list-m'>
+                        <li class='item-o'><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
+                        <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Поиск з/ч по марке</a></li>
+                        <li class='item item-m'><a href="{{ path("show_city_catalog_choice_city") }}">Поиск з/ч по городу</a></li>
+                    </ul>
+                    <ul class='nav-list nav-list-m'>
+                        {% if app.user %}
+                            {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
+                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <li class='item-text'><a href="{{ path(app.user.isSeller() ? 'admin_app_seller_list' : 'admin_app_buyer_list', {'_switch_user': '_exit'}) }}">Выйти из пользователя</a></li>
+                            {% else %}
+                                <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
+                            {% endif %}
+                            {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Admin</a></li>
+                            {% else %}
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}" style="color: #ff0000;">{{ userName }}</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li class='item-text'><a href="{{ path("login") }}">Вход</a></li>
+                            <li class='item-m item-text'><a href="{{ path("registration") }}">Регистрация</a></li>
+                        {% endif %}
+                        <li><a href="{{ path("general_about_page") }}">Обратная связь</a></li>
+                    </ul>
+                </div>
+                <div class='nav-block'>
+                    <ul class='nav-list'>
+                        <li><a href="{{ path("general_to_users_page") }}">Пользователям</a></li>
+                        <li class='item'><a href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
+                        <li class='item'><a href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
+                    </ul>
+                    <ul class='nav-list nav-list-m'>
+                        <li class='band'><a href="{{ path("article_catalog_choice_theme") }}">Лента публикаций</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
+                        <li><a href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class='nav-block'>
-              <ul class='nav-list'>
-                <li><a href="/to_user">Пользователям</a></li>
-                <li class='item'><a href="/to_seller">Продавцам</a></li>
-                <li class='item'><a href="/turbo-catalog">Быстрый поиск з/ч</a></li>
-              </ul>
-              <ul class='nav-list nav-list-m'>
-                <li class='band'><a href="/stati">Лента публикаций</a></li>
-                <li><a href="/obd2">Коды OBD2 ошибок</a></li>
-                <li><a href="/forum-obd2">Форум Ошибок ОBD2</a></li>
-              </ul>
-            </div>
-          </div>
         </div>
         <div class="header-nav">
           <nav>
