@@ -159,7 +159,7 @@
 
 /*user*/
 
-.registration {
+.registration-list {
   margin: 0 auto;
   padding-top: 40px;
   width: 450px;
@@ -478,11 +478,9 @@ input {
     padding: 0 20px;
   }
 
-  .registration {
+  .registration-list {
     width: auto;
   }
-
-
 
   .prompt {
     font-size: 12px;
