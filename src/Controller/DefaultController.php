@@ -14,6 +14,7 @@ use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -89,5 +90,17 @@ class DefaultController extends Controller
         return $this->render('client/default/filtered-posts.html.twig', [
             "homePage" => $homePage,
         ]);
+    }
+
+    /**
+     * @Route("/main-page-search-form", name="main_page_search_form", options={"expose"=true})
+     */
+    public function mainPageSearchFormAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+
+        return new JsonResponse();
     }
 }

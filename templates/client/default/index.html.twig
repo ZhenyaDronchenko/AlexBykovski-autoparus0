@@ -160,22 +160,22 @@
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
         <div class="article slick-carousel" data-slick-options='{"margin": 50, "dots" : true, "slidesToShow" : 2, "infinite" : true, "responsive" : [{"breakpoint" : 576, "settings" : {"slidesToShow" : 3}}, {"breakpoint" : 768, "settings" : {"slidesToShow" : 4}}, {"breakpoint" : 951, "settings" : {"slidesToShow" : 5}}, {"breakpoint" : 1200, "settings" : {"slidesToShow" : 6}}]}'>
-                {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
-                    {% set article = articleArray.object %}
-                    <a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
-                        <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
-                        <div class="article-foto">
-                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
-                        </div>
+                {#{% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}#}
+                    {#{% set article = articleArray.object %}#}
+                    {#<a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">#}
+                        {#<h2 class="article-title"><span>{{ article.headline1 }}</span></h2>#}
+                        {#<div class="article-foto">#}
+                            {#<img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">#}
+                        {#</div>#}
 
-                        <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+                        {#<h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>#}
 
-                        <div class="article-block">
-                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
-                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
-                        </div>
-                    </a>
-                {% endfor %}
+                        {#<div class="article-block">#}
+                            {#<span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>#}
+                            {#<span class="article-time">{{ article.updatedAt | date("H:i") }}</span>#}
+                        {#</div>#}
+                    {#</a>#}
+                {#{% endfor %}#}
             </div>
 
             {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
@@ -215,24 +215,21 @@
                   </div>
                 </li >
             </ul>
-            <div class="filter-column">
+            <div class="filter-column" ng-controller="MainSearchFormCtrl as searchForm" ng-init="searchForm.init()">
               <form class="filter">
                 <fieldset class="filter-block">
                   <legend class="filter-title">Автозапчасти</legend>
 
-                    <input list="brand-list" name="brand-list" placeholder="Марка">
-                    <datalist id="brand-list"></datalist>
+                    <input id="brand-autocomplete" auto-сomplete-autoparus method-search="searchBrands" identifier-field="brand-autocomplete" placeholder="Марка" scroll-to-element scroll-by-click="true" before-top="30">
 
-                    <input class="select-part" name="model-list" list="model-list" placeholder="Модель">
-                    <datalist id="model-list"></datalist>
+                    <input id="brand-autocomplete" class="select-part" auto-сomplete-autoparus method-search="searchBrands" identifier-field="brand-autocomplete" placeholder="Модель" scroll-to-element scroll-by-click="true" before-top="30">
 
                     <select class="select-item">
                       <option>Год</option>
                       <option>Год</option>
                     </select>
 
-                    <input list="part-list" name="part-list" placeholder="Наименование з/ч">
-                    <datalist id="part-list"></datalist>
+                    <input id="sparep-part-autocomplete" auto-сomplete-autoparus method-search="searchSpareParts" identifier-field="sparep-part-autocomplete" placeholder="Наименование з/ч" scroll-to-element scroll-by-click="true" before-top="30">
 
                     <select  name="model" class="select-model">
                       <option >Тип двигателя</option>
@@ -260,7 +257,6 @@
                       <input type="checkbox" id="select-option" name="select-option" class="visually-hidden filter-checkbox">
                           <label for="select-option">Только в наличии</label>
                     </p>
-
                   <button class="button">Найти</button>
                 </fieldset>
               </form>
@@ -433,4 +429,5 @@
 {% block javascripts %}
     <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
+    <script src='/js/client/controller/default/main-search-form-controller.js'></script>
 {% endblock %}
