@@ -6,7 +6,7 @@
 {% set phoneCookieKey = constant('App\\Entity\\General\\RegistrationPage::PHONE_COOKIE_KEY') %}
 {% set termsCookieKey = constant('App\\Entity\\General\\RegistrationPage::TERMS_COOKIE_KEY') %}
 
-<form id="registration-form" class="registration {{ isValid ? "valid-form" : "" }}" action="{{ path("registration") }}" method="post" novalidate enctype="multipart/form-data">
+<form id="registration-form" class="registration-list {{ isValid ? "valid-form" : "" }}" action="{{ path("registration") }}" method="post" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
     <fieldset>
         <legend class="registration-title" data-text="{{ headline }}"></legend>

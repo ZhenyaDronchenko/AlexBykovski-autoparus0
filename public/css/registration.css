@@ -158,7 +158,7 @@
 
 /*user*/
 
-.registration {
+.registration-list {
   margin: 0 auto;
   padding-top: 30px;
   width: 450px;
@@ -464,7 +464,7 @@ input {
     padding: 0 20px;
   }
 
-  .registration {
+ .registration-list {
     width: auto;
     padding-top: 30px;
   }
