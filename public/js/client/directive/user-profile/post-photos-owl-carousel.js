@@ -12,6 +12,7 @@
                     if(!el.hasClass("slick-initialized")){
                         el.slick({
                             dots: el.find("[carousel-item]").length > 1,
+                            variableWidth: true,
                         });
 
                         const NEXT_MODE_SLIDE = el.attr("data-move-slide");
