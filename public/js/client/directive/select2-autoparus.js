@@ -10,7 +10,6 @@
                 let method = attrs.methodSearch;
                 let placeholder = attrs.placeholder;
                 let requestParams = angular.fromJson(attrs.requestParameters);
-                let isRussianSearch = false;
 
                 if(requestParams) {
                     let observer = new MutationObserver(function (mutations) {
@@ -55,6 +54,12 @@
                         $rootScope.$broadcast("change-select2-value", {
                             elementId: $(element).attr("id")
                         });
+                    });
+
+                    $(element).on('select2:opening', function (e) {
+                        $('html, body').animate({
+                            scrollTop: $(element).offset().top - 30
+                        }, 1000, "swing");
                     });
                 }
 

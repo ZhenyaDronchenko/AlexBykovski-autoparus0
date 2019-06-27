@@ -165,16 +165,12 @@
                         <span class="points"></span>
                         <span class="points"></span>
                     </button>
-                    <a href="#" class="tool-del" ng-click="posts.activePost = post; posts.editPost()" ng-show="post.images.length === 1">
-                        <span class="item-1">Удалить весь пост</span>
-                    
-                    </a>
                     <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="posts.activePost = post; posts.editPost()" ng-show="post.images.length === 1">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
                     </a>
-                    <a href="" class="tool-close us-btn4 open-popup-button" data-popup-id="5" ng-click="posts.activePost = post; posts.removePostPhoto = null">
-                        <span class="item-1">Удалить пост</span>
+                    <a href="" class="tool-close open-popup-button" data-popup-id="5" ng-click="posts.activePost = post; posts.removePostPhoto = null">
+                        <span class="item-1">Удалить {[{post.images.length > 1 ? "весь" : "" }]} пост</span>
                         <img src="/img/trash-can.svg" alt="Удалить">
                     </a>
                 </div>
@@ -186,10 +182,10 @@
 
                             <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
 
-                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length">
+                            <button class="select-img" style="right: 40px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length > 1">
                                 <img src="/img/cra.png" alt="Редактировать">
                             </button>
-                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length">
+                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length > 1">
                                 <img src="/img/trash-can.svg" alt="Удалить">
                             </button>
                         </div>
