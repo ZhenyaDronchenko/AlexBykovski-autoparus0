@@ -9,6 +9,8 @@ use App\Entity\City;
 use App\Entity\Client\Client;
 use App\Entity\Client\Post;
 use App\Entity\Client\SellerCompany;
+use App\Entity\Engine;
+use App\Entity\EngineType;
 use App\Entity\Model;
 use App\Entity\Phone\PhoneBrand;
 use App\Entity\Phone\PhoneModel;
@@ -119,6 +121,103 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedModels);
+    }
+
+    /**
+     * @Route("/year/{urlBrand}/{urlModel}", name="search_year_autocomplete")
+     */
+    public function searchYearAction(Request $request, $urlBrand, $urlModel)
+    {
+        $text = $request->query->get("text");
+
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $this->getDoctrine()->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            "url" => $urlModel
+        ]);
+
+        if(!is_string($text) || strlen($text) < 1 || !($model instanceof Model)){
+            return new JsonResponse([]);
+        }
+
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
+        return new JsonResponse($model->yearsToSearchArray($text));
+    }
+
+    /**
+     * @Route("/engine-type/{urlBrand}/{urlModel}", name="search_engine_type_autocomplete")
+     */
+    public function searchEngineTypeAction(Request $request, $urlBrand, $urlModel)
+    {
+        $text = $request->query->get("text");
+
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $this->getDoctrine()->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            "url" => $urlModel
+        ]);
+
+        if(!is_string($text) || strlen($text) < 1 || !($model instanceof Model)){
+            return new JsonResponse([]);
+        }
+
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
+        return new JsonResponse($model->engineTypesToSearchArray($text));
+    }
+
+    /**
+     * @Route("/engine-capacity/{urlBrand}/{urlModel}/{engineTypeUrl}", name="search_engine_capacity_autocomplete")
+     */
+    public function searchEngineCapacityAction(Request $request, $urlBrand, $urlModel, $engineTypeUrl)
+    {
+        $text = $request->query->get("text");
+
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $this->getDoctrine()->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            "url" => $urlModel
+        ]);
+        $engine = $this->getDoctrine()->getRepository(EngineType::class)->findOneBy(["url" => $engineTypeUrl]);
+
+        if(!is_string($text) || strlen($text) < 1 || !($model instanceof Model) || !($engine instanceof EngineType)){
+            return new JsonResponse([]);
+        }
+
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
+        return new JsonResponse($model->capacitiesToSearchArray($engine->getType(), $text));
+    }
+
+    /**
+     * @Route("/vehicle-type/{urlBrand}/{urlModel}", name="search_vehicle_type_autocomplete")
+     */
+    public function searchVehicleTypeAction(Request $request, $urlBrand, $urlModel)
+    {
+        $text = $request->query->get("text");
+
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $this->getDoctrine()->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            "url" => $urlModel
+        ]);
+
+        if(!is_string($text) || strlen($text) < 1 || !($model instanceof Model)){
+            return new JsonResponse([]);
+        }
+
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
+        return new JsonResponse($model->vehicleTypesToSearchArray($text));
     }
 
     /**

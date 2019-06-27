@@ -322,6 +322,81 @@ class Model implements VariableInterface
         ];
     }
 
+    public function yearsToSearchArray($text)
+    {
+        $years = [];
+        $yearFrom = $this->technicalData->getYearFrom();
+        $yearTo = $this->technicalData->getYearTo();
+
+        foreach (range($yearFrom, $yearTo) as $year){
+            if(!$text || strpos((string)$year, (string)$text) === 0){
+                $years[] = [
+                    "label" => $year,
+                    "value" => $year,
+                    "url" => $year,
+                ];
+            }
+        }
+
+        return $years;
+    }
+
+    public function engineTypesToSearchArray($text)
+    {
+        $types = [];
+        $engineTypes = $this->technicalData->getEngineTypes();
+
+        /** @var EngineType $engineType */
+        foreach ($engineTypes as $engineType){
+            if(!$text || strpos($engineType->getType(), $text) === 0){
+                $types[] = [
+                    "label" => $engineType->getType(),
+                    "value" => $engineType->getType(),
+                    "url" => $engineType->getUrl(),
+                ];
+            }
+        }
+
+        return $types;
+    }
+
+    public function capacitiesToSearchArray($engineType, $text)
+    {
+        $capacities = [];
+        $engineCapacities = $this->getEngineCapacities($engineType);
+
+        foreach ($engineCapacities as $capacity){
+            if(!$text || strpos($capacity, $text) === 0){
+                $capacities[] = [
+                    "label" => $capacity,
+                    "value" => $capacity,
+                    "url" => $capacity,
+                ];
+            }
+        }
+
+        return $capacities;
+    }
+
+    public function vehicleTypesToSearchArray($text)
+    {
+        $types = [];
+        $vehicleTypes = $this->technicalData->getVehicleTypes();
+
+        /** @var VehicleType $vehicleType */
+        foreach ($vehicleTypes as $vehicleType){
+            if(!$text || strpos($vehicleType->getType(), $text) === 0){
+                $types[] = [
+                    "label" => $vehicleType->getType(),
+                    "value" => $vehicleType->getType(),
+                    "url" => $vehicleType->getUrl(),
+                ];
+            }
+        }
+
+        return $types;
+    }
+
     public function replaceVariables($string)
     {
         foreach (self::$variables as $variable => $method){

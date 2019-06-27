@@ -3,6 +3,7 @@
 {% block meta_description %}{{ homePage.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/select2/dist/css/select2.min.css'>
     <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick.css'>
     <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick-theme.css'>
     <link rel='stylesheet' href='/css/default/index.css'>
@@ -215,52 +216,7 @@
                   </div>
                 </li >
             </ul>
-            <div class="filter-column" ng-controller="MainSearchFormCtrl as searchForm" ng-init="searchForm.init()">
-              <form class="filter">
-                <fieldset class="filter-block">
-                  <legend class="filter-title">Автозапчасти</legend>
-
-                    <input id="brand-autocomplete" auto-сomplete-autoparus method-search="searchBrands" identifier-field="brand-autocomplete" placeholder="Марка" scroll-to-element scroll-by-click="true" before-top="30">
-
-                    <input id="brand-autocomplete" class="select-part" auto-сomplete-autoparus method-search="searchBrands" identifier-field="brand-autocomplete" placeholder="Модель" scroll-to-element scroll-by-click="true" before-top="30">
-
-                    <select class="select-item">
-                      <option>Год</option>
-                      <option>Год</option>
-                    </select>
-
-                    <input id="sparep-part-autocomplete" auto-сomplete-autoparus method-search="searchSpareParts" identifier-field="sparep-part-autocomplete" placeholder="Наименование з/ч" scroll-to-element scroll-by-click="true" before-top="30">
-
-                    <select  name="model" class="select-model">
-                      <option >Тип двигателя</option>
-                    </select>
-
-                    <select class="select-model">
-                      <option>Объем</option>                  
-                      </select>
-                      
-                      <select class="select-model">
-                      <option>Тип кузова</option>
-                    </select>
-
-                    <ul class="part-block">
-                      <li class="part-option">
-                          <input type="checkbox" id="new" name="new" class="visually-hidden filter-checkbox" checked="checked">
-                          <label for="new">Новая</label>
-                      </li>
-                      <li class="part-option">
-                          <input type="checkbox" id="old" name="old" class="visually-hidden filter-checkbox">
-                          <label for="old">Б / у</label>
-                      </li>
-                    </ul>
-                    <p class="select-option">
-                      <input type="checkbox" id="select-option" name="select-option" class="visually-hidden filter-checkbox">
-                          <label for="select-option">Только в наличии</label>
-                    </p>
-                  <button class="button">Найти</button>
-                </fieldset>
-              </form>
-            </div>
+            {% include('/client/default/parts/search-form.html.twig') %}
             </div>
 
         <ul class="block-art">
@@ -427,6 +383,9 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/select2/dist/js/select2.min.js'></script>
+    <script src='/bower-components/select2/dist/js/i18n/ru.js'></script>
+    <script src='/js/client/directive/select2-autoparus.js'></script>
     <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
     <script src='/js/client/controller/default/main-search-form-controller.js'></script>

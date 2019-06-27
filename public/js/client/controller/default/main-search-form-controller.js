@@ -1,45 +1,43 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.controller('MainSearchFormCtrl', ['$http', function($http) {
-        this.brand = "";
-        this.model = "";
-        this.sparePart = "";
+    autoparusApp.controller('MainSearchFormCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+        this.params = {
+            "brand": "",
+            "model": "",
+            "year": "",
+            "sparePart": "",
+            "engineType": "",
+            "capacity": "",
+            "isNew": false,
+            "isUsed": false,
+            "inStock": false,
+        };
 
         let self = this;
 
-        // $("#brand-autocomplete").on("change input copy paste", function (ev) {
-        //     console.log($(this).val());
-        // });
+        $rootScope.$on("change-select2-value", function(event, args) {
+            let index = args.elementId.replace("-autocomplete", "");
 
-        $('#brand-autocomplete').on('autocompleteselect', function (e, ui) {
-            console.log(ui.item);
-            console.log(ui.item.value);
-            //$('#tagsname').html('You selected: ' + this.value);
+            if(self.params.hasOwnProperty(index)){
+                self.params[index] = $('#' + args.elementId).val();
+            }
+
+            $scope.$evalAsync();
         });
 
-        function init() {
-            // $http({
-            //     method: 'POST',
-            //     url: url,
-            //     data: params
-            // }).then(function (response) {
-            //     $.each(response.data, function (index, post) {
-            //         $sce.trustAsHtml(post["description"]);
-            //
-            //         self.posts.push(waitImagesPost(post));
-            //     });
-            //
-            //     if(self.posts.length % 8 === 0 && self.posts.length > 2){
-            //         updateScrollTrigger("#post-" + self.posts[self.posts.length - 3].id);
-            //     }
-            //
-            //     preloader.css("display", "none");
-            // }, function (response) {
-            //     console.log("error");
-            // });
+        function searchByForm() {
+            $http({
+                method: 'POST',
+                url: Routing.generate('main_page_search_form'),
+                data: self.params
+            }).then(function (response) {
+                window.location.href = response.data.redirectUrl ? response.data.redirectUrl : Routing.generate('show_brand_catalog_choice_brand');
+            }, function (response) {
+                console.log("error");
+            });
         }
 
-        this.init = init;
+        this.searchByForm = searchByForm;
     }]);
 })(window.autoparusApp);

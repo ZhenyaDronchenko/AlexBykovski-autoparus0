@@ -5,6 +5,10 @@
         let API_URL_SPARE_PARTS = '/search/spare-part?text=';
         let API_URL_BRAND = '/search/brand?text=';
         let API_URL_MODEL = '/search/model/';
+        let API_URL_YEAR = '/search/year/__brand__/__model__/';
+        let API_URL_ENGINE_TYPE = '/search/engine-type/__brand__/__model__/';
+        let API_URL_ENGINE_CAPACITY = '/search/engine-capacity/__brand__/__model__/__engine_type__';
+        let API_URL_VEHICLE_TYPE = '/search/vehicle-type/__brand__/__model__/';
 
         let API_URL_PHONE_WORK = '/search/phone/work?text=';
         let API_URL_PHONE_BRAND = '/search/phone/brand?text=';
@@ -20,6 +24,22 @@
 
         this.searchModels = function(term, parameters) {
             return search(API_URL_MODEL + parameters.brand + "?text=" + term);
+        };
+
+        this.searchYears = function(term, parameters) {
+            return search(API_URL_YEAR.replace("__brand__", parameters.brand).replace("__model__", parameters.model) + "?text=" + term);
+        };
+
+        this.searchEngineTypes = function(term, parameters) {
+            return search(API_URL_ENGINE_TYPE.replace("__brand__", parameters.brand).replace("__model__", parameters.model) + "?text=" + term);
+        };
+
+        this.searchEngineCapacities = function(term, parameters) {
+            return search(API_URL_ENGINE_CAPACITY.replace("__brand__", parameters.brand).replace("__model__", parameters.model).replace("__engine_type__", parameters.engineType) + "?text=" + term);
+        };
+
+        this.searchVehicleTypes = function(term, parameters) {
+            return search(API_URL_VEHICLE_TYPE.replace("__brand__", parameters.brand).replace("__model__", parameters.model) + "?text=" + term);
         };
 
         this.searchPhoneWork = function(term) {

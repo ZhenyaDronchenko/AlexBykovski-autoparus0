@@ -10,6 +10,7 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
+use App\Entity\SparePart;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -99,8 +100,48 @@ class DefaultController extends Controller
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
+        $requestData = json_decode($request->getContent(), true);
 
+        /** @var Brand|null $brand */
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["brand"]]);
+        /** @var Model|null $model */
+        $model = $em->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            "url" => $requestData["model"],
+        ]);
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $requestData["sparePart"]]);
+        $year = (int)$requestData["year"];
+        $inStock = (bool)$requestData["inStock"];
+        $redirectUrl = $this->generateUrl("show_brand_catalog_choice_brand");
 
-        return new JsonResponse();
+        if(!$brand && $sparePart){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_choice_model", ["urlBrand" => $brand->getUrl()]);
+        }
+        elseif($brand && !$sparePart && !$model){
+            $redirectUrl = $this->generateUrl("show_spare_part_catalog_choice_brand", ["urlSP" => $sparePart->getUrl()]);
+        }
+        elseif($brand && $model && !$sparePart){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_choice_spare_part", [
+                "urlBrand" => $brand->getUrl(),
+                "urlModel" => $model->getUrl(),
+            ]);
+        }
+        elseif($brand && $model && $sparePart && !$inStock){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_choice_city", [
+                "urlBrand" => $brand->getUrl(),
+                "urlModel" => $model->getUrl(),
+                "urlSP" => $sparePart->getUrl(),
+            ]);
+        }
+        elseif($brand && $model && $sparePart && $inStock){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_final_page", [
+                "urlBrand" => $brand->getUrl(),
+                "urlModel" => $model->getUrl(),
+                "urlSP" => $sparePart->getUrl(),
+                "urlCity" => City::ALL_CITIES,
+            ]);
+        }
+
+        return new JsonResponse(["redirectUrl" => $redirectUrl]);
     }
 }
