@@ -37,6 +37,8 @@
                         },
                         select: function( event, ui ) {
                             $rootScope.$broadcast(identifier + '_select-in-autocomplete');
+                            //$(element).val(ui.item.url);
+                            //$(element).trigger("change");
                         },
                     });
 

@@ -31,20 +31,23 @@
     </head>
     <body ng-controller="PostsCtrl as postsCtrl">
     {% set isUserOffice = app.request.attributes.get('_route') == "show_user_office" %}
-        <header class="container">
-            <div class="header">
-                <div class="block-logo">
-                    <img src="/img/Logo1.svg" alt="Логотип">
-                    <a class="header-logo" href='{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}' data-text="Автопарус"></a>
-                </div>
-                <button class="burger" onclick='menuActive()' type="button">
-                    <span id='g-1' class='gamburger'></span>
-                    <span id='g-2' class='gamburger'></span>
-                    <span id='g-3' class='gamburger'></span>
-                </button>
-            </div>
-
-            <nav id='menu' class="nav">
+        <div class="container">
+      <header class="header">
+        <div class="header-top">
+          <div class="block-logo">
+          {% set mainPage = get_object("App\\Entity\\General\\MainPage", "findBy", {})[0] %}
+            <a href="{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}">
+                <img src="{{ image_url(mainPage.logo) }}" alt="www.Autoparus.by">
+            </a>
+          </div>
+          <button class="burger" onclick='menuActive()' type="button">
+            <span id='g-1' class='gamburger'></span>
+            <span id='g-2' class='gamburger'></span>
+            <span id='g-3' class='gamburger'></span>
+          </button>
+        </div>
+        <div class="header-menu">
+            <div id='menu' class="nav">
                 <div class='nav-block'>
                     <ul class='nav-list nav-list-m'>
                         <li class='item-o'><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
@@ -83,8 +86,45 @@
                         <li><a href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
                     </ul>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </div>
+        <div class="header-nav">
+          <nav>
+            <ul class="header-navigation">
+              <li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}" title="{{ title_provider({"link" : path("show_brand_catalog_choice_brand")}) }}">Автозапчасти</a></li>
+              <li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}" title="{{ title_provider({"link" : path("show_city_catalog_choice_city")}) }}">Заказ-заявки</a></li>
+              <li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}" title="{{ title_provider({"link" : path("obd2_forum_choice_brand")}) }}">OBD2 ошибки</a></li>
+              <li><a class="nav-link" href="{{ path("general_to_seller_page") }}" title="{{ title_provider({"link" : path("general_to_seller_page")}) }}">Продавцам</a></li>
+              <li><a class="nav-link" href="{{ path("general_to_users_page") }}" title="{{ title_provider({"link" : path("general_to_users_page")}) }}">О нас</a></li>
+            </ul>
+          </nav>
+          <ul class="registration">
+              {% if app.user %}
+                  <li><a class="registration-link" href="{{ path("show_user_office") }}" title="{{ title_provider({"link" : path("show_user_office")}) }}">Личный кабинет</a></li>
+              {% else %}
+                  <li><a class="registration-link" href="{{ path("login") }}" title="{{ title_provider({"link" : path("login")}) }}">Вход</a></li>
+                  <li>/</li>
+                  <li><a class="registration-link" href="{{ path("registration") }}" title="{{ title_provider({"link" : path("registration")}) }}">Регистрация</a></li>
+              {% endif %}
+          </ul>
+        </div>
+
+        <div class="main-search">
+          <form class="form" action="#" method="get" >
+            <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
+              <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
+                  <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
+                      <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                      <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
+                  </svg>
+              </button>
+              <div class="main-btn">
+                <a class="form-link" href="/brand-catalog">Автозапчасти</a>
+              </div>
+          </form>
+        </div>
+      </header>
+    </div>
 
         {% block body %}{% endblock %}
 
@@ -214,6 +254,24 @@
                 </section>
             </div>
         {% endif %}
+
+        <div id="popup1" class="overlay1 modal--show" style="display: none;">
+            <div class="modal1">
+                <div class="mike">
+                    <div id="microphone-image" class="mike-img">
+                        <svg fill="red" viewBox="0 0 40 59.5" width="60" height="80">
+                            <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                            <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
+                        </svg>
+                    </div>
+                    <span id="text-from-microphone" class="mike-text"></span>
+
+                    <button id="initiator-close-popup1"
+                            class="button-cl close-popup-button"><span>Закрыть</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <script src="/bundles/fosjsrouting/js/router.min.js"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>

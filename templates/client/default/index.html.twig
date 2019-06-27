@@ -3,18 +3,19 @@
 {% block meta_description %}{{ homePage.description }}{% endblock %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
-    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
+    <link rel='stylesheet' href='/bower-components/select2/dist/css/select2.min.css'>
+    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick.css'>
+    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick-theme.css'>
     <link rel='stylesheet' href='/css/default/index.css'>
 {% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container">
+    <!-- <main class="container">
         <div class="main-page" itemscope itemtype="https://schema.org/Organization">
             <meta itemprop="name" content="Автопарус" />
             <link itemprop="url" href="https://www.autoparus.by/" />
-            <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> <!-- Логотип организации-->
+            <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> 
 
             <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                 <meta itemprop="addressLocality" content="Минск, Беларусь" />
@@ -29,7 +30,7 @@
             </div>
             <link itemprop="sameAs" href="https://vk.com/group" />
             <link itemprop="sameAs" href="https://twitter.com/group" />
-            <div class="main-search">
+             <div class="main-search">
                 <form class="form" action="#" method="get" >
 
                     <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
@@ -136,27 +137,164 @@
                 <img src="/img/windsurfing.png" alt="Парус">
             </div>
         </div>
-    </main>
+    </main> -->
 
-    <div id="popup1" class="overlay1 modal--show" style="display: none;">
-        <div class="modal1">
-            
-            <div class="mike">
-                <div id="microphone-image" class="mike-img">
-                    <svg fill="red" viewBox="0 0 40 59.5" width="60" height="80">
-                        <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
-                        <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
-                    </svg>
-                </div>
-                <span id="text-from-microphone" class="mike-text"></span>
-                {#<button class="mike-btn">Универсальная кнопка</button>#}
+    <main class="container"  ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}')">
+      <h1 class="visually-hidden">Автопортал "Автопарус"</h1>
+      <div itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="Автопарус" />
+        <link itemprop="url" href="https://www.autoparus.by/" />
+        <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> <!-- Логотип организации-->
 
-                <button id="initiator-close-popup1"
-                 class="button-cl close-popup-button"><span>Закрыть</span>
-            </button>
-            </div>
+        <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <meta itemprop="addressLocality" content="Минск, Беларусь" />
+            <meta itemprop="postalCode" content="220089" />
+            <meta itemprop="streetAddress" content="Льва Сопеги 11" />
         </div>
-    </div>
+        <meta itemprop="telephone" content="+375296330073" />
+
+        <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+            <meta itemprop="ratingValue" content="4.5">
+            <meta itemprop="reviewCount" content="2">
+        </div>
+        <link itemprop="sameAs" href="https://vk.com/group" />
+        <link itemprop="sameAs" href="https://twitter.com/group" />
+      </div>
+        <div class="article slick-carousel" data-slick-options='{"margin": 50, "dots" : true, "slidesToShow" : 2, "infinite" : true, "responsive" : [{"breakpoint" : 576, "settings" : {"slidesToShow" : 3}}, {"breakpoint" : 768, "settings" : {"slidesToShow" : 4}}, {"breakpoint" : 951, "settings" : {"slidesToShow" : 5}}, {"breakpoint" : 1200, "settings" : {"slidesToShow" : 6}}]}'>
+            {#{% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}#}
+                {#{% set article = articleArray.object %}#}
+                {#<a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">#}
+                    {#<h2 class="article-title"><span>{{ article.headline1 }}</span></h2>#}
+                    {#<div class="article-foto">#}
+                        {#<img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">#}
+                    {#</div>#}
+
+                    {#<h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>#}
+
+                    {#<div class="article-block">#}
+                        {#<span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>#}
+                        {#<span class="article-time">{{ article.updatedAt | date("H:i") }}</span>#}
+                    {#</div>#}
+                {#</a>#}
+            {#{% endfor %}#}
+        </div>
+
+        {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
+
+        <div class="cont-inner">
+          <ul class="content">
+              <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts | limitTo: 2" ng-cloak>
+                  <div class="post-block">
+                      <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto1" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                      <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                      <button class="btn open-popup-button" type="button" data-popup-id="7">
+                          <span class="points"></span>
+                          <span class="points"></span>
+                          <span class="points"></span>
+                      </button>
+                  </div>
+
+                  <div class="content-wrapper">
+                      <div class="foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                          <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                            <img ng-src="{[{image.path}]}" alt="Картинка">
+                          </a>
+                      </div>
+
+                      <div class="user-block">
+                        <h3 class="user-title" ng-bind="post.headline"></h3>
+                          <div class="text-block text-block-w">
+                              <div id='text2' class='text1Show' show-more-lines class-less="{[{ post.headline ? 'text3Hide' : 'text5Hide' }]}" class-more="text1Show" count-lines="{[{ post.headline ? 3 : 5 }]}" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
+                              <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                              <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                          </div>
+                          <div class="date-block">
+                              <span class="date" ng-bind="post.date"></span>
+                              <span class="time" ng-bind="post.time"></span>
+                          </div>
+                        </div>
+                  </div>
+                </li >
+            </ul>
+            {% include('/client/default/parts/search-form.html.twig') %}
+            </div>
+
+        <ul class="block-art">
+          <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
+              <div class="art-block">
+                  <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                  <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                  <button class="btn open-popup-button" type="button" data-popup-id="7">
+                      <span class="points"></span>
+                      <span class="points"></span>
+                      <span class="points"></span>
+                  </button>
+              </div>
+
+            <div class="content-wrapper">
+                <div class="art-foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                    <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                        <img ng-src="{[{image.path}]}" alt="Картинка">
+                    </a>
+                </div>
+                  <div class="art-user">
+                      <div class="text-block text-block-w">
+                          <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
+                      </div>
+                      <div class="date-block">
+                          <span class="date" ng-bind="post.date"></span>
+                          <span class="time" ng-bind="post.time"></span>
+                      </div>
+                  </div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="baner-block">
+            {% for banner in homePage.banners %}
+                <a href="{{ banner.link }}"><img src="{{ image_url(banner.image) }}" alt="{{ banner.alt }}"></a>
+            {% endfor %}
+        </div>
+
+        <ul class="block-art">
+            <li id="post-{[{post.id}]}" class="art-select" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 6):6" ng-cloak>
+                <div class="art-block">
+                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                    <button class="btn open-popup-button" type="button" data-popup-id="7">
+                        <span class="points"></span>
+                        <span class="points"></span>
+                        <span class="points"></span>
+                    </button>
+                </div>
+
+                <div class="content-wrapper">
+                    <div class="art-foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                            <img ng-src="{[{image.path}]}" alt="Картинка">
+                        </a>
+                    </div>
+                    <div class="art-user">
+                        <div class="text-block text-block-w">
+                            <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
+                        </div>
+                        <div class="date-block">
+                            <span class="date" ng-bind="post.date"></span>
+                            <span class="time" ng-bind="post.time"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
+        <div class="sail-f">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+            <img src="img/windsurfing.png" alt="Парус">
+        </div>
+    </main>
 
     {#<div id="popup6" class="overlay6">#}
         {#<section class="modal6">#}
@@ -225,6 +363,10 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
+    <script src='/bower-components/select2/dist/js/select2.min.js'></script>
+    <script src='/bower-components/select2/dist/js/i18n/ru.js'></script>
+    <script src='/js/client/directive/select2-autoparus.js'></script>
+    <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
+    <script src='/js/client/controller/default/main-search-form-controller.js'></script>
 {% endblock %}

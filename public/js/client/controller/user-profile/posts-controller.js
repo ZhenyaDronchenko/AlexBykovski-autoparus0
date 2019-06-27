@@ -198,8 +198,7 @@
         function handleUploadedPosts(data) {
             for(let id in data){
                 if(!self.posts.hasOwnProperty(id)){
-                    self.posts[id] = data[id];
-                    waitImages([self.posts[id]]);
+                    self.posts[id] = waitImagesPost(data[id]);
                 }
             }
 
@@ -292,45 +291,14 @@
 
             return 0;
         }
-        
-        function waitImages(posts) {
-            $.each(posts, function (index, item) {
-                posts[index] = waitImagesPost(posts[index]);
-            });
-
-            return posts;
-        }
 
         $rootScope.$on("start-slide-post-images", function(event, args) {
-            showAllPostPhotos(args.id);
-        });
-
-        function waitImagesPost(post) {
-            post["tempImages"] = {};
-
-            $.each(post["images"], function (indexIm) {
-                post["tempImages"][indexIm] = {
-                    id: post["images"][indexIm]["id"],
-                    path: post["images"][indexIm]["path"],
-                };
-
-                if(indexIm !== 0){
-                    post["images"][indexIm]["path"] = "";
-                }
-            });
-
-            return post;
-        }
-
-        function showAllPostPhotos(id) {
-            if(self.posts.hasOwnProperty(id) && self.posts[id].hasOwnProperty("tempImages")){
-                $.each(self.posts[id]["images"], function (index) {
-                    self.posts[id]["images"][index]["path"] = self.posts[id]["tempImages"][index]["path"];
-                });
+            if(self.posts.hasOwnProperty(args.id)) {
+                showAllPostPhotos(self.posts[args.id]);
 
                 $scope.$evalAsync();
             }
-        }
+        });
 
         function updateScrollTrigger(id){
             $(window).on("scroll", function() {

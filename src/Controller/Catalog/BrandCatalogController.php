@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BrandCatalogController extends Controller
 {
     /**
-     * @Route("", name="show_brand_catalog_choice_brand")
+     * @Route("", name="show_brand_catalog_choice_brand", options={"expose"=true})
      */
     public function showChoiceBrandPageAction(Request $request)
     {

@@ -5,6 +5,8 @@ namespace App\Helper;
 use App\Entity\Article\ArticleBanner;
 use App\Entity\Article\ArticleImage;
 use App\Entity\Brand;
+use App\Entity\General\MainPage;
+use App\Entity\General\MainPageBanner;
 use App\Entity\Image;
 use App\Entity\Model;
 use App\Entity\SparePart;
@@ -76,6 +78,10 @@ class AdminHelper
                 return self::getArticleImageImages($object);
             case ArticleBanner::class:
                 return self::getArticleBannerImages($object);
+            case MainPage::class:
+                return self::getMainPageImage($object);
+            case MainPageBanner::class:
+                return self::getMainPageBannerImages($object);
             default:
                 return [];
         }
@@ -167,6 +173,28 @@ class AdminHelper
     }
 
     static function getArticleBannerImages(ArticleBanner $banner)
+    {
+        return [
+            [
+                "image" => $banner->getImage(),
+                "width" => ResizeImageHandler::DEFAULT_WIDTH,
+                "height" => ResizeImageHandler::DEFAULT_HEIGHT,
+            ],
+        ];
+    }
+
+    static function getMainPageImage(MainPage $page)
+    {
+        return [
+            [
+                "image" => $page->getLogo(),
+                "width" => ResizeImageHandler::DEFAULT_WIDTH,
+                "height" => ResizeImageHandler::DEFAULT_HEIGHT,
+            ],
+        ];
+    }
+
+    static function getMainPageBannerImages(MainPageBanner $banner)
     {
         return [
             [

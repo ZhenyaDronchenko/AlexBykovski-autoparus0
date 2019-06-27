@@ -4,6 +4,7 @@ namespace App\Entity\General;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Image;
 use App\Type\PostsFilterType;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -124,10 +125,27 @@ class MainPage
     /**
      * @var Collection
      *
-     * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="App\Entity\General\MainPageAction", mappedBy="mainPage", cascade={"persist", "remove"})
+     * One MainPage has many MainPageActions. This is the inverse side.
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\General\MainPageAction", mappedBy="mainPage", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $actions;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string")
+     */
+    private $logo;
+
+    /**
+     * @var Collection
+     *
+     * One MainPage has many MainPageBanners. This is the inverse side.
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\General\MainPageBanner", mappedBy="mainPage", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $banners;
 
     /**
      * @return int
@@ -239,6 +257,38 @@ class MainPage
     public function setActions(Collection $actions): void
     {
         $this->actions = $actions;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param null|string $logo
+     */
+    public function setLogo(?string $logo): void
+    {
+        $this->logo = $logo;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getBanners(): Collection
+    {
+        return $this->banners;
+    }
+
+    /**
+     * @param Collection $banners
+     */
+    public function setBanners(Collection $banners): void
+    {
+        $this->banners = $banners;
     }
 
     public function setFilteredTitle($route, PostsFilterType $filter)

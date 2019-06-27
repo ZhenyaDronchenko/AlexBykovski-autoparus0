@@ -1,0 +1,31 @@
+<div class="filter-column" ng-controller="MainSearchFormCtrl as searchForm" ng-init="searchForm.init()">
+    <form class="filter">
+        <fieldset class="filter-block">
+            <legend class="filter-title">Автозапчасти</legend>
+
+            <select id="brand-autocomplete" placeholder="Марка" select2-autoparus method-search="searchBrands"></select>
+            <select id="model-autocomplete" placeholder="Модель" select2-autoparus method-search="searchModels" request-parameters='{"brand": "{[{searchForm.params.brand}]}"}'></select>
+            <select id="year-autocomplete" placeholder="Год" select2-autoparus method-search="searchYears" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
+            <select id="sparePart-autocomplete" placeholder="Наименование з/ч" select2-autoparus method-search="searchSpareParts"></select>
+            <select id="engineType-autocomplete" placeholder="Тип двигателя" select2-autoparus method-search="searchEngineTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
+            <select id="capacity-autocomplete" placeholder="Объём" select2-autoparus method-search="searchEngineCapacities" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "engineType": "{[{searchForm.params.engineType}]}"}'></select>
+            <select id="vehicleType-autocomplete" placeholder="Тип кузова" select2-autoparus method-search="searchVehicleTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
+
+            <ul class="part-block">
+                <li class="part-option">
+                    <input type="checkbox" id="new" name="new" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isNew">
+                    <label for="new">Новая</label>
+                </li>
+                <li class="part-option">
+                    <input type="checkbox" id="old" name="old" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isUsed">
+                    <label for="old">Б / у</label>
+                </li>
+            </ul>
+            <p class="select-option">
+                <input type="checkbox" id="select-option" name="select-option" class="visually-hidden filter-checkbox" ng-model="searchForm.params.inStock">
+                <label for="select-option">Только в наличии</label>
+            </p>
+            <button class="button" type="button" ng-click="searchForm.searchByForm()">Найти</button>
+        </fieldset>
+    </form>
+</div>

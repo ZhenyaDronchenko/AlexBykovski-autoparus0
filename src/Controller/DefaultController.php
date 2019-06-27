@@ -10,10 +10,12 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
+use App\Entity\SparePart;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,22 +39,11 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED));
-
-        $notIds = [];
-
-        foreach ($updatedArticles as $article){
-            $notIds[] = $article["object"]->getId();
-        }
-
-        $viewsArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_VIEWS), $notIds);
-
-        $articles = $route === "homepage_all_users" ? [] : array_merge($updatedArticles, $viewsArticles);
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
 
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
-            "articles" => $articles,
+            "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
         ]);
     }
 
@@ -100,5 +91,57 @@ class DefaultController extends Controller
         return $this->render('client/default/filtered-posts.html.twig', [
             "homePage" => $homePage,
         ]);
+    }
+
+    /**
+     * @Route("/main-page-search-form", name="main_page_search_form", options={"expose"=true})
+     */
+    public function mainPageSearchFormAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $requestData = json_decode($request->getContent(), true);
+
+        /** @var Brand|null $brand */
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["brand"]]);
+        /** @var Model|null $model */
+        $model = $em->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            "url" => $requestData["model"],
+        ]);
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $requestData["sparePart"]]);
+        $year = (int)$requestData["year"];
+        $inStock = (bool)$requestData["inStock"];
+        $redirectUrl = $this->generateUrl("show_brand_catalog_choice_brand");
+
+        if(!$brand && $sparePart){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_choice_model", ["urlBrand" => $brand->getUrl()]);
+        }
+        elseif($brand && !$sparePart && !$model){
+            $redirectUrl = $this->generateUrl("show_spare_part_catalog_choice_brand", ["urlSP" => $sparePart->getUrl()]);
+        }
+        elseif($brand && $model && !$sparePart){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_choice_spare_part", [
+                "urlBrand" => $brand->getUrl(),
+                "urlModel" => $model->getUrl(),
+            ]);
+        }
+        elseif($brand && $model && $sparePart && !$inStock){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_choice_city", [
+                "urlBrand" => $brand->getUrl(),
+                "urlModel" => $model->getUrl(),
+                "urlSP" => $sparePart->getUrl(),
+            ]);
+        }
+        elseif($brand && $model && $sparePart && $inStock){
+            $redirectUrl = $this->generateUrl("show_brand_catalog_final_page", [
+                "urlBrand" => $brand->getUrl(),
+                "urlModel" => $model->getUrl(),
+                "urlSP" => $sparePart->getUrl(),
+                "urlCity" => City::ALL_CITIES,
+            ]);
+        }
+
+        return new JsonResponse(["redirectUrl" => $redirectUrl]);
     }
 }
