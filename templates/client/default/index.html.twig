@@ -160,7 +160,7 @@
         <link itemprop="sameAs" href="https://vk.com/group" />
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
-        <div class="article slick-carousel" data-slick-options='{"margin": 50, "dots" : true, "slidesToShow" : 2, "infinite" : true, "responsive" : [{"breakpoint" : 576, "settings" : {"slidesToShow" : 3}}, {"breakpoint" : 768, "settings" : {"slidesToShow" : 4}}, {"breakpoint" : 951, "settings" : {"slidesToShow" : 5}}, {"breakpoint" : 1200, "settings" : {"slidesToShow" : 6}}]}'>
+        <div class="article slick-carousel" data-slick-options='{"dots" : true, "variableWidth": true, "infinite" : true, "responsive" : [{"breakpoint" : 576, "settings" : {"slidesToShow" : 3}}, {"breakpoint" : 768, "settings" : {"slidesToShow" : 4}}, {"breakpoint" : 951, "settings" : {"slidesToShow" : 5}}, {"breakpoint" : 1200, "settings" : {"slidesToShow" : 6}}]}'>
             {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
                 {% set article = articleArray.object %}
                 <a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
