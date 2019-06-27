@@ -3,6 +3,8 @@
 {% block meta_description %}{{ homePage.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick.css'>
+    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick-theme.css'>
     <link rel='stylesheet' href='/css/default/index.css'>
 {% endblock %}
 
@@ -35,13 +37,13 @@
                     </div>
 
                     <div class="content-wrapper">
-                        <div class="foto">
+                        <div class="foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
                             {% if hasModel %}
-                                <a ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, null) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                                <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, null) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
                             {% else %}
-                                <a ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                                <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
                             {% endif %}
-                                <img ng-src="{[{post.image}]}" alt="Картинка">
+                                <img ng-src="{[{image.path}]}" alt="Картинка">
                             </a>
                         </div>
 
@@ -120,5 +122,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
 {% endblock %}
