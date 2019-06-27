@@ -1289,3 +1289,116 @@ padding-top: 5px;
 .croppie-container-class .cr-boundary{
     padding-left: 100%;
 }
+
+
+/*modal*/
+
+.overlay1{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: none;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+.modal1 {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    width: 600px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 0;
+
+}
+
+.mike a {
+    color: #999999;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+.mike a:hover {
+    color: red;
+}
+.mike-img {
+    margin: 75px auto;
+    width: 130px;
+    height: 130px;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(68,68,68,0.6);
+    box-shadow: 0px 0px 10px 1px rgba(68,68,68,0.6);
+}
+
+.mike-text {
+    display: block;
+    font-size: 18px;
+    line-height: 20px;
+    color: #000;
+    text-align: center;
+    min-height: 100px;
+}
+
+.mike-btn {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    padding: 5px 15px;
+    padding-bottom: 4px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #737373;
+    text-align: center;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(68,68,68,0.6);
+    box-shadow: 0px 0px 5px 1px rgba(68,68,68,0.9);
+}
+
+.mike-btn:hover,
+.mike-btn:focus {
+    color: red;
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(68,68,68,0.6);
+    box-shadow: 0px 0px 10px 1px rgba(68,68,68,0.9);
+}
+
+.button-cl {
+    display: block;
+    width: 97%;
+    border: none;
+    background-color: #fff;
+    border-top: 1px solid #737373;
+    font-size: 18px;
+    line-height: 20px;
+    color: #444;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.button-cl:hover,
+.button-cl:focus {
+    color: red;
+}
