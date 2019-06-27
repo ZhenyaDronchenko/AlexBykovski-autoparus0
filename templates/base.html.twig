@@ -91,20 +91,28 @@
         <div class="header-nav">
           <nav>
             <ul class="header-navigation">
-              <li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}" title="{{ title_provider({"link" : path("show_brand_catalog_choice_brand")}) }}">Автозапчасти</a></li>
-              <li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}" title="{{ title_provider({"link" : path("show_city_catalog_choice_city")}) }}">Заказ-заявки</a></li>
-              <li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}" title="{{ title_provider({"link" : path("obd2_forum_choice_brand")}) }}">OBD2 ошибки</a></li>
-              <li><a class="nav-link" href="{{ path("general_to_seller_page") }}" title="{{ title_provider({"link" : path("general_to_seller_page")}) }}">Продавцам</a></li>
-              <li><a class="nav-link" href="{{ path("general_to_users_page") }}" title="{{ title_provider({"link" : path("general_to_users_page")}) }}">О нас</a></li>
+              {#<li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}" title="{{ title_provider({"link" : path("show_brand_catalog_choice_brand")}) }}">Автозапчасти</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}" title="{{ title_provider({"link" : path("show_city_catalog_choice_city")}) }}">Заказ-заявки</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}" title="{{ title_provider({"link" : path("obd2_forum_choice_brand")}) }}">OBD2 ошибки</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("general_to_seller_page") }}" title="{{ title_provider({"link" : path("general_to_seller_page")}) }}">Продавцам</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("general_to_users_page") }}" title="{{ title_provider({"link" : path("general_to_users_page")}) }}">О нас</a></li>#}
+                <li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}">Автозапчасти</a></li>
+                <li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}">Заказ-заявки</a></li>
+                <li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}">OBD2 ошибки</a></li>
+                <li><a class="nav-link" href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
+                <li><a class="nav-link" href="{{ path("general_to_users_page") }}">О нас</a></li>
             </ul>
           </nav>
           <ul class="registration">
               {% if app.user %}
-                  <li><a class="registration-link" href="{{ path("show_user_office") }}" title="{{ title_provider({"link" : path("show_user_office")}) }}">Личный кабинет</a></li>
+                  {#<li><a class="registration-link" href="{{ path("show_user_office") }}" title="{{ title_provider({"link" : path("show_user_office")}) }}">Личный кабинет</a></li>#}
+                  <li><a class="registration-link" href="{{ path("show_user_office") }}">Личный кабинет</a></li>
               {% else %}
-                  <li><a class="registration-link" href="{{ path("login") }}" title="{{ title_provider({"link" : path("login")}) }}">Вход</a></li>
+                  {#<li><a class="registration-link" href="{{ path("login") }}" title="{{ title_provider({"link" : path("login")}) }}">Вход</a></li>#}
+                  <li><a class="registration-link" href="{{ path("login") }}">Вход</a></li>
                   <li>/</li>
-                  <li><a class="registration-link" href="{{ path("registration") }}" title="{{ title_provider({"link" : path("registration")}) }}">Регистрация</a></li>
+                  {#<li><a class="registration-link" href="{{ path("registration") }}" title="{{ title_provider({"link" : path("registration")}) }}">Регистрация</a></li>#}
+                  <li><a class="registration-link" href="{{ path("registration") }}">Регистрация</a></li>
               {% endif %}
           </ul>
         </div>
