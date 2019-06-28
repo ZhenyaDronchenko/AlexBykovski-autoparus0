@@ -94,6 +94,7 @@ cursor: default;
 
 /*user*/
 
+
 .prod {
     padding-top: 35px;
     padding-bottom: 65px;
@@ -118,7 +119,20 @@ cursor: default;
 h3 {
     font-weight: 400;
 }
-
+.btn-sel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #444444;
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    margin: 10px 0;
+    margin-left: auto;
+}
 .block-product {
     display: -moz-flex;
     display: -ms-flex;

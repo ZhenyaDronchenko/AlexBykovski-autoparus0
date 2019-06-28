@@ -11,134 +11,6 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <!-- <main class="container">
-        <div class="main-page" itemscope itemtype="https://schema.org/Organization">
-            <meta itemprop="name" content="Автопарус" />
-            <link itemprop="url" href="https://www.autoparus.by/" />
-            <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> 
-
-            <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                <meta itemprop="addressLocality" content="Минск, Беларусь" />
-                <meta itemprop="postalCode" content="220089" />
-                <meta itemprop="streetAddress" content="Льва Сопеги 11" />
-            </div>
-            <meta itemprop="telephone" content="+375296330073" />
-
-            <div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-                <meta itemprop="ratingValue" content="4.5">
-                <meta itemprop="reviewCount" content="2">
-            </div>
-            <link itemprop="sameAs" href="https://vk.com/group" />
-            <link itemprop="sameAs" href="https://twitter.com/group" />
-             <div class="main-search">
-                <form class="form" action="#" method="get" >
-
-                    <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
-                    <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
-                        <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
-                            <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
-                            <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
-                        </svg>
-                    </button>
-                    <div class="main-btn">
-                    <a class="form-link" href="{{ homePage.middleLink ? homePage.middleLink : ""}}">{{ homePage.middleText }}</a>
-                    </div>
-                </form>
-            </div>
-            <div class="article owl-carousel owl-theme" data-owl-carousel='{"center" : true, "items" : 2, "loop" : true, "margin" : 10, "responsive" : {"576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}}'>
-                {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
-                    {% set article = articleArray.object %}
-                    <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
-                        <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
-                        <div class="article-foto">
-                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
-                        </div>
-
-                        <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
-
-                        <div class="article-block">
-                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
-                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
-
-            {#<div class="owl-carousel">#}
-                {#<div> Your Content </div>#}
-                {#<div> Your Content </div>#}
-                {#<div> Your Content </div>#}
-                {#<div> Your Content </div>#}
-                {#<div> Your Content </div>#}
-                {#<div> Your Content </div>#}
-                {#<div> Your Content </div>#}
-            {#</div>#}
-
-            {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
-
-            <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}')">
-                <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts" ng-cloak>
-                    <div class="post-block">
-                        <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
-                        <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
-                        <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-
-                    <div class="content-wrapper">
-                        <div class="foto">
-                            <a ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
-                                <img ng-src="{[{post.image}]}" alt="Картинка">
-                            </a>
-                        </div>
-
-                        <div class="user-block">
-                            <div class="text-block text-block-w">
-                                <div id='text1' class='text1Show' show-more-lines class-less="text1Hide" class-more="text1Show" count-lines="3" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
-                                <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                                <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-                            </div>
-                            {#{% for car in pos.cars %}#}
-                                {#<ul class="user-list">#}
-                                    {#<li><a nohref><img src="/img/Logo1.svg" alt="Парус" width="16" height="16"></a></li>#}
-                                    {#<li>/</li>#}
-                                    {#{% if car.brand %}#}
-                                        {#<li style="font-size: 12px;">{{ car.brand.name }}</li>#}
-                                        {#{% if car.model %}#}
-                                            {#<li>/</li>#}
-                                            {#<li style="font-size: 10px;">{{ car.model.name }}</li>#}
-                                            {#{% if car.engineType %}#}
-                                                {#<li>/</li>#}
-                                                {#<li style="font-size: 10px;">{{ car.engineType.type }}</li>#}
-                                            {#{% endif %}#}
-                                        {#{% endif %}#}
-                                    {#{% endif %}#}
-                                {#</ul>#}
-                            {#{% endfor %}#}
-                            {#<p class="adress" ng-bind="post.address"></p>#}
-                            <div class="date-block">
-                                <span class="date" ng-bind="post.date"></span>
-                                <span class="time" ng-bind="post.time"></span>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
-            <div class="sail-f">
-                <img src="/img/windsurfing.png" alt="Парус">
-                <img src="/img/windsurfing.png" alt="Парус">
-                <img src="/img/windsurfing.png" alt="Парус">
-                <img src="/img/windsurfing.png" alt="Парус">
-                <img src="/img/windsurfing.png" alt="Парус">
-            </div>
-        </div>
-    </main> -->
-
     <main class="container"  ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}')">
       <h1 class="visually-hidden">Автопортал "Автопарус"</h1>
       <div itemscope itemtype="https://schema.org/Organization">
@@ -149,7 +21,7 @@
         <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
             <meta itemprop="addressLocality" content="Минск, Беларусь" />
             <meta itemprop="postalCode" content="220089" />
-            <meta itemprop="streetAddress" content="Льва Сопеги 11" />
+            <meta itemprop="streetAddress" content="Германовская 19" />
         </div>
         <meta itemprop="telephone" content="+375296330073" />
 

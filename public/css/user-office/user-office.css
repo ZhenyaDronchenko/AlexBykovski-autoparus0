@@ -8,7 +8,6 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding-top: 25px;
     padding-bottom: 20px;
 }
 .user-info {
