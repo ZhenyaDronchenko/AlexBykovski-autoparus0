@@ -218,7 +218,7 @@
             </ul>
             {% include('/client/default/parts/search-form.html.twig') %}
             </div>
-
+        <div>{{ homePage.text | raw }}</div>
         <ul class="block-art">
           <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
               <div class="art-block">
