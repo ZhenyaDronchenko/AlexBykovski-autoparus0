@@ -79,7 +79,9 @@ class ArticleAdmin extends AbstractAdmin
             'required' => false,
             "useAllFields" => true,
             "attr" => [
-                "class" => "single-image-for-cropper-container"
+                "class" => "single-image-for-cropper-container article-images-container",
+                "data-image-width" => 540,
+                "data-image-height" => 360,
             ],
         ]);
         $formMapper->add('articleImages', CollectionType::class, [
@@ -90,8 +92,8 @@ class ArticleAdmin extends AbstractAdmin
             'required' => false,
             'attr' => [
                 "class" => "article-images-container",
-                "data-image-width" => 1080,
-                "data-image-height" => 720,
+                "data-image-width" => 540,
+                "data-image-height" => 360,
             ],
         ]);
         $formMapper->add('banners', CollectionType::class, [

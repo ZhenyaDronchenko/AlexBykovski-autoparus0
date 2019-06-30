@@ -1368,11 +1368,26 @@ padding: 0;
     stroke: red;
 }
 
+#textMiddle {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    font-weight: 400;
+    text-align: justify;
+}
+
 @media (max-width: 480px) {
     .container {
         width: auto;
     }
 
+    .textMiddleHide {
+        max-height: 60px;
+        overflow: hidden;
+
+    }
     
     .modal6 {
         top: 0;
@@ -1403,8 +1418,10 @@ padding: 0;
         width: auto;
     }
 
-
-   
+    .textMiddleHide {
+        max-height: 60px;
+        overflow: hidden;
+    }
 
     .modal6 {
         top: 5px;
