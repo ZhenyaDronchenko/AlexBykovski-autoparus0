@@ -32,11 +32,18 @@ $(function(){
 
 
     $.each($(".slick-carousel"), function (index, item) {
-        let attr = $(item).data("slick-options");
-        attr = attr ? attr : {};
-
-        $(item).slick(attr);
+        $(item).slick(getCarouselAttrs(item));
     });
+
+    $.each($(".owl-carousel-slider"), function (index, item) {
+        $(item).owlCarousel(getCarouselAttrs(item));
+    });
+
+    function getCarouselAttrs(item) {
+        let attr = $(item).data("carousel-options");
+
+        return attr ? attr : {};
+    }
 });
 
 function scrollToElement(selector) {
@@ -210,7 +217,7 @@ function waitImagesPost(post) {
 }
 
 function showAllPostPhotos(post) {
-    if(post.hasOwnProperty("tempImages")){
+    if(post.hasOwnProperty("tempImages") && Object.keys(post["tempImages"]).length === Object.keys(post["images"]).length){
         $.each(post["images"], function (index) {
             post["images"][index]["path"] = post["tempImages"][index]["path"];
         });

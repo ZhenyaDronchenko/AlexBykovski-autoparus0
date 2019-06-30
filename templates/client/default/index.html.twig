@@ -3,14 +3,15 @@
 {% block meta_description %}{{ homePage.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/bower-components/select2/dist/css/select2.min.css'>
-    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick.css'>
-    <link rel='stylesheet' href='/bower-components/slick-carousel/slick/slick-theme.css'>
     <link rel='stylesheet' href='/css/default/index.css'>
 {% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
     <main class="container"  ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}')">
       <h1 class="visually-hidden">Автопортал "Автопарус"</h1>
       <div itemscope itemtype="https://schema.org/Organization">
@@ -32,7 +33,7 @@
         <link itemprop="sameAs" href="https://vk.com/group" />
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
-        <div class="article slick-carousel" data-slick-options='{"dots" : true, "variableWidth": true, "infinite" : true, "responsive" : [{"breakpoint" : 576, "settings" : {"slidesToShow" : 3}}, {"breakpoint" : 768, "settings" : {"slidesToShow" : 4}}, {"breakpoint" : 951, "settings" : {"slidesToShow" : 5}}, {"breakpoint" : 1200, "settings" : {"slidesToShow" : 6}}]}'>
+        <div class="article owl-carousel-slider owl-carousel owl-theme" data-carousel-options='{"dots" : true, "center" : true, "loop" : true, "margin" : 10, "responsive" : {"576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}}'>
             {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
                 {% set article = articleArray.object %}
                 <a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
@@ -67,7 +68,7 @@
                   </div>
 
                   <div class="content-wrapper">
-                      <div class="foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                      <div class="foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
                           <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
                             <img ng-src="{[{image.path}]}" alt="Картинка">
                           </a>
@@ -108,7 +109,7 @@
               </div>
 
             <div class="content-wrapper">
-                <div class="art-foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
                     <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
                         <img ng-src="{[{image.path}]}" alt="Картинка">
                     </a>
@@ -145,7 +146,7 @@
                 </div>
 
                 <div class="content-wrapper">
-                    <div class="art-foto post-images-{[{post.id}]}" carousel-element data-post-id="{[{post.id}]}">
+                    <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
                         <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
                             <img ng-src="{[{image.path}]}" alt="Картинка">
                         </a>
@@ -239,6 +240,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src='/bower-components/select2/dist/js/select2.min.js'></script>
     <script src='/bower-components/select2/dist/js/i18n/ru.js'></script>
     <script src='/js/client/directive/select2-autoparus.js'></script>
