@@ -10,6 +10,7 @@
                 let method = attrs.methodSearch;
                 let placeholder = attrs.placeholder;
                 let requestParams = angular.fromJson(attrs.requestParameters);
+                let query = {};
 
                 if(requestParams) {
                     let observer = new MutationObserver(function (mutations) {
@@ -46,8 +47,24 @@
 
                     $(element).select2({
                         placeholder: placeholder,
-                        language: "ru",
-                        data: data
+                        language: {
+                            searching: function (params) {
+                                query = params;
+
+                                return 'Поиск…';
+                            },
+                            noResults: function(){
+                                return "Совпадений не найдено";
+                            }
+                        },
+                        data: data,
+                        templateResult: function (item) {
+                            if (item.loading) {
+                                return item.text;
+                            }
+
+                            return markMatch(item.text, query.term || '');
+                        },
                     });
 
                     $(element).on('select2:select', function (e) {
@@ -84,6 +101,10 @@
                     AutoCompleteResource[method]("all_preload_variants", requestParams).then(function(items){
                         createAutocomplete(items);
                     });
+                }
+
+                function f() {
+
                 }
             }
         };

@@ -118,13 +118,11 @@
                         contentType: false,
                         success(data) {
                             if(data.success) {
-                                let countTempImages = Object.keys(self.posts[self.activePost.id].tempImages).length;
+                                $('.post-images-' + self.activePost.id).trigger('destroy.owl.carousel');
 
+                                showAllPostPhotos(self.posts[self.activePost.id]);
                                 self.posts[self.activePost.id].images.push(data.postPhoto);
-                                self.posts[self.activePost.id].tempImages[countTempImages] = data.postPhoto;
                                 self.posts[self.activePost.id].moveSlide = self.posts[self.activePost.id].images.length - 1;
-
-                                $('.post-images-' + self.activePost.id).slick("unslick");
 
                                 $scope.$evalAsync();
                             }
