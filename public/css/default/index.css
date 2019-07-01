@@ -1455,3 +1455,6 @@ padding: 0;
 
 
 /*  MAIN END */
+.select2-rendered__match {
+    color: royalblue;
+}
