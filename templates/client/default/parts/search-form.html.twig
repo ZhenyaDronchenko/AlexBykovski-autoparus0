@@ -8,7 +8,7 @@
             <select id="year-autocomplete" placeholder="Год" select2-autoparus method-search="searchYears" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
             <select id="sparePart-autocomplete" placeholder="Наименование з/ч" select2-autoparus method-search="searchSpareParts"></select>
             <select id="engineType-autocomplete" placeholder="Тип двигателя" select2-autoparus method-search="searchEngineTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
-            <select id="capacity-autocomplete" placeholder="Объём" select2-autoparus method-search="searchEngineCapacities" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "engineType": "{[{searchForm.params.engineType}]}"}'></select>
+            <select id="capacity-autocomplete" placeholder="Объём" select2-autoparus method-search="searchEngineCapacities" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "engineType": "{[{searchForm.params.engineType}]}"}' use-additional-data="true"></select>
             <select id="vehicleType-autocomplete" placeholder="Тип кузова" select2-autoparus method-search="searchVehicleTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
 
             <ul class="part-block">

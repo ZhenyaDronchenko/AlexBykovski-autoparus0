@@ -12,8 +12,8 @@
         let self = this;
         let url = null;
         let params = {
-            "limit" : 8,
-            "offset" : -8,
+            "limit" : 2,
+            "offset" : -2,
         };
         this.posts = [];
         //image from https://loading.io/
@@ -53,8 +53,15 @@
                     self.posts.push(waitImagesPost(post));
                 });
 
-                if(self.posts.length % 8 === 0 && self.posts.length > 2){
-                    updateScrollTrigger("#post-" + self.posts[self.posts.length - 3].id);
+                if(((self.posts.length - 2) % 8 === 0 || params.limit === 2 && self.posts.length === 2) && self.posts.length > 1){
+                    const startScrollIndex = self.posts.length > 2 ? self.posts.length - 3 : self.posts.length - 2;
+
+                    updateScrollTrigger("#post-" + self.posts[startScrollIndex].id);
+                }
+
+                if(params.limit === 2){
+                    params.limit = 8;
+                    params.offset = -6;
                 }
 
                 preloader.css("display", "none");
@@ -70,14 +77,13 @@
                 }
 
                 let hT = $(id).offset().top;
-                let hH = $(id).outerHeight();
                 let wH = $(window).height();
                 let wS = $(this).scrollTop();
 
-                if (wS > (hT+hH-wH)){
+                if (hT < (wH + wS)){
                     updatePosts();
 
-                    $(window).off();
+                    $(window).off("scroll");
                 }
             });
         }

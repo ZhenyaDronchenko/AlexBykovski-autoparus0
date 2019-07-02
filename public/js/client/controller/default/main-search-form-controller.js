@@ -32,7 +32,7 @@
                 url: Routing.generate('main_page_search_form'),
                 data: self.params
             }).then(function (response) {
-                window.location.href = response.data.redirectUrl ? response.data.redirectUrl : Routing.generate('show_brand_catalog_choice_brand');
+                //  window.location.href = response.data.redirectUrl ? response.data.redirectUrl : Routing.generate('show_brand_catalog_choice_brand');
             }, function (response) {
                 console.log("error");
             });
