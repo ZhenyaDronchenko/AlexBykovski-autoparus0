@@ -78,6 +78,11 @@ class MainPage
     const CITY_FILTER_GENERAL_DESCRIPTION = "Интересные предложения от автокомпаний";
     const CITY_FILTER_ALL_USERS_GENERAL_DESCRIPTION = "Интересные предложения от всех автокомпаний";
 
+    const PAGES_WITH_VOICE_SEARCH = ["homepage", "homepage_all_users", "homepage_filter_user", "homepage_filter_brand",
+        "homepage_filter_brand_model", "homepage_filter_city_activity", "homepage_filter_user_all_users",
+        "homepage_filter_brand_all_users", "homepage_filter_brand_model_all_users",
+        "homepage_filter_city_activity_all_users"];
+
     /**
      * @var integer
      *

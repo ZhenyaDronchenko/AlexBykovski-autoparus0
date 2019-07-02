@@ -363,14 +363,18 @@ class Model implements VariableInterface
     public function capacitiesToSearchArray($engineType, $text)
     {
         $capacities = [];
-        $engineCapacities = $this->getEngineCapacities($engineType);
+        $engines = $this->technicalData->getEnginesByType($engineType);
 
-        foreach ($engineCapacities as $capacity){
+        /** @var Engine $engine */
+        foreach ($engines as $engine){
+            $capacity = $engine->getCapacity();
+
             if(!$text || strpos($capacity, $text) === 0){
                 $capacities[] = [
                     "label" => $capacity,
                     "value" => $capacity,
                     "url" => $capacity,
+                    "additional" => '(' . $engine->getName() . ')',
                 ];
             }
         }
