@@ -1033,10 +1033,10 @@ padding-top: 5px;
     .container {
         width: auto;
     }
-    
-.footer {
-    display: none;
-}
+
+    .footer {
+        display: block;
+    }
 
     .navigation-link {
         width: 35px;
@@ -1061,8 +1061,8 @@ padding-top: 5px;
     }
 
     .footer {
-    display: none;
-}
+        display: block;
+    }
 
     .sail {
         bottom: 45px;
