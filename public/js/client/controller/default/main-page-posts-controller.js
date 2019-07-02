@@ -71,28 +71,30 @@
         }
 
         function updateScrollTrigger(id){
-            let hT = $(id).offset().top;
-            let wH = $(window).height();
-            let wS = $(this).scrollTop();
-
-            if (hT < (wH + wS)){
-                return updatePosts();
-            }
-
-            $(window).on("scroll", function() {
-                if($(id).length < 1){
-                    return false;
-                }
-
+            $(id).ready(function () {
                 let hT = $(id).offset().top;
                 let wH = $(window).height();
                 let wS = $(this).scrollTop();
 
                 if (hT < (wH + wS)){
-                    updatePosts();
-
-                    $(window).off("scroll");
+                    return updatePosts();
                 }
+
+                $(window).on("scroll", function() {
+                    if($(id).length < 1){
+                        return false;
+                    }
+
+                    let hT = $(id).offset().top;
+                    let wH = $(window).height();
+                    let wS = $(this).scrollTop();
+
+                    if (hT < (wH + wS)){
+                        updatePosts();
+
+                        $(window).off("scroll");
+                    }
+                });
             });
         }
 
