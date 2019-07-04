@@ -129,7 +129,7 @@
 
           {% if app.request.attributes.get('_route') in constant('App\\Entity\\General\\MainPage::PAGES_WITH_VOICE_SEARCH') %}
             <div class="main-search">
-              <form class="form" action="#" method="get" >
+              <form class="form">
                 <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
                   <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
                       <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">

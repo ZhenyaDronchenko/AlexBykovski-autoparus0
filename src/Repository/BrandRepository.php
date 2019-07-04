@@ -100,4 +100,20 @@ class BrandRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findForSpeech($text)
+    {
+        $qb = $this->createQueryBuilder('br')
+            ->select('br');
+
+        $orX = $qb->expr()->orX(
+            ':textUpper LIKE CONCAT(\'%\', UPPER(br.name), \'%\')',
+            ':textUpper LIKE CONCAT(\'%\', REPLACE(UPPER(TRIM(br.name)), \'-\', \' \'), \'%\')'
+        );
+
+        return $qb->where($orX)
+            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
+            ->getQuery()
+            ->getResult();
+    }
 }

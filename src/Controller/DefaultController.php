@@ -144,4 +144,21 @@ class DefaultController extends Controller
 
         return new JsonResponse(["redirectUrl" => $redirectUrl]);
     }
+
+    /**
+     * @Route("/search-by-voice-speech", name="search_by_voice_speech", options={"expose"=true})
+     */
+    public function searchByVoiceSpeechAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $text = json_decode($request->getContent(), true)["text"];
+
+        $brands = $em->getRepository(Brand::class)->findForSpeech($text);
+        $spareParts = $em->getRepository(SparePart::class)->findForSpeech($text);
+
+
+
+        return new JsonResponse(["redirectUrl" => count($spareParts)]);
+    }
 }

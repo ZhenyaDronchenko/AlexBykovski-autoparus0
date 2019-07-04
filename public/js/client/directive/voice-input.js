@@ -1,7 +1,7 @@
 (function(autoparusApp) {
     'use strict';
 
-    autoparusApp.directive("voiceInput",[function(){
+    autoparusApp.directive("voiceInput",['$http', function($http){
         return{
             restrict: 'A',
             link: function(scope, element, attrs)
@@ -11,52 +11,86 @@
                 let modal = $(attrs.modalSelector);
                 let microphoneInterval = null;
                 let textPlace = $("#text-from-microphone");
+                let recognition = null;
+
+                if (window.hasOwnProperty('webkitSpeechRecognition')) {
+                    recognition = new webkitSpeechRecognition();
+                    recognition.interimResults = true;
+                    recognition.continuous = true;
+
+                    recognition.lang = "ru-RU";
+                }
 
                 trigger.click(function () {
-                    if (window.hasOwnProperty('webkitSpeechRecognition')) {
-                        let recognition = new webkitSpeechRecognition();
-
-                        recognition.continuous = false;
-                        recognition.interimResults = false;
-
-                        recognition.lang = "ru-RU";
+                    target.trigger("search");
+                    return false;
+                    if(recognition) {
                         recognition.start();
 
-                        recognition.onsoundstart = function(e) {
-                            if(modal.length) {
+                        recognition.onsoundstart = function (e) {
+                            if (modal.length) {
                                 textPlace.html("");
                                 modal.show();
                                 startWorkMicrophone();
                             }
                         };
 
-                        recognition.onresult = function(e) {
-                            recognition.stop();
-
+                        recognition.onresult = function (e) {
                             let value = e.results[0][0].transcript;
 
-                            if(value){
+                            if (value) {
                                 target.val(e.results[0][0].transcript);
+
+                                if (modal.length) {
+                                    textPlace.html(e.results[0][0].transcript);
+                                }
+                            }
+                        };
+
+                        recognition.onspeechend = function (e) {
+                            recognition.stop();
+
+                            let value = e.results ? e.results[0][0].transcript : "";
+                            value = value ? value : textPlace.html();
+
+                            if (value) {
+                                target.val(value);
                                 target.attr("data-by-voice", "true");
 
-                                if(modal.length){
+                                if (modal.length) {
                                     clearInterval(microphoneInterval);
 
-                                    textPlace.html(e.results[0][0].transcript);
+                                    textPlace.html(value);
                                 }
 
                                 target.trigger("search");
                             }
                         };
 
-                        recognition.onerror = function(e) {
+                        recognition.onerror = function (e) {
                             recognition.stop();
                         }
                     }
                 });
 
-                target.on("search", function () {
-                    window.location = "/brand-catalog";
+                target.on("search", function (e) {
+                    console.log($(this).val());
+
+                    $http({
+                        method: 'POST',
+                        url: Routing.generate('search_by_voice_speech'),
+                        data: {
+                            text: $(this).val()
+                        }
+                    }).then(function (response) {
+                        console.log(response.data);
+
+                    }, function (response) {
+                        console.error(response);
+                    });
+
+
+                    //window.location = "/brand-catalog";
                 });
 
 
@@ -86,6 +120,10 @@
                         el.css("box-shadow", "0px 0px " + shadow1 + "px " + shadow2 + "px rgba(68,68,68,0.6)")
                     }, 100)
                 }
+
+                $("#microphone-image").click(function (e) {
+                    recognition.stop();
+                });
             }
         };
     }]);
