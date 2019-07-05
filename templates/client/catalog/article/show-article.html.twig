@@ -9,7 +9,7 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container">
+    <!-- <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}"
@@ -110,5 +110,809 @@
                 </div>
             </div>
         </section>
+    </main> -->
+
+    <main class="container">
+      <section class="main-page">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Статьи</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}" itemprop="item"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ theme.theme }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+            </li>
+
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" href="" itemprop="item">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ article.headline1 }}</span>
+                    <meta itemprop="position" content="4">
+                </a>
+            </li>
+        </ul>
+
+        <div class="news" itemscope itemtype="http://schema.org/Article">
+            <link itemprop="mainEntityOfPage" href="https://www.autoparus.by/">
+            <div class="wrapper">
+              <div class="block-left">
+                <meta itemprop="dateModified" content="2019-06-21">
+                <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                  <meta itemprop="name" content="Автопарус">
+                  <meta itemprop="telephone" content="+375  (01)  755 - 40 - 83">
+                  <meta itemprop="address" content="Минск, Германовская 19">
+                  <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                    <meta itemprop="url image" content="/images/user/2019/06/5d04bda5aa9aa.jpg" style="display:none;">
+                    <meta itemprop="width" content="60">
+                    <meta itemprop="height" content="60">
+                  </span>
+                </span>
+                <h1 itemprop="headline name">Aston Martin DB4 GT Zagato</h1>
+                <h2 class="news-title" itemprop="alternativeHeadline">Возвращение легендарной классики</h2>
+
+                  <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
+                        <figcaption>
+                            {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
+                            <span itemprop="name">Автор: {{ article.author }}</span>
+                        </figcaption>
+                    </figure>
+
+                  <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
+
+                  <ul class="foto" itemprop="articleBody">
+                        {% for articleImage in article.articleImages %}
+                            <li class="foto-item">
+                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи" itemprop="image">
+                                <p class="foto-text">{{ articleImage.text | raw }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="block-right">
+                  <div class="block-cons">
+                    <h2>Заказать Консультации о покупке авто из США</h2>
+                    <input type="text"  placeholder="Ваше имя" class="input" pattern="[a-zA-Zа-яА-Я\s]">
+                    <input type="tel"  required="required" placeholder="Ваш телефон" class="input">
+                    <input type="email" placeholder="Ваш e-mail" class="input">
+                    <button type="submit" class="btn">Отправить заявку</button>
+                    <p>Консультация абсолютно бесплатная</p>
+                    <h3>Заголовок из КТ 48</h3>
+                    <p>Текст из КТ 48, Текст из КТ 48, Текст из КТ 48, Текст из КТ 48, Текст из КТ 48, </p>
+                  </div>
+                  <div class="block-part">  
+                  <h2>Автозапчасти</h2>
+    <form class='modform'>
+        <select class='form7' onChange="window.location.replace(this.options[this.selectedIndex].value)">
+            <option selected>Марка авто:</option>
+                            <option value="/brand-catalog/acura">ACURA</option>
+                            <option value="/brand-catalog/alfa_romeo">ALFA ROMEO</option>
+                            <option value="/brand-catalog/aston_martin">ASTON MARTIN</option>
+                            <option value="/brand-catalog/audi">AUDI</option>
+                            <option value="/brand-catalog/baw">BAW</option>
+                            <option value="/brand-catalog/bmw">BMW</option>
+                            <option value="/brand-catalog/brilliance">BRILLIANCE</option>
+                            <option value="/brand-catalog/buick">BUICK</option>
+                            <option value="/brand-catalog/byd">BYD</option>
+                            <option value="/brand-catalog/cadillac">CADILLAC</option>
+                            <option value="/brand-catalog/changan">CHANGAN</option>
+                            <option value="/brand-catalog/chery">CHERY</option>
+                            <option value="/brand-catalog/chevrolet">CHEVROLET</option>
+                            <option value="/brand-catalog/chrysler">CHRYSLER</option>
+                            <option value="/brand-catalog/citroen">CITROEN</option>
+                            <option value="/brand-catalog/dacia">DACIA</option>
+                            <option value="/brand-catalog/daewoo">DAEWOO</option>
+                            <option value="/brand-catalog/daf">DAF</option>
+                            <option value="/brand-catalog/daihatsu">DAIHATSU</option>
+                            <option value="/brand-catalog/datsun">DATSUN</option>
+                            <option value="/brand-catalog/dodge">DODGE</option>
+                            <option value="/brand-catalog/dongfeng">DONGFENG</option>
+                            <option value="/brand-catalog/faw">FAW</option>
+                            <option value="/brand-catalog/fiat">FIAT</option>
+                            <option value="/brand-catalog/ford">FORD</option>
+                            <option value="/brand-catalog/gaz">GAZ</option>
+                            <option value="/brand-catalog/geely">GEELY</option>
+                            <option value="/brand-catalog/genesis">GENESIS</option>
+                            <option value="/brand-catalog/great_wall">GREAT-WALL</option>
+                            <option value="/brand-catalog/haval">HAVAL</option>
+                            <option value="/brand-catalog/honda">HONDA</option>
+                            <option value="/brand-catalog/hyundai">HYUNDAI</option>
+                            <option value="/brand-catalog/infiniti">INFINITI</option>
+                            <option value="/brand-catalog/iveco">IVECO</option>
+                            <option value="/brand-catalog/jaguar">JAGUAR</option>
+                            <option value="/brand-catalog/kia">KIA</option>
+                            <option value="/brand-catalog/lada">LADA</option>
+                            <option value="/brand-catalog/land_rover">LAND ROVER</option>
+                            <option value="/brand-catalog/lexus">LEXUS</option>
+                            <option value="/brand-catalog/mazda">MAZDA</option>
+                            <option value="/brand-catalog/mercedes-benz">MERCEDES-BENZ</option>
+                            <option value="/brand-catalog/mitsubishi">MITSUBISHI</option>
+                            <option value="/brand-catalog/nissan">NISSAN</option>
+                            <option value="/brand-catalog/opel">OPEL</option>
+                            <option value="/brand-catalog/peugeot">PEUGEOT</option>
+                            <option value="/brand-catalog/porsche">PORSCHE</option>
+                            <option value="/brand-catalog/ravon">RAVON</option>
+                            <option value="/brand-catalog/renault">RENAULT</option>
+                            <option value="/brand-catalog/rover">ROVER</option>
+                            <option value="/brand-catalog/saab">SAAB</option>
+                            <option value="/brand-catalog/seat">SEAT</option>
+                            <option value="/brand-catalog/skoda">SKODA</option>
+                            <option value="/brand-catalog/smart">SMART</option>
+                            <option value="/brand-catalog/ssang_yong">SSANG YONG</option>
+                            <option value="/brand-catalog/subaru">SUBARU</option>
+                            <option value="/brand-catalog/suzuki">SUZUKI</option>
+                            <option value="/brand-catalog/tesla">TESLA</option>
+                            <option value="/brand-catalog/toyota">TOYOTA</option>
+                            <option value="/brand-catalog/uaz">UAZ</option>
+                            <option value="/brand-catalog/volkswagen">VOLKSWAGEN</option>
+                            <option value="/brand-catalog/volvo">VOLVO</option>
+                            <option value="/brand-catalog/toyota_rus">ТОЙОТА</option>
+                    </select>
+    </form>
+
+                        <h2>OBD2 форум</h2>
+    <form class='modform'>
+        <select class='form7' onChange="window.location.replace(this.options[this.selectedIndex].value)">
+            <option selected>Марка авто:</option>
+                            <option value="/forum-obd2/acura">ACURA</option>
+                            <option value="/forum-obd2/alfa_romeo">ALFA ROMEO</option>
+                            <option value="/forum-obd2/aston_martin">ASTON MARTIN</option>
+                            <option value="/forum-obd2/audi">AUDI</option>
+                            <option value="/forum-obd2/baw">BAW</option>
+                            <option value="/forum-obd2/bmw">BMW</option>
+                            <option value="/forum-obd2/brilliance">BRILLIANCE</option>
+                            <option value="/forum-obd2/buick">BUICK</option>
+                            <option value="/forum-obd2/byd">BYD</option>
+                            <option value="/forum-obd2/cadillac">CADILLAC</option>
+                            <option value="/forum-obd2/changan">CHANGAN</option>
+                            <option value="/forum-obd2/chery">CHERY</option>
+                            <option value="/forum-obd2/chevrolet">CHEVROLET</option>
+                            <option value="/forum-obd2/chrysler">CHRYSLER</option>
+                            <option value="/forum-obd2/citroen">CITROEN</option>
+                            <option value="/forum-obd2/dacia">DACIA</option>
+                            <option value="/forum-obd2/daewoo">DAEWOO</option>
+                            <option value="/forum-obd2/daf">DAF</option>
+                            <option value="/forum-obd2/daihatsu">DAIHATSU</option>
+                            <option value="/forum-obd2/datsun">DATSUN</option>
+                            <option value="/forum-obd2/dodge">DODGE</option>
+                            <option value="/forum-obd2/dongfeng">DONGFENG</option>
+                            <option value="/forum-obd2/faw">FAW</option>
+                            <option value="/forum-obd2/fiat">FIAT</option>
+                            <option value="/forum-obd2/ford">FORD</option>
+                            <option value="/forum-obd2/gaz">GAZ</option>
+                            <option value="/forum-obd2/geely">GEELY</option>
+                            <option value="/forum-obd2/genesis">GENESIS</option>
+                            <option value="/forum-obd2/great_wall">GREAT-WALL</option>
+                            <option value="/forum-obd2/haval">HAVAL</option>
+                            <option value="/forum-obd2/honda">HONDA</option>
+                            <option value="/forum-obd2/hyundai">HYUNDAI</option>
+                            <option value="/forum-obd2/infiniti">INFINITI</option>
+                            <option value="/forum-obd2/iveco">IVECO</option>
+                            <option value="/forum-obd2/jaguar">JAGUAR</option>
+                            <option value="/forum-obd2/kia">KIA</option>
+                            <option value="/forum-obd2/lada">LADA</option>
+                            <option value="/forum-obd2/land_rover">LAND ROVER</option>
+                            <option value="/forum-obd2/lexus">LEXUS</option>
+                            <option value="/forum-obd2/mazda">MAZDA</option>
+                            <option value="/forum-obd2/mercedes-benz">MERCEDES-BENZ</option>
+                            <option value="/forum-obd2/mitsubishi">MITSUBISHI</option>
+                            <option value="/forum-obd2/nissan">NISSAN</option>
+                            <option value="/forum-obd2/opel">OPEL</option>
+                            <option value="/forum-obd2/peugeot">PEUGEOT</option>
+                            <option value="/forum-obd2/porsche">PORSCHE</option>
+                            <option value="/forum-obd2/ravon">RAVON</option>
+                            <option value="/forum-obd2/renault">RENAULT</option>
+                            <option value="/forum-obd2/rover">ROVER</option>
+                            <option value="/forum-obd2/saab">SAAB</option>
+                            <option value="/forum-obd2/seat">SEAT</option>
+                            <option value="/forum-obd2/skoda">SKODA</option>
+                            <option value="/forum-obd2/smart">SMART</option>
+                            <option value="/forum-obd2/ssang_yong">SSANG YONG</option>
+                            <option value="/forum-obd2/subaru">SUBARU</option>
+                            <option value="/forum-obd2/suzuki">SUZUKI</option>
+                            <option value="/forum-obd2/tesla">TESLA</option>
+                            <option value="/forum-obd2/toyota">TOYOTA</option>
+                            <option value="/forum-obd2/uaz">UAZ</option>
+                            <option value="/forum-obd2/volkswagen">VOLKSWAGEN</option>
+                            <option value="/forum-obd2/volvo">VOLVO</option>
+                            <option value="/forum-obd2/toyota_rus">ТОЙОТА</option>
+                    </select>
+    </form>
+
+                        <h2>Короткие посты</h2>
+    <form class='modform'>
+        <select class='form7' onChange="window.location.replace(this.options[this.selectedIndex].value)">
+            <option selected>Марка авто:</option>
+                            <option value="/car-posts/acura">ACURA</option>
+                            <option value="/car-posts/alfa_romeo">ALFA ROMEO</option>
+                            <option value="/car-posts/aston_martin">ASTON MARTIN</option>
+                            <option value="/car-posts/audi">AUDI</option>
+                            <option value="/car-posts/baw">BAW</option>
+                            <option value="/car-posts/bmw">BMW</option>
+                            <option value="/car-posts/brilliance">BRILLIANCE</option>
+                            <option value="/car-posts/buick">BUICK</option>
+                            <option value="/car-posts/byd">BYD</option>
+                            <option value="/car-posts/cadillac">CADILLAC</option>
+                            <option value="/car-posts/changan">CHANGAN</option>
+                            <option value="/car-posts/chery">CHERY</option>
+                            <option value="/car-posts/chevrolet">CHEVROLET</option>
+                            <option value="/car-posts/chrysler">CHRYSLER</option>
+                            <option value="/car-posts/citroen">CITROEN</option>
+                            <option value="/car-posts/dacia">DACIA</option>
+                            <option value="/car-posts/daewoo">DAEWOO</option>
+                            <option value="/car-posts/daf">DAF</option>
+                            <option value="/car-posts/daihatsu">DAIHATSU</option>
+                            <option value="/car-posts/datsun">DATSUN</option>
+                            <option value="/car-posts/dodge">DODGE</option>
+                            <option value="/car-posts/dongfeng">DONGFENG</option>
+                            <option value="/car-posts/faw">FAW</option>
+                            <option value="/car-posts/fiat">FIAT</option>
+                            <option value="/car-posts/ford">FORD</option>
+                            <option value="/car-posts/gaz">GAZ</option>
+                            <option value="/car-posts/geely">GEELY</option>
+                            <option value="/car-posts/genesis">GENESIS</option>
+                            <option value="/car-posts/great_wall">GREAT-WALL</option>
+                            <option value="/car-posts/haval">HAVAL</option>
+                            <option value="/car-posts/honda">HONDA</option>
+                            <option value="/car-posts/hyundai">HYUNDAI</option>
+                            <option value="/car-posts/infiniti">INFINITI</option>
+                            <option value="/car-posts/iveco">IVECO</option>
+                            <option value="/car-posts/jaguar">JAGUAR</option>
+                            <option value="/car-posts/kia">KIA</option>
+                            <option value="/car-posts/lada">LADA</option>
+                            <option value="/car-posts/land_rover">LAND ROVER</option>
+                            <option value="/car-posts/lexus">LEXUS</option>
+                            <option value="/car-posts/mazda">MAZDA</option>
+                            <option value="/car-posts/mercedes-benz">MERCEDES-BENZ</option>
+                            <option value="/car-posts/mitsubishi">MITSUBISHI</option>
+                            <option value="/car-posts/nissan">NISSAN</option>
+                            <option value="/car-posts/opel">OPEL</option>
+                            <option value="/car-posts/peugeot">PEUGEOT</option>
+                            <option value="/car-posts/porsche">PORSCHE</option>
+                            <option value="/car-posts/ravon">RAVON</option>
+                            <option value="/car-posts/renault">RENAULT</option>
+                            <option value="/car-posts/rover">ROVER</option>
+                            <option value="/car-posts/saab">SAAB</option>
+                            <option value="/car-posts/seat">SEAT</option>
+                            <option value="/car-posts/skoda">SKODA</option>
+                            <option value="/car-posts/smart">SMART</option>
+                            <option value="/car-posts/ssang_yong">SSANG YONG</option>
+                            <option value="/car-posts/subaru">SUBARU</option>
+                            <option value="/car-posts/suzuki">SUZUKI</option>
+                            <option value="/car-posts/tesla">TESLA</option>
+                            <option value="/car-posts/toyota">TOYOTA</option>
+                            <option value="/car-posts/uaz">UAZ</option>
+                            <option value="/car-posts/volkswagen">VOLKSWAGEN</option>
+                            <option value="/car-posts/volvo">VOLVO</option>
+                            <option value="/car-posts/toyota_rus">ТОЙОТА</option>
+                    </select>
+    </form>
+
+                        <h2>Автозапчасти</h2>
+    <form class='modform'>
+        <select class='form7' onChange="window.location.replace(this.options[this.selectedIndex].value)">
+            <option selected>Запчасть:</option>
+                            <option value="/zapchasti/android_multimedia">Android автомагнитола (мультимедийная система)</option>
+                            <option value="/zapchasti/kover_salonny">Автоковрики салона, багажника (ковры салона, багажника)</option>
+                            <option value="/zapchasti/avtonomnii_otopitel">Автономный отопитель (отопитель салона автомобиля)</option>
+                            <option value="/zapchasti/akb">Аккумулятор, АКБ батарея (аккумуляторная батарея)</option>
+                            <option value="/zapchasti/actuator_otkritia_baka">Активатор лючка бака (соленоид открытия багажника)</option>
+                            <option value="/zapchasti/aktuator_vizima_sceplenia">Актуатор сцепления (актуатор выбора передач)</option>
+                            <option value="/zapchasti/amortizatori_zalnie">Амортизатор задний (амортизаторы задней подвески)</option>
+                            <option value="/zapchasti/amortizator_zad_lev">Амортизатор задний левый (задняя левая стойка)</option>
+                            <option value="/zapchasti/amortizator_zad_prav">Амортизатор задний правый (задняя правая стойка)</option>
+                            <option value="/zapchasti/amortizator_kapota">Амортизатор капота (торсионы удержания капота)</option>
+                            <option value="/zapchasti/amortizator_krushki_bagaznika">Амортизатор крышки багажника (3-5 двери)</option>
+                            <option value="/zapchasti/amortizator_perednii">Амортизатор передний (передние амортизаторы пара)</option>
+                            <option value="/zapchasti/Amortizator_per_lev">Амортизатор передний левый (передняя левая стойка)</option>
+                            <option value="/zapchasti/amortizator_per_prav">Амортизатор передний правый (передняя правая стойка)</option>
+                            <option value="/zapchasti/antenna">Антенна (автомобильная антенна)</option>
+                            <option value="/zapchasti/arki_kriliev_remontnie">Арки задних крыльев (ремонтные накладки крыльев)</option>
+                            <option value="/zapchasti/bagaznik_krishi">Багажник на крышу авто (вещевой ящик на рейлинги)</option>
+                            <option value="/zapchasti/bak_toplivnii">Бак топливный (бензобак, бак топлива)</option>
+                            <option value="/zapchasti/balka_zad_podveski">Балка подвески задняя (подрамник задней подвески)</option>
+                            <option value="/zapchasti/balka_per_podveski">Балка подвески передняя (подрамник)</option>
+                            <option value="/zapchasti/bamper_zadnii">Бампер задний (верхняя, нижняя часть)</option>
+                            <option value="/zapchasti/bamper_perednii">Бампер передний (верхняя, нижняя часть)</option>
+                            <option value="/zapchasti/glushitel">Банка глушителя задняя (банка глушителя средняя)</option>
+                            <option value="/zapchasti/tormoznoi_baraban">Барабан тормозной (задние тормозные барабаны)</option>
+                            <option value="/zapchasti/bardachok">Бардачок (вещевой ящик передней панели)</option>
+                            <option value="/zapchasti/bachek_omivatela">Бачок омывателя (бачок омывателя фар)</option>
+                            <option value="/zapchasti/rasshiritelnii_bachek">Бачок расширительный (бачек охлаждающей жидкости)</option>
+                            <option value="/zapchasti/benzinovi_dvs">Бензиновый двигатель (мотор бензиновый, ДВС)</option>
+                            <option value="/zapchasti/blok_abs">Блок ABS (исполнительный модуль ABS)</option>
+                            <option value="/zapchasti/blok_AirBag">Блок AirBag (блок подушек безопасности)</option>
+                            <option value="/zapchasti/blenda">Блок Bluetooth (блок бортовой сети)</option>
+                            <option value="/zapchasti/blok_predohranitelei">Блок предохранителей (блок реле)</option>
+                            <option value="/zapchasti/blok_ksenona">Блок розжига ксенона (блок розжига LED)</option>
+                            <option value="/zapchasti/blok_solenoidov_akpp">Блок соленоидов АКПП (блок клапанов пневмоподвески)</option>
+                            <option value="/zapchasti/blok_upravlenia_akpp_robota">Блок управления АКПП (вариатора, робота)</option>
+                            <option value="/zapchasti/ebu">Блок управления двигателем (ЭБУ двигателя)</option>
+                            <option value="/zapchasti/blok_klimat-kontrola">Блок управления печки (блок климат-контроля)</option>
+                            <option value="/zapchasti/blok_cilindrov">Блок цилиндров двигателя (низ двигателя, мотора)</option>
+                            <option value="/zapchasti/blok_upr_steklopodemnikov">Блок электростеклоподъемников (кнопки стеклоподъемников)</option>
+                            <option value="/zapchasti/bolt">Болт колесный (гайка колесная)</option>
+                            <option value="/zapchasti/brizgovik">Брызговик (комплект брызговиков)</option>
+                            <option value="/zapchasti/Vakuumni_nasos">Вакуумный насос (насос создания вакуума)</option>
+                            <option value="/zapchasti/vakuumniy_usilitel_tormozov">Вакуумный усилитель тормозов (вакуумный ресивер)</option>
+                            <option value="/zapchasti/ventiliator_radiatora">Вентилятор радиатора (диффузор вентилятора радиатора)</option>
+                            <option value="/zapchasti/viskomufta">Вискомуфта (вискомуфта крыльчатки)</option>
+                            <option value="/zapchasti/knopka_steklopodemnika_zad_prav">Водительский блок управления стеклоподъемниками</option>
+                            <option value="/zapchasti/vozduhovod">Воздуховод (воздухозаборник)</option>
+                            <option value="/zapchasti/vozduhozabornik">Воздухозаборник (приемник воздушного потока)</option>
+                            <option value="/zapchasti/vikluchatel_koncevoy">Выключатель концевой (концевик)</option>
+                            <option value="/zapchasti/Visokovoltnaia_batareia">Высоковольтная батарея (батарея гибридного авто)</option>
+                            <option value="/zapchasti/Generator">Генератор (автомобильный генератор)</option>
+                            <option value="/zapchasti/Gibridni_dvs">Гибридный двигатель (мотор гибридный, ДВС)</option>
+                            <option value="/zapchasti/gidrosfera_gidroakkumulator">Гидросфера (гидроаккумулятор)</option>
+                            <option value="/zapchasti/gidrousilitel">Гидроусилитель руля ГУР (насос гидроусилителя руля)</option>
+                            <option value="/zapchasti/glushitel_vihlop">Глушитель (глушитель выхлопной системы)</option>
+                            <option value="/zapchasti/golovka_bloka_cilindrov">Головка блока цилиндров (голова, ГБЦ двигателя)</option>
+                            <option value="/zapchasti/gorlovina_toplivnogo_baka">Горловина топливного бака (заливная горловина бака)</option>
+                            <option value="/zapchasti/gofra_injektora_patrubok">Гофра инжектора (патрубок воздушного фильтра)</option>
+                            <option value="/zapchasti/datchik">Датчик (прочие)</option>
+                            <option value="/zapchasti/datchik_abs">Датчик ABS (датчики управления АБС)</option>
+                            <option value="/zapchasti/datchik_abc_zad_lev">Датчик ABS задний левый (Датчик АБС заднего колеса)</option>
+                            <option value="/zapchasti/datchik_abc_zad_prav">Датчик ABS задний правый (Датчик АБС заднего колеса)</option>
+                            <option value="/zapchasti/datchik_abc_per_lev">Датчик ABS передний левый (Датчик АБС левого колеса)</option>
+                            <option value="/zapchasti/datchik_abc_per_prav">Датчик ABS передний правый (Датчик АБС правого колеса)</option>
+                            <option value="/zapchasti/datchik_airbag">Датчик AirBag (датчик удара)</option>
+                            <option value="/zapchasti/datchik_absolutnogo_davlenia">Датчик абсолютного давления (датчик разряжения во впуске)</option>
+                            <option value="/zapchasti/datchik_davltnia_v_shine">Датчик давления в шине (датчик колесный)</option>
+                            <option value="/zapchasti/datchik_davlenia_masla">Датчик давления масла (датчик масляный)</option>
+                            <option value="/zapchasti/datchik_davlenia_topliva">Датчик давления топлива (давления в топливной системе)</option>
+                            <option value="/zapchasti/datchik_davlenia_nadduva">Датчик давления турбонаддува (датчик давления наддува)</option>
+                            <option value="/zapchasti/datchik_detonacii">Датчик детонации (датчик вибрации двигателя)</option>
+                            <option value="/zapchasti/datchik_dojdia">Датчик дождя (датчик включения щеток)</option>
+                            <option value="/zapchasti/dachik_droselnoi_zaslonki">Датчик дросельной заслонки (датчик дроселя)</option>
+                            <option value="/zapchasti/datchik_zadnego_hoda">Датчик заднего хода (лягушка)</option>
+                            <option value="/zapchasti/datchik_kolenvala">Датчик коленвала (датчик положения коленвала)</option>
+                            <option value="/zapchasti/datchik_kondicionera">Датчик кондиционера (датчик климат-контроля)</option>
+                            <option value="/zapchasti/datchik_slepih_zon">Датчик мертвых зон (датчик слепых зон)</option>
+                            <option value="/zapchasti/datchik_parktronika">Датчик парктроника (парктроники передние, задние)</option>
+                            <option value="/zapchasti/dtchik_gaza">Датчик педали газа (датчик положения педали газа)</option>
+                            <option value="/zapchasti/datchik_polojenia_kuzova">Датчик положения кузова (датчик положения подвески)</option>
+                            <option value="/zapchasti/datchik_radar">Датчик препятствий (радар переднего бампера)</option>
+                            <option value="/zapchasti/datchik_raspredvala">Датчик распредвала (датчик положения распредвала)</option>
+                            <option value="/zapchasti/datchik_sveta_far">Датчик света (датчик включения фар)</option>
+                            <option value="/zapchasti/datchik_skorosti">Датчик скорости (датчик показаний скорости)</option>
+                            <option value="/zapchasti/datchik_temperaturi">Датчик температуры (температуры охлажд. жидкости)</option>
+                            <option value="/zapchasti/datchik_temperaturi_vihlopnih_gazov">Датчик температуры выхлопных газов</option>
+                            <option value="/zapchasti/Datchik_toplivnogo_filtra">Датчик топливного фильтра (датчик воды в фильтре)</option>
+                            <option value="/zapchasti/datchik_ugla_povorota_rulia">Датчик угла поворота руля (датчик положения руля)</option>
+                            <option value="/zapchasti/datchik_urovnia_masla">Датчик уровня масла (датчик уровня масла КПП)</option>
+                            <option value="/zapchasti/datchik_urovnia_topliva">Датчик уровня топлива (датчик уровня топлива в баке)</option>
+                            <option value="/zapchasti/datchik_uskorenia">Датчик ускорения (датчик динамичности разгона)</option>
+                            <option value="/zapchasti/datchik_hol_hoda">Датчик холостого хода (датчик холостого пуска)</option>
+                            <option value="/zapchasti/dver_zad_lev">Дверь задняя левая (задняя левая дверь)</option>
+                            <option value="/zapchasti/dver_zad_prav">Дверь задняя правая (задняя правая дверь)</option>
+                            <option value="/zapchasti/dver_per_lev">Дверь передняя левая (дверь водительская)</option>
+                            <option value="/zapchasti/Dver_per_prav">Дверь передняя правая (дверь пассажирская)</option>
+                            <option value="/zapchasti/dver_sdvijnaya">Дверь сдвижная (раздвижная дверь)</option>
+                            <option value="/zapchasti/dvs">Двигатель (Мотор, силовой агрегат)</option>
+                            <option value="/zapchasti/dvigatel_ventilatora_radiatora">Двигатель вентилятора (моторчик радиатора)</option>
+                            <option value="/zapchasti/knopka_steklopodemnika_per_lev">двигатель восстановленный (откапиталенный)</option>
+                            <option value="/zapchasti/dekorativnaia_krishka_dvigatela">Декоративная крышка двигателя (накладка клапанной крышки)</option>
+                            <option value="/zapchasti/derjatel_kapota">Держатель капота (удерживатель капота открытым)</option>
+                            <option value="/zapchasti/deflektor_obduva_salona">Дефлектор обдува салона (лобового, бокового стекла)</option>
+                            <option value="/zapchasti/joistik_regulirovki_zerkal">Джойстик регулировки зеркал (блок управления зеркалами)</option>
+                            <option value="/zapchasti/dzoistik_upravlenia_multimedia">Джойстик управления мультимедиа</option>
+                            <option value="/zapchasti/Dizelni_dvs">Дизельный  двигатель (мотор дизельный, ДВС)</option>
+                            <option value="/zapchasti/dinamik">Динамик (акустика салона)</option>
+                            <option value="/zapchasti/disk_litoy">Диск литой (диски литые леккосплавные)</option>
+                            <option value="/zapchasti/disk_oporniy_tormoznoy">Диск опорный тормозной (опора тормозного диска)</option>
+                            <option value="/zapchasti/disk_sceplenia">Диск сцепления (комплект сцепления)</option>
+                            <option value="/zapchasti/disk_tormoznoy_zadniy">Диск тормозной задний (задний тормозной диск)</option>
+                            <option value="/zapchasti/disk_tormoznoy_pered">Диск тормозной передний (передний тормозной диск)</option>
+                            <option value="/zapchasti/disk_shtampovanniy">Диск штампованный (металлические колесные диски)</option>
+                            <option value="/zapchasti/disk_tormoznoi_per_prav">Диски тормозные задние (вентилируемые диски)</option>
+                            <option value="/zapchasti/Disk_tormoznoi_per_lev">Диски тормозные передние (вентилируемые диски)</option>
+                            <option value="/zapchasti/displey_kompiutera">Дисплей компьютера (монитор бортового компьютера)</option>
+                            <option value="/zapchasti/Ramka_ventilatora_radiatora">Диффузор вентилятора (рамка вентилятора радиатора)</option>
+                            <option value="/zapchasti/dojdevik">Дождевик (жабо лобового стекла)</option>
+                            <option value="/zapchasti/domkrat">Домкрат (универсальный, подкатной)</option>
+                            <option value="/zapchasti/reilingi">Дуги на крышу (рейлинги)</option>
+                            <option value="/zapchasti/omivaika">Жидкость омывателя лобового стекла</option>
+                            <option value="/zapchasti/tormoznaia_zidkost">Жидкость тормозная (жидкость системы тормозов)</option>
+                            <option value="/zapchasti/zavesa_kapota_lev_prav">Завеса капота левая (завеса капота правая)</option>
+                            <option value="/zapchasti/zaglushka">Заглушка (заглушка порога)</option>
+                            <option value="/zapchasti/Zaglushka_reshotka_v_bamper">Заглушка (решетка) в бампер</option>
+                            <option value="/zapchasti/reshetka_bampera">Заглушка решетка в бампер (заглушка противотуманок)</option>
+                            <option value="/zapchasti/disk_tormoznoi_zad_lev">Задние тормозные диски (вентилируемые диски)</option>
+                            <option value="/zapchasti/zad_kuzova">Задняя панель кузова (задняя часть, тазик)</option>
+                            <option value="/zapchasti/zamok_bagajnika">Замок багажника (замок крышки багажника)</option>
+                            <option value="/zapchasti/zamok_dveri">Замок двери (замок боковой двери)</option>
+                            <option value="/zapchasti/zamok_dveri_zad_lev">Замок двери задней левой (задний левый дверной замок)</option>
+                            <option value="/zapchasti/zamok_dveri_zad_prav">Замок двери задней правой (задний правый дверной замок)</option>
+                            <option value="/zapchasti/zamok_dveri_per_lev">Замок двери передней левой (водительский дверной замок)</option>
+                            <option value="/zapchasti/zamok_dveri_per_prav">Замок двери передней правой (пассажирский дверной замок)</option>
+                            <option value="/zapchasti/zamok_zajigania">Замок зажигания (комплект замка зажигания)</option>
+                            <option value="/zapchasti/zamok_kapota">Замок капота (замок закрытия капота)</option>
+                            <option value="/zapchasti/zamok_remnia_bezopasnosti">Замок ремня безопасности (защелка ремня безопасности)</option>
+                            <option value="/zapchasti/zaslonka_drosselnaya">Заслонка дроссельная (дросель впускного коллектора)</option>
+                            <option value="/zapchasti/grm_zaschita">Защита (кожух) ремня ГРМ</option>
+                            <option value="/zapchasti/pogkrilok">Защита арок (подкрылок)</option>
+                            <option value="/zapchasti/podkrilok_zad_lev">Защита арок задняя (подкрылок)</option>
+                            <option value="/zapchasti/podkrilok_per_lev">Защита арок передняя левая (подкрылок)</option>
+                            <option value="/zapchasti/podkrilok_per_prav">Защита арок передняя правая (подкрылок)</option>
+                            <option value="/zapchasti/zashita_dvigatelya">Защита двигателя (защита КПП)</option>
+                            <option value="/zapchasti/zastchita_dnistcha">Защита днища (защита переднего бампера)</option>
+                            <option value="/zapchasti/kojuh_remnya_grm">Защита, кожух ремня ГРМ (алюминевая крышка цепи ГРМ)</option>
+                            <option value="/zapchasti/zerkalo_narujnoe_levoe">Зеркало наружное левое (зеркало водительской двери)</option>
+                            <option value="/zapchasti/zerkalo_nar_prav">Зеркало наружное правое (зеркало пассажирской двери)</option>
+                            <option value="/zapchasti/zerkalo_salona">Зеркало салона (зеркало бордюрное)</option>
+                            <option value="/zapchasti/znak_avariiki">Знак аварийной остановки (фонарь аварийки)</option>
+                            <option value="/zapchasti/immobilaizer">Иммобилайзер (противоугонная система)</option>
+                            <option value="/zapchasti/invtrtor_napriazenia">Инвертор (преобразователь напряжения)</option>
+                            <option value="/zapchasti/interkuler">Интеркулер (радиатор интеркулера)</option>
+                            <option value="/zapchasti/isparitel_kondeia">Испаритель кондиционера (салонный радиатор кондея)</option>
+                            <option value="/zapchasti/kabina">Кабина (кузов, голова)</option>
+                            <option value="/zapchasti/kamera_zadnego_vida">Камера заднего вида (камера переднего вида)</option>
+                            <option value="/zapchasti/kapot">Капот (альтернативный капот)</option>
+                            <option value="/zapchasti/kardannii_val">Карданный вал (кардан передний, задний)</option>
+                            <option value="/zapchasti/karter">Картер (масляный поддон двигателя)</option>
+                            <option value="/zapchasti/kasseta_radiatorov">Кассета радиаторов (комплект радиаторов)</option>
+                            <option value="/zapchasti/katalizator">Катализатор (каталитический нейтролизатор)</option>
+                            <option value="/zapchasti/katushka_zajigania">Катушка зажигания (бабина)</option>
+                            <option value="/zapchasti/klapan_egr">Клапан EGR (рециркуляции газов)</option>
+                            <option value="/zapchasti/klapan_dvs">Клапан впускной (клапан выпускной)</option>
+                            <option value="/zapchasti/klapan_upravlenia_turbinoy">Клапан управления турбиной (клапан воздушный)</option>
+                            <option value="/zapchasti/klapan_holostogo_hoda">Клапан холостого хода (клапан электромагнитный)</option>
+                            <option value="/zapchasti/klapannaia_krishka">Клапанная крышка (Крышка двигателя передня)</option>
+                            <option value="/zapchasti/klemmnik">Клемма (электрический разъём, фишка)</option>
+                            <option value="/zapchasti/klik_bampera_zad_lev_prav">Клык бампера (переднего, заднего)</option>
+                            <option value="/zapchasti/kluch_zazigania">Ключ (ключ-карта)</option>
+                            <option value="/zapchasti/klik_bampera_pered_lev_prav">Ключ колесный (балонный)</option>
+                            <option value="/zapchasti/knopka_avariynoy_signalizacii">Кнопка аварийной сигнализации (кнопка аварийки)</option>
+                            <option value="/zapchasti/knopka_zapuska_dvigatelia">Кнопка запуска двигателя (кнопка заводки двигателя)</option>
+                            <option value="/zapchasti/knopka_korrektora_far">Кнопка корректора фар (корректор света фар)</option>
+                            <option value="/zapchasti/knopka_obogreva_zad_stekla">Кнопка обогрева заднего стекла (кнопка обогрева сидений)</option>
+                            <option value="/zapchasti/knopka_otkritia_bagajnika">Кнопка открытия багажника (рычаг открытия багажника)</option>
+                            <option value="/zapchasti/knopka_vikluchatel">Кнопка салонная (включатель, выключатель)</option>
+                            <option value="/zapchasti/knopka_steklopodemnika">Кнопка стеклоподъемника (электростеклоподъемника)</option>
+                            <option value="/zapchasti/kover_salona_bagaznika">Ковер салонный (ковер багажника)</option>
+                            <option value="/zapchasti/kojuh_paneli_priborov">Кожух панели приборов (кожух рулевой колонки)</option>
+                            <option value="/zapchasti/kozirek_solncezastchitny">Козырек солнцезащитный (козырек защиты от солнца)</option>
+                            <option value="/zapchasti/kolenval">Коленвал (коленчатый вал двигателя)</option>
+                            <option value="/zapchasti/koleso_zapas_tabletka">Колесо запасное (таблетка)</option>
+                            <option value="/zapchasti/kollektor_vpusknoy">Коллектор впускной (впускной коллектор двигателя)</option>
+                            <option value="/zapchasti/kollektor_vipusknoy">Коллектор выпускной (выпускной коллектор двигателя)</option>
+                            <option value="/zapchasti/kolodki_rucynika">Колодки стояночного тормоза (колодки ручника)</option>
+                            <option value="/zapchasti/kolodki_torm_zad">Колодки тормозные задние (задние тормозные колодки)</option>
+                            <option value="/zapchasti/klodki_torm_perednie">Колодки тормозные передние (передние тормозные колодки)</option>
+                            <option value="/zapchasti/kolpak_kolesny">Колпак колесный (колпаки на металические диски)</option>
+                            <option value="/zapchasti/kompressor_kondicionera">Компрессор кондиционера (насос кондиционера)</option>
+                            <option value="/zapchasti/kompressor_pnevmodveski">Компрессор пневмоподвески (ресивер пневмоподвески)</option>
+                            <option value="/zapchasti/kompressor_centralnogo_zamka">Компрессор центрального замка (кнопка центрального замка)</option>
+                            <option value="/zapchasti/konsol_salona">Консоль салона центральная (кулисная часть)</option>
+                            <option value="/zapchasti/kontaktnaia_gruppa_zamka_zaz">Контактная группа (контактная группа замка)</option>
+                            <option value="/zapchasti/korzina_sceplenia">Корзина сцепления (выжимной подшипник)</option>
+                            <option value="/zapchasti/roker_klapana">Коромысло клапана (рокер)</option>
+                            <option value="/zapchasti/korpus_vozdushnogo_filtra">Корпус воздушного фильтра (резонатор воздушного фильтра)</option>
+                            <option value="/zapchasti/korpus_maslianogo_filtra">Корпус масляного фильтра (Колба масляного фильтра)</option>
+                            <option value="/zapchasti/korpus_otopitelia">Корпус отопителя (печки)</option>
+                            <option value="/zapchasti/korpus_toplivnogo_filtra">Корпус топливного фильтра (держатель фильтра топлива)</option>
+                            <option value="/zapchasti/korrektor_far">Корректор фар (электрокорректор фар)</option>
+                            <option value="/zapchasti/kpp_avtomaticheskaia_akpp">КПП автоматическая (АКПП)</option>
+                            <option value="/zapchasti/kpp_variator">КПП бесступенчатая, вариатор (вариаторная коробка)</option>
+                            <option value="/zapchasti/kpp_mehanicheskaia_mkpp">КПП механическая (МКПП)</option>
+                            <option value="/zapchasti/kpp_robotizirovannaya">КПП роботизированная (ММКПП робот)</option>
+                            <option value="/zapchasti/kran_otopitelya">Кран отопителя (печки)</option>
+                            <option value="/zapchasti/kreplenie_bampera">Крепление бампера (локеры переднего, заднего бампера)</option>
+                            <option value="/zapchasti/krestovina_kardana">Крестовина карданного вала (крестовина кардана)</option>
+                            <option value="/zapchasti/kronshtein_dvigatelia">Кронштейн (Кронштейн КПП)</option>
+                            <option value="/zapchasti/kronshtein_kondicionera_generatora">Кронштейн двигателя (кронштейн генератора)</option>
+                            <option value="/zapchasti/kronstein_perednego_bampera">Кронштейн переднего бампера (кронштейн крепления бампера)</option>
+                            <option value="/zapchasti/krilo_zad_lev">Крыло заднее левое (задняя левая четверть)</option>
+                            <option value="/zapchasti/krilo_zad_prav">Крыло заднее правое (задняя правая четверть)</option>
+                            <option value="/zapchasti/krilo_per_lev">Крыло переднее левое (переднее левое крыло)</option>
+                            <option value="/zapchasti/krilo_per_prav">Крыло переднее правое (переднее правое крыло)</option>
+                            <option value="/zapchasti/krilchatka_viskomufti">Крыльчатка вентилятора (лопасти)</option>
+                            <option value="/zapchasti/krisha">Крыша (потолок)</option>
+                            <option value="/zapchasti/krishka_bagaj_dver_3_5">Крышка багажника (дверь 3-5)</option>
+                            <option value="/zapchasti/kruk_buksirovochniy">Крюк буксировочный (крюк для буксировки)</option>
+                            <option value="/zapchasti/kulak_zad_lev">Кулак задний левый (задний левый опорный)</option>
+                            <option value="/zapchasti/kulak_zad_prav">Кулак задний правый (задний правый опорный)</option>
+                            <option value="/zapchasti/Kulak_per_lev">Кулак поворотный левый (передний левый поворотный)</option>
+                            <option value="/zapchasti/kulak_per_prav">Кулак поворотный правый (передний правый кулак)</option>
+                            <option value="/zapchasti/lichinka_dvernogo_zamka">Личинка дверного замка (сердцевина крышки багажника)</option>
+                            <option value="/zapchasti/lonjeron_lev_prav">Лонжерон левый (лонжерон правый)</option>
+                            <option value="/zapchasti/dvigatel_elektroluka">Люк (двигатель электролюка)</option>
+                            <option value="/zapchasti/luchok_toplivnogo_baka">Лючок топливного бака (пробка топливного бака)</option>
+                            <option value="/zapchasti/liambda_zond">Лямбда-зонд (датчик обеднения смеси)</option>
+                            <option value="/zapchasti/magnitola">Магнитола автомобильная (рамка под магнитолу)</option>
+                            <option value="/zapchasti/maslo_AKPP">Масло для АКПП (масло для коробок автомат)</option>
+                            <option value="/zapchasti/maslo_mkpp">Масло для МКПП (трансмиссионное масло)</option>
+                            <option value="/zapchasti/maslo_motornoe_polusinteticheskoe">Масло моторное полусинтетика (полусинтетическое масло)</option>
+                            <option value="/zapchasti/maslo_sinteticheskoe">Масло моторное синтетическое (Масло двигателя синтетическое)</option>
+                            <option value="/zapchasti/mahovik">Маховик (двухмассовый маховик)</option>
+                            <option value="/zapchasti/mehanizm_zad_stekloochistitelya">Механизм заднего стеклоочистителя</option>
+                            <option value="/zapchasti/mehanizm_natiajenia_remnya_cepi">Механизм натяжения ремня, цепи</option>
+                            <option value="/zapchasti/mehanizm_sdvijnoy_dveri">Механизм сдвижной двери (ролик двери сдвижной)</option>
+                            <option value="/zapchasti/mehanizm_stekloochist_trapecia">Механизм стеклоочистителя (трапеция дворников)</option>
+                            <option value="/zapchasti/molding_bampera_zad_lev">Молдинг (накладка кузовная)</option>
+                            <option value="/zapchasti/molding_dveri_zad_lev">Молдинг двери задней левой (задняя левая накладка двери)</option>
+                            <option value="/zapchasti/molding_dveri_zad_prav">Молдинг двери задней правой (задняя правая накладка двери)</option>
+                            <option value="/zapchasti/Molding_dveri_per_lev">Молдинг двери передней левой (передняя левая накладка двери)</option>
+                            <option value="/zapchasti/molding_dveri_per_prav">Молдинг двери передней правой (передняя прав. накладка двери)</option>
+                            <option value="/zapchasti/molding_bampera_zad_prav">Молдинг заднего бампера (правый/левый)</option>
+                            <option value="/zapchasti/molding_bampera_per_prav">Молдинг крыла (молдинг капота)</option>
+                            <option value="/zapchasti/molding_krila">Молдинг крыла (молдинг лобового стекла)</option>
+                            <option value="/zapchasti/molding_bampera_per_lev">Молдинг переднего бампера (левый/правый)</option>
+                            <option value="/zapchasti/most_zad">Мост задний (мост передний)</option>
+                            <option value="/zapchasti/motorchik_zad_stekloochistitelya">Моторчик заднего стеклоочистителя</option>
+                            <option value="/zapchasti/motorchik_zaslonki_pechki">Моторчик заслонки печки (сервопривод отопителя)</option>
+                            <option value="/zapchasti/motorchik_pered_stekloochist_dvornikov">Моторчик передних стеклоочистителей</option>
+                            <option value="/zapchasti/motorchik_pechki">Моторчик печки (двигатель отопителя салона)</option>
+                            <option value="/zapchasti/motorchik_steklopodemnika">Моторчик стеклоподъемника (электростеклоподъемника)</option>
+                            <option value="/zapchasti/motorchik_steklopodemnika_zad_lev">Моторчик стеклоподъемника задний левый</option>
+                            <option value="/zapchasti/motorchik_steklopodemnika_zad_prav">Моторчик стеклоподъемника задний правый</option>
+                            <option value="/zapchasti/motorchik_steklopodemnika_pered_lev">Моторчик стеклоподъемника передний левый</option>
+                            <option value="/zapchasti/motorchik_steklopodemnika_pered_prav">Моторчик стеклоподъемника передний правый</option>
+                            <option value="/zapchasti/mufta_ventiliatora">Муфта вентилятора радиатора (крепление муфты радиатора)</option>
+                            <option value="/zapchasti/nagnetatel_vozduha_kompressor">Нагнетатель воздуха (компрессор)</option>
+                            <option value="/zapchasti/nakladka_dekorativnaya">Накладка декоративная (накладка на порог)</option>
+                            <option value="/zapchasti/nakonechnik_rulevoy">Наконечник рулевой (наконечник рулевой рейки)</option>
+                            <option value="/zapchasti/nasos_motorchik_omivatelya_stekla">Насос (моторчик) омывателя стекла</option>
+                            <option value="/zapchasti/nasos_vakuumny">Насос вакуумный (вакуумный насос)</option>
+                            <option value="/zapchasti/nasos_gidrousilitelya_rulya">Насос гидроусилителя руля (насос ГУР)</option>
+                            <option value="/zapchasti/nasos_maslyaniy">Насос масляный (масляная помпа двигателя)</option>
+                            <option value="/zapchasti/nasos_toplivniy">Насос топливный (подкачка топлива)</option>
+                            <option value="/zapchasti/nasos-forsunka">Насос-форсунка (дизельная электронная форсунка)</option>
+                            <option value="/zapchasti/obgonnaia_mufta">Обгонная муфта (обгонная муфта генератора)</option>
+                            <option value="/zapchasti/obshivka_bagajnika">Обшивка багажника (обшивка крышки багажника)</option>
+                            <option value="/zapchasti/obshivka_zad_lev_prav">Обшивка задняя левая (обшивка задняя правая)</option>
+                            <option value="/zapchasti/obshivka_pered_lev_prav">Обшивка передняя левая (обшивка передняя правая)</option>
+                            <option value="/zapchasti/obshivka_stoyki_centr">Обшивка стойки (обшивка салона)</option>
+                            <option value="/zapchasti/ogranichitel_otkrivania_dveri">Ограничитель открывания двери (концевик боковой двери)</option>
+                            <option value="/zapchasti/omivatel_fari">Омыватель левой фары (омыватель правой фары)</option>
+                            <option value="/zapchasti/opora_amortizatora_verh_chashka">Опора амортизатора верхняя (чашка)</option>
+                            <option value="/zapchasti/otopitel_v_sbore_pechka">Отопитель в сборе (печка)</option>
+                            <option value="/zapchasti/chast_kuzova">Отрезанная часть кузова (вырезанный кузовной элемент)</option>
+                            <option value="/zapchasti/ohladitel_otrabotannih_gazov">Охладитель отработанных газов (теплообменник ЕГР)</option>
+                            <option value="/zapchasti/panel_pered_salona_torpedo">Панель передняя салона (торпедо)</option>
+                            <option value="/zapchasti/parktronik_zad">Парктроник задний (парктроник передний)</option>
+                            <option value="/zapchasti/patrubok_truboprovod">Патрубок (трубопровод шланг)</option>
+                            <option value="/zapchasti/patrubok_vozd_filtra">Патрубок воздушного фильтра (патрубок турбины)</option>
+                            <option value="/zapchasti/patrubok_interkulera">Патрубок интеркулера (патрубок радиатора)</option>
+                            <option value="/zapchasti/pedal">Педаль сцепления (педаль тормоза, педаль газа)</option>
+                            <option value="/zapchasti/disk_tormoznoi_zad_prav">Передние тормозные диски (вентилируемые диски)</option>
+                            <option value="/zapchasti/pered_panel_televizor">Передняя панель крепления облицовки (телевизор)</option>
+                            <option value="/zapchasti/pered_chast_maska">Передняя часть, маска (передняя часть кузова)</option>
+                            <option value="/zapchasti/perekluchatel_dvornikov_povorotov">Переключатель дворников (переключатель поворотов)</option>
+                            <option value="/zapchasti/Strekoza_podrulevaia">Переключатель подрулевой стрекоза</option>
+                            <option value="/zapchasti/perekluchatel_sveta">Переключатель света (ближний, дальний)</option>
+                            <option value="/zapchasti/petli_dveri_zad_lev">Петли двери задней левой (нижняя петля двери, верхняя)</option>
+                            <option value="/zapchasti/petli_dveri_zad_prav">Петли двери задней правой (нижняя петля двери, верхняя)</option>
+                            <option value="/zapchasti/petli_dveri_per_lev">Петли двери передней левой (нижняя петля двери, верхняя)</option>
+                            <option value="/zapchasti/petli_dveri_per_prav">Петли двери передней правой (нижняя петля двери, верхняя)</option>
+                            <option value="/zapchasti/petlya_dveri">Петля двери (петля открывания двери)</option>
+                            <option value="/zapchasti/petlya_kapota">Петля капота (петля крышки багажника)</option>
+                            <option value="/zapchasti/planka_pod_kapot">Планка под капот (декоративная накладка)</option>
+                            <option value="/zapchasti/plastik_podkapotnii">Пластик моторного отсека (подкапотный пластик)</option>
+                            <option value="/zapchasti/plastik">Пластик салона (пластик)</option>
+                            <option value="/zapchasti/plafon_sveta_salona">Плафон света салона (подсветка салона)</option>
+                            <option value="/zapchasti/pnevmopodushka">Пневмоподушка (передняя задняя)</option>
+                            <option value="/zapchasti/pnevmostoika">Пневмостойка передняя (пневмостойка задняя)</option>
+                            <option value="/zapchasti/povorotnik_leviy">Поворотник левый (левый указатель поворотов)</option>
+                            <option value="/zapchasti/povorotnik_praviy">Поворотник правый (правый указатель поворотов)</option>
+                            <option value="/zapchasti/povtoritel_ukazania_povorotov">Повторитель поворотов (левый, правый)</option>
+                            <option value="/zapchasti/podgolovnik">Подголовник (подлокотник)</option>
+                            <option value="/zapchasti/Podsvetka_nomera">Подсветка номера (плафона подсветки номера)</option>
+                            <option value="/zapchasti/podushka_bezopasnosti">Подушка безопасности (AirBag)</option>
+                            <option value="/zapchasti/podushka_bezopasnosti_bok_shtorka">Подушка безопасности боковая (шторка)</option>
+                            <option value="/zapchasti/podushka_bezopasnosti_voditelya">Подушка безопасности водителя (подушка в руль, в колени)</option>
+                            <option value="/zapchasti/podushka_bezopasnosti_passajira">Подушка безопасности пассажира (airbag пассажирский)</option>
+                            <option value="/zapchasti/podushka_kreplenia_dvigatelya">Подушка крепления двигателя (подушка двигателя ДВС)</option>
+                            <option value="/zapchasti/podushka_krepleniya_kpp">Подушка крепления КПП (подушка коробки)</option>
+                            <option value="/zapchasti/podshipniki">Подшипник (прочие подшипники)</option>
+                            <option value="/zapchasti/podshipnik_stupici_zad_lev">Подшипник ступицы задней левой (ступичный подшипник левый)</option>
+                            <option value="/zapchasti/podshipnik_stupici_zad_prav">Подшипник ступицы задней правой (ступичный подшипник правый)</option>
+                            <option value="/zapchasti/Podshipnik_stupici_per_lev">Подшипник ступицы передней левой (ступичный подшипник левый)</option>
+                            <option value="/zapchasti/podshipnik_stupici_per_Prav">Подшипник ступицы передней правой (ступичный подшипник правый)</option>
+                            <option value="/zapchasti/polka_akkumulatora">Полка аккумулятора (пластик крепления аккумулятора)</option>
+                            <option value="/zapchasti/polka_bagajnika">Полка багажника (пол багажника)</option>
+                            <option value="/zapchasti/poluos_shrus">Полуось (приводной вал, ШРУС)</option>
+                            <option value="/zapchasti/poluos_zad_prav">Полуось голая (палка)</option>
+                            <option value="/zapchasti/poluos_zad_lev">Полуось задняя (приводной вал, ШРУС)</option>
+                            <option value="/zapchasti/Poluos_per_lev">Полуось передняя левая (приводной вал, ШРУС)</option>
+                            <option value="/zapchasti/Poluos_per_prav">Полуось передняя правая (приводной вал, ШРУС)</option>
+                            <option value="/zapchasti/pompa">Помпа (насос охлаждающей жидкости)</option>
+                            <option value="/zapchasti/porog_leviy_praviy">Порог левый (порог правый)</option>
+                            <option value="/zapchasti/porshen">Поршень (комплект ремонтных поршней)</option>
+                            <option value="/zapchasti/porshen_supporta">Поршень суппорта (ремонтный поршень суппорта)</option>
+                            <option value="/zapchasti/postel_raspredvala">Постель распредвала (бугель)</option>
+                            <option value="/zapchasti/pricepnoe_farkop">Прицепное устройство (фаркоп)</option>
+                            <option value="/zapchasti/probka_toplivnogo_baka">Пробка топливного бака (пробка расширительного бачка)</option>
+                            <option value="/zapchasti/provod_visokovoltniy">Провод высоковольтный (коммутатор зажигания)</option>
+                            <option value="/zapchasti/provodka">Проводка (электропроводка)</option>
+                            <option value="/zapchasti/prokladka_germet">Прокладка (герметик прокладочный)</option>
+                            <option value="/zapchasti/prokladka_glushitelia">Прокладка выпускного коллектора (уплотнительные кольца глушителя)</option>
+                            <option value="/zapchasti/prokladka_gdc">Прокладка головки блока (прокладка ГБЦ)</option>
+                            <option value="/zapchasti/prokladka_klapannoi_krishki">Прокладка клапанной крышки (колодцев, топливных форсунок)</option>
+                            <option value="/zapchasti/prochaya_zapchast">Прочая запчасть (блоки, элементы, детали, узлы)</option>
+                            <option value="/zapchasti/prujina_zadniaya">Пружина задняя (пружина задней подвески)</option>
+                            <option value="/zapchasti/prujina_pered">Пружина передняя (пружины передней подвески)</option>
+                            <option value="/zapchasti/pilnik">Пыльник (ШРУСа, амортизатора, рейки)</option>
+                            <option value="/zapchasti/RADIATOR_OSNOVNOY">Радиатор (основной)</option>
+                            <option value="/zapchasti/radiator_egr">Радиатор EGR (радиатор рециркуляции ЕГР)</option>
+                            <option value="/zapchasti/Radiator_akpp_gidrousilitela">Радиатор АКПП (радиатор гидроусилителя)</option>
+                            <option value="/zapchasti/radiator_kondicionera">Радиатор кондиционера (осушитель)</option>
+                            <option value="/zapchasti/radiator_maslyaniy">Радиатор масляный (радиатор охлаждения масла)</option>
+                            <option value="/zapchasti/radiator_otopitelya_pechki">Радиатор отопителя (печки)</option>
+                            <option value="/zapchasti/razdatochnaya_korobka">Раздаточная коробка (раздатка коробки)</option>
+                            <option value="/zapchasti/ramka_kapota">Рамка капота (передняя рамка, телевизор)</option>
+                            <option value="/zapchasti/ramka_fari_protivotumannoy_lev">Рамка фары противотуманной левой</option>
+                            <option value="/zapchasti/ramka_fari_protivotumannoy_prav">Рамка фары противотуманной правой</option>
+                            <option value="/zapchasti/raspornaia_planka">Распорная планка (подводчик тормозных колодок)</option>
+                            <option value="/zapchasti/raspredval">Распредвал (распределительный вал ГБЦ)</option>
+                            <option value="/zapchasti/raspredelitel_zajiganiya_trambler">Распределитель зажигания (трамблер)</option>
+                            <option value="/zapchasti/rashodomer_vozduha">Расходомер воздуха (измеритель потока воздуха)</option>
+                            <option value="/zapchasti/rasshiriteli_arok_koles">Расширители арок (накладки колесных арок)</option>
+                            <option value="/zapchasti/reguliator_davleniya_topliva">Регулятор давления топлива (регулировки давления топлива)</option>
+                            <option value="/zapchasti/reduktor_zadnego_mosta">Редуктор заднего моста (редуктор переднего моста)</option>
+                            <option value="/zapchasti/rele_nakala_svechey">Реле накала свечей (вентилятора)</option>
+                            <option value="/zapchasti/remen_bezopasnosti">Ремень безопасности (пиротехнические ремни безопасности)</option>
+                            <option value="/zapchasti/ressora">Рессора (рессора задняя, передняя)</option>
+                            <option value="/zapchasti/reshetka_radiatora">Решетка радиатора (решетка обдува радиатора)</option>
+                            <option value="/zapchasti/rulevaya_kolonka">Рулевая колонка (вал рулевой колонки)</option>
+                            <option value="/zapchasti/rulevaya_reyka">Рулевая рейка (редуктор рулевой)</option>
+                            <option value="/zapchasti/rulevoy_kardanchik">Рулевой карданчик (кардан рулевой рейки)</option>
+                            <option value="/zapchasti/rul">Руль, рулевое колесо (мультируль)</option>
+                            <option value="/zapchasti/ruchka_vnutrenniaya_potolochnaya">Ручка внутренняя потолочная (внутренняя дверная)</option>
+                            <option value="/zapchasti/ruchka_dveri_zad_lev">Ручка двери задняя левая наружная (Ручка открытия двери из салона)</option>
+                            <option value="/zapchasti/ruchka_dveri_zad_prav">Ручка двери задняя правая наружная (Ручка открытия двери из салона)</option>
+                            <option value="/zapchasti/ruchka_dveri_per_lev">Ручка двери передняя левая наружная (Ручка открытия двери из салона)</option>
+                            <option value="/zapchasti/ruchka_dveri_per_prav">Ручка двери передняя правая наружная (Ручка открытия двери из салона)</option>
+                            <option value="/zapchasti/ruchka_krishki_bagajnika">Ручка крышки багажника (ручка открывания капота)</option>
+                            <option value="/zapchasti/richag_zadniy">Рычаг задний (комплект задних рычагов)</option>
+                            <option value="/zapchasti/richag_zad_lev">Рычаг задний левый (верхний, нижний рычаг)</option>
+                            <option value="/zapchasti/richag_zad_prav">Рычаг задний правый (верхний, нижний рычаг)</option>
+                            <option value="/zapchasti/richag_pered">Рычаг передний (комплект передних рычагов)</option>
+                            <option value="/zapchasti/richag_per_lev">Рычаг передний левый (левый рычаг)</option>
+                            <option value="/zapchasti/richag_per_prav">Рычаг передний правый (передний рычаг)</option>
+                            <option value="/zapchasti/richag_ruchnika">Рычаг ручного тормоза (ручника)</option>
+                            <option value="/zapchasti/sazevii_filtr">Сажевый фильтр (сажевый нейтрализатор)</option>
+                            <option value="/zapchasti/salon_komplekt_sideniy">Салон (комплект сидений)</option>
+                            <option value="/zapchasti/salnik">Сальник двигателя, коробки (гидроусилителя, рулевой рейки)</option>
+                            <option value="/zapchasti/signal_klakson">Сигнал (клаксон)</option>
+                            <option value="/zapchasti/sidenie_Per">Сиденье переднее (сиденье заднее)</option>
+                            <option value="/zapchasti/scaner_Obd">Сканер, OBD2 автосканер (ошибок работы двигателя, АКПП и др)</option>
+                            <option value="/zapchasti/soprotivlenie_pechki">Сопротивление печки</option>
+                            <option value="/zapchasti/spoiler">Спойлер (аэродинамический обвес)</option>
+                            <option value="/zapchasti/stabilizator_podveski_poperechnoy_ustoychivosti">Стабилизатор подвески (поперечной устойчивости)</option>
+                            <option value="/zapchasti/starter">Стартер (электростартер редукторный)</option>
+                            <option value="/zapchasti/steklo_zad_lev">Стекло двери задней левой (заднее левое стекло двери)</option>
+                            <option value="/zapchasti/steklo_zad_prav">Стекло двери задней правой (заднее правое стекло двери)</option>
+                            <option value="/zapchasti/Steklo_per_lev">Стекло двери передней левой (переднее левое стекло двери)</option>
+                            <option value="/zapchasti/steklo_per_prav">Стекло двери передней правой (переднее правое стекло двери)</option>
+                            <option value="/zapchasti/steklo_zadnee">Стекло заднее (заднее стекло с подогревом)</option>
+                            <option value="/zapchasti/steklo_zerkala_narujnogo_lev">Стекло зеркала наружного левого</option>
+                            <option value="/zapchasti/steklo_zerkala_narujnogo_prav">Стекло зеркала наружного правого</option>
+                            <option value="/zapchasti/steklo_kuzovnoe_bokovoe">Стекло кузовное боковое левое (стекло кузовное боковое правое)</option>
+                            <option value="/zapchasti/steklo_lobovoe">Стекло лобовое (переднее ветровое стекло)</option>
+                            <option value="/zapchasti/steklopodemnik_zad_lev">Стеклоподъёмник задний левый (электростеклоподъёмник)</option>
+                            <option value="/zapchasti/steklopodemnik_zad_prav">Стеклоподъёмник задний правый (электростеклоподъёмник)</option>
+                            <option value="/zapchasti/steklopodemnik_per_lev">Стеклоподъёмник передний левый (электростеклоподъёмник)</option>
+                            <option value="/zapchasti/steklopodemnik_per_prav">Стеклоподъёмник передний правый (электростеклоподъёмник)</option>
+                            <option value="/zapchasti/stoyka_pered_lev_prav">Стойка передняя левая (стойка передняя правая)</option>
+                            <option value="/zapchasti/stremianka">Стремянка, стремена, шпильки (болты крепления подвески)</option>
+                            <option value="/zapchasti/stupica_zad_lev">Ступица колеса задняя левая (задняя левая ступица)</option>
+                            <option value="/zapchasti/stupica_zad_prav">Ступица колеса задняя правая (задняя правая ступица)</option>
+                            <option value="/zapchasti/stupica_per_lev">Ступица колеса передняя левая (передняя левая ступица)</option>
+                            <option value="/zapchasti/stupica_per_prav">Ступица колеса передняя правая (передняя правая ступица)</option>
+                            <option value="/zapchasti/support_zad_lev">Суппорт задний левый (Поршень, скоба суппорта заднего)</option>
+                            <option value="/zapchasti/support_zad_prav">Суппорт задний правый (Поршень, скоба суппорта заднего)</option>
+                            <option value="/zapchasti/Support_per_lev">Суппорт передний левый (Поршень, скоба суппорта переднего)</option>
+                            <option value="/zapchasti/support_per_prav">Суппорт передний правый (Поршень, скоба суппорта переднего)</option>
+                            <option value="/zapchasti/korpus_termostata">Термостат (корпус термостата)</option>
+                            <option value="/zapchasti/tnvd">ТНВД (топливный насос высокого давления)</option>
+                            <option value="/zapchasti/toplivnaya_rampa">Топливная рампа (рейка топливная)</option>
+                            <option value="/zapchasti/tros_gaza">Трос газа (трос сцепления)</option>
+                            <option value="/zapchasti/tros_dveri">Трос двери (трос механизма открытия двери)</option>
+                            <option value="/zapchasti/tros_kapota">Трос капота (тросик открытия капота)</option>
+                            <option value="/zapchasti/tros_kulisi_kpp">Трос кулисы КПП (кулиса коробки передач)</option>
+                            <option value="/zapchasti/tros_ruchnika">Трос ручника (троса ручного тормоза)</option>
+                            <option value="/zapchasti/truba_priemnaya_glushitelya">Труба приемная глушителя (штаны)</option>
+                            <option value="/zapchasti/trubka_gidrousilitelya">Трубка гидроусилителя (трубка насоса ГУРа)</option>
+                            <option value="/zapchasti/trubka_kondeia">Трубка кондиционера (системы климат-контроля)</option>
+                            <option value="/zapchasti/trubka_tnvd">Трубка ТНВД (трубка подачи топлива)</option>
+                            <option value="/zapchasti/turbina">Турбина (турбокомпрессор)</option>
+                            <option value="/zapchasti/tiaga_rulevaya">Тяга рулевая (тяга рулевой рейки)</option>
+                            <option value="/zapchasti/uplotnitel">Уплотнитель (уплотнитель двери, крышки багажника)</option>
+                            <option value="/zapchasti/us_pod_faru">Ус под фару (ус под фонарь)</option>
+                            <option value="/zapchasti/us_pod_faru_lev">Ус под фару левый (ус под фонарь левый)</option>
+                            <option value="/zapchasti/us_pod_faru_prav">Ус под фару правый (ус под фонарь правый)</option>
+                            <option value="/zapchasti/usilitel_bampera">Усилитель бампера (переднего заднего бампера)</option>
+                            <option value="/zapchasti/usilitel_muzikalniy">Усилитель музыкальный (усилитель звука)</option>
+                            <option value="/zapchasti/fara_lev">Фара левая (ксеноновая левая фара)</option>
+                            <option value="/zapchasti/fara_prav">Фара правая (ксеноновая правая фара)</option>
+                            <option value="/zapchasti/fara_protivotumannaya_lev">Фара противотуманная левая (левая галогенка)</option>
+                            <option value="/zapchasti/fara_protivotumannaya_prav">Фара противотуманная правая (правая галогенка)</option>
+                            <option value="/zapchasti/filtr_vozduha_salona">Фильтр воздуха салона (салонный фильтр очистки воздуха)</option>
+                            <option value="/zapchasti/filtr_vozdushniy">Фильтр воздушный (фильтр очистки воздуха)</option>
+                            <option value="/zapchasti/filtr_korobki_akpp">Фильтр коробки АКПП (фильтр для автоматической коробки)</option>
+                            <option value="/zapchasti/filtr_maslyaniy">Фильтр масляный (вкладыш масляного фильтра)</option>
+                            <option value="/zapchasti/filtr_toplivniy">Фильтр топливный (фильтр очистки топлива)</option>
+                            <option value="/zapchasti/flanec_troinik_sistemi_ohlajdeniya">Фланец (тройник) системы охлаждения</option>
+                            <option value="/zapchasti/fonari_zad_komplekt">Фонари задние (комплект задних фонарей)</option>
+                            <option value="/zapchasti/fonar_zad_lev">Фонарь задний левый (наружный левый стоп, фара)</option>
+                            <option value="/zapchasti/fonar_zad_prav">Фонарь задний правый (наружный правый стоп, фара)</option>
+                            <option value="/zapchasti/fonar_krishki_bagajnika">Фонарь крышки багажника левый (фонарь крышки багажника правый)</option>
+                            <option value="/zapchasti/fonar_salona_plafon">Фонарь салона, плафон (фонарь освещения багажника)</option>
+                            <option value="/zapchasti/forsunka">Форсунка (дизельная или бензиновая форсунка)</option>
+                            <option value="/zapchasti/forsunka_doziga">Форсунка дожига (пятая форсунка)</option>
+                            <option value="/zapchasti/forsunka_omivatelya">Форсунка омывателя (форсунка омывателя фар)</option>
+                            <option value="/zapchasti/fortochka_zad_lev_prav">Форточка задняя левая (форточка задняя правая)</option>
+                            <option value="/zapchasti/fortochka_pered_lev_prav">Форточка передняя левая (форточка передняя правая)</option>
+                            <option value="/zapchasti/cilindr_sceplenia_glavniy">Цилиндр сцепления главный (цилиндр сцепления рабочий)</option>
+                            <option value="/zapchasti/cilindr_tormoznoy_glavniy">Цилиндр тормозной главный (главный тормозной поршень)</option>
+                            <option value="/zapchasti/sharovaia_zad_lev">Шаровая опора задняя левая (нижняя шаровая, верхняя)</option>
+                            <option value="/zapchasti/sharovaia_zad_prav">Шаровая опора задняя правая (нижняя шаровая, верхняя)</option>
+                            <option value="/zapchasti/Sharovaia_per_lev">Шаровая опора передняя левая (нижняя шаровая, верхняя)</option>
+                            <option value="/zapchasti/sharovaia_per_prav">Шаровая опора передняя правая (нижняя шаровая, верхняя)</option>
+                            <option value="/zapchasti/shatun">Шатун (поршень с шатуном)</option>
+                            <option value="/zapchasti/shesternya">Шестерня (коленвала, распредвала, прочая)</option>
+                            <option value="/zapchasti/shkiv_kolenvala">Шкив коленвала (демпфер коленчатого вала)</option>
+                            <option value="/zapchasti/shkiv_nasosa_gidrousilitelya">Шкив насоса гидроусилителя (шланг гидроусилителя)</option>
+                            <option value="/zapchasti/tnvd_zvezda">Шкив ТНВД (звездочка ТНВД)</option>
+                            <option value="/zapchasti/shleif_rulya">Шлейф руля (улитка руля, рулевое кольцо)</option>
+                            <option value="/zapchasti/shtorka_bagajnika">Шторка багажника (шторка богажного отделения)</option>
+                            <option value="/zapchasti/shumoizoliaciya_kapota">Шумоизоляция капота (шуба подкатотная, термошумоизоляция)</option>
+                            <option value="/zapchasti/schetkoderjatel">Щеткодержатель (поводок стеклоочистителя, дворник)</option>
+                            <option value="/zapchasti/schitok_zaschiti_discov_zad_lev">Щиток защиты тормозных дисков (задний левый защитный щиток)</option>
+                            <option value="/zapchasti/schitok_zaschiti_discov_zad_prav">Щиток защиты тормозных дисков (задний правый защитный щиток)</option>
+                            <option value="/zapchasti/Schitok_zaschiti_discov_per_lev">Щиток защиты тормозных дисков (передний левый защитный щиток)</option>
+                            <option value="/zapchasti/schitok_zaschiti_discov_per_prav">Щиток защиты тормозных дисков (передний правый защитный щиток)</option>
+                            <option value="/zapchasti/schitok_priborov_pribornaya_panel">Щиток приборов (приборная панель торпеды)</option>
+                            <option value="/zapchasti/schup_dvigatelya">Щуп уровня масла двигателя (Щуп масляный коробки АКПП)</option>
+                            <option value="/zapchasti/blok_parktronikov">Электронный блок парктроников (блок управления парктрониками)</option>
+                            <option value="/zapchasti/elektrousilitel_rulya">Электроусилитель руля (электрогидроусилитель руля)</option>
+                            <option value="/zapchasti/elementi_avtonomnogo_otopitelya">Элементы автономного отопителя (запчасти для автономного отопителя)</option>
+                            <option value="/zapchasti/elementi_generatora">Элементы генератора (запчасти для ремонта генератора)</option>
+                            <option value="/zapchasti/elementi_dvigatelya">Элементы двигателя (запчасти для ремонта двигателя)</option>
+                            <option value="/zapchasti/knopka_steklopodemnika_per_prav">Элементы для ремонта главного тормозного цилиндра</option>
+                            <option value="/zapchasti/elementi_akpp">Элементы коробки АКПП (запчасти для ремонта АКПП)</option>
+                            <option value="/zapchasti/elementi_mkpp">Элементы механической КПП (запчасти для ремонта МКПП)</option>
+                            <option value="/zapchasti/elementi_rulevoy_reiki">Элементы рулевой рейки (запчасти для ремонта рулевой рейки)</option>
+                            <option value="/zapchasti/elementi_startera">Элементы стартера (запчасти для ремонта стартера)</option>
+                            <option value="/zapchasti/knopka_steklopodemnika_zad_lev">Элементы, ремкомплекты для ремонта стеклоподъемников</option>
+                            <option value="/zapchasti/emblema">Эмблема марки автомобиля (значек марки авто)</option>
+                            <option value="/zapchasti/yubka_bampera">Юбка бампера нижняя (юбка переднего бампера)</option>
+                    </select>
+    </form>
+    </div>
+
+
+                                                        </div>
+            </div>
+            </div>
+        </section>
+    
+    
     </main>
 {% endblock %}
