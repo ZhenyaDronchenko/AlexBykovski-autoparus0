@@ -49,6 +49,10 @@ class ImageUrlExtension extends Twig_Extension
             $url = $defaultImageObject instanceof DefaultImage ? $defaultImageObject->getImage() : $url;
         }
 
+        if(strpos($url, "https") === 0 || strpos($url, "http") === 0){
+            return $url;
+        }
+
         return $this->additionalPath . $url;
     }
 }
