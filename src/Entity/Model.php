@@ -128,9 +128,9 @@ class Model implements VariableInterface
     private $thumbnailLogo;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $keyWords;
 
@@ -320,17 +320,17 @@ class Model implements VariableInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getKeyWords(): string
+    public function getKeyWords(): ?string
     {
         return $this->keyWords;
     }
 
     /**
-     * @param string $keyWords
+     * @param null|string $keyWords
      */
-    public function setKeyWords(string $keyWords): void
+    public function setKeyWords(?string $keyWords): void
     {
         $this->keyWords = $keyWords;
     }
