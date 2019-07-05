@@ -1,0 +1,46 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <table id="required-data-{{ object.id }}" class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Поле</th>
+            <th scope="col">Значение</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set data = object.decodeRequiredValues() %}
+        {% for field, value in data %}
+            <tr>
+                <th>{{ field }}</th>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button id="toggle-data-{{ object.id }}" class="btn btn-primary" type="button"
+            onclick="document.getElementById('full-data-{{ object.id }}').style.display = 'block';
+                document.getElementById('toggle-data-{{ object.id }}').style.display = 'none';
+                document.getElementById('required-data-{{ object.id }}').style.display = 'none';">
+        Показать все данные
+    </button>
+
+    <table id="full-data-{{ object.id }}" class="table table-striped" style="display: none">
+        <thead>
+            <tr>
+                <th scope="col">Поле</th>
+                <th scope="col">Значение</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set data = object.decodeLineData() %}
+            {% for field, value in data %}
+                <tr>
+                    <th>{{ field }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

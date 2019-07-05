@@ -15,6 +15,7 @@ use App\Entity\UniversalPage\UniversalPageBrand;
 use App\Entity\UniversalPage\UniversalPageCity;
 use App\Entity\UniversalPage\UniversalPageSparePart;
 use App\Entity\User;
+use App\Entity\UserData\ImportAdvertError;
 use App\Entity\UserData\UserEngine;
 use App\Entity\UserData\UserOBD2ErrorCode;
 use Doctrine\ORM\EntityManagerInterface;
@@ -325,5 +326,23 @@ class AdminController extends Controller
         }
 
         return new JsonResponse($parsedModels);
+    }
+
+    /**
+     * @Route("/admin-remove-import-advert-error/{id}", name="admin_remove_import_advert_error")
+     *
+     * @ParamConverter("error", class="App\Entity\UserData\ImportAdvertError", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removeImportAdvertErrorAction(Request $request, ImportAdvertError $error)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($error);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
     }
 }

@@ -109,10 +109,31 @@ class SparePartRepository extends EntityRepository
             'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName4,\')\',1),\'(\',-1)) IN (:texts)'
         );
 
-        $qb->where($orX)
-            ->setParameter('texts', $texts );
+        $suggestions = $qb->where($orX)
+            ->setParameter('texts', $texts )
+            ->getQuery()
+            ->getResult();
 
-        return $qb
+        if(!count($suggestions)){
+            return $this->findByKeyWords($text);
+        }
+
+        return $suggestions;
+    }
+
+    public function findByKeyWords($text)
+    {
+        $qb = $this->createQueryBuilder('spp')
+            ->select('spp');
+
+        $orX = $qb->expr()->orX(
+            'UPPER(spp.keyWords) = :textUpper',
+            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \',\', UPPER(:textUpper), \'%\')',
+            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \',\', \'%\')'
+        );
+
+        return $qb->where($orX)
+            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
             ->getQuery()
             ->getResult();
     }

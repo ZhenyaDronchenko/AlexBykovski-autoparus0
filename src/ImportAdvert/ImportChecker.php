@@ -22,9 +22,10 @@ class ImportChecker
     const GEAR_BOX_TYPE_HEADER = "КОРОБКА";
     const VEHICLE_TYPE_HEADER = "ТИП КУЗОВА";
     const NUMBER_SPARE_PART_HEADER = "ОРИГИНАЛЬНЫЙ НОМЕР";
-    const DESCRIPTION_HEADER = "Описание";
+    const DESCRIPTION_HEADER = "ОПИСАНИЕ";
     const IMAGE_HEADER = "ФОТО";
     const COST_HEADER = "ЦЕНА";
+    const CURRENCY_HEADER = "ВАЛЮТА";
 
     static $requiredFields = [self::BRAND_HEADER, self::MODEL_HEADER, self::YEAR_HEADER, self::SPARE_PART_HEADER];
 

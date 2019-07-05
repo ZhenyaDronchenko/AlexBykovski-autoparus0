@@ -168,6 +168,13 @@ class SparePart implements VariableInterface
     private $thumbnailLogo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $keyWords;
+
+    /**
      * SparePart constructor.
      */
     public function __construct()
@@ -547,6 +554,37 @@ class SparePart implements VariableInterface
     public function setThumbnailLogo(?string $thumbnailLogo): void
     {
         $this->thumbnailLogo = $thumbnailLogo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeyWords(): string
+    {
+        return $this->keyWords;
+    }
+
+    /**
+     * @param string $keyWords
+     */
+    public function setKeyWords(string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function addKeyWord($word)
+    {
+        if(strpos($this->keyWords, $word) == false){
+            return false;
+        }
+
+        if($this->keyWords){
+            $this->keyWords .= ',';
+        }
+
+        $this->keyWords .= $word;
+
+        return true;
     }
 
     /**
