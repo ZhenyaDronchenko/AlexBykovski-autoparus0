@@ -124,6 +124,13 @@ class Brand implements VariableInterface
     private $thumbnailLogo64;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $keyWords;
+
+    /**
      * Brand constructor.
      */
     public function __construct()
@@ -369,6 +376,37 @@ class Brand implements VariableInterface
     public function setThumbnailLogo64(?string $thumbnailLogo64): void
     {
         $this->thumbnailLogo64 = $thumbnailLogo64;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeyWords(): string
+    {
+        return $this->keyWords;
+    }
+
+    /**
+     * @param string $keyWords
+     */
+    public function setKeyWords(string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function addKeyWord($word)
+    {
+        if(strpos($this->keyWords, $word) == false){
+            return false;
+        }
+
+        if($this->keyWords){
+            $this->keyWords .= ',';
+        }
+
+        $this->keyWords .= $word;
+
+        return true;
     }
 
     /**

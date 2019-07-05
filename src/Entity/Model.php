@@ -128,6 +128,13 @@ class Model implements VariableInterface
     private $thumbnailLogo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $keyWords;
+
+    /**
      * Model constructor.
      */
     public function __construct()
@@ -310,6 +317,37 @@ class Model implements VariableInterface
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeyWords(): string
+    {
+        return $this->keyWords;
+    }
+
+    /**
+     * @param string $keyWords
+     */
+    public function setKeyWords(string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function addKeyWord($word)
+    {
+        if(strpos($this->keyWords, $word) == false){
+            return false;
+        }
+
+        if($this->keyWords){
+            $this->keyWords .= ',';
+        }
+
+        $this->keyWords .= $word;
+
+        return true;
     }
 
     public function toSearchArray($isRussianText = false)

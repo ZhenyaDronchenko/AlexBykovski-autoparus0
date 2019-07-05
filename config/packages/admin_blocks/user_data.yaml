@@ -1,4 +1,10 @@
 services:
+    admin.user_data.import_advert_error:
+        class: App\Admin\UserData\ImportAdvertErrorAdmin
+        arguments: [~, App\Entity\UserData\ImportAdvertError, ~]
+        tags:
+            - { name: sonata.admin, group: Данные от пользователей, manager_type: orm, label: Ошибки импорта }
+        public: true
     admin.user_data.user_engine:
         class: App\Admin\UserData\UserEngineAdmin
         arguments: [~, App\Entity\UserData\UserEngine, ~]

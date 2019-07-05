@@ -9,6 +9,7 @@ use App\Entity\Engine;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Entity\UserData\ImportAdvertError;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 
@@ -147,6 +148,7 @@ class ImportUploader
         $advert->setImage($this->getImage($headers, $line));
         $advert->setCost($this->getCost($headers, $line));
         $advert->setComment($this->getDescription($headers, $line));
+        $advert->setCurrency($this->getCurrency($headers, $line));
 
         return $advert;
     }
@@ -154,19 +156,20 @@ class ImportUploader
     private function getBrand($headers, $line, $index)
     {
         $brandIndex = array_search(ImportChecker::BRAND_HEADER, $headers);
+        $value = trim($line[$brandIndex]);
 
-        if(!trim($line[$brandIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
+        if(!$value){
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::BRAND_HEADER, self::ERROR_EMPTY_DATA);
         }
 
-        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$brandIndex]));
+        $brand = $this->em->getRepository(Brand::class)->findBrandForImport($value);
 
         if(!is_array($brand) || !count($brand)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::BRAND_HEADER, self::ERROR_EMPTY_DATA);
         }
 
         if(count($brand) > 1){
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::BRAND_HEADER)];
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::BRAND_HEADER, self::ERROR_MULTIPLE_DATA);
         }
 
         return array_values($brand)[0];
@@ -175,15 +178,16 @@ class ImportUploader
     private function getSparePart($headers, $line, $index)
     {
         $sparePartIndex = array_search(ImportChecker::SPARE_PART_HEADER, $headers);
+        $value = trim($line[$sparePartIndex]);
 
-        if(!trim($line[$sparePartIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
+        if(!$value){
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::SPARE_PART_HEADER, self::ERROR_EMPTY_DATA);
         }
 
-        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$sparePartIndex]));
+        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport($value);
 
         if(!is_array($sparePart ) || !count($sparePart)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::SPARE_PART_HEADER, self::ERROR_EMPTY_DATA);
         }
 
         if(count($sparePart) > 1){
@@ -192,11 +196,11 @@ class ImportUploader
 
             /** @var SparePart $item */
             foreach ($sparePart as $item){
-                if(trim($item->getName()) === $line[$sparePartIndex]){
+                if(trim($item->getName()) === $value){
                     $fullSame = $item->getName();
                 }
 
-                if(trim(strtok($item->getName(), '(')) === $line[$sparePartIndex]){
+                if(trim(strtok($item->getName(), '(')) === $value){
                     $beforeBracketSame = $item->getName();
                 }
             }
@@ -208,7 +212,7 @@ class ImportUploader
                 return $beforeBracketSame;
             }
 
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::SPARE_PART_HEADER)];
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::SPARE_PART_HEADER, self::ERROR_MULTIPLE_DATA);
         }
 
         return array_values($sparePart)[0]->getName();
@@ -217,15 +221,16 @@ class ImportUploader
     private function getModel($headers, $line, $index, Brand $brand)
     {
         $modelIndex = array_search(ImportChecker::MODEL_HEADER, $headers);
+        $value = trim($line[$modelIndex]);
 
-        if(!trim($line[$modelIndex])){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
+        if(!$value){
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::MODEL_HEADER, self::ERROR_EMPTY_DATA);
         }
 
-        $model = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$modelIndex]), $brand);
+        $model = $this->em->getRepository(Model::class)->findModelForImport($value, $brand);
 
         if(!is_array($model) || !count($model)){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::MODEL_HEADER, self::ERROR_EMPTY_DATA);
         }
 
         if(count($model) > 1){
@@ -248,7 +253,7 @@ class ImportUploader
             }
 
             //return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER . ' | ' . count($model) . ' | ' . $brand->getId() . ' | ' . $year . ' | ' . trim($line[$modelIndex]))];
-            return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER)];
+            return $this->handleError($headers, $line, $index, $value, ImportChecker::MODEL_HEADER, self::ERROR_MULTIPLE_DATA);
         }
 
         return array_values($model)[0];
@@ -259,12 +264,9 @@ class ImportUploader
         $yearIndex = array_search(ImportChecker::YEAR_HEADER, $headers);
         $year = (int)trim($line[$yearIndex]);
 
-        if(!$year){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::YEAR_HEADER)];
-        }
-
-        if(!($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo())){
-            return [sprintf(self::ERROR_EMPTY_DATA, $index + 1, ImportChecker::YEAR_HEADER)];
+        if(!$year ||
+            !($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo())){
+            return $this->handleError($headers, $line, $index, $year, ImportChecker::YEAR_HEADER, self::ERROR_EMPTY_DATA);
         }
 
         return $year;
@@ -281,7 +283,6 @@ class ImportUploader
 
         return count($model->getTechnicalData()->getEnginesByType($engineType)) ?
             $engineType : null;
-
     }
 
     private function getEngineCapacity($headers, $line, Model $model, $engineType)
@@ -368,6 +369,15 @@ class ImportUploader
         return $cost ?: null;
     }
 
+    private function getCurrency($headers, $line)
+    {
+        $currencyIndex = array_search(ImportChecker::CURRENCY_HEADER, $headers);
+
+        $currency = trim($line[$currencyIndex]);
+
+        return $currency ?: null;
+    }
+
     private function parseGearBox($gearBoxType)
     {
         switch (strtoupper($gearBoxType)){
@@ -378,5 +388,60 @@ class ImportUploader
             default:
                 return $gearBoxType;
         }
+    }
+
+    private function handleError($headers, $line, $index, $value, $header, $errorTemplate)
+    {
+        $lineData = json_encode($this->getLineDataValues($headers, $line));
+        $errorDB = sprintf($errorTemplate, "file", $header);
+
+        $errorImport = new ImportAdvertError($lineData, $value, $header, $errorDB);
+        $errorImport->setRequiredValues(json_encode($this->getRequiredValues($headers, $line)));
+
+        if($errorTemplate === self::ERROR_EMPTY_DATA){
+            $errorImport->setCanAddKeyword(true);
+        }
+
+        $existErrorImport = $this->em->getRepository(ImportAdvertError::class)->findBy([
+            "fieldValue" => $errorImport->getFieldValue(),
+            "issueField" => $errorImport->getIssueField(),
+            "issue" => $errorImport->getIssue(),
+            "requiredValues" => $errorImport->getRequiredValues(),
+        ]);
+
+        if(count($existErrorImport)){
+            $existErrorImport[0]->increaseCount();
+        }
+        else {
+            $this->em->persist($errorImport);
+        }
+
+        return [sprintf($errorTemplate, $index + 1, $header)];
+    }
+
+    private function getRequiredValues($headers, $line)
+    {
+        $brandIndex = array_search(ImportChecker::BRAND_HEADER, $headers);
+        $modelIndex = array_search(ImportChecker::MODEL_HEADER, $headers);
+        $yearIndex = array_search(ImportChecker::YEAR_HEADER, $headers);
+        $sparePartIndex = array_search(ImportChecker::SPARE_PART_HEADER, $headers);
+
+        return [
+            ImportChecker::BRAND_HEADER => trim($line[$brandIndex]),
+            ImportChecker::MODEL_HEADER => trim($line[$modelIndex]),
+            ImportChecker::YEAR_HEADER => trim($line[$yearIndex]),
+            ImportChecker::SPARE_PART_HEADER => trim($line[$sparePartIndex]),
+        ];
+    }
+
+    private function getLineDataValues($headers, $line)
+    {
+        $data = [];
+
+        foreach ($headers as $index => $header){
+            $data[$header] = $line[$index];
+        }
+
+        return $data;
     }
 }

@@ -7,11 +7,13 @@ sonata_admin:
     assets:
         extra_stylesheets:
             - 'bower-components/Croppie/croppie.css'
+            - 'bower-components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css'
             - 'css/admin/general.css'
             - 'css/admin/model.css'
             - 'css/admin/spare-part.css'
         extra_javascripts:
             - 'bower-components/Croppie/croppie.min.js'
+            - 'bower-components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js'
             - 'js/general-settings.js'
             - 'js/admin/spare-part.js'
             - 'js/admin/article-image.js'

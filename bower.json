@@ -25,6 +25,7 @@
     "ng-rollbar": "^2.4.2",
     "Croppie": "croppie#^2.6.4",
     "owl.carousel": "^2.3.4",
-    "select2": "^4.0.7"
+    "select2": "^4.0.7",
+    "bootstrap-tagsinput": "^0.8.0"
   }
 }

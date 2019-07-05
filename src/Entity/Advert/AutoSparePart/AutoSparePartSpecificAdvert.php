@@ -200,6 +200,13 @@ class AutoSparePartSpecificAdvert
     private $activatedAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $currency;
+
+    /**
      * AutoSparePartGeneralAdvert constructor.
      *
      * @param SellerAdvertDetail $advertDetail
@@ -545,6 +552,22 @@ class AutoSparePartSpecificAdvert
     public function setActivatedAt(DateTime $activatedAt): void
     {
         $this->activatedAt = $activatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency(string $currency): void
+    {
+        $this->currency = $currency;
     }
 
     public function createCloneByAuto()
