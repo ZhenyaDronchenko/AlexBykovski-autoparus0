@@ -44,6 +44,12 @@ $(function(){
 
         return attr ? attr : {};
     }
+
+    $.each($(".jquery-tagsinput-input"), function (index, item) {
+        $(item).tagsInput({
+            'delimiter': ['|'],
+        });
+    });
 });
 
 function scrollToElement(selector) {

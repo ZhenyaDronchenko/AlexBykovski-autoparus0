@@ -84,6 +84,8 @@ class ImportController extends Controller
      */
     public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
     {
+        ini_set('max_execution_time', 10*60);
+
         $response = [
             "success" => false,
         ];

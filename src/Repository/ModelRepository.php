@@ -134,8 +134,9 @@ class ModelRepository extends EntityRepository
 
         $orX = $qb->expr()->orX(
             'UPPER(m.keyWords) = :textUpper',
-            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \',\', UPPER(:textUpper), \'%\')',
-            'UPPER(m.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \',\', \'%\')'
+            'UPPER(m.urlConnectBamper) = :textUpper',
+            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \'\|\', UPPER(:textUpper), \'%\')',
+            'UPPER(m.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \'\|\', \'%\')'
         );
 
         return $qb->andWhere($orX)

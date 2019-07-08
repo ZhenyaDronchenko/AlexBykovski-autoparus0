@@ -128,6 +128,7 @@ class SparePartRepository extends EntityRepository
 
         $orX = $qb->expr()->orX(
             'UPPER(spp.keyWords) = :textUpper',
+            'UPPER(spp.urlConnectBamper) = :textUpper',
             'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \',\', UPPER(:textUpper), \'%\')',
             'UPPER(spp.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \',\', \'%\')'
         );

@@ -45,7 +45,7 @@ class SellerAdvertDetail
      * @var Collection
      *
      * One SellerAdvertDetail has Many AutoSparePartSpecificAdverts.
-     * @ORM\OneToMany(targetEntity="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", mappedBy="sellerAdvertDetail")
+     * @ORM\OneToMany(targetEntity="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", mappedBy="sellerAdvertDetail", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $autoSparePartSpecificAdverts;
 
@@ -150,7 +150,9 @@ class SellerAdvertDetail
             return $advert->getBrand()->getId() === $advertToCompare->getBrand()->getId() &&
                 $advert->getModel()->getId() === $advertToCompare->getModel()->getId() &&
                 $advert->getSparePart() === $advertToCompare->getSparePart() &&
-                $advert->getYear() === $advertToCompare->getYear();
+                $advert->getYear() === $advertToCompare->getYear() &&
+                $advert->getStockType() === $advertToCompare->getStockType() &&
+                $advert->getCondition() === $advertToCompare->getCondition();
         })) > 0;
     }
 }

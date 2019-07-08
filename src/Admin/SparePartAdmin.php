@@ -97,7 +97,7 @@ class SparePartAdmin extends AbstractAdmin
             'label' => 'Keywords',
             'required' => false,
             'attr' => [
-                'data-role' => "tagsinput",
+                'class' => "jquery-tagsinput-input",
             ],
         ]);
     }

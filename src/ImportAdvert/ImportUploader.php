@@ -10,6 +10,7 @@ use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\UserData\ImportAdvertError;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 
@@ -21,6 +22,9 @@ class ImportUploader
     /** @var EntityManagerInterface */
     private $em;
 
+    /** @var array */
+    private $importErrors;
+
     /**
      * ImportChecker constructor.
      * @param EntityManagerInterface $em
@@ -28,6 +32,7 @@ class ImportUploader
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
+        $this->importErrors = [];
     }
 
     public function importFile($filePath, SellerAdvertDetail $advertDetail)
@@ -70,17 +75,18 @@ class ImportUploader
         $count = 0;
         $errors = [];
 
+        $advertDetail->setAutoSparePartSpecificAdverts(new ArrayCollection());
+
         foreach ($lines as $index => $line){
             $advert = $this->importLine($headers, $line, ++$index);
 
-            if($advert instanceof AutoSparePartSpecificAdvert && !$advertDetail->hasSameImportSpecificAdvert($advert)){
+            //if($advert instanceof AutoSparePartSpecificAdvert && !$advertDetail->hasSameImportSpecificAdvert($advert)){
+            if($advert instanceof AutoSparePartSpecificAdvert){
                 ++$count;
 
-                $advert->setSellerAdvertDetail($advertDetail);
                 $advert->setCondition(AutoSparePartSpecificAdvert::USED_TYPE);
                 $advert->setStockType(AutoSparePartSpecificAdvert::IN_STOCK_TYPE);
-
-                $advertDetail->addAutoSparePartSpecificAdvert($advert);
+                $advert->setSellerAdvertDetail($advertDetail);
 
                 $this->em->persist($advert);
 
@@ -394,29 +400,42 @@ class ImportUploader
     {
         $lineData = json_encode($this->getLineDataValues($headers, $line));
         $errorDB = sprintf($errorTemplate, "file", $header);
+        $requiredValues = json_encode($this->getRequiredValues($headers, $line));
 
         $errorImport = new ImportAdvertError($lineData, $value, $header, $errorDB);
-        $errorImport->setRequiredValues(json_encode($this->getRequiredValues($headers, $line)));
+        $errorImport->setRequiredValues($requiredValues);
 
         if($errorTemplate === self::ERROR_EMPTY_DATA){
             $errorImport->setCanAddKeyword(true);
         }
 
+        $this->addErrorImport($errorImport);
+
+        return [sprintf($errorTemplate, $index + 1, $header . ' | ' . $value)];
+    }
+
+    private function addErrorImport(ImportAdvertError $errorImport)
+    {
+        $requiredValues = $errorImport->getRequiredValues();
+
+        /** @var ImportAdvertError[] $existErrorImport */
         $existErrorImport = $this->em->getRepository(ImportAdvertError::class)->findBy([
-            "fieldValue" => $errorImport->getFieldValue(),
-            "issueField" => $errorImport->getIssueField(),
             "issue" => $errorImport->getIssue(),
-            "requiredValues" => $errorImport->getRequiredValues(),
+            "requiredValues" => $requiredValues,
         ]);
 
         if(count($existErrorImport)){
             $existErrorImport[0]->increaseCount();
         }
         else {
-            $this->em->persist($errorImport);
+            if(array_key_exists($requiredValues, $this->importErrors)){
+                $this->importErrors[$requiredValues]->increaseCount();
+            }
+            else{
+                $this->importErrors[$requiredValues] = $errorImport;
+                $this->em->persist($errorImport);
+            }
         }
-
-        return [sprintf($errorTemplate, $index + 1, $header)];
     }
 
     private function getRequiredValues($headers, $line)

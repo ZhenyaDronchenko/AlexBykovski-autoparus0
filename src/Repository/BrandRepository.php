@@ -113,6 +113,7 @@ class BrandRepository extends EntityRepository
             ->select('br');
 
         $orX = $qb->expr()->orX(
+            'UPPER(br.urlConnectBamper) = :textUpper',
             'UPPER(br.keyWords) = :textUpper',
             'UPPER(br.keyWords) LIKE CONCAT(\'%\', \',\', UPPER(:textUpper), \'%\')',
             'UPPER(br.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \',\', \'%\')'

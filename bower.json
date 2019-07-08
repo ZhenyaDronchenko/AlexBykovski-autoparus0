@@ -26,6 +26,6 @@
     "Croppie": "croppie#^2.6.4",
     "owl.carousel": "^2.3.4",
     "select2": "^4.0.7",
-    "bootstrap-tagsinput": "^0.8.0"
+    "jquery.tagsinput": "^1.3.6"
   }
 }
