@@ -3,6 +3,7 @@
 namespace App\Entity\UserData;
 
 use App\Entity\Client\Client;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,6 +71,13 @@ class ImportAdvertError
     private $requiredValues;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * ImportAdvertError constructor.
      * @param string $lineData
      * @param string $fieldValue
@@ -82,6 +90,8 @@ class ImportAdvertError
         $this->fieldValue = $fieldValue;
         $this->issueField = $issueField;
         $this->issue = $issue;
+
+        $this->createdAt = new DateTime();
     }
 
     /**
@@ -210,6 +220,22 @@ class ImportAdvertError
     public function setRequiredValues(string $requiredValues): void
     {
         $this->requiredValues = $requiredValues;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 
     public function decodeLineData()

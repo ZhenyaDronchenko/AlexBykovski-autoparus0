@@ -9,12 +9,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ImportAdvertErrorAdmin extends AbstractAdmin
 {
+    protected $datagridValues = [
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'id',
+    ];
+
     protected $maxPerPage = 192;
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id', TextType::class, ['label' => '#', 'sortable' => false])
+            ->addIdentifier('id', TextType::class, ['label' => '#'])
             ->addIdentifier('issueField', TextType::class, ['label' => 'Проблемное поле', 'sortable' => false])
             ->addIdentifier('fieldValue', TextType::class, ['label' => 'Значение', 'sortable' => false])
             ->addIdentifier('issue', TextType::class, ['label' => 'Проблема', 'sortable' => false])
