@@ -362,9 +362,9 @@ class ImportUploader
     private function getImage($headers, $line)
     {
         $imageIndex = array_search(ImportChecker::IMAGE_HEADER, $headers);
-        $image = trim($line[$imageIndex]);
+        $images = explode(',', trim($line[$imageIndex]));
 
-        return $image ?: null;
+        return count($images) ? $images[0] : null;
     }
 
     private function getCost($headers, $line)
