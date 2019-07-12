@@ -24,7 +24,7 @@ class ImportAdvertErrorAdmin extends AbstractAdmin
             ->addIdentifier('fieldValue', TextType::class, ['label' => 'Значение', 'sortable' => false])
             ->addIdentifier('issue', TextType::class, ['label' => 'Проблема', 'sortable' => false])
             ->addIdentifier('lineData', null, ['label' => 'Данные', 'template' => 'admin/user-data/import-advert-error/line-data.html.twig', 'sortable' => false])
-            //->addIdentifier('approve', null, ['label' => false, 'template' => 'admin/user-data/user-engine/agree-button.html.twig', 'sortable' => false])
+            ->addIdentifier('approve', null, ['label' => false, 'template' => 'admin/user-data/import-advert-error/submit-button.html.twig', 'sortable' => false])
             ->addIdentifier('remove', null, ['label' => false, 'template' => 'admin/user-data/import-advert-error/remove-button.html.twig', 'sortable' => false])
         ;
     }

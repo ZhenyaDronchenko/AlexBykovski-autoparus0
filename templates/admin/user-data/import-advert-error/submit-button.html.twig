@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {% set noneModel = "Строка 0: нет данных или не найдено соответствие по полю: МОДЕЛЬ" %}
+    {% set noneBrand = "Строка 0: нет данных или не найдено соответствие по полю: МАРКА" %}
+    {% set noneSparePart = "Строка 0: нет данных или не найдено соответствие по полю: НАИМЕНОВАНИЕ ЗАПЧАСТИ" %}
+    {% set noneYear = "Строка 0: нет данных или не найдено соответствие по полю: ГОД" %}
+    {% if object. %}
+    <a class="btn btn-success" href="{{ path("admin_remove_import_advert_error", {id: object.id}) }}">Сохранить</a>
+{% endblock %}
