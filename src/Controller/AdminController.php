@@ -18,6 +18,7 @@ use App\Entity\User;
 use App\Entity\UserData\ImportAdvertError;
 use App\Entity\UserData\UserEngine;
 use App\Entity\UserData\UserOBD2ErrorCode;
+use App\Handler\SaveKeywordsHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -344,5 +345,26 @@ class AdminController extends Controller
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/admin-save-keywords-import-advert-error/{id}", name="admin_save_keywords_import_advert_error")
+     *
+     * @ParamConverter("error", class="App\Entity\UserData\ImportAdvertError", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function saveKeywordsImportAdvertErrorAction(Request $request, ImportAdvertError $error, SaveKeywordsHandler $handler)
+    {
+        $value = $request->request->get("value");
+        $type = $request->request->get("type");
+        $em = $this->getDoctrine()->getManager();
+
+        $handler->saveKeywords($type, $value, $error);
+
+        $em->remove($error);
+        $em->flush();
+
+        return new JsonResponse(["success" => true]);
     }
 }

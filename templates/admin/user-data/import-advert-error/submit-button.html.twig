@@ -1,10 +1,26 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field%}
-    {% set noneModel = "Строка 0: нет данных или не найдено соответствие по полю: МОДЕЛЬ" %}
-    {% set noneBrand = "Строка 0: нет данных или не найдено соответствие по полю: МАРКА" %}
-    {% set noneSparePart = "Строка 0: нет данных или не найдено соответствие по полю: НАИМЕНОВАНИЕ ЗАПЧАСТИ" %}
-    {% set noneYear = "Строка 0: нет данных или не найдено соответствие по полю: ГОД" %}
-    {% if object. %}
-    <a class="btn btn-success" href="{{ path("admin_remove_import_advert_error", {id: object.id}) }}">Сохранить</a>
+    {% set noneModel = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: МОДЕЛЬ" %}
+    {% set noneBrand = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: МАРКА" %}
+    {% set noneSparePart = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: НАИМЕНОВАНИЕ ЗАПЧАСТИ" %}
+    {% set noneYear = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: ГОД" %}
+
+    {% if noneBrand or noneSparePart %}
+        <input type="text" id="solution-{{ object.id }}" name="keyword"
+                class="{{ noneBrand ? "brand-solution" : "spare-part-solution" }} error-solution" data-type="{{ noneBrand ? "brand" : "spare-part" }}">
+    {% elseif noneModel %}
+        {% set brand = get_object("App\\Entity\\Brand", "find", object.decodeParsedValues('brand')) %}
+        <input type="text" id="solution-{{ object.id }}" data-options='{"brand" : "{{ brand.url }}"}'
+               class="model-solution error-solution" data-type="model"
+               name="keyword[]" multiple="multiple">
+    {% elseif noneYear %}
+        {% set brandId = object.decodeParsedValues('brand') %}
+        {% set modelId = object.decodeParsedValues('model') %}
+        <a class="btn btn-primary year-solution" href="{{ path("admin_app_brand_model_edit", {"id" : brandId, "childId" : modelId}) }}" target="_blank">В Модель</a>
+    {% endif %}
+
+    {% if noneModel or noneBrand or noneSparePart %}
+        <a class="btn btn-success" style="margin-top: 20px;" onclick="saveSolution({{ object.id }})">Сохранить</a>
+    {% endif %}
 {% endblock %}

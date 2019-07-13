@@ -71,6 +71,13 @@ class ImportAdvertError
     private $requiredValues;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="text")
+     */
+    private $parsedValues;
+
+    /**
      * @var DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
@@ -254,6 +261,41 @@ class ImportAdvertError
         }
 
         return json_decode($this->requiredValues, true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getParsedValues(): string
+    {
+        return $this->parsedValues;
+    }
+
+    /**
+     * @param string $parsedValues
+     */
+    public function setParsedValues(string $parsedValues): void
+    {
+        $this->parsedValues = $parsedValues;
+    }
+
+    public function decodeParsedValues($field = "all")
+    {
+        if(!$this->parsedValues){
+            return [];
+        }
+
+        $decodedData = json_decode($this->parsedValues, true);
+
+        if($field === "all"){
+            return $decodedData;
+        }
+        elseif (!array_key_exists($field, $decodedData)){
+            return null;
+        }
+        else{
+            return $decodedData[$field];
+        }
     }
 
     public function increaseCount()

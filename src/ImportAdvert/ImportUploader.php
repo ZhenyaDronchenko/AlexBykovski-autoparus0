@@ -25,6 +25,9 @@ class ImportUploader
     /** @var array */
     private $importErrors;
 
+    /** @var AutoSparePartSpecificAdvert */
+    private $currentAdvert;
+
     /**
      * ImportChecker constructor.
      * @param EntityManagerInterface $em
@@ -111,6 +114,7 @@ class ImportUploader
     private function importLine(array $headers, array $line, $index)
     {
         $advert = new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
+        $this->currentAdvert = $advert;
 
         $brand = $this->getBrand($headers, $line, $index);
 
@@ -432,10 +436,24 @@ class ImportUploader
                 $this->importErrors[$requiredValues]->increaseCount();
             }
             else{
+                $this->addParsedData($errorImport);
+
                 $this->importErrors[$requiredValues] = $errorImport;
                 $this->em->persist($errorImport);
             }
         }
+    }
+
+    private function addParsedData(ImportAdvertError $error)
+    {
+        $data = [
+            "brand" => $this->currentAdvert->getBrand() ? $this->currentAdvert->getBrand()->getId() : "",
+            "model" => $this->currentAdvert->getModel() ? $this->currentAdvert->getModel()->getId() : "",
+            "sparePart" => $this->currentAdvert->getSparePart() ?: "",
+            "year" => $this->currentAdvert->getYear() ?: "",
+        ];
+
+        $error->setParsedValues(json_encode($data));
     }
 
     private function getRequiredValues($headers, $line)
