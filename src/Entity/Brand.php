@@ -304,6 +304,7 @@ class Brand implements VariableInterface
             "label" => $isRussianText ? $this->brandRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "id" => $this->id,
             "isRussian" => $isRussianText,
         ];
     }
@@ -396,12 +397,12 @@ class Brand implements VariableInterface
 
     public function addKeyWord($word)
     {
-        if(strpos($this->keyWords, $word) == false){
+        if(strpos($this->keyWords, $word) !== false){
             return false;
         }
 
         if($this->keyWords){
-            $this->keyWords .= ',';
+            $this->keyWords .= '|';
         }
 
         $this->keyWords .= $word;

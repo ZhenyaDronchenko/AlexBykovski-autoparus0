@@ -6,7 +6,7 @@ services:
             - { name: sonata.admin, group: Данные от пользователей, manager_type: orm, label: Ошибки импорта }
         public: true
         calls:
-            - [ setTemplate, [list, "admin/user-data/list_with_js.html.twig"]]
+            - [ setTemplate, [list, "admin/user-data/import-advert-error/list_with_js.html.twig"]]
     admin.user_data.user_engine:
         class: App\Admin\UserData\UserEngineAdmin
         arguments: [~, App\Entity\UserData\UserEngine, ~]
