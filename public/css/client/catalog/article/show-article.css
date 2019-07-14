@@ -1,4 +1,3 @@
-
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
@@ -101,140 +100,54 @@ cursor: default;
  /*END ХЛЕБНЫЕ КРОШКИ*/
 
 
-
-
-/*main-search*/
-.main-search {
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-
-.form {
-  position: relative; 
-}
-
-.form-input {
-  display: block;
-  margin-left: auto;
-  width: 60%;
-  padding: 6px;
-  padding-bottom: 2px;
-  padding-left: 10px;
-  border: 1px solid #737373;
-  -webkit-appearance: none;
-     border-radius: 0;
-  outline: none;
-  background: white;
-  color: black;
-  font-size: 18px;
-  line-height: 18px;
-  padding-right: 33px;
-}
-.form-button {
-  position: absolute; 
-  top: 0;
-  right: 0px;
-  width: 38px;
-  height: 34px;
-  border: 2px solid #737373;
-  border-left: none;
-  background: white;
-  cursor: pointer;
-  padding-left: 5px;
-  outline: none;
-}
-.form-button:hover svg,
-.form-button:focus svg { 
-  fill: red;
-
-}
-
-.form-link {
- display: block;
-  margin-top: 5px;
-  color: #000000;
-  text-align: right;
-}
-.form-link:hover,
-.form-link:focus { 
-  color: red;
-  text-decoration: underline;
-}
-
-
-
-@media (max-width: 767px) {
-  .container {
-  width: auto; 
-  padding: 0 10px;
-  }
-
-
-.form-input {
-    width: 80%;
-  }
-
-.form-button {
-  font-size: 16px;
-  line-height: 18px;
-}
-  .form-link {
-  font-size: 12px;
-  }
-
- 
-}
-
 /*content*/
 
-.news {
-  padding-top: 30px;
-  margin-bottom: 65px;
-}
-.wrapper {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: -o-flex;
-  display: flex;
-  justify-content: space-between;
-}
-.block-left {
-  width: 60%;
-}
-.block-right {
-  width: 35%;
+.main-page {
+  background: #f0f0f0;
+  padding: 5px 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-.date-block {
+.news {
+  padding-top: 10px;
+}
+
+.wrapper {
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-          margin-bottom: 20px;
-          margin-left: auto;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.block-left {
+  padding: 20px 10px;
+  width: 68%;
+  background-color: #fff;
+}
+.block-right {
+  width: 28%;
 }
 
-.date {
-  display: inline-block;
-  margin-right: 15px;
- font-size: 14px;
-  line-height: 16px;
+.block-cons {
+  padding: 20px 10px;
+  background-color: #fff;
+  margin-bottom: 20px;
 }
-.time {
-  display: inline-block;
- font-size: 10px;
-  line-height: 16px;
+
+.block-part {
+  padding: 20px 10px;
+  background-color: #fff;
 }
+
 h1 {
   margin: 0;
-  margin-bottom: 30px;
-  color: #f66666;
+  margin-bottom: 20px;
+  color: #000;
   font-size: 26px;
   line-height: 30px;
   font-weight: 400;
@@ -249,16 +162,34 @@ h2 {
   line-height: 28px;
   font-weight: 400;
   text-align: center;
+}
 
+h3 {
+  margin: 0;
+  margin-bottom: 15px;
+ color: #000;
+  font-size: 22px;
+  line-height: 24px;
+  font-weight: 400;
+  text-align: center;
+}
+.news-title {
+  margin: 0;
+  margin-bottom: 15px;
+ color: #999;
+ font-style: italic;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 400;
+  text-align: right;
 }
 
 figure {
   margin: 0 auto;
- background: #ccc; /* Цвет фона */
-    padding-bottom: 10px; /* Поля вокруг */
-    width: 450px; /* Ширина */
-    text-align: center; /* Выравнивание по центру */
-    margin-bottom: 30px;
+  background: #ccc; 
+  width: 450px; 
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 figure p {
@@ -276,19 +207,20 @@ figure p {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 7px;
 }
 
 figcaption {
-  display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-size: 16px;
   line-height: 18px;
   font-weight: 400;
   font-style: italic;
+  padding: 3px;
 }
 figcaption span {
   margin-left: auto;
@@ -312,6 +244,22 @@ p {
   line-height: 18px;
 }
 
+.input {
+  display: block;
+    margin: 0 auto;
+    width: 230px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 5px;
+    cursor: pointer;
+    color: #000;
+    border: none;
+    border-bottom: 1px solid #666666;
+    background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
 
 .foto {
   display: -moz-flex;
@@ -334,8 +282,7 @@ p {
 }
 
 .foto-item {
-  /*width: 450px;*/
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
@@ -385,6 +332,27 @@ p {
   margin-bottom: 50px;   
 }
 
+.btn {
+      margin: 0 auto;
+      margin-bottom: 20px;
+    display: block;
+    padding: 4px 20px;
+    padding-bottom: 3px;
+    text-align: center;
+    border: 1px solid #999999;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #444;
+    background-color: #dbc0c7;
+}
+.btn:hover,
+.btn:focus {
+    background-color: #d2a2af;
+}
+
  .form7 {
   width: 200px;
   padding-left: 5px;
@@ -396,21 +364,27 @@ p {
   color: black;
   font-size: 18px;
   line-height: 20px;
+      -webkit-appearance: none;
+    border-radius: 0;
  
 }
 .block-img {
-  display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   -o-flex-direction: column;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   -ms-align-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .img-w {
   width: 300px;
@@ -423,37 +397,84 @@ p {
     width: auto; 
   }
   .block-left {
-    width: 63%;
+    width: 64%;
+}
+figure {
+    width: 390px;
+    }
+figure img {
+    width: 390px;
+    height: 260px;
 }
 .img-w {
   width: 240px;
   height: auto;
-
+}
+.block-right {
+    width: 30%;
+}
+.input {
+    width: 175px;
+}
+.foto-item img {
+    width: 390px;
+    height: auto;
 }
 }
-
 @media (min-width: 481px) and (max-width: 767px) {
   .container {
     width: auto; 
   }
+  .news {
+    padding-top: 10px;
+    margin-bottom: 45px;
+}
+  .main-page {
+    padding: 0;
+    background-color: #fff;
+}
+.block-cons {
+  padding: 0;
+}
+
+.block-part {
+  padding: 0;
+}
 .wrapper {
-  -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   -o-flex-direction: column;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   -ms-align-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
+
  .block-left {
     width: 100%;
+   padding: 0;
 }
+
  .block-right {
     width: 100%;
+    padding: 0;
 }
-.foto { 
-margin-bottom: 30px;
+
+figure img {
+    width: 390px;
+    height: 260px;
 }
+
+.foto-item img {
+    width: 390px;
+    height: auto;
+}
+figure {
+    width: 390px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -461,21 +482,43 @@ margin-bottom: 30px;
     width: auto; 
     padding: 0 10px;
   }
+
+  .news {
+    padding-top: 10px;
+    margin-bottom: 45px;
+}
+  .main-page {
+    padding: 0;
+    background-color: #fff;
+}
+.block-cons {
+  padding: 0;
+}
+
+.block-part {
+  padding: 0;
+}
 .wrapper {
-  -webkit-flex-direction: column;
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   -o-flex-direction: column;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   -ms-align-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
  .block-left {
     width: 100%;
+   padding: 0;
 }
  .block-right {
     width: 100%;
+    padding: 0;
 }
+
 h1 {
   font-size: 24px;
   line-height: 28px;
@@ -539,3 +582,6 @@ margin-bottom: 30px;
 }
 }
 
+
+
+/*  MAIN END */
