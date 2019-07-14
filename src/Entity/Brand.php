@@ -397,7 +397,12 @@ class Brand implements VariableInterface
 
     public function addKeyWord($word)
     {
-        if(strpos($this->keyWords, $word) !== false){
+        $fullSame = $this->keyWords === $word;
+        $inStart = ($pos = strpos($this->keyWords,  $word . '|')) !== false && $pos === 0;
+        $inMiddle = strpos($this->keyWords,  '|' . $word . '|') !== false;
+        $inEnd = ($pos = strpos($this->keyWords,  '|' . $word)) !== false && ($pos + (strlen('|' . $word) - 1)) === strlen($this->keyWords);
+
+        if($fullSame || $inStart || $inMiddle || $inEnd){
             return false;
         }
 
