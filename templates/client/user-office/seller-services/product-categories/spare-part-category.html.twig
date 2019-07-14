@@ -6,10 +6,16 @@
 {% endblock %}
 
 {% block body %}
+    {% set isSeller = app.user.isSeller() %}
+    {% if isSeller %}
+        {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
+        {% set countSparePartSprecificAdverts = app.user.sellerData.advertDetail.autoSparePartSpecificAdverts | length %}
+    {% endif %}
+    {% set isHasAdverts = isSeller and (countSparePartGeneralAdverts + countSparePartSprecificAdverts) > 0 %}
     <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Автопарус" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("show_user_office") }}" title="Автопарус" itemprop="item">
                     <span class="user-name" itemprop="name">{{ app.user.name }}</span>
                     <svg class="user-icon" width="14" height="14" viewBox="0 0 50 50" fill="none">
                         <path d="M33.5 15C33.5 19.6944 29.6945 23.5 25 23.5C20.3056 23.5 16.5 19.6944 16.5 15C16.5 10.3056 20.3056 6.5 25 6.5C29.6945 6.5 33.5 10.3056 33.5 15Z" stroke="#444444" stroke-width="3"/>
@@ -55,18 +61,20 @@
                         <img src="{{ image_url(default_image(27).image) }}" alt="лого">
                     </a>
                 </li>
-                <li>
+                <li style="{{ not isHasAdverts ? "margin: 0 auto;" : "" }}">
                     <a class="items-link" href="{{ path("user_office_import_specific_adverts") }}">
                         <span>Импортировать прайс-лист или лист наличия товаров к авто-мото транспорту</span>
                         <img src="{{ image_url(default_image(25).image) }}" alt="лого">
                     </a>
                 </li>
-                <li>
-                    <a class="items-link" href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}">
-                        <span>Просмотр поданных объявлений, проверка, редактирование, удаление</span>
-                        <img src="{{ image_url(default_image(26).image) }}" alt="лого">
-                    </a>
-                </li>
+                {% if isHasAdverts %}
+                    <li>
+                        <a class="items-link" href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}">
+                            <span>Просмотр поданных объявлений, проверка, редактирование, удаление</span>
+                            <img src="{{ image_url(default_image(26).image) }}" alt="лого">
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
             <div class="subtext">{{ default_text(2).text | raw }}</div>
         </section>

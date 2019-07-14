@@ -269,10 +269,15 @@ class Post
     {
         /** @var Image $firstImage */
         $firstImage = $this->getPostPhotos()->first() ? $this->getPostPhotos()->first()->getImage() : null;
+        $address = $firstImage ? $firstImage->getGeoLocation()->getCountry() : "";
+
+        if($address && $firstImage->getGeoLocation()->getCity()){
+            $address .= ', ' . $firstImage->getGeoLocation()->getCity();
+        }
 
         return [
             "id" => $this->id,
-            "address" => $firstImage ? $firstImage->getGeoLocation()->getFullAddress() : "",
+            "address" => $address,
             "date" => $this->createdAt->format("d.m.Y"),
             "time" => $this->createdAt->format("H:i"),
             "images" => $this->photosToArray(),
@@ -391,7 +396,9 @@ class Post
 
         /** @var PostCar $car */
         foreach ($this->getCars() as $car){
-            $cars[] = $car->toArray();
+            if($car->isActive()) {
+                $cars[] = $car->toArray();
+            }
         }
 
         return $cars;
@@ -403,7 +410,9 @@ class Post
 
         /** @var PostBusinessActivity $activity */
         foreach ($this->businessActivities as $activity){
-            $businessActivities[] = $activity->toArray();
+            if($activity->isActive()) {
+                $businessActivities[] = $activity->toArray();
+            }
         }
 
         return $businessActivities;
