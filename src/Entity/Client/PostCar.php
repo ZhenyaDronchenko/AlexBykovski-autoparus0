@@ -50,6 +50,13 @@ class PostCar
     private $post;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $active = 1;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -152,5 +159,21 @@ class PostCar
             "model" => $this->getModel(),
             "engineType" => $this->getEngineType(),
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 }

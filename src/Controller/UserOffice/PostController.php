@@ -229,11 +229,11 @@ class PostController extends Controller
             return new JsonResponse(["success" => false]);
         }
 
+        $filter->setActive(false);
+
         $em = $this->getDoctrine()->getManager();
 
-        $em->remove($filter);
         $em->flush();
-
         $em->refresh($post);
 
         return new JsonResponse([

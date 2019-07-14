@@ -8,7 +8,7 @@
         const ADD_LINK = Routing.generate('posts_add_post_ajax');
         const EDIT_LINK = Routing.generate('posts_edit_post_ajax', {"id" : "__id__"});
         const GET_POSTS_LINK = Routing.generate('posts_get_posts_ajax');
-        const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_post_filter_ajax', {"id" : "__id__", "filterId" : "__post_id__"});
+        const REMOVE_GALLERY_FILTER_LINK = Routing.generate('remove_post_filter_ajax', {"postId" : "__post_id__", "filterId" : "__id__"});
         const ADD_POST_PHOTO_LINK = Routing.generate('posts_add_post_photo_ajax', {"id" : "__id__"});
         const EDIT_POST_HEADLINE = Routing.generate('posts_save_post_headline_ajax', {"id" : "__id__"});
         const PREVIEW_IMAGE = $("#image-preview-container-gallery img");
@@ -18,6 +18,7 @@
 
         let self = this;
         let closeRemoveConfirm = $("#close-popup-5");
+        let closeRemoveFilterConfirm = $('.close-popup-button[data-popup-id="9"]');
         let dialogContentSize = window.screen.availWidth > window.screen.availHeight ? window.screen.availHeight : window.screen.availWidth;
         let cropperContentSize = dialogContentSize * 0.6;
         let cropperDialog = null;
@@ -30,7 +31,9 @@
         };
 
         this.activePost = null;
+        this.activeFilter = null;
         this.posts = [];
+
         function init(cropperDialogS, cropperDialogPostPhotoS, isUploadPosts) {
             cropperDialog = cropperDialogS;
             cropperDialogPostPhoto = cropperDialogPostPhotoS;
@@ -221,9 +224,11 @@
                 method: "POST",
                 success(data) {
                     if(data.success) {
-                        self.posts[data.gallery.id] = data.gallery;
+                        self.posts[data.post.id] = data.post;
 
                         $scope.$evalAsync();
+
+                        closeRemoveFilterConfirm.click();
                     }
                 },
                 error(data) {

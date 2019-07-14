@@ -82,7 +82,7 @@
                                 <a href="{{ path("show_user_business_office") }}" class="button-rp">Редактировать бизнес профиль</a>
                                 {% if app.user.sellerData %}
                                     <ul class="btn-block">
-                                        {% if app.user.sellerData.sellerCompany.isSparePartSeller%}
+                                        {% if app.user.sellerData.sellerCompany.isSparePartSeller %}
                                             <li>
                                                 <a class="user-btn" href="{{ path("user_profile_product_categories_spare_part") }}" data-text="Авто - мото запчасти"></a>
                                                 <a href="{{ path("user_profile_product_categories_spare_part") }}">
@@ -141,10 +141,25 @@
                     </a>
                 </li>
                 <li>
-                    <a class="icon us-btn5 open-popup-button" nohref data-popup-id="{{ not isSeller ? 13 : 6 }}">
-                        <i class="fa fa-suitcase"></i>
-                        <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
-                    </a>
+                {% set isSparePartSeller = app.user.sellerData.sellerCompany.isSparePartSeller %}
+                    {% if isSeller and not isHasAdverts and not isSparePartSeller %}
+                        <a class="icon us-btn5" href="{{ path("user_profile_product_categories_spare_part") }}">
+                            <i class="fa fa-suitcase"></i>
+                            <span>Business</span>
+                        </a>
+                    {% elseif isSeller and not isHasAdverts and isSparePartSeller %}
+                        <a class="icon us-btn5" nohref
+                            onclick="document.getElementById('trigger-edit-gallery-photo').click()"
+                            ng-click="posts.activePost = posts.getNewPost('business')">
+                            <i class="fa fa-suitcase"></i>
+                            <span>Business</span>
+                        </a>
+                    {% else %}
+                        <a class="icon us-btn5 open-popup-button" nohref data-popup-id="{{ not isSeller ? 13 : 6 }}">
+                            <i class="fa fa-suitcase"></i>
+                            <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
                     <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="posts.activePost = posts.getNewPost()">
@@ -376,8 +391,8 @@
 
                     <ul class="list">
                         <li><a href="{{ isHasAdverts ? path("user_profile_product_categories_spare_part_list_adverts") : path("user_profile_product_categories_spare_part_add_general_advert") }}" class="user-btn" data-text="Авто-мото запчасти"></a><span class="number">( {{ countSparePartGeneralAdverts }} / {{ countSparePartSprecificAdverts }} )</span></li>
-                        <li><a href="#"  class="user-btn user-btn-m" data-text="Авто-мото транспорт"></a><span class="number">( 0 / 0 )</span></li>
-                        <li><a href="#"  class="user-btn user-btn-m" data-text="СТО - Автосервисы"></a><span class="number">( 0 / 0 )</span></li>
+                        {#<li><a href="#"  class="user-btn user-btn-m" data-text="Авто-мото транспорт"></a><span class="number">( 0 / 0 )</span></li>#}
+                        {#<li><a href="#"  class="user-btn user-btn-m" data-text="СТО - Автосервисы"></a><span class="number">( 0 / 0 )</span></li>#}
                         {#<li><a href="#"  class="user-btn user-btn-m" data-text="Туризм / Путешествия"></a><span class="number">( 56 )</span></li>#}
                         {#<li><a href="#"  class="user-btn user-btn-m" data-text="Новости / Статьи"></a><span class="number">( 24 )</span></li>#}
                     </ul>
@@ -410,6 +425,26 @@
             </div>
             <button class="button-cl close-popup close-popup-button" data-popup-id="7"><span>Закрыть</span></button>
         </section>
+    </div>
+
+    <div id="popup9" class="overlay5">
+        <div class="modal5">
+            <section class="del">
+                <h3 class="del-title" data-text="Подтверждение удаления"></h3>
+                <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
+                <ul class="del-btn">
+                    <li>
+                        <a class="btn-m btn-red" href="" ng-click="posts.removeGalleryFilter(posts.activeFilter.id, posts.activePost.id)">
+                            <span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon">
+                        </a>
+                    </li>
+                    <li class="btn-o">
+                        <a id="close-popup-5" class="btn-m btn-gray close-popup-button" data-popup-id="9" nohref
+                        ng-click="posts.activeFilter = null; post.activePost = null;">Отменить удаление</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
     </div>
 {% endblock %}
 
