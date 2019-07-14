@@ -100,7 +100,7 @@
                     <button type="submit" class="btn">Отправить заявку</button>
                     <p>Консультация абсолютно бесплатная</p>
                     <h3>{{ default_text(48).headline }}</h3>
-                    <div>{{ default_test(48).text | raw }}</div>
+                    <div>{{ default_text(48).text | raw }}</div>
                   </div>
                   <div class="block-part">
                       {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти", "nullOption" : "Марка авто:", "options" : brands, "link" : path("show_brand_catalog_choice_model", {"urlBrand" : "__link__"}), "bannerIndex" : 0} %}
