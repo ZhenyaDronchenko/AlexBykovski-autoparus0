@@ -109,39 +109,15 @@ class ModelRepository extends EntityRepository
             ->where("m.brand = :brand");
 
         $orX = $qb->expr()->orX(
-            'UPPER(m.name) = :textUpper',
-            'REPLACE(UPPER(TRIM(SUBSTRING_INDEX(m.name, \'(\', 1 ))), \'-\', \' \') = :textUpper'
-        );
-
-        $suggestions = $qb->andWhere($orX)
-            ->setParameter("brand",  $brand)
-            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
-            ->getQuery()
-            ->getResult();
-
-        if(!count($suggestions)){
-            return $this->findByKeyWords($text, $brand);
-        }
-
-        return $suggestions;
-    }
-
-    public function findByKeyWords($text, Brand $brand)
-    {
-        $qb = $this->createQueryBuilder('m')
-            ->select('m')
-            ->where("m.brand = :brand");
-
-        $orX = $qb->expr()->orX(
             'UPPER(m.keyWords) = :textUpper',
-            'UPPER(m.urlConnectBamper) = :textUpper',
-            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \'\|\', UPPER(:textUpper), \'%\')',
-            'UPPER(m.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \'\|\', \'%\')'
+            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper)',
+            'UPPER(m.keyWords) LIKE CONCAT(:textUpper, \'|\', \'%\')',
+            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper, \'|\', \'%\')'
         );
 
         return $qb->andWhere($orX)
             ->setParameter("brand",  $brand)
-            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
+            ->setParameter('textUpper', strtoupper($text))
             ->getQuery()
             ->getResult();
     }

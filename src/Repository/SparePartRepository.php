@@ -86,55 +86,15 @@ class SparePartRepository extends EntityRepository
         $qb = $this->createQueryBuilder('spp')
             ->select('spp');
 
-        $texts = [trim($text)];
-
-        $texts[] = trim(strtok($text, '('));
-        $texts[] = trim(strtok($text, '/'));
-
-        $orX = $qb->expr()->orX(
-            'spp.name IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(spp.name, \'(\', 1 )) IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.name,\')\',1),\'(\',-1)) IN (:texts)',
-            'spp.alternativeName1 IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(spp.alternativeName1, \'(\', 1 )) IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName1,\')\',1),\'(\',-1)) IN (:texts)',
-            'spp.alternativeName2 IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(spp.alternativeName2, \'(\', 1 )) IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName2,\')\',1),\'(\',-1)) IN (:texts)',
-            'spp.alternativeName3 IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(spp.alternativeName3, \'(\', 1 )) IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName3,\')\',1),\'(\',-1)) IN (:texts)',
-            'spp.alternativeName4 IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(spp.alternativeName4, \'(\', 1 )) IN (:texts)',
-            'TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(spp.alternativeName4,\')\',1),\'(\',-1)) IN (:texts)'
-        );
-
-        $suggestions = $qb->where($orX)
-            ->setParameter('texts', $texts )
-            ->getQuery()
-            ->getResult();
-
-        if(!count($suggestions)){
-            return $this->findByKeyWords($text);
-        }
-
-        return $suggestions;
-    }
-
-    public function findByKeyWords($text)
-    {
-        $qb = $this->createQueryBuilder('spp')
-            ->select('spp');
-
         $orX = $qb->expr()->orX(
             'UPPER(spp.keyWords) = :textUpper',
-            'UPPER(spp.urlConnectBamper) = :textUpper',
-            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \',\', UPPER(:textUpper), \'%\')',
-            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', UPPER(:textUpper), \',\', \'%\')'
+            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper)',
+            'UPPER(spp.keyWords) LIKE CONCAT(:textUpper, \'|\', \'%\')',
+            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper, \'|\', \'%\')'
         );
 
         return $qb->where($orX)
-            ->setParameter('textUpper', str_replace('-', ' ', strtoupper($text)))
+            ->setParameter('textUpper', strtoupper($text))
             ->getQuery()
             ->getResult();
     }
