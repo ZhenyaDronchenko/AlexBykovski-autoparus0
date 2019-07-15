@@ -20,7 +20,7 @@
                 <b>{{ advert.brand ? advert.brand.brandEn : "Все марки - Все модели" }}</b>
                 <div class="tool">
                     <a href="{{ path("user_profile_product_categories_spare_part_edit_general_advert", {"id": advert.id}) }}" class="tool-rdc"><span class="item-1">Редактировать</span><img src="/img/cra.png" alt="Редактировать"></a>
-                    <a href="#delete-advert-modal" rel="modal:open" class="tool-close" ng-click="modalAdvert = {{ advert.id }}"><span class="item-1">Удалить</span><img src="/img/delete-b.png" alt="Удалить"></a>
+                    <a href="#delete-advert-modal" rel="modal:open" class="tool-close" ng-click="modalAdvert = {{ advert.id }}"><span class="item-1">Удалить</span><img src="/img/trash-can.svg" alt="Удалить"></a>
                 </div>
             </div>
 

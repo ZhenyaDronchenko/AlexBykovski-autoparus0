@@ -327,6 +327,7 @@ border: 1px solid #ccc;
   margin-right: 3%;
   width: 29%;
   margin-bottom: 30px;
+  padding-bottom: 5px;
 }
 .catalog-link:hover,
 .catalog-link:focus {
@@ -351,11 +352,11 @@ h3 {
   margin: 0;
   margin-bottom: 20px;
   color: #999999;
-  font-size: 22px;
-  line-height: 26px;
-  font-weight: 400;
-text-align: right;
- height: 75px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 400;
+    text-align: right;
+    height: 48px;
   overflow: hidden;
 }
 
@@ -369,8 +370,8 @@ p {
 
 .time {
   display: inline-block;
- font-size: 10px;
-  line-height: 16px;
+ font-size: 8px;
+  line-height: 12px;
 }
 .date-block {
   display: -moz-flex;
@@ -391,8 +392,8 @@ p {
 .date {
   display: inline-block;
   margin-right: 15px;
- font-size: 14px;
-  line-height: 16px;
+ font-size: 10px;
+  line-height: 10px;
 }
 
 .foto {
