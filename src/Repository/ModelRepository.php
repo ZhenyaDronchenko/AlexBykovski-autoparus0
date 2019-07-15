@@ -109,15 +109,15 @@ class ModelRepository extends EntityRepository
             ->where("m.brand = :brand");
 
         $orX = $qb->expr()->orX(
-            'UPPER(m.keyWords) = :textUpper',
-            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper)',
-            'UPPER(m.keyWords) LIKE CONCAT(:textUpper, \'|\', \'%\')',
-            'UPPER(m.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper, \'|\', \'%\')'
+            "UPPER(m.keyWords) = :text",
+            "UPPER(m.keyWords) LIKE CONCAT('%|', :text)",
+            "UPPER(m.keyWords) LIKE CONCAT(:text, '|%')",
+            "UPPER(m.keyWords) LIKE CONCAT('%|', :text, '|%')"
         );
 
         return $qb->andWhere($orX)
             ->setParameter("brand",  $brand)
-            ->setParameter('textUpper', strtoupper($text))
+            ->setParameter('text', strtoupper($text))
             ->getQuery()
             ->getResult();
     }

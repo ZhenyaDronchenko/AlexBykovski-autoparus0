@@ -87,14 +87,14 @@ class SparePartRepository extends EntityRepository
             ->select('spp');
 
         $orX = $qb->expr()->orX(
-            'UPPER(spp.keyWords) = :textUpper',
-            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper)',
-            'UPPER(spp.keyWords) LIKE CONCAT(:textUpper, \'|\', \'%\')',
-            'UPPER(spp.keyWords) LIKE CONCAT(\'%\', \'|\', :textUpper, \'|\', \'%\')'
+            "UPPER(spp.keyWords) = UPPER(:text)",
+            "UPPER(spp.keyWords) LIKE CONCAT('%|', UPPER(:text))",
+            "UPPER(spp.keyWords) LIKE CONCAT(UPPER(:text), '|%')",
+            "UPPER(spp.keyWords) LIKE CONCAT('%|', UPPER(:text), '|%')"
         );
 
         return $qb->where($orX)
-            ->setParameter('textUpper', strtoupper($text))
+            ->setParameter('text', $text)
             ->getQuery()
             ->getResult();
     }
