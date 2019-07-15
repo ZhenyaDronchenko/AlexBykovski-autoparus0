@@ -21,7 +21,6 @@ a {
 
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-   border-top: 2px solid #444;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -188,8 +187,7 @@ h1 {
   text-align: center;
   font-size: 26px;
   line-height: 30px;
-  color: #ff0000;
-
+  color: #2980b9;
 }
 
 
@@ -198,7 +196,6 @@ p {
   margin-bottom: 10px;
   font-size: 16px;
   line-height: 18px;
-  font-family: 'Roboto', sans-serif;
   color: #000000;
   font-weight: 400;
   text-align: justify;
@@ -281,7 +278,7 @@ p {
           align-items: center;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 

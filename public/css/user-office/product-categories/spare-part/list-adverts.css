@@ -130,8 +130,11 @@ h3 {
     cursor: pointer;
     background-color: #fff;
     border: none;
-    margin: 10px 0;
+    padding: 10px;
     margin-left: auto;
+}
+.btn-sel svg {
+    margin-right: 10px;
 }
 .block-product {
     display: -moz-flex;

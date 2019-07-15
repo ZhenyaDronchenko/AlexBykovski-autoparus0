@@ -463,7 +463,7 @@
     margin-right: 5px;
 }
 .item-center {
-    margin: 0 auto;
+    margin-left: auto;
 }
 
 .prod {
@@ -1028,7 +1028,7 @@ textarea {
     line-height: 24px;
     color: #000;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 .button-home span {
     margin: 0 10px;
@@ -1038,7 +1038,7 @@ textarea {
 
 }
 .list {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 
 }
 

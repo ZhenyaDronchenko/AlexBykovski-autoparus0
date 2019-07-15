@@ -112,16 +112,12 @@
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     text-align: center;
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
-.title::before {
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 
 .text {
    margin: 0;
@@ -185,6 +181,7 @@ border: 1px solid #ccc;
   margin-right: 3%;
   width: 29%;
   margin-bottom: 30px;
+  padding-bottom: 5px;
 }
 .catalog-link:hover,
 .catalog-link:focus {
@@ -196,7 +193,7 @@ box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
 h2 {
   margin: 0;
   margin-bottom: 20px;
-  color: #f66666;
+  color: #000000;
   font-size: 24px;
   line-height: 28px;
   font-weight: 400;
@@ -206,9 +203,9 @@ h2 {
 h3 {
   margin: 0;
   margin-bottom: 20px;
-  color: #f66666;
-  font-size: 22px;
-  line-height: 26px;
+  color: #999999;
+  font-size: 18px;
+  line-height: 20px;
   font-weight: 400;
 text-align: center;
 }
@@ -223,8 +220,8 @@ p {
 
 .time {
   display: inline-block;
- font-size: 10px;
-  line-height: 16px;
+ font-size: 8px;
+  line-height: 12px;
 }
 .date-block {
   display: -moz-flex;
@@ -245,8 +242,8 @@ p {
 .date {
   display: inline-block;
   margin-right: 15px;
- font-size: 14px;
-  line-height: 16px;
+ font-size: 10px;
+  line-height: 10px;
 }
 
 .foto {

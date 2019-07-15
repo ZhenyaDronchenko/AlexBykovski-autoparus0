@@ -15,20 +15,23 @@
     {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
 
     <main class="container">
+        <div class="post-block">
+            {% if pageType == "user" %}
+                <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото" ng-show="$first">
+                <b class="name" ng-bind="post.userName" ng-show="$first"></b>
+            {% elseif pageType == "car" %}
+                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+            {% else %}
+                <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
+                <b class="name" ng-bind="post.userName"></b>
+            {% endif %} 
+        </div>
+
         <div class="main-page" itemscope itemtype="https://schema.org/Organization">
             <ul class="content" ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}')">
                 <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts" ng-cloak>
                     <div class="post-block">
-                        {% if pageType == "user" %}
-                            <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото" ng-show="$first">
-                            <b class="name" ng-bind="post.userName" ng-show="$first"></b>
-                        {% elseif pageType == "car" %}
-                            <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
-                            <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
-                        {% else %}
-                            <img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото">
-                            <b class="name" ng-bind="post.userName"></b>
-                        {% endif %}
                         <button class="btn us-btn5 cbutton open-popup-button" type="button" data-popup-id="7">
                             <span class="points"></span>
                             <span class="points"></span>
@@ -48,6 +51,7 @@
                         </div>
 
                         <div class="user-block">
+                        <h3 class="user-title">Гран При Великобритании: Хэмилтон - Боттас - Леклер</h3>
                             <div class="text-block text-block-w">
                                 <div id='text1' class='text1Show' show-more-lines class-less="text5BigHide" class-more="text1Show" count-lines="3" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
                                 <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
