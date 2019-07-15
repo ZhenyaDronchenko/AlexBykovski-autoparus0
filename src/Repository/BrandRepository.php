@@ -91,14 +91,14 @@ class BrandRepository extends EntityRepository
             ->select('br');
 
         $orX = $qb->expr()->orX(
-            "UPPER(br.keyWords) = :text",
-            "UPPER(br.keyWords) LIKE CONCAT('%|', :text)",
-            "UPPER(br.keyWords) LIKE CONCAT(:text, '|%')",
-            "UPPER(br.keyWords) LIKE CONCAT('%|', :text, '|%')"
+            "UPPER(br.keyWords) = UPPER(:text)",
+            "UPPER(br.keyWords) LIKE CONCAT('%|', UPPER(:text))",
+            "UPPER(br.keyWords) LIKE CONCAT(UPPER(:text), '|%')",
+            "UPPER(br.keyWords) LIKE CONCAT('%|', UPPER(:text), '|%')"
         );
 
         return $qb->where($orX)
-            ->setParameter('text', strtoupper($text))
+            ->setParameter('text', $text)
             ->getQuery()
             ->getResult();
     }

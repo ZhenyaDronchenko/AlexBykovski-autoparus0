@@ -63,6 +63,9 @@ class ImportController extends Controller
      */
     public function checkIsCorrectFileImportSpecificAdvertsAction(Request $request, ImportChecker $importChecker)
     {
+        ini_set('max_execution_time', 10*60);
+        ini_set('memory_limit', "512M");
+
         $response = [
             "success" => false,
         ];
@@ -85,6 +88,7 @@ class ImportController extends Controller
     public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
     {
         ini_set('max_execution_time', 10*60);
+        ini_set('memory_limit', "512M");
 
         $response = [
             "success" => false,
