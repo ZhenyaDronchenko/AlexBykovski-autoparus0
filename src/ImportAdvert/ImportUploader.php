@@ -28,6 +28,9 @@ class ImportUploader
     /** @var AutoSparePartSpecificAdvert */
     private $currentAdvert;
 
+    /** @var bool */
+    private $saveMode = true;
+
     /**
      * ImportChecker constructor.
      * @param EntityManagerInterface $em
@@ -38,16 +41,22 @@ class ImportUploader
         $this->importErrors = [];
     }
 
+    public function setSaveMode($saveMode)
+    {
+        $this->saveMode = $saveMode;
+    }
+
     public function importFile($filePath, SellerAdvertDetail $advertDetail)
     {
         list($headers, $lines) = $this->getFileData($filePath);
 
-        list($errors, $countImported) = $this->importFileLines($headers, $lines, $advertDetail);
+        list($errors, $countImported, $countLines) = $this->importFileLines($headers, $lines, $advertDetail);
 
         return [
             "errors" => $errors,
             "success" => !!count($errors),
             "countImported" => $countImported,
+            "countLines" => $countLines,
         ];
     }
 
@@ -91,10 +100,12 @@ class ImportUploader
                 $advert->setStockType(AutoSparePartSpecificAdvert::IN_STOCK_TYPE);
                 $advert->setSellerAdvertDetail($advertDetail);
 
-                $this->em->persist($advert);
+                if($this->saveMode) {
+                    $this->em->persist($advert);
 
-                if($count > 0 && $count % 50 === 0){
-                    $this->em->flush();
+                    if ($count > 0 && $count % 50 === 0) {
+                        $this->em->flush();
+                    }
                 }
             }
             elseif(is_array($advert)){
@@ -102,13 +113,15 @@ class ImportUploader
             }
         }
 
-        $this->em->flush();
-
-        if(!$count && !count($errors)){
-            return [["Нет корретных данных для импорта"], $count];
+        if($this->saveMode) {
+            $this->em->flush();
         }
 
-        return [$errors, $count];
+        if(!$count && !count($errors)){
+            return [["Нет корретных данных для импорта"], $count, count($lines)];
+        }
+
+        return [$errors, $count, count($lines)];
     }
 
     private function importLine(array $headers, array $line, $index)
@@ -439,7 +452,10 @@ class ImportUploader
                 $this->addParsedData($errorImport);
 
                 $this->importErrors[$requiredValues] = $errorImport;
-                $this->em->persist($errorImport);
+
+                if($this->saveMode) {
+                    $this->em->persist($errorImport);
+                }
             }
         }
     }

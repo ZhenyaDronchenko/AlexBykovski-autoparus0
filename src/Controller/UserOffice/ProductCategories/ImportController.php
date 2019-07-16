@@ -3,6 +3,7 @@
 namespace App\Controller\UserOffice\ProductCategories;
 
 use App\Entity\Client\Client;
+use App\Entity\UserData\ImportAdvertFile;
 use App\ImportAdvert\ImportChecker;
 use App\ImportAdvert\ImportUploader;
 use App\Upload\FileUpload;
@@ -90,6 +91,8 @@ class ImportController extends Controller
         ini_set('max_execution_time', 10*60);
         ini_set('memory_limit', "512M");
 
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
         $response = [
             "success" => false,
         ];
@@ -97,7 +100,8 @@ class ImportController extends Controller
         $client = $this->getUser();
 
         $folder = $this->getParameter("upload_directory");
-        $filePath = $folder . '/' . json_decode($request->getContent(), true)["path"];
+        $relativePath = json_decode($request->getContent(), true)["path"];
+        $filePath = $folder . '/' . $relativePath;
 
         if(!file_exists($filePath)){
             $response["errors"] = ["Файл не найден. Обратитесь в техподдержку"];
@@ -105,6 +109,15 @@ class ImportController extends Controller
             return new JsonResponse($response);
         }
 
-        return new JsonResponse($importer->importFile($filePath, $client->getSellerData()->getAdvertDetail()));
+        $sellerAdvertDetail = $client->getSellerData()->getAdvertDetail();
+        $result = $importer->importFile($filePath, $sellerAdvertDetail);
+
+        $fileImported = new ImportAdvertFile('/images/' . $relativePath, $result["countLines"],
+            $result["countImported"], $sellerAdvertDetail);
+
+        $em->persist($fileImported);
+        $em->flush();
+
+        return new JsonResponse($result);
     }
 }

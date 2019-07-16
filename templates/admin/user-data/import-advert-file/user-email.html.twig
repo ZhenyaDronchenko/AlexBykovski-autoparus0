@@ -1,0 +1,6 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {#<a href="{{ path('show_user_office', {'_switch_user': object.getClient().email }) }}">{{ object.getClient().email }}</a>#}
+    <a nohref style="cursor: pointer" onclick="window.navigator.clipboard.writeText('{{ object.getClient().email }}')">{{ object.getClient().email }}</a>
+{% endblock %}
