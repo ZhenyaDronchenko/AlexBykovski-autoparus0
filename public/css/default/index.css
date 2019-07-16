@@ -586,7 +586,9 @@ margin: 0;
     width: 65%;
 }
 
-
+.select2-container {
+    width: 200px !important;
+  }
    
 }
 @media (min-width: 1024px) and (max-width: 1199px) {

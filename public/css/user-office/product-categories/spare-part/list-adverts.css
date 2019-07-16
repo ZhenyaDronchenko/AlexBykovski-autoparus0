@@ -133,6 +133,12 @@ h3 {
     padding: 10px;
     margin-left: auto;
 }
+
+.btn-sel:hover,
+.btn-sel:focus {
+    color: red;
+}
+
 .btn-sel svg {
     margin-right: 10px;
 }
@@ -346,9 +352,8 @@ h3 {
     -ms-flex-pack: center;
     justify-content: center;
     color: #000000;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -ms-align-items: flex-end;
+    align-items: flex-end;
 }
 
 .tool a:hover {
