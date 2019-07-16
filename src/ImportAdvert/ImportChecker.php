@@ -118,11 +118,8 @@ class ImportChecker
         $data = array_values($sheetData);
         $headers = array_shift($data);
 
-        $count = 0;
-
         foreach ($data as $line){
             if($this->isCorrectLineToImport($headers, $line)){
-                ++$count;
                 return ["errors" => []];
             }
         }
@@ -136,20 +133,21 @@ class ImportChecker
         $modelIndex = array_search(self::MODEL_HEADER, $headers);
         $sparePartIndex = array_search(self::SPARE_PART_HEADER, $headers);
         $yearIndex = array_search(self::YEAR_HEADER, $headers);
-        $brand = $this->em->getRepository(Brand::class)->findOneBy(["brandEn" => trim($line[$brandIndex])]);
 
-        if(!$brand){
+        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$brandIndex]));
+
+        if(count($brand) != 1){
             return false;
         }
 
         $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$sparePartIndex]));
 
-        if(count($sparePart) == 1){
+        if(!count($sparePart)){
             //echo $line[$sparePartIndex] . " | ";
             return false;
         }
 
-        $models = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$modelIndex]), $brand);
+        $models = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$modelIndex]), $brand[0]);
 
         if(!count($models)){
             return false;

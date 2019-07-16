@@ -50,12 +50,20 @@ class SellerAdvertDetail
     private $autoSparePartSpecificAdverts;
 
     /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\UserData\ImportAdvertFile", mappedBy="sellerAdvertDetail")
+     */
+    private $importSpecificAdvertFiles;
+
+    /**
      * SellerAdvertDetail constructor.
      */
     public function __construct()
     {
         $this->autoSparePartGeneralAdverts = new ArrayCollection();
         $this->autoSparePartSpecificAdverts = new ArrayCollection();
+        $this->importSpecificAdvertFiles = new ArrayCollection();
     }
 
     /**
@@ -125,6 +133,22 @@ class SellerAdvertDetail
     public function addAutoSparePartSpecificAdvert(AutoSparePartSpecificAdvert $advert)
     {
         $this->autoSparePartSpecificAdverts->add($advert);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getImportSpecificAdvertFiles(): Collection
+    {
+        return $this->importSpecificAdvertFiles;
+    }
+
+    /**
+     * @param Collection $importSpecificAdvertFiles
+     */
+    public function setImportSpecificAdvertFiles(Collection $importSpecificAdvertFiles): void
+    {
+        $this->importSpecificAdvertFiles = $importSpecificAdvertFiles;
     }
 
     public function getAutoSparePartGeneralAdvertsBrands($isOnlyIds = false)

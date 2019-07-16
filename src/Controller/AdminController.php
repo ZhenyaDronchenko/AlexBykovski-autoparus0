@@ -16,9 +16,11 @@ use App\Entity\UniversalPage\UniversalPageCity;
 use App\Entity\UniversalPage\UniversalPageSparePart;
 use App\Entity\User;
 use App\Entity\UserData\ImportAdvertError;
+use App\Entity\UserData\ImportAdvertFile;
 use App\Entity\UserData\UserEngine;
 use App\Entity\UserData\UserOBD2ErrorCode;
 use App\Handler\SaveKeywordsHandler;
+use App\ImportAdvert\ImportUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -366,5 +368,27 @@ class AdminController extends Controller
         $em->flush();
 
         return new JsonResponse(["success" => true]);
+    }
+
+    /**
+     * @Route("/admin-import-file-specific-advert/{id}", name="admin_import_file_specific_advert")
+     *
+     * @ParamConverter("file", class="App\Entity\UserData\ImportAdvertFile", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function importFileSpecificAdvertAction(Request $request, ImportAdvertFile $file, ImportUploader $importer)
+    {
+        ini_set('max_execution_time', 10*60);
+        ini_set('memory_limit', "512M");
+
+        $isSave = $request->request->get("isSave", false) === "true";
+
+        $folder = rtrim($this->getParameter("public_folder"), '/');
+        $filePath = $folder . $file->getPath();
+
+        $importer->setSaveMode($isSave);
+
+        return new JsonResponse($importer->importFile($filePath, $file->getSellerAdvertDetail()));
     }
 }
