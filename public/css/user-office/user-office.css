@@ -1633,8 +1633,8 @@ textarea {
     }
 
     .item-1 {
-        font-size: 12px;
-        line-height: 14px;
+        font-size: 10px;
+        line-height: 12px;
     }
 
     .prod {
@@ -1649,6 +1649,7 @@ textarea {
    margin: 0 auto;
     width: 95%;
         height: auto;
+            z-index: 0
 }
     .prod-foto {
         width: 100%;
