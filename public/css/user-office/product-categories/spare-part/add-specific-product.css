@@ -102,11 +102,10 @@ cursor: default;
 
 .title-main {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
     line-height: 30px;
-    font-weight: 400;
     font-weight: 400;
     color: #2980b9;
     letter-spacing: 1px;
@@ -142,8 +141,8 @@ cursor: default;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .select-s {
     margin-top: 0;
@@ -426,12 +425,11 @@ textarea {
     font-size: 22px;
     line-height: 24px;
     font-weight: 400;
-    color: #000;
+    color: green;
     margin-right: 50px;
-    text-decoration: underline;
 }
 .add-img:hover {
-    color: red;
+    color: #2d710b;
 }
 
 .img {
@@ -445,7 +443,7 @@ textarea {
     margin-bottom: 40px;
 }
 .name-input {
-    width: 150px;
+    width: 80px;
     margin: 0 10px;
 }
 
@@ -456,6 +454,10 @@ textarea {
     color: green;
     text-align: center;
     margin-bottom: 15px;
+}
+.price-c span {
+    font-size: 16px;
+    line-height: 18px;
 }
 .load {
     display: block;
@@ -639,7 +641,10 @@ textarea {
         font-size: 16px;
         line-height: 18px;
     }
-
+.price-c span {
+    font-size: 12px;
+    line-height: 14px;
+}
     input {
         font-size: 15px;
         line-height: 18px;
@@ -753,7 +758,7 @@ textarea {
 
 
     .name-input {
-        width: 85px;
+        width: 60px;
     }
 
     .prompt-c {

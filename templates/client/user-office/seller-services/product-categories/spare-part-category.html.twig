@@ -45,13 +45,13 @@
             <ul class="items-block">
                 <li>
                     <a class="items-link" href="{{ path("user_profile_product_categories_spare_part_add_specific_advert") }}">
-                        <span>Добавить объявление о продаже запчасти или других товаров к авто-мото транспорту</span>
+                        <span>Добавить объявление о продаже автозапчасти, прочих товаров к авто-мото транспорту</span>
                         <img src="{{ image_url(default_image(23).image) }}" alt="лого">
                     </a>
                 </li>
                 <li>
                     <a class="items-link" href="{{ path("user_profile_product_categories_spare_part_add_general_advert") }}">
-                        <span>Добавить общее объявление о продаже запчастей или товаров к авто-мото транспорту</span>
+                        <span>Добавить общее объявление о продаже запчастей или товаров</span>
                         <img src="{{ image_url(default_image(24).image) }}" alt="лого">
                     </a>
                 </li>
@@ -63,14 +63,14 @@
                 </li>
                 <li style="{{ not isHasAdverts ? "margin: 0 auto;" : "" }}">
                     <a class="items-link" href="{{ path("user_office_import_specific_adverts") }}">
-                        <span>Импортировать прайс-лист или лист наличия товаров к авто-мото транспорту</span>
+                        <span>Импортировать прайс-лист или лист наличия товаров</span>
                         <img src="{{ image_url(default_image(25).image) }}" alt="лого">
                     </a>
                 </li>
                 {% if isHasAdverts %}
                     <li>
                         <a class="items-link" href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}">
-                            <span>Просмотр поданных объявлений, проверка, редактирование, удаление</span>
+                            <span>Просмотр поданных объявлений, редактирование, удаление</span>
                             <img src="{{ image_url(default_image(26).image) }}" alt="лого">
                         </a>
                     </li>

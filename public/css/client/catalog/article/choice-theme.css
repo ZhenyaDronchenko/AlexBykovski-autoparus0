@@ -327,7 +327,7 @@ border: 1px solid #ccc;
   margin-right: 2%;
   width: 16%;
   margin-bottom: 30px;
-  padding-bottom: 5px;
+  padding-bottom: 0;
 }
 .catalog-link:hover,
 .catalog-link:focus {
@@ -338,13 +338,13 @@ box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
 
 h2 {
   margin: 0;
-  margin-bottom: 20px;
-  color: #f66666;
-  font-size: 24px;
-  line-height: 28px;
+  margin-bottom: 10px;
+  color: #000000;
+  font-size: 18px;
+  line-height: 20px;
   font-weight: 400;
   text-align: center;
-  height: 55px;
+  height: 40px;
   overflow: hidden;
 }
 
@@ -352,20 +352,23 @@ h3 {
   margin: 0;
   margin-bottom: 20px;
   color: #999999;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 16px;
     font-weight: 400;
     text-align: right;
     height: 48px;
   overflow: hidden;
+  padding-left: 15px;
 }
 
 p {
   margin: 0;
   margin-bottom: 10px;
-  color: #000;
-  font-size: 16px;
-  line-height: 18px;
+  color: #000000;
+  font-size: 14px;
+  line-height: 16px;
+  font-family: "Roboto";
+  font-weight: 300;
 }
 
 .time {

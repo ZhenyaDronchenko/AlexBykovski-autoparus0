@@ -156,7 +156,7 @@ h1 {
 
 h2 {
   margin: 0;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
  color: #000;
   font-size: 24px;
   line-height: 28px;
@@ -177,6 +177,7 @@ h3 {
   margin: 0;
   margin-bottom: 15px;
  color: #999;
+ padding-left: 90px;
  font-style: italic;
   font-size: 24px;
   line-height: 28px;
@@ -187,7 +188,7 @@ h3 {
 figure {
   margin: 0 auto;
   background: #ccc; 
-  width: 450px; 
+  width: 540px; 
   text-align: center;
   margin-bottom: 30px;
 }
@@ -216,23 +217,24 @@ figcaption {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 16px;
   font-weight: 400;
   font-style: italic;
-  padding: 3px;
+  padding: 2px;
+  padding-left: 10px;
 }
 figcaption span {
   margin-left: auto;
   font-size: 12px;
-  line-height: 14px;
+  line-height: 16px;
   font-style: normal;
   margin-right: 5px;
  
 }
 figure img {
-  width: 450px;
-  height: 300px;
+  width: 540px;
+  height: auto;
 }
 
 
@@ -307,7 +309,7 @@ p {
 }
 
 .foto-item img {
-  width: 450px;
+  width: 540px;
   height: auto;
   margin-bottom: 15px;
 }
@@ -334,7 +336,7 @@ p {
 
 .btn {
       margin: 0 auto;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     display: block;
     padding: 4px 20px;
     padding-bottom: 3px;
