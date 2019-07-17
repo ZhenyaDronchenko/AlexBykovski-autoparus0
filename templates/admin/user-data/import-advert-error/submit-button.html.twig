@@ -5,6 +5,7 @@
     {% set noneBrand = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: МАРКА" %}
     {% set noneSparePart = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: НАИМЕНОВАНИЕ ЗАПЧАСТИ" %}
     {% set noneYear = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: ГОД" %}
+    {% set multipleYear = object.issue == "Строка 0: найдено несколько соответствий по полю: МОДЕЛЬ" %}
 
     {% if noneBrand or noneSparePart %}
         <input type="text" id="solution-{{ object.id }}" name="keyword"
@@ -14,6 +15,9 @@
         <input type="text" id="solution-{{ object.id }}" data-options='{"brand" : "{{ brand.url }}"}'
                class="model-solution error-solution" data-type="model"
                name="keyword[]" multiple="multiple">
+    {% elseif multipleYear %}
+        {% set brandId = object.decodeParsedValues('brand') %}
+        <a class="btn btn-primary year-solution" href="{{ path("admin_app_brand_model_list", {"id" : brandId}) }}" target="_blank">В список моделей</a>
     {% elseif noneYear %}
         {% set brandId = object.decodeParsedValues('brand') %}
         {% set modelId = object.decodeParsedValues('model') %}
