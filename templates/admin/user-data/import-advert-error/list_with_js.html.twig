@@ -1,5 +1,21 @@
 {% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
 
+{% block list_header %}
+    {{ parent() }}
+    {% set ids = "" %}
+    {% for item in admin.datagrid.results %}
+        {% set ids = ids ~ item.id %}
+
+        {% if not loop.last %}
+            {% set ids = ids ~ ',' %}
+        {% endif %}
+    {% endfor %}
+
+    {% if ids %}
+        <a href="{{ path("admin_remove_import_advert_error", {ids: ids}) }}" class="btn btn-danger" style="float: right; margin: 10px;">Удалить ошибки текущей страницы</a>
+    {% endif %}
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <style>

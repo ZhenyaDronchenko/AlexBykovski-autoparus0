@@ -14,7 +14,7 @@ class ImportAdvertErrorAdmin extends AbstractAdmin
         '_sort_by' => 'id',
     ];
 
-    protected $maxPerPage = 192;
+    protected $maxPerPage = 64;
 
     protected function configureListFields(ListMapper $listMapper)
     {
