@@ -102,7 +102,7 @@
 
 .title-main {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
     line-height: 30px;
@@ -155,6 +155,11 @@ label {
     color: #000000;
     font-weight: 400;
 
+}
+
+.price-c span {
+   font-size: 16px;
+    line-height: 18px; 
 }
 
 input {
@@ -419,12 +424,12 @@ textarea {
     font-size: 22px;
     line-height: 24px;
     font-weight: 400;
-    color: #000;
+    color: green;
     margin-right: 50px;
-    text-decoration: underline;
+    
 }
 .add-img:hover {
-    color: red;
+    color: #0d4222;
 }
 
 .img {
@@ -435,9 +440,10 @@ textarea {
 
 .price-c {
     display: block;
+    margin-left: auto;
 }
 .name-input {
-    width: 150px;
+    width: 80px;
     margin: 0 10px;
 }
 
@@ -671,6 +677,12 @@ textarea {
         font-size: 16px;
         line-height: 18px;
     }
+
+
+.price-c span {
+   font-size: 12px;
+    line-height: 14px; 
+}
 
     input {
         font-size: 15px;

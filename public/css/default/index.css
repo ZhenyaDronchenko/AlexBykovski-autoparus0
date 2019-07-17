@@ -247,7 +247,7 @@ right: 5px;
 .content-item {
     border-bottom: 1px solid #acacad;
     padding-bottom: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 .post-block {
     display: -moz-flex;
@@ -375,6 +375,17 @@ right: 5px;
     font-weight: 400;
     text-align: center;
 }
+
+h1 {
+  margin: 0;
+  margin-bottom: 20px;
+    font-size: 26px;
+    line-height: 28px;
+    color: #2980b9;
+    font-weight: 400;
+    text-align: center;
+}
+
 #text1 {
     margin: 0;
         font-family: "Roboto";
@@ -412,7 +423,7 @@ margin: 0;
 }
 
 .text3Hide {
-    max-height: 74px;
+    max-height: 45px;
     overflow: hidden;
 }
 
@@ -477,7 +488,25 @@ margin: 0;
     justify-content: flex-end;
     margin-top: 15px;
 }
-
+.inner {
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #999999;
+}
+.dt-hidden {
+  display: none;
+}
+.user-subtitle {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #2980b9;
+    font-weight: 400;
+    text-align: center;
+    height: 20px;
+    overflow: hidden;
+}
 @media (max-width: 767px) {
     .container {
         width: auto;
@@ -1034,12 +1063,12 @@ select {
    margin-bottom: 30px;
 }
 .baner-block img {
-  width: 180px;
-  height: 120px;
+  width: 165px;
+  height: 110px;
 }
 .baner-block a {
-  width: 180px;
-  height: 120px;
+  width: 165px;
+  height: 110px;
 }
 
 
@@ -1388,9 +1417,11 @@ padding: 0;
     .container {
         width: auto;
     }
-
+#textMiddle {
+    width: 100%;
+  }
     .textMiddleHide {
-        max-height: 295px;
+        max-height: 265px;
         overflow: hidden;
 
     }
