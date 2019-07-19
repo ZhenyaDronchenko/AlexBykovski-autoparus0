@@ -463,7 +463,7 @@ var popup2 = document.querySelector('.overlay2');
 var openPopupButton2 = document.querySelector('.button');
 
 
-if(openPopupButton2 && popup2){
+if(openPopupButton2 && popup2 && openPopupButton2.parentElement.nodeName.toUpperCase() !== "A"){
     openPopupButton2.addEventListener('click', function (evt) {
         evt.preventDefault();
         popup2.classList.add('modal--show');
