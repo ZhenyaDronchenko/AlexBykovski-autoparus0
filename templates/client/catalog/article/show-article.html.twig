@@ -14,9 +14,9 @@
       <section class="main-page">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                <a id="homepage" class="user-link user-link--icon" href="{{ path("homepage") }}"
                    title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item" content="Главная">
-                    <span class="user-name" itemprop="name">Главная</span>
+                    <span class="user-name" itemprop="name" itemid="{{ path("homepage") }}">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10"
@@ -27,7 +27,7 @@
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item" content="Публикации"
-                   title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
+                   title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}" itemid="{{ path("article_catalog_choice_theme") }}">
                     <span class="line">/</span>
                     <span itemprop="name">Публикации</span>
                 </a>
@@ -36,7 +36,7 @@
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}" itemprop="item" content="Категория {{ theme.theme }}"
-                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}">
+                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}" itemid="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}">
                     <span class="line">/</span>
                     <span itemprop="name">{{ theme.theme }}</span>
                 </a>
@@ -45,7 +45,7 @@
 
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemprop="item" content="{{ article.headline1 }}">
+                <a class="current" href="" itemprop="item" content="{{ article.headline1 }}" itemid="">
                     <span class="line">/</span>
                     <span itemprop="name">{{ article.headline1 }}</span>
                     <meta itemprop="position" content="4">
@@ -76,7 +76,7 @@
                         <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
                         <figcaption>
                             {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
-                            <span itemprop="name">Автор: {{ article.author }}</span>
+                            <span itemprop="name" content="{{ article.mainArticleImage.author }}">Автор: {{ article.author }}</span>
                         </figcaption>
                     </figure>
 
