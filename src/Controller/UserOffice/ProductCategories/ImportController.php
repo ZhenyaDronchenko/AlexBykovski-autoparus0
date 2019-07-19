@@ -7,10 +7,8 @@ use App\Entity\UserData\ImportAdvertFile;
 use App\ImportAdvert\ImportChecker;
 use App\ImportAdvert\ImportUploader;
 use App\Upload\FileUpload;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,8 +86,8 @@ class ImportController extends Controller
      */
     public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
     {
-        ini_set('max_execution_time', 10*60);
-        ini_set('memory_limit', "512M");
+        ini_set('max_execution_time', 40*60);
+        ini_set('memory_limit', "1536M");
 
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();

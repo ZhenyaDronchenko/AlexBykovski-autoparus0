@@ -31,6 +31,9 @@ class ImportUploader
     /** @var bool */
     private $saveMode = true;
 
+    /** @var array */
+    private $headerIndexes = [];
+
     /**
      * ImportChecker constructor.
      * @param EntityManagerInterface $em
@@ -69,7 +72,7 @@ class ImportUploader
      */
     private function getFileData($file)
     {
-        $reader = new Xls();
+        $reader = ImportChecker::getReader($file);
 
         $spreadsheet = $reader->load($file);
 
@@ -87,6 +90,7 @@ class ImportUploader
         $count = 0;
         $errors = [];
 
+        $this->headerIndexes = ImportChecker::getHeaderIndexes($headers);
         $advertDetail->setAutoSparePartSpecificAdverts(new ArrayCollection());
 
         foreach ($lines as $index => $line){
@@ -161,38 +165,40 @@ class ImportUploader
 
         $advert->setYear($year);
 
-        $engineType = $this->getEngineType($headers, $line, $model);
+        $engineType = $this->getEngineType($line, $model);
 
         $advert->setEngineType($engineType);
-        $advert->setEngineCapacity($this->getEngineCapacity($headers, $line, $model, $engineType));
-        $advert->setGearBoxType($this->getGearBoxType($headers, $line, $model));
-        $advert->setVehicleType($this->getVehicleType($headers, $line, $model));
-        $advert->setSparePartNumber($this->getSparePartNumber($headers, $line));
-        $advert->setImage($this->getImage($headers, $line));
-        $advert->setCost($this->getCost($headers, $line));
-        $advert->setComment($this->getDescription($headers, $line));
-        $advert->setCurrency($this->getCurrency($headers, $line));
+        $advert->setEngineCapacity($this->getEngineCapacity($line, $model, $engineType));
+        $advert->setGearBoxType($this->getGearBoxType($line, $model));
+        $advert->setVehicleType($this->getVehicleType($line, $model));
+        $advert->setSparePartNumber($this->getSparePartNumber($line));
+        $advert->setImage($this->getImage($line));
+        $advert->setCost($this->getCost($line));
+        $advert->setComment($this->getDescription($line));
+        $advert->setCurrency($this->getCurrency($line));
 
         return $advert;
     }
 
     private function getBrand($headers, $line, $index)
     {
-        $brandIndex = array_search(ImportChecker::BRAND_HEADER, $headers);
+        $brandIndex = $this->headerIndexes[ImportChecker::BRAND_KEY];
+        $brandKey = $headers[$brandIndex];
+
         $value = trim($line[$brandIndex]);
 
         if(!$value){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::BRAND_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $value, $brandKey, self::ERROR_EMPTY_DATA);
         }
 
         $brand = $this->em->getRepository(Brand::class)->findBrandForImport($value);
 
         if(!is_array($brand) || !count($brand)){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::BRAND_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $value, $brandKey, self::ERROR_EMPTY_DATA);
         }
 
         if(count($brand) > 1){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::BRAND_HEADER, self::ERROR_MULTIPLE_DATA);
+            return $this->handleError($headers, $line, $index, $value, $brandKey, self::ERROR_MULTIPLE_DATA);
         }
 
         return array_values($brand)[0];
@@ -200,17 +206,19 @@ class ImportUploader
 
     private function getSparePart($headers, $line, $index)
     {
-        $sparePartIndex = array_search(ImportChecker::SPARE_PART_HEADER, $headers);
+        $sparePartIndex = $this->headerIndexes[ImportChecker::SPARE_PART_KEY];
+        $sparePartKey = $headers[$sparePartIndex];
+
         $value = trim($line[$sparePartIndex]);
 
         if(!$value){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::SPARE_PART_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_EMPTY_DATA);
         }
 
         $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport($value);
 
         if(!is_array($sparePart ) || !count($sparePart)){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::SPARE_PART_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_EMPTY_DATA);
         }
 
         if(count($sparePart) > 1){
@@ -235,7 +243,7 @@ class ImportUploader
                 return $beforeBracketSame;
             }
 
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::SPARE_PART_HEADER, self::ERROR_MULTIPLE_DATA);
+            return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_MULTIPLE_DATA);
         }
 
         return array_values($sparePart)[0]->getName();
@@ -243,21 +251,24 @@ class ImportUploader
 
     private function getModel($headers, $line, $index, Brand $brand)
     {
-        $modelIndex = array_search(ImportChecker::MODEL_HEADER, $headers);
+        $modelIndex = $this->headerIndexes[ImportChecker::MODEL_KEY];
+        $modelKey = $headers[$modelIndex];
+
         $value = trim($line[$modelIndex]);
 
         if(!$value){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::MODEL_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $value, $modelKey, self::ERROR_EMPTY_DATA);
         }
 
         $model = $this->em->getRepository(Model::class)->findModelForImport($value, $brand);
 
         if(!is_array($model) || !count($model)){
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::MODEL_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $value, $modelKey, self::ERROR_EMPTY_DATA);
         }
 
         if(count($model) > 1){
-            $year = (int)trim($line[array_search(ImportChecker::YEAR_HEADER, $headers)]);
+            $yearIndex = $this->headerIndexes[ImportChecker::YEAR_KEY];
+            $year = (int)trim($line[$yearIndex]);
             $difference = PHP_INT_MIN;
             $modelForYear = null;
 
@@ -275,8 +286,12 @@ class ImportUploader
                 return $modelForYear;
             }
 
+            if($value === "Astra") {
+                var_dump($modelForYear ? $modelForYear->getId() : "");
+            }
+
             //return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER . ' | ' . count($model) . ' | ' . $brand->getId() . ' | ' . $year . ' | ' . trim($line[$modelIndex]))];
-            return $this->handleError($headers, $line, $index, $value, ImportChecker::MODEL_HEADER, self::ERROR_MULTIPLE_DATA);
+            return $this->handleError($headers, $line, $index, $value, $modelKey, self::ERROR_MULTIPLE_DATA);
         }
 
         return array_values($model)[0];
@@ -284,20 +299,25 @@ class ImportUploader
 
     private function getYear($headers, $line, $index, Model $model)
     {
-        $yearIndex = array_search(ImportChecker::YEAR_HEADER, $headers);
+        $yearIndex = $this->headerIndexes[ImportChecker::YEAR_KEY];
         $year = (int)trim($line[$yearIndex]);
 
         if(!$year ||
             !($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo())){
-            return $this->handleError($headers, $line, $index, $year, ImportChecker::YEAR_HEADER, self::ERROR_EMPTY_DATA);
+            return $this->handleError($headers, $line, $index, $year, $headers[$yearIndex], self::ERROR_EMPTY_DATA);
         }
 
         return $year;
     }
 
-    private function getEngineType($headers, $line, Model $model)
+    private function getEngineType($line, Model $model)
     {
-        $engineTypeIndex = array_search(ImportChecker::ENGINE_TYPE_HEADER, $headers);
+        $engineTypeIndex = $this->headerIndexes[ImportChecker::ENGINE_TYPE_KEY];
+
+        if(!$engineTypeIndex){
+            return null;
+        }
+
         $engineType = strtolower(trim($line[$engineTypeIndex]));
 
         if(!$engineType){
@@ -308,12 +328,17 @@ class ImportUploader
             $engineType : null;
     }
 
-    private function getEngineCapacity($headers, $line, Model $model, $engineType)
+    private function getEngineCapacity($line, Model $model, $engineType)
     {
-        $engineCapacityIndex = array_search(ImportChecker::ENGINE_CAPACITY_HEADER, $headers);
+        $engineCapacityIndex = $this->headerIndexes[ImportChecker::ENGINE_CAPACITY_KEY];
+
+        if(!$engineCapacityIndex || $engineType){
+            return null;
+        }
+
         $engineCapacity = strtolower(trim($line[$engineCapacityIndex]));
 
-        if(!$engineCapacity || $engineType){
+        if(!$engineCapacity){
             return null;
         }
 
@@ -330,9 +355,14 @@ class ImportUploader
         return null;
     }
 
-    private function getGearBoxType($headers, $line, Model $model)
+    private function getGearBoxType($line, Model $model)
     {
-        $gearBoxTypeIndex = array_search(ImportChecker::GEAR_BOX_TYPE_HEADER, $headers);
+        $gearBoxTypeIndex = $this->headerIndexes[ImportChecker::GEAR_BOX_TYPE_KEY];
+
+        if(!$gearBoxTypeIndex){
+            return null;
+        }
+
         $gearBoxType = strtolower(trim($line[$gearBoxTypeIndex]));
 
         if(!$gearBoxType){
@@ -346,9 +376,14 @@ class ImportUploader
         return count($gearBox) ? $gearBox[0] : null;
     }
 
-    private function getVehicleType($headers, $line, Model $model)
+    private function getVehicleType($line, Model $model)
     {
-        $vehicleTypeIndex = array_search(ImportChecker::VEHICLE_TYPE_HEADER, $headers);
+        $vehicleTypeIndex = $this->headerIndexes[ImportChecker::VEHICLE_TYPE_KEY];
+
+        if(!$vehicleTypeIndex){
+            return null;
+        }
+
         $vehicleType = trim($line[$vehicleTypeIndex]);
 
         if(!$vehicleType){
@@ -360,41 +395,66 @@ class ImportUploader
         return count($vehicle) ? $vehicle[0] : null;
     }
 
-    private function getSparePartNumber($headers, $line)
+    private function getSparePartNumber($line)
     {
-        $numberIndex = array_search(ImportChecker::NUMBER_SPARE_PART_HEADER, $headers);
+        $numberIndex = $this->headerIndexes[ImportChecker::NUMBER_SPARE_PART_KEY];
+
+        if(!$numberIndex){
+            return null;
+        }
+
         $number = trim($line[$numberIndex]);
 
         return $number ?: null;
     }
 
-    private function getDescription($headers, $line)
+    private function getDescription($line)
     {
-        $descriptionIndex = array_search(ImportChecker::DESCRIPTION_HEADER, $headers);
+        $descriptionIndex = $this->headerIndexes[ImportChecker::DESCRIPTION_KEY];
+
+        if(!$descriptionIndex){
+            return null;
+        }
+
         $description = trim($line[$descriptionIndex]);
 
         return $description ?: null;
     }
 
-    private function getImage($headers, $line)
+    private function getImage($line)
     {
-        $imageIndex = array_search(ImportChecker::IMAGE_HEADER, $headers);
+        $imageIndex = $this->headerIndexes[ImportChecker::IMAGE_KEY];
+
+        if(!$imageIndex){
+            return null;
+        }
+
         $images = explode(',', trim($line[$imageIndex]));
 
         return count($images) ? $images[0] : null;
     }
 
-    private function getCost($headers, $line)
+    private function getCost($line)
     {
-        $costIndex = array_search(ImportChecker::COST_HEADER, $headers);
+        $costIndex = $this->headerIndexes[ImportChecker::COST_KEY];
+
+        if(!$costIndex){
+            return null;
+        }
+
         $cost = trim($line[$costIndex]);
 
         return $cost ?: null;
     }
 
-    private function getCurrency($headers, $line)
+    private function getCurrency($line)
     {
-        $currencyIndex = array_search(ImportChecker::CURRENCY_HEADER, $headers);
+        $currencyIndex = $this->headerIndexes[ImportChecker::CURRENCY_KEY];
+
+        if(!$currencyIndex){
+            return null;
+        }
+
 
         $currency = trim($line[$currencyIndex]);
 
@@ -463,10 +523,10 @@ class ImportUploader
     private function addParsedData(ImportAdvertError $error)
     {
         $data = [
-            "brand" => $this->currentAdvert->getBrand() ? $this->currentAdvert->getBrand()->getId() : "",
-            "model" => $this->currentAdvert->getModel() ? $this->currentAdvert->getModel()->getId() : "",
-            "sparePart" => $this->currentAdvert->getSparePart() ?: "",
-            "year" => $this->currentAdvert->getYear() ?: "",
+            ImportChecker::BRAND_KEY => $this->currentAdvert->getBrand() ? $this->currentAdvert->getBrand()->getId() : "",
+            ImportChecker::MODEL_KEY => $this->currentAdvert->getModel() ? $this->currentAdvert->getModel()->getId() : "",
+            ImportChecker::SPARE_PART_KEY => $this->currentAdvert->getSparePart() ?: "",
+            ImportChecker::YEAR_KEY => $this->currentAdvert->getYear() ?: "",
         ];
 
         $error->setParsedValues(json_encode($data));
@@ -474,16 +534,16 @@ class ImportUploader
 
     private function getRequiredValues($headers, $line)
     {
-        $brandIndex = array_search(ImportChecker::BRAND_HEADER, $headers);
-        $modelIndex = array_search(ImportChecker::MODEL_HEADER, $headers);
-        $yearIndex = array_search(ImportChecker::YEAR_HEADER, $headers);
-        $sparePartIndex = array_search(ImportChecker::SPARE_PART_HEADER, $headers);
+        $brandIndex = $this->headerIndexes[ImportChecker::BRAND_KEY];
+        $modelIndex = $this->headerIndexes[ImportChecker::MODEL_KEY];
+        $yearIndex = $this->headerIndexes[ImportChecker::YEAR_KEY];
+        $sparePartIndex = $this->headerIndexes[ImportChecker::SPARE_PART_KEY];
 
         return [
-            ImportChecker::BRAND_HEADER => trim($line[$brandIndex]),
-            ImportChecker::MODEL_HEADER => trim($line[$modelIndex]),
-            ImportChecker::YEAR_HEADER => trim($line[$yearIndex]),
-            ImportChecker::SPARE_PART_HEADER => trim($line[$sparePartIndex]),
+            $headers[$brandIndex] => trim($line[$brandIndex]),
+            $headers[$modelIndex] => trim($line[$modelIndex]),
+            $headers[$yearIndex] => trim($line[$yearIndex]),
+            $headers[$sparePartIndex] => trim($line[$sparePartIndex]),
         ];
     }
 

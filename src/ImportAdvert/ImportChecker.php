@@ -6,28 +6,46 @@ use App\Entity\Brand;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 class ImportChecker
 {
-    const IMPORT_FILE_EXTENSION = "xls";
+    const XLS_EXTENSION = "xls";
+    const CSV_EXTENSION = "csv";
 
-    const BRAND_HEADER = "МАРКА";
-    const MODEL_HEADER = "МОДЕЛЬ";
-    const YEAR_HEADER = "ГОД";
-    const SPARE_PART_HEADER = "НАИМЕНОВАНИЕ ЗАПЧАСТИ";
+    const IMPORT_FILE_EXTENSIONS = [self::XLS_EXTENSION, self::CSV_EXTENSION];
 
-    const ENGINE_TYPE_HEADER = "ТОПЛИВО";
-    const ENGINE_CAPACITY_HEADER = "ОБЪЕМ ДВИГАТЕЛЯ";
-    const GEAR_BOX_TYPE_HEADER = "КОРОБКА";
-    const VEHICLE_TYPE_HEADER = "ТИП КУЗОВА";
-    const NUMBER_SPARE_PART_HEADER = "ОРИГИНАЛЬНЫЙ НОМЕР";
-    const DESCRIPTION_HEADER = "ОПИСАНИЕ";
-    const IMAGE_HEADER = "ФОТО";
-    const COST_HEADER = "ЦЕНА";
-    const CURRENCY_HEADER = "ВАЛЮТА";
+    const BRAND_HEADERS = ["МАРКА", "Марка"];
+    const MODEL_HEADERS = ["МОДЕЛЬ", "Модель"];
+    const YEAR_HEADERS = ["ГОД", "Год"];
+    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть"];
 
-    static $requiredFields = [self::BRAND_HEADER, self::MODEL_HEADER, self::YEAR_HEADER, self::SPARE_PART_HEADER];
+    const ENGINE_TYPE_HEADERS = ["ТОПЛИВО", "Топливо"];
+    const ENGINE_CAPACITY_HEADERS = ["ОБЪЕМ ДВИГАТЕЛЯ", "Объем"];
+    const GEAR_BOX_TYPE_HEADERS = ["КОРОБКА", "Коробка"];
+    const VEHICLE_TYPE_HEADERS = ["ТИП КУЗОВА"];
+    const NUMBER_SPARE_PART_HEADERS = ["ОРИГИНАЛЬНЫЙ НОМЕР", "Номер"];
+    const DESCRIPTION_HEADERS = ["ОПИСАНИЕ", "Описание"];
+    const IMAGE_HEADERS = ["ФОТО", "Фото"];
+    const COST_HEADERS = ["ЦЕНА", "Цена"];
+    const CURRENCY_HEADERS = ["ВАЛЮТА", "Валюта"];
+
+    const BRAND_KEY = "brand";
+    const MODEL_KEY = "model";
+    const YEAR_KEY = "year";
+    const SPARE_PART_KEY = "spare_part";
+    const ENGINE_TYPE_KEY = "engine_type";
+    const ENGINE_CAPACITY_KEY = "engine_capacity";
+    const GEAR_BOX_TYPE_KEY = "gear_box_type";
+    const VEHICLE_TYPE_KEY = "vehicle_type";
+    const NUMBER_SPARE_PART_KEY = "number_spare_part";
+    const DESCRIPTION_KEY = "description";
+    const IMAGE_KEY = "image";
+    const COST_KEY = "cost";
+    const CURRENCY_KEY = "currency";
+
+    static $requiredFields = [self::BRAND_KEY, self::MODEL_KEY, self::YEAR_KEY, self::SPARE_PART_KEY];
 
     /** @var EntityManagerInterface */
     private $em;
@@ -56,7 +74,7 @@ class ImportChecker
     {
         $ext = pathinfo($filePath, PATHINFO_EXTENSION);
 
-        if($ext !== self::IMPORT_FILE_EXTENSION){
+        if(!in_array($ext, self::IMPORT_FILE_EXTENSIONS)){
             return ["errors" => ["Некорректное расширение"]];
         }
 
@@ -74,7 +92,7 @@ class ImportChecker
     {
         $response = ["errors" => []];
 
-        $reader = new Xls();
+        $reader = self::getReader($file);
 
         $spreadsheet = $reader->load($file);
 
@@ -100,8 +118,10 @@ class ImportChecker
         $errors = ["errors" => []];
         $headers = array_values($sheetData)[0];
 
+        $headerIndexes = self::getHeaderIndexes($headers);
+
         foreach (self::$requiredFields as $field){
-            if(!in_array($field, $headers)){
+            if(!$headerIndexes[$field]){
                 $errors["errors"][] = "Отсутствует обязательное поле: " . $field;
             }
         }
@@ -117,9 +137,10 @@ class ImportChecker
 
         $data = array_values($sheetData);
         $headers = array_shift($data);
+        $headerIndexes = self::getHeaderIndexes($headers);
 
         foreach ($data as $line){
-            if($this->isCorrectLineToImport($headers, $line)){
+            if($this->isCorrectLineToImport($headerIndexes, $line)){
                 return ["errors" => []];
             }
         }
@@ -127,37 +148,28 @@ class ImportChecker
         return ["errors" => ["Нет корретных данных для импорта"]];
     }
 
-    private function isCorrectLineToImport(array $headers, array $line)
+    private function isCorrectLineToImport(array $headerIndexes, array $line)
     {
-        $brandIndex = array_search(self::BRAND_HEADER, $headers);
-        $modelIndex = array_search(self::MODEL_HEADER, $headers);
-        $sparePartIndex = array_search(self::SPARE_PART_HEADER, $headers);
-        $yearIndex = array_search(self::YEAR_HEADER, $headers);
-
-        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$brandIndex]));
+        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$headerIndexes[self::BRAND_KEY]]));
 
         if(count($brand) != 1){
             return false;
         }
 
-        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$sparePartIndex]));
+        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$headerIndexes[self::SPARE_PART_KEY]]));
 
         if(!count($sparePart)){
             //echo $line[$sparePartIndex] . " | ";
             return false;
         }
 
-        $models = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$modelIndex]), $brand[0]);
+        $models = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$headerIndexes[self::MODEL_KEY]]), $brand[0]);
 
         if(!count($models)){
             return false;
         }
 
-        $year = (int)trim($line[$yearIndex]);
-
-//        if(count($models) > 1){
-//            echo $line[$modelIndex] . " | ";
-//        }
+        $year = (int)trim($line[$headerIndexes[self::YEAR_KEY]]);
 
         foreach ($models as $model){
             if($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo()){
@@ -166,5 +178,47 @@ class ImportChecker
         }
 
         return false;
+    }
+
+    static function getHeaderIndexes($headers)
+    {
+        return [
+            self::BRAND_KEY => self::getSpecificHeaderIndex($headers, self::BRAND_HEADERS),
+            self::MODEL_KEY => self::getSpecificHeaderIndex($headers, self::MODEL_HEADERS),
+            self::YEAR_KEY => self::getSpecificHeaderIndex($headers, self::YEAR_HEADERS),
+            self::SPARE_PART_KEY => self::getSpecificHeaderIndex($headers, self::SPARE_PART_HEADERS),
+            self::ENGINE_TYPE_KEY => self::getSpecificHeaderIndex($headers, self::ENGINE_TYPE_HEADERS),
+            self::ENGINE_CAPACITY_KEY => self::getSpecificHeaderIndex($headers, self::ENGINE_CAPACITY_HEADERS),
+            self::GEAR_BOX_TYPE_KEY => self::getSpecificHeaderIndex($headers, self::GEAR_BOX_TYPE_HEADERS),
+            self::VEHICLE_TYPE_KEY => self::getSpecificHeaderIndex($headers, self::VEHICLE_TYPE_HEADERS),
+            self::NUMBER_SPARE_PART_KEY => self::getSpecificHeaderIndex($headers, self::NUMBER_SPARE_PART_HEADERS),
+            self::DESCRIPTION_KEY => self::getSpecificHeaderIndex($headers, self::DESCRIPTION_HEADERS),
+            self::IMAGE_KEY => self::getSpecificHeaderIndex($headers, self::IMAGE_HEADERS),
+            self::COST_KEY => self::getSpecificHeaderIndex($headers, self::COST_HEADERS),
+            self::CURRENCY_KEY => self::getSpecificHeaderIndex($headers, self::CURRENCY_HEADERS),
+        ];
+    }
+
+    static function getSpecificHeaderIndex($headers, $suggestions)
+    {
+        foreach ($suggestions as $suggestion){
+            if(in_array($suggestion, $headers)){
+                return array_search($suggestion, $headers);
+            }
+        }
+
+        return null;
+    }
+
+    static function getReader($file)
+    {
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+
+        switch ($ext){
+            case self::CSV_EXTENSION:
+                return new Csv();
+            default:
+                return new Xls();
+        }
     }
 }
