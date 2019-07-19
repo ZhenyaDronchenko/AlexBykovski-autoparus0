@@ -157,9 +157,18 @@ h1 {
 h2 {
   margin: 0;
   margin-bottom: 25px;
- color: #000;
+ color: #2980b9;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 400;
+  text-align: center;
+}
+.block-ttl {
+  margin: 0;
+  margin-bottom: 25px;
+ color: #000000;
   font-size: 24px;
-  line-height: 28px;
+  line-height: 26px;
   font-weight: 400;
   text-align: center;
 }

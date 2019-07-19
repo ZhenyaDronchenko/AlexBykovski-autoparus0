@@ -400,9 +400,13 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
-
+.tool-wrap {
+    display: flex;
+    justify-content: flex-end;
+}
 .tool a {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -427,7 +431,7 @@
 }
 .tool-rdc {
     margin-right: 15px;
-    margin-left: auto;
+    
 }
 .tool-del {
   margin: 0 auto;
@@ -462,9 +466,7 @@
     font-weight: 400;
     margin-right: 5px;
 }
-.item-center {
-    margin-left: auto;
-}
+
 
 .prod {
     display: -webkit-box;
@@ -1633,8 +1635,8 @@ textarea {
     }
 
     .item-1 {
-        font-size: 10px;
-        line-height: 12px;
+        font-size: 12px;
+        line-height: 14px;
     }
 
     .prod {
@@ -1649,7 +1651,6 @@ textarea {
    margin: 0 auto;
     width: 95%;
         height: auto;
-            z-index: 0
 }
     .prod-foto {
         width: 100%;

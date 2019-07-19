@@ -181,7 +181,7 @@
     {% endfor %}
 
     <div class="img-block">
-        <a id="initiator-upload-image" nohref class="add-img">Добавить изображение:</a>
+        <a id="initiator-upload-image" nohref class="add-img">+ Добавить изображение:</a>
         <input id="upload-image-input" type="file" style="display: none">
         <img id="preview-image" class="img" src="{{ form.image.vars.value ? image_url(form.image.vars.value) : "/img/mers1.png" }}" alt="">
         {{ form_widget(form.image) }}
@@ -215,7 +215,7 @@
                 <label class="list-name" for="{{ sparePart.isChecked.vars.id }}">{{ label }}</label>
                 <label class="price-c">
                     {{ form_widget(sparePart.cost, {attr: {class: "name-input", "placeholder": "Цена", "input-by-pattern": "", "pattern" : "[\\d\\.]" }}) }}
-                    BYN (Бел Руб)
+                    BYN <span>(Бел Руб)</span>
                 </label>
             </li>
         {% endfor %}

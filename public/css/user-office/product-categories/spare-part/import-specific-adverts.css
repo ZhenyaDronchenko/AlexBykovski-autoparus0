@@ -162,7 +162,7 @@ cursor: default;
 }
 
 .price-item {
-    margin-bottom: 25px;
+    margin-bottom: 65px;
 }
 
 .price-item span {
@@ -311,4 +311,7 @@ cursor: default;
     overflow-y: scroll;
 }
 
+span.ng-binding {
+    margin-bottom: 40px;
+}
 /*price end*/
