@@ -1062,15 +1062,16 @@ select {
    border-bottom: 1px solid #ccc;
    margin-bottom: 30px;
 }
-.baner-block img {
-  width: 165px;
-  height: 110px;
-}
+
 .baner-block a {
-  width: 165px;
-  height: 110px;
+  width: 180px;
+  height: 120px;
 }
 
+.baner-block img {
+  width: 180px;
+  height: 120px;
+}
 
 @media (max-width: 767px) {
     .container {
@@ -1411,6 +1412,8 @@ padding: 0;
     color: #000000;
     font-weight: 400;
     text-align: justify;
+        border-bottom: 1px solid #cccccc;
+    margin-bottom: 30px;
 }
 
 @media (max-width: 480px) {

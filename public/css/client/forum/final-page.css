@@ -100,11 +100,11 @@ cursor: default;
 }
 h1 {
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-align: center;
   font-size: 26px;
   line-height: 30px;
-  color: #ff0000;
+  color: #2980b9;
   font-weight: 400;
 
 }
@@ -155,7 +155,7 @@ p {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   padding-top: 20px;
 }
 .btn-form {
@@ -194,11 +194,11 @@ p {
 }
 h2 {
   margin: 0;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   font-size: 24px;
     line-height: 26px;
     font-weight: 400;
-     color: #ff0000;
+     color: #2980b9;
     text-align: center;
     letter-spacing: 1px;
 }

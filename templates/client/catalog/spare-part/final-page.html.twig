@@ -42,7 +42,7 @@
         </ul>
 
         <section class="year">
-            <h1 class="year-title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="year-title">{{ page.headline1 }}</h1>
             <div class='year-desc'>
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
                 <span onclick='text1ShowHide()' id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
@@ -69,7 +69,7 @@
             {% if not hasOurAdverts and not hasBamberAdverts %}
                 <div class="text-item">{{ page.text3 | raw }}</div>
             {% endif %}
-            <h2 class='year-subtitle' data-text="{{ page.headline2 }}"></h2>
+            <h2 class='year-subtitle'>{{ page.headline2 }}</h2>
             <div class='year-subtext'>{{ page.text2 | raw }}</div>
             <a href="{{ page.returnButtonLink }}"><button class="un-btn">{{ page.returnButtonText | raw }}</button></a>
         </section>

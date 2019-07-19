@@ -31,7 +31,7 @@
         </ul>
 
         <section class="city">
-            <h1 class="city-title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="city-title">{{ page.headline1 }}</h1>
             <div class='city-desc'>
                 <div id='text1' ng-class="hideTextClass">{{ page.text1 | raw }}</div>
                 <span ng-click="hideTextClass = 'text1Show'" ng-show="hideTextClass === 'text1Hide'" id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
@@ -73,7 +73,7 @@
 
             <a href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : constant('App\\Entity\\Catalog\\SparePart\\CatalogSparePartChoiceModel::ALL_MODELS_URL')}|merge(routeParams)) }}"><button class="button" type="button">Все модели {{ brand.name }}</button></a>
 
-            <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
+            <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
             <div class='city-subtext'>{{ page.text2 | raw }}</div>
         </section>
     </main>

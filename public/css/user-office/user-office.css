@@ -1651,6 +1651,7 @@ textarea {
    margin: 0 auto;
     width: 95%;
         height: auto;
+            z-index: 0;
 }
     .prod-foto {
         width: 100%;
@@ -2112,6 +2113,7 @@ textarea {
     margin: 0 auto;
     width: 450px;
         height: 100%;
+            z-index: 0;
 }
     .prod-foto {
         width: 450px;
