@@ -99,6 +99,7 @@
     color: #000000;
     font-size: 18px;
     line-height: 22px;
+    margin-bottom: 10px;
     font-weight: 400;
 }
 .btn:hover,
@@ -141,7 +142,6 @@
         width: auto;
     }
     .del {
-        margin-top: 50px;
         padding: 15px 10px;
         border: 5px solid #efefef ;
     }
@@ -168,12 +168,14 @@
         margin-bottom: 0;
     }
     .btn {
-        width: 280px;
+        width: 100%;
         padding: 5px;
         font-size: 14px;
         line-height: 16px;
     }
-
+.del-btn li {
+    margin: 0 auto;
+}
     .btn img {
         width: 20px;
         height: 20px;

@@ -105,13 +105,10 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
-.title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 
 
 .text {
@@ -186,13 +183,13 @@ input {
     text-align: center;
     font-size: 24px;
     line-height: 28px;
-    color: #f66666;
+    color: #2980b9;
     font-weight: 400;
     letter-spacing: 1px;
 }
-.subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
+
+.business {
+    margin-bottom: 60px;
 }
 
 .btn-block {

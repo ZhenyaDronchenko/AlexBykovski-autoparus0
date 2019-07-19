@@ -117,13 +117,10 @@ p {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
-.year-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 
 .year-desc {
     margin-bottom: 40px;
@@ -460,6 +457,11 @@ p {
 .adress-text-img {
     margin-right: 5px;
 }
+
+.adress {
+    width: 40%;
+}
+
 .adress-text {
     margin: 0;
     margin-bottom: 7px;
@@ -623,8 +625,6 @@ padding-bottom: 4px;
    background-color: #d2a2af;
 }
 
-
-
 .year-subtitle {
     margin: 0;
     padding-top: 35px;
@@ -632,14 +632,11 @@ padding-bottom: 4px;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
     margin-bottom: 20px;
 }
-.year-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .year-subtext {
     margin: 0;
     margin-bottom: 30px;
@@ -1002,6 +999,11 @@ padding-bottom: 4px;
         display: inline-block;
         margin-left: 5px;
     }
+
+        .adress {
+         width: 100%;
+    }
+
     .un-btn{
         display: block;
         margin-left: auto;
@@ -1127,6 +1129,7 @@ padding-bottom: 4px;
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
+         width: 100%;
     }
     .time-text {
         text-align: center;
@@ -1261,8 +1264,10 @@ padding-bottom: 4px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        margin-bottom: 7px;
+        margin-bottom: 10px;
+    width: 100%;
     }
+
     .description  {
         margin-bottom: 10px;
     }

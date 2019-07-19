@@ -36,7 +36,7 @@
         </ul>
 
         <section class="engine">
-            <h1 class="title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
             <ul class="engine-block">
                 {% set templateParameters = {"brand" : brand} %}
@@ -51,7 +51,7 @@
                 {% endfor %}
             </ul>
 
-            <h2 class="subtitle" data-text="{{ page.headline2 }}"></h2>
+            <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
 
             <div class="btn-block">

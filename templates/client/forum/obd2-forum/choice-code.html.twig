@@ -43,13 +43,13 @@
         </ul>
 
         <section class="code">
-            <h1 class="title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
             <div class="business" id="form-obd2-code" ng-controller="OBD2CodeCtrl as obd2"
                  ng-init="obd2.init('#obd2-code-form', '{{ path("ajax_check_obd2_code", {"urlType" : routeParams["urlType"]}) }}', '{{ path("obd2_forum_choice_model", routeParams|merge({"urlCode" : "__url_code__"})) }}')">
                 {% include('/client/forum/obd2-forum/forms/code-form.twig') with {"form" : form, "type" : type} %}
             </div>
-            <h1 class="subtitle" data-text="{{ page.headline2 }}"></h1>
+            <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
 
             <div class="btn-block">

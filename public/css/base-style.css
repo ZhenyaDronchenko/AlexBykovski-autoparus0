@@ -596,7 +596,7 @@ padding-top: 5px;
 
 .cbutton::after {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 63%;
     margin: -35px 0 0 -35px;
     width: 60px;

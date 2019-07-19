@@ -93,7 +93,7 @@ cursor: default;
 
 /*city*/
 .year {
-    padding-top: 35px;
+    padding-top: 40px;
     padding-bottom: 65px;
 }
 a {
@@ -101,19 +101,16 @@ a {
 }
 .year-title {
     margin: 0;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     text-align: center;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+     color: #2980b9;
     letter-spacing: 1px;
     
 }
-.year-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .admin-text {
     margin-top: 15px;
     color: red;
@@ -623,19 +620,16 @@ h3 {
 
 .year-subtitle {
     margin: 0;
-    padding-top: 35px;
+    padding-top: 60px;
     text-align: center;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
     margin-bottom: 20px;
 }
-.year-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .year-subtext {
     margin: 0;
     margin-bottom: 30px;

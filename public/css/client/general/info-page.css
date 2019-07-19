@@ -101,14 +101,8 @@ position: relative;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
-}
-
-
-.select-title::before { /* второй слой */
-   content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 .select-text {
@@ -179,13 +173,10 @@ font-size: 20px;
     align-items: center;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    border: 1px solid #ccc;
     padding: 15px 5px;
     text-align: center;
 }
-.city-link:hover {
-    border: 1px solid red;
-}
+
 .city-link img {
     width: 100px;
     height: 100px;
@@ -227,12 +218,8 @@ font-size: 20px;
     font-size: 24px;
     line-height: 38px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
-}
-.model-title::before { /* второй слой */
-     content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 .mod-list {
@@ -273,13 +260,10 @@ font-size: 20px;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
-.part-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .part-list {
     display: -webkit-box;
     display: -ms-flexbox;

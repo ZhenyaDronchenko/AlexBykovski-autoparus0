@@ -105,17 +105,14 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
 
-.city-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 .city-desc {
     margin-bottom: 40px;
 }
+
 #text1 {
     margin: 0;
     margin-bottom: 10px;
@@ -125,6 +122,7 @@ cursor: default;
     font-weight: 400;
     text-align: justify;
 }
+
 #allText {
     text-align: right;
     display: none;
@@ -210,7 +208,7 @@ cursor: default;
     border-bottom: 1px solid red;
 }
 .model-block {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 #model {
@@ -288,13 +286,9 @@ cursor: default;
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;;
+    color: #2980b9;
 }
 
-.city-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 .city-subtext {
     margin: 0;
     margin-bottom: 10px;

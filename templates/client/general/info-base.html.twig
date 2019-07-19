@@ -22,7 +22,7 @@
         </ul>
 
         <section class="select-block">
-            <h1 class="select-title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="select-title">{{ page.headline1 }}</h1>
             <div class="select-text">{{ page.text1 | raw }}</div>
             <button type="submit" class="btn button"><a href="{{ page.returnButtonLink }}" style="color: #000000">{{ page.returnButtonText }}</a></button>
 
@@ -35,7 +35,7 @@
             </ul>
 
             <section class="model">
-                <h2 class="model-title" data-text="Популярные марки автомобилей"></h2>
+                <h2 class="model-title">Популярные марки автомобилей</h2>
                 <ul class="mod-list">
                     {% for brand in brands %}
                         <li><a class="mod-link" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brand.url}) }}"><img src="{{ image_url(brand.logo, 'brand') }}" alt="{{ brand.enBrand }}" title="Запчасти для автомобилей {{ brand.enBrand }}"></a></li>
@@ -44,7 +44,7 @@
             </section>
 
             <section class="part">
-                <h3 class="part-title" data-text="Популярные запчасти для авто"></h3>
+                <h3 class="part-title">Популярные запчасти для авто</h3>
                 <ul class="part-list">
                     {% for sparePart in spareParts %}
                         <li><a class="part-link" href="{{ path("show_spare_part_catalog_choice_brand", {"urlSP" : sparePart.url}) }}"><img src="{{ image_url(sparePart.logo, 'sparePart') }}" alt="{{ sparePart.name }}" title="{{ sparePart.multiple }} бу и новые"></a></li>

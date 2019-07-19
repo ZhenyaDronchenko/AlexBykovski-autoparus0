@@ -36,7 +36,7 @@
         </ul>
 
         <section class="brand">
-            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="brand-title">{{ page.headline1 }}</h1>
 
             <div class="text-block">
                 <div id='text1' ng-class="hideTextClass">{{ page.text1 | raw }}</div>
@@ -56,7 +56,7 @@
 
             <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
 
-            <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
+            <h2 class="turbo-subtitle">{{ page.headline2 }}</h2>
             <div class="subtext">{{ page.text2 | raw }}</div>
 
             <div class="product" itemscope itemtype="http://schema.org/Product">
