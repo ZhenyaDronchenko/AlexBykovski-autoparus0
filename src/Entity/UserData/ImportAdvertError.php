@@ -7,7 +7,8 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserData\ImportAdvertErrorRepository")
+ *
  * @ORM\Table(name="import_advert_error")
  */
 class ImportAdvertError

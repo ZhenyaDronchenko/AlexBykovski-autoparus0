@@ -1,16 +1,15 @@
-<div id="delete-advert-modal" class="overlay">
-	<div class="modal">
-		<section class="del">
-    	<!-- <h1 class="del-title">{{ default_text(10).headline }}</h1> -->
+<div id="delete-advert-modal" class="modal">
+	<section class="del container-modal">
 
-	    <h3 class="del-title" data-text="Подтверждение удаления"></h3>
-	                <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
-	    <ul class="del-btn">
-	        <li><a class="btn btn-red" ng-href="/user-office/product-categories/spare-part/delete-general-advert/{[{ modalAdvert }]}"><span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon"></a></li>
-	        <li><a class="btn btn-gray" href="#close-modal" rel="modal:close">Отменить удаление</a></li>
-	        <li><a class="btn btn-green" ng-href="/user-office/product-categories/spare-part/edit-general-advert/{[{ modalAdvert }]}"><span>Редактировать</span><img src="/img/cra.png" alt="icon"></a></li>
-	    </ul>
-	    <div class="del-text">{{ default_text(10).text | raw }}</div>
-		</section>
-	</div>
+		<!-- <h1 class="del-title">{{ default_text(10).headline }}</h1> -->
+
+		<h3 class="del-title" data-text="Подтверждение удаления"></h3>
+		<p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
+		<ul class="del-btn">
+			<li><a class="btn btn-red" ng-href="/user-office/product-categories/spare-part/delete-general-advert/{[{ modalAdvert }]}"><span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon"></a></li>
+			<li><a class="btn btn-gray" href="#close-modal" rel="modal:close">Отменить удаление</a></li>
+			<li><a class="btn btn-green" ng-href="/user-office/product-categories/spare-part/edit-general-advert/{[{ modalAdvert }]}"><span>Редактировать</span><img src="/img/cra.png" alt="icon"></a></li>
+		</ul>
+		<div class="del-text">{{ default_text(10).text | raw }}</div>
+	</section>
 </div>

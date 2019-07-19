@@ -91,11 +91,13 @@
             </ul>
             {% include('/client/default/parts/search-form.html.twig') %}
             </div>
+            <div claas="inner">
         <div id="textMiddle" ng-class="hideMiddleTextClass" ng-init="hideMiddleTextClass = 'textMiddleHide';">{{ homePage.text | raw }}</div>
         {% if is_mobile() %}
             <span ng-click="hideMiddleTextClass = ''" ng-show="hideMiddleTextClass === 'textMiddleHide'" id='allText'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
-            <span ng-click="hideMiddleTextClass = 'textMiddleHide'" ng-show="hideMiddleTextClass === ''" id='allText'> &lt;&lt;&lt;&lt;&lt;&lt;&lt; </span>
+            <span ng-click="hideMiddleTextClass = 'textMiddleHide'" ng-show="hideMiddleTextClass === ''" id='allText dt-hidden'> &lt;&lt;&lt;&lt;&lt;&lt;&lt; </span>
         {% endif %}
+        </div>
         <ul class="block-art">
           <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
               <div class="art-block">
@@ -115,6 +117,7 @@
                     </a>
                 </div>
                   <div class="art-user">
+                    <h3 class="user-subtitle">Заголовок</h3>
                       <div class="text-block text-block-w">
                           <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
                       </div>

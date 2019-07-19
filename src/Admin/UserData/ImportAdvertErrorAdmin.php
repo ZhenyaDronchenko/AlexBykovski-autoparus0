@@ -3,6 +3,7 @@
 namespace App\Admin\UserData;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,7 +15,7 @@ class ImportAdvertErrorAdmin extends AbstractAdmin
         '_sort_by' => 'id',
     ];
 
-    protected $maxPerPage = 192;
+    protected $maxPerPage = 64;
 
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -27,6 +28,12 @@ class ImportAdvertErrorAdmin extends AbstractAdmin
             ->addIdentifier('approve', null, ['label' => false, 'template' => 'admin/user-data/import-advert-error/submit-button.html.twig', 'sortable' => false])
             ->addIdentifier('remove', null, ['label' => false, 'template' => 'admin/user-data/import-advert-error/remove-button.html.twig', 'sortable' => false])
         ;
+    }
+
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('fieldValue');
     }
 
     protected function configureRoutes(RouteCollection $collection)

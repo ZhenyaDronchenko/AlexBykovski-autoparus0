@@ -332,19 +332,18 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin-remove-import-advert-error/{id}", name="admin_remove_import_advert_error")
-     *
-     * @ParamConverter("error", class="App\Entity\UserData\ImportAdvertError", options={"id" = "id"})
+     * @Route("/admin-remove-import-advert-error/", name="admin_remove_import_advert_error")
      *
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function removeImportAdvertErrorAction(Request $request, ImportAdvertError $error)
+    public function removeImportAdvertErrorAction(Request $request)
     {
+        $ids = explode(',', $request->query->get("ids"));
+
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
 
-        $em->remove($error);
-        $em->flush();
+        $em->getRepository(ImportAdvertError::class)->deleteByIds($ids);
 
         return $this->redirect($request->headers->get('referer'));
     }

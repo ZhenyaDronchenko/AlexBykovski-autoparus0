@@ -114,21 +114,21 @@ function setSelect2(elements, data, additionalOptions) {
     });
 }
 
-function saveSolution(id) {
+function saveSolution(id, simpleRemove) {
     let element = $("#solution-" + id);
-    let value = element.val();
-    let type = element.data("type");
+    let value = element.length ? element.val() : "";
+    let type = element.length ? element.data("type") : "";
 
     $.ajax({
         url: "/admin-save-keywords-import-advert-error/" + id,
         method: "POST",
         data: {
-            value : value,
-            type : type
+            value : simpleRemove ? "" : value,
+            type : simpleRemove ? "" : type
         },
     }).done(function(response) {
         if(response.success){
-            element.parents("td.sonata-ba-list-field").parent().remove();
+            $(".remove-button-" + id).parents("td.sonata-ba-list-field[objectid=" + id + "]").parent().remove();
         }
     });
 }

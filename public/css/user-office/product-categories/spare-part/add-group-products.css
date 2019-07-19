@@ -599,7 +599,7 @@ textarea {
 
 .status-block {
     width: 45%;
-    border-bottom: 1px solid #737373;
+    border-bottom: 1px solid #cccccc;
 }
 
 .status-title {
@@ -862,7 +862,7 @@ textarea {
 
 .modal-title {
     margin: 0;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     color: #000;
     font-size: 22px;
     font-weight: 400;
@@ -1159,8 +1159,9 @@ textarea {
         line-height: 16px;
     }
     .modal {
-        top: 50px;
-        width: 80%;
+    top: 10px;
+    width: 90%;
+    padding: 50px 10px;
     }
     .modal-title {
         font-size: 20px;
@@ -1440,7 +1441,7 @@ textarea {
     }
     .modal {
         top: 50px;
-        width: 80%;
+    width: 650px;
     }
     .modal-title {
         margin-bottom: 10px;
