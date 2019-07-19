@@ -123,6 +123,7 @@ h3 {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    justify-content: flex-end;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
@@ -130,7 +131,8 @@ h3 {
     cursor: pointer;
     background-color: #fff;
     border: none;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 30px;
     margin-left: auto;
 }
 
@@ -201,6 +203,7 @@ h3 {
 }
 .tab {
     padding: 30px 20px;
+    padding-top: 0;
     display: none;
 
 }

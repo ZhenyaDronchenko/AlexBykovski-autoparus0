@@ -541,17 +541,16 @@ margin: 0;
 
 
     .foto {
-        width: 100%;
+       margin: 0 auto;
+        width: 450px;
         height: auto;
         -webkit-transform: translate(0,0);
             -ms-transform: translate(0,0);
                 transform: translate(0,0);
     }
     .foto img {
-          margin: 0 auto;
-        width: 100%;
+        width: 450px;
         height: auto;
-        max-width: 480px;
         border: 1px solid #ccc;
         margin-bottom: 20px;
     }
