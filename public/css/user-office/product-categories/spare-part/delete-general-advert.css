@@ -304,3 +304,7 @@
     }
 
 }
+
+.modal .close-modal{
+    display: none !important;
+}
