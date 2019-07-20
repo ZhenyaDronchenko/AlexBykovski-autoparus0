@@ -964,6 +964,7 @@ select {
         -webkit-transform: translate(0,0);
             -ms-transform: translate(0,0);
                 transform: translate(0,0);
+                margin-bottom: 15px;
     }
     .art-foto img {
       margin: 0 auto;
@@ -971,7 +972,6 @@ select {
         height: auto;
         max-width: 480px;
         border: 1px solid #ccc;
-        margin-bottom: 20px;
     }
 
     
@@ -1402,7 +1402,10 @@ padding: 0;
 .modal-close:hover line {
     stroke: red;
 }
-
+.inner {
+  border-bottom: 1px solid #cccccc;
+    margin-bottom: 30px;
+}
 #textMiddle {
     margin: 0 auto;
     width: 85%;
@@ -1412,8 +1415,6 @@ padding: 0;
     color: #000000;
     font-weight: 400;
     text-align: justify;
-        border-bottom: 1px solid #cccccc;
-    margin-bottom: 30px;
 }
 
 @media (max-width: 480px) {
