@@ -6,6 +6,7 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
       padding-top: 5px;
+      padding-bottom: 5px;
 }
   
 .line {
@@ -45,6 +46,7 @@ cursor: default;
   }
 #breadcrumbs {
   padding-top: 3px;
+  padding-bottom: 3px;
 }
   .line {
     margin-left: 3px;
@@ -93,11 +95,21 @@ cursor: default;
  /*END ХЛЕБНЫЕ КРОШКИ*/
 
 /*code*/
-.brand {
-    padding-top: 35px;
-    padding-bottom: 65px;
-}
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
+} 
 
+.brand {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.brand-b {
+    background-color: #ffffff;
+    padding: 20px;
+}
 .brand-title {
     margin: 0 auto;
     margin-bottom: 30px;
@@ -105,12 +117,8 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
-}
-.brand-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 a {
@@ -192,11 +200,7 @@ p {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
-}
-.turbo-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
+    color: #2980b9;
 }
 
 .subtext-block {
@@ -246,11 +250,11 @@ p {
 
 .img-r {
     float: right;
-    margin: 15px;
+    margin: 0 15px;
 }
 .img-l {
     float: left;
-    margin: 15px;
+    margin: 0 15px;
 }
 
 @media (max-width: 480px) {
@@ -259,9 +263,17 @@ p {
         padding: 0 10px;
     }
 
-    .brand {
-    padding-top: 25px;
-   
+ .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    padding-bottom: 40px;
+} 
+
+   .brand {
+    padding: 20px 10px;
+}
+.brand-b {
+    padding: 20px 10px;
 }
 
     .code-block {
@@ -315,9 +327,17 @@ p {
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
-    .brand {
-    padding-top: 25px;
-   
+ .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    padding-bottom: 40px;
+} 
+
+   .brand {
+    padding: 20px 10px;
+}
+.brand-b {
+    padding: 20px 10px;
 }
   .brand-title {
         font-size: 22px;

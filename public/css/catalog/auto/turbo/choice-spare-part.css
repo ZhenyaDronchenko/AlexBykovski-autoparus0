@@ -6,6 +6,7 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
       padding-top: 5px;
+       padding-bottom: 5px;
 }
   
 .line {
@@ -45,6 +46,7 @@ cursor: default;
   }
 #breadcrumbs {
   padding-top: 3px;
+   padding-bottom: 3px;
 }
   .line {
     margin-left: 3px;
@@ -93,9 +95,20 @@ cursor: default;
 
 
 /*code*/
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
+} 
+
 .brand {
-    padding-top: 35px;
-    padding-bottom: 65px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.brand-b {
+    background-color: #ffffff;
+    padding: 20px;
 }
 
 .brand-title {
@@ -105,13 +118,9 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
     
-}
-.brand-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 
@@ -220,11 +229,7 @@ margin-top: 30px;
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
-}
-.turbo-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
+    color: #2980b9;
 }
 
 .subtext-block {
@@ -272,7 +277,7 @@ margin-top: 30px;
 
 .img-r {
     float: right;
-    margin: 15px;
+    margin: 0 15px;
 }
 
 
@@ -283,10 +288,18 @@ margin-top: 30px;
         padding: 0 10px;
     }
 
-    .brand {
-        padding-top: 25px;
-    
-    }
+    .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    padding-bottom: 40px;
+} 
+
+   .brand {
+    padding: 20px 10px;
+}
+.brand-b {
+    padding: 20px 10px;
+}
     .brand-title {
         margin-bottom: 20px;
         font-size: 22px;
@@ -340,10 +353,18 @@ margin-top: 30px;
     .container {
         width: auto; }
 
- .brand {
-        padding-top: 25px;
-    
-    }
+  .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    padding-bottom: 40px;
+} 
+
+   .brand {
+    padding: 20px 10px;
+}
+.brand-b {
+    padding: 20px 10px;
+}
             .brand-block {
         margin: 0 auto;
         width: 450px;
