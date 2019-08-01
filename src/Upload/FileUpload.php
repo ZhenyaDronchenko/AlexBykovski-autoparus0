@@ -36,6 +36,7 @@ class FileUpload
 
     const CSV_MIME_TYPE = "text/csv";
     const EXCEL_MIME_TYPE = "application/vnd.ms-excel";
+    const EXCEL_S_MIME_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     private $allowedMimeTypes;
 

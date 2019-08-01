@@ -8,13 +8,15 @@ use App\Entity\SparePart;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class ImportChecker
 {
     const XLS_EXTENSION = "xls";
     const CSV_EXTENSION = "csv";
+    const XLSX_EXTENSION = "xlsx";
 
-    const IMPORT_FILE_EXTENSIONS = [self::XLS_EXTENSION, self::CSV_EXTENSION];
+    const IMPORT_FILE_EXTENSIONS = [self::XLS_EXTENSION, self::CSV_EXTENSION, self::XLSX_EXTENSION];
 
     const BRAND_HEADERS = ["МАРКА", "Марка"];
     const MODEL_HEADERS = ["МОДЕЛЬ", "Модель"];
@@ -217,6 +219,8 @@ class ImportChecker
         switch ($ext){
             case self::CSV_EXTENSION:
                 return new Csv();
+            case self::XLSX_EXTENSION:
+                return new Xlsx();
             default:
                 return new Xls();
         }
