@@ -62,8 +62,8 @@ class ImportController extends Controller
      */
     public function checkIsCorrectFileImportSpecificAdvertsAction(Request $request, ImportChecker $importChecker)
     {
-        ini_set('max_execution_time', 10*60);
-        ini_set('memory_limit', "512M");
+        ini_set('max_execution_time', 180*60);
+        ini_set('memory_limit', -1);
 
         $response = [
             "success" => false,
@@ -86,8 +86,8 @@ class ImportController extends Controller
      */
     public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
     {
-        ini_set('max_execution_time', 40*60);
-        ini_set('memory_limit', "1536M");
+        ini_set('max_execution_time', 180*60);
+        ini_set('memory_limit', -1);
 
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();

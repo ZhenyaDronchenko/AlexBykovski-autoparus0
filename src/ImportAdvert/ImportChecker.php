@@ -19,10 +19,10 @@ class ImportChecker
     const BRAND_HEADERS = ["МАРКА", "Марка"];
     const MODEL_HEADERS = ["МОДЕЛЬ", "Модель"];
     const YEAR_HEADERS = ["ГОД", "Год"];
-    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть"];
+    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть", "ЗАПЧАСТЬ", ];
 
     const ENGINE_TYPE_HEADERS = ["ТОПЛИВО", "Топливо"];
-    const ENGINE_CAPACITY_HEADERS = ["ОБЪЕМ ДВИГАТЕЛЯ", "Объем"];
+    const ENGINE_CAPACITY_HEADERS = ["ОБЪЕМ ДВИГАТЕЛЯ", "Объем", "ОБЪЕМ"];
     const GEAR_BOX_TYPE_HEADERS = ["КОРОБКА", "Коробка"];
     const VEHICLE_TYPE_HEADERS = ["ТИП КУЗОВА"];
     const NUMBER_SPARE_PART_HEADERS = ["ОРИГИНАЛЬНЫЙ НОМЕР", "Номер"];
@@ -121,7 +121,7 @@ class ImportChecker
         $headerIndexes = self::getHeaderIndexes($headers);
 
         foreach (self::$requiredFields as $field){
-            if(!$headerIndexes[$field]){
+            if($headerIndexes[$field] === false){
                 $errors["errors"][] = "Отсутствует обязательное поле: " . $field;
             }
         }
@@ -207,7 +207,7 @@ class ImportChecker
             }
         }
 
-        return null;
+        return false;
     }
 
     static function getReader($file)

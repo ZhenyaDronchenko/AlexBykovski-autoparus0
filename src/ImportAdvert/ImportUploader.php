@@ -34,6 +34,10 @@ class ImportUploader
     /** @var array */
     private $headerIndexes = [];
 
+    private $brands = [];
+    private $models = [];
+    private $spareParts = [];
+
     /**
      * ImportChecker constructor.
      * @param EntityManagerInterface $em
@@ -191,6 +195,10 @@ class ImportUploader
             return $this->handleError($headers, $line, $index, $value, $brandKey, self::ERROR_EMPTY_DATA);
         }
 
+        if(array_key_exists($value, $this->brands)){
+            return $this->brands[$value];
+        }
+
         $brand = $this->em->getRepository(Brand::class)->findBrandForImport($value);
 
         if(!is_array($brand) || !count($brand)){
@@ -201,7 +209,12 @@ class ImportUploader
             return $this->handleError($headers, $line, $index, $value, $brandKey, self::ERROR_MULTIPLE_DATA);
         }
 
-        return array_values($brand)[0];
+        /** @var Brand $brandReturn */
+        $brandReturn = array_values($brand)[0];
+
+        $this->brands[$value] = $brandReturn;
+
+        return $brandReturn;
     }
 
     private function getSparePart($headers, $line, $index)
@@ -215,7 +228,16 @@ class ImportUploader
             return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_EMPTY_DATA);
         }
 
-        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport($value);
+        if(array_key_exists($value, $this->spareParts)){
+            if(!$this->spareParts[$value]){
+                return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_MULTIPLE_DATA);
+            }
+
+            return $this->spareParts[$value];
+        }
+        else{
+            $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport($value);
+        }
 
         if(!is_array($sparePart ) || !count($sparePart)){
             return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_EMPTY_DATA);
@@ -237,16 +259,24 @@ class ImportUploader
             }
 
             if($fullSame){
+                $this->spareParts[$value] = $fullSame;
+
                 return $fullSame;
             }
             elseif ($beforeBracketSame){
+                $this->spareParts[$value] = $beforeBracketSame;
+
                 return $beforeBracketSame;
             }
 
             return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_MULTIPLE_DATA);
         }
 
-        return array_values($sparePart)[0]->getName();
+        $sparePartReturn = array_values($sparePart)[0]->getName();
+
+        $this->spareParts[$value] = $sparePartReturn;
+
+        return $sparePartReturn;
     }
 
     private function getModel($headers, $line, $index, Brand $brand)
@@ -255,12 +285,18 @@ class ImportUploader
         $modelKey = $headers[$modelIndex];
 
         $value = trim($line[$modelIndex]);
+        $valueSaveArray = $value . '_' . $brand->getId();
 
         if(!$value){
             return $this->handleError($headers, $line, $index, $value, $modelKey, self::ERROR_EMPTY_DATA);
         }
 
-        $model = $this->em->getRepository(Model::class)->findModelForImport($value, $brand);
+        if(array_key_exists($valueSaveArray, $this->models)){
+            $model = $this->models[$valueSaveArray];
+        }
+        else {
+            $this->models[$valueSaveArray] = $model = $this->em->getRepository(Model::class)->findModelForImport($value, $brand);
+        }
 
         if(!is_array($model) || !count($model)){
             return $this->handleError($headers, $line, $index, $value, $modelKey, self::ERROR_EMPTY_DATA);
@@ -284,10 +320,6 @@ class ImportUploader
 
             if($modelForYear){
                 return $modelForYear;
-            }
-
-            if($value === "Astra") {
-                var_dump($modelForYear ? $modelForYear->getId() : "");
             }
 
             //return [sprintf(self::ERROR_MULTIPLE_DATA, $index + 1, ImportChecker::MODEL_HEADER . ' | ' . count($model) . ' | ' . $brand->getId() . ' | ' . $year . ' | ' . trim($line[$modelIndex]))];
