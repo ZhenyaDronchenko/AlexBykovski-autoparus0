@@ -105,7 +105,7 @@ h1 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
 
@@ -121,10 +121,7 @@ p {
   text-align: justify;
 }
 
-h1::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .modform {
 display: -webkit-box;
     display: -ms-flexbox;
@@ -136,8 +133,8 @@ display: -webkit-box;
    -webkit-box-align: center;
        -ms-flex-align: center;
            align-items: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin: 50px;
+    margin-top: 60px;
 }   
 
 
@@ -182,6 +179,7 @@ display: -webkit-box;
     cursor: pointer;
     font-weight: 400; 
     margin: 30px 0;
+    margin-bottom: 50px;
     margin-left: auto;
 }
 .btn:hover {
@@ -273,7 +271,7 @@ display: -webkit-box;
     padding-top: 5px;
     cursor: pointer;
     outline: none;
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 #button-mod:hover,
@@ -289,12 +287,9 @@ h2 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+    color: #2980b9;
 }
-h2::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 
 @media (max-width: 480px) {
   .container {

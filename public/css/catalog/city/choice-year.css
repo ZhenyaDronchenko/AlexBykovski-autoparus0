@@ -106,14 +106,11 @@ h1 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 
 }
-h1::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 a {
   display: block;
 }
@@ -139,8 +136,8 @@ margin: 0;
         -ms-flex-align: center;
             align-items: center;
     flex-wrap: wrap;
-    margin: 40px 0;
-    margin-bottom: 20px;
+    margin: 50px 0;
+    margin-bottom: 30px;
   
   }
   .brand-block li {
@@ -180,7 +177,7 @@ margin: 0;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 400; 
-    margin: 30px 0;
+    margin: 50px 0;
     margin-left: auto;
 }
 .btn:hover {
@@ -194,12 +191,9 @@ h2 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+    color: #2980b9;
 }
-h2::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 h3 {
    margin: 0;
     text-align: center;
@@ -208,12 +202,9 @@ h3 {
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+    color: #2980b9;
 }
-h3::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .model-block {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -254,8 +245,8 @@ h3::before { /* второй слой */
 
 }
 .model-link img {
-  width: 105px;
-  height: 70px;
+  width: 96px;
+  height: 64px;
 }
 .model-link img:hover {
  -webkit-filter: grayscale(100%);
