@@ -26,7 +26,7 @@
         </ul>
 
         <section class="city">
-            <h1 class="city-title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="city-title">{{ page.headline1 }}</h1>
             <div class='city-desc'>
                 <p id='text1' class='text1Hide'>{{ page.text1 | raw }}</p>
                 <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
@@ -45,13 +45,21 @@
                     <div ng-click='showAll = true' ng-hide="showAll" id='showAll5'>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
                     <div ng-click='showAll = false' ng-show="showAll" id='showAll5'>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
                 </div>
+                <ul class="place-block">
+                    <li><a class="place-link" href='#' title="Минск">Калинковичи</a></li>
+                    <li><a class="place-link" href='#' title="Минск">Санкт-Петербург</a></li>
+                    <li><a class="place-link" href='#' title="Минск">Минск</a></li>
+                    <li><a class="place-link" href='#' title="Гомель">Гомель</a></li>
+                    <li><a class="place-link" href='#' title="Гродно">Гродно</a></li>
+                    <li><a class="place-link" href='#' title="Могилев">Могилев</a></li>
+                </ul>
                 <div class="city-list">
-                    <h2 class='city-subtitle' data-text="{{ page.headline2 }}"></h2>
+                    <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
                     <div class='city-subtext'>{{ page.text2 | raw }}</div>
                     <a href="{{ page.returnButtonLink }}" class="button">{{ page.returnButtonText }}</a>
                 </div>
             </div>
-            <h3 class="model-title" data-text="Популярные марки автомобилей"></h3>
+            <h3 class="model-title">Поиск по марке авто</h3>
             <ul class="city-icon">
                 {% for brand in brands %}
                     <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: "dvs", urlBrand: brand.url}) }}"><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="Двигатели для автомобилей {{ brand.brandEn }}"></a></li>
