@@ -107,14 +107,11 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+     color: #2980b9;
     letter-spacing: 1px;
 
 }
-.delivery-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 p {
     margin: 0;
     margin-bottom: 10px;
@@ -181,8 +178,8 @@ p {
 }
 
 .delivery-img {
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 70px;
+    margin-top: 50px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -210,14 +207,11 @@ p {
     font-size: 24px;
     line-height: 26px;
     font-weight: 400;
-    color: #f66666;
+     color: #2980b9;
     letter-spacing: 1px;
     margin-bottom: 20px;
 }
-.delivery-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .delivery-text {
     margin: 0;
     margin-bottom: 10px;
@@ -387,7 +381,7 @@ p {
 .block-product {
     border-top: 1px solid #737373;
     border-bottom: 1px solid #737373;
-    padding-top: 10px;
+    padding-top: 15px;
     padding-bottom: 20px;
     
 }
@@ -476,7 +470,7 @@ p {
 }
 
 .link:hover {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 .link-button {
     display: -webkit-box;
@@ -498,11 +492,11 @@ p {
 .price {
     position: absolute;
     display: block;
-    padding: 5px;
+    padding: 1px 4px;
     padding-bottom: 1px;
     border-radius: 5px;
-    font-size: 22px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 22px;
     font-weight: 400;
     top: 5px;
     left: 5px;
@@ -512,8 +506,8 @@ p {
 }
 .price span {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 14px;
     color: #000;
 }
 
@@ -533,14 +527,13 @@ p {
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
     background-color: #ebebeb;
 
 }
-
 .button {
     display: block;
     font-size: 16px;
@@ -869,14 +862,11 @@ padding-bottom: 4px;
     font-size: 24px;
     line-height: 26px;
     font-weight: 400;
-    color: #f66666;
+     color: #2980b9;
     letter-spacing: 1px;
     margin-bottom: 20px;
 }
-.year-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .year-subtext {
     margin: 0;
     margin-bottom: 30px;
