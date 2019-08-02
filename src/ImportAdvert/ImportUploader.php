@@ -437,6 +437,16 @@ class ImportUploader
 
         $number = trim($line[$numberIndex]);
 
+        if(($posNumber = strpos($number, ',')) && $posNumber <= 20){
+            $number = substr($number, 0, $posNumber);
+        }
+        elseif (($posNumber = strpos($number, ';')) && $posNumber <= 20){
+            $number = substr($number, 0, $posNumber);
+        }
+        else{
+            $number = substr($number, 0, 20);
+        }
+
         return $number ?: null;
     }
 

@@ -1,10 +1,11 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field%}
-    {% set noneModel = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: МОДЕЛЬ" %}
-    {% set noneBrand = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: МАРКА" %}
-    {% set noneSparePart = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: НАИМЕНОВАНИЕ ЗАПЧАСТИ" %}
-    {% set noneYear = object.issue == "Строка 0: нет данных или не найдено соответствие по полю: ГОД" %}
+    {% set notFound = "Строка 0: нет данных или не найдено соответствие по полю: " in object.issue %}
+    {% set noneModel = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::MODEL_HEADERS') %}
+    {% set noneBrand = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::BRAND_HEADERS') %}
+    {% set noneSparePart = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::SPARE_PART_HEADERS') %}
+    {% set noneYear = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::YEAR_HEADERS') %}
     {% set multipleYear = object.issue == "Строка 0: найдено несколько соответствий по полю: МОДЕЛЬ" %}
 
     {% if noneBrand or noneSparePart %}

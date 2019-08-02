@@ -158,6 +158,19 @@ class SellerCompany
     private $sellerData;
 
     /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $siteAddress;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $linkImportAdverts;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -411,5 +424,37 @@ class SellerCompany
     public function setSellerData(?SellerData $sellerData): void
     {
         $this->sellerData = $sellerData;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSiteAddress(): ?string
+    {
+        return $this->siteAddress;
+    }
+
+    /**
+     * @param null|string $siteAddress
+     */
+    public function setSiteAddress(?string $siteAddress): void
+    {
+        $this->siteAddress = $siteAddress;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLinkImportAdverts(): ?string
+    {
+        return $this->linkImportAdverts;
+    }
+
+    /**
+     * @param null|string $linkImportAdverts
+     */
+    public function setLinkImportAdverts(?string $linkImportAdverts): void
+    {
+        $this->linkImportAdverts = $linkImportAdverts;
     }
 }

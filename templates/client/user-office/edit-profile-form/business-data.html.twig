@@ -102,6 +102,12 @@
                     <span class="check">{{ error.message }}</span>
                 {% endfor %}
             </li>
+            <li class="choice-str" style="width: 60%;">
+                {{ form_widget(form.siteAddress, {attr: {"placeholder": "Адрес вашего сайта (если имеется):", class: "choice-input input-str"}}) }}
+            </li>
+            <li class="choice-str" style="width: 80%;">
+                {{ form_widget(form.linkImportAdverts, {attr: {"placeholder": "Адрес (ссылка) для автоматической выгрузки ваших товаров (если имеется):", class: "choice-input input-str"}}) }}
+            </li>
         </ul>
     </fieldset>
 

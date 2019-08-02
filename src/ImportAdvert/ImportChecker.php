@@ -21,7 +21,7 @@ class ImportChecker
     const BRAND_HEADERS = ["МАРКА", "Марка"];
     const MODEL_HEADERS = ["МОДЕЛЬ", "Модель"];
     const YEAR_HEADERS = ["ГОД", "Год"];
-    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть", "ЗАПЧАСТЬ", ];
+    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть", "ЗАПЧАСТЬ"];
 
     const ENGINE_TYPE_HEADERS = ["ТОПЛИВО", "Топливо"];
     const ENGINE_CAPACITY_HEADERS = ["ОБЪЕМ ДВИГАТЕЛЯ", "Объем", "ОБЪЕМ"];

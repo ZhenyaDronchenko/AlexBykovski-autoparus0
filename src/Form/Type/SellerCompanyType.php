@@ -79,6 +79,14 @@ class SellerCompanyType extends AbstractType
                 'label' => false,
                 'constraints' => new NotNull(['message' =>'Заполните поле адреса']),
             ])
+            ->add('siteAddress', TextType::class, [
+                'label' => false,
+                'required' => false,
+            ])
+            ->add('linkImportAdverts', TextType::class, [
+                'label' => false,
+                'required' => false,
+            ])
             ->add('workflow', SellerCompanyWorkflowType::class)
             ->add('activityDescription', TextareaType::class, ['required' => false])
             ->add('additionalPhone', TextType::class, [

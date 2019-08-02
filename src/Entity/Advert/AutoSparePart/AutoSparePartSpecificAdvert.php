@@ -153,7 +153,7 @@ class AutoSparePartSpecificAdvert
     /**
      * @var string|null
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $sparePartNumber;
 
