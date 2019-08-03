@@ -114,10 +114,10 @@ class DefaultController extends Controller
         $inStock = (bool)$requestData["inStock"];
         $redirectUrl = $this->generateUrl("show_brand_catalog_choice_brand");
 
-        if(!$brand && $sparePart){
+        if($brand && !$sparePart && !$model){
             $redirectUrl = $this->generateUrl("show_brand_catalog_choice_model", ["urlBrand" => $brand->getUrl()]);
         }
-        elseif($brand && !$sparePart && !$model){
+        elseif(!$brand && $sparePart){
             $redirectUrl = $this->generateUrl("show_spare_part_catalog_choice_brand", ["urlSP" => $sparePart->getUrl()]);
         }
         elseif($brand && $model && !$sparePart){

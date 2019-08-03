@@ -16,6 +16,7 @@ use App\Entity\Phone\PhoneBrand;
 use App\Entity\Phone\PhoneModel;
 use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
+use App\Entity\User;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -305,13 +306,16 @@ class SearchController extends Controller
 
         $user = isset($requestData["userId"]) ? $em->getRepository(Client::class)->find($requestData["userId"]) : null;
         $allUsers = isset($requestData["allUsers"]) && $requestData["allUsers"];
+        $notPremium = isset($requestData["notPremium"]) && $requestData["notPremium"];
         $brand = isset($requestData["urlBrand"]) ? $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["urlBrand"]]) : null;
         $model = isset($requestData["urlModel"]) ? $em->getRepository(Model::class)->findOneBy(["url" => $requestData["urlModel"]]) : null;
         $city = isset($requestData["urlCity"]) ? $em->getRepository(City::class)->findOneBy(["url" => $requestData["urlCity"]]) : null;
         $activity = isset($requestData["urlActivity"]) && array_key_exists($requestData["urlActivity"], SellerCompany::$activities) ?
             SellerCompany::$activities[$requestData["urlActivity"]] : null;
         $users = $user ?: ($allUsers ? '' : PostsFilterType::USERS_ACCESS_POST_HOMEPAGE);
-        $filter = new PostsFilterType($users, $brand, $model, $city, $activity, $limit, $offset);
+        $users = $notPremium ? null : $users;
+        $notUserRoles = $notPremium ? User::ROLE_SHOW_POSTS_HOMEPAGE : null;
+        $filter = new PostsFilterType($users, $brand, $model, $city, $activity, $limit, $offset, $notUserRoles);
 
         if(!is_numeric($offset) || !is_numeric($limit)){
             return new JsonResponse([]);
