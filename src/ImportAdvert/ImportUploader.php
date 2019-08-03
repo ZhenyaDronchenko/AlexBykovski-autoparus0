@@ -98,26 +98,24 @@ class ImportUploader
         $advertDetail->setAutoSparePartSpecificAdverts(new ArrayCollection());
 
         foreach ($lines as $index => $line){
-            $advert = $this->importLine($headers, $line, ++$index);
+            $adverts = $this->importLine($headers, $line, ++$index, $advertDetail);
 
             //if($advert instanceof AutoSparePartSpecificAdvert && !$advertDetail->hasSameImportSpecificAdvert($advert)){
-            if($advert instanceof AutoSparePartSpecificAdvert){
+            if(is_array($adverts) && array_values($adverts)[0] instanceof AutoSparePartSpecificAdvert){
                 ++$count;
 
-                $advert->setCondition(AutoSparePartSpecificAdvert::USED_TYPE);
-                $advert->setStockType(AutoSparePartSpecificAdvert::IN_STOCK_TYPE);
-                $advert->setSellerAdvertDetail($advertDetail);
-
                 if($this->saveMode) {
-                    $this->em->persist($advert);
+                    foreach ($adverts as $advert){
+                        $this->em->persist($advert);
+                    }
 
                     if ($count > 0 && $count % 50 === 0) {
                         $this->em->flush();
                     }
                 }
             }
-            elseif(is_array($advert)){
-                $errors = array_merge($errors, $advert);
+            elseif(is_array($adverts)){
+                $errors = array_merge($errors, $adverts);
             }
         }
 
@@ -132,7 +130,7 @@ class ImportUploader
         return [$errors, $count, count($lines)];
     }
 
-    private function importLine(array $headers, array $line, $index)
+    private function importLine(array $headers, array $line, $index, SellerAdvertDetail $advertDetail)
     {
         $advert = new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
         $this->currentAdvert = $advert;
@@ -145,13 +143,11 @@ class ImportUploader
 
         $advert->setBrand($brand);
 
-        $sparePart = $this->getSparePart($headers, $line, $index);
+        $spareParts = $this->getSparePart($headers, $line, $index);
 
-        if(is_array($sparePart)){
-            return $sparePart;
+        if(is_array($spareParts) && !(array_values($spareParts)[0] instanceof SparePart)){
+            return $spareParts;
         }
-
-        $advert->setSparePart($sparePart);
 
         $model = $this->getModel($headers, $line, $index, $brand);
 
@@ -180,8 +176,21 @@ class ImportUploader
         $advert->setCost($this->getCost($line));
         $advert->setComment($this->getDescription($line));
         $advert->setCurrency($this->getCurrency($line));
+        $advert->setCondition(AutoSparePartSpecificAdvert::USED_TYPE);
+        $advert->setStockType(AutoSparePartSpecificAdvert::IN_STOCK_TYPE);
+        $advert->setSellerAdvertDetail($advertDetail);
 
-        return $advert;
+        $adverts = [];
+
+        /** @var SparePart $item */
+        foreach ($spareParts as $item){
+            $newAdvert = $advert->copyForImport();
+            $newAdvert->setSparePart($item->getName());
+
+            $adverts[] = $newAdvert;
+        }
+
+        return $adverts;
     }
 
     private function getBrand($headers, $line, $index)
@@ -230,7 +239,7 @@ class ImportUploader
 
         if(array_key_exists($value, $this->spareParts)){
             if(!$this->spareParts[$value]){
-                return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_MULTIPLE_DATA);
+                return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_EMPTY_DATA);
             }
 
             return $this->spareParts[$value];
@@ -239,44 +248,15 @@ class ImportUploader
             $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport($value);
         }
 
-        if(!is_array($sparePart ) || !count($sparePart)){
+        if(!is_array($sparePart) || !count($sparePart)){
+            $this->spareParts[$value] = null;
+
             return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_EMPTY_DATA);
         }
 
-        if(count($sparePart) > 1){
-            $fullSame = null;
-            $beforeBracketSame = null;
+        $this->spareParts[$value] = $sparePart;
 
-            /** @var SparePart $item */
-            foreach ($sparePart as $item){
-                if(trim($item->getName()) === $value){
-                    $fullSame = $item->getName();
-                }
-
-                if(trim(strtok($item->getName(), '(')) === $value){
-                    $beforeBracketSame = $item->getName();
-                }
-            }
-
-            if($fullSame){
-                $this->spareParts[$value] = $fullSame;
-
-                return $fullSame;
-            }
-            elseif ($beforeBracketSame){
-                $this->spareParts[$value] = $beforeBracketSame;
-
-                return $beforeBracketSame;
-            }
-
-            return $this->handleError($headers, $line, $index, $value, $sparePartKey, self::ERROR_MULTIPLE_DATA);
-        }
-
-        $sparePartReturn = array_values($sparePart)[0]->getName();
-
-        $this->spareParts[$value] = $sparePartReturn;
-
-        return $sparePartReturn;
+        return $sparePart;
     }
 
     private function getModel($headers, $line, $index, Brand $brand)

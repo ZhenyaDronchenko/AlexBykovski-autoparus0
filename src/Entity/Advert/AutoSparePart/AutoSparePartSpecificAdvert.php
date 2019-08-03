@@ -218,6 +218,29 @@ class AutoSparePartSpecificAdvert
         $this->activatedAt = new DateTime();
     }
 
+    public function copyForImport()
+    {
+        $newAdvert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
+
+        $newAdvert->setBrand($this->brand);
+        $newAdvert->setModel($this->model);
+        $newAdvert->setSparePart($this->sparePart);
+        $newAdvert->setYear($this->year);
+        $newAdvert->setEngineType($this->engineType);
+        $newAdvert->setEngineCapacity($this->engineCapacity);
+        $newAdvert->setGearBoxType($this->gearBoxType);
+        $newAdvert->setVehicleType($this->vehicleType);
+        $newAdvert->setSparePartNumber($this->sparePartNumber);
+        $newAdvert->setImage($this->image);
+        $newAdvert->setCost($this->cost);
+        $newAdvert->setComment($this->comment);
+        $newAdvert->setCurrency($this->currency);
+        $newAdvert->setCondition($this->condition);
+        $newAdvert->setStockType($this->stockType);
+
+        return $newAdvert;
+    }
+
     /**
      * @return int|null
      */
