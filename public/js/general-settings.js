@@ -50,6 +50,8 @@ $(function(){
             'delimiter': ['|'],
         });
     });
+
+    ellipsizeTextBox('.ellipsize-text-box');
 });
 
 function scrollToElement(selector) {
@@ -255,4 +257,17 @@ function markMatch (text, term) {
     $result.append(text.substring(match + term.length));
 
     return $result;
+}
+
+function ellipsizeTextBox(selector) {
+    let elements = $(selector);
+
+    $.each(elements, function (index, element) {
+        var wordArray = element.innerHTML.split(' ');
+
+        while(element.scrollHeight > element.offsetHeight) {
+            wordArray.pop();
+            element.innerHTML = wordArray.join(' ') + '...';
+        }
+    });
 }

@@ -11,16 +11,16 @@
             <select id="capacity-autocomplete" placeholder="Объём" select2-autoparus method-search="searchEngineCapacities" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "engineType": "{[{searchForm.params.engineType}]}"}' use-additional-data="true"></select>
             <select id="vehicleType-autocomplete" placeholder="Тип кузова" select2-autoparus method-search="searchVehicleTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>
 
-            <ul class="part-block">
-                <li class="part-option">
-                    <input type="checkbox" id="new" name="new" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isNew">
-                    <label for="new">Новая</label>
-                </li>
-                <li class="part-option">
-                    <input type="checkbox" id="old" name="old" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isUsed">
-                    <label for="old">Б / у</label>
-                </li>
-            </ul>
+            {#<ul class="part-block">#}
+                {#<li class="part-option">#}
+                    {#<input type="checkbox" id="new" name="new" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isNew">#}
+                    {#<label for="new">Новая</label>#}
+                {#</li>#}
+                {#<li class="part-option">#}
+                    {#<input type="checkbox" id="old" name="old" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isUsed">#}
+                    {#<label for="old">Б / у</label>#}
+                {#</li>#}
+            {#</ul>#}
             <p class="select-option">
                 <input type="checkbox" id="select-option" name="select-option" class="visually-hidden filter-checkbox" ng-model="searchForm.params.inStock">
                 <label for="select-option">Только в наличии</label>

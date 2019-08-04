@@ -15,6 +15,8 @@
             "limit" : 2,
             "offset" : -2,
         };
+        let countFromNotPremium = 0;
+
         this.posts = [];
         //image from https://loading.io/
         let preloader = $("#preloader-posts");
@@ -34,7 +36,7 @@
         }
 
         function updatePosts() {
-            if(params.offset + params.limit >= MAX_COUNT || params.offset + params.limit > self.posts.length || preloader.is("visible")){
+            if(params.offset + params.limit >= MAX_COUNT || params.offset + params.limit > self.posts.length - countFromNotPremium || preloader.is("visible")){
                 return false;
             }
 
@@ -47,27 +49,48 @@
                 url: url,
                 data: params
             }).then(function (response) {
+                if(params.hasOwnProperty("notPremium")){
+                    countFromNotPremium = response.data.length;
+                }
+
                 $.each(response.data, function (index, post) {
                     $sce.trustAsHtml(post["description"]);
 
                     self.posts.push(waitImagesPost(post));
                 });
 
-                if(((self.posts.length - 2) % 8 === 0 || params.limit === 2 && self.posts.length === 2) && self.posts.length > 1){
+                if(((self.posts.length - 2) % 4 === 0 || params.limit === 2 && self.posts.length === 2) && self.posts.length > 1){
                     const startScrollIndex = self.posts.length > 2 ? self.posts.length - 3 : self.posts.length - 2;
 
                     updateScrollTrigger("#post-" + self.posts[startScrollIndex].id);
                 }
 
-                if(params.limit === 2){
-                    params.limit = 8;
-                    params.offset = -6;
-                }
+                updateParams();
 
                 preloader.css("display", "none");
             }, function (response) {
                 console.log("error");
             });
+        }
+
+        function updateParams() {
+            if(params.limit === 2){
+                if(location.pathname === '/' && !params.hasOwnProperty("notPremium")){
+                    params.limit = 4;
+                    params.offset = -4;
+                    params["notPremium"] = "notPremium";
+                }
+                else{
+                    delete params["notPremium"];
+                    params.limit = 4;
+                    params.offset = -2;
+                }
+            }
+            else if(params.limit === 4 && params.hasOwnProperty("notPremium") && location.pathname === '/'){
+                delete params["notPremium"];
+                params.limit = 4;
+                params.offset = -2;
+            }
         }
 
         function updateScrollTrigger(id){
@@ -99,27 +122,15 @@
         }
 
         function getUserFilterUrl(userId) {
-            return Routing.generate(filterUserRoute, {"userId" : userId})
+            return Routing.generate(filterUserRoute, {"userId" : userId});
         }
 
-        function getBrandModelFilterUrl(urlBrand, urlModel) {
-            if(!urlBrand){
-                return "";
+        function moveToPost(id, type){
+            if(type === "simple"){
+                return Routing.generate("post_view_show_car_post", {"id" : id});
             }
 
-            if(!urlModel){
-                return Routing.generate(filterBrandRoute, {"urlBrand" : urlBrand})
-            }
-
-            return Routing.generate(filterBrandModelRoute, {"urlBrand" : urlBrand, "urlModel" : urlModel})
-        }
-
-        function getCityActivityFilterUrl(urlCity, urlActivity) {
-            if(!urlCity || !urlActivity){
-                return "";
-            }
-
-            return Routing.generate(filterCityActivityRoute, {"urlCity" : urlCity, "urlActivity" : urlActivity})
+            return Routing.generate("post_view_show_business_post", {"id" : id});
         }
 
         $rootScope.$on("start-slide-post-images", function(event, args) {
@@ -134,8 +145,7 @@
 
         this.init = init;
         this.getUserFilterUrl = getUserFilterUrl;
-        this.getBrandModelFilterUrl = getBrandModelFilterUrl;
-        this.getCityActivityFilterUrl = getCityActivityFilterUrl;
+        this.moveToPost = moveToPost;
 
     }]);
 })(window.autoparusApp);

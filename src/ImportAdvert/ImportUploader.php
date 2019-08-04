@@ -466,7 +466,7 @@ class ImportUploader
 
         $cost = trim($line[$costIndex]);
 
-        return $cost ?: null;
+        return $cost ? floatval($cost) : null;
     }
 
     private function getCurrency($line)

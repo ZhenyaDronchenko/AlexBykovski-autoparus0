@@ -29,8 +29,13 @@ class PostRepository extends EntityRepository
                 ->setParameter("clientId", $filter->getUsers()->getId());
         }
         elseif($filter->getUsers() === PostsFilterType::USERS_ACCESS_POST_HOMEPAGE){
-            $qb->where('cl.roles LIKE :role')
+            $qb->andWhere('cl.roles LIKE :role')
                 ->setParameter('role', '%' . User::ROLE_SHOW_POSTS_HOMEPAGE . '%');
+        }
+
+        if($filter->getNotRole()){
+            $qb->andWhere('cl.roles NOT LIKE :notRole')
+                ->setParameter('notRole', '%' . $filter->getNotRole() . '%');
         }
 
         if($filter->getBrand() || $filter->getModel()){
