@@ -29,7 +29,7 @@ class BuyerAdmin extends AbstractAdmin
             ->addIdentifier('isHelper', 'boolean', ['label' => "helper", 'sortable' => false])
             ->addIdentifier('toPersonOffice', null, ['label' => false, 'template' => 'admin/user/link_to_user_office.html.twig', 'sortable' => false, 'mapped' => false])
             ->addIdentifier('isCopywriter', 'boolean', ['label' => "Копирайтер", 'template' => 'admin/user/role/is_copy_writer.html.twig', 'sortable' => false])
-            ->addIdentifier('isShowPostsHomepage', 'boolean', ['label' => "Посты", 'template' => 'admin/user/role/is_show_posts_homepage.html.twig', 'sortable' => false])
+            ->addIdentifier('isShowPostsHomepage', 'boolean', ['label' => "VIP", 'template' => 'admin/user/role/is_show_posts_homepage.html.twig', 'sortable' => false])
         ;
     }
 
