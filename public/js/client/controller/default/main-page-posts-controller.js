@@ -122,27 +122,15 @@
         }
 
         function getUserFilterUrl(userId) {
-            return Routing.generate(filterUserRoute, {"userId" : userId})
+            return Routing.generate(filterUserRoute, {"userId" : userId});
         }
 
-        function getBrandModelFilterUrl(urlBrand, urlModel) {
-            if(!urlBrand){
-                return "";
+        function moveToPost(id, type){
+            if(type === "simple"){
+                return Routing.generate("post_view_show_car_post", {"id" : id});
             }
 
-            if(!urlModel){
-                return Routing.generate(filterBrandRoute, {"urlBrand" : urlBrand})
-            }
-
-            return Routing.generate(filterBrandModelRoute, {"urlBrand" : urlBrand, "urlModel" : urlModel})
-        }
-
-        function getCityActivityFilterUrl(urlCity, urlActivity) {
-            if(!urlCity || !urlActivity){
-                return "";
-            }
-
-            return Routing.generate(filterCityActivityRoute, {"urlCity" : urlCity, "urlActivity" : urlActivity})
+            return Routing.generate("post_view_show_business_post", {"id" : id});
         }
 
         $rootScope.$on("start-slide-post-images", function(event, args) {
@@ -157,8 +145,7 @@
 
         this.init = init;
         this.getUserFilterUrl = getUserFilterUrl;
-        this.getBrandModelFilterUrl = getBrandModelFilterUrl;
-        this.getCityActivityFilterUrl = getCityActivityFilterUrl;
+        this.moveToPost = moveToPost;
 
     }]);
 })(window.autoparusApp);

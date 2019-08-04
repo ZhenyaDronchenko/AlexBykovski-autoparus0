@@ -39,9 +39,9 @@
                     <div class="content-wrapper">
                         <div class="foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
                             {% if hasModel %}
-                                <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, null) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                                <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
                             {% else %}
-                                <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{post.type === 'simple' ? posts.getBrandModelFilterUrl(post.brand, post.model) : posts.getCityActivityFilterUrl(post.city, post.activity) }]}">
+                                <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
                             {% endif %}
                                 <img ng-src="{[{image.path}]}" alt="Картинка">
                             </a>

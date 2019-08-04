@@ -305,11 +305,6 @@ class Post
     {
         $user = $this->getClient();
         $userPhoto = $user->getThumbnailPhoto() ?: null;
-        /** @var Image $firstImage */
-        $firstImage = $this->getPostPhotos()->first()->getImage();
-        $geoLocation = $firstImage->getGeoLocation();
-        $address = $geoLocation->getCountry();
-        $address .= $geoLocation->getCity() ? ", " . $geoLocation->getCity() : "";
 
         return [
             "id" => $this->getId(),
@@ -318,7 +313,7 @@ class Post
             "images" => $this->photosToArray(),
             "headline" => $this->getHeadline(),
             "description" => str_replace("\n", "<br>", $this->getDescription()),
-            "address" => $address,
+            "address" => $this->getAddress(),
             "date" => $this->createdAt->format("d.m.Y"),
             "time" => $this->createdAt->format("H:i"),
             "type" => $this->type,
@@ -332,6 +327,17 @@ class Post
             "model" => $this->type === self::SIMPLE_TYPE && $this->cars->count() ?
                 $this->cars->first()->getModel() : null,
         ];
+    }
+
+    public function getAddress()
+    {
+        /** @var Image $firstImage */
+        $firstImage = $this->getPostPhotos()->first()->getImage();
+        $geoLocation = $firstImage->getGeoLocation();
+        $address = $geoLocation->getCountry();
+        $address .= $geoLocation->getCity() ? ", " . $geoLocation->getCity() : "";
+
+        return $address;
     }
 
     public function setUserCars()
@@ -439,5 +445,58 @@ class Post
         }
 
         return false;
+    }
+
+    public function getViewTitle()
+    {
+        $title = $this->headline . ' ';
+
+        if($this->type === self::SIMPLE_TYPE){
+            $title .= $this->client->getName() . ' ';
+            $title .= $this->client->getCity() . ' ';
+            $title .= $this->cars->count() ? $this->cars->first()->getBrand() : "";
+        }
+        else{
+            $title .= $this->client->getSellerData()->getSellerCompany()->getCompanyName() . ' ';
+            $title .= $this->client->getSellerData()->getSellerCompany()->getUnp() . ' ';
+            $title .= $this->id;
+        }
+
+        return $title;
+    }
+
+    public function getViewDescription()
+    {
+        $title = substr($this->description, 0, strpos($this->description, '.') + 1) . ' ';
+
+        if($this->type === self::SIMPLE_TYPE){
+            $title .= $this->client->getName() . ' ';
+            $title .= $this->client->getCity();
+        }
+        else{
+            $title .= $this->client->getSellerData()->getSellerCompany()->getCompanyName() . ' ';
+            $title .= $this->client->getSellerData()->getSellerCompany()->getUnp();
+        }
+
+        return $title;
+    }
+
+    public function getUserLastPosts($count = 2)
+    {
+        $allPosts = $this->client->getPosts()->getValues();
+
+        $lastPosts = [];
+
+        for ($i = count($allPosts) - 1; $i > 0; $i--){
+            if($allPosts[$i]->getId() !== $this->getId()){
+                $lastPosts[] = $allPosts[$i];
+            }
+
+            if(count($lastPosts) === $count){
+                return $lastPosts;
+            }
+        }
+
+        return $lastPosts;
     }
 }
