@@ -200,9 +200,9 @@ class AutoSparePartSpecificAdvert
     private $activatedAt;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $currency;
 
@@ -578,17 +578,17 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCurrency(): string
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
     /**
-     * @param string $currency
+     * @param null|string $currency
      */
-    public function setCurrency(string $currency): void
+    public function setCurrency(?string $currency): void
     {
         $this->currency = $currency;
     }
