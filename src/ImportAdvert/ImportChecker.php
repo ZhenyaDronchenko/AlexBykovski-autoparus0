@@ -52,6 +52,8 @@ class ImportChecker
     /** @var EntityManagerInterface */
     private $em;
 
+    private $headerIndexes = [];
+
     /**
      * ImportChecker constructor.
      * @param EntityManagerInterface $em
@@ -95,15 +97,31 @@ class ImportChecker
         $response = ["errors" => []];
 
         $reader = self::getReader($file);
+        $reader->setReadDataOnly(true);
+        $chunkFilter = new ChunkReaderFilter();
+        $reader->setReadFilter($chunkFilter);
+
+        $chunkFilter->setRows(0, 1);
 
         $spreadsheet = $reader->load($file);
-
         $sheetData = $spreadsheet->getActiveSheet()->toArray();
 
         $response["errors"] = array_merge($this->checkHeaders($sheetData)["errors"], $response["errors"]);
 
         if(!count($response["errors"])) {
-            $response["errors"] = array_merge($this->checkAdvertData($sheetData)["errors"], $response["errors"]);
+            for ($startRow = 1; $startRow < ImportUploader::MAX_ROWS; $startRow += ImportUploader::ROWS_CHUNK) {
+                /**  Tell the Read Filter which rows we want this iteration  **/
+                $chunkFilter->setRows($startRow, ImportUploader::ROWS_CHUNK);
+                /**  Load only the rows that match our filter  **/
+                $spreadsheet = $reader->load($file);
+                $sheetData = $spreadsheet->getActiveSheet()->toArray();
+                //    Do some processing here
+                $response["errors"] = array_merge($this->checkAdvertData($sheetData)["errors"], $response["errors"]);
+
+                if(!count($response["errors"]) || count($sheetData) < ImportUploader::ROWS_CHUNK){
+                    break;
+                }
+            }
         }
 
         $response["success"] = !count($response["errors"]);
@@ -111,19 +129,19 @@ class ImportChecker
         return $response;
     }
 
-    private function checkHeaders(array $sheetData)
+    private function checkHeaders(array $headersData)
     {
-        if(!count($sheetData)){
+        if(!count($headersData)){
             return ["errors" => ["Нет обязательных столбцов (Марка, Модель, Год, Запчасть)"],];
         }
 
         $errors = ["errors" => []];
-        $headers = array_values($sheetData)[0];
+        $headers = array_values($headersData)[0];
 
-        $headerIndexes = self::getHeaderIndexes($headers);
+        $this->headerIndexes = self::getHeaderIndexes($headers);
 
         foreach (self::$requiredFields as $field){
-            if($headerIndexes[$field] === false){
+            if($this->headerIndexes[$field] === false){
                 $errors["errors"][] = "Отсутствует обязательное поле: " . $field;
             }
         }
@@ -133,16 +151,14 @@ class ImportChecker
 
     private function checkAdvertData(array $sheetData)
     {
-        if(count($sheetData) < 2){
+        if(!count($sheetData)){
             return ["errors" => ["Нет данных для импорта"]];
         }
 
         $data = array_values($sheetData);
-        $headers = array_shift($data);
-        $headerIndexes = self::getHeaderIndexes($headers);
 
         foreach ($data as $line){
-            if($this->isCorrectLineToImport($headerIndexes, $line)){
+            if($this->isCorrectLineToImport($line)){
                 return ["errors" => []];
             }
         }
@@ -150,28 +166,28 @@ class ImportChecker
         return ["errors" => ["Нет корретных данных для импорта"]];
     }
 
-    private function isCorrectLineToImport(array $headerIndexes, array $line)
+    private function isCorrectLineToImport(array $line)
     {
-        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$headerIndexes[self::BRAND_KEY]]));
+        $brand = $this->em->getRepository(Brand::class)->findBrandForImport(trim($line[$this->headerIndexes[self::BRAND_KEY]]));
 
         if(count($brand) != 1){
             return false;
         }
 
-        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$headerIndexes[self::SPARE_PART_KEY]]));
+        $sparePart = $this->em->getRepository(SparePart::class)->findSparePartForImport(trim($line[$this->headerIndexes[self::SPARE_PART_KEY]]));
 
         if(!count($sparePart)){
             //echo $line[$sparePartIndex] . " | ";
             return false;
         }
 
-        $models = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$headerIndexes[self::MODEL_KEY]]), $brand[0]);
+        $models = $this->em->getRepository(Model::class)->findModelForImport(trim($line[$this->headerIndexes[self::MODEL_KEY]]), $brand[0]);
 
         if(!count($models)){
             return false;
         }
 
-        $year = (int)trim($line[$headerIndexes[self::YEAR_KEY]]);
+        $year = (int)trim($line[$this->headerIndexes[self::YEAR_KEY]]);
 
         foreach ($models as $model){
             if($model->getTechnicalData()->getYearFrom() <= $year && $year <= $model->getTechnicalData()->getYearTo()){

@@ -19,6 +19,10 @@ class ImportUploader
     const ERROR_EMPTY_DATA = "Строка %d: нет данных или не найдено соответствие по полю: %s";
     const ERROR_MULTIPLE_DATA = "Строка %d: найдено несколько соответствий по полю: %s";
 
+    const ROWS_CHUNK = 1000;
+    const ROWS_CHUNK_IMPORT = 2000;
+    const MAX_ROWS = PHP_INT_MAX;
+
     /** @var EntityManagerInterface */
     private $em;
 
@@ -55,9 +59,42 @@ class ImportUploader
 
     public function importFile($filePath, SellerAdvertDetail $advertDetail)
     {
-        list($headers, $lines) = $this->getFileData($filePath);
+//        list($headers, $lines) = $this->getFileData($filePath);
+//
+//        list($errors, $countImported, $countLines) = $this->importFileLines($headers, $lines, $advertDetail);
+        $errors = [];
+        $countImported = 0;
+        $countLines = 0;
 
-        list($errors, $countImported, $countLines) = $this->importFileLines($headers, $lines, $advertDetail);
+        $reader = ImportChecker::getReader($filePath);
+        $reader->setReadDataOnly(true);
+
+        $chunkFilter = new ChunkReaderFilter();
+        $reader->setReadFilter($chunkFilter);
+
+        $chunkFilter->setRows(0, 1);
+
+        $spreadsheet = $reader->load($filePath);
+        $headers = array_values($spreadsheet->getActiveSheet()->toArray())[0];
+        $this->headerIndexes = ImportChecker::getHeaderIndexes($headers);
+
+        for ($startRow = 1; $startRow < self::MAX_ROWS; $startRow += self::ROWS_CHUNK_IMPORT) {
+            /**  Tell the Read Filter which rows we want this iteration  **/
+            $chunkFilter->setRows($startRow, self::ROWS_CHUNK_IMPORT);
+            /**  Load only the rows that match our filter  **/
+            $spreadsheet = $reader->load($filePath);
+            $sheetData = $spreadsheet->getActiveSheet()->toArray();
+            //    Do some processing here
+            list($errorsTemp, $countImportedTemp, $countLinesTemp) = $this->importFileLines($headers, $sheetData, $advertDetail);
+
+            $errors = array_merge($errors, $errorsTemp);
+            $countImported += $countImportedTemp;
+            $countLines += $countLinesTemp;
+
+            if(count($sheetData) < ImportUploader::ROWS_CHUNK_IMPORT){
+                break;
+            }
+        }
 
         return [
             "errors" => $errors,
@@ -77,6 +114,7 @@ class ImportUploader
     private function getFileData($file)
     {
         $reader = ImportChecker::getReader($file);
+        $reader->setReadDataOnly(true);
 
         $spreadsheet = $reader->load($file);
 
@@ -109,9 +147,9 @@ class ImportUploader
                         $this->em->persist($advert);
                     }
 
-                    if ($count > 0 && $count % 50 === 0) {
-                        $this->em->flush();
-                    }
+//                    if ($count > 0 && $count % 200 === 0) {
+//                        $this->em->flush();
+//                    }
                 }
             }
             elseif(is_array($adverts)){
