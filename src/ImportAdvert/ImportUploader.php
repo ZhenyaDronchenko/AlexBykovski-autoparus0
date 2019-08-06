@@ -20,7 +20,7 @@ class ImportUploader
     const ERROR_MULTIPLE_DATA = "Строка %d: найдено несколько соответствий по полю: %s";
 
     const ROWS_CHUNK = 1000;
-    const ROWS_CHUNK_IMPORT = 1000;
+    const ROWS_CHUNK_IMPORT = 2000;
     const MAX_ROWS = PHP_INT_MAX;
 
     /** @var EntityManagerInterface */
