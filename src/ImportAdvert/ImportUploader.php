@@ -78,12 +78,19 @@ class ImportUploader
         $headers = array_values($spreadsheet->getActiveSheet()->toArray())[0];
         $this->headerIndexes = ImportChecker::getHeaderIndexes($headers);
 
+        $spreadsheet->disconnectWorksheets();
+        unset($spreadsheet);
+
         for ($startRow = 1; $startRow < self::MAX_ROWS; $startRow += self::ROWS_CHUNK_IMPORT) {
             /**  Tell the Read Filter which rows we want this iteration  **/
             $chunkFilter->setRows($startRow, self::ROWS_CHUNK_IMPORT);
             /**  Load only the rows that match our filter  **/
             $spreadsheet = $reader->load($filePath);
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+            $spreadsheet->disconnectWorksheets();
+            unset($spreadsheet);
+
             //    Do some processing here
             list($errorsTemp, $countImportedTemp, $countLinesTemp) = $this->importFileLines($headers, $sheetData, $advertDetail);
 
