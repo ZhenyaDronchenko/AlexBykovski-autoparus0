@@ -6,6 +6,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "beberlei/DoctrineExtensions": "^1.2",
+        "cache/redis-adapter": "1.0",
+        "cache/simple-cache-bridge": "1.0",
         "friendsofsymfony/ckeditor-bundle": "^1.1",
         "friendsofsymfony/jsrouting-bundle": "^2.3",
         "friendsofsymfony/user-bundle": "^2.1",
