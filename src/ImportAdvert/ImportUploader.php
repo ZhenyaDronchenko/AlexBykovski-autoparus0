@@ -63,12 +63,16 @@ class ImportUploader
 
     public function importFile($filePath, SellerAdvertDetail $advertDetail)
     {
-        $client = new Redis();
-        $client->connect('127.0.0.1', 6379);
-        $pool = new RedisCachePool($client);
-        $simpleCache = new SimpleCacheBridge($pool);
+        // 180 * 60s
+        ini_set('max_execution_time', 10800);
+        ini_set('memory_limit', -1);
 
-        Settings::setCache($simpleCache);
+//        $client = new Redis();
+//        $client->connect('127.0.0.1', 6379);
+//        $pool = new RedisCachePool($client);
+//        $simpleCache = new SimpleCacheBridge($pool);
+//
+//        Settings::setCache($simpleCache);
 //        list($headers, $lines) = $this->getFileData($filePath);
 //
 //        list($errors, $countImported, $countLines) = $this->importFileLines($headers, $lines, $advertDetail);

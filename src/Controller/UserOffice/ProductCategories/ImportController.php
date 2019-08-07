@@ -87,9 +87,6 @@ class ImportController extends Controller
      */
     public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
     {
-        ini_set('max_execution_time', 180*60);
-        ini_set('memory_limit', -1);
-
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $response = [
