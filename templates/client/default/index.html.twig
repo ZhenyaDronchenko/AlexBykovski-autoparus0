@@ -75,7 +75,7 @@
                       </div>
 
                       <div class="user-block">
-                        <h3 class="user-title" ng-bind="post.headline"></h3>
+                        <a class="user-title" ng-bind="post.headline" href="#"></a>
                           <div class="text-block text-block-w">
                               <div id='text2' class='text1Show' show-more-lines class-less="{[{ post.headline ? 'text3Hide' : 'text5Hide' }]}" class-more="text1Show" count-lines="{[{ post.headline ? 3 : 5 }]}" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
                               <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
@@ -116,7 +116,7 @@
                         <img ng-src="{[{image.path}]}" alt="Картинка">
                     </a>
                 </div>
-                  <div class="art-user">
+                  <a class="art-user" href="#">
                     <h3 class="user-subtitle" ng-bind="post.headline"></h3>
                       <div class="text-block text-block-w">
                           <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
@@ -125,7 +125,7 @@
                           <span class="date" ng-bind="post.date"></span>
                           <span class="time" ng-bind="post.time"></span>
                       </div>
-                  </div>
+                  </a>
             </div>
           </li>
         </ul>

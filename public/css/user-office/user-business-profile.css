@@ -198,6 +198,7 @@ label span {
 
 }
 .business-option li {
+    width: 280px
     margin: 0 5%;
     margin-bottom: 20px;
 }

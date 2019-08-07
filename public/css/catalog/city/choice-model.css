@@ -277,7 +277,9 @@ h2 {
         margin-bottom: 20px;
   }
   
-
+a {
+  display: block;
+}
 
 .show {
     max-height: 460px;
@@ -287,8 +289,6 @@ h2 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;  
-           margin-top: 20px;
-    margin-bottom: 30px;
 }
       .form7 {
         width: 280px;

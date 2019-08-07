@@ -262,17 +262,15 @@ h2 {
 .model {
    padding-top: 25px;
 }
-  
+  a {
+    display: block;
+  }
   h1 {
    font-size: 22px;
         line-height: 26px;
         margin-bottom: 20px;
   }
   
-.modform {
- margin-bottom: 20px; 
- margin-top: 20px;  
-}
 .show {
     max-height: 350px;
 }
