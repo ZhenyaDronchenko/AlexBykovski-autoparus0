@@ -157,7 +157,7 @@ cursor: default;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .form7 {
@@ -263,7 +263,7 @@ cursor: default;
     font-weight: 400;
     font-size: 16px;
     color: #ff7c01;
-    padding-top: 5px;
+    padding-top: 15px;
     cursor: pointer;
     outline: none;
 }
@@ -327,6 +327,7 @@ cursor: default;
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
         flex-direction: column;
+        margin-bottom: 35px;
 
     }
 

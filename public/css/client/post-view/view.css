@@ -119,7 +119,6 @@
     overflow: hidden;
 }
 
-
 .main-page {
     background: #f0f0f0;
     padding: 20px;
@@ -142,6 +141,7 @@
     width: 60%;
     background-color: #fff;
     padding: 20px;
+    padding-top: 40px;
 }
 
 .seller-wrapper {
@@ -509,6 +509,14 @@
     display: none;
 }
 
+a {
+    display: block;
+}
+button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+}
 
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {

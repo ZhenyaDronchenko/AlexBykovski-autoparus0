@@ -120,7 +120,9 @@ p {
   font-weight: 400;
   text-align: justify;
 }
-
+a {
+  display: block;
+}
 
 .modform {
 display: -webkit-box;

@@ -433,7 +433,7 @@ margin: 0;
 }
 
 .text5Hide {
-    max-height: 91px;
+    max-height: 62px;
     overflow: hidden;
 }
 
@@ -1090,14 +1090,22 @@ select {
 
 }
 .baner-block img {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
 }
 .baner-block a {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
 }
 
+a.ng-scope {
+    width: 100%;
+}
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    height: 355px;
+}
 }
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {
@@ -1115,6 +1123,28 @@ select {
 .baner-block img {
   width: 150px;
   height: 100px;
+}
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .container {
+        width: auto;
+    }
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    height: 255px;
+}
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: auto;
+    }
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 }
 

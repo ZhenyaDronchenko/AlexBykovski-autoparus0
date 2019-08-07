@@ -163,6 +163,7 @@ cursor: default;
     -ms-flex-align: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 
 }
 .brand-block li {
@@ -243,7 +244,7 @@ cursor: default;
 .card-img {
     position: relative;
     margin-left: 10px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     width: 255px;
     height: 170px;
 }
@@ -252,9 +253,8 @@ cursor: default;
     position: absolute;
     bottom: -10px;
     left: -10px;
-    padding: 3px 15px;
-    padding-bottom: 2px;
-    border: 2px solid #999999;
+    padding: 1px 15px;
+    border: 1px solid #999999;
     border-radius: 5px;
     color: #000000;
     font-size: 16px;
@@ -266,7 +266,7 @@ cursor: default;
 
 .link-s:hover,
 .link-s:focus {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 .link-button {
     display: -webkit-box;
@@ -303,7 +303,7 @@ cursor: default;
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -334,7 +334,7 @@ td {
 
 }
 tr {
-    border-bottom: 1px dashed #999999;
+    border-bottom: 1px dashed #d0d0d0;
 }
 .tabl {
     font-weight: 400;
@@ -461,6 +461,7 @@ tr {
     .brand-block {
         margin: 0 auto;
         width: 310px;
+        margin-bottom: 30px;
        
     }
     .brand-block li {

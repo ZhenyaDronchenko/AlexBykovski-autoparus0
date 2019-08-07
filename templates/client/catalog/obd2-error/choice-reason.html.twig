@@ -47,7 +47,7 @@
         </ul>
 
         <section class="code">
-            <h1 class="title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
             <div class="code-block">
                 <b class="name">Причина возникновения {{ type.type }} {{ type.designation ~ code.code}}:</b>
@@ -59,7 +59,7 @@
                 {% endif %}
             </div>
 
-            <h1 class="subtitle" data-text="{{ page.headline2 }}"></h1>
+            <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
             <ul class="city-icon">
                 {% for brand in brands %}
