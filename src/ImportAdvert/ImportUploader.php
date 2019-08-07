@@ -10,9 +10,13 @@ use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\UserData\ImportAdvertError;
+use Cache\Adapter\Redis\RedisCachePool;
+use Cache\Bridge\SimpleCache\SimpleCacheBridge;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Settings;
+use Redis;
 
 class ImportUploader
 {
@@ -59,6 +63,12 @@ class ImportUploader
 
     public function importFile($filePath, SellerAdvertDetail $advertDetail)
     {
+        $client = new Redis();
+        $client->connect('127.0.0.1', 6379);
+        $pool = new RedisCachePool($client);
+        $simpleCache = new SimpleCacheBridge($pool);
+
+        Settings::setCache($simpleCache);
 //        list($headers, $lines) = $this->getFileData($filePath);
 //
 //        list($errors, $countImported, $countLines) = $this->importFileLines($headers, $lines, $advertDetail);
