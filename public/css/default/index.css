@@ -1148,14 +1148,6 @@ a.ng-scope {
     .container {
         width: auto;
     }
-.foto img {
-        display: block;
-    width: 100%;
-    max-width: 449px;
-    margin: 0 auto;
-    height: 300px;
-    box-sizing: border-box;
-}
 }
 
 /*baner-block end*/
