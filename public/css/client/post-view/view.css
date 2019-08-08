@@ -175,7 +175,7 @@
     width: 600px;
     height: auto;
     margin: 0 auto;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .foto-city {
     display: none;
@@ -192,12 +192,21 @@
     padding: 20px;
     background-color: #fff;
 }
+
+.org-wrapper {
+    display: flex;
+    justify-content: space-between;
+    -ms-align-items: flex-end;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
 .org-title {
     margin: 0;
     margin-bottom: 20px;
     color: #000000;
-    font-size: 24px;
-    line-height: 26px;
+    font-size: 22px;
+    line-height: 24px;
     font-weight: 400;
     text-align: center;
 }
@@ -214,7 +223,8 @@
 
 .org-img {
     width: auto;
-    height: 200px;
+    max-width: 90px;
+    height: 60px;
     display: block;
     margin: 0 auto;
     margin-bottom: 20px;
@@ -232,7 +242,7 @@
 
 .adress-text::before {
     content: "";
-    background: url("../img/marker.svg") 0 0 no-repeat;
+    background: url("/img/marker.svg") 0 0 no-repeat;
     position: absolute;
     width: 18px;
     height: 18px;
@@ -284,7 +294,7 @@
 }
 .day::after {
     content: "";
-    background: url(../img/checkday.svg) 0 0 no-repeat;
+    background: url(/img/checkday.svg) 0 0 no-repeat;
     position: absolute;
     width: 15px;
     height: 15px;
@@ -362,7 +372,7 @@
 
 .contact::after {
     content: "";
-    background: url(../img/phone.png) -15px 0 no-repeat;
+    background: url(/img/phone.png) -15px 0 no-repeat;
     position: absolute;
     width: 26px;
     height: 26px;
@@ -512,7 +522,7 @@
 a {
     display: block;
 }
-button {
+.btn-view {
     display: block;
     margin: 0 auto;
     margin-top: 30px;
