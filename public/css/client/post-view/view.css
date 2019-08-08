@@ -196,19 +196,18 @@
 .org-wrapper {
     display: flex;
     justify-content: space-between;
-    -ms-align-items: flex-end;
-    align-items: flex-end;
+
     margin-bottom: 20px;
 }
 
 .org-title {
     margin: 0;
-    margin-bottom: 20px;
     color: #000000;
     font-size: 22px;
     line-height: 24px;
     font-weight: 400;
     text-align: center;
+    margin-right: 15px;
 }
 
 .org-unp {
@@ -226,8 +225,6 @@
     max-width: 90px;
     height: 60px;
     display: block;
-    margin: 0 auto;
-    margin-bottom: 20px;
 }
 
 .adress-text {
