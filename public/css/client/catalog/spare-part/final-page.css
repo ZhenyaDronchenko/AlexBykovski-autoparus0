@@ -206,7 +206,7 @@ a {
 .card-img {
     position: relative;
     margin-left: 12px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     width: 255px;
     height: 170px;
     margin-right: 60px;
@@ -216,20 +216,19 @@ a {
      position: absolute;
     bottom: -10px;
     left: -10px;
-    padding: 4px 15px;
-    padding-bottom: 3px;
-    border: 2px solid #999999;
+    padding: 2px 15px;
+    border: 1px solid #999999;
     border-radius: 5px;
     color: #000000;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 18px;
     font-weight: 400;
     background-color: #ffffff;
     cursor: default;
 }
 
 .link:hover {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 .link-button {
     display: -webkit-box;
@@ -286,7 +285,7 @@ a {
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -595,7 +594,7 @@ padding-bottom: 4px;
     display: -ms-flexbox;
     display: flex;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 30px;
     padding: 4px 10px;
     padding-bottom: 3px;
     cursor: pointer;

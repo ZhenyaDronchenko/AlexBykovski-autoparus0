@@ -72,6 +72,7 @@ color: #000;
 border: 1px solid #ccc;
   width: 175px !important;
   padding-bottom: 5px;
+  box-sizing: border-box;
   
 }
 .article-link:hover,
@@ -203,12 +204,12 @@ right: 5px;
         width: auto; }
 
 .article-foto img {
- width: 155px !important;
+ width: 145px !important;
   height: 105px; 
 
 } 
 .article-link {
-  width: 155px !important;
+  width: 145px !important;
   
 }
     .nav-list-m .item-m {
@@ -433,7 +434,7 @@ margin: 0;
 }
 
 .text5Hide {
-    max-height: 91px;
+    max-height: 62px;
     overflow: hidden;
 }
 
@@ -1090,13 +1091,26 @@ select {
 
 }
 .baner-block img {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
 }
 .baner-block a {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
 }
+
+a.ng-scope {
+    width: 100%;
+}
+.foto img {
+        display: block;
+    width: 100%;
+    max-width: 449px;
+    margin: 0 auto;
+    height: 300px;
+    box-sizing: border-box;
+}
+
 
 }
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -1115,6 +1129,32 @@ select {
 .baner-block img {
   width: 150px;
   height: 100px;
+}
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .container {
+        width: auto;
+    }
+.foto  img {
+        display: block;
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+}
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: auto;
+    }
+.foto img {
+        display: block;
+    width: 100%;
+    max-width: 449px;
+    margin: 0 auto;
+    height: 300px;
+    box-sizing: border-box;
 }
 }
 

@@ -114,6 +114,7 @@ cursor: default;
 
 .button {
     display: block;
+    width: 150px;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
@@ -364,7 +365,7 @@ cursor: default;
     }
 
     #brandImg5 li {
-        margin-right: 18px;
+        margin-right: 10px;
         margin-bottom: 15px;
         width: 90px;
     }
@@ -607,7 +608,7 @@ cursor: default;
         width: auto; }
 
     .city-wrapper {
-        width: 500px;
+        margin-bottom: 30px;
     }
     .city-link {
         padding: 15px 0;
@@ -621,9 +622,7 @@ cursor: default;
         margin-bottom: 25px;
         width: 135px;
     }
-    .city-list {
-        width: 450px;
-    }
+    
 
     .city-icon li {
         margin-right: 10px;
@@ -645,6 +644,7 @@ cursor: default;
     -ms-flex-align: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 30px
 }
 
 .place-block li {
@@ -727,7 +727,7 @@ cursor: default;
 }
 
 .place-link {
-    width: 85px;
+    width: 90px;
     padding: 3px;
     padding-bottom: 2px;
     font-size: 8px;

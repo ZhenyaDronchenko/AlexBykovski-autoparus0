@@ -152,6 +152,7 @@ p {
 .city-btn {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 
 }
 
@@ -823,7 +824,7 @@ p {
 .card-img {
     position: relative;
     margin-left: 12px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     width: 255px;
     height: 170px;
     margin-right: 60px;
@@ -834,8 +835,7 @@ p {
     bottom: -10px;
     left: -10px;
     padding: 2px 15px;
-    padding-bottom: 2px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     border-radius: 5px;
     color: #000000;
     font-size: 14px;
