@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ImportChecker
 {
@@ -109,16 +108,10 @@ class ImportChecker
 
         $response["errors"] = array_merge($this->checkHeaders($sheetData)["errors"], $response["errors"]);
 
-        $availableColumns = [];
-
-        if(!count($response["errors"])) {
-            $availableColumns = self::getAvailableColumns($spreadsheet->getActiveSheet(), $this->headerIndexes);
-        }
-
         if(!count($response["errors"])) {
             for ($startRow = 1; $startRow < ImportUploader::MAX_ROWS; $startRow += ImportUploader::ROWS_CHUNK) {
                 /**  Tell the Read Filter which rows we want this iteration  **/
-                $chunkFilter->setRows($startRow, ImportUploader::ROWS_CHUNK, $availableColumns);
+                $chunkFilter->setRows($startRow, ImportUploader::ROWS_CHUNK);
                 /**  Load only the rows that match our filter  **/
                 $spreadsheet = $reader->load($file);
                 $sheetData = $spreadsheet->getActiveSheet()->toArray();
@@ -203,23 +196,6 @@ class ImportChecker
         }
 
         return false;
-    }
-
-    static function getAvailableColumns(Worksheet $worksheet, $headerIndexes)
-    {
-        $indexes = [];
-
-        $indexCounter = 0;
-
-        foreach ($worksheet->getColumnIterator() as $key => $item){
-            if(in_array($indexCounter, $headerIndexes)) {
-                $indexes[] = $item->getColumnIndex();
-            }
-
-            ++$indexCounter;
-        }
-
-        return $indexes;
     }
 
     static function getHeaderIndexes($headers)

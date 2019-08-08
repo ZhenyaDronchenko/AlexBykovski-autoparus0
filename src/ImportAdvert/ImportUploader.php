@@ -61,14 +61,6 @@ class ImportUploader
         $this->saveMode = $saveMode;
     }
 
-    /**
-     * @param $filePath
-     * @param SellerAdvertDetail $advertDetail
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
-     * @return mixed
-     */
     public function importFile($filePath, SellerAdvertDetail $advertDetail)
     {
         // 180 * 60s
@@ -100,14 +92,12 @@ class ImportUploader
         $headers = array_values($spreadsheet->getActiveSheet()->toArray())[0];
         $this->headerIndexes = ImportChecker::getHeaderIndexes($headers);
 
-        $availableColumns = ImportChecker::getAvailableColumns($spreadsheet->getActiveSheet(), $this->headerIndexes);
-
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
         for ($startRow = 1; $startRow < self::MAX_ROWS; $startRow += self::ROWS_CHUNK_IMPORT) {
             /**  Tell the Read Filter which rows we want this iteration  **/
-            $chunkFilter->setRows($startRow, self::ROWS_CHUNK_IMPORT, $availableColumns);
+            $chunkFilter->setRows($startRow, self::ROWS_CHUNK_IMPORT);
             /**  Load only the rows that match our filter  **/
             $spreadsheet = $reader->load($filePath);
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
@@ -643,9 +633,7 @@ class ImportUploader
         $data = [];
 
         foreach ($headers as $index => $header){
-            if(array_key_exists($index, $line)) {
-                $data[$header] = $line[$index];
-            }
+            $data[$header] = $line[$index];
         }
 
         return $data;
