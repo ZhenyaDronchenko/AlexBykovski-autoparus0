@@ -1,5 +1,6 @@
 imports:
     - { resource: ./admin_blocks/general.yaml }
+    - { resource: ./admin_blocks/import.yaml }
     - { resource: ./admin_blocks/forum/obd2_forum.yaml }
     - { resource: ./admin_blocks/user.yaml }
     - { resource: ./admin_blocks/seo.yaml }

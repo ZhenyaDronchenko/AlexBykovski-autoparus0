@@ -2,5 +2,12 @@
 
 {% block field%}
     {#<a href="{{ path('show_user_office', {'_switch_user': object.getClient().email }) }}">{{ object.getClient().email }}</a>#}
+    <span>{{ object.getClient().id }}</span>
+    <br/>
+    <a href="{{ path('show_user_office', {'_switch_user': object.getClient().email}) }}">{{ object.getClient().name }}</a>
+    <br/>
+    <span>{{ object.getClient().phone }}</span>
+    <br/>
     <a nohref style="cursor: pointer" onclick="window.navigator.clipboard.writeText('{{ object.getClient().email }}')">{{ object.getClient().email }}</a>
+    <br/>
 {% endblock %}

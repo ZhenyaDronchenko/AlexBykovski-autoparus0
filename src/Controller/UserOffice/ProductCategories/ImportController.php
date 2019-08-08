@@ -108,6 +108,12 @@ class ImportController extends Controller
         $sellerAdvertDetail = $client->getSellerData()->getAdvertDetail();
         $result = $importer->importFile($filePath, $sellerAdvertDetail);
 
+        $importedFiles = $em->getRepository(ImportAdvertFile::class)->findBy(["sellerAdvertDetail" => $sellerAdvertDetail]);
+
+        foreach ($importedFiles as $importedFile){
+            $em->remove($importedFile);
+        }
+
         $fileImported = new ImportAdvertFile('/images/' . $relativePath, $result["countLines"],
             $result["countImported"], $sellerAdvertDetail);
 
