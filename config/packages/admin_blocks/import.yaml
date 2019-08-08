@@ -1,0 +1,17 @@
+services:
+    admin.user_data.import_advert_error:
+        class: App\Admin\UserData\ImportAdvertErrorAdmin
+        arguments: [~, App\Entity\UserData\ImportAdvertError, ~]
+        tags:
+            - { name: sonata.admin, group: ИМПОРТ, manager_type: orm, label: Ошибки импорта }
+        public: true
+        calls:
+            - [ setTemplate, [list, "admin/user-data/import-advert-error/list_with_js.html.twig"]]
+    admin.user_data.import_advert_file:
+        class: App\Admin\UserData\ImportAdvertFileAdmin
+        arguments: [~, App\Entity\UserData\ImportAdvertFile, ~]
+        tags:
+            - { name: sonata.admin, group: ИМПОРТ, manager_type: orm, label: Файлы ручного импорта }
+        public: true
+        calls:
+            - [ setTemplate, [list, "admin/user-data/import-advert-file/list_with_js.html.twig"]]

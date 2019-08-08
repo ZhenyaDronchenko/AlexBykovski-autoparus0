@@ -333,4 +333,29 @@ class AdminController extends Controller
 
         return new JsonResponse($importer->importFile($filePath, $file->getSellerAdvertDetail()));
     }
+
+    /**
+     * @Route("/admin-remove-file-specific-advert/{id}", name="admin_remove_file_specific_advert")
+     *
+     * @ParamConverter("file", class="App\Entity\UserData\ImportAdvertFile", options={"id" = "id"})
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function removeFileSpecificAdvertAction(Request $request, ImportAdvertFile $file)
+    {
+        $folder = rtrim($this->getParameter("public_folder"), '/');
+        $filePath = $folder . $file->getPath();
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($file);
+        $em->flush();
+
+        if(file_exists($filePath)){
+            unset($filePath);
+        }
+
+        return new JsonResponse([
+            "status" => true,
+        ]);
+    }
 }

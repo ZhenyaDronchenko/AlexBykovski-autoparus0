@@ -85,6 +85,7 @@ class ImportUploader
 
         $chunkFilter = new ChunkReaderFilter();
         $reader->setReadFilter($chunkFilter);
+        $countLines = array_values($reader->listWorksheetInfo($filePath))[0]['totalRows'];
 
         $chunkFilter->setRows(0, 1);
 
@@ -106,13 +107,12 @@ class ImportUploader
             unset($spreadsheet);
 
             //    Do some processing here
-            list($errorsTemp, $countImportedTemp, $countLinesTemp) = $this->importFileLines($headers, $sheetData, $advertDetail);
+            list($errorsTemp, $countImportedTemp) = $this->importFileLines($headers, $sheetData, $advertDetail);
 
             $errors = array_merge($errors, $errorsTemp);
             $countImported += $countImportedTemp;
-            $countLines += $countLinesTemp;
 
-            if(count($sheetData) < ImportUploader::ROWS_CHUNK_IMPORT){
+            if(count($sheetData) === $countLines){
                 break;
             }
         }
@@ -121,7 +121,7 @@ class ImportUploader
             "errors" => $errors,
             "success" => !!count($errors),
             "countImported" => $countImported,
-            "countLines" => $countLines,
+            "countLines" => $countLines - 1,
         ];
     }
 
@@ -157,6 +157,10 @@ class ImportUploader
         $advertDetail->setAutoSparePartSpecificAdverts(new ArrayCollection());
 
         foreach ($lines as $index => $line){
+            if($line[$this->headerIndexes[ImportChecker::BRAND_KEY]] === null){
+                continue;
+            }
+
             $adverts = $this->importLine($headers, $line, ++$index, $advertDetail);
 
             //if($advert instanceof AutoSparePartSpecificAdvert && !$advertDetail->hasSameImportSpecificAdvert($advert)){
@@ -183,10 +187,10 @@ class ImportUploader
         }
 
         if(!$count && !count($errors)){
-            return [["Нет корретных данных для импорта"], $count, count($lines)];
+            return [["Нет корретных данных для импорта"], $count];
         }
 
-        return [$errors, $count, count($lines)];
+        return [$errors, $count];
     }
 
     private function importLine(array $headers, array $line, $index, SellerAdvertDetail $advertDetail)

@@ -9,11 +9,17 @@
             </tr>
             <tr>
                 <td>Успешно</td>
-                <td style="color: green">{{ object.countSuccess }}</td>
+                <td style="color: green">
+                    <span id="import-count-success-{{ object.id }}">{{ object.countSuccess }}</span>
+                    <span id="check-count-success-{{ object.id }}"></span>
+                </td>
             </tr>
             <tr>
                 <td>Ошибок</td>
-                <td style="color: red">{{ object.countLines - object.countSuccess }}</td>
+                <td style="color: red">
+                    <span id="import-count-failed-{{ object.id }}">{{ object.countLines - object.countSuccess }}</span>
+                    <span id="check-count-failed-{{ object.id }}"></span>
+                </td>
             </tr>
         </tbody>
     </table>

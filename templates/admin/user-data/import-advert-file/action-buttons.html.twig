@@ -1,11 +1,10 @@
 {% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
 
 {% block field%}
-    <button class="btn btn-primary" onclick="importFile('{{ object.id }}', false)">Проверить</button>
-    <button class="btn btn-success" onclick="importFile('{{ object.id }}', true)">Импортировать</button>
-    <img id="preloader-posts-{{ object.id }}" style="max-width: 33px; display: none" src="/img/preload-gear.svg"/>
-    <div id="action-import-result-{{ object.id }}" style="display: none;">
-        Успешно: <span id="import-count-success-{{ object.id }}" style="color: green">123</span><br />
-        Ошибок: <span id="import-count-failed-{{ object.id }}" style="color: red">3333</span>
+    <div class="btn-group-vertical">
+        <button class="btn btn-primary" onclick="importFile('{{ object.id }}', false)">Проверить</button>
+        <button class="btn btn-success" style="margin-top: 5px; margin-bottom: 5px;" onclick="importFile('{{ object.id }}', true)">Импортировать</button>
+        <button class="btn btn-danger" onclick="deleteFile('{{ object.id }}')">Удалить</button>
     </div>
+    <img id="preloader-posts-{{ object.id }}" style="max-width: 33px; display: none" src="/img/preload-gear.svg"/>
 {% endblock %}

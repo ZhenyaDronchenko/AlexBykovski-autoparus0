@@ -4,7 +4,6 @@ function importFile(id, isSave) {
     }
 
     $("#preloader-posts-" + id).show();
-    $("#action-import-result-" + id).hide();
 
     $.ajax({
         url: "/admin-import-file-specific-advert/" + id,
@@ -13,10 +12,32 @@ function importFile(id, isSave) {
         },
         method: "POST",
     }).done(function(response) {
-        $("#import-count-success-" + id).text(response["countImported"]);
-        $("#import-count-failed-" + id).text(response["countLines"] - response["countImported"]);
-        $("#action-import-result-" + id).show();
+        if(isSave) {
+            $("#import-count-success-" + id).text(response["countImported"]);
+            $("#import-count-failed-" + id).text(response["countLines"] - response["countImported"]);
+        }
+        else{
+            $("#check-count-success-" + id).text(' (' + response["countImported"] + ')');
+            $("#check-count-failed-" + id).text(' (' + (response["countLines"] - response["countImported"]) + ')');
+        }
 
         $("#preloader-posts-" + id).hide();
+    });
+}
+
+function deleteFile(id) {
+    let confirmRemove = confirm("Вы действительно хотите удалить этот файл?");
+
+    if(!confirmRemove){
+        return false;
+    }
+
+    $.ajax({
+        url: "/admin-remove-file-specific-advert/" + id,
+        method: "POST",
+    }).done(function(response) {
+        if(response.status){
+            $("td[objectid=" + id + "]").parent().remove();
+        }
     });
 }
