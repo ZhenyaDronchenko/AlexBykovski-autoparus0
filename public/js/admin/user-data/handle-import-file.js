@@ -26,8 +26,6 @@ function importFile(id, isSave) {
 }
 
 function deleteFile(id) {
-    console.log(id);
-
     let confirmRemove = confirm("Вы действительно хотите удалить этот файл?");
 
     if(!confirmRemove){
