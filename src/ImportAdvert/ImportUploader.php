@@ -112,7 +112,7 @@ class ImportUploader
             $errors = array_merge($errors, $errorsTemp);
             $countImported += $countImportedTemp;
 
-            if(count($sheetData) === $countLines){
+            if(count($sheetData) >= $countLines){
                 break;
             }
         }
