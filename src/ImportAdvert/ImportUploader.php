@@ -96,6 +96,8 @@ class ImportUploader
         $spreadsheet->disconnectWorksheets();
         unset($spreadsheet);
 
+        $advertDetail->setAutoSparePartSpecificAdverts(new ArrayCollection());
+
         for ($startRow = 1; $startRow < self::MAX_ROWS; $startRow += self::ROWS_CHUNK_IMPORT) {
             /**  Tell the Read Filter which rows we want this iteration  **/
             $chunkFilter->setRows($startRow, self::ROWS_CHUNK_IMPORT);
@@ -154,7 +156,6 @@ class ImportUploader
         $errors = [];
 
         $this->headerIndexes = ImportChecker::getHeaderIndexes($headers);
-        $advertDetail->setAutoSparePartSpecificAdverts(new ArrayCollection());
 
         foreach ($lines as $index => $line){
             if($line[$this->headerIndexes[ImportChecker::BRAND_KEY]] === null){
