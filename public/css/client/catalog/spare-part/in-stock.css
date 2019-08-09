@@ -867,7 +867,14 @@ padding-bottom: 4px;
     .card-img {
         margin: 0 auto;
         margin-bottom: 30px;
+        width: 90%;
+    height: auto;
     }
+
+    .image img {
+    width: 100%;
+    height: auto;
+}
 
     .card-description {
         width: 100%;

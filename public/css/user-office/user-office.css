@@ -270,6 +270,10 @@
     background-color: #ededed;
 }
 
+.btn-block  {
+    margin-top: 25px;
+}
+
 .btn-block li {
     display: -webkit-box;
     display: -ms-flexbox;
