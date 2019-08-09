@@ -5,6 +5,7 @@ namespace App\Controller\UserOffice\ProductCategories;
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
+use App\Entity\City;
 use App\Entity\Client\Client;
 use App\Entity\Model;
 use App\Entity\SparePart;

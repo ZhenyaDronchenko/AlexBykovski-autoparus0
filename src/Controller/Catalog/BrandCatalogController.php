@@ -197,7 +197,7 @@ class BrandCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_brand_catalog_in_stock")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_brand_catalog_in_stock", options={"expose"=true})
      */
     public function showCatalogInStockAction(
         Request $request,

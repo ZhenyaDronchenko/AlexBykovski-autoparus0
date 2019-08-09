@@ -69,7 +69,7 @@
                     <div class="icon-pic">
                         <a ng-href="/user-office/product-categories/spare-part/edit-specific-advert/{[{advert.id}]}"><img src="/img/cra.png" alt=""></a>
                         <a href="#"><img src="/img/camera.png" alt=""></a>
-                        <a href="#"><img src="/img/document.png" alt=""></a>
+                        <a ng-href="{[{list.linkShowAdvert(advert)}]}" target="_blank"><img src="/img/document.png" alt=""></a>
                         <a href="#"><img src="/img/external-link.svg" alt=""></a>
                         <a href="#delete-specific-advert-modal" rel="modal:open" ng-click="list.modalSpecificAdvert = advert.id"><img src="/img/trash-can.svg" alt=""></a>
                     </div>

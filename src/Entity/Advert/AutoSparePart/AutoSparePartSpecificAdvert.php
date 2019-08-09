@@ -658,6 +658,9 @@ class AutoSparePartSpecificAdvert
             "brand" => $this->brand->getName(),
             "model" => $this->model->getName(),
             "sparePart" => $this->sparePart,
+            "brandUrl" => $this->brand->getUrl(),
+            "modelUrl" => $this->model->getUrl(),
+            "city" => $this->sellerAdvertDetail->getSellerData()->getSellerCompany()->getCity(),
             "year" => $this->year,
             "engineType" => $this->engineType,
             "engineCapacity" => $this->engineCapacity,
@@ -670,7 +673,7 @@ class AutoSparePartSpecificAdvert
             "sparePartNumber" => $this->sparePartNumber,
             "comment" => $this->comment,
             "image" => $imagePath,
-            "cost" => $this->cost,
+            "cost" => strtoupper($this->currency) === "USD" ? $this->cost * 2 : $this->cost,
             "isActive" => $this->isActive,
             "activatedAt" => $this->activatedAt->format("d.m.Y"),
         ];
