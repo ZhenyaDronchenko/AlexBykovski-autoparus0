@@ -2,7 +2,6 @@
 
 namespace App\Entity\Client;
 
-
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use Doctrine\Common\Collections\ArrayCollection;

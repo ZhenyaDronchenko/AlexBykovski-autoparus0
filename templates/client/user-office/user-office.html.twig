@@ -10,8 +10,8 @@
     <div ng-controller="PostsCtrl as posts" ng-init="posts.init('#dialog-cropper-container-gallery', '#dialog-cropper-container-post-photo', true)">
     {% set isSeller = app.user.isSeller() %}
     {% if isSeller %}
-        {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
-        {% set countSparePartSprecificAdverts = app.user.sellerData.advertDetail.autoSparePartSpecificAdverts | length %}
+        {% set countSparePartGeneralAdverts = adverts_count(app.user, "general") %}
+        {% set countSparePartSprecificAdverts = adverts_count(app.user, "specific") %}
     {% endif %}
     {% set isHasAdverts = isSeller and (countSparePartGeneralAdverts + countSparePartSprecificAdverts) > 0 %}
     <main class="container">

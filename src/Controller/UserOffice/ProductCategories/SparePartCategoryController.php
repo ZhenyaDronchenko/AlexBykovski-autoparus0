@@ -63,6 +63,8 @@ class SparePartCategoryController extends Controller
             "generalAdverts" => $generalAdverts,
             "specificAdvertBrands" => $provider->getBrands($client),
             "specificAdvertSpareParts" => $provider->getSpareParts($client),
+//            "specificAdvertBrands" => $provider->getBrands($client),
+//            "specificAdvertSpareParts" => $provider->getSpareParts($client),
         ]);
     }
 

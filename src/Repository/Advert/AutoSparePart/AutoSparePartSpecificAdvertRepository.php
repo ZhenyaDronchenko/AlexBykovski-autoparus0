@@ -5,6 +5,7 @@ namespace App\Repository\Advert\AutoSparePart;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Client\Client;
+use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\SparePart;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
 use App\Type\AutoSparePartSpecificAdvertFilterType;
@@ -144,5 +145,22 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
         }
 
         return $qb;
+    }
+
+    /**
+     * @param SellerAdvertDetail $advertDetail
+     *
+     * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countForUser(SellerAdvertDetail $advertDetail)
+    {
+        return $this->createQueryBuilder('adv')
+            ->select('count(adv)')
+            ->where("adv.sellerAdvertDetail = :advertDetail")
+            ->setParameter("advertDetail", $advertDetail)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block body %}
-    {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
-    {% set countSparePartSprecificAdverts = app.user.sellerData.advertDetail.autoSparePartSpecificAdverts | length %}
+    {% set countSparePartGeneralAdverts = adverts_count(app.user, "general") %}
+    {% set countSparePartSprecificAdverts = adverts_count(app.user, "specific") %}
     {% set activeTab = app.request.query.get("tab") in ["general", "specific"] ? app.request.query.get("tab") : "" %}
     {% if not activeTab %}
         {% set activeTab = countSparePartGeneralAdverts == 0 and  countSparePartSprecificAdverts > 0 ? "specific" : "general" %}
