@@ -186,7 +186,7 @@ h3 {
   margin: 0;
   margin-bottom: 15px;
  color: #999;
- padding-left: 90px;
+ padding-left: 100px;
  font-style: italic;
   font-size: 24px;
   line-height: 28px;
@@ -539,6 +539,13 @@ h2 {
   font-size: 22px;
   line-height: 26px;
 }
+
+h2.news-title {
+ padding-left: 40px;
+  font-size: 16px;
+  line-height: 20px;
+} 
+
 h3 {
   font-size: 20px;
   line-height: 24px;
@@ -551,16 +558,11 @@ figure {
    
 }
 
-
 figure img {
   width: 100%;
   height: auto;
   max-height: 430px;
 }
-
-
-
-
 
 .foto {
  

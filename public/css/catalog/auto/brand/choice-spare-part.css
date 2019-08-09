@@ -184,7 +184,7 @@ cursor: default;
 
 #brandImg5 li {
 margin: 0 auto;
-    width: 335px;
+    width: 350px;
 }
 
 .mod-link {
@@ -209,8 +209,8 @@ margin: 0 auto;
 .mod-link span {
   display: block;
   width: 270px;
-    font-size: 18px;
-  line-height: 22px;
+    font-size: 15px;
+  line-height: 20px;
   color: #444444;
   letter-spacing: 1px;
   font-weight: 400;
@@ -218,8 +218,8 @@ margin: 0 auto;
 
 }
 .mod-link img {
-    width: 96px;
-    height: 64px;
+        width: 75px;
+    height: 50px;
     margin-left: 7px;
 }
 
@@ -307,11 +307,6 @@ padding: 10px 3px;
     border-bottom: 1px solid #ccc;
     }
    
-    .mod-link img {
-        width: 90px;
-        height: 60px;
-    }
-    
     .mod-subtitle {
         font-size: 20px;
         line-height: 24px;
@@ -340,14 +335,8 @@ padding: 10px 3px;
 }
 .mod-link span {
     width: 340px;
-    font-size: 16px;
-    line-height: 20px;
   }
-  .mod-link img {
-    width: 105px;
-    height: 70px;
-  
-}
+
     .mod-title {
         font-size: 22px;
         line-height: 26px;
@@ -374,14 +363,7 @@ padding: 10px 3px;
 }
 .mod-link span {
     width: 325px;
-    font-size: 16px;
-    line-height: 20px;
   }
-  .mod-link img {
-    width: 105px;
-    height: 70px;
-  
-}
 }
 @media (max-width: 575px) {
     .link {

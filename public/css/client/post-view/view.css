@@ -196,18 +196,16 @@
 .org-wrapper {
     display: flex;
     justify-content: space-between;
-
-    margin-bottom: 20px;
+    margin-bottom: 60px;
 }
 
 .org-title {
-    margin: 0;
-    color: #000000;
+    margin: 0 auto;
+    color: #999999;
     font-size: 22px;
     line-height: 24px;
     font-weight: 400;
     text-align: center;
-    margin-right: 15px;
 }
 
 .org-unp {
@@ -225,6 +223,8 @@
     max-width: 90px;
     height: 60px;
     display: block;
+    margin-left: 15px;
+    border-radius: 10px;
 }
 
 .adress-text {
@@ -381,8 +381,8 @@
     margin: 0;
     margin-bottom: 20px;
     color: #000000;
-    font-size: 20px;
-    line-height: 22px;
+    font-size: 18px;
+    line-height: 20px;
     font-weight: 400;
     text-align: center;
 }

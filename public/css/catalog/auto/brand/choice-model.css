@@ -248,7 +248,7 @@ h3 {
             align-items: center;
     font-weight: 400;
     border-bottom: 1px solid #737373;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 22px;
     color: #444444;
     letter-spacing: 1px;
@@ -259,8 +259,8 @@ h3 {
 }
 
 .mod-link img {
-    width: 120px;
-    height: 80px;
+    width: 96px;
+    height: 64px;
     margin-left: 7px;
     
 }
@@ -353,10 +353,7 @@ h3 {
         line-height: 18px;
        
     }
-    .mod-link img {
-        width: 90px;
-        height: 60px;
-    }
+
     .mod-search {
         margin-bottom: 12px;
     }
