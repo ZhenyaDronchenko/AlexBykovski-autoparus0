@@ -1,0 +1,255 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ sparePart.alternativeName3 ~ ' ' ~ brand.name ~ ' ' ~  model.name ~ ' (' ~  brand.brandRu ~ ' ' ~ model.modelRu ~ ') в ' ~ city.prepositional }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/product/product-view.css'>
+{% endblock %}
+{% block meta_description %}{{ sparePart.alternativeName3 }} для {{ brand.name ~ ' ' ~  model.name }} года в {{ city.prepositional }} с расширенной гарантией по честной цене. Автозапчасти такие как {{ sparePart.alternativeName4 }} для автомобилей {{ brand.brandEn ~ ' ' ~  model.modelEn }} бу и новые от первых поставщиков в городе {{ city.name }}.{% endblock %}
+
+{% block body %}
+    {% set parameters = [brand, model, sparePart, city] %}
+    <main class="container">
+        <section class="main-page">
+            <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                       title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                        <span class="user-name" itemprop="name">Главная</span>
+                        <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                      points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                        </svg>
+                        <meta itemprop="position" content="1">
+                    </a>
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", parameters) }}"><span class="line">/</span><span itemprop="name">Запчасти</span>
+                    </a>
+                    <meta itemprop="position" content="2">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {urlBrand: brand.url}) }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", parameters) }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span>
+                    </a>
+                    <meta itemprop="position" content="3">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_spare_part", {urlBrand: brand.url, urlModel: model.url}) }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters) }}"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span>
+                    </a>
+                    <meta itemprop="position" content="4">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_city", {urlBrand: brand.url, urlModel: model.url, urlSP: sparePart.url}) }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters) }}"><span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
+                    </a>
+                    <meta itemprop="position" content="5">
+                </li>
+
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ city.name }}</span>
+                        <meta itemprop="position" content="6">
+                    </a>
+                </li>
+            </ul>
+
+            <div itemscope itemtype="http://schema.org/Product"><!-- Описание продукта -->
+                <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"><!-- Рейтинг -->
+                    <meta itemprop="ratingValue" content="4.5"><!-- Значение 1 -->
+                    <meta itemprop="bestRating" content="5"><!-- Значение 2 -->
+                    <meta itemprop="reviewCount" content="2"><!-- Значение 3 -->
+                </span>
+                <span itemprop="brand" content="{{ brand.name }}"></span><!-- имя бренда Значение 16 -->
+                <span itemprop="review" itemscope itemtype="http://schema.org/Review"><!-- Отзывы Значение 17 -->
+                    <span itemprop="name"></span><!-- имя Значение 18 -->
+                    <span itemprop="author" content="ABC"></span><!-- автор Значение 19 -->
+                    <meta itemprop="datePublished" content="2011-03-25"><!-- дата отзыва Значение 20 -->
+                    <meta itemprop="itemReviewed" content="авс"><!-- Просмотр товара Значение 21 -->
+                </span>
+                <meta itemprop="gtin14" content="12345678901234">
+                <meta itemprop="mpn" content="925873">  <!-- глобальный идентификатор товара, например код ISBN, MPN или GTIN8 -->
+                <div class="wrapper">
+                    <div class="block-discription">
+                        <h1 class="product-title hidden">{{ sparePart.alternativeName3 ~ ' для ' ~ brand.name ~ ' ' ~ model.name  ~ ' в ' ~ city.prepositional }}</h1>
+                        <div class="product-photos">
+                            <img src="{{ image_url(sparePart.thumbnailLogo) }}" width="390" height="300" alt="Фото всего набора" itemprop="image"><!-- Фото -->
+                            {#<div class="product-wrapper">#}
+                                {#<img src="/img/maz1.jpg" width="120" height="80" alt="Фото всего набора">#}
+                                {#<img src="/img/maz1.jpg" width="120" height="80" alt="Фото всего набора">#}
+                                {#<img src="/img/maz1.jpg" width="120" height="80" alt="Фото всего набора">#}
+                            {#</div>#}
+                        </div>
+                        <div class="product-dsc">
+                            <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName3 ~ ' для ' ~ brand.name ~ ' ' ~ model.name  ~ ' в ' ~ city.prepositional }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
+                            <span class="art" itemprop="sku">№ {{ brand.id ~ '-' ~ model.id ~ '-' ~ sparePart.id ~ '-' ~ city.id }}</span><!-- Артикул Значение 21 -->
+                            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><!-- Описание продукта -->
+                                <p class="status">Состояние з/ч: <span>Новая запчасть</span></p>
+                                <span class="stock"><link itemprop="availability" href="http://schema.org/InStock">В наличии</span>
+                                <b class="price" itemprop="price" content="115.00">от {{ brand.id + model.id + sparePart.id }} руб.</b>
+                                <span itemprop="priceCurrency" content="BYN"></span><!-- Цена Значение 7 -->
+                                <time itemprop="priceValidUntil" datetime="2020-11-05"></time><!-- Цена действует до Значение 15 -->
+                                <a itemprop="url" href="#"></a>
+
+                                <p class="delivery">Гарантия: <span>Есть</span></p>
+                                <p class="warranty">Доставка: <span>Есть</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="org">
+                        <h2 class="org-title">Автозапчасти</h2>
+                        <div class="adress">
+                            <p class="adress-text"><span>Беларусь, {{ city.name }}</span><br>
+                                {#г. Минск, ул. Лещинского, д. 1, а - 332#}
+                            </p>
+                        </div>
+
+                        <div class="card-time">
+                            <div class="week">
+                                <span class="day blue"></span>
+                                <span class="day blue"></span>
+                                <span class="day blue"></span>
+                                <span class="day blue"></span>
+                                <span class="day blue"></span>
+                                <span class="day-time">09:00 - 17:00</span>
+                            </div>
+                            <div class="weekend">
+                                <span class="day"></span>
+                                <span class="day"></span>
+                                <span class="day"></span>
+                                <span class="day red"></span>
+                                <span class="day red"></span>
+                                <span class="day-time">10:00 - 16:00</span>
+                            </div>
+                        </div>
+
+                        <p class="info">Информация для покупателя</p>
+                        {#<div class="card-contact">#}
+                            {#<a href="tel:+375(29)3239999" class="contact" data-text="+375  (29)  323 - 99 - 99"></a>#}
+                            {#<a href="tel:+375(33)3239999" class="contact" data-text="+375  (33)  323 - 99 - 99"></a>#}
+                        {#</div>#}
+
+                        <h3 class="rev-title">Рейтинг продавца</h3>
+                        <div class="review">
+                            <span class="star rev"></span>
+                            <span class="star rev"></span>
+                            <span class="star rev"></span>
+                            <span class="star rev"></span>
+                            <span class="star"></span>
+                            <p class="review-text">нет отзывов</p>
+                        </div>
+                    </section>
+                </div>
+
+                <ul class="product-block">
+                    <li class="product-list">
+                        <h2 class="product-subtitle">Описание товара:</h2>
+                        <p class="product-text" itemprop="description">{{ sparePart.alternativeName1 }} для {{ brand.name }} {{ model.name }} в {{ city.name }} и других городах Беларуси с гарантией, запчасти высокого качества. <br>Для просмотра других продавцов {{ sparePart.nameGenitive }} к {{ brand.brandRu ~ ' ' ~ model.modelRu }} Вы можете перейти в последовательный каталог запчастей, где выберите максимально выгодное для Вас предложение.</p>
+                    </li>
+
+                    {#<li class="product-list">#}
+                        {#<h2 class="product-subtitle">Доставка:</h2>#}
+                        {#<p class="product-text">Продукт Mazda 626, авто ежедневно на ходу. Есть ньюансы по кузову. Все вопросы по телефону. Торг. Авто ежедневно на ходу...</p>#}
+                    {#</li>#}
+
+                    {#<li class="product-list">#}
+                        {#<h2 class="product-subtitle">Гарантия:</h2>#}
+                        {#<p class="product-text">Продукт Mazda 626, авто ежедневно на ходу. Есть ньюансы по кузову. Все вопросы по телефону. Торг. Авто ежедневно на ходу...</p>#}
+                    {#</li>#}
+                </ul>
+
+                <div class="feature">
+                    <section class="feature-list">
+                        <h2 class="feature-title">Характеристики</h2>
+                        <table class="feature-block">
+                            <tr><td>Запчасть:</td><td class="tab">{{ sparePart.name }}</td></tr>
+                            <tr><td>Марка:</td><td class="tab">{{ brand.name }}</td></tr>
+                            <tr><td>Модель:</td><td class="tab">{{ model.name }}</td></tr>
+                            <tr><td>Год:</td><td class="tab">{{ model.technicalData.yearFrom ~ ' - ' ~ model.technicalData.yearto }}</td></tr>
+                            <tr><td>Тип двигателя:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Объем:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Тип КПП:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Тип привода:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Тип Кузова:</td><td class="tab">Необходимо уточнение</td></tr>
+                        </table>
+                    </section>
+
+                    <section class="art-block">
+                        <h2 class="art-title">Новые публикации</h2>
+                        <ul class="art-list">
+                            {% for article in articles %}
+                                <li>
+                                    <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
+                                        <h3 class="article-title">{{ article.headline1 }}</h3>
+                                        <div class="article-foto">
+                                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                                        </div>
+                                        <h4 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h4>
+                                        <div class="article-block">
+                                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                </div>
+
+                {#<section class="promo">#}
+                    {#<h2 class="promo-title">Похожие объявления</h2>#}
+                    {#<ul class="promo-block">#}
+                        {#<li>#}
+                            {#<a href="#" class="promo-link">#}
+                                {#<img src="/img/maz1.jpg" alt="">#}
+                                {#<p class="promo-text">Задняя правая</p>#}
+                            {#</a>#}
+                        {#</li>#}
+
+                        {#<li>#}
+                            {#<a href="#" class="promo-link">#}
+                                {#<img src="/img/maz1.jpg" alt="">#}
+                                {#<p class="promo-text">Задняя правая</p>#}
+                            {#</a>#}
+                        {#</li>#}
+
+                        {#<li>#}
+                            {#<a href="#" class="promo-link">#}
+                                {#<img src="/img/maz1.jpg" alt="">#}
+                                {#<p class="promo-text">Задняя правая</p>#}
+                            {#</a>#}
+                        {#</li>#}
+
+                        {#<li>#}
+                            {#<a href="#" class="promo-link">#}
+                                {#<img src="/img/maz1.jpg" alt="">#}
+                                {#<p class="promo-text">Задняя правая</p>#}
+                            {#</a>#}
+                        {#</li>#}
+
+                        {#<li>#}
+                            {#<a href="#" class="promo-link">#}
+                                {#<img src="/img/maz1.jpg" alt="">#}
+                                {#<p class="promo-text">Задняя правая</p>#}
+                            {#</a>#}
+                        {#</li>#}
+
+                        {#<li>#}
+                            {#<a href="#" class="promo-link">#}
+                                {#<img src="/img/maz1.jpg" alt="">#}
+                                {#<p class="promo-text">Задняя правая</p>#}
+                            {#</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</section>#}
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}
