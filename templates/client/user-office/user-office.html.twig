@@ -141,7 +141,7 @@
                     </a>
                 </li>
                 <li>
-                {% set isSparePartSeller = app.user.sellerData.sellerCompany.isSparePartSeller %}
+                {% set isSparePartSeller = app.user.sellerData ? app.user.sellerData.sellerCompany.isSparePartSeller : false %}
                     {% if isSeller and not isHasAdverts and not isSparePartSeller %}
                         <a class="icon us-btn5" href="{{ path("user_profile_product_categories_spare_part") }}">
                             <i class="fa fa-suitcase"></i>
