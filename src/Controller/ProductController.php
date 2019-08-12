@@ -22,9 +22,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ProductController extends Controller
 {
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="product_view")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_product_general_view")
      */
-    public function showPostAction(Request $request, $urlBrand, $urlModel, $urlSP, $urlCity)
+    public function showProductGeneralPageAction(Request $request, $urlBrand, $urlModel, $urlSP, $urlCity)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
@@ -39,12 +39,32 @@ class ProductController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-        return $this->render('client/product/product-view.html.twig', [
+        return $this->render('client/product/product-general-page.html.twig', [
             "brand" => $brand,
             "model" => $model,
             "sparePart" => $sparePart ?: new SparePart(),
             "city" => $city,
             "articles" => $articles,
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="show_product_view")
+     *
+     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
+     */
+    public function showProductViewAction(Request $request, AutoSparePartSpecificAdvert $advert)
+    {
+        return $this->render('client/product/product-view.html.twig', []);
+    }
+
+    /**
+     * @Route("/{id}/{urlCity}", name="show_product_city_view")
+     *
+     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
+     */
+    public function showProductCityViewAction(Request $request, AutoSparePartSpecificAdvert $advert, $urlCity)
+    {
+        return $this->render('client/product/product-city-view.html.twig', []);
     }
 }
