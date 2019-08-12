@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    const DEFAULT_DELIVERY = "Возможность, условия и стоимость доставки уточняйте у продавца по телефону";
+    const DEFAULT_GUARANTEE = "Гарантийные обязательства, возможность и условие возврата или замены товара уточняйте у продавца по телефону";
+
     let classShowModal = "modal--show";
     let addressModal = $("#seller-address-modal");
     let deliveryGuaranteeModal = $("#seller-delivery-guarantee-modal");
@@ -23,8 +26,8 @@ $(document).ready(function(){
         let delivery = $(this).attr("data-delivery");
         let guarantee = $(this).attr("data-guarantee");
 
-        $("#delivery-text").html(delivery);
-        $("#guarantee-text").html(guarantee);
+        $("#delivery-text").html(delivery ? delivery: DEFAULT_DELIVERY);
+        $("#guarantee-text").html(guarantee ? guarantee : DEFAULT_GUARANTEE);
 
         if(!delivery && !guarantee){
             existDeliveryGuarantee.hide();

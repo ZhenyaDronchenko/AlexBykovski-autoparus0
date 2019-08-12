@@ -93,7 +93,7 @@ cursor: default;
 
 /*city*/
 .year {
-    padding-top: 35px;
+    padding-top: 40px;
     padding-bottom: 65px;
 }
 a {
@@ -101,20 +101,22 @@ a {
 }
 .year-title {
     margin: 0;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     text-align: center;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+     color: #2980b9;
     letter-spacing: 1px;
     
 }
-.year-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 
+.admin-text {
+    margin-top: 15px;
+    color: red;
+    font-size: 14px;
+    line-height: 16px;
+}
 .year-desc {
     margin-bottom: 40px;
 }
@@ -204,7 +206,7 @@ a {
 .card-img {
     position: relative;
     margin-left: 12px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     width: 255px;
     height: 170px;
     margin-right: 60px;
@@ -214,20 +216,19 @@ a {
      position: absolute;
     bottom: -10px;
     left: -10px;
-    padding: 4px 15px;
-    padding-bottom: 3px;
-    border: 2px solid #999999;
+    padding: 2px 15px;
+    border: 1px solid #999999;
     border-radius: 5px;
     color: #000000;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 18px;
     font-weight: 400;
     background-color: #ffffff;
     cursor: default;
 }
 
 .link:hover {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 .link-button {
     display: -webkit-box;
@@ -284,7 +285,7 @@ a {
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -593,7 +594,7 @@ padding-bottom: 4px;
     display: -ms-flexbox;
     display: flex;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 30px;
     padding: 4px 10px;
     padding-bottom: 3px;
     cursor: pointer;
@@ -611,23 +612,23 @@ padding-bottom: 4px;
    background-color: #d2a2af;
 }
 
-
+h3 {
+    margin: 0;
+    margin-bottom: 15px;
+}
 
 .year-subtitle {
     margin: 0;
-    padding-top: 35px;
+    padding-top: 60px;
     text-align: center;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
     margin-bottom: 20px;
 }
-.year-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .year-subtext {
     margin: 0;
     margin-bottom: 30px;
@@ -783,10 +784,11 @@ padding-bottom: 4px;
 
 
     .button {
-              font-size: 14px;
-    line-height: 16px;
-    padding: 4px 10px;
-    padding-bottom: 3px;
+      font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
     }
 
     .card-block {
@@ -800,7 +802,7 @@ padding-bottom: 4px;
         flex-direction: column;
     }
 .year-desc {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
     .year-subtitle {
 
@@ -850,10 +852,17 @@ padding-bottom: 4px;
         margin-bottom: 20px;
     }
 
-    .card-img {
+     .card-img {
         margin: 0 auto;
         margin-bottom: 30px;
+        width: 90%;
+    height: auto;
     }
+
+    .image img {
+    width: 100%;
+    height: auto;
+}
 
     .card-description {
         width: 100%;
@@ -1231,6 +1240,14 @@ padding-bottom: 4px;
         top: 50px;
         left: 50%;
         width: 80%;
+    }
+     .button {
+        font-size: 12px;
+    line-height: 14px;
+    padding: 3px 10px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+
     }
 }
 @media (min-width: 768px) and (max-width: 1023px) {

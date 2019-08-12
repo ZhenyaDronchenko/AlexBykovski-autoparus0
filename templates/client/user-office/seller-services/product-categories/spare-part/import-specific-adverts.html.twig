@@ -32,7 +32,7 @@
             </li>
         </ul>
 
-        <section class="price">
+        <section class="price" ng-cloak>
             <h1 class="price-title">{{ default_text(14).headline }}</h1>
             <a class="btn price-btn" onclick="document.getElementById('upload-file-input').click()" ng-show="!importCtrl.isImportProcess && !importCtrl.isUploadAndCheckProcess">Выбрать файл для загрузки</a>
             <input id="upload-file-input" type="file" style="display: none" custom-on-change="importCtrl.uploadedFile">
@@ -48,20 +48,20 @@
                     {#<span style="font-size: 17px">Файл успешно загружен</span>#}
                     {#<span style="font-size: 17px; color: black">Идёт проверка файла. Пожалуйста, подождите...</span>#}
                     {#<span style="font-size: 17px">Файл корректный</span>#}
-                    {#<span style="font-size: 17px; color: red">Файл некорректный. Были обнаружены следующие ошибки:</span>#}
+                    {#<span style="font-size: 17px; color: red; margin-bottom="20px">Файл некорректный. Были обнаружены следующие ошибки:</span>#}
                     {#<ul ng-repeat="error in importCtrl.errorsCheckFile">#}
                         {#<li style="color: red" ng-bind="error"></li>#}
                     {#</ul>#}
                     {#<span style="font-size: 17px; color: black">Исправьте ошибки и попробуйте ещё раз</span>#}
                     {#<span style="font-size: 17px; color: black">Чтобы импортировать данные нажмите кнопку импортировать</span>#}
                     {#<span style="font-size: 17px">Данные импортированы. Вы можете проверить их <a href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}">здесь</a></span>#}
-                    {#<span style="font-size: 17px; color: black">При импорте файл произошли ошибки. Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>#}
+                    {#<span style="font-size: 17px; color: red">При импорте файл произошли ошибки. Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>#}
                     <span style="font-size: 17px;" ng-style="importCtrl.messageStyle" ng-bind-html="importCtrl.message"></span>
                     <span style="font-size: 17px; color: black" ng-show="importCtrl.showErrorsAfterSuccessImport">Данные строки не были импортированы из-за ошибок:</span>
-                    <ul ng-repeat="error in importCtrl.errors">
-                        <li style="color: red" ng-bind="error"></li>
+                    <ul ng-class="{'show-import-errors' : importCtrl.errors.length > 11}">
+                        <li style="color: red" ng-bind="error" ng-repeat="error in importCtrl.errors"></li>
                     </ul>
-                    <span style="font-size: 17px; color: black" ng-show="importCtrl.showSpecialMessage">Исправьте ошибки или обратитесь в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>
+                    <span style="font-size: 17px; color: green" ng-show="importCtrl.showSpecialMessage">Исправьте ошибки или выберите другой файл для загрузки, также вы можете обратиться с вопросом в техподдержку. Данные техподдержки вы можете найти <a href="{{ path("general_about_page") }}">здесь</a></span>
                     <img ng-show="importCtrl.longActionActive" id="preloader-posts" src="/img/preload-gear.svg"/>
                 </div>
             </div>

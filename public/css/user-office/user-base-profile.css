@@ -124,15 +124,10 @@
   font-size: 26px;
   line-height: 30px;
   font-weight: 400;
-  color: #f66666;
+  color: #2980b9;
   text-align: center;
   margin-bottom: 30px;
   letter-spacing: 1px;
-}
-
-.title::before { /* второй слой */
-  content: attr(data-text);
-  -webkit-text-stroke: .03em #ff0000;
 }
 
 .select {
@@ -151,7 +146,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 fieldset {
   border: none;
@@ -332,9 +327,8 @@ select {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
   color: #444444;
   cursor: pointer;
@@ -342,6 +336,7 @@ select {
   border: none;
   margin-bottom: 10px;
   margin-left: auto;
+  color: red;
 }
 .btn:hover {
   color: red;
@@ -351,6 +346,7 @@ select {
 }
 .btn--m {
   margin-bottom: 40px;
+  color: green;
 }
 
 .overlay1,
@@ -373,13 +369,14 @@ select {
   position: fixed;
   top: 100px;
   left: 50%;
-  width: 700px;
+  width: 850px;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
   text-align: center;
   background-color: #fff;
-  padding: 45px 10px;
+  padding: 70px 55px;
+  padding-bottom: 0px;
   border-radius: 5px;
 }
 
@@ -395,8 +392,8 @@ select {
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  right: 3px;
-  top: 3px;
+  right: 15px;
+  top: 15px;
   cursor: pointer;
   border: 1px solid #737373;
   background-color: #fff;
@@ -415,7 +412,7 @@ select {
 
 .modal-title {
   margin: 0;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #000;
   font-size: 24px;
   font-weight: 400;
@@ -622,17 +619,6 @@ select {
   }
 
 
-  .modal {
-    position: fixed;
-    top: 100px;
-    left: 50%;
-    width: 700px;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    text-align: center;
-    background-color: #fff;
-  }
 
   .modal-close {
     display: -webkit-box;
@@ -683,6 +669,8 @@ select {
   .modal {
     top: 50px;
     width: 80%;
+    padding: 50px 15px;
+    padding-bottom: 0;
   }
   .modal-title {
     margin-bottom: 10px;
@@ -706,7 +694,7 @@ select {
 
   .modal {
     top: 50px;
-    width: 80%;
+    width: 70%;
   }
   .modal-title {
     margin-bottom: 20px;
@@ -751,7 +739,12 @@ select {
   .choice-input--str {
     width: 275px;
   }
-
+.modal {
+  top: 50px;
+  left: 50%;
+  width: 600px;
+ 
+}
 
 }
 

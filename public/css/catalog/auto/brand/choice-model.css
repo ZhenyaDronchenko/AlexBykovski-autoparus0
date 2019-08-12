@@ -108,13 +108,8 @@ h3 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
-}
-
-.model-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 #text1 {
@@ -154,6 +149,7 @@ h3 {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
+            margin-bottom: 60px;
 }
 
 .mod-avto {
@@ -162,7 +158,6 @@ h3 {
     border: 1px solid #737373;
     border-radius: 3px;
     color: #444444;
-    margin-bottom: 40px;
     cursor: pointer;
     font-size: 16px;
     line-height: 18px;
@@ -225,7 +220,7 @@ h3 {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     overflow: hidden;
 }
 
@@ -238,7 +233,7 @@ h3 {
 
 #brandImg5 li {
     margin: 0 auto;
-    width: 450px;
+    width: 335px;
 }
 
 .mod-link {
@@ -253,8 +248,8 @@ h3 {
             align-items: center;
     font-weight: 400;
     border-bottom: 1px solid #737373;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 22px;
     color: #444444;
     letter-spacing: 1px;
     padding: 15px 5px;
@@ -264,8 +259,8 @@ h3 {
 }
 
 .mod-link img {
-    width: 120px;
-    height: 80px;
+    width: 96px;
+    height: 64px;
     margin-left: 7px;
     
 }
@@ -286,12 +281,7 @@ h3 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
-}
-
-.model-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
+    color: #2980b9;
 }
 
 @media (max-width: 480px) {
@@ -363,10 +353,7 @@ h3 {
         line-height: 18px;
        
     }
-    .mod-link img {
-        width: 90px;
-        height: 60px;
-    }
+
     .mod-search {
         margin-bottom: 12px;
     }

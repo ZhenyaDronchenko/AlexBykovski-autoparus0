@@ -6,6 +6,7 @@ use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\City;
+use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Type\CatalogAdvertFilterType;
@@ -57,6 +58,23 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
             ->getResult();
     }
 
+    /**
+     * @param SellerAdvertDetail $advertDetail
+     *
+     * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countForUser(SellerAdvertDetail $advertDetail)
+    {
+        return $this->createQueryBuilder('adv')
+            ->select('count(adv)')
+            ->where("adv.sellerAdvertDetail = :advertDetail")
+            ->setParameter("advertDetail", $advertDetail)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findAllForCatalog(CatalogAdvertFilterType $filterType)
     {
         $sparePart = $filterType->getSparePart();
@@ -70,4 +88,6 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
 
         return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes);
     }
+
+
 }

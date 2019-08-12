@@ -94,6 +94,7 @@ cursor: default;
 
 /*user*/
 
+
 .prod {
     padding-top: 35px;
     padding-bottom: 65px;
@@ -104,7 +105,7 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-     color: #f66666;
+     color: #2980b9;
     text-align: center;
     margin-bottom: 30px;
     letter-spacing: 1px;
@@ -115,6 +116,34 @@ cursor: default;
     -webkit-text-stroke: .03em #ff0000;
 }
 
+h3 {
+    font-weight: 400;
+}
+.btn-sel {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #444444;
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin-left: auto;
+}
+
+.btn-sel:hover,
+.btn-sel:focus {
+    color: red;
+}
+
+.btn-sel svg {
+    margin-right: 10px;
+}
 .block-product {
     display: -moz-flex;
     display: -ms-flex;
@@ -174,6 +203,7 @@ cursor: default;
 }
 .tab {
     padding: 30px 20px;
+    padding-top: 0;
     display: none;
 
 }
@@ -184,7 +214,7 @@ cursor: default;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-      color: #f66666;
+    color: #2980b9;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -325,9 +355,8 @@ cursor: default;
     -ms-flex-pack: center;
     justify-content: center;
     color: #000000;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -ms-align-items: flex-end;
+    align-items: flex-end;
 }
 
 .tool a:hover {
@@ -335,8 +364,8 @@ cursor: default;
 }
 .tool-rdc img,
 .tool-close img {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     margin-left: 5px;
 }
 
@@ -443,10 +472,11 @@ cursor: default;
     font-weight: 400;
     color: #000000;
     margin-bottom: 15px;
+        text-align: right;
 }
 .subtext {
     margin: 0;
-    padding-left: 50px;
+    padding-left: 20px;
     padding-right: 20px;
     font-size: 16px;
     line-height: 18px;
@@ -568,7 +598,7 @@ td {
 
 }
 .item1 {
-    width: 480px;
+    width: 60%;
     padding: 15px 5px;
     vertical-align: top;
     position: relative;
@@ -593,8 +623,8 @@ td {
 .promo-price span {
     padding-top: 3px;
     display: block;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 14px;
     font-weight: 400;
 }
 
@@ -655,8 +685,10 @@ td {
 }
 
 .img-list img {
-    width: 100px;
+    width: auto;
     height: 75px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 
@@ -1061,7 +1093,7 @@ td {
     }
 
     .img-list img {
-        width: 75px;
+        width: auto;
         height: 50px;
     }
 

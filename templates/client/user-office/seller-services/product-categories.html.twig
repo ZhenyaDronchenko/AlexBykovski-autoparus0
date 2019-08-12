@@ -16,11 +16,11 @@
                     </svg>
                 </a>
             </li>
-            <li><a class="current">/ Товары</a></li>
+            <li><a class="current"><span class="line">/</span> Товары</a></li>
         </ul>
 
         <section class="items">
-            <h1 class="title" data-text="{{ default_text(1).headline }}"></h1>
+            <h1 class="title">{{ default_text(1).headline }}</h1>
             <ul class="items-block">
                 <li><a class="items-link" href='{{ path("user_profile_product_categories_spare_part") }}'><span>Автозапчасти (автотовары) товары для автомобилей</span><img src="{{ image_url(default_image(15).image) }}" alt="лого"></a></li>
                 <li><a class="items-link" href=''><span>Автомобили (легковые, грузовые, спецтехника)</span><img src="{{ image_url(default_image(16).image) }}" alt="лого"></a></li>

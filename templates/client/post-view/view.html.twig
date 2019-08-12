@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ post.getViewTitle() }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/post-view/view.css'>
+{% endblock %}
+{% block meta_description %}{{ post.getViewDescription() }}{% endblock %}
+
+{% block body %}
+    {% set isSimplePost = post.type == "simple" %}
+    {% set initiatorName = isSimplePost ? post.client.name : post.client.sellerData.sellerCompany.companyName %}
+    <main class="container">
+        <div class="main-page">
+            <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная Автопаруса" itemprop="item">
+                        <span class="user-name" itemprop="name">Главная</span>
+                        <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                      points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                        </svg>
+                        <meta itemprop="position" content="1">
+                    </a>
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ isSimplePost ? path("homepage_filter_brand") : path("homepage_filter_city_activity") }}" itemprop="item"
+                       title="{{ isSimplePost ? "Личные публикации" : "Бизнес публикации" }}">
+                        <span class="line">/</span><span itemprop="name">Публикации</span>
+                    </a>
+                    <meta itemprop="position" content="2">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}" itemprop="item"
+                       title="{{ isSimplePost ? "Публикации " ~ post.client.name : "Публикации " ~ post.client.sellerData.sellerCompany.companyName }}">
+                        <span class="line">/</span><span itemprop="name">{{ initiatorName }}</span>
+                    </a>
+                    <meta itemprop="position" content="3">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" nohref itemprop="item">
+                        <span class="line">/</span><span itemprop="name">{{ post.id }}</span>
+                    </a>
+                    <meta itemprop="position" content="4">
+                </li>
+            </ul>
+
+            <section class="seller">
+                <div class="seller-block">
+                    <h1 class="seller-title">{{ post.headline }}</h1>
+                    <div class="post-block">
+                        <a href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}"><img class="name-foto" alt="Фото" src="{{ image_url(post.client.thumbnailPhoto ? image_url(post.client.thumbnailPhoto) : "") }}"></a>
+                        <a href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}"><b class="name">{{ post.client.name }}</b></a>
+                        <button class="btn" type="button">
+                            <span class="points"></span>
+                            <span class="points"></span>
+                            <span class="points"></span>
+                        </button>
+                    </div>
+                    <ul class="foto">
+                        <li class="foto-item">
+                            <img src="{{ image_url(post.postPhotos.first.image.image) }}" alt="Изображение статьи">
+                            <span class="foto-city">{{ post.getAddress() }}</span>
+                            <p class="foto-text">{{ post.description }}</p>
+                        </li>
+                        {% for postPhoto in post.postPhotos %}
+                            {% if not loop.first %}
+                                <li class="foto-item">
+                                    <img src="{{ image_url(postPhoto.image.image) }}" alt="Изображение статьи">
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}"><button class="btn-view">Все публикации {{ initiatorName }}</button></a>
+                </div>
+
+                <section class="org">
+                    <div class="org-wrapper">
+                        <h2 class="org-title">{{ initiatorName }}</h2>
+
+                        <img class="org-img" src="{{ isSimplePost ? (post.client.photo ? image_url(post.client.photo.image) : "") : (post.client.sellerData.photo ? image_url(post.client.sellerData.photo.image) : "") }}" alt="Изображение статьи">
+                    </div>
+
+                    {% if not isSimplePost %}
+                        <p class="org-unp">УНП: {{ post.client.sellerData.sellerCompany.unp }}</p>
+                    {% endif %}
+
+                    {% if not isSimplePost %}
+                        {% set company = post.client.sellerData.sellerCompany %}
+                        {% set workflow = company.workflow %}
+                        <p class="adress-text">Беларусь, {{ company.city }}<br> {{ company.address }}</p>
+                        <p class="org-text">{{ company.activityDescription }}</p>
+                        <div class="card-time">
+                            {% if workflow.isMondayWork or workflow.isTuesdayWork or workflow.isWednesdayWork or workflow.isThursdayWork or workflow.isFridayWork%}
+                                <div class="week">
+                                    {% if workflow.isMondayWork %}
+                                        <span class="day blue"></span>
+                                    {% endif %}
+                                    {% if workflow.isTuesdayWork %}
+                                        <span class="day blue"></span>
+                                    {% endif %}
+                                    {% if workflow.isWednesdayWork %}
+                                        <span class="day blue"></span>
+                                    {% endif %}
+                                    {% if workflow.isThursdayWork %}
+                                        <span class="day blue"></span>
+                                    {% endif %}
+                                    {% if workflow.isFridayWork %}
+                                        <span class="day blue"></span>
+                                    {% endif %}
+                                    <span class="day-time">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span>
+                                </div>
+                            {% endif %}
+                            {% if workflow.isSaturdayWork or workflow.isSundayWork %}
+                                <div class="weekend">
+                                    <span class="day"></span>
+                                    <span class="day"></span>
+                                    <span class="day"></span>
+                                    {% if workflow.isSaturdayWork %}
+                                        <span class="day red"></span>
+                                    {% endif %}
+                                    {% if workflow.isSundayWork %}
+                                        <span class="day red"></span>
+                                    {% endif %}
+                                    <span class="day-time">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if workflow.delivery and workflow.deliveryDetail %}
+                            <h3 class="org-subtitle">Доставка</h3>
+                            <p class="org-subtext org-subtext--b">{{ workflow.deliveryDetail }}</p>
+                        {% endif %}
+
+                        {% if workflow.guarantee and workflow.guaranteeDetail %}
+                            <h3 class="org-subtitle">Гарантия</h3>
+                            <p class="org-subtext org-subtext--b">{{ workflow.guaranteeDetail }}</p>
+                        {% endif %}
+
+                        <div class="card-contact">
+                            {% if company.additionalPhone %}
+                                <a href="tel:{{ company.additionalPhone }}" class="contact" data-text="{{ company.additionalPhone }}"></a>
+                            {% endif %}
+                            {% if company.additionalPhone2 %}
+                                <a href="tel:{{ company.additionalPhone2 }}" class="contact" data-text="{{ company.additionalPhone2 }}"></a>
+                            {% endif %}
+                            {% if company.additionalPhone2 %}
+                                <a href="tel:{{ company.additionalPhone2 }}" class="contact" data-text="{{ company.additionalPhone2 }}"></a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <section class="art-block">
+                            <h2 class="art-title">Последние публикации</h2>
+                            <ul class="art-list">
+                                {% for addPost in post.getUserLastPosts() %}
+                                    <li>
+                                        <a href="{{ addPost.type == "simple" ? path("post_view_show_car_post", {id : addPost.id}) : path("post_view_show_business_post", {id : addPost.id}) }}" class="article-link">
+                                            <h3 class="article-title">{{ addPost.headline ? addPost.headline : post.client.country ~ " <BR> " ~ post.client.city }}</h3>
+                                            <div class="article-foto">
+                                                <img src="{{ image_url(addPost.postPhotos.first.image.image) }}" alt="Картинка">
+                                            </div>
+                                            <h4 class="article-subtitle ellipsize-text-box">{{ addPost.headline ? addPost.headline : (addPost.description ? addPost.description : "") }}</h4>
+                                            <div class="article-block">
+                                                <span class="article-date">{{ addPost.createdAt | date("d.m.Y") }}</span>
+                                                <span class="article-time">{{ addPost.createdAt | date("H:i") }}</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </section>
+                    {% endif %}
+                </section>
+            </section>
+        </div>
+
+    </main>
+{% endblock %}

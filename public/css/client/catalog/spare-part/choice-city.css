@@ -105,12 +105,8 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
-}
-.brand-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 #text1 {
@@ -142,7 +138,18 @@ cursor: default;
 .text-block {
     margin-bottom: 40px;
 }
-
+.allText-1 {
+    border: none;
+    background-color: #fff;
+    display: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 5px;
+      margin: 10px auto;
+    cursor: pointer;
+    outline: none;
+}
 .brand-block {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -156,6 +163,7 @@ cursor: default;
     -ms-flex-align: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 
 }
 .brand-block li {
@@ -216,12 +224,9 @@ cursor: default;
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+    color: #2980b9;
 }
-.turbo-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 
 
 .subtext {
@@ -239,7 +244,7 @@ cursor: default;
 .card-img {
     position: relative;
     margin-left: 10px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     width: 255px;
     height: 170px;
 }
@@ -248,9 +253,8 @@ cursor: default;
     position: absolute;
     bottom: -10px;
     left: -10px;
-    padding: 3px 15px;
-    padding-bottom: 2px;
-    border: 2px solid #999999;
+    padding: 1px 15px;
+    border: 1px solid #999999;
     border-radius: 5px;
     color: #000000;
     font-size: 16px;
@@ -262,7 +266,7 @@ cursor: default;
 
 .link-s:hover,
 .link-s:focus {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 .link-button {
     display: -webkit-box;
@@ -299,7 +303,7 @@ cursor: default;
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 2px solid #999999;
+    border: 1px solid #999999;
     border-radius: 5px;
     margin: 5px;
     padding: 2px;
@@ -330,7 +334,7 @@ td {
 
 }
 tr {
-    border-bottom: 1px dashed #999999;
+    border-bottom: 1px dashed #d0d0d0;
 }
 .tabl {
     font-weight: 400;
@@ -456,18 +460,19 @@ tr {
 
     .brand-block {
         margin: 0 auto;
-        width: 300px;
+        width: 310px;
+        margin-bottom: 30px;
        
     }
     .brand-block li {
-        margin: 0 5px;
+        margin: 0 4px;
         margin-bottom: 15px;
     }
    
     .link {
-        width: 90px;
-        font-size: 14px;
-        line-height: 16px;
+        width: 95px;
+        font-size: 12px;
+        line-height: 14px;
     }
     .button {
      width: 110px;

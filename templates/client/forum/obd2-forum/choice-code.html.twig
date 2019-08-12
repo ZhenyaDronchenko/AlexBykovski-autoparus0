@@ -4,7 +4,63 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/forum/choice-code.css'>
 {% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set templateParameters = {"brand" : brand, "type": type} %}
+    <main class="container">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("obd2_forum_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span>
+                <span itemprop="name">OBD2 ошибки</span>
+                    <meta itemprop="position" content="2">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("obd2_forum_choice_type", {"urlBrand" : routeParams["urlBrand"]}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span>
+                <span itemprop="name">{{ brand.brandEn }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item"><span class="line">/</span>
+                <span itemprop="name">Ошибка работы двигателя или АКПП</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+        </ul>
+
+        <section class="code">
+            <h1 class="title">{{ page.headline1 }}</h1>
+            <div class="text">{{ page.text1 | raw }}</div>
+            <div class="business" id="form-obd2-code" ng-controller="OBD2CodeCtrl as obd2"
+                 ng-init="obd2.init('#obd2-code-form', '{{ path("ajax_check_obd2_code", {"urlType" : routeParams["urlType"]}) }}', '{{ path("obd2_forum_choice_model", routeParams|merge({"urlCode" : "__url_code__"})) }}')">
+                {% include('/client/forum/obd2-forum/forms/code-form.twig') with {"form" : form, "type" : type} %}
+            </div>
+            <h2 class="subtitle">{{ page.headline2 }}</h2>
+            <div class="text text-m">{{ page.text2 | raw }}</div>
+
+            <div class="btn-block">
+                <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/directive/input-by-pattern.js"></script>
+    <script src="/js/client/directive/search-field.js"></script>
+    <script src="/js/client/controller/catalog/obd2-error/obd2-code-controller.js"></script>
 {% endblock %}

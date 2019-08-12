@@ -102,19 +102,15 @@ cursor: default;
 
 .title-main {
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
 
-.title-main::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 
 
 .help {
@@ -145,8 +141,8 @@ cursor: default;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .select-s {
     margin-top: 0;
@@ -174,6 +170,8 @@ input {
     line-height: 20px;
     color: #000000;
     background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 select {
@@ -185,6 +183,8 @@ select {
     border-bottom: 1px solid #757373;
     margin-left: 10px;
     background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
 
 }
 .engine-select {
@@ -425,16 +425,15 @@ textarea {
     font-size: 22px;
     line-height: 24px;
     font-weight: 400;
-    color: #000;
+    color: green;
     margin-right: 50px;
-    text-decoration: underline;
 }
 .add-img:hover {
-    color: red;
+    color: #2d710b;
 }
 
 .img {
-    width: 90px;
+    width: auto;
     height: 60px;
     margin-right: 20px;
 }
@@ -444,7 +443,7 @@ textarea {
     margin-bottom: 40px;
 }
 .name-input {
-    width: 150px;
+    width: 80px;
     margin: 0 10px;
 }
 
@@ -455,6 +454,10 @@ textarea {
     color: green;
     text-align: center;
     margin-bottom: 15px;
+}
+.price-c span {
+    font-size: 16px;
+    line-height: 18px;
 }
 .load {
     display: block;
@@ -497,7 +500,7 @@ textarea {
 
 .btn {
     display: block;
-    padding: 5px 25px;
+    padding: 5px 20px;
     text-align: center;
     border: 1px solid #737373;
     border-radius: 3px;
@@ -530,45 +533,48 @@ textarea {
 
 
 .modal {
-    position: fixed;
-    top: 100px;
-    left: 50%;
-    width: 700px;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    text-align: center;
-    background-color: #fff;
-    padding: 25px 15px;
-    padding-top: 50px;
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  width: 850px;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: #fff;
+  padding: 70px 55px;
+  padding-bottom: 0px;
+  border-radius: 5px;
 }
 
 .modal-close {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    position: absolute;
-    right: 7px;
-    top: 7px;
-    cursor: pointer;
-    border: 1px solid #737373;
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 2px;
-    outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+  border: 1px solid #737373;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 2px;
+  outline: none;
 
 }
 
-.modal-close:hover {
-    border: 1px solid red;
+.modal-close svg:hover line,
+.modal-close svg:focus line {
+    stroke: red;
 }
+
 
 
 .modal-title {
@@ -577,8 +583,7 @@ textarea {
     color: #000;
     font-size: 24px;
     font-weight: 400;
-    line-height: 28px;
-    text-transform: uppercase;
+    line-height: 26px;
     text-align: center;
 
 }
@@ -587,11 +592,10 @@ textarea {
     margin: 0;
     color: #000;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 18px;
-  
-}
 
+}
 
 .state-text {
     font-size: 18px;
@@ -637,7 +641,10 @@ textarea {
         font-size: 16px;
         line-height: 18px;
     }
-
+.price-c span {
+    font-size: 12px;
+    line-height: 14px;
+}
     input {
         font-size: 15px;
         line-height: 18px;
@@ -744,14 +751,14 @@ textarea {
     }
 
     .img {
-        width: 75px;
+        width: auto;
         height: 50px;
         margin-right: 10px;
     }
 
 
     .name-input {
-        width: 85px;
+        width: 60px;
     }
 
     .prompt-c {

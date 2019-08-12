@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-auto-bigset.css'>
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <ul id="breadcrumbs">
+        <li>
+            <a class="user-link user-link--icon" href="#" title="Главная">
+                <span class="user-name">Евгений Игоревич</span>
+                <svg class="user-icon" width="20px" height="20px" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.72222 30V28.5H7.22222H6.5V25.1323L8.47907 14H41.5209L43.5 25.1323V28.5H42.7778H41.2778V30V43.5H39.8333V30V28.5H38.3333H29.4444H27.9444V30V43.5H8.72222V30ZM25 41.5H26.5V40V30V28.5H25H11.6667H10.1667V30V40V41.5H11.6667H25ZM8.72222 6.5H41.2778V8.5H8.72222V6.5Z" stroke="#737373" stroke-width="3"/>
+                </svg>
+            </a>
+        </li>
+        <li><a class="link-b" href="#"><span class="line">/</span>Товары </a></li>
+        <li><a class="link-b" href="#"><span class="line">/</span>Автозапчасти</a></li>
+        <li><a class="current"><span class="line">/</span><span itemprop="name">Добавление комплектов</span></a></li>
+      </ul>
+
+      <section class="bigset">
+        <h1 class="title-main">Комплексная подача комплектов</h1>
+        <form class="user-form" action="" method="POST">
+          <select  class="mark-select">
+            <option value="" selected="selected">Выберите марку</option>
+            <option value="14">ACURA</option>
+            <option value="15">ALFA ROMEO</option>
+          </select>
+          <span class="prompt">Выберите марку</span>
+
+          <div class="model-block">
+            <button  type="button" class="btn">Отметить все модели (ENBRAND)</button>
+            <ul class="pay-sel">
+              <li class="pay-item">
+                <input type="checkbox" id="item1" name="item1" class="visually-hidden filter-input filter-input-checkbox spare-part-checkbox" >
+                <label for="item1">Avensis (2003-2008), T25</label>
+              </li>
+
+              <li class="pay-item">
+                <input type="checkbox" id="item2" name="item1" class="visually-hidden filter-input filter-input-checkbox spare-part-checkbox" >
+                <label for="item2">Corola Verso (2007-2012)</label>
+              </li>
+
+              <li class="pay-item">
+                <input type="checkbox" id="item3" name="item1" class="visually-hidden filter-input filter-input-checkbox spare-part-checkbox" >
+                <label for="item3">HC-R (2001-2017)</label>
+              </li>
+
+              <li class="pay-item">
+                <input type="checkbox" id="item4" name="item1" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" >
+                <label for="item4">Corola Verso R (20011-2018), R18</label>
+              </li>
+              <li class="pay-item">
+                <input type="checkbox" id="item5" name="item1" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" >
+                <label for="item5">Hi Lux (2011-2018)</label>
+              </li>
+              
+            </ul>
+          </div>
+
+          <h2 class="subtitle">Отметьте состояние и наличие</h2>
+          <div class="state">
+            <div class="state-item">
+              <div class="state-block">
+                <h3 class="state-title">Состояние:</h3>
+              </div>
+              <ul class="state-select">
+                <li class="state-option">
+                  <input type="radio" id="set1" name="auto_set" required="required" class="visually-hidden filter-input filter-input-radio">
+                  <label for="set1" class="required">Б/У</label>
+                </li>
+                <li class="state-option">
+                  <input type="radio" id="set2" name="auto_set" required="required" class="visually-hidden filter-input filter-input-radio" value="new" checked="checked">
+                  <label for="set2" class="required">Новая(й)</label>
+                </li>
+              </ul>
+            </div>
+
+            <div class="state-item state-item--m">
+              <div class="state-block">
+                <h3 class="state-title">Наличие:</h3>
+              </div>
+              <ul class="state-select">
+                <li class="state-option">
+                  <input type="radio" id="set3" name="auto_set1" required="required" class="visually-hidden filter-input filter-input-radio"  checked="checked">
+                  <label for="set3" class="required">В наличии</label>
+              </li>
+                <li class="state-option">
+                  <input type="radio" id="set4" name="auto_set1" class="visually-hidden filter-input filter-input-radio">
+                  <label for="set4" class="required">На заказ</label>
+              </li>
+            </ul>
+          </div>
+          </div>
+
+          <div>
+            <textarea  required="required" rows="5" placeholder="Описание:"></textarea>
+            <span class="state-check">Введите описание</span>
+          </div>
+
+          <div class="img-block">
+            <a id="initiator-upload-image" nohref="" class="add-img">Добавить изображение:</a>
+            <input id="upload-image-input" type="file" style="display: none">
+            <img id="preview-image" class="img" src="img/maz1.jpg" alt="">
+            <input type="hidden" autocomplete="off">
+          </div>
+
+          <section class="set-list">
+            <h2 class="subtitle">Отметьте предлагаемые товары</h2>
+            <button class="btn" type="button">Отметить все запчасти (товары)</button>
+            <span class="prompt prompt--l">Выберите хотя бы одну запчасть</span>
+            <ul class="list">
+                                                        
+              <li class="letter" data-text="A"></li>
+            
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_0_isChecked" name="auto_set_form[spareParts][0][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_0_isChecked">Android автомагнитола (мультимедийная система)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_0_cost" name="auto_set_form[spareParts][0][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                                  
+                  <li class="letter" data-text="А"></li>
+              
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_1_isChecked" name="auto_set_form[spareParts][1][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_1_isChecked">Автоковрики салона, багажника (ковры салона, багажника)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_1_cost" name="auto_set_form[spareParts][1][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                  
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_2_isChecked" name="auto_set_form[spareParts][2][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_2_isChecked">Автономный отопитель (отопитель салона автомобиля)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_2_cost" name="auto_set_form[spareParts][2][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                  
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_3_isChecked" name="auto_set_form[spareParts][3][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_3_isChecked">Аккумулятор, АКБ батарея (аккумуляторная батарея)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_3_cost" name="auto_set_form[spareParts][3][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+                                  
+              <li class="item">
+                  <input type="checkbox" id="auto_set_form_spareParts_4_isChecked" name="auto_set_form[spareParts][4][isChecked]" class="visually-hidden filter-input filter-input-checkbox checkbox-spare-part" value="1">
+                  <label class="list-name" for="auto_set_form_spareParts_4_isChecked">Активатор лючка бака (соленоид открытия багажника)</label>
+                  <label class="price-c">
+                      <input type="text" id="auto_set_form_spareParts_4_cost" name="auto_set_form[spareParts][4][cost]" class="name-input ng-scope" placeholder="Цена" input-by-pattern="" pattern="[\d\.]">
+                      BYN (Бел Руб)
+                  </label>
+              </li>
+            
+            </ul>
+          </section>
+
+          <ul class="btn-list">
+            <li>
+                <button type="submit" class="button" data-name="submit" disabled="">Добавить выбранные позиции</button>
+            </li>
+            <li>
+                <button type="submit" class="button" disabled="">Добавить и продолжить добавление с выбранными позициями запчастей</button>
+            </li>
+        </ul>
+
+        <p>Просмотр поданных товаров Вы сможете осушествить в разделе просмотр поданных объявлений в подразделе товарные объявления.</p>
+
+        </form>
+      </section>
+    </main>
+
+    <div id="popup2" class="overlay2">
+      <div class="modal2">
+        <div id="preloader" style="display: none;">
+          <span class="load">Подождите, идет проверка и подача объявлений</span>
+          <img id="preloader-posts" src="/img/preload-gear.svg"/>
+        </div>
+      </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/controller/user-profile/product-categories/spare-part/add-auto-set-controller.js'></script>
+    <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>
+    <script src='/js/client/service/user-profile/auto-spare-part-advert/set-car-data-service.js'></script>
+    <script src='/js/client/service/image-upload-service.js'></script>
+    <script src='/js/client/directive/user-profile/auto-spare-part-advert/get-car-data-by-parameters-directive.js'></script>
+    <script src='/js/client/directive/input-by-pattern.js'></script>
+{% endblock %}

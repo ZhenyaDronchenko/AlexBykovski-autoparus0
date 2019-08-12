@@ -10,6 +10,7 @@
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container" ng-init="showAll = false">
+        <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
@@ -34,18 +35,12 @@
         </ul>
 
         <section class="brand">
-            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>
-            <div class="subtext-block">
-                <div class="img-wrapper">
-                    <a href="{{ path("show_brand_catalog_choice_model", routeParams) }}" style="display: contents">
-                        <img src="{{ image_url(brand.thumbnailLogo64) }}" alt="{{ brand.brandEn }}" title="Запчасти для {{ brand.brandEn }}">
-                    </a>
-                </div>
-                <div class="text-block">
-                    <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
-                </div>
+            <h1 class="brand-title">{{ page.headline1 }}</h1>
+           
+            <div class="text-block">
+                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
             </div>
-
+            
             <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
                 <input id="model-autocomplete" class="select" type="search"
                        auto-сomplete-autoparus add-url="{{ path("turbo_catalog_choice_model", routeParams) }}"
@@ -71,17 +66,22 @@
                 <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id="allText2" type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
                 <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id="allText2" type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
+            </section>
+            <section class="brand-b">
 
+            <h2 class="turbo-subtitle">{{ page.headline2 }}</h2>
+            
+                <a class="img-r" href="{{ path("show_brand_catalog_choice_model", routeParams) }}" >
+                    <img src="{{ image_url(brand.thumbnailLogo64) }}" alt="{{ brand.brandEn }}" title="Запчасти для {{ brand.brandEn }}">
+                </a>
 
-            <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
-            <div class="subtext-block subtext-block-m">
-                <div class="subtext">{{ page.text2 | raw }}</div>
-                <div class="img-wrapper">
-                    <a href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brandToyota.url}) }}" style="display: contents">
-                        <img src="{{ image_url(brandToyota.thumbnailLogo64) }}" alt="Toyota" title="Запчасти для автомобилей Toyota">
-                    </a>
-                </div>
-            </div>
+                <a class="img-l" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brandToyota.url}) }}" >
+                    <img src="{{ image_url(brandToyota.thumbnailLogo64) }}" alt="Toyota" title="Запчасти для автомобилей Toyota">
+                </a>
+
+            <div class="subtext">{{ page.text2 | raw }} </div>
+
         </section>
+        </div>
     </main>
 {% endblock %}

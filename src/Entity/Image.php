@@ -47,7 +47,6 @@ class Image
      */
     private $geoLocation;
 
-
     /**
      * @var DateTime
      *
@@ -156,7 +155,7 @@ class Image
             return false;
         }
 
-        $this->setImage(FileUpload::fileToWebP($this->getImage()));
+        //$this->setImage(FileUpload::fileToWebP($this->getImage()));
 
         return true;
     }

@@ -18,7 +18,7 @@ class BamperSuggestionProvider
 
     public function provide(Brand $brand, ?Model $model, SparePart $sparePart, City $city = null, $inStock = true)
     {
-        if(!$brand || !$model || !$sparePart || !(!$city || $city->getUrl() === City::CAPITAL)){
+        if(!$brand || !$model || !$sparePart){
             return [];
         }
 
@@ -26,6 +26,10 @@ class BamperSuggestionProvider
         $modelYearFrom = $model->getTechnicalData()->getYearFrom();
         $modelYearTo = $model->getTechnicalData()->getYearTo();
         $crawler = $this->getExternalData($brand->getUrlConnectBamperIncludeBase(), $model->getUrlConnectBamperIncludeBase(), $modelYearFrom, $modelYearTo, $sparePart->getUrlConnectBamperIncludeBase(), $cityUrl, $inStock);
+
+        if(!$crawler){
+            return [];
+        }
 
         $suggestions = $this->parseSuggestions($crawler);
 
@@ -51,6 +55,10 @@ class BamperSuggestionProvider
 
     protected function getExternalData($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock)
     {
+        if(!$brandUrl || !$modelUrl || !$sparePartUrl){
+            return false;
+        }
+
         $url = $this->generateUrl($brandUrl, $modelUrl, $modelYearFrom, $modelYearTo, $sparePartUrl, $cityUrl, $inStock);
 
         $response = $this->request($url);

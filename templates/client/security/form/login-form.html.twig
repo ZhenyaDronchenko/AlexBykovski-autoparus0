@@ -14,7 +14,7 @@
 
     {% set mainForm = form.createView %}
     {% set isEmail = '@' in mainForm.username.vars.value or not mainForm.username.vars.value %}
-    <form id="login-form1" {{ isEmail ? "true" : "false" }} class="registration login-form login-form1" action="" method="post" novalidate>
+    <form id="login-form1" {{ isEmail ? "true" : "false" }} class="registration-list login-form login-form1" action="" method="post" novalidate>
         {{ form_widget(mainForm._token) }}
         <fieldset>
             <legend class="registration-title" data-text="{{ page.headline }}"></legend>

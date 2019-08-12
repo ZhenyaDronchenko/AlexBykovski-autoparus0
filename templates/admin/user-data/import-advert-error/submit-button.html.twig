@@ -1,0 +1,31 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    {% set notFound = "Строка 0: нет данных или не найдено соответствие по полю: " in object.issue %}
+    {% set noneModel = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::MODEL_HEADERS') %}
+    {% set noneBrand = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::BRAND_HEADERS') %}
+    {% set noneSparePart = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::SPARE_PART_HEADERS') %}
+    {% set noneYear = notFound and object.issueField in constant('App\\ImportAdvert\\ImportChecker::YEAR_HEADERS') %}
+    {% set multipleYear = object.issue == "Строка 0: найдено несколько соответствий по полю: МОДЕЛЬ" %}
+
+    {% if noneBrand or noneSparePart %}
+        <input type="text" id="solution-{{ object.id }}" name="keyword"
+                class="{{ noneBrand ? "brand-solution" : "spare-part-solution" }} error-solution" data-type="{{ noneBrand ? "brand" : "spare-part" }}">
+    {% elseif noneModel %}
+        {% set brand = get_object("App\\Entity\\Brand", "find", object.decodeParsedValues('brand')) %}
+        <input type="text" id="solution-{{ object.id }}" data-options='{"brand" : "{{ brand.url }}"}'
+               class="model-solution error-solution" data-type="model"
+               name="keyword[]" multiple="multiple">
+    {% elseif multipleYear %}
+        {% set brandId = object.decodeParsedValues('brand') %}
+        <a class="btn btn-primary year-solution" href="{{ path("admin_app_brand_model_list", {"id" : brandId}) }}" target="_blank">В список моделей</a>
+    {% elseif noneYear %}
+        {% set brandId = object.decodeParsedValues('brand') %}
+        {% set modelId = object.decodeParsedValues('model') %}
+        <a class="btn btn-primary year-solution" href="{{ path("admin_app_brand_model_edit", {"id" : brandId, "childId" : modelId}) }}" target="_blank">В Модель</a>
+    {% endif %}
+
+    {% if noneModel or noneBrand or noneSparePart %}
+        <a class="btn btn-success" style="margin-top: 20px;" onclick="saveSolution({{ object.id }})">Сохранить</a>
+    {% endif %}
+{% endblock %}

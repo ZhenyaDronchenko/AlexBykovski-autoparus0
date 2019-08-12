@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+{% block meta_description %}{{ article.description }}{% endblock %}
+
+{% block stylesheets %}
+	<link rel='stylesheet' href='/css/client/catalog/article/show-article.css'>
+{% endblock %}
+
+{% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set route = app.request.attributes.get('_route') %}
+
+    <main class="container">
+      <section class="main-page">
+      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemtype="https://schema.org/Thing"
+                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item" content="{{ url("homepage") }}">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_theme") }}"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Публикации</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ theme.theme }}</span>
+                </a>
+                <meta itemprop="position" content="3">
+            </li>
+
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" href="" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ article.headline1 }}</span>
+                    <meta itemprop="position" content="4">
+                </a>
+            </li>
+        </ul>
+
+        <div class="news" itemscope itemtype="http://schema.org/Article">
+            <link itemprop="mainEntityOfPage" href="https://www.autoparus.by/">
+            <div class="wrapper">
+              <div class="block-left">
+                <meta itemprop="datePublished" content="{{ article.createdAt | date("Y-m-d") }}">
+                <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
+                <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                  <meta itemprop="name" content="Автопарус">
+                  <meta itemprop="telephone" content="+375 (25) 640 - 22 - 40">
+                  <meta itemprop="address" content="Минск">
+                  <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                    <meta itemprop="url image" content="{{ article.creator.photo ? image_url(article.creator.photo.image) : "" }}" style="display:none;">
+                    <meta itemprop="width" content="60">
+                    <meta itemprop="height" content="60">
+                  </span>
+                </span>
+                <h1 itemprop="headline name">{{ article.headline1 }}</h1>
+                <h2 class="news-title" itemprop="alternativeHeadline">{{ article.headline2 }}</h2>
+
+                  <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                        <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
+                        <figcaption>
+                            {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
+                            <span itemprop="name" content="{{ article.mainArticleImage.author }}">Автор: {{ article.author }}</span>
+                        </figcaption>
+                    </figure>
+
+                  <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
+
+                  <ul class="foto" itemprop="articleBody">
+                        {% for articleImage in article.articleImages %}
+                            <li class="foto-item">
+                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи" itemprop="image">
+                                <p class="foto-text">{{ articleImage.text | raw }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="block-right">
+                  <div class="block-cons">
+                    <h2 class="block-ttl">Заказать Консультацию о покупке авто из США</h2>
+                    <input type="text"  placeholder="Ваше имя" class="input" pattern="[a-zA-Zа-яА-Я\s]">
+                    <input type="tel"  required="required" placeholder="Ваш телефон" class="input">
+                    <input type="email" placeholder="Ваш e-mail" class="input">
+                    <button type="submit" class="btn">Отправить заявку</button>
+                   
+                    <h3>{{ default_text(48).headline }}</h3>
+                    <div>{{ default_text(48).text | raw }}</div>
+                  </div>
+                  <div class="block-part">
+                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти по марке", "nullOption" : "Марка авто:", "options" : brands, "link" : path("show_brand_catalog_choice_model", {"urlBrand" : "__link__"}), "bannerIndex" : 0} %}
+                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "OBD2 форум", "nullOption" : "Марка авто:", "options" : brands, "link" : path("obd2_forum_choice_type", {"urlBrand" : "__link__"}), "bannerIndex" : 1} %}
+                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Короткие публикации", "nullOption" : "Марка авто:", "options" : brands, "link" : path("homepage_filter_brand", {"urlBrand" : "__link__"}), "bannerIndex" : 2} %}
+                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Поиск по наименованию", "nullOption" : "Запчасть:", "options" : spareParts, "link" : path("show_spare_part_catalog_choice_brand", {"urlSP" : "__link__"}), "bannerIndex" : 3} %}
+
+                      {% set bannerIndex = 4 %}
+                      {% for banner in article.banners[4:] %}
+                          {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "", "nullOption" : "", "options" : [], "link" : '', "bannerIndex" : bannerIndex} %}
+                          {% set bannerIndex = bannerIndex + 1 %}
+                      {% endfor %}
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

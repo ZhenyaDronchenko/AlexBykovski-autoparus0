@@ -106,16 +106,13 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-     color: #f66666;
+      color: #2980b9;
     text-align: center;
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
-.title-main::before { /* второй слой */
- content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 
 .block-product {
     display: -moz-flex;
@@ -184,16 +181,10 @@ cursor: default;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-     color: #f66666;
+    color: #2980b9;
     text-align: center;
     margin-bottom: 30px;
 }
-
-.subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
-
 
 .help {
     border: none;
@@ -274,6 +265,9 @@ input {
     line-height: 20px;
     color: #000000;
     background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
+
 
 }
 
@@ -286,6 +280,9 @@ select {
     border-bottom: 1px solid #757373;
     margin-left: 10px;
     background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0;
+
 
 }
 .select-item {
@@ -601,11 +598,12 @@ textarea {
 }
 
 .status-block {
-    width: 48%;
-    border-bottom: 1px solid #737373;
+    width: 45%;
+    border-bottom: 1px solid #cccccc;
 }
 
 .status-title {
+    color: #999999;
     margin: 0;
     margin-bottom: 15px;
     font-size: 22px;
@@ -623,7 +621,7 @@ textarea {
     padding-bottom: 3px;
     margin: 0 auto;
     color: #444444;
-    border: 1px solid 737373;
+    border: 1px solid #737373;
     cursor: pointer;
     background-color: #dbc0c7;
     border-radius: 3px;
@@ -764,9 +762,9 @@ textarea {
 }
 
 .pay-name {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 700;
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: 400;
 }
 
 .check {
@@ -818,16 +816,18 @@ textarea {
 
 
 .modal {
-    position: fixed;
+        position: fixed;
     top: 100px;
     left: 50%;
-    width: 60%;
+    width: 850px;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     text-align: center;
     background-color: #fff;
-    padding: 50px 10px;
+    padding: 70px 55px;
+    padding-bottom: 0px;
+    border-radius: 5px;
 }
 
 .modal-close {
@@ -862,7 +862,7 @@ textarea {
 
 .modal-title {
     margin: 0;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     color: #000;
     font-size: 22px;
     font-weight: 400;
@@ -1159,8 +1159,9 @@ textarea {
         line-height: 16px;
     }
     .modal {
-        top: 50px;
-        width: 80%;
+    top: 10px;
+    width: 90%;
+    padding: 50px 10px;
     }
     .modal-title {
         font-size: 20px;
@@ -1440,7 +1441,7 @@ textarea {
     }
     .modal {
         top: 50px;
-        width: 80%;
+    width: 650px;
     }
     .modal-title {
         margin-bottom: 10px;

@@ -25,29 +25,32 @@
         {#<meta name="theme-color" content="#ffffff">#}
         {#<link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&amp;subset=cyrillic" rel="stylesheet">#}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel='stylesheet' href='/bower-components/Jcrop/css/Jcrop.min.css'>
+        <link rel='stylesheet' href='/bower-components/Croppie/croppie.css'>
         {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons"#}
               {#rel="stylesheet">#}
     </head>
-    <body ng-controller="GalleryCtrl as gallery">
+    <body ng-controller="PostsCtrl as postsCtrl">
     {% set isUserOffice = app.request.attributes.get('_route') == "show_user_office" %}
-        <header class="container">
-            <div class="header">
-                <div class="block-logo">
-                    <img src="/img/Logo1.svg" alt="Логотип">
-                    <a class="header-logo" href='{{ path("homepage") }}' data-text="Автопарус"></a>
-                </div>
-                <button class="burger" onclick='menuActive()' type="button">
-                    <span id='g-1' class='gamburger'></span>
-                    <span id='g-2' class='gamburger'></span>
-                    <span id='g-3' class='gamburger'></span>
-                </button>
-            </div>
-
-            <nav id='menu' class="nav">
+        <div class="container">
+      <header class="header">
+        <div class="header-top">
+          <div class="block-logo">
+          {% set mainPage = get_object("App\\Entity\\General\\MainPage", "findBy", {})[0] %}
+            <a href="{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}">
+                <img src="{{ image_url(mainPage.logo) }}" alt="www.Autoparus.by">
+            </a>
+          </div>
+          <button class="burger" onclick='menuActive()' type="button">
+            <span id='g-1' class='gamburger'></span>
+            <span id='g-2' class='gamburger'></span>
+            <span id='g-3' class='gamburger'></span>
+          </button>
+        </div>
+        <div class="header-menu">
+            <div id='menu' class="nav">
                 <div class='nav-block'>
                     <ul class='nav-list nav-list-m'>
-                        <li class='item-o'><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Автозапчасти</a></li>
+                        <li class='item-o'><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Поиск по наименованию</a></li>
                         <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Поиск з/ч по марке</a></li>
                         <li class='item item-m'><a href="{{ path("show_city_catalog_choice_city") }}">Поиск з/ч по городу</a></li>
                     </ul>
@@ -60,7 +63,7 @@
                                 <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
                             {% endif %}
                             {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Admin</a></li>
+                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Main Admin</a></li>
                             {% else %}
                                 <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}" style="color: #ff0000;">{{ userName }}</a></li>
                             {% endif %}
@@ -77,14 +80,71 @@
                         <li class='item'><a href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
                         <li class='item'><a href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
                     </ul>
-                    <ul class='nav-list'>
-                        <li><a href="{{ path("general_news_page") }}">Новости</a></li>
+                    <ul class='nav-list nav-list-m'>
+                        <li class='band'><a href="{{ path("article_catalog_choice_theme") }}">Лента публикаций</a></li>
                         <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Форум Ошибок ОBD2</a></li>
+                        <li><a href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
                     </ul>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </div>
+        <div class="header-nav">
+          <nav>
+            <ul class="header-navigation">
+              {#<li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}" title="{{ title_provider({"link" : path("show_brand_catalog_choice_brand")}) }}">Автозапчасти</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}" title="{{ title_provider({"link" : path("show_city_catalog_choice_city")}) }}">Заказ-заявки</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}" title="{{ title_provider({"link" : path("obd2_forum_choice_brand")}) }}">OBD2 ошибки</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("general_to_seller_page") }}" title="{{ title_provider({"link" : path("general_to_seller_page")}) }}">Продавцам</a></li>#}
+              {#<li><a class="nav-link" href="{{ path("general_to_users_page") }}" title="{{ title_provider({"link" : path("general_to_users_page")}) }}">О нас</a></li>#}
+                <li><a class="nav-link" href="{{ path("show_brand_catalog_choice_brand") }}">Автозапчасти</a></li>
+                <li><a class="nav-link" href="{{ path("show_city_catalog_choice_city") }}">Заказ-заявки</a></li>
+                <li><a class="nav-link" href="{{ path("obd2_forum_choice_brand") }}">OBD2 ошибки</a></li>
+                <li><a class="nav-link" href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
+                <li><a class="nav-link" href="{{ path("general_to_users_page") }}">О нас</a></li>
+            </ul>
+          </nav>
+          <ul class="registration">
+              {% if app.user %}
+                  {#<li><a class="registration-link" href="{{ path("show_user_office") }}" title="{{ title_provider({"link" : path("show_user_office")}) }}">Личный кабинет</a></li>#}
+                  {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
+                      <li><a class="registration-link" href="{{ path("sonata_admin_dashboard") }}">Main Admin</a></li>
+                  {% else %}
+                      <li>
+                          {% if app.request.attributes.get('_route') == "show_user_office" %}
+                              <a class="registration-link" href="{{ logout_path("main") }}">Выйти из кабинета</a>
+                          {% else %}
+                              <a class="registration-link" href="{{ path("show_user_office") }}">Личный кабинет</a>
+                          {% endif %}
+                      </li>
+                  {% endif %}
+              {% else %}
+                  {#<li><a class="registration-link" href="{{ path("login") }}" title="{{ title_provider({"link" : path("login")}) }}">Вход</a></li>#}
+                  <li><a class="registration-link" href="{{ path("login") }}">Вход</a></li>
+                  <li>/</li>
+                  {#<li><a class="registration-link" href="{{ path("registration") }}" title="{{ title_provider({"link" : path("registration")}) }}">Регистрация</a></li>#}
+                  <li><a class="registration-link" href="{{ path("registration") }}">Регистрация</a></li>
+              {% endif %}
+          </ul>
+        </div>
+
+          {% if app.request.attributes.get('_route') in constant('App\\Entity\\General\\MainPage::PAGES_WITH_VOICE_SEARCH') %}
+            <div class="main-search">
+              <form class="form" action="#" method="get" >
+                <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
+                  <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
+                      <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
+                          <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                          <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
+                      </svg>
+                  </button>
+                  <div class="main-btn">
+                    <a class="form-link" href="/brand-catalog">Автозапчасти</a>
+                  </div>
+              </form>
+            </div>
+          {% endif %}
+      </header>
+    </div>
 
         {% block body %}{% endblock %}
 
@@ -93,7 +153,7 @@
                 <nav class="navigation">
                     <ul class="navigation-block">
                         <li>
-                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ path("homepage") }}" title="Главная">
+                            <a class="navigation-link cbutton cbutton--effect-boris" href="{{ app.request.attributes.get('_route') == "homepage" ? "" : path("homepage") }}" title="Главная">
                                 <svg class="home" x="0px" y="0px" viewBox="0 0 16 16" width="40" height="40">
                                     <polyline fill="none"  stroke="#444444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
                                     <polyline fill="none" stroke="#444444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5 13.5,13.5 13.5,7 "/>
@@ -127,11 +187,11 @@
                                 </li>
                             {% else %}
                                 <li>
-                                    <a ng-init="gallery.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
+                                    <a ng-init="postsCtrl.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="postsCtrl.activePost = postsCtrl.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
                                         <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
                                     </a>
 
-                                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="gallery.editPost">
+                                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="postsCtrl.editPost">
                                 </li>
                             {% endif %}
                         {% else %}
@@ -193,7 +253,7 @@
                         <button type="button" class="button-home us-btn3 move-to-popup" data-popup="4"><span>Далее </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
                     </div>
 
-                    <div id="image-preview-container-gallery" class="img-cont">
+                    <div id="image-preview-container-gallery" class="img-cont cropper-container">
                         <img class="modal-img" src="" alt="Фото" style="display: none">
                     </div>
                 </section>
@@ -210,10 +270,28 @@
                         </button>
                     </div>
 
-                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="gallery.activePost.description"></textarea>
+                    <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="postsCtrl.activePost.description"></textarea>
                 </section>
             </div>
         {% endif %}
+
+        <div id="popup1" class="overlay1 modal--show" style="display: none;">
+            <div class="modal1">
+                <div class="mike">
+                    <div id="microphone-image" class="mike-img">
+                        <svg fill="red" viewBox="0 0 40 59.5" width="60" height="80">
+                            <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                            <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
+                        </svg>
+                    </div>
+                    <span id="text-from-microphone" class="mike-text"></span>
+
+                    <button id="initiator-close-popup1"
+                            class="button-cl close-popup-button"><span>Закрыть</span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <script src="/bundles/fosjsrouting/js/router.min.js"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
@@ -223,7 +301,7 @@
         <script src='/bower-components/jquery/dist/jquery.min.js'></script>
         <script src='/bower-components/jquery-ui/jquery-ui.min.js'></script>
         <script src='/bower-components/jquery.maskedinput/dist/jquery.maskedinput.js'></script>
-        <script src="/bower-components/ng-rollbar/ng-rollbar.min.js"></script>
+        {#<script src="/bower-components/ng-rollbar/ng-rollbar.min.js"></script>#}
         <script src='/js/general-settings.js'></script>
         <script src='/js/script-new.js' ></script>
         <script src='/js/client/app.js' ></script>
@@ -232,15 +310,14 @@
         <script src='/js/client/directive/voice-input.js' ></script>
         <script src='/js/client/directive/redirect-to-url.js'></script>
         <script src='/js/client/directive/scroll-to-element.js' ></script>
-        <script src='/bower-components/Jcrop/js/Jcrop.min.js'></script>
+        <script src='/bower-components/Croppie/croppie.min.js'></script>
         <script src='/js/client/service/image-upload-service.js'></script>
         <script src='/js/client/directive/user-upload-link.js'></script>
-        <script src='/js/client/directive/user-profile/gallery-upload.js'></script>
         <script src='/js/client/directive/user-profile/show-more-lines.js'></script>
         <script src='/js/client/directive/custom-on-change.js'></script>
 
         {% if not isUserOffice %}
-            <script src='/js/client/controller/user-profile/gallery-controller.js'></script>
+            <script src='/js/client/controller/user-profile/posts-controller.js'></script>
         {% endif %}
 
         {% block javascripts %}

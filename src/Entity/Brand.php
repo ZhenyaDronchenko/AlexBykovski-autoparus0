@@ -124,6 +124,13 @@ class Brand implements VariableInterface
     private $thumbnailLogo64;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $keyWords;
+
+    /**
      * Brand constructor.
      */
     public function __construct()
@@ -297,6 +304,7 @@ class Brand implements VariableInterface
             "label" => $isRussianText ? $this->brandRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "id" => $this->id,
             "isRussian" => $isRussianText,
         ];
     }
@@ -369,6 +377,42 @@ class Brand implements VariableInterface
     public function setThumbnailLogo64(?string $thumbnailLogo64): void
     {
         $this->thumbnailLogo64 = $thumbnailLogo64;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getKeyWords(): ?string
+    {
+        return $this->keyWords;
+    }
+
+    /**
+     * @param null|string $keyWords
+     */
+    public function setKeyWords(?string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function addKeyWord($word)
+    {
+        $fullSame = $this->keyWords === $word;
+        $inStart = ($pos = strpos($this->keyWords,  $word . '|')) !== false && $pos === 0;
+        $inMiddle = strpos($this->keyWords,  '|' . $word . '|') !== false;
+        $inEnd = ($pos = strpos($this->keyWords,  '|' . $word)) !== false && ($pos + (strlen('|' . $word) - 1)) === strlen($this->keyWords);
+
+        if($fullSame || $inStart || $inMiddle || $inEnd){
+            return false;
+        }
+
+        if($this->keyWords){
+            $this->keyWords .= '|';
+        }
+
+        $this->keyWords .= $word;
+
+        return true;
     }
 
     /**

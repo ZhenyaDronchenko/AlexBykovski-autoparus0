@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block body %}
-    {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
-    {% set countSparePartSprecificAdverts = app.user.sellerData.advertDetail.autoSparePartSpecificAdverts | length %}
+    {% set countSparePartGeneralAdverts = adverts_count(app.user, "general") %}
+    {% set countSparePartSprecificAdverts = adverts_count(app.user, "specific") %}
     {% set activeTab = app.request.query.get("tab") in ["general", "specific"] ? app.request.query.get("tab") : "" %}
     {% if not activeTab %}
         {% set activeTab = countSparePartGeneralAdverts == 0 and  countSparePartSprecificAdverts > 0 ? "specific" : "general" %}
@@ -26,11 +26,11 @@
             </li>
             <li><a class="link-b" href="{{ path("user_profile_product_categories") }}"><span class="line">/</span>Товары </a></li>
             <li><a class="link-b" href="{{ path("user_profile_product_categories_spare_part") }}"><span class="line">/</span>Автозапчасти</a></li>
-            <li><a class="current"><span class="line">/</span>Добавленные</a></li>
+            <li><a class="current"><span class="line">/</span>Мои объявления</a></li>
         </ul>
 
         <section class="prod">
-            <h1 class="title" data-text="{{ default_text(6).headline }}"></h1>
+            <h1 class="title">{{ default_text(6).headline }}</h1>
             <ul class="block-product">
                 <li class="product product--l product-1 {{ activeTab == 'general' ? "active" : ""  }}">Общие <span>({{ countSparePartGeneralAdverts }})</span></li>
                 <li class="product product--r product-2 {{ activeTab == 'specific' ? "active" : ""  }}">Товарные <span>({{ countSparePartSprecificAdverts }})</span></li>
@@ -47,7 +47,7 @@
             <ul class="btn-list">
                 <li><a class="btn" href="{{ path("user_profile_product_categories_spare_part_add_specific_advert") }}">Подать объявление о товаре</a></li>
                 <li><a class="btn" href="{{ path("user_profile_product_categories_spare_part_add_general_advert") }}">Подать групповое объявление</a></li>
-                <li><a class="btn" href="">Загрузить прайс-лист</a></li>
+                <li><a class="btn" href="{{ path("user_office_import_specific_adverts") }}">Загрузить прайс-лист</a></li>
             </ul>
         </section>
     </main>

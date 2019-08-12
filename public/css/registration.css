@@ -158,7 +158,7 @@
 
 /*user*/
 
-.registration {
+.registration-list {
   margin: 0 auto;
   padding-top: 30px;
   width: 450px;
@@ -221,9 +221,7 @@
   color: red;
   text-align: center;
 }
-.prompt-l {
-  text-align: left;
-}
+
 
 fieldset {
   border: none;
@@ -253,6 +251,8 @@ input {
   line-height: 20px;
   color: #000000;
   background-color: white !important;
+  -webkit-appearance: none;
+    border-radius: 0;
 }
 .cod {
   width: 225px;
@@ -305,7 +305,7 @@ input {
 }
 .check  {
   padding-left: 30px;
-  margin-bottom: 20px;
+ 
 }
 .check label {
   position: relative;
@@ -360,7 +360,7 @@ input {
 }
 
 .button-block {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 .text {
   margin: 0;
@@ -464,7 +464,7 @@ input {
     padding: 0 20px;
   }
 
-  .registration {
+ .registration-list {
     width: auto;
     padding-top: 30px;
   }

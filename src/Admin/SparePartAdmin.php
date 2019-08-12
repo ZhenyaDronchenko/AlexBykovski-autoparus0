@@ -93,6 +93,13 @@ class SparePartAdmin extends AbstractAdmin
         $formMapper->add('text', CKEditorType::class, ['label' => '[TEXTZAP]']);
         $formMapper->add('active', CheckboxType::class, ['label' => 'Активная', 'required' => false]);
         $formMapper->add('urlConnectBamper', TextType::class, ['label' => 'URL для коннекта с bamper.by', 'required' => false]);
+        $formMapper->add('keywords', TextType::class, [
+            'label' => 'Keywords',
+            'required' => false,
+            'attr' => [
+                'class' => "jquery-tagsinput-input",
+            ],
+        ]);
     }
 
     protected function configureListFields(ListMapper $listMapper)

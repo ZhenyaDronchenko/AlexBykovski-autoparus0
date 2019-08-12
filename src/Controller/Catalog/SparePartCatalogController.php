@@ -52,12 +52,12 @@ class SparePartCatalogController extends Controller
     }
 
     /**
-     * @Route("/{url}", name="show_spare_part_catalog_choice_brand")
+     * @Route("/{urlSP}", name="show_spare_part_catalog_choice_brand")
      */
-    public function showCatalogChoiceBrandAction(Request $request, $url, VariableTransformer $transformer)
+    public function showCatalogChoiceBrandAction(Request $request, $urlSP, VariableTransformer $transformer)
     {
         $em = $this->getDoctrine()->getManager();
-        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $url]);
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
 
         if(!($sparePart instanceof SparePart)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
@@ -230,7 +230,7 @@ class SparePartCatalogController extends Controller
         $catalogFilter = new CatalogAdvertFilterType($brand, $modelObject, $sparePart, $cityObject, null);
         $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
-        $bamberSuggestions = $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject, false);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject, false);
 
         $pageTransformed = $transformer->transformPage($page, $transformParameters);
         $pageTransformed->setReturnButtonLink($transformer->transformPage($page->getReturnButtonLink(), $transformParameters));
@@ -287,7 +287,7 @@ class SparePartCatalogController extends Controller
         $catalogFilter = new CatalogAdvertFilterType($brand, $modelObject, $sparePart, $cityObject, true);
         $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
         $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
-        $bamberSuggestions = $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject);
+        $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject);
 
         $pageTransformed = $transformer->transformPage($page, $transformParameters);
         $pageTransformed->setReturnButtonLink($transformer->transformPage($page->getReturnButtonLink(), $transformParameters));

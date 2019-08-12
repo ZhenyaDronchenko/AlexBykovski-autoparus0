@@ -3,13 +3,12 @@
 namespace App\Controller\UserOffice\ProductCategories;
 
 use App\Entity\Client\Client;
+use App\Entity\UserData\ImportAdvertFile;
 use App\ImportAdvert\ImportChecker;
 use App\ImportAdvert\ImportUploader;
 use App\Upload\FileUpload;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,12 +41,13 @@ class ImportController extends Controller
 
         try {
             $uploader->setFolder(FileUpload::IMPORT_SPECIFIC_ADVERT);
-            $uploader->setAllowMimeTypes([FileUpload::CSV_MIME_TYPE]);
+            $uploader->setAllowMimeTypes([FileUpload::CSV_MIME_TYPE, FileUpload::EXCEL_MIME_TYPE, FileUpload::EXCEL_S_MIME_TYPE]);
 
             $path = $uploader->upload($file, null, $uploader->getFilePath($file, $this->getUser()->getId()));
         }
         catch (\Exception $exception){
             $response["errors"] = ["Серверная ошибка при загрузке файла"];
+            $response["message"] = $exception->getMessage();
 
             return new JsonResponse($response);
         }
@@ -63,6 +63,9 @@ class ImportController extends Controller
      */
     public function checkIsCorrectFileImportSpecificAdvertsAction(Request $request, ImportChecker $importChecker)
     {
+        ini_set('max_execution_time', 180*60);
+        ini_set('memory_limit', -1);
+
         $response = [
             "success" => false,
         ];
@@ -84,6 +87,8 @@ class ImportController extends Controller
      */
     public function importFileSpecificAdvertsAction(Request $request, ImportUploader $importer)
     {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
         $response = [
             "success" => false,
         ];
@@ -91,7 +96,8 @@ class ImportController extends Controller
         $client = $this->getUser();
 
         $folder = $this->getParameter("upload_directory");
-        $filePath = $folder . '/' . json_decode($request->getContent(), true)["path"];
+        $relativePath = json_decode($request->getContent(), true)["path"];
+        $filePath = $folder . '/' . $relativePath;
 
         if(!file_exists($filePath)){
             $response["errors"] = ["Файл не найден. Обратитесь в техподдержку"];
@@ -99,6 +105,21 @@ class ImportController extends Controller
             return new JsonResponse($response);
         }
 
-        return new JsonResponse($importer->importFile($filePath, $client->getSellerData()->getAdvertDetail()));
+        $sellerAdvertDetail = $client->getSellerData()->getAdvertDetail();
+        $result = $importer->importFile($filePath, $sellerAdvertDetail);
+
+        $importedFiles = $em->getRepository(ImportAdvertFile::class)->findBy(["sellerAdvertDetail" => $sellerAdvertDetail]);
+
+        foreach ($importedFiles as $importedFile){
+            $em->remove($importedFile);
+        }
+
+        $fileImported = new ImportAdvertFile('/images/' . $relativePath, $result["countLines"],
+            $result["countImported"], $sellerAdvertDetail);
+
+        $em->persist($fileImported);
+        $em->flush();
+
+        return new JsonResponse($result);
     }
 }

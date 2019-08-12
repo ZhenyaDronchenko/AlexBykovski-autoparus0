@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel='stylesheet' href='/bower-components/Jcrop/css/Jcrop.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/user-office/user-office.css'>
 {% endblock %}
 
 {% block body %}
-    <div ng-controller="GalleryCtrl as gallery" ng-init="gallery.init('#dialog-cropper-container-gallery', true)">
+    <div ng-controller="PostsCtrl as posts" ng-init="posts.init('#dialog-cropper-container-gallery', '#dialog-cropper-container-post-photo', true)">
     {% set isSeller = app.user.isSeller() %}
     {% if isSeller %}
-        {% set countSparePartGeneralAdverts = app.user.sellerData.advertDetail.autoSparePartGeneralAdverts | length %}
-        {% set countSparePartSprecificAdverts = app.user.sellerData.advertDetail.autoSparePartSpecificAdverts | length %}
+        {% set countSparePartGeneralAdverts = adverts_count(app.user, "general") %}
+        {% set countSparePartSprecificAdverts = adverts_count(app.user, "specific") %}
     {% endif %}
     {% set isHasAdverts = isSeller and (countSparePartGeneralAdverts + countSparePartSprecificAdverts) > 0 %}
     <main class="container">
@@ -31,7 +32,7 @@
                                 </svg>
                             </a>
 
-                            <input id="user-photo-input" type="file" style="display: none">
+                            <input id="user-photo-input" type="file" style="display: none" accept="image/*">
                         </div>
                         <div class="user-wrapper">
                             <a href="{{ path("show_user_base_profile") }}" class="button-rp">{{ app.user.isProfileEdited() ? "Редактировать" : "Заполнить" }} персональный профиль</a>
@@ -49,7 +50,7 @@
                             </ul>
                             <button class="btn-uni" type="button"
                                     onclick="document.getElementById('trigger-edit-gallery-photo').click()"
-                                    ng-click="gallery.activePost = gallery.getNewPost()">Добавить фото в историю</button>
+                                    ng-click="posts.activePost = posts.getNewPost()">Добавить фото в историю</button>
                         </div>
                     </div>
                     <a class="user-name">{{ app.user.name }}</a>
@@ -72,15 +73,18 @@
                                     </svg>
                                 </a>
 
-                                <input id="business-profile-photo-input" type="file" style="display: none">
+                                <input id="business-profile-photo-input" type="file" style="display: none" accept="image/*">
                             </div>
                             <div class="user-edit">
-                                <a href="{{ path("show_user_business_office") }}" class="button-rp">{{ isSeller ? "Редактировать" : "Создать" }} бизнес профиль</a>
+                                {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
+                                    <a class="button-rp" href="{{ path("admin_app_article_article_list") }}">Админка статей и публикаций</a>
+                                {% endif %}
+                                <a href="{{ path("show_user_business_office") }}" class="button-rp">Редактировать бизнес профиль</a>
                                 {% if app.user.sellerData %}
                                     <ul class="btn-block">
-                                        {% if app.user.sellerData.sellerCompany.isSparePartSeller%}
+                                        {% if app.user.sellerData.sellerCompany.isSparePartSeller %}
                                             <li>
-                                                <a class="user-btn" href="{{ path("user_profile_product_categories_spare_part") }}" data-text="Авто-мото запчасти"></a>
+                                                <a class="user-btn" href="{{ path("user_profile_product_categories_spare_part") }}" data-text="Авто - мото запчасти"></a>
                                                 <a href="{{ path("user_profile_product_categories_spare_part") }}">
                                                     <button class="btn">Добавить объявление</button>
                                                 </a>
@@ -88,7 +92,7 @@
                                         {% endif %}
                                         {% if app.user.sellerData.sellerCompany.isAutoSeller %}
                                             <li>
-                                                <a class="user-btn" href="{{ path("user_profile_product_categories") }}" data-text="Авто-мото транспорт"></a>
+                                                <a class="user-btn" href="{{ path("user_profile_product_categories") }}" data-text="Авто - мото транспорт"></a>
                                                 <a href="{{ path("user_profile_product_categories") }}">
                                                     <button class="btn">Добавить объявление</button>
                                                 </a>
@@ -96,7 +100,7 @@
                                         {% endif %}
                                         {% if app.user.sellerData.sellerCompany.isService %}
                                             <li>
-                                                <a class="user-btn" data-text="Услуги / СТО / Сервисы"></a>
+                                                <a class="user-btn" data-text="СТО - Автосервисы "></a>
                                                 <button class="btn">Добавить объявление</button>
                                             </li>
                                         {% endif %}
@@ -108,7 +112,19 @@
                                         {% endif %}
                                     </ul>
                                 {% endif %}
-                                <button class="btn-bis" type="button">Добавить бизнес пост</button>
+                                <button class="btn-bis" type="button"
+                                        onclick="document.getElementById('trigger-edit-gallery-photo').click()"
+                                        ng-click="posts.activePost = posts.getNewPost('business')"
+                                >Добавить бизнес пост</button>
+                            </div>
+                        {% else %}
+                            <div class="user-edit" ng-init="showAllButtons = false" ng-cloak>
+                                <a href="{{ path("show_user_business_office") }}" class="button-rp">Создать бизнес профиль</a>
+                                <a nohref class="button-rp open-popup-button" data-popup-id="52" ng-show="showAllButtons">Добавить объявление как частное лицо</a>
+                                <a nohref class="button-rp open-popup-button" data-popup-id="53" ng-show="showAllButtons">Добавить объявление как предприниматель</a>
+                                <a nohref class="button-rp open-popup-button" data-popup-id="54" ng-show="showAllButtons">Добавить объявление как организация</a>
+                                <a nohref class="button-rp open-popup-button" data-popup-id="55" ng-show="showAllButtons">Добавить объявление как интернет-магазин</a>
+                                <button class="btn-bis" type="button" ng-click="showAllButtons = true" ng-hide="showAllButtons">Добавить объявление</button>
                             </div>
                         {% endif %}
                     </div>
@@ -125,44 +141,93 @@
                     </a>
                 </li>
                 <li>
-                    {% set businessLinkId = not isSeller ? "initiator-open-popup7" : "initiator-open-popup6" %}
-                    <a id="{{ businessLinkId }}" class="icon us-btn5 open-popup-button" nohref>
-                        <i class="fa fa-suitcase"></i>
-                        {{ isHasAdverts ? "Мои объявления" : "Business" }}
-                    </a>
+                {% set isSparePartSeller = app.user.sellerData.sellerCompany.isSparePartSeller %}
+                    {% if isSeller and not isHasAdverts and not isSparePartSeller %}
+                        <a class="icon us-btn5" href="{{ path("user_profile_product_categories_spare_part") }}">
+                            <i class="fa fa-suitcase"></i>
+                            <span>Business</span>
+                        </a>
+                    {% elseif isSeller and not isHasAdverts and isSparePartSeller %}
+                        <a class="icon us-btn5" nohref
+                            onclick="document.getElementById('trigger-edit-gallery-photo').click()"
+                            ng-click="posts.activePost = posts.getNewPost('business')">
+                            <i class="fa fa-suitcase"></i>
+                            <span>Business</span>
+                        </a>
+                    {% else %}
+                        <a class="icon us-btn5 open-popup-button" nohref data-popup-id="{{ not isSeller ? 13 : 6 }}">
+                            <i class="fa fa-suitcase"></i>
+                            <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
-                    <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()">
+                    <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="posts.activePost = posts.getNewPost()">
                         <i class="fa fa-camera"></i>
-                        Фотогалерея
+                        <span>Фотогалерея</span>
                     </a>
                 </li>
                 <li>
-                    <a id="create-new-post" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="gallery.activePost = gallery.getNewPost()" class="icon icon-plus us-btn" href="">
+                    <a id="create-new-post" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="posts.activePost = posts.getNewPost()" class="icon icon-plus us-btn" href="">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </a>
 
-                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="gallery.editPost">
+                    <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost" accept="image/*">
+                    <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.addPostPhoto" accept="image/*">
                 </li>
             </ul>
         </div>
 
-        <ul class="items">
-            <li ng-repeat="post in gallery.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}" ng-cloak>
+        <ul class="items" ng-init="posts.removePostPhoto = null;">
+            <li id="post-{[{post.id}]}" ng-repeat="post in posts.posts | orderObjectBy:'id':true" class="user-item {[{post.id}]}" ng-cloak>
                 <div class="tool">
-                    <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="gallery.activePost = post; gallery.editPost()">
+                    <button class="btn-point open-popup-button" data-popup-id="7" type="button">
+                        <span class="points"></span>
+                        <span class="points"></span>
+                        <span class="points"></span>
+                    </button>
+                    <div class="tool-wrap">
+                    <a href="" class="tool-rdc us-btn2 gallery-photo" ng-click="posts.activePost = post; posts.editPost()" ng-show="post.images.length === 1">
                         <span class="item-1">Редактировать</span>
                         <img src="/img/cra.png" alt="Редактировать">
                     </a>
-                    <a href="" class="tool-close us-btn4 open-popup-button" data-popup-id="5" ng-click="gallery.activePost = post">
-                        <span class="item-1">Удалить</span>
+                    <a href="" class="tool-close item-center open-popup-button" data-popup-id="5" ng-click="posts.activePost = post; posts.removePostPhoto = null">
+                        <span class="item-1">Удалить {[{post.images.length > 1 ? "всю публикацию" : "публикацию" }]}</span>
                         <img src="/img/trash-can.svg" alt="Удалить">
                     </a>
+                    </div>
                 </div>
 
                 <div class="prod">
-                    <img class="prod-foto gallery-photo-image" ng-src="{[{ post.path }]}" alt="">
+                    <div class="img-block post-images-{[{post.id}]} owl-type owl-carousel owl-theme" carousel-element data-post-id="{[{post.id}]}" data-move-slide="{[{ post.moveSlide ? post.moveSlide : 0 }]}">
+                        <div class="img-block" carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images"  ng-cloak>
+                            <img class="prod-foto gallery-photo-image" ng-src="{[{ image.path }]}"  alt="">
+
+                            <span class="item-img" data-text="{[{$index + 1}]} / {[{post.images.length}]}" ng-show="post.images.length > 1"></span>
+
+                            <button class="select-img" style="right: 50px;" type="button" ng-click="posts.activePost = post; posts.editPost(image.id)" ng-show="post.images.length > 1">
+                                <img src="/img/cra.png" alt="Редактировать">
+                            </button>
+                            <button class="select-img open-popup-button" data-popup-id="5" type="button" ng-click="posts.activePost = post; posts.removePostPhoto = image.id" ng-show="post.images.length > 1">
+                                <img src="/img/trash-can.svg" alt="Удалить">
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div class="prod-content">
+                    <button class="btn-sel btn--m" type="button" ng-click="posts.activePost = post;" onclick="document.getElementById('trigger-edit-post-photo').click()">
+                        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+                            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+                        </svg> Добавить еще фото
+                    </button>
+                    <button class="btn-sel btn--m" type="button" ng-init="posts.openChangeHeadline[post.id] = false;" ng-click="posts.openChangeHeadline[post.id] = true;" ng-hide="posts.openChangeHeadline[post.id]">
+                         <span ng-bind="post.headline ? 'Редактировать заголовок' : 'Создать заголовок'"></span>
+                    </button>
+                    <h2 class="prod-title" ng-bind="post.headline" ng-hide="posts.openChangeHeadline[post.id]"></h2>
+                    <input class="input-title" type="text" ng-model="post.headline" ng-show="posts.openChangeHeadline[post.id]" placeholder="Заголовок">
+                    <button class="input-btn" ng-show="posts.openChangeHeadline[post.id]" ng-click="posts.savePostHeadline(post)" >Сохранить</button>
                         <div class="text-block">
                             <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
                             <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
@@ -179,14 +244,15 @@
                             <p class="adress-text-city" ng-bind="post.address"></p>
                         </div>
                         {% include('/client/user-office/parts/cars-for-gallery-angular.html.twig') %}
-                        <div class="date">
-                            <span ng-bind="post.date"></span>
-                            <span class="time" ng-bind="post.time"></span>
-                        </div>
                     </div>
+                </div>
+                <div class="date">
+                    <span ng-bind="post.date"></span>
+                    <span class="time" ng-bind="post.time"></span>
                 </div>
             </li>
         </ul>
+        <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
 
         <div class="sail-f">
             <img src="/img/windsurfing.png" alt="Парус">
@@ -206,8 +272,8 @@
                 <button class="button-home save-button-cropper-dialog us-btn1 button-home-right"><span>Сохранить </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
             </div>
 
-            <div id="image-preview-container" class="img-cont">
-                <img class="modal-img" src="/img/maz5.jpg" alt="Фото" style="display: none">
+            <div id="image-preview-container" class="img-cont cropper-container">
+                <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
         </section>
     </div>
@@ -220,22 +286,43 @@
                 <button class="button-home us-btn3 button-home-right move-to-popup" data-popup="4"><span>Далее </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
             </div>
 
-            <div id="image-preview-container-gallery" class="img-cont">
+            <div id="image-preview-container-gallery" class="img-cont cropper-container">
                 <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
-            <button class="button-cl" type="button" ng-click="gallery.closeModals();" onclick="document.getElementById('trigger-edit-gallery-photo').click()"><span>Изменить изображение </span></button>
+            <button class="button-cl" type="button" ng-click="posts.closeModals();" onclick="document.getElementById('trigger-edit-gallery-photo').click()"><span>Изменить изображение </span></button>
         </section>
     </div>
 
-    <div id="dialog-cropper-container-gallery2" class="overlay4">
+    <div id="dialog-cropper-container-gallery2" class="overlay overlay4">
         <section class="modal4">
             <div class="modal-header">
                 <button class="button-home button-home-left move-to-popup" data-popup="3"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
                 <h2 class="button-title" data-text="Комментарий / Пост"><span></span></h2>
                 <button id="gallery-photo-save" class="button-home button-home-right save-button-cropper-dialog"><span>Опубликовать </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
             </div>
-            <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="gallery.activePost.description"></textarea>
+            <textarea id="gallery-photo-description" name="text" rows="10" placeholder="Текст коментария / поста" ng-model="posts.activePost.description"></textarea>
+            <div id="microphone-image" class="mike-img">
+                    <svg fill="red" viewBox="0 0 40 59.5" width="20" height="40">
+                        <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                        <rect x="11.5" width="17" height="32" rx="10.49999" ry="10.49999"/>
+                    </svg>
+                </div>
             {#<button class="button-cl button-close1"><span>Закрыть без сохранения </span></button>#}
+        </section>
+    </div>
+
+    <div id="dialog-cropper-container-post-photo" class="overlay overlay8">
+        <section class="modal3">
+            <div class="modal-header">
+                <button id="post-photo-cancel" class="button-home button-home-left cancel-button-cropper-dialog"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h2 class="button-title" data-text="Редактирование"><span data-text="изображения"></span></h2>
+                <button class="button-home us-btn3 button-home-right save-button-cropper-dialog"><span>Опубликовать </span> <img src="/img/right-arrow1.png" alt="Опубликовать"></button>
+            </div>
+
+            <div id="image-preview-container-post-photo" class="img-cont cropper-container">
+                <img class="modal-img" src="" alt="Фото" style="display: none">
+            </div>
+            <button class="button-cl" type="button" ng-click="posts.closeModals();" onclick="document.getElementById('trigger-edit-post-photo').click()"><span>Изменить изображение </span></button>
         </section>
     </div>
 
@@ -246,7 +333,7 @@
                 <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
                 <ul class="del-btn">
                     <li>
-                        <a class="btn-m btn-red" href="" ng-click="gallery.removePost()">
+                        <a class="btn-m btn-red" href="" ng-click="posts.removePost(posts.removePostPhoto)">
                             <span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon">
                         </a>
                     </li>
@@ -254,32 +341,33 @@
                         <a id="close-popup-5" class="btn-m btn-gray close-popup-button" data-popup-id="5" href="">Отменить удаление</a>
                     </li>
                     <li class="btn-edit">
-                        <a class="btn-m btn-green close-popup-button" data-popup-id="5" href="" ng-click="gallery.editPost()">
+                        <a class="btn-m btn-green close-popup-button" data-popup-id="5" href="" ng-click="posts.editPost(posts.removePostPhoto)">
                             <span>Редактировать</span><img src="/img/cra.png" alt="icon">
                         </a>
                     </li>
                 </ul>
                 <p class="del-subtitle">В случае удаления элемент будет удален из базы без возможности восстановления</p>
-                <a href="{{ path("homepage") }}" class="parus">Autoparus.by</a>
 
             </section>
         </div>
     </div>
 
     {% if not isSeller %}
-        <div id="popup7" class="overlay4">
-            <section class="modal4">
-                <button id="initiator-close-popup7" class="modal-close close-popup-button" type="button">
-                    <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
-                        <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
-                        <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
-                    </svg>
-                </button>
-                <h2 class="modal-title">{{ default_text(13).headline }}</h2>
-                <div class="modal-text">{{ default_text(13).text | raw }}</div>
-                <a href="{{ path("show_user_business_office") }}"><button type="button" class="btn-m">Создать Business профиль</button></a>
-            </section>
-        </div>
+        {% for number in [13, 52, 53, 54, 55] %}
+            <div id="popup{{ number }}" class="overlay9">
+                <section class="modal4">
+                    <button class="modal-close close-popup-button" data-popup-id="{{ number }}" type="button">
+                        <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                            <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                            <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                        </svg>
+                    </button>
+                    <h2 class="modal-title">{{ default_text(number).headline }}</h2>
+                    <div class="modal-text">{{ default_text(number).text | raw }}</div>
+                    <a href="{{ path("show_user_business_office") }}"><button type="button" class="btn-m">Создать Business профиль</button></a>
+                </section>
+            </div>
+        {% endfor %}
     {% endif %}
 
     {% if isSeller %}
@@ -301,8 +389,8 @@
 
                     <ul class="list">
                         <li><a href="{{ isHasAdverts ? path("user_profile_product_categories_spare_part_list_adverts") : path("user_profile_product_categories_spare_part_add_general_advert") }}" class="user-btn" data-text="Авто-мото запчасти"></a><span class="number">( {{ countSparePartGeneralAdverts }} / {{ countSparePartSprecificAdverts }} )</span></li>
-                        <li><a href="#"  class="user-btn user-btn-m" data-text="Авто-мото транспорт"></a><span class="number">( 0 / 0 )</span></li>
-                        <li><a href="#"  class="user-btn user-btn-m" data-text="Услуги / СТО / Сервисы"></a><span class="number">( 0 / 0 )</span></li>
+                        {#<li><a href="#"  class="user-btn user-btn-m" data-text="Авто-мото транспорт"></a><span class="number">( 0 / 0 )</span></li>#}
+                        {#<li><a href="#"  class="user-btn user-btn-m" data-text="СТО - Автосервисы"></a><span class="number">( 0 / 0 )</span></li>#}
                         {#<li><a href="#"  class="user-btn user-btn-m" data-text="Туризм / Путешествия"></a><span class="number">( 56 )</span></li>#}
                         {#<li><a href="#"  class="user-btn user-btn-m" data-text="Новости / Статьи"></a><span class="number">( 24 )</span></li>#}
                     </ul>
@@ -313,11 +401,55 @@
             </section>
         </div>
     {% endif %}
+
+    <div class="overlay7" id="popup7">
+        <section class="modal7">
+            <div class="modal-header1">
+                <button class="button-home close-popup-button" data-popup-id="7" type="button">
+                    <img src="/img/left-arrow1.png" alt="Назад">
+                    <span> Назад</span>
+                </button>
+                <h3 class="button-title" data-text="Autoparus.by"></h3>
+               
+                <button class="button-home close-popup-button" data-popup-id="7" type="button">
+                    <span>Вперед </span>
+                    <img src="/img/right-arrow1.png" alt="Далее">
+                </button> 
+            </div>
+            <div class="block-modal">
+                <h4 class="button-title-m">{{ default_text(49).headline }}</h4>
+
+                <div class="modal-text">{{ default_text(49).text | raw }}</div>
+            </div>
+            <button class="button-cl close-popup close-popup-button" data-popup-id="7"><span>Закрыть</span></button>
+        </section>
+    </div>
+
+    <div id="popup9" class="overlay5">
+        <div class="modal5">
+            <section class="del">
+                <h3 class="del-title" data-text="Подтверждение удаления"></h3>
+                <p class="del-subtitle">Вы действительно хотите удалить выбранный элемент?</p>
+                <ul class="del-btn">
+                    <li>
+                        <a class="btn-m btn-red" href="" ng-click="posts.removeGalleryFilter(posts.activeFilter.id, posts.activePost.id)">
+                            <span>Да, Удалить</span><img src="/img/trash-can.svg" alt="icon">
+                        </a>
+                    </li>
+                    <li class="btn-o">
+                        <a id="close-popup-5" class="btn-m btn-gray close-popup-button" data-popup-id="9" nohref
+                        ng-click="posts.activeFilter = null; post.activePost = null;">Отменить удаление</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
+    <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/pages/user-profile/user-office.js'></script>
-    <script src='/js/client/controller/user-profile/gallery-controller.js'></script>
+    <script src='/js/client/controller/user-profile/posts-controller.js'></script>
     <script src='/js/client/filter/order-object-by.js'></script>
 {% endblock %}

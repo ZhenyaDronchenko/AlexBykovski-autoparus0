@@ -114,21 +114,14 @@
 
 .title {
     margin: 0;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     text-align: center;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
-
-.title::before {
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
-
-
 
 .items-block {
     display: -webkit-box;

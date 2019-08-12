@@ -4,7 +4,9 @@ namespace App\Provider\SellerOffice;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
+use App\Entity\City;
 use App\Entity\Client\Client;
+use App\Entity\SparePart;
 use App\Type\AutoSparePartSpecificAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -71,7 +73,15 @@ class SpecificAdvertListProvider
 
         /** @var AutoSparePartSpecificAdvert $advert */
         foreach ($adverts as $advert){
-            $parsedAdverts[] = $advert->toArray();
+            $advertArray = $advert->toArray();
+
+            $sparePart = $this->em->getRepository(SparePart::class)->findOneBy(["name" => $advertArray["sparePart"]]);
+            $city = $this->em->getRepository(City::class)->findOneBy(["name" => $advertArray["city"]]);
+
+            $advertArray["sparePartUrl"] = $sparePart->getUrl();
+            $advertArray["cityUrl"] = $city->getUrl();
+
+            $parsedAdverts[] = $advertArray;
         }
 
         return $parsedAdverts;

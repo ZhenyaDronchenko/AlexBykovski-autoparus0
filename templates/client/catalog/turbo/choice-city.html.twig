@@ -10,6 +10,7 @@
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
+    <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
@@ -44,16 +45,10 @@
         </ul>
 
         <section class="brand">
-            <h1 class="brand-title" data-text="{{ page.headline1 }}"></h1>
-            <div class="subtext-block">
-                <div class="img-wrapper">
-                    <a href="{{ path("show_spare_part_catalog_choice_city", routeParams) }}" style="display: contents">
-                        <img src="{{ image_url(sparePart.thumbnailLogo) }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.alternativeName5 }} для {{ brand.brandEn }} {{ model.modelEn }}">
-                    </a>
-                </div>
-                <div class="text-block">
-                    <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
-                </div>
+            <h1 class="brand-title">{{ page.headline1 }}</h1>
+      
+            <div class="text-block">
+                <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
             </div>
 
             <ul class="brand-block">
@@ -69,9 +64,15 @@
                 {% endfor %}
             </ul>
             <a class="button" href="{{ path("turbo_catalog_in_stock", routeParams|merge({"urlCity" : constant('App\\Entity\\City::ALL_CITIES')})) }}">Все Города</a>
+            </section>
+            <section class="brand-b">
 
-            <h2 class="turbo-subtitle" data-text="{{ page.headline2 }}"></h2>
+            <h2 class="turbo-subtitle">{{ page.headline2 }}</h2>
+            <a class="img-r" href="{{ path("show_spare_part_catalog_choice_city", routeParams) }}">
+                        <img src="{{ image_url(sparePart.thumbnailLogo) }}" alt="{{ sparePart.alternativeName5 }}" title="{{ sparePart.alternativeName5 }} для {{ brand.brandEn }} {{ model.modelEn }}">
+                    </a>
             <div class="subtext">{{ page.text2 | raw }}</div>
         </section>
+        </div>
     </main>
 {% endblock %}

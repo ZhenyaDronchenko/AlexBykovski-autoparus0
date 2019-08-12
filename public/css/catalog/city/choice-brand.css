@@ -104,13 +104,8 @@ h1 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
-}
-
-h1::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
 }
 
 p {
@@ -132,8 +127,9 @@ p {
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
- margin-bottom: 40px; 
- margin-top: 20px;  
+    margin-bottom: 40px;
+    margin-top: 50px;
+ 
 }
 
  .form7 {
@@ -201,8 +197,8 @@ p {
 
 }
 .model-link img {
-  width: 100px;
-  height: 100px;
+  width: 64px;
+  height: 64px;
 }
 .model-link img:hover,
 .model-link img:focus {
@@ -255,13 +251,9 @@ h2 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+   color: #2980b9;
 }
 
-h2::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 @media (max-width: 480px) {
   .container {
     width: auto; 
@@ -270,27 +262,26 @@ h2::before { /* второй слой */
 .model {
    padding-top: 25px;
 }
-  
+  a {
+    display: block;
+  }
   h1 {
    font-size: 22px;
         line-height: 26px;
         margin-bottom: 20px;
   }
   
-.modform {
- margin-bottom: 20px; 
- margin-top: 20px;  
-}
 .show {
     max-height: 350px;
 }
  
 #model li {
-   margin: 0 10px;
-        margin-bottom: 20px;
+   margin: 0 auto;
+        margin-bottom: 10px;
 }
 
 .model-link img {
+   margin: 0 4px;
   width: 60px;
   height: 60px;
 }
@@ -332,6 +323,16 @@ h2 {
 }
 .show {
     max-height: 280px;
+}
+#model li {
+   margin: 0 auto;
+        margin-bottom: 10px;
+}
+
+.model-link img {
+  margin: 0 4px;
+  width: 60px;
+  height: 60px;
 }
 }
 

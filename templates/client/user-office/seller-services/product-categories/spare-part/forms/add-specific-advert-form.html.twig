@@ -144,7 +144,7 @@
     {{ form_widget(form.comment, {attr: {"rows": 5, placeholder: "Описание:" }}) }}
 
     <div class="img-block">
-        <a id="initiator-upload-image" nohref class="add-img">Добавить изображение:</a>
+        <a id="initiator-upload-image" nohref class="add-img">+ Добавить изображение:</a>
         <input id="upload-image-input" type="file" style="display: none">
         <img id="preview-image" class="img" src="{{ form.image.vars.value ? image_url(form.image.vars.value) : "/img/mers1.png" }}" alt="">
         {{ form_widget(form.image) }}
@@ -153,7 +153,7 @@
     <label class="price-c">
         Цена
         {{ form_widget(form.cost, {attr: {class: "name-input", "input-by-pattern": "", "pattern" : "[\\d\\.]"}}) }}
-        BYN (Бел Руб)
+        BYN <span>(Бел Руб)</span>
     </label>
 
     <ul class="btn-list">

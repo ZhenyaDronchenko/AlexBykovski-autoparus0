@@ -55,7 +55,7 @@ class UserEngine
      * @var AutoSparePartSpecificAdvert|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert")
-     * @ORM\JoinColumn(name="specific_advert_initiator_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="specific_advert_initiator_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $specificAdvertInitiator;
 

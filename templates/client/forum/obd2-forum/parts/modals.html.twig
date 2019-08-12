@@ -1,0 +1,84 @@
+{% if app.user %}
+    <div ng-init="forum.constModel = '{{ model is defined ? model.url : '' }}'"></div>
+
+    <div id="popup1" class="overlay1 message-popup">
+        <div class="modal1">
+            <div class="modal-header">
+                <button class="button-home close-popup-button" data-popup-id="1"><img src="/img/left-arrow1.png" alt="Назад"></button>
+                <button class="button-home" ng-click="forum.addMessage('experience')">Опубликовать</button>
+            </div>
+
+            <h3 class="modal-title">{{ default_text(31).headline }}</h3>
+            {% if model is not defined %}
+                <select ng-model="forum.model">
+                    <option value="">Выберите модель</option>
+                    {% for id, name in models %}
+                        <option value="{{ id }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <span ng-show="forum.showEmptyModelError">Выберите модель</span>
+            {% endif %}
+            <textarea ng-model="forum.message" name="text" rows="7" placeholder="Опишите подробно суть Вашего опыта"></textarea>
+            <span ng-show="forum.showEmptyMessageError">Введите текст</span>
+            <p class="modal-text">{{ default_text(31).text | raw }}</p>
+            <div class="btn-block">
+                <button class="button close-popup-button" data-popup-id="1">Отменить</button>
+                <button class="button" ng-click="forum.addMessage('experience')">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup2" class="overlay2 message-popup">
+        <div class="modal2">
+            <div class="modal-header">
+                <button class="button-home close-popup-button" data-popup-id="2"><img src="/img/left-arrow1.png" alt="Назад"></button>
+                <button class="button-home" ng-click="forum.addMessage('question')">Опубликовать</button>
+            </div>
+
+            <h3 class="modal-title">{{ default_text(32).headline }}</h3>
+            {% if model is not defined %}
+                <select ng-model="forum.model">
+                    <option value="">Выберите модель</option>
+                    {% for id, name in models %}
+                        <option value="{{ id }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <span ng-show="forum.showEmptyModelError">Выберите модель</span>
+            {% endif %}
+            <textarea ng-model="forum.message" name="text" rows="7" placeholder="Опишите подробно суть Вашего вопроса"></textarea>
+            <span ng-show="forum.showEmptyMessageError">Введите текст</span>
+            <p class="modal-text">{{ default_text(32).text | raw }}</p>
+            <div class="btn-block">
+                <button class="button close-popup-button" data-popup-id="2">Отменить</button>
+                <button class="button" ng-click="forum.addMessage('question')">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div id="popup5" class="overlay5">
+        <div class="modal5">
+
+            <div class="modal-header">
+                <button type="button" data-popup-id="5" class="button-home close-popup-button"><img src="/img/left-arrow1.png" alt="Назад"></button>
+                <a href="{{ path("login") }}" class="button-home">Войти</a>
+            </div>
+            <button class="modal-close close-popup-button modal-close-h" type="button" data-popup-id="5">
+                <svg  x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+                    <line fill="none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="7.741" y1="7.741" x2="42.359" y2="42.359"/>
+                    <line fill="#none" stroke="#727272" stroke-width="4" stroke-miterlimit="10" x1="42.258" y1="7.742" x2="7.618" y2="42.382"/>
+                </svg>
+            </button>
+
+            <h3 class="modal-title">Форум ошибок OBD2</h3>
+            <p class="modal-text">Задать вопрос пользователям форума или написать историю своего опыта могут только зарегистрированные пользователи. Если Вы зарегистрированы, то авторизуйтесь. </p>
+            <a href="{{ path("login") }}" class="button button-m" type="button">Войти</a>
+
+            <p class="modal-text">Если Вы не зарегистрированы у нас на сайте, то добро пожаловать на Autoparus.by</p>
+
+            <a href="{{ path("registration") }}" class="button button-m">Регистрация</a>
+
+            <p class="modal-text">Регистрация проста и не займет много времени</p>
+            <button class="btn btn-mobile close-popup-button" data-popup-id="5">Свернуть</button>
+        </div>
+    </div>
+{% endif %}

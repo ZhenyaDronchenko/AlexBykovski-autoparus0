@@ -1,7 +1,12 @@
+const BASE_IMAGE_WIDTH = 1080;
+const BASE_IMAGE_HEIGHT = 720;
+
 $(function(){
-    $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
-    $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
-    $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
+    if(typeof $("body").mask === "function") {
+        $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
+        $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
+        $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
+    }
 
     $(document).on("click", ".open-popup-button", function (ev) {
         if($(this).attr("id") && $(this).attr("id").indexOf("initiator-open-") > -1){
@@ -24,6 +29,29 @@ $(function(){
             $("body").removeClass("modal--show");
         }
     });
+
+
+    $.each($(".slick-carousel"), function (index, item) {
+        $(item).slick(getCarouselAttrs(item));
+    });
+
+    $.each($(".owl-carousel-slider"), function (index, item) {
+        $(item).owlCarousel(getCarouselAttrs(item));
+    });
+
+    function getCarouselAttrs(item) {
+        let attr = $(item).data("carousel-options");
+
+        return attr ? attr : {};
+    }
+
+    $.each($(".jquery-tagsinput-input"), function (index, item) {
+        $(item).tagsInput({
+            'delimiter': ['|'],
+        });
+    });
+
+    ellipsizeTextBox('.ellipsize-text-box');
 });
 
 function scrollToElement(selector) {
@@ -54,71 +82,58 @@ function addImagePreview(file, callback) {
     }
 }
 
-function getImageByCoordinatesFromImage(image64, coordinates, isBlob, callback) {
-    const canvas = document.createElement('canvas');
+function getImageByCoordinatesFromImage(blob, isBlob, callback) {
+    if(isBlob){
+        return callback(blob);
+    }
 
+    const file = new File([blob], "preview_image" + (new Date()).getTime(), {
+        type: 'image/jpeg',
+        lastModified: Date.now()
+    });
+
+    callback(file);
+}
+
+function convertBase64ToImage(image64, callback) {
     const img = new Image();
     img.src = image64;
 
     img.onload = () => {
-        const sourceX = coordinates["x"];
-        const sourceY = coordinates["y"];
-        const width = coordinates["x2"] - sourceX;
-        const height = coordinates["y2"] - sourceY;
-
-        canvas.width = width;
-        canvas.height = height;
-        const context = canvas.getContext('2d');
-
-        context.drawImage(img, sourceX, sourceY, width, height, 0, 0, width, height);
-
-        context.canvas.toBlob((blob) => {
-            if(isBlob){
-                return callback(blob);
-            }
-
-            const file = new File([blob], "preview_image" + (new Date()).getTime(), {
-                type: 'image/jpeg',
-                lastModified: Date.now()
-            });
-
-            callback(file);
-
-        }, 'image/jpeg', 1);
+        callback(img);
     };
 }
 
-function compress(file, sizes, callback) {
+function resizeAndCompressImage(file, callback, sizes) {
     const fileName = file.name;
     const reader = new FileReader();
+    const baseWidth = sizes ? sizes[0] : BASE_IMAGE_WIDTH;
+    const baseHeight = sizes ? sizes[1] : BASE_IMAGE_HEIGHT;
+
     reader.readAsDataURL(file);
+
     reader.onload = event => {
         const img = new Image();
         img.src = event.target.result;
 
         img.onload = () => {
-            let width = null;
-            let height = null;
-            if(sizes){
-                if(sizes.length === 1){
-                    sizes = getImageScaledSizes(img.width, img.height, sizes[0]);
-                }
-
-                width = sizes[0];
-                height = sizes[1];
-
-            }
-            else {
-                width = 900 > img.width ? img.width : 900;
-                height = 600 > img.height ? img.height : 600;
-            }
-
+            const SCALE = img.width / img.height;
             const elem = document.createElement('canvas');
-            elem.width = width;
-            elem.height = height;
+
+            if(img.width > img.height){
+                elem.width = img.width > baseWidth ? baseWidth : img.width;
+                elem.height = elem.width / SCALE;
+            }
+            else{
+                elem.height = img.height > baseHeight ? baseHeight : img.height;
+                elem.width = elem.height * SCALE;
+            }
+
             const ctx = elem.getContext('2d');
+
             // img.width and img.height will give the original dimensions
-            ctx.drawImage(img, 0, 0, width, height);
+            ctx.drawImage(img, 0, 0, elem.width, elem.height);
+
             ctx.canvas.toBlob((blob) => {
                 const file = new File([blob], fileName, {
                     type: 'image/jpeg',
@@ -131,19 +146,6 @@ function compress(file, sizes, callback) {
         };
         reader.onerror = error => console.log(error);
     };
-}
-
-function getImageData(imageData, callback) {
-    let img = new Image();
-
-    img.onload = function(){
-        callback({
-            "width" : img.width,
-            "height" : img.height,
-        });
-    };
-
-    img.src = imageData;
 }
 
 function getImageScaledSizes(width, height, maxSize) {
@@ -179,4 +181,93 @@ function getLocation(callback) {
 
 function detectmob() {
     return window.innerWidth <= 800 && window.innerHeight <= 600;
+}
+
+function addBootstrapModalAfterFooter() {
+    if($("#modalAfterFooter").length){
+        return false;
+    }
+
+    let modalHtml =
+        '<div id="modalAfterFooter" class="modal" tabindex="-1" role="dialog">' +
+            '<div class="modal-dialog" role="document">' +
+                '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                    '</div>' +
+                    '<div class="modal-body">' +
+                    '</div>' +
+                    '<div class="modal-footer">' +
+                        '<button id="save-modal-after-footer" type="button" class="btn btn-primary">Сохранить</button>' +
+                        '<button id="close-modal-after-footer" type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+    $("body").append($(modalHtml));
+}
+
+function waitImagesPost(post) {
+    post["tempImages"] = {};
+
+    $.each(post["images"], function (indexIm) {
+        post["tempImages"][indexIm] = {
+            id: post["images"][indexIm]["id"],
+            path: post["images"][indexIm]["path"],
+        };
+
+        if(indexIm !== 0){
+            post["images"][indexIm]["path"] = "";
+        }
+    });
+
+    return post;
+}
+
+function showAllPostPhotos(post) {
+    if(post.hasOwnProperty("tempImages") && Object.keys(post["tempImages"]).length === Object.keys(post["images"]).length){
+        $.each(post["images"], function (index) {
+            post["images"][index]["path"] = post["tempImages"][index]["path"];
+        });
+    }
+}
+
+function markMatch (text, term) {
+    // Find where the match is
+    var match = text.toUpperCase().indexOf(term.toUpperCase());
+
+    var $result = $('<span></span>');
+
+    // If there is no match, move on
+    if (match < 0) {
+        return $result.text(text);
+    }
+
+    // Put in whatever text is before the match
+    $result.text(text.substring(0, match));
+
+    // Mark the match
+    var $match = $('<span class="select2-rendered__match"></span>');
+    $match.text(text.substring(match, match + term.length));
+
+    // Append the matching text
+    $result.append($match);
+
+    // Put in whatever is after the match
+    $result.append(text.substring(match + term.length));
+
+    return $result;
+}
+
+function ellipsizeTextBox(selector) {
+    let elements = $(selector);
+
+    $.each(elements, function (index, element) {
+        var wordArray = element.innerHTML.split(' ');
+
+        while(element.scrollHeight > element.offsetHeight) {
+            wordArray.pop();
+            element.innerHTML = wordArray.join(' ') + '...';
+        }
+    });
 }

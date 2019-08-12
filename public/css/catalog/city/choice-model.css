@@ -105,15 +105,11 @@ h1 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 
 }
 
-h1::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 p {
    margin: 0;
     margin-bottom: 10px;
@@ -131,7 +127,7 @@ display: -webkit-box;
    justify-content: center;
    -ms-align-items: center;
    align-items: center;
-   margin-top: 30px;
+   margin-top: 60px;
     margin-bottom: 40px;
 }
 
@@ -166,7 +162,7 @@ display: -webkit-box;
 }
 .model-block {
   padding-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 #model {
@@ -194,7 +190,7 @@ display: -webkit-box;
 
 #model li {
    margin: 0 auto;
-    width: 450px;
+    width: 330px;
 }
 .mod-link {
   display: flex;
@@ -202,8 +198,8 @@ display: -webkit-box;
     align-items: center;
     font-weight: 400;
     border-bottom: 1px solid #737373;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 16px;
     color: #444444;
     letter-spacing: 1px;
     padding: 15px 5px;
@@ -213,8 +209,8 @@ display: -webkit-box;
 }
 
 .mod-link img {
-   width: 120px;
-    height: 80px;
+   width: 96px;
+    height: 64px;
     margin-left: 7px;
 }
 
@@ -231,7 +227,7 @@ display: -webkit-box;
     padding-top: 5px;
     cursor: pointer;
     outline: none;
-    margin-top: 15px;
+    margin-top: 30px;
 }
 
 #button-mod:hover,
@@ -262,12 +258,9 @@ h2 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+    color: #2980b9;
 }
-h2::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 
 @media (max-width: 480px) {
   .container {
@@ -284,7 +277,9 @@ h2::before { /* второй слой */
         margin-bottom: 20px;
   }
   
-
+a {
+  display: block;
+}
 
 .show {
     max-height: 460px;
@@ -294,8 +289,6 @@ h2::before { /* второй слой */
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;  
-           margin-top: 20px;
-    margin-bottom: 30px;
 }
       .form7 {
         width: 280px;
@@ -322,8 +315,8 @@ h2::before { /* второй слой */
         line-height: 20px;
 }
 .mod-link img {
-  width: 90px;
-  height: 60px;
+  width: 96px;
+  height: 64px;
 }
 
 h2 {
@@ -351,6 +344,14 @@ h2 {
         margin-bottom: 20px;
   }
 
+#model li {
+    margin: 0 auto;
+    width: 400px;
+}
+.mod-link {
+    font-size: 18px;
+    line-height: 20px;
+}
 
 
 .btn-form {
@@ -381,7 +382,7 @@ h2 {
     width: auto; }
     #model li {
   margin: 0 auto;
-    width: 400px;
+    width: 330px;
 }
 .form7 {
     width: 400px;

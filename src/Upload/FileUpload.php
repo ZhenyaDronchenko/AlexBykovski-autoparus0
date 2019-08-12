@@ -20,6 +20,8 @@ class FileUpload
     const AUTO_SPARE_PART_SPECIFIC_ADVERT = "auto-spare-part-specific-advert";
     const USER_OFFICE_GALLERY = "user-office-gallery";
 
+    const GENERAL_MAIN_PAGE = "general-main-page";
+
     const PHONE_BRAND = 'phone_brand';
     const PHONE_MODEL = 'phone_model';
     const PHONE_SPARE_PART = 'phone_spare_part';
@@ -28,10 +30,13 @@ class FileUpload
     const UNIVERSAL_PAGE_CITY = 'universal-page-city';
     const UNIVERSAL_PAGE_SPARE_PART = 'universal-page-spare-part';
     const IMPORT_SPECIFIC_ADVERT = 'import-specific-advert';
+    const ARTICLE = 'article';
 
     const IMAGE_FOLDER = "images/";
 
     const CSV_MIME_TYPE = "text/csv";
+    const EXCEL_MIME_TYPE = "application/vnd.ms-excel";
+    const EXCEL_S_MIME_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     private $allowedMimeTypes;
 
@@ -64,9 +69,13 @@ class FileUpload
         return $this->folder ?: $folder = self::GENERAL;
     }
 
-    public function upload(UploadedFile $file, $blob = null, $path = null)
+    public function upload($file, $blob = null, $path = null)
     {
-        if (!in_array($file->getClientMimeType(), $this->allowedMimeTypes)) {
+        if (is_string($file) && preg_match('/^data:image\/(\w+);base64,/', $file, $type)) {
+            return $this->uploadBase64Image($file);
+        }
+
+        if (!($file instanceof UploadedFile) || !in_array($file->getClientMimeType(), $this->allowedMimeTypes)) {
             throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
         }
 
@@ -92,7 +101,7 @@ class FileUpload
 
             if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
                 // invalid image type
-                return null;
+                throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $type));
             }
 
             $base64string = base64_decode($base64string);

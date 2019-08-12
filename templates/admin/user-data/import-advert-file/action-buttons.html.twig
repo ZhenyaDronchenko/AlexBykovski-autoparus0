@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+    <div class="btn-group-vertical">
+        <button class="btn btn-primary" onclick="importFile('{{ object.id }}', false)">Проверить</button>
+        <button class="btn btn-success" style="margin-top: 5px; margin-bottom: 5px;" onclick="importFile('{{ object.id }}', true)">Импортировать</button>
+        <button class="btn btn-danger" onclick="deleteFile('{{ object.id }}')">Удалить</button>
+    </div>
+    <img id="preloader-posts-{{ object.id }}" style="max-width: 33px; display: none" src="/img/preload-gear.svg"/>
+{% endblock %}

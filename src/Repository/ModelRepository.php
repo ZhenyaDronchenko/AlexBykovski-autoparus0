@@ -109,20 +109,15 @@ class ModelRepository extends EntityRepository
             ->where("m.brand = :brand");
 
         $orX = $qb->expr()->orX(
-            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') = :textUpper',
-            'REPLACE(REPLACE(m.name, \'"("\', \'""\'), \'")"\', \'""\') LIKE :textLike',
-            'm.name = :textUpper',
-            'm.name LIKE :textLike',
-            'm.modelEn = :text',
-            'm.modelEn = :textWithoutYear'
+            "UPPER(m.keyWords) = UPPER(:text)",
+            "UPPER(m.keyWords) LIKE CONCAT('%|', UPPER(:text))",
+            "UPPER(m.keyWords) LIKE CONCAT(UPPER(:text), '|%')",
+            "UPPER(m.keyWords) LIKE CONCAT('%|', UPPER(:text), '|%')"
         );
 
         return $qb->andWhere($orX)
             ->setParameter("brand",  $brand)
-            ->setParameter('text', $text )
-            ->setParameter('textLike', '%' . $text . '%'  )
-            ->setParameter('textUpper', strtoupper($text) )
-            ->setParameter('textWithoutYear', trim(preg_replace("/\d{4}\-\d{4}/", "", $text)) )
+            ->setParameter('text', $text)
             ->getQuery()
             ->getResult();
     }

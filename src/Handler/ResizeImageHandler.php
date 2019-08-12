@@ -2,6 +2,7 @@
 
 namespace App\Handler;
 
+use App\Entity\Article\ArticleImage;
 use App\Entity\Brand;
 use App\Entity\Model;
 use App\Entity\SparePart;
@@ -22,6 +23,15 @@ class ResizeImageHandler
     const BRAND_HEIGHT_64 = "64";
     const BRAND_WIDTH_64 = "64";
 
+    const ARTICLE_IMAGE_HEIGHT = "360";
+    const ARTICLE_IMAGE_WIDTH = "540";
+
+    const ARTICLE_IMAGE_HEIGHT_THUMBNAIL = "120";
+    const ARTICLE_IMAGE_WIDTH_THUMBNAIL = "180";
+
+    const POST_IMAGE_HEIGHT_THUMBNAIL = "240";
+    const POST_IMAGE_WIDTH_THUMBNAIL = "360";
+
     const JPEG_TYPE = "image/jpeg";
     const PNG_TYPE = "image/png";
     const GIF_TYPE = "image/gif";
@@ -32,24 +42,28 @@ class ResizeImageHandler
 
     const IMAGE_FOLDER = "images/";
 
-    static function resizeLogo($object, $newWidth = null, $newHeight = null)
+    static function resizeLogo($object, $newWidth = null, $newHeight = null, $isThumb = true)
     {
         if($object instanceof Model){
-            return self::resizeImage($object->getLogo(), self::MODEL_WIDTH, self::MODEL_HEIGHT);
+            return self::resizeImage($object->getLogo(), $isThumb, self::MODEL_WIDTH, self::MODEL_HEIGHT);
         }
-
-        if($object instanceof SparePart){
-            return self::resizeImage($object->getLogo(), self::SPARE_PART_WIDTH, self::SPARE_PART_HEIGHT);
+        elseif($object instanceof SparePart){
+            return self::resizeImage($object->getLogo(), $isThumb, self::SPARE_PART_WIDTH, self::SPARE_PART_HEIGHT);
         }
-
-        if($object instanceof Brand){
-            return self::resizeImage($object->getLogo(), $newWidth, $newHeight);
+        elseif($object instanceof Brand){
+            return self::resizeImage($object->getLogo(), $isThumb, $newWidth, $newHeight);
+        }
+        elseif($object instanceof ArticleImage){
+            return self::resizeImage($object->getImage(), $isThumb, $newWidth, $newHeight);
+        }
+        elseif(is_string($object) && $object){
+            return self::resizeImage($object, $isThumb, $newWidth, $newHeight);
         }
 
         return "";
     }
 
-    static function resizeImage($filePath, $newWidth, $newHeight)
+    static function resizeImage($filePath, $isThumb, $newWidth, $newHeight)
     {
         $imageFolder = Kernel::getProjectRealPath() . '/public/' . self::IMAGE_FOLDER;
 
@@ -70,7 +84,7 @@ class ResizeImageHandler
             return null;
         }
 
-        $newFilePath = self::getThumbnailFilePath($filePath, self::MODEL_ADDITIONAL_PATH);
+        $newFilePath = self::getThumbnailFilePath($filePath, $isThumb ? self::MODEL_ADDITIONAL_PATH : '');
 
         imagecopyresampled($image_p, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 

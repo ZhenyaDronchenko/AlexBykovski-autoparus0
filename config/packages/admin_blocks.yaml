@@ -1,5 +1,6 @@
 imports:
     - { resource: ./admin_blocks/general.yaml }
+    - { resource: ./admin_blocks/import.yaml }
     - { resource: ./admin_blocks/forum/obd2_forum.yaml }
     - { resource: ./admin_blocks/user.yaml }
     - { resource: ./admin_blocks/seo.yaml }
@@ -8,7 +9,6 @@ imports:
     - { resource: ./admin_blocks/catalog/brand_catalog.yaml }
     - { resource: ./admin_blocks/catalog/spare_part_catalog.yaml }
     - { resource: ./admin_blocks/catalog/turbo_catalog.yaml }
-    - { resource: ./admin_blocks/phone/general.yaml }
     - { resource: ./admin_blocks/user_data.yaml }
     - { resource: ./admin_blocks/error.yaml }
     - { resource: ./admin_blocks/error/obd2_error_catalog.yaml }
@@ -29,3 +29,12 @@ services:
         tags:
             - { name: sonata.admin, group: Каталог текстов, manager_type: orm, label: Каталог текстов, on_top: true}
         public: true
+
+    admin.article.article:
+        class: App\Admin\ArticleAdmin
+        arguments: [~, App\Entity\Article\Article, ~, "@app.file_upload", '%upload_image_directory%']
+        tags:
+            - { name: sonata.admin, group: Статьи, manager_type: orm, label: Статьи, on_top: true}
+        public: true
+        calls:
+            - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]

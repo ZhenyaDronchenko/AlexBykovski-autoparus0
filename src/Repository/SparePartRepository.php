@@ -87,50 +87,25 @@ class SparePartRepository extends EntityRepository
             ->select('spp');
 
         $orX = $qb->expr()->orX(
-            'spp.name = :text',
-            'spp.name LIKE :textLike',
-            'spp.alternativeName1 = :text',
-            'spp.alternativeName1 LIKE :textLike',
-            'spp.alternativeName2 = :text',
-            'spp.alternativeName2 LIKE :textLike',
-            'spp.alternativeName3 = :text',
-            'spp.alternativeName3 LIKE :textLike',
-            'spp.alternativeName4 = :text',
-            'spp.alternativeName4 LIKE :textLike',
-            'spp.alternativeName5 = :text',
-            'spp.alternativeName5 LIKE :textLike'
+            "UPPER(spp.keyWords) = UPPER(:text)",
+            "UPPER(spp.keyWords) LIKE CONCAT('%|', UPPER(:text))",
+            "UPPER(spp.keyWords) LIKE CONCAT(UPPER(:text), '|%')",
+            "UPPER(spp.keyWords) LIKE CONCAT('%|', UPPER(:text), '|%')"
         );
 
-        $qb->where($orX)
-            ->setParameter('text', $text )
-            ->setParameter('textLike', '%' . $text . '%' );
+        return $qb->where($orX)
+            ->setParameter('text', $text)
+            ->getQuery()
+            ->getResult();
+    }
 
-        preg_match_all("/\((.*?)\)/", $text, $matches);
-
-        foreach ($matches[1] as $key => $match){
-            $orX = $qb->expr()->orX(
-                'spp.name = :text_' . $key,
-                'spp.name LIKE :textLike_' . $key,
-                'spp.alternativeName1 = :text_' . $key,
-                'spp.alternativeName1 LIKE :textLike_' . $key,
-                'spp.alternativeName2 = :text_' . $key,
-                'spp.alternativeName2 LIKE :textLike_' . $key,
-                'spp.alternativeName3 = :text_' . $key,
-                'spp.alternativeName3 LIKE :textLike_' . $key,
-                'spp.alternativeName4 = :text_' . $key,
-                'spp.alternativeName4 LIKE :textLike_' . $key,
-                'spp.alternativeName5 = :text_' . $key,
-                'spp.alternativeName5 LIKE :textLike_' . $key
-            );
-
-            $qb->orWhere($orX)
-                ->setParameter('text_' . $key, $match )
-                ->setParameter('textLike_' . $key, '%' . $match . '%' );
-        }
-
-
-
-        return $qb
+    public function findSparePartsForAutoSet()
+    {
+        return  $this->createQueryBuilder('spp')
+            ->select('spp.id, spp.name')
+            ->where("spp.active = :trueValue")
+            ->setParameter("trueValue", true)
+            ->orderBy("spp.name", "ASC")
             ->getQuery()
             ->getResult();
     }

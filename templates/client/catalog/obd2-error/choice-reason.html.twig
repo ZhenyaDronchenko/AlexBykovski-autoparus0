@@ -21,13 +21,25 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}"><span class="line">/</span><span itemprop="name">OBD2</span></a><meta itemprop="position" content="2">
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_type") }}" itemprop="item" title="{{ titleChoiceType }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">OBD2</span>
+                </a>
+                <meta itemprop="position" content="2">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}" itemprop="item" title="{{ titleChoiceCode }}"><span class="line">/</span><span itemprop="name">Ошибка {{ type.designation }}</span><meta itemprop="position" content="3"></a>
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}" itemprop="item" title="{{ titleChoiceCode }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">Ошибка {{ type.designation }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_transcript", {urlType : type.url, urlCode : code.url}) }}" itemprop="item" title="{{ titleChoiceTranscript }}"><span class="line">/</span><span itemprop="name">{{ type.designation ~ code.code }}</span><meta itemprop="position" content="4"></a>
+                <a class="link-b" href="{{ path("show_obd2_error_catalog_choice_transcript", {urlType : type.url, urlCode : code.url}) }}" itemprop="item" title="{{ titleChoiceTranscript }}">
+                    <span class="line">/</span>
+                    <span itemprop="name">{{ type.designation ~ code.code }}</span>
+                    <meta itemprop="position" content="4">
+                </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">Возможная причина</span><meta itemprop="position" content="5"></a>
@@ -35,7 +47,7 @@
         </ul>
 
         <section class="code">
-            <h1 class="title" data-text="{{ page.headline1 }}"></h1>
+            <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
             <div class="code-block">
                 <b class="name">Причина возникновения {{ type.type }} {{ type.designation ~ code.code}}:</b>
@@ -47,7 +59,7 @@
                 {% endif %}
             </div>
 
-            <h1 class="subtitle" data-text="{{ page.headline2 }}"></h1>
+            <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
             <ul class="city-icon">
                 {% for brand in brands %}

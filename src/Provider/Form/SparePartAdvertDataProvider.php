@@ -120,4 +120,22 @@ class SparePartAdvertDataProvider extends ClientCarProvider
 
         return $choices;
     }
+
+    public function getSparePartsForAutoSet()
+    {
+        $spareParts = $this->em->getRepository(SparePart::class)->findSparePartsForAutoSet();
+
+        $choices = [];
+
+        /** @var SparePart $sparePart */
+        foreach ($spareParts as $sparePart){
+            $choices[] = [
+                "name" => $sparePart["name"],
+                "isChecked" => false,
+                "cost" => "",
+            ];
+        }
+
+        return $choices;
+    }
 }

@@ -20,12 +20,8 @@ class ToSellersGeneralPageAdmin extends AbstractAdmin
         $formMapper->add('text2', CKEditorType::class, ['label' => 'Текст 2']);
         $formMapper->add('returnButtonText', TextType::class, ['label' => 'Надпись на универсальной кнопке']);
         $formMapper->add('returnButtonLink', TextType::class, ['label' => 'Адрес направления универсальной кнопки']);
-        $formMapper->add('minskUrl', TextType::class, ['label' => 'URL для иконки Минск']);
-        $formMapper->add('brestUrl', TextType::class, ['label' => 'URL для иконки Брест']);
-        $formMapper->add('vitebskUrl', TextType::class, ['label' => 'URL для иконки Витебск']);
-        $formMapper->add('gomelUrl', TextType::class, ['label' => 'URL для иконки Гомель']);
-        $formMapper->add('grodnoUrl', TextType::class, ['label' => 'URL для иконки Гродно']);
-        $formMapper->add('mogilevUrl', TextType::class, ['label' => 'URL для иконки Могилев']);
+        $formMapper->add('cityLink', TextType::class, ['label' => 'Шаблон ссылки города']);
+        $formMapper->add('cityTitle', TextType::class, ['label' => 'Шаблон title города']);
     }
 
     protected function configureListFields(ListMapper $listMapper)

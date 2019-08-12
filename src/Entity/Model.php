@@ -128,6 +128,13 @@ class Model implements VariableInterface
     private $thumbnailLogo;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $keyWords;
+
+    /**
      * Model constructor.
      */
     public function __construct()
@@ -312,14 +319,130 @@ class Model implements VariableInterface
         $this->active = $active;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getKeyWords(): ?string
+    {
+        return $this->keyWords;
+    }
+
+    /**
+     * @param null|string $keyWords
+     */
+    public function setKeyWords(?string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function addKeyWord($word)
+    {
+        $fullSame = $this->keyWords === $word;
+        $inStart = ($pos = strpos($this->keyWords,  $word . '|')) !== false && $pos === 0;
+        $inMiddle = strpos($this->keyWords,  '|' . $word . '|') !== false;
+        $inEnd = ($pos = strpos($this->keyWords,  '|' . $word)) !== false && ($pos + (strlen('|' . $word) - 1)) === strlen($this->keyWords);
+
+        if($fullSame || $inStart || $inMiddle || $inEnd){
+            return false;
+        }
+
+        if($this->keyWords){
+            $this->keyWords .= '|';
+        }
+
+        $this->keyWords .= $word;
+
+        return true;
+    }
+
     public function toSearchArray($isRussianText = false)
     {
         return [
             "label" => $isRussianText ? $this->modelRu : $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "id" => $this->id,
             "isRussian" => $isRussianText,
         ];
+    }
+
+    public function yearsToSearchArray($text)
+    {
+        $years = [];
+        $yearFrom = $this->technicalData->getYearFrom();
+        $yearTo = $this->technicalData->getYearTo();
+
+        foreach (range($yearFrom, $yearTo) as $year){
+            if(!$text || strpos((string)$year, (string)$text) === 0){
+                $years[] = [
+                    "label" => $year,
+                    "value" => $year,
+                    "url" => $year,
+                ];
+            }
+        }
+
+        return $years;
+    }
+
+    public function engineTypesToSearchArray($text)
+    {
+        $types = [];
+        $engineTypes = $this->technicalData->getEngineTypes();
+
+        /** @var EngineType $engineType */
+        foreach ($engineTypes as $engineType){
+            if(!$text || strpos($engineType->getType(), $text) === 0){
+                $types[] = [
+                    "label" => $engineType->getType(),
+                    "value" => $engineType->getType(),
+                    "url" => $engineType->getUrl(),
+                ];
+            }
+        }
+
+        return $types;
+    }
+
+    public function capacitiesToSearchArray($engineType, $text)
+    {
+        $capacities = [];
+        $engines = $this->technicalData->getEnginesByType($engineType);
+
+        /** @var Engine $engine */
+        foreach ($engines as $engine){
+            $capacity = $engine->getCapacity();
+
+            if(!$text || strpos($capacity, $text) === 0){
+                $capacities[] = [
+                    "label" => $capacity,
+                    "value" => $capacity,
+                    "url" => $capacity,
+                    "additional" => '(' . $engine->getName() . ')',
+                ];
+            }
+        }
+
+        return $capacities;
+    }
+
+    public function vehicleTypesToSearchArray($text)
+    {
+        $types = [];
+        $vehicleTypes = $this->technicalData->getVehicleTypes();
+
+        /** @var VehicleType $vehicleType */
+        foreach ($vehicleTypes as $vehicleType){
+            if(!$text || strpos($vehicleType->getType(), $text) === 0){
+                $types[] = [
+                    "label" => $vehicleType->getType(),
+                    "value" => $vehicleType->getType(),
+                    "url" => $vehicleType->getUrl(),
+                ];
+            }
+        }
+
+        return $types;
     }
 
     public function replaceVariables($string)

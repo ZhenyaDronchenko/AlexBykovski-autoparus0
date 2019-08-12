@@ -105,14 +105,10 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+     color: #2980b9;
     letter-spacing: 1px;
 }
 
-.mod-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 .mod-text {
    margin: 0;
     font-size: 16px;
@@ -154,12 +150,12 @@ cursor: default;
 }
 
 #showAll5 {
-      text-align: right;
-    display: none;
+    text-align: center;
     font-weight: 400;
     font-size: 14px;
     color: #ff0000;
     margin-right: 20px;
+    margin-bottom: 60px;
 }
 
 #showAll5:hover {
@@ -188,7 +184,7 @@ cursor: default;
 
 #brandImg5 li {
 margin: 0 auto;
-    width: 500px;
+    width: 350px;
 }
 
 .mod-link {
@@ -202,7 +198,7 @@ margin: 0 auto;
         -ms-flex-align: center;
             align-items: center;
     font-weight: 400;
-  height: 85px;
+  height: 70px;
   border-bottom: 1px solid #737373;
     letter-spacing: 1px;
     padding: 15px 5px;
@@ -212,9 +208,9 @@ margin: 0 auto;
 }
 .mod-link span {
   display: block;
-  width: 350px;
-    font-size: 18px;
-  line-height: 22px;
+  width: 270px;
+    font-size: 15px;
+  line-height: 20px;
   color: #444444;
   letter-spacing: 1px;
   font-weight: 400;
@@ -222,8 +218,8 @@ margin: 0 auto;
 
 }
 .mod-link img {
-    width: 120px;
-    height: 80px;
+        width: 75px;
+    height: 50px;
     margin-left: 7px;
 }
 
@@ -243,20 +239,16 @@ margin: 0 auto;
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+     color: #2980b9;
 }
-
-.mod-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
-
-
 
 @media (max-width: 480px) {
     .container {
         width: auto;
     }
+    #showAll5 {
+    margin-bottom: 40px;
+}
     .mod {
     padding-top: 25px;
     }
@@ -300,13 +292,10 @@ margin: 0 auto;
         margin: 0 auto;
     }
     #brandImg5 {
-        margin-bottom: 5px;
+        margin-bottom: 30px;
     }
 
-  
-
     #brandImg5 li {
-        
         width: 100%;
     }
     .mod-link {
@@ -318,11 +307,6 @@ padding: 10px 3px;
     border-bottom: 1px solid #ccc;
     }
    
-    .mod-link img {
-        width: 90px;
-        height: 60px;
-    }
-    
     .mod-subtitle {
         font-size: 20px;
         line-height: 24px;
@@ -351,14 +335,8 @@ padding: 10px 3px;
 }
 .mod-link span {
     width: 340px;
-    font-size: 16px;
-    line-height: 20px;
   }
-  .mod-link img {
-    width: 105px;
-    height: 70px;
-  
-}
+
     .mod-title {
         font-size: 22px;
         line-height: 26px;
@@ -385,14 +363,7 @@ padding: 10px 3px;
 }
 .mod-link span {
     width: 325px;
-    font-size: 16px;
-    line-height: 20px;
   }
-  .mod-link img {
-    width: 105px;
-    height: 70px;
-  
-}
 }
 @media (max-width: 575px) {
     .link {

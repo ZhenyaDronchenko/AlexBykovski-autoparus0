@@ -1,5 +1,12 @@
 <div class="tab tab-1 {{ activeTab == 'general' ? "modal--show" : ""  }}">
-    <h2 class="subtitle" data-text="Объявления добавленные группой (массово добавленные)">
+    <a class="btn-sel" href="/user-office/product-categories/spare-part/add-general-advert">
+        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+        </svg> Добавить объявление
+    </a>
+    <h2 class="subtitle">Объявления добавленные группой (массово добавленные)
     <sup>
         <button class="help help-1">
             <svg viewBox="0 0 32 32" width="18px" height="18px">
@@ -20,7 +27,7 @@
                 <b>{{ advert.brand ? advert.brand.brandEn : "Все марки - Все модели" }}</b>
                 <div class="tool">
                     <a href="{{ path("user_profile_product_categories_spare_part_edit_general_advert", {"id": advert.id}) }}" class="tool-rdc"><span class="item-1">Редактировать</span><img src="/img/cra.png" alt="Редактировать"></a>
-                    <a href="#delete-advert-modal" rel="modal:open" class="tool-close" ng-click="modalAdvert = {{ advert.id }}"><span class="item-1">Удалить</span><img src="/img/delete-b.png" alt="Удалить"></a>
+                    <a href="#delete-advert-modal" rel="modal:open" class="tool-close" ng-click="modalAdvert = {{ advert.id }}"><span class="item-1">Удалить</span><img src="/img/trash-can.svg" alt="Удалить"></a>
                 </div>
             </div>
 

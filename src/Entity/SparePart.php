@@ -168,6 +168,13 @@ class SparePart implements VariableInterface
     private $thumbnailLogo;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $keyWords;
+
+    /**
      * SparePart constructor.
      */
     public function __construct()
@@ -497,6 +504,7 @@ class SparePart implements VariableInterface
             "label" => $this->name,
             "value" => $this->name,
             "url" => $this->url,
+            "id" => $this->id,
         ];
     }
 
@@ -547,6 +555,42 @@ class SparePart implements VariableInterface
     public function setThumbnailLogo(?string $thumbnailLogo): void
     {
         $this->thumbnailLogo = $thumbnailLogo;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getKeyWords(): ?string
+    {
+        return $this->keyWords;
+    }
+
+    /**
+     * @param null|string $keyWords
+     */
+    public function setKeyWords(?string $keyWords): void
+    {
+        $this->keyWords = $keyWords;
+    }
+
+    public function addKeyWord($word)
+    {
+        $fullSame = $this->keyWords === $word;
+        $inStart = ($pos = strpos($this->keyWords,  $word . '|')) !== false && $pos === 0;
+        $inMiddle = strpos($this->keyWords,  '|' . $word . '|') !== false;
+        $inEnd = ($pos = strpos($this->keyWords,  '|' . $word)) !== false && ($pos + (strlen('|' . $word) - 1)) === strlen($this->keyWords);
+
+        if($fullSame || $inStart || $inMiddle || $inEnd){
+            return false;
+        }
+
+        if($this->keyWords){
+            $this->keyWords .= '|';
+        }
+
+        $this->keyWords .= $word;
+
+        return true;
     }
 
     /**

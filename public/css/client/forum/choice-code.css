@@ -1,0 +1,251 @@
+/*ХЛЕБНЫЕ КРОШКИ*/
+#breadcrumbs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      padding-top: 5px;
+}
+  
+.line {
+    margin: 0 3px;
+  }
+
+#breadcrumbs a {
+  font-family: 'Roboto';
+font-size: 16px;
+line-height: 18px;
+color: #444;
+position: relative;
+-webkit-transition-duration: 0.2s;
+     -o-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+}
+.user-icon {
+  display: none;
+}
+
+.user-link:hover,
+.link-b:hover {
+color: black;
+-webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+        transform: scale(1.05);
+}
+
+.current {
+cursor: default;
+}
+
+@media  (max-width: 480px) {
+  .container {
+    width: auto; 
+  }
+#breadcrumbs {
+  padding-top: 3px;
+}
+  .line {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+.user-name {
+    display: none;
+  }
+
+.user-icon {
+  display: block;
+}
+
+
+.user-link {
+  width: 10px;
+  height: 10px;
+}
+
+.user-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+#breadcrumbs a {
+    line-height: 18px;
+    font-size: 10px;
+  }
+  .model-block {
+    padding-top: 5px;
+  }
+ 
+.user-link--icon {
+  width: 16px;
+    height: 12px;
+}
+   
+ 
+ #breadcrumbs li:nth-child(2) {
+    margin-right: 3px;
+}
+
+}
+
+ /*END ХЛЕБНЫЕ КРОШКИ*/
+
+
+/*code*/
+.code {
+    padding-top: 35px;
+    padding-bottom: 65px;
+}
+
+.title {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: 400;
+    color: #2980b9;
+    letter-spacing: 1px;
+}
+
+
+
+.text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    font-weight: 400;
+}
+
+.code-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-align-items: flex-end;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 40px auto;
+}
+.name {
+    font-size: 38px;
+    line-height: 35px;
+    font-weight: 400;
+    color: #5b5b5b;
+
+}
+input {
+    border: none;
+    padding: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #737373;
+    font-size: 26px;
+    line-height: 28px;
+    color: #000000;
+    background-color: #fff;
+}
+.input {
+    width: 65px;
+    margin: 0 20px;
+}
+.btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #737373;
+    border-radius: 2px;
+    background-color: #dbc0c7;
+    outline: none;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+}
+.btn:hover svg {
+    background-color: #d2a2af;
+}
+
+.subtitle {
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 28px;
+    color: #2980b9;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.business {
+    margin-bottom: 60px;
+}
+
+.btn-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+    margin: 15px 0;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+}
+.btn-l {
+    padding: 5px 15px;
+    padding-bottom: 4px;
+    background-color: #dbc0c7;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: #444444;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-l:hover,
+.btn-l:active {
+    background-color: #d2a2af;
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: auto;
+        padding: 0 10px;
+    }
+
+    .code {
+          padding-top: 25px;
+        padding-bottom: 50px;
+    }
+    .code-block {
+        margin: 40px auto;
+    }
+    .title {
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 20px;
+    }
+
+
+    .subtitle {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+}
+
+/*city END*/

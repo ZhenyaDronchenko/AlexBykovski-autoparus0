@@ -1,16 +1,40 @@
 sonata_admin:
-    title: 'Sonata Admin'
+    title: 'Автопарус'
+    title_logo: /img/Logo1.svg
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
     assets:
         extra_stylesheets:
+            - 'bower-components/Croppie/croppie.css'
+            - 'bower-components/jquery.tagsinput/dist/jquery.tagsinput.min.css'
             - 'css/admin/general.css'
             - 'css/admin/model.css'
             - 'css/admin/spare-part.css'
         extra_javascripts:
-            - 'js/admin/model.js'
+            - 'bower-components/Croppie/croppie.min.js'
+            - 'bower-components/jquery.tagsinput/src/jquery.tagsinput.js'
+            - 'js/general-settings.js'
             - 'js/admin/spare-part.js'
+            - 'js/admin/article-image.js'
+            - 'js/admin/user/ajax-requests.js'
+            - 'js/admin/upload-images-via-cropper.js'
+
+    security:
+        handler: sonata.admin.security.handler.role
+        information:
+            EDIT: EDIT
+            LIST: LIST
+            CREATE: CREATE
+            VIEW: VIEW
+            DELETE: DELETE
+            EXPORT: EXPORT
+            OPERATOR: OPERATOR
+            MASTER: MASTER
+        role_super_admin: ROLE_ADMIN
+
+    templates:
+        layout:  'admin/default/layout_without_search_sidebar.html.twig'
 
 sonata_block:
     blocks:

@@ -1,0 +1,237 @@
+{% set scrollToElement = false %}
+
+<form id="form-add-auto-set" class="user-form" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate enctype="multipart/form-data"
+        {% if redirectUrl is defined %}
+            redirect-to-url redirect-url="{{ redirectUrl }}"
+        {% endif %}
+>
+    {{ form_widget(form._token) }}
+    <div class="select select-s"
+            {% if not scrollToElement and (form.vars.errors.form.getErrors(true) | length) == 0 %}
+                scroll-to-element before-top="200"
+                {% set scrollToElement = true %}
+            {% endif %}
+    >
+        <label class="select-item"
+                {% if not scrollToElement and form.brand.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.brand.vars.label }}
+            {{ form_widget(form.brand, {attr: {class: "mark-select mark-select-m"}}) }}
+            {% for key, error in form.brand.vars.errors.form.getErrors(true)%}
+                <br/><span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+        <label class="select-item"
+                {% if not scrollToElement and form.model.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.model.vars.label }}
+            {{ form_widget(form.model, {attr: {class: "model-select mark-select-c"}}) }}
+            {% for key, error in form.model.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+        <label class="select-item"
+                {% if not scrollToElement and form.year.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.year.vars.label }}
+            {{ form_widget(form.year, {attr: {class: "year-select mark-select-y"}}) }}
+            {% for key, error in form.year.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+    </div>
+
+
+    <div class="select">
+        <label class="select-i"
+                {% if not scrollToElement and form.engineType.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.engineType.vars.label }}
+            {{ form_widget(form.engineType, {attr: {class: "engine-select"}}) }}
+            {% for key, error in form.engineType.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+        <label class="select-i"
+                {% if not scrollToElement and form.engineCapacity.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.engineCapacity.vars.label }}
+            {{ form_widget(form.engineCapacity, {attr: {class: "volume-select"}}) }}
+            {% for key, error in form.engineCapacity.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+
+        {% set engineTypeValue = form.engineType.vars.value %}
+        {% set isInputUseEngineName = engineTypeValue and (form.engineName.vars.choices | length == 1) %}
+
+        <label class="select-i">{{ form.engineName.vars.label }}
+            {% set attrSelectEngineName = {class: "type-select", "style": isInputUseEngineName ? "display: none;" : ""} %}
+            {% if isInputUseEngineName %}
+                {% set attrSelectEngineName = attrSelectEngineName|merge({"disabled" : ""}) %}
+            {% endif %}
+            {{ form_widget(form.engineName, {attr: attrSelectEngineName}) }}
+            <input type="text" name="{{ form.engineNameEmpty.vars.name }}" id="input_{{ form.engineName.vars.id }}" input-by-pattern pattern="[a-zA-Z\d\.\-]" max-length="10" style="text-transform: uppercase; {{ isInputUseEngineName ? "" : "display: none;" }}" {{ isInputUseEngineName ? "" : "disabled" }} value="{{ isInputUseEngineName and engineNameEmpty is defined ? engineNameEmpty : '' }}">
+        </label>
+
+        <label class="select-i"
+                {% if not scrollToElement and form.gearBoxType.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.gearBoxType.vars.label }}
+            {{ form_widget(form.gearBoxType, {attr: {class: "body-select"}}) }}
+            {% for key, error in form.gearBoxType.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+
+        <label class="select-i"
+                {% if not scrollToElement and form.vehicleType.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.vehicleType.vars.label }}
+            {{ form_widget(form.vehicleType, {attr: {class: "kpp-select"}}) }}
+            {% for key, error in form.vehicleType.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+
+        <label class="select-i"
+                {% if not scrollToElement and form.driveType.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >{{ form.driveType.vars.label }}
+            {{ form_widget(form.driveType, {attr: {class: "drive-select"}}) }}
+            {% for key, error in form.driveType.vars.errors.form.getErrors(true)%}
+                <span class="prompt prompt--l">{{ error.message }}</span>
+            {% endfor %}
+        </label>
+    </div>
+
+    <div class="state">
+        <div class="state-item"
+                {% if not scrollToElement and form.condition.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >
+            <div class="state-block">
+                <h3 class="state-title">{{ form.condition.vars.label }}:</h3>
+                {% for key, error in form.condition.vars.errors.form.getErrors(true)%}
+                    <span class="state-check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <ul class="state-select">
+                {% for choice in form.condition %}
+                    <li class="state-option">
+                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                        {{ form_label(choice, null, {attr: {class: "state-text"}}) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="state-item state-item--m"
+                {% if not scrollToElement and form.stockType.vars.errors.form.getErrors(true) | length %}
+                    scroll-to-element
+                    {% set scrollToElement = true %}
+                {% endif %}
+        >
+            <div class="state-block">
+                <h3 class="state-title">{{ form.stockType.vars.label }}:</h3>
+                {% for key, error in form.stockType.vars.errors.form.getErrors(true)%}
+                    <span class="state-check">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+            <ul class="state-select">
+                {% for choice in form.stockType %}
+                    <li class="state-option">
+                        {{ form_widget(choice, {attr: {class: "visually-hidden filter-input filter-input-radio" }}) }}
+                        {{ form_label(choice, null, {attr: {class: "state-text"}}) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div
+        {% if not scrollToElement and form.comment.vars.errors.form.getErrors(true) | length %}
+            scroll-to-element
+            {% set scrollToElement = true %}
+        {% endif %}
+    >
+        {{ form_widget(form.comment, {attr: {"rows": 5, placeholder: "Описание:" }}) }}
+    </div>
+
+    {% for key, error in form.comment.vars.errors.form.getErrors(true)%}
+        <span class="state-check">{{ error.message }}</span>
+    {% endfor %}
+
+    <div class="img-block">
+        <a id="initiator-upload-image" nohref class="add-img">+ Добавить изображение:</a>
+        <input id="upload-image-input" type="file" style="display: none">
+        <img id="preview-image" class="img" src="{{ form.image.vars.value ? image_url(form.image.vars.value) : "/img/mers1.png" }}" alt="">
+        {{ form_widget(form.image) }}
+    </div>
+
+    <button class="btn" type="button" ng-hide="addAutoSet.allSparePartsChecked" ng-click="addAutoSet.toggleSpareParts()">Отметить все</button>
+    <button class="btn" type="button" ng-show="addAutoSet.allSparePartsChecked" ng-click="addAutoSet.toggleSpareParts()">Убрать все</button>
+
+    <div
+        {% if not scrollToElement and form.engineNameEmpty.vars.errors.form.getErrors(true) | length %}
+            scroll-to-element
+            {% set scrollToElement = true %}
+        {% endif %}
+    >
+        {% for key, error in form.engineNameEmpty.vars.errors.form.getErrors(true)%}
+            <span class="prompt prompt--l">{{ error.message }}</span>
+        {% endfor %}
+    </div>
+    <ul class="list">
+        {% set lastLetter = '' %}
+        {% for sparePart in form.spareParts %}
+            {% set label = sparePart.isChecked.vars.label %}
+            {% if lastLetter != label[:1] %}
+                {% set lastLetter = label[:1] %}
+
+                <li class="letter" data-text="{{ lastLetter }}"></li>
+            {% endif %}
+
+            <li class="item">
+                {{ form_widget(sparePart.isChecked, {attr: {class: "visually-hidden filter-input filter-input-checkbox checkbox-spare-part" }}) }}
+                <label class="list-name" for="{{ sparePart.isChecked.vars.id }}">{{ label }}</label>
+                <label class="price-c">
+                    {{ form_widget(sparePart.cost, {attr: {class: "name-input", "placeholder": "Цена", "input-by-pattern": "", "pattern" : "[\\d\\.]" }}) }}
+                    BYN <span>(Бел Руб)</span>
+                </label>
+            </li>
+        {% endfor %}
+    </ul>
+    <div id="preloader" style="display: none;">
+        <span class="load">Подождите, идет проверка и подача объявлений</span>
+        <img id="preloader-posts" src="/img/preload-gear.svg"/>
+    </div>
+    <ul class="btn-list">
+        <li>
+            {{ form_widget(form.submit, {attr: {class: "button", "data-name" : "submit"}}) }}
+        </li>
+        <li>
+            {{ form_widget(form.submitContinue, {attr: {class: "button", "data-name" : "submitContinue"}}) }}
+        </li>
+    </ul>
+    {{ form_widget(form.submitButtonName)}}
+
+</form>

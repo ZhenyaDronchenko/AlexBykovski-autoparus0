@@ -8,6 +8,7 @@ use App\Entity\DriveType;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
 use App\Entity\VehicleType;
+use App\Type\AutoSetType;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -152,7 +153,7 @@ class AutoSparePartSpecificAdvert
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $sparePartNumber;
 
@@ -166,7 +167,7 @@ class AutoSparePartSpecificAdvert
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $image;
 
@@ -199,6 +200,13 @@ class AutoSparePartSpecificAdvert
     private $activatedAt;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $currency;
+
+    /**
      * AutoSparePartGeneralAdvert constructor.
      *
      * @param SellerAdvertDetail $advertDetail
@@ -208,6 +216,29 @@ class AutoSparePartSpecificAdvert
         $this->sellerAdvertDetail = $advertDetail;
         $this->createdAt = new DateTime();
         $this->activatedAt = new DateTime();
+    }
+
+    public function copyForImport()
+    {
+        $newAdvert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
+
+        $newAdvert->setBrand($this->brand);
+        $newAdvert->setModel($this->model);
+        $newAdvert->setSparePart($this->sparePart);
+        $newAdvert->setYear($this->year);
+        $newAdvert->setEngineType($this->engineType);
+        $newAdvert->setEngineCapacity($this->engineCapacity);
+        $newAdvert->setGearBoxType($this->gearBoxType);
+        $newAdvert->setVehicleType($this->vehicleType);
+        $newAdvert->setSparePartNumber($this->sparePartNumber);
+        $newAdvert->setImage($this->image);
+        $newAdvert->setCost($this->cost);
+        $newAdvert->setComment($this->comment);
+        $newAdvert->setCurrency($this->currency);
+        $newAdvert->setCondition($this->condition);
+        $newAdvert->setStockType($this->stockType);
+
+        return $newAdvert;
     }
 
     /**
@@ -546,6 +577,22 @@ class AutoSparePartSpecificAdvert
         $this->activatedAt = $activatedAt;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param null|string $currency
+     */
+    public function setCurrency(?string $currency): void
+    {
+        $this->currency = $currency;
+    }
+
     public function createCloneByAuto()
     {
         $advert = new AutoSparePartSpecificAdvert($this->sellerAdvertDetail);
@@ -579,13 +626,41 @@ class AutoSparePartSpecificAdvert
         return $advert;
     }
 
+    public function setByAutoSet(AutoSetType $autoSet, $sparePart = null)
+    {
+        $this->brand = $autoSet->getBrand();
+        $this->model = $autoSet->getModel();
+        $this->year = $autoSet->getYear();
+        $this->engineType = $autoSet->getBrand();
+        $this->engineCapacity = $autoSet->getEngineCapacity();
+        $this->engineName = $autoSet->getEngineName();
+        $this->gearBoxType = $autoSet->getGearBoxType();
+        $this->vehicleType = $autoSet->getVehicleType();
+        $this->driveType = $autoSet->getDriveType();
+        $this->condition = $autoSet->getCondition();
+        $this->stockType = $autoSet->getStockType();
+        $this->comment = $autoSet->getComment();
+
+        $this->sparePart = $sparePart["name"];
+        $this->cost = $sparePart["cost"];
+    }
+
     public function toArray()
     {
+        $imagePath = '/images/' . $this->image;
+
+        if(strpos($this->image, "https") === 0 || strpos($this->image, "http") === 0){
+            $imagePath = $this->image;
+        }
+
         return [
             "id" => $this->id,
             "brand" => $this->brand->getName(),
             "model" => $this->model->getName(),
             "sparePart" => $this->sparePart,
+            "brandUrl" => $this->brand->getUrl(),
+            "modelUrl" => $this->model->getUrl(),
+            "city" => $this->sellerAdvertDetail->getSellerData()->getSellerCompany()->getCity(),
             "year" => $this->year,
             "engineType" => $this->engineType,
             "engineCapacity" => $this->engineCapacity,
@@ -597,8 +672,8 @@ class AutoSparePartSpecificAdvert
             "stockType" => self::STOCK_TYPES_FORM[$this->stockType],
             "sparePartNumber" => $this->sparePartNumber,
             "comment" => $this->comment,
-            "image" => $this->image ? '/images/' . $this->image : "",
-            "cost" => $this->cost,
+            "image" => $imagePath,
+            "cost" => strtoupper($this->currency) === "USD" ? $this->cost * 2 : $this->cost,
             "isActive" => $this->isActive,
             "activatedAt" => $this->activatedAt->format("d.m.Y"),
         ];

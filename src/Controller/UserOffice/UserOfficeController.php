@@ -4,9 +4,6 @@ namespace App\Controller\UserOffice;
 
 use App\Entity\Brand;
 use App\Entity\Client\Client;
-use App\Entity\Client\Gallery;
-use App\Entity\Client\GalleryPhoto;
-use App\Entity\Client\GalleryPhotoCar;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Client\SellerCompanyWorkflow;
@@ -392,7 +389,6 @@ class UserOfficeController extends Controller
         return new JsonResponse([
             "success" => true,
             "path" => '/images/' . $client->getPhoto()->getImage(),
-            "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
         ]);
     }
 
@@ -428,129 +424,6 @@ class UserOfficeController extends Controller
         return new JsonResponse([
             "success" => true,
             "path" => '/images/' . $image->getImage(),
-            "galleryPhoto" => isset($galleryPhoto) ? $galleryPhoto->toArray() : false,
-        ]);
-    }
-
-    /**
-     * @Route("/add-gallery-photo-ajax", name="user_office_add_gallery_photo_ajax", options={"expose"=true})
-     * @Route("/edit-gallery-photo-ajax/{id}", name="user_office_edit_gallery_photo_ajax", options={"expose"=true})
-     *
-     * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
-     */
-    public function uploadGalleryPhotoAjaxAction(Request $request, GeoLocationProvider $provider, GalleryPhoto $galleryPhoto = null)
-    {
-        /** @var Client $client */
-        $client = $this->getUser();
-        /** @var FileUpload $uploader */
-        $uploader = $this->get("app.file_upload");
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-
-        if($galleryPhoto && $galleryPhoto->getGallery()->getClient()->getId() !== $client->getId()){
-            return new JsonResponse([
-                "success" => false,
-            ]);
-        }
-
-        if(!$client->getGallery()){
-            $gallery = new Gallery($client);
-
-            $em->persist($gallery);
-        }
-
-        $file = $request->files->get("file");
-        $ip = $request->getClientIp();
-        $coordinates = $request->request->get("coordinates");
-        $coordinates = $coordinates ? json_decode($coordinates, true) : null;
-        $description = $request->request->get("description");
-
-        $uploader->setFolder(FileUpload::USER_OFFICE_GALLERY);
-        $path = $uploader->upload($file);
-
-        $image = new Image($path);
-        $geoLocation = $provider->addGeoLocationToImage($coordinates, $ip);
-        $image->setGeoLocation($geoLocation);
-
-        if(!$galleryPhoto){
-            $galleryPhoto = new GalleryPhoto($image, $client->getGallery());
-            $galleryPhoto->setUserCars();
-
-            $em->persist($galleryPhoto);
-        }
-        else{
-            $em->remove($galleryPhoto->getImage());
-
-            $galleryPhoto->setImage($image);
-        }
-
-        $galleryPhoto->setDescription($description);
-
-        $em->persist($image);
-        $em->flush();
-
-        $em->refresh($galleryPhoto);
-
-        return new JsonResponse([
-            "success" => true,
-            "gallery" => $galleryPhoto->toArray(),
-        ]);
-    }
-
-    /**
-     * @Route("/remove-gallery-photo-ajax/{id}", name="user_office_remove_gallery_photo_ajax", options={"expose"=true})
-     *
-     * @ParamConverter("galleryPhoto", class="App\Entity\Client\GalleryPhoto", options={"id" = "id"})
-     */
-    public function removeGalleryPhotoAjaxAction(Request $request, GalleryPhoto $galleryPhoto)
-    {
-        if($galleryPhoto->getGallery()->getClient()->getId() !== $this->getUser()->getId()){
-            return new JsonResponse([
-                "success" => false,
-            ]);
-        }
-
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($galleryPhoto);
-        $em->flush();
-
-        return new JsonResponse([
-            "success" => true,
-        ]);
-    }
-
-    /**
-     * @Route("/get-all-gallery-ajax", name="user_office_get_all_gallery_ajax", options={"expose"=true})
-     */
-    public function getAllGallery(Request $request)
-    {
-        return new JsonResponse($this->getUser()->getGalleryInArray());
-    }
-
-    /**
-     * @Route("/remove-gallery-car-ajax/{id}", name="remove_gallery_car_ajax", options={"expose"=true})
-     *
-     * @ParamConverter("galleryPhotoCar", class="App\Entity\Client\GalleryPhotoCar", options={"id" = "id"})
-     */
-    public function removeGalleryCarAction(Request $request, GalleryPhotoCar $galleryPhotoCar)
-    {
-        if($galleryPhotoCar->getGalleryPhoto()->getGallery()->getClient()->getId() !== $this->getUser()->getId()){
-            return new JsonResponse(["success" => false]);
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $galleryPhoto = $galleryPhotoCar->getGalleryPhoto();
-
-        $em->remove($galleryPhotoCar);
-        $em->flush();
-
-        $em->refresh($galleryPhoto);
-
-        return new JsonResponse([
-            "success" => true,
-            "gallery" => $galleryPhoto->toArray(),
         ]);
     }
 }

@@ -122,16 +122,13 @@
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     text-align: center;
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
-.title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
+
 .title-t {
     font-size: 22px;
     line-height: 24px;
@@ -168,10 +165,10 @@ label span {
     line-height: 22px;
 
 }
-::-webkit-input-placeholder {color:#000000;}
-::-moz-placeholder          {color:#000000;}/* Firefox 19+ */
-:-moz-placeholder           {color:#000000;}/* Firefox 18- */
-:-ms-input-placeholder      {color:#000000;}
+::-webkit-input-placeholder {color:#999999;}
+::-moz-placeholder          {color:#999999;}/* Firefox 19+ */
+:-moz-placeholder           {color:#999999;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#999999;}
 
 
 .help {
@@ -201,7 +198,7 @@ label span {
 
 }
 .business-option li {
-    margin: 0 30px;
+    margin: 0 5%;
     margin-bottom: 20px;
 }
 
@@ -227,7 +224,7 @@ label span {
     border-radius: 0;
 }
 .choice-b {
-    width: 60%;
+    width: 350px;
 }
 .city-input {
     width: 100px;
@@ -246,7 +243,8 @@ label span {
 }
 
 .choice-str {
-    width: 48%;
+    width: 280px;
+    margin-bottom: 30px;
 }
 .choice-input--str {
     width: 450px;
@@ -254,7 +252,7 @@ label span {
 }
 
 .name-select {
-    width: 195px;
+    width: 170px;
     font-size: 20px;
     line-height: 22px;
     color: #000000;
@@ -658,39 +656,40 @@ textarea {
 
 
 .modal {
-    position: fixed;
-    top: 100px;
-    left: 50%;
-    width: 700px;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    text-align: center;
-    background-color: #fff;
-    padding: 45px 10px;
-    border-radius: 5px;
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  width: 850px;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: #fff;
+  padding: 70px 55px;
+  padding-bottom: 0px;
+  border-radius: 5px;
 }
 
 .modal-close {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -ms-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    position: absolute;
-    right: 3px;
-    top: 3px;
-    cursor: pointer;
-    border: 1px solid #737373;
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 2px;
-    outline: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+  border: 1px solid #737373;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 2px;
+  outline: none;
 
 }
 
@@ -765,19 +764,18 @@ textarea {
     .choice-input {
         font-size: 16px;
         line-height: 18px;
-    
     }
 
     .choice-b {
-        width: 100%;
+        width: 70%;
     }
 
     .choice-unp {
-        width: 100%;
+        width: 60%;
 
     }
     .choice-city {
-        width: 100%;
+        width: 80%;
         color: #757373;
     }
     .country {
@@ -785,7 +783,7 @@ textarea {
         line-height: 22px;
     }
     .choice-str {
-        width: 98%;
+        width: 70%;
     }
     .block-item {
         width: 100%;
@@ -975,7 +973,9 @@ textarea {
     }
     .modal {
         top: 50px;
-        width: 80%;
+    width: 80%;
+    padding: 50px 15px;
+    padding-bottom: 0;
     }
     .modal-title {
         margin-bottom: 10px;
@@ -986,6 +986,7 @@ textarea {
         margin-right: 20px;
     }
     .name-select {
+        width: 110px;
     font-size: 18px;
     line-height: 20px;
 }
@@ -1021,26 +1022,24 @@ textarea {
            
     }
 
-    .choice-b {
+    /*.choice-b {
         width: 98%;
     }
 
     .choice-unp {
         width: 50%;
 
-    }
+    }*/
     .choice-city {
         display: inline-block;
-        width: 250px;
         color: #757373;
     }
     .country {
         display: inline-block;
-        width: 150px;
     }
-    .choice-str {
+    /*.choice-str {
         width: 90%;
-    }
+    }*/
 
     .business-block {
         display: -webkit-box;
@@ -1180,14 +1179,14 @@ textarea {
 
     .modal {
         top: 50px;
-        width: 80%;
+        width: 70%;
     }
     .modal-title {
         margin-bottom: 10px;
         font-size: 20px;
         line-height: 22px;
     }
-    .choice-city {
+   /* .choice-city {
         width: 400px;
         color: #757373;
     }
@@ -1197,7 +1196,7 @@ textarea {
     .country {
 
         width: 120px;
-    }
+    }*/
 }
 @media (min-width: 768px) and  (max-width: 1023px) {
     .container {
@@ -1213,36 +1212,40 @@ textarea {
         line-height: 20px;
     }
 
-.choice-unp {
+/*.choice-unp {
     width: 30%;
-}
+}*/
     .choice-city {
-        width: 180px;
+        /*width: 180px;*/
         color: #757373;
     }
-
-    .choice-str {
+.modal {
+  top: 50px;
+  left: 50%;
+  width: 600px;
+ 
+}
+   /* .choice-str {
         width: 45%;
     }
     .choice-b {
         width: 60%;
-    }
+    }*/
     .business-option li {
-        margin: 0 15px;
         margin-bottom: 20px;
     }
 
-    .choice-input-unp {
+    /*.choice-input-unp {
         width: 61%;
 
-    }
+    }*/
     .choice-city {
-        width: 325px;
+        /*width: 325px;*/
         color: #757373;
     }
-    .name-select {
+    /*.name-select {
         width: 60%;
-    }
+    }*/
  }
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
@@ -1251,7 +1254,7 @@ textarea {
         font-size: 17px;
         line-height: 20px;
     }
-    .choice-str {
+  /*  .choice-str {
         width: 465px;
     }
     .choice-b {
@@ -1260,6 +1263,6 @@ textarea {
     
     .choice-unp {
     width: 20%;
-}
+}*/
 }
 /*Profil END*/

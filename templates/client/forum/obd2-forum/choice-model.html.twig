@@ -4,7 +4,74 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/forum/choice-model.css'>
 {% endblock %}
 
 {% block body %}
+{% set templateParameters = {"brand" : brand, "type": type, "code" : code} %}
+{% set routeParams = app.request.attributes.get('_route_params') %}
+{% set getMessagesLink = path('ajax_get_obd2_forum_messages_without_model', routeParams) %}
+{% set addMessageLink = path('ajax_obd2_forum_add_message', routeParams|merge({'urlModel' : '__model__'})) %}
+    <div ng-controller="ForumOBD2Ctrl as forum" ng-init="forum.init('{{ getMessagesLink }}', '{{ addMessageLink }}')">
+      <main class="container">
+          <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                <span class="user-name" itemprop="name">Главная</span>
+                <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                  <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                  <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                </svg>
+                <meta itemprop="position" content="1">
+              </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="{{ path("obd2_forum_choice_brand") }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceBrand") }}"><span class="line">/</span><span itemprop="name">OBD2 ошибки</span></a><meta itemprop="position" content="2"></li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="{{ path("obd2_forum_choice_type", {"urlBrand" : routeParams["urlBrand"]}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceType", templateParameters) }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span><meta itemprop="position" content="3"></a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="{{ path("obd2_forum_choice_code", {"urlBrand" : routeParams["urlBrand"], "urlType" : routeParams["urlType"]}) }}" itemprop="item" title="{{ title_provider("App\\Entity\\Forum\\OBD2Forum\\OBD2ForumChoiceCode", templateParameters) }}"><span class="line">/</span><span itemprop="name">Ошибка {{ type.designation }}</span><meta itemprop="position" content="4"></a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">{{ type.designation }} {{ code.code }}</span><meta itemprop="position" content="5"></a>
+            </li>
+          </ul>
+
+          <section class="model">
+            <h1>{{ page.headline1 }}</h1>
+            <div>{{ page.text1 | raw }}</div>
+
+            <form class='modform' action="#" method="get">
+              <input id="model-autocomplete" class='form7' name="search"
+                     auto-сomplete-autoparus add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"
+                     method-search="searchModels" identifier-field="model-autocomplete"
+                     request-parameters='{"brand": "{{ brand.url }}"}'
+                     placeholder="Модель авто:" type="search"
+                     scroll-to-element scroll-by-click="true" before-top="30">
+            </form>
+            <div class="btn-list">
+              <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 1 : 5 }}" ng-click="forum.resetAddMessageForm();">Поделиться опытом</button>
+              <button type="button" class="btn-form open-popup-button" data-popup-id="{{ app.user ? 2 : 5 }}" ng-click="forum.resetAddMessageForm();">Задать вопрос</button>
+            </div>
+
+
+            {% include('/client/forum/obd2-forum/parts/messages.html.twig') %}
+
+            <h2>{{ page.headline2 }}</h2>
+
+            <div>{{ page.text2 | raw }}</div>
+            {#<button class="btn btn-show5">Универсальная кнопка</button>#}
+            <div class="btn-block">
+              <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
+            </div>
+          </section>
+         </main>
+
+    {% include('/client/forum/obd2-forum/parts/modals.html.twig') %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/filter/order-object-by.js'></script>
+    <script src='/js/client/controller/forum/obd2/forum-obd2-controller.js'></script>
 {% endblock %}

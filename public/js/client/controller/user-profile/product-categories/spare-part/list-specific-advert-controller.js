@@ -209,6 +209,15 @@
             });
         }
 
+        function linkShowAdvert(advert) {
+            return Routing.generate("show_brand_catalog_in_stock", {
+                "urlBrand" : advert.brandUrl,
+                "urlModel" : advert.modelUrl,
+                "urlSP" : advert.sparePartUrl,
+                "urlCity" : advert.cityUrl,
+            })
+        }
+
         this.init = init;
         this.changeFilter = changeFilter;
         this.getNumberForPaginationCell = getNumberForPaginationCell;
@@ -216,6 +225,7 @@
         this.isActiveCell = isActiveCell;
         this.getTechnicalDetailAdvert = getTechnicalDetailAdvert;
         this.changeAdvertActivity = changeAdvertActivity;
+        this.linkShowAdvert = linkShowAdvert;
 
     }]);
 })(window.autoparusApp);

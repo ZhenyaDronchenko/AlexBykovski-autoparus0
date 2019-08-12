@@ -104,14 +104,10 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #f66666;
+    color: #2980b9;
     letter-spacing: 1px;
 }
 
-.city-title::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 .city-desc {
     margin-bottom: 40px;
 }
@@ -161,7 +157,7 @@ cursor: default;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .form7 {
@@ -181,7 +177,7 @@ cursor: default;
 
 
 .model-block {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 #model {
@@ -228,8 +224,8 @@ cursor: default;
 
 }
 .model-link img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
      
 }
 .model-link img:hover {
@@ -267,7 +263,7 @@ cursor: default;
     font-weight: 400;
     font-size: 16px;
     color: #ff7c01;
-    padding-top: 5px;
+    padding-top: 15px;
     cursor: pointer;
     outline: none;
 }
@@ -284,13 +280,9 @@ cursor: default;
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #f66666;
+    color: #2980b9;
 }
 
-.city-subtitle::before { /* второй слой */
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 .city-subtext {
     margin: 0;
     margin-bottom: 10px;
@@ -335,6 +327,7 @@ cursor: default;
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
         flex-direction: column;
+        margin-bottom: 35px;
 
     }
 
@@ -343,11 +336,11 @@ cursor: default;
     }
     #model li {
         margin: 0 auto;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .model-link img {
-         margin: 0 7px;
+         margin: 0 4px;
         width: 60px;
         height: 60px;
     }
@@ -433,7 +426,6 @@ cursor: default;
         text-align: center;
         font-size: 20px;
         line-height: 24px;
-
         -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
         order: 1;
@@ -452,11 +444,11 @@ cursor: default;
 
     #model li {
         margin: 0 auto;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .model-link img {
-         margin: 0 7px;
+         margin: 0 5px;
         width: 60px;
         height: 60px;
     }

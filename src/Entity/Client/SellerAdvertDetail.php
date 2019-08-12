@@ -2,7 +2,6 @@
 
 namespace App\Entity\Client;
 
-
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -45,9 +44,16 @@ class SellerAdvertDetail
      * @var Collection
      *
      * One SellerAdvertDetail has Many AutoSparePartSpecificAdverts.
-     * @ORM\OneToMany(targetEntity="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", mappedBy="sellerAdvertDetail")
+     * @ORM\OneToMany(targetEntity="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", mappedBy="sellerAdvertDetail", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $autoSparePartSpecificAdverts;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\UserData\ImportAdvertFile", mappedBy="sellerAdvertDetail")
+     */
+    private $importSpecificAdvertFiles;
 
     /**
      * SellerAdvertDetail constructor.
@@ -56,6 +62,7 @@ class SellerAdvertDetail
     {
         $this->autoSparePartGeneralAdverts = new ArrayCollection();
         $this->autoSparePartSpecificAdverts = new ArrayCollection();
+        $this->importSpecificAdvertFiles = new ArrayCollection();
     }
 
     /**
@@ -127,6 +134,22 @@ class SellerAdvertDetail
         $this->autoSparePartSpecificAdverts->add($advert);
     }
 
+    /**
+     * @return Collection
+     */
+    public function getImportSpecificAdvertFiles(): Collection
+    {
+        return $this->importSpecificAdvertFiles;
+    }
+
+    /**
+     * @param Collection $importSpecificAdvertFiles
+     */
+    public function setImportSpecificAdvertFiles(Collection $importSpecificAdvertFiles): void
+    {
+        $this->importSpecificAdvertFiles = $importSpecificAdvertFiles;
+    }
+
     public function getAutoSparePartGeneralAdvertsBrands($isOnlyIds = false)
     {
         $brands = [];
@@ -150,7 +173,9 @@ class SellerAdvertDetail
             return $advert->getBrand()->getId() === $advertToCompare->getBrand()->getId() &&
                 $advert->getModel()->getId() === $advertToCompare->getModel()->getId() &&
                 $advert->getSparePart() === $advertToCompare->getSparePart() &&
-                $advert->getYear() === $advertToCompare->getYear();
+                $advert->getYear() === $advertToCompare->getYear() &&
+                $advert->getStockType() === $advertToCompare->getStockType() &&
+                $advert->getCondition() === $advertToCompare->getCondition();
         })) > 0;
     }
 }

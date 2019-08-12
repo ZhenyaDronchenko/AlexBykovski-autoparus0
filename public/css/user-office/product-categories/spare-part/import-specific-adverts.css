@@ -106,9 +106,9 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-     color: #f66666;
+      color: #2980b9;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     letter-spacing: 1px;
 }
 
@@ -126,21 +126,20 @@ cursor: default;
     line-height: 20px;
     font-weight: 400;
     background-color: #dbc0c7;
-    margin-bottom: 20px;
 }
 .btn:hover {
     background-color: #d2a2af;
 }
 
 .price-btn {
-    width: 400px;
+    width: 270px;
 }
 
 
 .price-block {
     display: flex;
     justify-content: space-between;
-    padding-top: 10px;
+    padding-top: 5px;
     width: 350px;
     margin: 0 auto;
     margin-bottom: 25px;
@@ -163,7 +162,7 @@ cursor: default;
 }
 
 .price-item {
-    margin-bottom: 15px;
+    margin-bottom: 65px;
 }
 
 .price-item span {
@@ -306,5 +305,13 @@ cursor: default;
     }
 }
 
+.show-import-errors{
+    height: 208px;
+    border: 2px solid #737373;
+    overflow-y: scroll;
+}
 
+span.ng-binding {
+    margin-bottom: 40px;
+}
 /*price end*/

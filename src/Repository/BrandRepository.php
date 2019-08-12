@@ -84,4 +84,22 @@ class BrandRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findBrandForImport($text)
+    {
+        $qb = $this->createQueryBuilder('br')
+            ->select('br');
+
+        $orX = $qb->expr()->orX(
+            "UPPER(br.keyWords) = UPPER(:text)",
+            "UPPER(br.keyWords) LIKE CONCAT('%|', UPPER(:text))",
+            "UPPER(br.keyWords) LIKE CONCAT(UPPER(:text), '|%')",
+            "UPPER(br.keyWords) LIKE CONCAT('%|', UPPER(:text), '|%')"
+        );
+
+        return $qb->where($orX)
+            ->setParameter('text', $text)
+            ->getQuery()
+            ->getResult();
+    }
 }
