@@ -6,6 +6,7 @@ use App\Entity\User;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SellerAdmin extends AbstractAdmin
@@ -18,6 +19,12 @@ class SellerAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('idUser', TextType::class, ['label' => 'ID', 'sortable' => false, 'mapped' => false, 'template' => 'admin/user/user_id.html.twig'])
+            ->addIdentifier('createdAt', 'datetime', [
+                'label' => 'Дата рег.',
+                'sortable' => false,
+                'format' => 'Y-m-d H:i',
+            ])
             ->addIdentifier('name', TextType::class, ['label' => 'Имя/Nick', 'sortable' => false])
             ->addIdentifier('email', TextType::class, ['label' => 'e-mail', 'sortable' => false])
             ->addIdentifier('phone', TextType::class, ['label' => 'Телефон', 'sortable' => false])
@@ -32,6 +39,7 @@ class SellerAdmin extends AbstractAdmin
             ->addIdentifier('toPersonOffice', null, ['label' => false, 'template' => 'admin/user/link_to_user_office.html.twig', 'sortable' => false, 'mapped' => false])
             ->addIdentifier('sellerData.sellerCompany.unp', TextType::class, ['label' => 'УНП', 'sortable' => false])
             ->addIdentifier('sellerData.sellerCompany.companyName', TextType::class, ['label' => 'Название организации', 'sortable' => false])
+            ->addIdentifier('isShowPostsHomepage', 'boolean', ['label' => "VIP", 'template' => 'admin/user/role/is_show_posts_homepage.html.twig', 'sortable' => false])
         ;
     }
 

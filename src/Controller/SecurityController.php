@@ -167,7 +167,7 @@ class SecurityController extends Controller
         $tokenStorage->setToken($token);
         $request->getSession()->set('_security_main', serialize($token));
 
-        return $this->redirectToRoute("show_user_office");
+        return $this->redirectToRoute("show_user_base_profile");
     }
 
     /**

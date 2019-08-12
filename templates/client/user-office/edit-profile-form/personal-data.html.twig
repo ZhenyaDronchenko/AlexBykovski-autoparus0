@@ -1,4 +1,4 @@
-<form id="personal-data-form" class="user-form" action="#" method="post" style="padding-bottom: 0;" novalidate>
+<form {% if isValid %} redirect-url="{{ path("show_user_office") }}" {% endif %} id="personal-data-form" class="user-form" action="#" method="post" style="padding-bottom: 0;" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
     <fieldset class="block">
         <h1 class="title">{{ default_text(11).headline }}

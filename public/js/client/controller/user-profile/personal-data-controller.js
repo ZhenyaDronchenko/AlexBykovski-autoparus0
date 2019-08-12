@@ -39,6 +39,10 @@
 
                         return false;
                     });
+
+                    if($(formSelector).attr("redirect-url")){
+                        window.location.href = $(formSelector).attr("redirect-url");
+                    }
                 }
             });
         }
