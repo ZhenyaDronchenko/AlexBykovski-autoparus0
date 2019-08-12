@@ -18,7 +18,12 @@ class BuyerAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id', TextType::class, ['label' => 'ID', 'sortable' => false])
+            ->addIdentifier('idUser', TextType::class, ['label' => 'ID', 'sortable' => false, 'mapped' => false, 'template' => 'admin/user/user_id.html.twig'])
+            ->addIdentifier('createdAt', 'datetime', [
+                'label' => 'Дата рег.',
+                'sortable' => false,
+                'format' => 'Y-m-d H:i',
+            ])
             ->addIdentifier('name', TextType::class, ['label' => 'Имя/Nick', 'sortable' => false])
             ->addIdentifier('email', TextType::class, ['label' => 'e-mail', 'sortable' => false])
             ->addIdentifier('phone', TextType::class, ['label' => 'Телефон', 'sortable' => false])
@@ -28,8 +33,9 @@ class BuyerAdmin extends AbstractAdmin
             ->addIdentifier('isEnabled', 'boolean', ['label' => 'Актив', 'sortable' => false])
             ->addIdentifier('isHelper', 'boolean', ['label' => "helper", 'sortable' => false])
             ->addIdentifier('toPersonOffice', null, ['label' => false, 'template' => 'admin/user/link_to_user_office.html.twig', 'sortable' => false, 'mapped' => false])
-            ->addIdentifier('isCopywriter', 'boolean', ['label' => "Копирайтер", 'template' => 'admin/user/role/is_copy_writer.html.twig', 'sortable' => false])
+            ->addIdentifier('isCopywriter', 'boolean', ['label' => "Райт", 'template' => 'admin/user/role/is_copy_writer.html.twig', 'sortable' => false])
             ->addIdentifier('isShowPostsHomepage', 'boolean', ['label' => "VIP", 'template' => 'admin/user/role/is_show_posts_homepage.html.twig', 'sortable' => false])
+            ->addIdentifier('isSeller', 'boolean', ['label' => "Бизнес", 'template' => 'admin/user/role/is_seller.html.twig', 'sortable' => false])
         ;
     }
 

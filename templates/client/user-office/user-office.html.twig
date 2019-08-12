@@ -119,6 +119,9 @@
                             </div>
                         {% else %}
                             <div class="user-edit" ng-init="showAllButtons = false" ng-cloak>
+                                {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN_ARTICLE_WRITER')) %}
+                                    <a class="button-rp" href="{{ path("admin_app_article_article_list") }}">Админка статей и публикаций</a>
+                                {% endif %}
                                 <a href="{{ path("show_user_business_office") }}" class="button-rp">Создать бизнес профиль</a>
                                 <a nohref class="button-rp open-popup-button" data-popup-id="52" ng-show="showAllButtons">Добавить объявление как частное лицо</a>
                                 <a nohref class="button-rp open-popup-button" data-popup-id="53" ng-show="showAllButtons">Добавить объявление как предприниматель</a>
