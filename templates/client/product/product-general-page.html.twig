@@ -7,6 +7,8 @@
 
 {% block body %}
     {% set parameters = [brand, model, sparePart, city] %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set route = app.request.attributes.get('_route') %}
     <main class="container">
         <section class="main-page">
             <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -45,14 +47,16 @@
 
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                     <a class="link-b" href="{{ path("show_brand_catalog_choice_city", {urlBrand: brand.url, urlModel: model.url, urlSP: sparePart.url}) }}" itemprop="item"
-                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters) }}"><span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters) }}">
+                        <span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
                     </a>
                     <meta itemprop="position" content="5">
                 </li>
 
 
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ city.name }}</span>
+                    <a class="current" nohref itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
+                        <span class="line">/</span><span itemprop="name">{{ city.name }}</span>
                         <meta itemprop="position" content="6">
                     </a>
                 </li>
