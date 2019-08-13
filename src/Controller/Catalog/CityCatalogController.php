@@ -541,9 +541,9 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}", name="show_city_catalog_choice_in_stock")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}", name="show_city_catalog_choice_tender")
      */
-    public function showChoiceInStockPageAction(
+    public function showChoiceTenderPageAction(
         Request $request,
         $urlCity,
         $urlBrand,
@@ -594,7 +594,7 @@ class CityCatalogController extends Controller
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
             $vehicleType, $condition];
 
-        return $this->render('client/catalog/city/choice-in-stock.html.twig', [
+        return $this->render('client/catalog/city/choice-tender.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
             'brand' => $brand,
@@ -614,7 +614,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}/in_stock", name="show_city_catalog_choice_final_page")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}/tender", name="show_city_catalog_choice_final_page")
      */
     public function showChoiceFinalPagePageAction(
         Request $request,
