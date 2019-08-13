@@ -49,6 +49,31 @@ class ProductController extends Controller
     }
 
     /**
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}", name="show_product_general_view_brand_model_spare_part")
+     */
+    public function showProductGeneralPageBrandModelSparePartAction(Request $request, $urlBrand, $urlModel, $urlSP)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $articles = $em->getRepository(Article::class)->findBy([], ["createdAt" => "DESC"], 2, 2);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
+            !($model instanceof Model)){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
+        return $this->render('client/product/product-general-page-brand-model-spare_part.html.twig', [
+            "brand" => $brand,
+            "model" => $model,
+            "sparePart" => $sparePart ?: new SparePart(),
+            "articles" => $articles,
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="show_product_view")
      *
      * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
