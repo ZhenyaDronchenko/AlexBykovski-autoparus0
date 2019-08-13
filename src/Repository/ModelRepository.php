@@ -79,12 +79,12 @@ class ModelRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findAllUrlByBrandUrl($brandUrl)
+    public function findAllUrlByBrandUrl($brandUrl, $isOnlyPopular = true)
     {
         $qb = $this->createQueryBuilder('m')
             ->select('m.url');
 
-        return $this->findByBrandUrl($qb, $brandUrl)
+        return $this->findByBrandUrl($qb, $brandUrl, $isOnlyPopular)
             ->getQuery()
             ->getResult();
     }
@@ -122,12 +122,16 @@ class ModelRepository extends EntityRepository
             ->getResult();
     }
 
-    private function findByBrandUrl(QueryBuilder $queryBuilder, $brandUrl)
+    private function findByBrandUrl(QueryBuilder $queryBuilder, $brandUrl, $isOnlyPopular = true)
     {
-        return $queryBuilder->join("m.brand", "br")
-            ->where("m.isPopular = :trueValue")
-            ->andWhere("br.url = :brandUrl")
-            ->setParameter("trueValue", true)
-            ->setParameter("brandUrl", $brandUrl);
+        $query = $queryBuilder->join("m.brand", "br")
+            ->where("br.url = :brandUrl");
+
+        if($isOnlyPopular) {
+            $query
+                ->andWhere("m.isPopular = :trueValue")
+                ->setParameter("trueValue", true);
+        }
+        return $query->setParameter("brandUrl", $brandUrl);
     }
 }

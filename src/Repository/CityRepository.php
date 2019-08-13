@@ -7,13 +7,17 @@ use Doctrine\ORM\EntityRepository;
 
 class CityRepository extends EntityRepository
 {
-    public function findAllUrlsForSiteMap()
+    public function findAllUrlsForSiteMap($isOnlyActive = true)
     {
-        return $this->createQueryBuilder('c')
-            ->select('c.url')
-            ->where("c.active = :trueValue")
-            ->setParameter("trueValue", true)
-            ->getQuery()
+        $query = $this->createQueryBuilder('c')
+            ->select('c.url');
+
+        if($isOnlyActive) {
+            $query->where("c.active = :trueValue")
+                ->setParameter("trueValue", true);
+        }
+
+        return $query->getQuery()
             ->getResult();
     }
 

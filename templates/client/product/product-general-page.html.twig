@@ -153,7 +153,7 @@
                 <ul class="product-block">
                     <li class="product-list">
                         <h2 class="product-subtitle">Описание товара:</h2>
-                        <p class="product-text" itemprop="description">{{ sparePart.alternativeName1 }} для {{ brand.name }} {{ model.name }} в {{ city.name }} и других городах Беларуси с гарантией, запчасти высокого качества. <br>Для просмотра других продавцов {{ sparePart.nameGenitive }} к {{ brand.brandRu ~ ' ' ~ model.modelRu }} Вы можете перейти в <a href="{{ path("show_brand_catalog_choice_city", routeParams) }}">последовательный каталог запчастей</a>, где выберите максимально выгодное для Вас предложение.</p>
+                        <p class="product-text" itemprop="description">{{ sparePart.alternativeName1 }} для {{ brand.name }} {{ model.name }} в {{ city.name }} и других городах Беларуси с гарантией, запчасти высокого качества. <br>Для просмотра других продавцов {{ sparePart.nameGenitive }} к {{ brand.brandRu ~ ' ' ~ model.modelRu }} Вы можете перейти в <a href="{{ path("show_brand_catalog_choice_city", {urlBrand: brand.url, urlModel: model.url, urlSP: sparePart.url}) }}">последовательный каталог запчастей</a>, где выберите максимально выгодное для Вас предложение.</p>
                     </li>
 
                     {#<li class="product-list">#}
