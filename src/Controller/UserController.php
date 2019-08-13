@@ -23,8 +23,18 @@ class UserController extends Controller
      *
      * @ParamConverter("seller", class="App\Entity\Client\Client", options={"id" = "id"})
      */
-    public function showPostAction(Request $request, Client $seller)
+    public function showSellerViewAction(Request $request, Client $seller)
     {
         return $this->render('client/user/seller-view.html.twig', []);
+    }
+
+    /**
+     * @Route("/seller/{urlCity}/{id}", name="seller_city_view")
+     *
+     * @ParamConverter("seller", class="App\Entity\Client\Client", options={"id" = "id"})
+     */
+    public function showSellerCityAction(Request $request, Client $seller)
+    {
+        return $this->render('client/user/seller-city-view.html.twig', []);
     }
 }

@@ -50,13 +50,17 @@ class BrandRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findAllUrlsForSiteMap()
+    public function findAllUrlsForSiteMap($onlyActive = true)
     {
-        return $this->createQueryBuilder('br')
-            ->select('br.url')
-            ->where("br.active = :trueValue")
-            ->setParameter("trueValue", true)
-            ->getQuery()
+        $query = $this->createQueryBuilder('br')
+            ->select('br.url');
+
+        if($onlyActive) {
+            $query->where("br.active = :trueValue")
+                ->setParameter("trueValue", true);
+        }
+
+        return $query->getQuery()
             ->getResult();
     }
 

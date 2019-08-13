@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ sparePart.alternativeName3 ~ ' ' ~ brand.name ~ ' ' ~  model.name ~ ' (' ~  brand.brandRu ~ ' ' ~ model.modelRu ~ ') в ' ~ city.prepositional }}{% endblock %}
+{% block title %}{{ sparePart.alternativeName2 ~ ' для ' ~ brand.brandEn ~ ' ' ~  model.modelEn }}{% endblock %}
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/client/product/product-view.css'>
 {% endblock %}
-{% block meta_description %}{{ sparePart.alternativeName3 }} для {{ brand.name ~ ' ' ~  model.name }} года в {{ city.prepositional }} с расширенной гарантией по честной цене. Автозапчасти такие как {{ sparePart.alternativeName4 }} для автомобилей {{ brand.brandEn ~ ' ' ~  model.modelEn }} бу и новые от первых поставщиков в городе {{ city.name }}.{% endblock %}
+{% block meta_description %}Купить {{ sparePart.alternativeName2 }} для автомобиля {{ brand.name ~ ' ' ~  model.name }} Вы сможете на нашем сайте по честной цене. Автозапчасти такие как {{ sparePart.alternativeName1 }} для автомобилей {{ brand.brandRu ~ ' ' ~  model.modelRu }} бу и новые из первых рук без посредников.{% endblock %}
 
 {% block body %}
     {% set parameters = [brand, model, sparePart, city] %}
@@ -46,19 +46,10 @@
                 </li>
 
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="link-b" href="{{ path("show_brand_catalog_choice_city", {urlBrand: brand.url, urlModel: model.url, urlSP: sparePart.url}) }}" itemprop="item"
-                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters) }}">
+                    <a class="current" nohref itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
                         <span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
                     </a>
                     <meta itemprop="position" content="5">
-                </li>
-
-
-                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="current" nohref itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
-                        <span class="line">/</span><span itemprop="name">{{ city.name }}</span>
-                        <meta itemprop="position" content="6">
-                    </a>
                 </li>
             </ul>
 
@@ -89,12 +80,12 @@
                             {#</div>#}
                         </div>
                         <div class="product-dsc">
-                            <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName3 ~ ' для ' ~ brand.name ~ ' ' ~ model.name  ~ ' в ' ~ city.prepositional }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
-                            <span class="art" itemprop="sku">№ {{ brand.id ~ '-' ~ model.id ~ '-' ~ sparePart.id ~ '-' ~ city.id }}</span><!-- Артикул Значение 21 -->
+                            <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName2 ~ ' для ' ~ brand.brandEn ~ ' ' ~ model.modelEn }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
+                            <span class="art" itemprop="sku">№ {{ brand.id ~ '-' ~ model.id ~ '-' ~ sparePart.id }}</span><!-- Артикул Значение 21 -->
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><!-- Описание продукта -->
                                 <p class="status">Состояние з/ч: <span>Новая запчасть</span></p>
                                 <span class="stock"><link itemprop="availability" href="http://schema.org/InStock">В наличии</span>
-                                <b class="price" itemprop="price" content="115.00">от {{ brand.id + model.id + sparePart.id }} руб.</b>
+                                <b class="price" itemprop="price" content="115.00">от {{ brand.id + sparePart.id }} руб.</b>
                                 <span itemprop="priceCurrency" content="BYN"></span><!-- Цена Значение 7 -->
                                 <time itemprop="priceValidUntil" datetime="2020-11-05"></time><!-- Цена действует до Значение 15 -->
                                 <a itemprop="url" href="#"></a>
@@ -108,7 +99,7 @@
                     <section class="org">
                         <h2 class="org-title">Автозапчасти</h2>
                         <div class="adress">
-                            <p class="adress-text"><span>Беларусь, {{ city.name }}</span><br>
+                            <p class="adress-text"><span>Беларусь</span><br>
                                 {#г. Минск, ул. Лещинского, д. 1, а - 332#}
                             </p>
                         </div>
@@ -153,7 +144,7 @@
                 <ul class="product-block">
                     <li class="product-list">
                         <h2 class="product-subtitle">Описание товара:</h2>
-                        <p class="product-text" itemprop="description">{{ sparePart.alternativeName1 }} для {{ brand.name }} {{ model.name }} в {{ city.name }} и других городах Беларуси с гарантией, запчасти высокого качества. <br>Для просмотра других продавцов {{ sparePart.nameGenitive }} к {{ brand.brandRu ~ ' ' ~ model.modelRu }} Вы можете перейти в <a href="{{ path("show_brand_catalog_choice_city", {urlBrand: brand.url, urlModel: model.url, urlSP: sparePart.url}) }}">последовательный каталог запчастей</a>, где выберите максимально выгодное для Вас предложение.</p>
+                        <p class="product-text" itemprop="description">{{ sparePart.name }} для {{ brand.brandEn ~ ' ' ~  model.modelEn }}. Автозапчасти высокого качества для всез марок и моделей легкового, грузового транспорта и микроавтобусов по максимально выгодным ценам. <br>Для просмотра других продавцов {{ sparePart.nameGenitive ~ ' к ' ~ brand.brandRu ~ ' ' ~ model.modelRu}} Вы можете перейти в <a href="{{ path("show_brand_catalog_choice_city", routeParams) }}">последовательный каталог запчастей</a>, где выберите максимально выгодное для Вас предложение.</p>
                     </li>
 
                     {#<li class="product-list">#}
@@ -171,13 +162,13 @@
                     <section class="feature-list">
                         <h2 class="feature-title">Характеристики</h2>
                         <table class="feature-block">
-                            <tr><td>Запчасть:</td><td class="tab">{{ sparePart.name }}</td></tr>
-                            <tr><td>Марка:</td><td class="tab">{{ brand.name }}</td></tr>
-                            <tr><td>Модель:</td><td class="tab">{{ model.name }}</td></tr>
+                            <tr><td>Запчасть:</td><td class="tab">{{ sparePart.alternativeName1 }}</td></tr>
+                            <tr><td>Марка:</td><td class="tab">{{ brand.brandEn }}</td></tr>
+                            <tr><td>Модель:</td><td class="tab">{{ model.modelEn }}</td></tr>
                             <tr><td>Год:</td><td class="tab">{{ model.technicalData.yearFrom ~ ' - ' ~ model.technicalData.yearTo }}</td></tr>
-                            <tr><td>Тип двигателя:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Тип двигателя:</td><td class="tab">Дизель / бензин</td></tr>
                             <tr><td>Объем:</td><td class="tab">Необходимо уточнение</td></tr>
-                            <tr><td>Тип КПП:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Тип КПП:</td><td class="tab">АКПП / МКПП"</td></tr>
                             <tr><td>Тип привода:</td><td class="tab">Необходимо уточнение</td></tr>
                             <tr><td>Тип Кузова:</td><td class="tab">Необходимо уточнение</td></tr>
                         </table>

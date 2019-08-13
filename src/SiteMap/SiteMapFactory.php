@@ -9,6 +9,7 @@ use App\SiteMap\Provider\BrandCatalogSiteMapUrlProvider;
 use App\SiteMap\Provider\SparePartCatalogOBD2AllCititesSiteMapUrlProvider;
 use App\SiteMap\Provider\SparePartCatalogOBD2MinskSiteMapUrlProvider;
 use App\SiteMap\Provider\ForumObd2ErrorsObd2UniversalPagesSiteMapUrlProvider;
+use App\SiteMap\Provider\UniversalProductGeneralPagesSiteMapUrlProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -59,6 +60,8 @@ final class SiteMapFactory
                 return new BrandCatalogPopularOBD2TurboCitySiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             case SiteMap::TYPE_FORUM_OBD2_ERRORS_OBD2_UNIVERSAL_PAGES:
                 return new ForumObd2ErrorsObd2UniversalPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
+            case SiteMap::TYPE_UNIVERSAL_PRODUCT_GENERAL_PAGES:
+                return new UniversalProductGeneralPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             default:
                 throw new \InvalidArgumentException('Unknown builder given');
         }
