@@ -4,7 +4,95 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+   <link rel='stylesheet' href='/css/catalog/city/choice-in-stock.css'>
 {% endblock %}
 
+
 {% block body %}
+  <main class="container">
+      <ul class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="user-link user-link--icon" href="/"
+                 title="Запчасти для автомобилей на &quot;Автопарус&quot;" itemprop="item">
+                  <span class="user-name" itemprop="name">Главная</span>
+                  <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                      <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                      <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                  </svg>
+                  <meta itemprop="position" content="1">
+              </a>
+          </li>
+
+          <li class="breadcrumbs-item">
+              <a class="link-b link-btn"><span class="line">/</span>. . . </a>    
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Лента публикаций Autoparus.by, Auto parus buy"><span class="line">/</span><span itemprop="name">Каталог</span>
+              </a>
+              <meta itemprop="position" content="2">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 3"><span class="line">/</span><span itemprop="name">[CITY]</span>
+              </a>
+              <meta itemprop="position" content="3">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 4"><span class="line">/</span><span itemprop="name">[ENBRAND]</span>
+              </a>
+              <meta itemprop="position" content="4">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 5"><span class="line">/</span><span itemprop="name">[ENMODEL]</span>
+              </a>
+              <meta itemprop="position" content="5">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 6"><span class="line">/</span><span itemprop="name">[YEAR]</span>
+              </a>
+              <meta itemprop="position" content="">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[ZAP5]</span>
+                  <meta itemprop="position" content="7">
+              </a>
+          </li>
+      </ul>
+
+      <section class="zap">
+          <h1 class="zap-title">Заголовок страницы Н1</h1>
+          <div class="zap-wrapper">
+                <div id="text1" class="text1Hide">Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки. Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки. Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки</div>
+                <span onclick="text1ShowHide()" id="allText"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
+            </div>
+
+
+          <div class="zap-block">
+            <ul class="zap-list">
+              <li><a href="#" class="zap-item">Бензиновый</a></li>
+              <li><a href="#" class="zap-item">Дизельный</a></li>
+              <li><a href="#" class="zap-item">Гибридный</a></li>
+            </ul>
+            <a href="#" class="zap-item zap-item--electric">Электродвигатель</a>
+          </div>
+
+          <h2 class="zap-subtitle">Заголовок страницы Н2</h2>
+          <p class="zap-text">Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора</p>
+      </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/pages/catalog/choice-engine-capacity.js'></script>
 {% endblock %}
