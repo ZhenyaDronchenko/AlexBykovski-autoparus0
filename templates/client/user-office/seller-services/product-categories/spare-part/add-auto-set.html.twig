@@ -4,6 +4,10 @@
     <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-auto-set.css'>
 {% endblock %}
 
+{% block exit_profile %}
+    <a class="registration-link" href="{{ logout_path("main") }}">Выйти из кабинета</a>
+{% endblock %}
+
 {% block body %}
     <main class="container">
         <ul id="breadcrumbs">

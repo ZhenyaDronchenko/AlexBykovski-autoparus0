@@ -1,4 +1,5 @@
 {% set scrollToElement = false %}
+{% set isEditAction = isEditAction is defined ? isEditAction : app.request.attributes.get('_route') == "user_profile_product_categories_spare_part_edit_specific_advert" %}
 
 <form id="form-edit-specific-advert" class="user-form" action="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate enctype="multipart/form-data"
         {% if redirectUrl is defined %}
@@ -157,20 +158,20 @@
     </label>
 
     <ul class="btn-list">
-    <li>
-            {{ form_widget(form.submitAutoContinue, {attr: {class: "btn", "data-name" : "submitAutoContinue"}}) }}
+        {% if not isEditAction %}
+            <li>
+                {{ form_widget(form.submitAutoContinue, {attr: {class: "btn", "data-name" : "submitAutoContinue"}}) }}
+            </li>
+            <li>
+                {{ form_widget(form.submitSparePartContinue, {attr: {class: "btn", "data-name" : "submitSparePartContinue"}}) }}
+            </li>
+             <li>
+                {{ form_widget(form.submitAdd, {attr: {class: "btn", "data-name" : "submitAdd"}}) }}
+            </li>
+        {% endif %}
+        <li {% if isEditAction %}style="width: 100%;"{% endif %}>
+            {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit", "style": "margin: auto;"}}) }}
         </li>
-        <li>
-            {{ form_widget(form.submitSparePartContinue, {attr: {class: "btn", "data-name" : "submitSparePartContinue"}}) }}
-        </li>
-         <li>
-            {{ form_widget(form.submitAdd, {attr: {class: "btn", "data-name" : "submitAdd"}}) }}
-        </li>
-        <li>
-            {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit"}}) }}
-        </li>
-       
-        
     </ul>
     <span class="load">Подождите, идет загрузка объявления.</span>
 

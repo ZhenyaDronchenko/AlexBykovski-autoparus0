@@ -154,8 +154,9 @@
     </div>
 
     <div class="btn-list">
-        {% set secondButtonLabel = isEditAction ? "Редактировать и вернуться к списку" : "Добавить и вернуться к списку" %}
-        {{ form_widget(form.submitSparePartAndList, {attr: {class: "btn", "style" : "margin-right: 0;"}, "label" : secondButtonLabel}) }}
+        {% if not isEditAction %}
+            {{ form_widget(form.submitSparePartAndList, {attr: {class: "btn", "style" : "margin-right: 0;"}, "label" : "Добавить и вернуться к списку"}) }}
+        {% endif %}
 
         {#{% if isValid and not isConfirmBrand %}#}
             {#<span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}#}
