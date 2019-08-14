@@ -170,6 +170,7 @@ class ArticleAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+        $listMapper->addIdentifier('idObject', null, ['label' => 'ID', 'sortable' => false, 'mapped' => false, 'template' => 'admin/general/id_object.html.twig']);
         $listMapper->addIdentifier('headline1', TextType::class, ['label' => 'Название', 'sortable' => false]);
         $listMapper->addIdentifier('author', TextType::class, ['label' => 'Автор', 'sortable' => false]);
         $listMapper->addIdentifier('createdAt', 'datetime', [
@@ -217,7 +218,7 @@ class ArticleAdmin extends AbstractAdmin
                 ->setParameter('user', $user);
         }
 
-        $query->orderBy($rootAlias . '.updatedAt', 'ASC');
+        $query->orderBy($rootAlias . '.updatedAt', 'DESC');
 
         return $query;
     }

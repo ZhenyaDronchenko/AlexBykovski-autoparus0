@@ -18,7 +18,7 @@ class BuyerAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('idUser', TextType::class, ['label' => 'ID', 'sortable' => false, 'mapped' => false, 'template' => 'admin/user/user_id.html.twig'])
+            ->addIdentifier('idUser', TextType::class, ['label' => 'ID', 'sortable' => false, 'mapped' => false, 'template' => 'admin/general/id_object.html.twig'])
             ->addIdentifier('createdAt', 'datetime', [
                 'label' => 'Дата рег.',
                 'sortable' => false,
