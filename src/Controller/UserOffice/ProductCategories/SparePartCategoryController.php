@@ -87,7 +87,6 @@ class SparePartCategoryController extends Controller
         $advert = $advert ?: new AutoSparePartGeneralAdvert($client->getSellerData()->getAdvertDetail());
         $isValid = false;
         $isBrandSubmitted = false;
-        $isSimpleSparePartSubmitted = false;
         $isAjax = !is_null($request->query->get("ajax"));
         $redirectToUrl = null;
 
@@ -97,7 +96,6 @@ class SparePartCategoryController extends Controller
 
         if($form->isSubmitted()){
             $isBrandSubmitted = $form->get("submitGeneral")->isClicked();
-            $isSimpleSparePartSubmitted = $form->get("submitSparePart")->isClicked();
             $brand = $form->get("brand")->getData();
 
             $form = $this->createForm(SparePartGeneralAdvertType::class, $advert, ["brand" => $brand]);
@@ -142,11 +140,11 @@ class SparePartCategoryController extends Controller
 
                 $redirectFirstUrl = $isNewElement || $isAddRouter ?
                     $this->generateUrl("user_profile_product_categories_spare_part_add_general_advert") :
-                    $this->generateUrl("user_profile_product_categories_spare_part_edit_general_advert", ["id" => $advert->getId()]);
+                    $this->generateUrl("user_profile_product_categories_spare_part_list_adverts");
 
-                $redirectToUrl = $isSimpleSparePartSubmitted ?
+                $redirectToUrl = $isBrandSubmitted ?
                     $redirectFirstUrl :
-                    $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "general"]);
+                    $this->generateUrl("user_profile_product_categories_spare_part_list_adverts");
             }
         }
 
@@ -194,6 +192,8 @@ class SparePartCategoryController extends Controller
      */
     public function addSpecificAdvertAction(Request $request, AutoSparePartSpecificAdvert $advert = null)
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Client $client */
@@ -225,6 +225,8 @@ class SparePartCategoryController extends Controller
         $form = $this->createForm(SparePartSpecificAdvertType::class, $advert, ["isFormSubmitted" => $isFormSubmitted]);
 
         $form->handleRequest($request);
+        $routeReferrer = $router->match(parse_url($request->headers->get('referer'))["path"])['_route'];
+        $isAddRouter = $routeReferrer === "user_profile_product_categories_spare_part_add_specific_advert";
 
         if($form->isSubmitted() && $form->isValid()){
             $fileData = $form->get("image")->getData();
@@ -266,6 +268,10 @@ class SparePartCategoryController extends Controller
                     $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_list_adverts");
 
                     break;
+            }
+
+            if(!$isAddRouter){
+                $redirectUrl = $this->generateUrl("user_profile_product_categories_spare_part_list_adverts", ["tab" => "specific"]);
             }
 
             return $this->render('client/user-office/seller-services/product-categories/spare-part/forms/add-specific-advert-form.html.twig', [

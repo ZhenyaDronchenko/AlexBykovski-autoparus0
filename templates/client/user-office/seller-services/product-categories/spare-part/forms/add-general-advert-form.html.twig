@@ -149,25 +149,10 @@
     {{ form_widget(form.comment, {attr: {"rows": "5", "placeholder" : "Общий комментарий к объявлению:"}}) }}
 
     <div class="btn-save">
-        {% set firstButtonLabel = isEditAction ? "Редактировать" : "Добавить и продолжить добавление" %}
-        {{ form_widget(form.submitSparePart, {attr: {class: "btn-filter"}, "label" : firstButtonLabel}) }}
+        {% set firstButtonLabel = isEditAction ? "Редактировать" : "Добавить" %}
+        {{ form_widget(form.submit, {attr: {class: "btn-filter"}, "label" : firstButtonLabel}) }}
     </div>
 
-    <div class="btn-list">
-        {% set secondButtonLabel = isEditAction ? "Редактировать и вернуться к списку" : "Добавить и вернуться к списку" %}
-        {{ form_widget(form.submitSparePartAndList, {attr: {class: "btn", "style" : "margin-right: 0;"}, "label" : secondButtonLabel}) }}
-
-        {#{% if isValid and not isConfirmBrand %}#}
-            {#<span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}#}
-            {#scroll-to-element#}
-                    {#{% set scrollToElement = true %}#}
-                    {#{% endif %}>#}
-                {#Подтверждение принято и объявление сохранено#}
-            {#</span>#}
-        {#{% endif %}#}
-
-        {#<a class="btn btn-o" href="#">Посмотреть поданное объявление</a>#}
-    </div>
      <span class="load">Подождите, идет загрузка объявления.</span>
     {% if isValid and not isConfirmBrand %}
         <span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}

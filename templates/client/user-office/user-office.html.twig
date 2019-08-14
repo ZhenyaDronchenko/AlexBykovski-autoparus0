@@ -6,6 +6,10 @@
     <link rel='stylesheet' href='/css/user-office/user-office.css'>
 {% endblock %}
 
+{% block exit_profile %}
+    <a class="registration-link" href="{{ logout_path("main") }}">Выйти из кабинета</a>
+{% endblock %}
+
 {% block body %}
     <div ng-controller="PostsCtrl as posts" ng-init="posts.init('#dialog-cropper-container-gallery', '#dialog-cropper-container-post-photo', true)">
     {% set isSeller = app.user.isSeller() %}

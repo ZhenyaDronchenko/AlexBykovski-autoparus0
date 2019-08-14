@@ -11,6 +11,7 @@ use App\Entity\VehicleType;
 use App\Type\AutoSetType;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Advert\AutoSparePart\AutoSparePartSpecificAdvertRepository")
@@ -188,9 +189,18 @@ class AutoSparePartSpecificAdvert
     /**
      * @var DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
+
+    /**
+     * @var DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     /**
      * @var DateTime
@@ -215,6 +225,7 @@ class AutoSparePartSpecificAdvert
     {
         $this->sellerAdvertDetail = $advertDetail;
         $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
         $this->activatedAt = new DateTime();
     }
 
@@ -591,6 +602,22 @@ class AutoSparePartSpecificAdvert
     public function setCurrency(?string $currency): void
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function createCloneByAuto()

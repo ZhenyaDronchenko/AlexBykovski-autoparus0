@@ -119,8 +119,7 @@ class SparePartGeneralAdvertType extends AbstractType
             ->add('submitGeneral', SubmitType::class, [
                 'label' => "Подтвердить выбранное",
             ])
-            ->add('submitSparePart', SubmitType::class, [])
-            ->add('submitSparePartAndList', SubmitType::class, [])
+            ->add('submit', SubmitType::class, [])
         ;
 
         $builder->get('brand')->addModelTransformer($this->brandTransformer);

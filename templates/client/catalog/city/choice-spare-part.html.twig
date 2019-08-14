@@ -80,7 +80,7 @@
                 <ul class='show-m' id='model'>
                     {% for sparePart in popularSpareParts %}
                         <li ng-hide="showAll">
-                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="">
+                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_in_stock", {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : sparePart.url}) }}">
                                 <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
                             </a>
@@ -88,7 +88,7 @@
                     {% endfor %}
                     {% for sparePart in unpopularSpareParts %}
                         <li ng-show="showAll">
-                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="">
+                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_in_stock", {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : sparePart.url}) }}">
                                 <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
                             </a>

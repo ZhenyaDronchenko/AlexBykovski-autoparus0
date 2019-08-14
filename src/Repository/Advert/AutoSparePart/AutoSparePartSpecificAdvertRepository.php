@@ -73,6 +73,7 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
         return $qb->select('spAdv')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
+            ->orderBy("spAdv.updatedAt", "DESC")
             ->getQuery()
             ->getResult();
     }

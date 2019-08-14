@@ -5,6 +5,7 @@ namespace App\Entity\Advert\AutoSparePart;
 use App\Entity\Brand;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\Client\SellerCompany;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -130,12 +131,16 @@ class AutoSparePartGeneralAdvert
     private $isBrandAdded = 0;
 
     /**
+     * @var DateTime
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
+     * @var DateTime
+     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -296,6 +301,38 @@ class AutoSparePartGeneralAdvert
     public function setIsBrandAdded(bool $isBrandAdded): void
     {
         $this->isBrandAdded = $isBrandAdded;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function getStockTypeView()

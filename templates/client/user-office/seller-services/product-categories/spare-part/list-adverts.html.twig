@@ -7,6 +7,10 @@
     <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/delete-general-advert.css'>
 {% endblock %}
 
+{% block exit_profile %}
+    <a class="registration-link" href="{{ logout_path("main") }}">Выйти из кабинета</a>
+{% endblock %}
+
 {% block body %}
     {% set countSparePartGeneralAdverts = adverts_count(app.user, "general") %}
     {% set countSparePartSprecificAdverts = adverts_count(app.user, "specific") %}

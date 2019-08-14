@@ -110,11 +110,9 @@
                       <li><a class="registration-link" href="{{ path("sonata_admin_dashboard") }}">Main Admin</a></li>
                   {% else %}
                       <li>
-                          {% if app.request.attributes.get('_route') == "show_user_office" %}
-                              <a class="registration-link" href="{{ logout_path("main") }}">Выйти из кабинета</a>
-                          {% else %}
-                              <a class="registration-link" href="{{ path("show_user_office") }}">Личный кабинет</a>
-                          {% endif %}
+                          {% block exit_profile %}
+                            <a class="registration-link" href="{{ path("show_user_office") }}">Личный кабинет</a>
+                          {% endblock %}
                       </li>
                   {% endif %}
               {% else %}
