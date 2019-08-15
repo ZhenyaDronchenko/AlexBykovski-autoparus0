@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% endblock %}
+{% set sellerCompany = seller.sellerData.sellerCompany %}
+{% set workflow = sellerCompany.workflow %}
+{% block title %}{{ seller.name ~ ' в ' ~ city.prepositional ~ ' адрес, ' ~ sellerCompany.companyName ~ ' ' ~ sellerCompany.unp }}{% endblock %}
 
 {% block stylesheets %}
 	<link rel='stylesheet' href='/css/client/user/seller-view.css'>
 {% endblock %}
 
-{% block meta_description %}{% endblock %}
+{% block meta_description %}Автозапчасти от компании {{ sellerCompany.companyName ~ ' ' ~ sellerCompany.unp ~ ' (' ~ seller.name ~ ')' ~ ' в ' ~ city.prepositional}} адрес, телефоны и время работы, авто и мот запчасти бу и новых на www.autoparus.by.{% endblock %}
 
 {% block body %}
 	<main class="container">
       <div class="main-page">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="/"
-                   title="Запчасти для автомобилей на &quot;Автопарус&quot;" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -24,14 +26,14 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="/stati" itemprop="item"
-                   title="Лента публикаций Autoparus.by, Auto parus buy"><span class="line">/</span><span itemprop="name">Автозапчасти</span>
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item"
+                   title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", []) }}"><span class="line">/</span><span itemprop="name">Автозапчасти</span>
                 </a>
                 <meta itemprop="position" content="2">
             </li>
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">ООО "Автозапчасть"</span>
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ sellerCompany.companyName }}</span>
                     <meta itemprop="position" content="3">
                 </a>
             </li>
@@ -40,10 +42,10 @@
         <section class="seller">
           <div class="seller-block" itemscope itemtype="http://schema.org/LocalBusiness"><!-- Организация -->
             <span itemprop="priceRange" content="от 1BYN до 2 000BYN"></span><!-- цена Значение 8 -->
-            <img src="img/mers1.png" alt="" class="user-img" itemprop="image">
+            <img src="/img/mers1.png" alt="" class="user-img" itemprop="image">
             <div class="seller-wrapper">
             <div class="seller-list">
-              <h1 class="seller-title">ИП Былина<meta itemprop="name" content="ИП Былина"></h1><!-- Название организации Значение 9 -->
+              <h1 class="seller-title">{{ seller.name }}<meta itemprop="name" content="{{ seller.name }}"></h1><!-- Название организации Значение 9 -->
               <div class="review">
                 <span class="star rev"></span>
                 <span class="star rev"></span>
@@ -54,76 +56,87 @@
               </div>
             </div>
             <div class="seller-inner">
-            <div class="card-time">                       
-              <div class="week">
-                <span class="day blue"></span>
-                <span class="day blue"></span>
-                <span class="day blue"></span>
-                <span class="day blue"></span>
-                <span class="day blue"></span>
-                <span class="day-time" itemprop="openingHours">08:00 - 22:00</span><!-- Время работы Значение 13 -->
-              </div>
-              <div class="weekend">
-                <span class="day"></span>
-                <span class="day"></span>
-                <span class="day"></span>
-                <span class="day red"></span>
-                <span class="day red"></span>
-                <span class="day-time" itemprop="openingHours">08:00 - 22:00</span><!-- Время работы Значение 13 -->
-              </div>
+            <div class="card-time">
+                {% if workflow.isWorkWeekday() %}
+                  <div class="week">
+                    <span class="day blue"></span>
+                    <span class="day blue"></span>
+                    <span class="day blue"></span>
+                    <span class="day blue"></span>
+                    <span class="day blue"></span>
+                    <span class="day-time" itemprop="openingHours">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                  </div>
+                {% endif %}
+                {% if workflow.isWorkWeekend() %}
+                  <div class="weekend">
+                    <span class="day"></span>
+                    <span class="day"></span>
+                    <span class="day"></span>
+                    <span class="day red"></span>
+                    <span class="day red"></span>
+                    <span class="day-time" itemprop="openingHours">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                  </div>
+                {% endif %}
             </div>
 
             <div class="card-contact">
-              <a href="tel:+375(29)3239999" class="contact" data-text="+375  (29)  323 - 99 - 99" itemprop="telephone" content="+375 29 614 68 13"></a>
-              <a href="tel:+375(33)3239999" class="contact" data-text="+375  (33)  323 - 99 - 99" itemprop="telephone" content="+375 29 614 68 13"></a>
+                {% if sellerCompany.additionalPhone %}
+                    <a href="tel:{{ sellerCompany.additionalPhone }}" class="contact" data-text="{{ sellerCompany.additionalPhone }}" itemprop="telephone" content="{{ sellerCompany.additionalPhone }}"></a>
+                {% endif %}
+                {% if sellerCompany.additionalPhone2 %}
+                    <a href="tel:{{ sellerCompany.additionalPhone2 }}" class="contact" data-text="{{ sellerCompany.additionalPhone2 }}" itemprop="telephone" content="{{ sellerCompany.additionalPhone2 }}"></a>
+                {% endif %}
             </div>
             </div>
             
           </div>
           <div class="map">
               <h2 class="map-title">Адрес на карте</h2>
-              <p class="adress-text" itemscope itemprop="address" itemtype="http://schema.org/PostalAddress"><span itemprop="addressCountry">Беларусь</span>, <span itemprop="addressLocality">Минск</span> <span itemprop="streetAddress">ул. Лещинского, д. 1, а - 332</span></p><!-- Адресс Значение 12 -->
+              <p class="adress-text" itemscope itemprop="address" itemtype="http://schema.org/PostalAddress"><span itemprop="addressCountry">{{ sellerCompany.sellerData.client.country }}</span>, <span itemprop="addressLocality">{{ sellerCompany.city }}</span> <span itemprop="streetAddress">{{ sellerCompany.address }}</span></p><!-- Адресс Значение 12 -->
               <div class="map-img">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.915326748843!2d27.44994322552072!3d53.906556319123695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbdad342f7c9e5%3A0x59c295302ce7c5fc!2z0YPQu9C40YbQsCDQm9C10YnQuNC90YHQutC-0LPQviAxLCDQnNC40L3RgdC6!5e0!3m2!1sru!2sby!4v1563887342453!5m2!1sru!2sby" width="600" height="400"></iframe>
+                <iframe src='https://maps.google.com/maps?&amp;q="{{ sellerCompany.getFullAddress() | url_encode }}"&amp;output=embed' width="600" height="400"></iframe>
               </div>
             </div>
           </div>
           
           <section class="org">
-            <h2 class="org-title">ИП Былина</h2>
-            <p class="org-text">Юридический адрес: 220000
-                ул. Кирова, д. 59, оф. 15<br>
-                УНП: 491060400<br>
-                Свидетельство о регистрации
-                000000000 от 00.00.0000<br>
-                Регистрирующий орган: Минский
-                горисполком.<br>
-                Зарегистрирован в торговом
-                реестре 00.00.0000</p>
+            <h2 class="org-title">{{ sellerCompany.companyName }}</h2>
+            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" class="user-img" itemprop="image">
+            <p class="org-text">
+                {#Юридический адрес: 220000#}
+                {#ул. Кирова, д. 59, оф. 15<br>#}
+                УНП: {{ sellerCompany.unp }}<br>
+                {#Свидетельство о регистрации#}
+                {#000000000 от 00.00.0000<br>#}
+                {#Регистрирующий орган: Минский#}
+                {#горисполком.<br>#}
+                {#Зарегистрирован в торговом#}
+                {#реестре 00.00.0000</p>#}
 
             <h2 class="org-title">Способы оплаты</h2>
             <ul class="org-list">
-              <li><a class="org-item" href="#">Наличный расчет</a></li>
-              <li><a class="org-item" href="#">Безналичный расчет</a></li>
-              <li><a class="org-item" href="#">Кредитная карта</a></li>
+                {% if workflow.isCash %}
+                    <li><a class="org-item" nohref>Наличный расчет</a></li>
+                {% endif %}
+                {% if workflow.isCashless %}
+                    <li><a class="org-item" nohref>Безналичный расчет</a></li>
+                {% endif %}
+                {% if workflow.isCreditCard %}
+                    <li><a class="org-item" nohref>Кредитная карта</a></li>
+                {% endif %}
             </ul>
               
             <section class="promo">
-              <h2 class="promo-title">Все объявления продавца <span>(6)</span></h2>
+              <h2 class="promo-title">Все объявления продавца <span>({{ adverts_count(app.user, "general") }} / {{ adverts_count(app.user, "specific") }})</span></h2>
               <ul class="promo-block">
-                <li>
-                  <a href="#" class="promo-link">
-                    <img src="img/maz1.jpg" alt="">
-                    <p class="promo-text">Задняя правая</p>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#" class="promo-link">
-                    <img src="img/maz1.jpg" alt="">
-                    <p class="promo-text">Задняя правая</p>
-                  </a>
-                </li>
+                  {% for advert in adverts if advert.sparePart %}
+                    <li>
+                      <a href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : advert.item.brand.url, "urlModel" : advert.item.model.url, "urlSP" : advert.sparePart.url}) }}" class="promo-link">
+                        <img src="{{ image_url(advert.sparePart.thumbnailLogo) }}" alt="">
+                        <p class="promo-text">{{ advert.sparePart.alternativeName1 }}</p>
+                      </a>
+                    </li>
+                  {% endfor %}
               </ul>
             </section>
 
@@ -132,12 +145,7 @@
 
         <section class="product-block">
           <h2 class="product-subtitle">О магазине / о продавце</h2>
-          <p class="product-text">Мы поддерживаем актуальное наличие товаров на нашем сайте www.socket.by. Заказы принимаются по телефонам, Skype, электронной 
-            почте в рабочие дни с 08-00 до 22-00.<br>
-            Для Вашего удобства мы организовали приём заказов в выходные дни с 10-00 до 20-00. В нерабочее время заказ можно сделать через 
-            корзину сайта.<br>
-            При заказе товара по телефону, для большего удобства, можно просто назвать его код менеджеру. Это намного ускорит процесс оформления 
-            Вашей заявки</p>
+          <p class="product-text">{{ sellerCompany.activityDescription }}</p>
         </section>
 
         

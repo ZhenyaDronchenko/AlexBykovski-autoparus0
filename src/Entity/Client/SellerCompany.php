@@ -457,4 +457,9 @@ class SellerCompany
     {
         $this->linkImportAdverts = $linkImportAdverts;
     }
+
+    public function getFullAddress()
+    {
+        return $this->getSellerData()->getClient()->getCountry() . ', ' . $this->city . ', ' . $this->address;
+    }
 }

@@ -2,7 +2,7 @@
     {% set sellerData = advert.sellerAdvertDetail.sellerData %}
     {% set sellerCompany = sellerData.sellerCompany %}
     {% set sellerWorkflow = sellerCompany.workflow %}
-    <div class="block-product">
+    <div class="block-product 123123123">
         <div class="block-title">
             <p class="block-product__title">{{ sellerCompany.companyName }}</p>
             <div class="review">
@@ -18,7 +18,7 @@
             <div class="card-img">
                 <div class="image">
                     {% set sparePartImg = sellerData.photo ? image_url(sellerData.photo) : image_url(default_image(10).image) %}
-                    <img src="{{ sparePartImg }}" alt="foto">
+                    <a href="{{ path("seller_view", {"id" : sellerData.client.id}) }}"><img src="{{ sparePartImg }}" alt="foto"></a>
                 </div>
                 <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
                 <div class="link-button">
