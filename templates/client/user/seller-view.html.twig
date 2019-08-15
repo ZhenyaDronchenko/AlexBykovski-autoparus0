@@ -57,26 +57,26 @@
             </div>
             <div class="seller-inner">
             <div class="card-time">
-                {% if workflow.isWorkWeekday() %}
                   <div class="week">
-                    <span class="day blue"></span>
-                    <span class="day blue"></span>
-                    <span class="day blue"></span>
-                    <span class="day blue"></span>
-                    <span class="day blue"></span>
-                    <span class="day-time" itemprop="openingHours">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                    <span class="day blue {{ workflow.isMondayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isTuesdayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isWednesdayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isThursdayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isFridayWork ? "check" : "" }}"></span>
+                      {% if workflow.isWorkWeekday() %}
+                        <span class="day-time" itemprop="openingHours">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                      {% endif %}
                   </div>
-                {% endif %}
-                {% if workflow.isWorkWeekend() %}
                   <div class="weekend">
                     <span class="day"></span>
                     <span class="day"></span>
                     <span class="day"></span>
-                    <span class="day red"></span>
-                    <span class="day red"></span>
-                    <span class="day-time" itemprop="openingHours">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                    <span class="day red {{ workflow.isSaturdayWork ? "check" : "" }}"></span>
+                    <span class="day red {{ workflow.isSundayWork ? "check" : "" }}"></span>
+                      {% if workflow.isWorkWeekend() %}
+                        <span class="day-time" itemprop="openingHours">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                      {% endif %}
                   </div>
-                {% endif %}
             </div>
 
             <div class="card-contact">
