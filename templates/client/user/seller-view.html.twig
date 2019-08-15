@@ -1,8 +1,198 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% endblock %}
+{% set sellerCompany = seller.sellerData.sellerCompany %}
+{% set workflow = sellerCompany.workflow %}
+{% block title %}{{ seller.name ~ ' в ' ~ city.prepositional ~ ' адрес, ' ~ sellerCompany.companyName ~ ' ' ~ sellerCompany.unp }}{% endblock %}
+
 {% block stylesheets %}
+	<link rel='stylesheet' href='/css/client/user/seller-view.css'>
 {% endblock %}
-{% block meta_description %}{% endblock %}
+
+{% block meta_description %}Автозапчасти от компании {{ sellerCompany.companyName ~ ' ' ~ sellerCompany.unp ~ ' (' ~ seller.name ~ ')' ~ ' в ' ~ city.prepositional}} адрес, телефоны и время работы, авто и мот запчасти бу и новых на www.autoparus.by.{% endblock %}
 
 {% block body %}
+	<main class="container">
+      <div class="main-page">
+        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                    <span class="user-name" itemprop="name">Главная</span>
+                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                    </svg>
+                    <meta itemprop="position" content="1">
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item"
+                   title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", []) }}"><span class="line">/</span><span itemprop="name">Автозапчасти</span>
+                </a>
+                <meta itemprop="position" content="2">
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ sellerCompany.companyName }}</span>
+                    <meta itemprop="position" content="3">
+                </a>
+            </li>
+        </ul>
+
+        <section class="seller">
+          <div class="seller-block" itemscope itemtype="http://schema.org/LocalBusiness"><!-- Организация -->
+            <span itemprop="priceRange" content="от 1BYN до 2 000BYN"></span><!-- цена Значение 8 -->
+            <img src="/img/mers1.png" alt="" class="user-img" itemprop="image">
+            <div class="seller-wrapper">
+            <div class="seller-list">
+              <h1 class="seller-title">{{ seller.name }}<meta itemprop="name" content="{{ seller.name }}"></h1><!-- Название организации Значение 9 -->
+              <div class="review">
+                <span class="star rev"></span>
+                <span class="star rev"></span>
+                <span class="star rev"></span>
+                <span class="star rev"></span>
+                <span class="star"></span>
+                <p class="review-text">нет отзывов</p>
+              </div>
+            </div>
+            <div class="seller-inner">
+            <div class="card-time">
+                  <div class="week">
+                    <span class="day blue {{ workflow.isMondayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isTuesdayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isWednesdayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isThursdayWork ? "check" : "" }}"></span>
+                    <span class="day blue {{ workflow.isFridayWork ? "check" : "" }}"></span>
+                      {% if workflow.isWorkWeekday() %}
+                        <span class="day-time" itemprop="openingHours">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                      {% endif %}
+                  </div>
+                  <div class="weekend">
+                    <span class="day"></span>
+                    <span class="day"></span>
+                    <span class="day"></span>
+                    <span class="day red {{ workflow.isSaturdayWork ? "check" : "" }}"></span>
+                    <span class="day red {{ workflow.isSundayWork ? "check" : "" }}"></span>
+                      {% if workflow.isWorkWeekend() %}
+                        <span class="day-time" itemprop="openingHours">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+                      {% endif %}
+                  </div>
+            </div>
+
+            <div class="card-contact">
+                {% if sellerCompany.additionalPhone %}
+                    <a href="tel:{{ sellerCompany.additionalPhone }}" class="contact" data-text="{{ sellerCompany.additionalPhone }}" itemprop="telephone" content="{{ sellerCompany.additionalPhone }}"></a>
+                {% endif %}
+                {% if sellerCompany.additionalPhone2 %}
+                    <a href="tel:{{ sellerCompany.additionalPhone2 }}" class="contact" data-text="{{ sellerCompany.additionalPhone2 }}" itemprop="telephone" content="{{ sellerCompany.additionalPhone2 }}"></a>
+                {% endif %}
+            </div>
+            </div>
+            
+          </div>
+          <div class="map">
+              <h2 class="map-title">Адрес на карте</h2>
+              <p class="adress-text" itemscope itemprop="address" itemtype="http://schema.org/PostalAddress"><span itemprop="addressCountry">{{ sellerCompany.sellerData.client.country }}</span>, <span itemprop="addressLocality">{{ sellerCompany.city }}</span> <span itemprop="streetAddress">{{ sellerCompany.address }}</span></p><!-- Адресс Значение 12 -->
+              <div class="map-img">
+                <iframe src='https://maps.google.com/maps?&amp;q="{{ sellerCompany.getFullAddress() | url_encode }}"&amp;output=embed' width="600" height="400"></iframe>
+              </div>
+            </div>
+          </div>
+          
+          <section class="org">
+            <h2 class="org-title">{{ sellerCompany.companyName }}</h2>
+            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" class="user-img" itemprop="image">
+            <p class="org-text">
+                {#Юридический адрес: 220000#}
+                {#ул. Кирова, д. 59, оф. 15<br>#}
+                УНП: {{ sellerCompany.unp }}<br>
+                {#Свидетельство о регистрации#}
+                {#000000000 от 00.00.0000<br>#}
+                {#Регистрирующий орган: Минский#}
+                {#горисполком.<br>#}
+                {#Зарегистрирован в торговом#}
+                {#реестре 00.00.0000</p>#}
+
+            <h2 class="org-title">Способы оплаты</h2>
+            <ul class="org-list">
+                {% if workflow.isCash %}
+                    <li><a class="org-item" nohref>Наличный расчет</a></li>
+                {% endif %}
+                {% if workflow.isCashless %}
+                    <li><a class="org-item" nohref>Безналичный расчет</a></li>
+                {% endif %}
+                {% if workflow.isCreditCard %}
+                    <li><a class="org-item" nohref>Кредитная карта</a></li>
+                {% endif %}
+            </ul>
+              
+            <section class="promo">
+              <h2 class="promo-title">Все объявления продавца <span>({{ adverts_count(app.user, "general") }} / {{ adverts_count(app.user, "specific") }})</span></h2>
+              <ul class="promo-block">
+                  {% for advert in adverts if advert.sparePart %}
+                    <li>
+                      <a href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : advert.item.brand.url, "urlModel" : advert.item.model.url, "urlSP" : advert.sparePart.url}) }}" class="promo-link">
+                        <img src="{{ image_url(advert.sparePart.thumbnailLogo) }}" alt="">
+                        <p class="promo-text">{{ advert.sparePart.alternativeName1 }}</p>
+                      </a>
+                    </li>
+                  {% endfor %}
+              </ul>
+            </section>
+
+          </section>
+        </section>
+
+        <section class="product-block">
+          <h2 class="product-subtitle">О магазине / о продавце</h2>
+          <p class="product-text">{{ sellerCompany.activityDescription }}</p>
+        </section>
+
+        
+        <section class="reviews">
+          <div class="reviews-wrapper">
+            <h2 class="reviews-title">Отзывы</h2>
+            <button  class="button" type="button">Добавить отзыв</button>
+          </div>
+          <div class="reviews-block">
+            <ul class="reviews-list">
+              <li>
+                <div class="reviews-wrapper">
+                <h3 class="reviews-title">Михаил</h3>
+                <span class="reviews-date">10.06.2019</span>
+                </div>
+                <div class="review">
+                  <span class="star rev"></span>
+                  <span class="star rev"></span>
+                  <span class="star rev"></span>
+                  <span class="star rev"></span>
+                  <span class="star"></span>
+                  <p class="review-text">отлично</p>
+                </div>
+                <p class="reviews-text">Отличный магазин. Все быстро и четко. Нужна была web-камера Microsoft для десктопа - оставил заказ, на
+                    следующий день привезли, все аккуратно и вежливо. Потом возникло несколько вопросов - оперативно 
+                 ответили и по телефону, и на e-mail.</p>
+              </li>
+
+              <li>
+                <div class="reviews-wrapper">
+                <h3 class="reviews-title">Иван</h3>
+                <span class="reviews-date">10.06.2019</span>
+                </div>
+                <div class="review">
+                  <span class="star rev"></span>
+                  <span class="star rev"></span>
+                  <span class="star rev"></span>
+                  <span class="star rev"></span>
+                  <span class="star"></span>
+                  <p class="review-text">отлично</p>
+                </div>
+                <p class="reviews-text">Отличный магазин. Все быстро и четко. Нужна была web-камера Microsoft для десктопа - оставил заказ.</p>
+              </li>
+            </ul>
+            <button  class="button button-all" type="button">Все отзывы</button>
+          </div>
+        </section>
+      </div>
+    </main>
 {% endblock %}
