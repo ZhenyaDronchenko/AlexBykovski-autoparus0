@@ -1853,12 +1853,12 @@ padding-bottom: 4px;
         width: auto; }
 
   .card-product {
-    width: 93%;
+    width: 100%;
     margin: 0 auto
 
 }
 .card-img {
-     width: 100%; 
+     width: 85%; 
    height: auto; 
 }
 
@@ -1866,6 +1866,7 @@ padding-bottom: 4px;
     width: 100%;
     height: auto;
     margin: 0;
+    margin-bottom: -4px;
 }
 
 }

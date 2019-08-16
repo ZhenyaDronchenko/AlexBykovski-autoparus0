@@ -138,7 +138,7 @@ cursor: default;
 }
 
 .seller-block {
-  width: 71%;
+  width: 72%;
 }
 .seller-wrapper {
   background-color: #fff;
@@ -355,7 +355,7 @@ cursor: default;
 .org-wrapper {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
 }
 .org-title {
     margin: 0 auto;
@@ -364,6 +364,7 @@ cursor: default;
     line-height: 24px;
     font-weight: 400;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .org-img {
@@ -378,11 +379,11 @@ cursor: default;
 
 .org-text {
     margin: 0;
-    margin-bottom: 7px;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    text-align: right;
 }
 
 

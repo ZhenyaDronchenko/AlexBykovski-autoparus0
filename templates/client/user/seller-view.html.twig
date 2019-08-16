@@ -131,7 +131,7 @@
             </ul>
               
             <section class="promo">
-              <h2 class="promo-title">Все объявления продавца <span>({{ adverts_count(seller, "general") }} / {{ adverts_count(seller, "specific") }})</span></h2>
+              <p class="promo-title">Все объявления:<br><br><span>Общие: {{ adverts_count(seller, "general") }} </span><br><span>Товарные: {{ adverts_count(seller, "specific") }}</span></p>
               <ul class="promo-block">
                   {% for advert in adverts if advert.sparePart %}
                     <li>
