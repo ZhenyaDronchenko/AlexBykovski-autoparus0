@@ -10,6 +10,8 @@
 {% block meta_description %}Автозапчасти от компании {{ sellerCompany.companyName ~ ' ' ~ sellerCompany.unp ~ ' (' ~ seller.name ~ ')' ~ ' в ' ~ city.prepositional}} адрес, телефоны и время работы, авто и мот запчасти бу и новых на www.autoparus.by.{% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set route = app.request.attributes.get('_route') %}
 	<main class="container">
       <div class="main-page">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -33,7 +35,7 @@
             </li>
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ sellerCompany.companyName }}</span>
+                <a class="current" nohref itemprop="item" content="{{ url(route, routeParams) }}"><span class="line">/</span><span itemprop="name">{{ sellerCompany.companyName }}</span>
                     <meta itemprop="position" content="3">
                 </a>
             </li>
@@ -42,7 +44,7 @@
         <section class="seller">
           <div class="seller-block" itemscope itemtype="http://schema.org/LocalBusiness"><!-- Организация -->
             <span itemprop="priceRange" content="от 1BYN до 2 000BYN"></span><!-- цена Значение 8 -->
-            <img src="/img/mers1.png" alt="" class="user-img" itemprop="image">
+            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" style="display: none;" itemprop="image">
             <div class="seller-wrapper">
             <div class="seller-list">
               <h1 class="seller-title">{{ seller.name }}<meta itemprop="name" content="{{ seller.name }}"></h1><!-- Название организации Значение 9 -->
