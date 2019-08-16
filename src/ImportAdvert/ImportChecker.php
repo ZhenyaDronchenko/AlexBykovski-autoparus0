@@ -21,7 +21,7 @@ class ImportChecker
     const BRAND_HEADERS = ["МАРКА", "Марка"];
     const MODEL_HEADERS = ["МОДЕЛЬ", "Модель"];
     const YEAR_HEADERS = ["ГОД", "Год"];
-    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть", "ЗАПЧАСТЬ", "Наименование детали"];
+    const SPARE_PART_HEADERS = ["НАИМЕНОВАНИЕ ЗАПЧАСТИ", "Запчасть", "ЗАПЧАСТЬ", "Наименование детали", "Наименование"];
 
     const ENGINE_TYPE_HEADERS = ["ТОПЛИВО", "Топливо", "Двигатель"];
     const ENGINE_CAPACITY_HEADERS = ["ОБЪЕМ ДВИГАТЕЛЯ", "Объем", "ОБЪЕМ"];
@@ -29,7 +29,7 @@ class ImportChecker
     const VEHICLE_TYPE_HEADERS = ["ТИП КУЗОВА", "Тип кузова"];
     const NUMBER_SPARE_PART_HEADERS = ["ОРИГИНАЛЬНЫЙ НОМЕР", "Номер", "Оригинальный номер"];
     const DESCRIPTION_HEADERS = ["ОПИСАНИЕ", "Описание", "Описание - примечание к состоянию или комплектности детали, прочие данные"];
-    const IMAGE_HEADERS = ["ФОТО", "Фото", "URL фото детали"];
+    const IMAGE_HEADERS = ["ФОТО", "Фото", "URL фото детали", "Фотография"];
     const COST_HEADERS = ["ЦЕНА", "Цена", "Цена BYN"];
     const CURRENCY_HEADERS = ["ВАЛЮТА", "Валюта"];
 
