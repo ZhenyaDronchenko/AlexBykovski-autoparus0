@@ -602,7 +602,7 @@ a {
     }
 
     .art-list li {
-      width: 40%;
+      width: 47%;
     }
 
     .org-title {
@@ -692,7 +692,6 @@ a {
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        margin-bottom: 20px;
     }
 
     .org {
@@ -700,7 +699,6 @@ a {
         width: 100%;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        margin-bottom: 20px;
     }
 
     .seller-block {
@@ -708,6 +706,7 @@ a {
         width: 100%;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+        margin-bottom: 20px;
     }
 
     .article-link {
@@ -723,16 +722,7 @@ a {
         max-width: 600px;
     }
 }
-@media (min-width: 481px) and (max-width: 767px) {
-    .container {
-        width: auto;
-    }
-    .art-list {
-        width: 300px;
-        margin: 0 auto;
-    }
 
-}
 
 /* styles for '...' */
 .block-with-text {
