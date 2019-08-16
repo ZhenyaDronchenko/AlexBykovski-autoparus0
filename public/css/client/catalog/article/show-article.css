@@ -142,12 +142,13 @@ cursor: default;
 .block-part {
   padding: 20px 10px;
   background-color: #fff;
+  padding-top: 50px;
 }
 
 h1 {
   margin: 0;
   margin-bottom: 20px;
-  color: #000;
+  color: #2980b9;
   font-size: 26px;
   line-height: 30px;
   font-weight: 400;
@@ -157,7 +158,7 @@ h1 {
 h2 {
   margin: 0;
   margin-bottom: 25px;
- color: #2980b9;
+ color: #666666;
   font-size: 20px;
   line-height: 22px;
   font-weight: 400;
@@ -188,8 +189,8 @@ h3 {
  color: #999;
  padding-left: 100px;
  font-style: italic;
-  font-size: 24px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 18px;
   font-weight: 400;
   text-align: right;
 }
@@ -508,6 +509,7 @@ figure {
 
 .block-part {
   padding: 0;
+  padding-top: 30px;
 }
 .wrapper {
   -moz-flex-direction: column;

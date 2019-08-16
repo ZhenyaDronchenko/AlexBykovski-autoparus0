@@ -354,14 +354,28 @@ cursor: default;
   padding: 20px;
   background-color: #fff;
 }
+
+.org-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+}
 .org-title {
-  margin: 0;
-  margin-bottom: 20px;
-  color: #000;
-  font-size: 20px;
-  line-height: 22px;
-  font-weight: 700;
-  text-align: left;
+    margin: 0 auto;
+    color: #999999;
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.org-img {
+    width: auto;
+    max-width: 90px;
+    height: 60px;
+    display: block;
+    margin-left: 15px;
+    border-radius: 10px;
 }
 
 
@@ -607,6 +621,9 @@ cursor: default;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+}
+.org-title {
+    margin: 0;
 }
 .product-block {
     padding: 20px 10px;
