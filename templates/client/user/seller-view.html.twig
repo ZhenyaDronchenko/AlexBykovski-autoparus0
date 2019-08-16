@@ -102,8 +102,10 @@
           </div>
           
           <section class="org">
-            <h2 class="org-title">{{ sellerCompany.companyName }}</h2>
-            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" itemprop="image">
+            <div class="org-wrapper">
+              <h2 class="org-title">{{ sellerCompany.companyName }}</h2>
+              <img class="org-img" src="{{ image_url(seller.sellerData.photo) }}" alt="" class="user-img" itemprop="image">
+            </div>
             <p class="org-text">
                 {#Юридический адрес: 220000#}
                 {#ул. Кирова, д. 59, оф. 15<br>#}
@@ -171,9 +173,7 @@
                   <span class="star"></span>
                   <p class="review-text">отлично</p>
                 </div>
-                <p class="reviews-text">Отличный магазин. Все быстро и четко. Нужна была web-камера Microsoft для десктопа - оставил заказ, на
-                    следующий день привезли, все аккуратно и вежливо. Потом возникло несколько вопросов - оперативно 
-                 ответили и по телефону, и на e-mail.</p>
+                <p class="reviews-text">В ближайшее время будет возможным написание отзыва о продавце.</p>
               </li>
 
               <li>
@@ -189,7 +189,7 @@
                   <span class="star"></span>
                   <p class="review-text">отлично</p>
                 </div>
-                <p class="reviews-text">Отличный магазин. Все быстро и четко. Нужна была web-камера Microsoft для десктопа - оставил заказ.</p>
+                <p class="reviews-text">Отличный магазин. Все быстро и четко. Кро всего прочего продавец сможет оставить комментарий к отзыву.</p>
               </li>
             </ul>
             <button  class="button button-all" type="button">Все отзывы</button>

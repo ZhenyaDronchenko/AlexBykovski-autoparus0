@@ -1626,6 +1626,8 @@ padding-bottom: 4px;
         width: 80%;
     }
 }
+
+
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
@@ -1845,6 +1847,30 @@ padding-bottom: 4px;
         width: 80%;
     }
 }
+
+@media (max-width: 767px) {
+    .container {
+        width: auto; }
+
+  .card-product {
+    width: 93%;
+    margin: 0 auto
+
+}
+.card-img {
+     width: 100%; 
+   height: auto; 
+}
+
+.image img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+}
+
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {
         width: auto; }

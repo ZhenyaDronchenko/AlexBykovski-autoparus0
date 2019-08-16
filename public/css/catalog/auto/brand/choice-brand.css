@@ -165,7 +165,6 @@ h3 {
 }
 
 #showAll5 {
-    max-width: 50px;
     text-align: center;
     margin: 0 auto;
     margin-bottom: 60px;
@@ -173,6 +172,11 @@ h3 {
     color: #d22856;
     cursor: pointer;
     font-size: 14px;
+}
+
+#showAll5 span {
+    color: #000000;
+    margin: 0 7px;
 }
 
 #allText:hover,

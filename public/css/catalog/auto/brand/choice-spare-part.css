@@ -158,6 +158,11 @@ cursor: default;
     margin-bottom: 60px;
 }
 
+#showAll5 span {
+    color: #000000;
+    margin: 0 7px;
+}
+
 #showAll5:hover {
     color: #000000;
 }
