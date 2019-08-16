@@ -44,7 +44,7 @@
         <section class="seller">
           <div class="seller-block" itemscope itemtype="http://schema.org/LocalBusiness"><!-- Организация -->
             <span itemprop="priceRange" content="от 1BYN до 2 000BYN"></span><!-- цена Значение 8 -->
-            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" itemprop="image">
+            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" style="display: none;" itemprop="image">
             <div class="seller-wrapper">
             <div class="seller-list">
               <h1 class="seller-title">{{ seller.name }}<meta itemprop="name" content="{{ seller.name }}"></h1><!-- Название организации Значение 9 -->
@@ -103,7 +103,7 @@
           
           <section class="org">
             <h2 class="org-title">{{ sellerCompany.companyName }}</h2>
-            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" class="user-img" itemprop="image">
+            <img src="{{ image_url(seller.sellerData.photo) }}" alt="" itemprop="image">
             <p class="org-text">
                 {#Юридический адрес: 220000#}
                 {#ул. Кирова, д. 59, оф. 15<br>#}
