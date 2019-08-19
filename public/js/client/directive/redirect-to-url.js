@@ -6,7 +6,11 @@
             restrict: 'A',
             link: function(scope, element, attrs)
             {
-                window.location.href = attrs.redirectUrl;
+                const waitTime = attrs.redirectWait ? Number.parseInt(attrs.redirectWait) * 1000 : 0;
+
+                setTimeout(function () {
+                    window.location.href = attrs.redirectUrl;
+                }, waitTime);
             }
         };
     }]);

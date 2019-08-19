@@ -60,7 +60,7 @@ class SparePartGeneralAdvertType extends AbstractType
 
         if(!$brand){
             $brand = new Brand();
-            $brand->setId(-1);
+            $brand->setId(0);
         }
 
         $usedBrands = $advert->getSellerAdvertDetail()->getAutoSparePartGeneralAdvertsBrands(true);

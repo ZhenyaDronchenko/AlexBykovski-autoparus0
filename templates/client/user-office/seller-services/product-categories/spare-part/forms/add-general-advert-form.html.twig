@@ -3,7 +3,7 @@
 
 <form class="user-form" id="form-edit-general-advert" action="{{ advertId and not isEditAction ? path("user_profile_product_categories_spare_part_add_second_part_general_advert", {"id" : advertId}) : path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" method="post" novalidate enctype="multipart/form-data"
         {% if isValid and not isConfirmBrand %}
-                redirect-to-url redirect-url="{{ redirectToUrl }}"
+                redirect-to-url redirect-url="{{ redirectToUrl }}" redirect-wait="3"
         {% endif %}
 >
     {{ form_widget(form._token) }}
