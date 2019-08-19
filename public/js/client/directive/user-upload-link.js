@@ -16,6 +16,8 @@
                 let imageHeight = attrs.imageHeight;
                 let imageSizes = !imageWidth || !imageHeight ? null : [imageWidth, imageHeight];
 
+                const PREVIEW_IMAGE_SELECTOR = ".preloader-image";
+
                 link.click(function(e){
                     input.trigger("click");
                 });
@@ -29,12 +31,16 @@
 
                     ImageUploadService.init(cropperContentSize, previewImage, cropperContainer, dialogContentSize,
                         input, fileName, uploadUrl, imgPhoto, function(formData){
+                            cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).show();
+
                             $.ajax(uploadUrl, {
                                 method: "POST",
                                 data: formData,
                                 processData: false,
                                 contentType: false,
                                 success(data) {
+                                    cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).hide();
+
                                     if (data.success) {
                                         imgPhoto.attr("src", data.path);
 
@@ -50,6 +56,7 @@
                                     input.val('');
                                 },
                                 error(data) {
+                                    cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).hide();
                                     console.error('Upload error');
                                 },
                             });

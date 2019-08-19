@@ -15,6 +15,7 @@
         const PREVIEW_IMAGE_POST_PHOTO = $("#image-preview-container-post-photo img");
         const SIMPLE_TYPE = "simple";
         const COUNT_IMAGE_PACKAGE = 10;
+        const PREVIEW_IMAGE_SELECTOR = ".preloader-image";
 
         let self = this;
         let closeRemoveConfirm = $("#close-popup-5");
@@ -71,6 +72,7 @@
                 function (formData) {
                     formData.append('description', self.activePost.description ? self.activePost.description : "");
                     formData.append('type', self.activePost.type);
+                    cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).show();
 
                     $.ajax(urlEdit, {
                         method: "POST",
@@ -78,6 +80,8 @@
                         processData: false,
                         contentType: false,
                         success(data) {
+                            cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).hide();
+
                             if(data.success) {
                                 data.post["moveSlide"] = id ? getPhotoIndexById(id) : 0;
                                 self.posts[data.post.id] = data.post;
@@ -88,6 +92,8 @@
                             closeModals();
                         },
                         error(data) {
+                            cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).hide();
+
                             console.error('Upload error');
                         },
                     });
@@ -114,12 +120,16 @@
             ImageUploadService.init(cropperContentSize, PREVIEW_IMAGE_POST_PHOTO, cropperContainer, dialogContentSize,
                 $(this), fileName, null, null,
                 function (formData) {
+                    cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).show();
+
                     $.ajax(urlEdit, {
                         method: "POST",
                         data: formData,
                         processData: false,
                         contentType: false,
                         success(data) {
+                            cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).hide();
+
                             if(data.success) {
                                 $('.post-images-' + self.activePost.id).trigger('destroy.owl.carousel');
 
@@ -133,6 +143,8 @@
                             closeModals();
                         },
                         error(data) {
+                            cropperContainer.parent().find(PREVIEW_IMAGE_SELECTOR).hide();
+
                             console.error('Upload error');
                         },
                     }
