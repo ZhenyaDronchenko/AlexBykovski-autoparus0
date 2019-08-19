@@ -10,6 +10,7 @@
         let fileSelector = "";
         let sparePartSelector = "";
         let isDisableSparePart = false;
+        let preloaderSelector = "#preloader-view";
 
         function init(formSelectorS, submitButtonNameS, fileIdS, sparePartId){
             formSelector = formSelectorS;
@@ -47,6 +48,7 @@
                     $(formSelector).off().on("submit", function(e) {
                         e.preventDefault();
 
+                        $(preloaderSelector).show();
                         $(submitButtonName).val($(document.activeElement).attr('data-name'));
 
                         sendForm();
@@ -89,6 +91,7 @@
             url = $(formSelector).attr("action");
 
             request(url, data, function (response) {
+                $(preloaderSelector).hide();
                 let el = $compile(response.data)( $scope );
 
                 $("#form-edit-specific-advert-container").html("").append(el);

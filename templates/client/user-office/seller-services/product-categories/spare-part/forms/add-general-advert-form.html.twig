@@ -153,7 +153,11 @@
         {{ form_widget(form.submit, {attr: {class: "btn-filter"}, "label" : firstButtonLabel}) }}
     </div>
 
-     <span class="load">Подождите, идет загрузка объявления.</span>
+    <div id="preloader-view" style="display: none;">
+        <span class="load">Подождите, идет загрузка объявления.</span>
+        <img style="max-height: 20px;" src="/img/preload-gear.svg"/>
+    </div>
+
     {% if isValid and not isConfirmBrand %}
         <span class="check" {% if not scrollToElement and form.spareParts.vars.errors.form.getErrors(true) | length %}
         scroll-to-element

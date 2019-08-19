@@ -173,7 +173,10 @@
             {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit", "style": "margin: auto;"}}) }}
         </li>
     </ul>
-    <span class="load">Подождите, идет загрузка объявления.</span>
+    <div id="preloader-view" style="display: none;">
+        <span class="load">Подождите, идет загрузка объявления.</span>
+        <img style="max-height: 20px;" src="/img/preload-gear.svg"/>
+    </div>
 
     {{ form_widget(form.submitButtonName)}}
     <div class="mod-text">{{ default_text(15).text | raw }}</div>
