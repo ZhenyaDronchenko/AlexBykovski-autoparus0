@@ -48,6 +48,31 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/interactiv", name="homepage_interactiv")
+     * @Route("/interactiv/people", name="homepage_interactiv_all_users")
+     */
+    public function showHomePageInteractiveAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var MainPage $homePage */
+        $homePage = $this->getDoctrine()->getManager()->getRepository(MainPage::class)->findAll()[0];
+        $filter = new PostsFilterType([], null, null, null, null);
+        $route = $request->get('_route');
+
+        $homePage->setFilteredTitle($route, $filter);
+        $homePage->setFilteredDescription($route, $filter);
+
+        $updatedArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
+
+        return $this->render('client/default/index.html.twig', [
+            "homePage" => $homePage,
+            "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
+        ]);
+    }
+
+    /**
      * @Route("/user-posts/{userId}", name="homepage_filter_user", options={"expose"=true})
      * @Route("/car-posts/{urlBrand}", name="homepage_filter_brand", options={"expose"=true})
      * @Route("/car-posts/{urlBrand}/{urlModel}", name="homepage_filter_brand_model", options={"expose"=true})
