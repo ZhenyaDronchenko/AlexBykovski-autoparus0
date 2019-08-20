@@ -1,5 +1,8 @@
 <div class="tab tab-2 {{ activeTab == 'specific' ? "modal--show" : ""  }}" ng-controller="ListSpecificAdvertCtrl as list" ng-init="list.init()" ng-cloak>
-    <a class="btn-sel" href="/user-office/product-categories/spare-part/add-specific-advert">
+    {% set USDconst = constant('App\\Entity\\Advert\\CurrencyRate::USD_CODE') %}
+    {% set EURconst = constant('App\\Entity\\Advert\\CurrencyRate::EUR_CODE') %}
+    {% set currencyRates = {('' ~ USDconst) : currency_rate(USDconst), ('' ~ EURconst): currency_rate(EURconst)} %}
+    <a class="btn-sel" href="/user-office/product-categories/spare-part/add-specific-advert" ng-init="currencyRates = {{ currencyRates | json_encode }}">
         <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
             <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
             <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
@@ -60,7 +63,7 @@
                     <button class="show-all" ng-hide="showAdvertDetail[advert.id]" ng-click="showAdvertDetail[advert.id] = true">&gt;&gt;</button>
                 </td>
                 <td class="item2 item2-m">
-                    <div class="promo-price" ng-show="advert.cost">{[{advert.cost}]}<span>Бел. руб.</span></div>
+                    <div class="promo-price" ng-show="advert.cost">{[{(advert.currency && currencyRates[advert.currency] ? advert.cost * currencyRates[advert.currency] : advert.cost) | currency:'':2}]}<span>Бел. руб.</span></div>
                 </td>
                 <td class="item2">
                     <div class="promo-price" ng-click="list.changeAdvertActivity(indexAdv)"><span style="color: {[{ advert.isActive ? 'green' : 'red' }]};">{[{ advert.isActive ? "Активно" : "Не активно" }]}</span><span>{[{advert.activatedAt}]}</span></div>
