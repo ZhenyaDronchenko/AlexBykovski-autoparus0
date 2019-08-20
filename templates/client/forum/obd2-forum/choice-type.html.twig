@@ -9,6 +9,7 @@
 
 {% block body %}
     <main class="container">
+        <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -50,7 +51,8 @@
                     </li>
                 {% endfor %}
             </ul>
-
+        </section>
+        <section class="engine-b">
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
 
@@ -59,5 +61,6 @@
             </div>
 
         </section>
+        </div>
     </main>
 {% endblock %}

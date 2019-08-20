@@ -142,33 +142,30 @@
 
         <div class="choice">
             <ul class="choice-block">
-                <li>
+                <!-- <li>
                     <a id="user-map-link" style="display: none;" class="icon" href="">
                         <i class="fa fa-map-o" aria-hidden="true"></i>
                     </a>
-                </li>
+                </li> -->
                 <li>
                 {% set isSparePartSeller = app.user.sellerData ? app.user.sellerData.sellerCompany.isSparePartSeller : false %}
                     {% if isSeller and not isHasAdverts and not isSparePartSeller %}
                         <a class="icon us-btn5" href="{{ path("user_profile_product_categories_spare_part") }}">
-                            <i class="fa fa-suitcase"></i>
                             <span>Business</span>
                         </a>
                     {% elseif isSeller and not isHasAdverts and isSparePartSeller %}
                         <a class="icon us-btn5" nohref
                             onclick="document.getElementById('trigger-edit-gallery-photo').click()"
                             ng-click="posts.activePost = posts.getNewPost('business')">
-                            <i class="fa fa-suitcase"></i>
                             <span>Business</span>
                         </a>
                     {% else %}
                         <a class="icon us-btn5 open-popup-button" nohref data-popup-id="{{ not isSeller ? 13 : 6 }}">
-                            <i class="fa fa-suitcase"></i>
                             <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
                         </a>
                     {% endif %}
                 </li>
-                <li>
+                <!-- <li>
                     <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="posts.activePost = posts.getNewPost()">
                         <i class="fa fa-camera"></i>
                         <span>Фотогалерея</span>
@@ -181,7 +178,7 @@
 
                     <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost" accept="image/*">
                     <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.addPostPhoto" accept="image/*">
-                </li>
+                </li> -->
             </ul>
         </div>
 

@@ -9,6 +9,7 @@
 
 {% block body %}
     <main class="container">
+    <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}"  itemprop="item">
@@ -58,14 +59,20 @@
                     <a href="{{ path("show_obd2_error_catalog_choice_code", {urlType : type.url}) }}"><button class="button" type="button">Перепроверить</button></a>
                 {% endif %}
             </div>
-
+        </section>
+        <section class="code">
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
+        </section>
+
+        <section class="code-b">
+        <h2 class="subtitle">Популярные марки авто</h2>
             <ul class="city-icon">
                 {% for brand in brands %}
                     <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: code.urlToCatalog, urlBrand: brand.url}) }}"><img src="{{ image_url(brand["logo"]) }}" alt="{{ brand["name"] }}" title="Запчасти для {{ brand["name"] }}"></a></li>
                 {% endfor %}
             </ul>
         </section>
+        </div>
     </main>
 {% endblock %}

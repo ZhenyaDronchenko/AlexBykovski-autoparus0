@@ -9,6 +9,7 @@
 
 {% block body %}
     <main class="container">
+    <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
@@ -51,9 +52,11 @@
                     <a href="{{ path("show_obd2_error_catalog_choice_type") }}" title="Причины повлекшие возникновения ошибки {{ type.designation ~ code.code }}"><button class="btn button" type="button">Уточнить</button></a>
                 {% endif %}
             </div>
-
+        </section>
+        <section class="code-b">
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
         </section>
+        </div>
     </main>
 {% endblock %}

@@ -1,11 +1,12 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      padding-top: 5px;
+ display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
   
 .line {
@@ -43,7 +44,8 @@ cursor: default;
     width: auto; 
   }
 #breadcrumbs {
-  padding-top: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
   .line {
     margin-left: 3px;
@@ -93,9 +95,21 @@ cursor: default;
 
 
 /*city*/
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
+}
+
 .engine {
-    padding-top: 40px;
-    padding-bottom: 65px;
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.engine-b {
+    background-color: #ffffff;
+    padding: 20px;
 }
 
 .title {
@@ -192,11 +206,18 @@ cursor: default;
         width: auto;
         padding: 0 10px;
     }
+    .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
 
     .engine {
-        padding-top: 25px;
-        padding-bottom: 50px;
-    }
+    padding: 20px 10px;
+}
+.engine-b {
+    padding: 20px 10px;
+}
 
     .title {
         font-size: 22px;
@@ -239,10 +260,16 @@ cursor: default;
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
-    .engine {
-        padding-top: 25px;
-        padding-bottom: 50px;
-    }
+        .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+
+     .engine {
+    padding: 20px 10px;
+}
+
 
     .title {
         font-size: 22px;

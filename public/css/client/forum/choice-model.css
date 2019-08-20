@@ -1,11 +1,12 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      padding-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
   
 .line {
@@ -44,6 +45,7 @@ cursor: default;
   }
 #breadcrumbs {
   padding-top: 3px;
+    padding-bottom: 3px;
 }
   .line {
     margin-left: 2px;
@@ -93,10 +95,24 @@ cursor: default;
 
 
 /*mod*/
-.model{
-  padding-top: 35px;
-  padding-bottom: 65px;
+
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
 }
+
+
+.model {
+     background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.model-b {
+     background-color: #ffffff;
+    padding: 20px;
+}
+
 h1 {
   margin: 0;
   margin-bottom: 30px;
@@ -674,9 +690,20 @@ font-weight: 400;
     width: auto; 
     padding: 0 10px;
   }
-.model {
-  padding-bottom: 50px;
+
+  .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
 }
+     .model {
+         padding: 20px 10px;
+    }
+
+     .model-b {
+         padding: 20px 10px;
+    }
+
 
   h1 {
     font-size: 22px;
@@ -836,7 +863,6 @@ h2 {
     width: 95%;
     height: 90%;
     padding: 50px 0;
-
   }
   textarea {
     width: 95%;
@@ -909,6 +935,20 @@ padding: 0 10px;
   .container {
     width: auto; 
   }
+
+  .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+     .model {
+         padding: 20px 10px;
+    }
+
+     .model-b {
+         padding: 20px 10px;
+    }
+
 
 
   h1 {

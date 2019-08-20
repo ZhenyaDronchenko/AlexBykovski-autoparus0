@@ -9,6 +9,7 @@
 
 {% block body %}
  <main class="container" ng-init="showAll = false;">
+    <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -59,14 +60,15 @@
                 </ul>
                 <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все марки</button>
             </div>
-
+        </section>
+        <section class="city-b">
             <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
             <div class='city-subtext'>{{ page.text2 | raw }}</div>
 
             <div class="btn-block">
               <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
             </div>
-
         </section>
+        </div>
     </main>
 {% endblock %}
