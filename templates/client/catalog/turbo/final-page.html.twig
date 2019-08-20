@@ -64,9 +64,6 @@
             
             <section class="brand-b">
             <h2 class="turbo-subtitle">{{ page.headline2 }}</h2>
-            <a class="img-l" href="{{ path("show_brand_catalog_in_stock", routeParams) }}">
-                <img src="{{ image_url(model.thumbnailLogo) }}" alt="{{ model.name }}" title="{{ sparePart.alternativeName3 }} для {{ brand.brandEn }} {{ model.modelEn }} {{ city ? "в " ~ city.prepositional : "во всех городах" }}">
-            </a>
 
             <a class="img-r" href="{{ path("show_spare_part_catalog_in_stock", routeParams) }}">
                 <img src="{{ image_url(sparePart.thumbnailLogo) }}" alt="{{ sparePart.alternativeName4 }}" title={{ sparePart.alternativeName4 }} для {{ brand.brandEn }} {{ model.modelEn }}">

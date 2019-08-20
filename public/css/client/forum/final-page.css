@@ -467,6 +467,8 @@ font-size: 20px;
   }
 .modal5 {
   padding: 60px 100px;
+  width: 800px;
+  box-sizing: border-box;
 }
 
 
@@ -486,12 +488,12 @@ font-size: 20px;
               -ms-flex-align: center;
                   align-items: center;
     position: absolute;
-    right: 3px;
-    top: 3px;
+    right: 5px;
+    top: 5px;
     cursor: pointer;
     border: 1px solid #737373;
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 3px;
     padding: 2px;
     outline: none;
     

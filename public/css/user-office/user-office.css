@@ -160,7 +160,7 @@
     line-height: 15px;
     padding: 4px;
     padding-bottom: 3px;
-    background-color: #0ff853;
+    background-color: #9be2a7;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -362,7 +362,7 @@
 
 
 .choice-block li {
-    margin-right: 30px;
+    margin-right: 10%;
 }
 
 .icon {

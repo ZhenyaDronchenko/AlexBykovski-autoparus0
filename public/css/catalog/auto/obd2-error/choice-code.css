@@ -162,13 +162,13 @@ input {
     padding: 3px;
     padding-bottom: 3px;
     border-bottom: 1px solid #737373;
-    font-size: 26px;
-    line-height: 28px;
+    font-size: 40px;
+    line-height: 40px;
     color: #000000;
     background-color: #fff;
 }
 .input {
-    width: 65px;
+    width: 95px;
     margin: 0 20px;
 }
 .btn {

@@ -63,7 +63,7 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id="allText2" type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id="allText2" type="button">&gt;&gt;&gt;Показать все модели&gt;&gt;&gt;</button>
                 <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id="allText2" type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
             </section>
@@ -73,10 +73,6 @@
             
                 <a class="img-r" href="{{ path("show_brand_catalog_choice_model", routeParams) }}" >
                     <img src="{{ image_url(brand.thumbnailLogo64) }}" alt="{{ brand.brandEn }}" title="Запчасти для {{ brand.brandEn }}">
-                </a>
-
-                <a class="img-l" href="{{ path("show_brand_catalog_choice_model", {"urlBrand" : brandToyota.url}) }}" >
-                    <img src="{{ image_url(brandToyota.thumbnailLogo64) }}" alt="Toyota" title="Запчасти для автомобилей Toyota">
                 </a>
 
             <div class="subtext">{{ page.text2 | raw }} </div>

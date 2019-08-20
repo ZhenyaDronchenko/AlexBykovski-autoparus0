@@ -197,7 +197,7 @@ p {
 }
 
 .link {
-    width: 330px;
+    width: 315px;
     padding: 5px;
     padding-bottom: 4px;
     background-color: #faeeee;
@@ -316,6 +316,9 @@ p {
         font-size: 22px;
         line-height: 26px;
     }
+    .select {
+    width: 100%;
+    }
 
     .text-block {
         width: 100%;
@@ -345,7 +348,7 @@ p {
         display: none;
     }
     .text1Hide {
-        max-height: 55px;
+        max-height: 50px;
         overflow: hidden;
     }
     #allText {
@@ -354,6 +357,11 @@ p {
     .subtext {
         width: 100%;
     }
+    .link {
+    width: 230px;
+    font-size: 16px;
+    line-height: 18px;
+}
 }
 @media (min-width: 481px) and (max-width: 767px) {
     .container {

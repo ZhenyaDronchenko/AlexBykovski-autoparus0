@@ -162,7 +162,8 @@ p {
     margin: 40px auto;
     padding: 20px 15px;
     width: 80%;
-    border: 3px solid #ccc;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
 }
 
 .code-text {
@@ -186,7 +187,7 @@ p {
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
-    background-color: #dbc0c7;
+    background-color: #c9e3f9;
 }
 .button:hover {
     background-color: #d2a2af;
