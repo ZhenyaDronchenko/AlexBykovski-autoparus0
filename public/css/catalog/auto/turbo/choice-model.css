@@ -197,7 +197,7 @@ p {
 
 .link {
     height: 40px;
-   width: 330px;
+   width: 315px;
     padding: 5px;
     padding-bottom: 4px;
     background-color: #faeeee;
@@ -206,9 +206,10 @@ p {
     border-radius: 3px;
     color: #444444;
     cursor: pointer;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
+    overflow: hidden;
 }
 .link:hover {
     background-color: #d2a2af;
@@ -317,6 +318,9 @@ p {
 .brand-b {
     padding: 20px 10px;
 }
+.link {
+    width: 270px;
+    }
 
     .brand-title {
           margin-bottom: 20px;

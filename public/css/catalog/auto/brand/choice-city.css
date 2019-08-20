@@ -860,9 +860,18 @@ p {
     top: -17px;
     right: -24px;
 }
-.image img {
-    width: 255px;
+
+.image {
+    overflow: hidden;
     height: 170px;
+    background-color: #b1abab;
+}
+
+.image img {
+        display: block;
+    margin: auto;
+    height: auto;
+    width: 100%;
 
 }
 .price {
@@ -876,15 +885,12 @@ p {
     font-weight: 400;
     top: 5px;
     left: 5px;
-    background-color: #fff;
-    color: #d22856;
-    border: 1px solid #737373;
+    color: #00f1ff
 }
 .price span {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #000;
 }
 
 .link {
@@ -1625,6 +1631,13 @@ padding-bottom: 4px;
         left: 50%;
         width: 80%;
     }
+
+    .image {
+    height: auto;
+}
+.card-contact {
+    flex-direction: column;
+}
 }
 
 
@@ -1846,6 +1859,12 @@ padding-bottom: 4px;
         left: 50%;
         width: 80%;
     }
+      .image {
+    height: auto;
+}
+.card-contact {
+    flex-direction: column;
+}
 }
 
 @media (max-width: 767px) {

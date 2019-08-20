@@ -178,7 +178,7 @@ margin-top: 30px;
 }
 
 .link {
-     width: 160px;
+     width: 150px;
     padding: 5px;
     padding-bottom: 4px;
     text-align: center;
@@ -422,7 +422,7 @@ margin-top: 30px;
     .container {
         width: auto; }
   .brand-block li {
-        margin-right: 20px;
+        margin-right: 10px;
         margin-bottom: 20px;
         width: 140px;
     }
@@ -432,9 +432,9 @@ margin-top: 30px;
 }
 
     .link {
-         width: 140px;
-        font-size: 18px;
-        line-height: 20px;
+         width: 130px;
+        font-size: 16px;
+        line-height: 18px;
     }
 
 
