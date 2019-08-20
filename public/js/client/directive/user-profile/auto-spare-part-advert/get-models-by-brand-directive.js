@@ -26,6 +26,7 @@
                         }
 
                         listModels.html("");
+
                         let index = 0;
 
                         for(let name in models){
@@ -40,8 +41,6 @@
 
                 function removeModelsWithoutIdAndEmptyName(models){
                     for(let name in models){
-                        console.log(name);
-                        console.log(models[name]);
                         if(!models[name] || !name.trim()){
                             delete models[name];
                         }

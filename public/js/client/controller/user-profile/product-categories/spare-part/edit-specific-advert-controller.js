@@ -10,6 +10,14 @@
         let fileSelector = "";
         let sparePartSelector = "";
         let isDisableSparePart = false;
+        let preloaderSelector = "#preloader-view";
+
+        let dialogContentSize = window.screen.availWidth > window.screen.availHeight ? window.screen.availHeight : window.screen.availWidth;
+        let cropperContentSize = dialogContentSize * 0.6;
+        let previewImage = $("#image-preview-container img");
+        let cropperContainer = $("#dialog-cropper-container");
+
+        const IMAGE_SIZES = [540, 360];
 
         function init(formSelectorS, submitButtonNameS, fileIdS, sparePartId){
             formSelector = formSelectorS;
@@ -47,6 +55,7 @@
                     $(formSelector).off().on("submit", function(e) {
                         e.preventDefault();
 
+                        $(preloaderSelector).show();
                         $(submitButtonName).val($(document.activeElement).attr('data-name'));
 
                         sendForm();
@@ -60,13 +69,27 @@
 
                     $("#upload-image-input").change(function(e){
                         let file = e.target.files[0];
+                        let fileName = file.name;
 
-                        ImageUploadService.processUploadImage(file, function(fileCompressed){
-                            addImagePreview(fileCompressed, function(viewImage){
-                                $(fileSelector).val(viewImage);
-                                $("#preview-image").attr("src", viewImage);
-                            });
-                        })
+                        ImageUploadService.init(cropperContentSize, previewImage, cropperContainer, dialogContentSize,
+                            $(this), fileName, null, null, function(formData){
+                                addImagePreview(formData.get("file"), function (dataImage) {
+                                    cropperContainer.removeClass("modal--show");
+                                    $(this).val('');
+
+                                    $(fileSelector).val(dataImage);
+                                    $("#preview-image").attr("src", dataImage);
+                                });
+                            }, IMAGE_SIZES);
+
+                        // ImageUploadService.processUploadImage(file, function(fileCompressed){
+                        //     addImagePreview(fileCompressed, function(viewImage){
+                        //         $(fileSelector).val(viewImage);
+                        //         $("#preview-image").attr("src", viewImage);
+                        //     });
+                        // })
+
+                        ImageUploadService.processUploadImage(file);
                     });
 
                     $("#clear-spare-part").click(function(e){
@@ -89,6 +112,7 @@
             url = $(formSelector).attr("action");
 
             request(url, data, function (response) {
+                $(preloaderSelector).hide();
                 let el = $compile(response.data)( $scope );
 
                 $("#form-edit-specific-advert-container").html("").append(el);

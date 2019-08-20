@@ -6,7 +6,6 @@
 imports:
     - { resource: ./packages/admin_blocks.yaml }
     - { resource: ./packages/forms.yaml }
-    - { resource: ./packages/services/twig.yaml }
     - { resource: ./packages/services/site_map.yaml }
     - { resource: ./packages/services/transformer.yaml }
     - { resource: ./packages/services/provider.yaml }

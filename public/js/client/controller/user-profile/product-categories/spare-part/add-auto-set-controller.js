@@ -10,6 +10,8 @@
         let submitButtonName = "";
         let fileSelector = "";
         let self = this;
+        let preloaderSelector = "#preloader-view";
+
         this.allSparePartsChecked = false;
 
         function init(formSelectorS, submitButtonNameS, fileIdS){
@@ -21,8 +23,6 @@
         }
 
         function request(url, data, callback) {
-            $("#preloader").css("display", "flex");
-
             $http({
                 method: 'POST',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'},
@@ -43,6 +43,8 @@
                 if(!isExistSubmitHandler){
                     $(formSelector).off().on("submit", function(e) {
                         e.preventDefault();
+
+                        $(preloaderSelector).show();
 
                         $(submitButtonName).val($(document.activeElement).attr('data-name'));
 
@@ -76,6 +78,8 @@
             url = $(formSelector).attr("action");
 
             request(url, data, function (response) {
+                $(preloaderSelector).hide();
+
                 let el = $compile(response.data)( $scope );
 
                 $("#form-add-auto-set-container").html("").append(el);

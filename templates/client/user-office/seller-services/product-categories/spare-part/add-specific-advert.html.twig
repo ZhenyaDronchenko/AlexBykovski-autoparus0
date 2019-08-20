@@ -70,6 +70,21 @@
             <div class="modal-text">{{ default_text(25).text | raw }}</div>
         </section>
     </div>
+
+    <div id="dialog-cropper-container" class="overlay2">
+        <section id="cropper-modal" class="modal1">
+            <div class="modal-header">
+                <button class="button-home cancel-button-cropper-dialog button-home-left"><img src="/img/left-arrow1.png" alt="Назад"> <span> Назад</span></button>
+                <h2 class="button-title" data-text="Изображение"></h2>
+                <button class="button-home save-button-cropper-dialog us-btn1 button-home-right"><span>Сохранить </span> <img src="/img/right-arrow1.png" alt="Далее"></button>
+            </div>
+
+            <div id="image-preview-container" class="img-cont cropper-container">
+                <img class="modal-img" src="" alt="Фото" style="display: none">
+            </div>
+            <img class="preloader-image" style="position: fixed; top: 50%; left: 50%; z-index: 10000; display: none" src="/img/preload-gear.svg"/>
+        </section>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

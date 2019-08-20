@@ -4,11 +4,15 @@ namespace App\Entity\Client;
 
 use App\Entity\Image;
 use App\Entity\User;
+use App\Handler\ResizeImageHandler;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="seller_data")
+ *
+ * @ORM\HasLifecycleCallbacks()
  */
 class SellerData
 {
@@ -146,5 +150,29 @@ class SellerData
     public function setPhoto(?Image $photo): void
     {
         $this->photo = $photo;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createAndSetThumbnailLogo(LifecycleEventArgs $args)
+    {
+        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($this);
+
+        if(array_key_exists("photo", $changeSet) || !$this->id){
+            $this->updateResizePhoto();
+        }
+
+        return true;
+    }
+
+    public function updateResizePhoto()
+    {
+        if(!$this->photo || !$this->photo->getImage()){
+            return null;
+        }
+
+        $this->photo->setImage(ResizeImageHandler::resizeLogo($this, ResizeImageHandler::SELLER_WIDTH, ResizeImageHandler::SELLER_HEIGHT, false));
     }
 }

@@ -147,7 +147,7 @@
     <div class="img-block">
         <a id="initiator-upload-image" nohref class="add-img">+ Добавить изображение:</a>
         <input id="upload-image-input" type="file" style="display: none">
-        <img id="preview-image" class="img" src="{{ form.image.vars.value ? image_url(form.image.vars.value) : "/img/mers1.png" }}" alt="">
+        <img id="preview-image" class="img" src="{{ form.image.vars.value ? (form.image.vars.value starts with 'data:image/' ? form.image.vars.value : image_url(form.image.vars.value)) : "/img/mers1.png" }}" alt="">
         {{ form_widget(form.image) }}
     </div>
 
@@ -173,7 +173,10 @@
             {{ form_widget(form.submit, {attr: {class: "btn", "data-name" : "submit", "style": "margin: auto;"}}) }}
         </li>
     </ul>
-    <span class="load">Подождите, идет загрузка объявления.</span>
+    <div id="preloader-view" style="display: none;">
+        <span class="load">Подождите, идет загрузка объявления.</span>
+        <img style="max-height: 20px;" src="/img/preload-gear.svg"/>
+    </div>
 
     {{ form_widget(form.submitButtonName)}}
     <div class="mod-text">{{ default_text(15).text | raw }}</div>

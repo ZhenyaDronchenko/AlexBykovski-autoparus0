@@ -4,6 +4,7 @@ namespace App\Handler;
 
 use App\Entity\Article\ArticleImage;
 use App\Entity\Brand;
+use App\Entity\Client\SellerData;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Kernel;
@@ -32,6 +33,9 @@ class ResizeImageHandler
     const POST_IMAGE_HEIGHT_THUMBNAIL = "240";
     const POST_IMAGE_WIDTH_THUMBNAIL = "360";
 
+    const SELLER_HEIGHT = "220";
+    const SELLER_WIDTH = "330";
+
     const JPEG_TYPE = "image/jpeg";
     const PNG_TYPE = "image/png";
     const GIF_TYPE = "image/gif";
@@ -55,6 +59,9 @@ class ResizeImageHandler
         }
         elseif($object instanceof ArticleImage){
             return self::resizeImage($object->getImage(), $isThumb, $newWidth, $newHeight);
+        }
+        elseif($object instanceof SellerData){
+            return self::resizeImage($object->getPhoto()->getImage(), $isThumb, $newWidth, $newHeight);
         }
         elseif(is_string($object) && $object){
             return self::resizeImage($object, $isThumb, $newWidth, $newHeight);

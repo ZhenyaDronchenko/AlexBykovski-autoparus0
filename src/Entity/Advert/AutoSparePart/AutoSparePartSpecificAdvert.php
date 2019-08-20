@@ -700,7 +700,8 @@ class AutoSparePartSpecificAdvert
             "sparePartNumber" => $this->sparePartNumber,
             "comment" => $this->comment,
             "image" => $imagePath,
-            "cost" => strtoupper($this->currency) === "USD" ? $this->cost * 2 : $this->cost,
+            "cost" => $this->cost,
+            "currency" => strtoupper($this->currency),
             "isActive" => $this->isActive,
             "activatedAt" => $this->activatedAt->format("d.m.Y"),
         ];

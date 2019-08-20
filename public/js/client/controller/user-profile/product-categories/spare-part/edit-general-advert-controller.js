@@ -8,6 +8,8 @@
         let sparePartSelector = null;
         let brandSelector = null;
         let url = null;
+        let preloaderSelector = "#preloader-view";
+
         this.isCheckedAllModels = null;
         this.isCheckedAllSpareParts = null;
 
@@ -44,6 +46,8 @@
                     $(formSelector).off().on("submit", function(e) {
                         e.preventDefault();
 
+                        $(preloaderSelector).show();
+
                         sendForm($(document.activeElement).hasClass("submit-brand-model"), $(document.activeElement));
 
                         return false;
@@ -60,6 +64,7 @@
             url = $(formSelector).attr("action") + "?ajax";
 
             request(isBrandSubmit ? (url + '&brandSubmit') : url, data, function (response) {
+                $(preloaderSelector).hide();
 
                 let el = $compile(response.data)( $scope );
 

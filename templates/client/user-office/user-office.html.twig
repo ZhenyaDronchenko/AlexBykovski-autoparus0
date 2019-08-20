@@ -279,6 +279,7 @@
             <div id="image-preview-container" class="img-cont cropper-container">
                 <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
+            <img class="preloader-image" style="position: fixed; top: 50%; left: 50%; z-index: 10000; display: none" src="/img/preload-gear.svg"/>
         </section>
     </div>
 
@@ -312,6 +313,7 @@
                     </svg>
                 </div>
             {#<button class="button-cl button-close1"><span>Закрыть без сохранения </span></button>#}
+            <img class="preloader-image" style="position: fixed; top: 50%; left: 50%; z-index: 10000; display: none" src="/img/preload-gear.svg"/>
         </section>
     </div>
 
@@ -327,6 +329,7 @@
                 <img class="modal-img" src="" alt="Фото" style="display: none">
             </div>
             <button class="button-cl" type="button" ng-click="posts.closeModals();" onclick="document.getElementById('trigger-edit-post-photo').click()"><span>Изменить изображение </span></button>
+            <img class="preloader-image" style="position: fixed; top: 50%; left: 50%; z-index: 10000; display: none" src="/img/preload-gear.svg"/>
         </section>
     </div>
 

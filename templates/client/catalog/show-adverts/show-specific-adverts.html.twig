@@ -3,6 +3,10 @@
     {% set sellerCompany = sellerData.sellerCompany %}
     {% set sellerWorkflow = sellerCompany.workflow %}
     {% set sparePart = advert.sparePart ? get_object("App\\Entity\\SparePart", "findOneBy", {"name" : advert.sparePart}) : "" %}
+    {% set USDconst = constant('App\\Entity\\Advert\\CurrencyRate::USD_CODE') %}
+    {% set EURconst = constant('App\\Entity\\Advert\\CurrencyRate::EUR_CODE') %}
+    {% set currencyRates = {('' ~ USDconst) : currency_rate(USDconst), ('' ~ EURconst): currency_rate(EURconst)} %}
+
     <div class="block-product">
         <div class="block-title">
             <p class="block-product__title">{{ sellerCompany.companyName }}</p>
@@ -22,7 +26,8 @@
                     <img src="{{ specificAdvertImage }}" alt="foto">
                 </div>
                 {% if advert.cost and advert.cost > 0 %}
-                    <div class="price">{{ (advert.currency == "USD" ? advert.cost * 2 : advert.cost) | number_format(0) }} <span>Руб</span></div>
+                    {% set advertCurrency = advert.currency ? advert.currency | upper : null %}
+                    <div class="price">{{ (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) }} <span>Руб</span></div>
                 {% endif %}
                 <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
                 <div class="link-button">
