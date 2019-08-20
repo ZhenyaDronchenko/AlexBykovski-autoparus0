@@ -1,11 +1,12 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      padding-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
   
 .line {
@@ -43,7 +44,8 @@ cursor: default;
     width: auto; 
   }
 #breadcrumbs {
-  padding-top: 3px;
+   padding-top: 3px;
+    padding-bottom: 3px;
 }
   .line {
     margin-left: 2px;
@@ -93,9 +95,22 @@ cursor: default;
 
 
 /*code*/
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
+}
+
+
 .code {
-    padding-top: 35px;
-    padding-bottom: 65px;
+     background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.code-b {
+     background-color: #ffffff;
+    padding: 20px;
 }
 
 .title {
@@ -211,9 +226,17 @@ a {
         padding: 0 10px;
     }
 
-     .code {
-        padding-top: 25px;
-        padding-bottom: 50px;
+     .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+    .code {
+         padding: 20px 10px;
+    }
+
+    .code-b {
+         padding: 20px 10px;
     }
     .code-block {
         margin: 30px auto;
@@ -251,7 +274,6 @@ a {
     .city-icon img {
         width: 60px;
         height: 60px;
-        border: 1px solid red;
     }
     .city-link span {
         font-size: 14px;
@@ -266,6 +288,18 @@ a {
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
+         .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+    .code {
+         padding: 20px 10px;
+    }
+
+    .code-b {
+         padding: 20px 10px;
+    }
 
     .city-icon img {
         width: 60px;

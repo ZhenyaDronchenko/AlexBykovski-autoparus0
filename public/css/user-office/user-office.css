@@ -160,7 +160,7 @@
     line-height: 15px;
     padding: 4px;
     padding-bottom: 3px;
-    background-color: #fff;
+    background-color: #0ff853;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -207,7 +207,7 @@
     line-height: 15px;
     padding: 4px 10px;
     padding-bottom: 3px;
-    background-color: #fff;
+    background-color: #bbebf8;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -226,7 +226,7 @@
     line-height: 15px;
     padding: 4px 10px;
     padding-bottom: 3px;
-    background-color: #fff;
+    background-color: #bbebf8;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -305,8 +305,9 @@
 .btn-block li:last-child {
     margin-right: 0;
 }
-.user-btn:hover {
-    color: #000;
+.user-btn:hover,
+.user-btn:focus {
+    color: red;
 }
 .user-about {
     margin-bottom: 20px;
@@ -354,14 +355,14 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    -ms-align-items: flex-start;
-    -webkit-box-align: end;
-    -ms-flex-align: end;
-    align-items: flex-end;
+    justify-content: flex-end;
     padding: 7px 0;
     margin-bottom: 15px;
+}
+
+
+.choice-block li {
+    margin-right: 30px;
 }
 
 .icon {

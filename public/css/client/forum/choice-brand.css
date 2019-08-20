@@ -1,11 +1,12 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      padding-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
   
 .line {
@@ -44,6 +45,7 @@ cursor: default;
   }
 #breadcrumbs {
   padding-top: 3px;
+    padding-bottom: 3px;
 }
   .line {
     margin-left: 2px;
@@ -93,10 +95,23 @@ cursor: default;
 
 
 /*city*/
-.city {
-    padding-top: 35px;
-    padding-bottom: 65px;
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
 }
+
+
+.city {
+     background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.city-b {
+     background-color: #ffffff;
+    padding: 20px;
+}
+
 .city-title {
     margin: 0;
     margin-bottom: 30px;
@@ -327,9 +342,20 @@ cursor: default;
         width: auto;
         padding: 0 10px;
     }
-    .city {
-        padding-top: 25px;
+
+    .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+     .city {
+         padding: 20px 10px;
     }
+
+     .city-b {
+         padding: 20px 10px;
+    }
+
     .text1Hide {
         max-height: 60px;
         overflow: hidden;
@@ -407,9 +433,19 @@ cursor: default;
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
- .city {
-        padding-top: 25px;
+ .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+     .city {
+         padding: 20px 10px;
     }
+
+     .city-b {
+         padding: 20px 10px;
+    }
+    
     .city-desc {
     margin-bottom: 30px;
 }

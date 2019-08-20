@@ -10,6 +10,7 @@
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
+    <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
@@ -42,9 +43,12 @@
                  ng-init="obd2.init('#obd2-code-form', '{{ path("ajax_check_obd2_code", {"urlType" : routeParams["urlType"]}) }}', '{{ path("show_obd2_error_catalog_choice_transcript", routeParams|merge({"urlCode" : "__url_code__"})) }}')">
                 {% include('/client/forum/obd2-forum/forms/code-form.twig') with {"form" : form, "type" : type} %}
             </div>
+            </section>
+            <section class="code-b">
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
         </section>
+        </div>
     </main>
 {% endblock %}
 

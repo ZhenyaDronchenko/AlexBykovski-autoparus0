@@ -9,6 +9,7 @@
 
 {% block body %}
     <main class="container">
+        <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
@@ -33,9 +34,11 @@
                     <li><a class="engine-link" title="{{ type["type"] }}" href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}">{{ key }}</a></li>
                 {% endfor %}
             </ul>
-
+            </section>
+            <section class="engine-b">
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
         </section>
+        </div>
     </main>
 {% endblock %}
