@@ -939,7 +939,6 @@ textarea {
     margin-bottom: 10px;
 }
 
-
 .modal-header {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -949,8 +948,8 @@ textarea {
     border-top: 1px solid #737373;
     padding: 7px  0;
     margin-bottom: 30px;
-
 }
+
 .modal-header1 {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1085,9 +1084,6 @@ textarea {
 .button-cl:hover,
 .button-cl:focus {
     color: red;
-}
-.modal--show {
-    display: block;
 }
 .img-block {
     position: relative;
@@ -2016,9 +2012,9 @@ textarea {
         width: 450px;
     }
 
-.choice-block {
-    margin-bottom: 0; 
-}
+    .choice-block {
+        margin-bottom: 0;
+    }
 
     .user-about {
         margin-right: 0;
@@ -2123,12 +2119,12 @@ textarea {
         -webkit-box-direction: normal;
         flex-direction: column;
     }
-.img-block {
-    margin: 0 auto;
-    width: 450px;
-        height: 100%;
-            z-index: 0;
-}
+    .img-block {
+        margin: 0 auto;
+        width: 450px;
+            height: 100%;
+                z-index: 0;
+    }
     .prod-foto {
         width: 450px;
         height: 100%;
@@ -2172,7 +2168,6 @@ textarea {
         margin-bottom: 43px;
     }
 
-
     .modal1,
     .modal2,
     .modal3,
@@ -2180,16 +2175,7 @@ textarea {
     .modal6 {
         top: 0;
         width: 100%;
-
     }
-    .modal1,
-    .modal2,
-    .modal3 {
-        top: 0;
-        width: 100%;
-    }
-
-
 
     .button-home-m {
         margin-right: 27%;
@@ -2250,9 +2236,7 @@ textarea {
     }
 
     .img-cont {
-
         height: 240px;
-
     }
     .modal-img {
 
@@ -2319,7 +2303,6 @@ textarea {
     }
     .img-cont {
         height: 340px;
-
     }
     .modal-img {
 
