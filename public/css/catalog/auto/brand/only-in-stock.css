@@ -486,9 +486,17 @@ p {
     top: -17px;
     right: -24px;
 }
-.image img {
-    width: 255px;
+.image {
+    overflow: hidden;
     height: 170px;
+    background-color: #b1abab;
+}
+
+.image img {
+        display: block;
+    margin: auto;
+    height: auto;
+    width: 100%;
 
 }
 .price {
@@ -502,15 +510,12 @@ p {
     font-weight: 400;
     top: 5px;
     left: 5px;
-    background-color: #fff;
-    color: #d22856;
-    border: 1px solid #737373;
+    color: #00f1ff
 }
 .price span {
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
-    color: #000;
 }
 
 .link {
@@ -1041,7 +1046,6 @@ padding-bottom: 4px;
     }
 
     .year-subtitle {
-
         text-align: center;
         font-size: 22px;
         line-height: 24px;
@@ -1205,7 +1209,6 @@ padding-bottom: 4px;
         line-height: 14px;
     }
     .block-tel {
-        width: 210px;
         margin: 0 auto;
     }
 
@@ -1254,7 +1257,6 @@ padding-bottom: 4px;
         width: auto; }
 
     .year {
-
         padding-bottom: 55px;
     }
     .text1Hide {
@@ -1422,7 +1424,6 @@ padding-bottom: 4px;
         line-height: 16px;
     }
     .block-tel {
-        width: 210px;
         margin: 0 auto;
     }
 
@@ -1466,6 +1467,30 @@ padding-bottom: 4px;
         width: 80%;
     }
 }
+
+@media (max-width: 767px) {
+    .container {
+        width: auto; }
+
+  .card-product {
+    width: 100%;
+    margin: 0 auto
+
+}
+.card-img {
+     width: 85%; 
+   height: auto; 
+}
+
+.image img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    margin-bottom: -4px;
+}
+
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {
         width: auto; }
