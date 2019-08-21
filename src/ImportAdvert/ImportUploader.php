@@ -127,29 +127,6 @@ class ImportUploader
         ];
     }
 
-    /**
-     * @param $file
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     *
-     * @return mixed
-     */
-    private function getFileData($file)
-    {
-        $reader = ImportChecker::getReader($file);
-        $reader->setReadDataOnly(true);
-
-        $spreadsheet = $reader->load($file);
-
-        $sheetData = $spreadsheet->getActiveSheet()->toArray();
-
-        $data = array_values($sheetData);
-
-        $headers = array_shift($data);
-
-        return [$headers, $data];
-    }
-
     private function importFileLines(array $headers, array $lines, SellerAdvertDetail $advertDetail)
     {
         $count = 0;
@@ -172,10 +149,6 @@ class ImportUploader
                     foreach ($adverts as $advert){
                         $this->em->persist($advert);
                     }
-
-//                    if ($count > 0 && $count % 200 === 0) {
-//                        $this->em->flush();
-//                    }
                 }
             }
             elseif(is_array($adverts)){
@@ -235,7 +208,7 @@ class ImportUploader
         $advert->setEngineCapacity($this->getEngineCapacity($line, $model, $engineType));
         $advert->setGearBoxType($this->getGearBoxType($line, $model));
         $advert->setVehicleType($this->getVehicleType($line, $model));
-        $advert->setSparePartNumber($this->getSparePartNumber($line));
+        $advert->setSparePartNumber(mb_convert_encoding($this->getSparePartNumber($line), "UTF-8"));
         $advert->setImage($this->getImage($line));
         $advert->setCost($this->getCost($line));
         $advert->setComment($this->getDescription($line));
