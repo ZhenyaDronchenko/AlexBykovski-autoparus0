@@ -11,6 +11,7 @@
                 let placeholder = attrs.placeholder;
                 let requestParams = angular.fromJson(attrs.requestParameters);
                 let useAdditionalData = attrs.useAdditionalData === "true";
+                let notPreload = attrs.select2NotPreload === "true";
                 let query = {};
 
                 if(requestParams) {
@@ -104,6 +105,12 @@
                         }
                     }
 
+                    if(notPreload){
+                        console.log("here11");
+                        return createAutocomplete([]);
+                    }
+
+                    console.log("here");
                     AutoCompleteResource[method]("all_preload_variants", requestParams).then(function(items){
                         createAutocomplete(items);
                     });

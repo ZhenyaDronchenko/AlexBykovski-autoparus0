@@ -194,12 +194,15 @@ class SparePartSpecificAdvertType extends AbstractType
                 /** @var AutoSparePartSpecificAdvert $object */
                 $object = $event->getData() ?: new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
                 $form = $event->getForm();
-                //var_dump($object->getSparePart());
-                //die;
+                $sparePart = $object->getSparePart();
+//                var_dump(get_class($sparePart));
+//                var_dump($sparePart->getId());
+//                var_dump($sparePart->getName());
 
                 $form
                     ->add('sparePart', ChoiceType::class, [
                         'label' => false,
+                        'choices' => $sparePart ? [$sparePart->getName() => $sparePart->getId()] : [],
                         'choices' => [],
                         'constraints' => [
                             new NotNull(['message' => 'Выберите запчасть']),

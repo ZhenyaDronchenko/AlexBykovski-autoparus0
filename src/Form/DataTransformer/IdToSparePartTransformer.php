@@ -42,8 +42,6 @@ class IdToSparePartTransformer implements DataTransformerInterface
      */
     public function reverseTransform($id)
     {
-//        var_dump($id);
-//        die;
         if (!$id) {
             return null;
         }
