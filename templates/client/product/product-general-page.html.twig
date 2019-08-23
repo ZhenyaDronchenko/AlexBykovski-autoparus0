@@ -92,7 +92,7 @@
                             <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName3 ~ ' для ' ~ brand.name ~ ' ' ~ model.name  ~ ' в ' ~ city.prepositional }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
                             <span class="art" itemprop="sku">№ {{ brand.id ~ '-' ~ model.id ~ '-' ~ sparePart.id ~ '-' ~ city.id }}</span><!-- Артикул Значение 21 -->
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><!-- Описание продукта -->
-                                <p class="status">Состояние з/ч: <span>Новая запчасть</span></p>
+                                <p class="status">Состояние: <span>Новая запчасть</span></p>
                                 <span class="stock"><link itemprop="availability" href="http://schema.org/InStock">В наличии</span>
                                 <b class="price" itemprop="price" content="115.00">от {{ brand.id + model.id + sparePart.id }} руб.</b>
                                 <span itemprop="priceCurrency" content="BYN"></span><!-- Цена Значение 7 -->
@@ -175,11 +175,11 @@
                             <tr><td>Марка:</td><td class="tab">{{ brand.name }}</td></tr>
                             <tr><td>Модель:</td><td class="tab">{{ model.name }}</td></tr>
                             <tr><td>Год:</td><td class="tab">{{ model.technicalData.yearFrom ~ ' - ' ~ model.technicalData.yearTo }}</td></tr>
-                            <tr><td>Тип двигателя:</td><td class="tab">Необходимо уточнение</td></tr>
-                            <tr><td>Объем:</td><td class="tab">Необходимо уточнение</td></tr>
-                            <tr><td>Тип КПП:</td><td class="tab">Необходимо уточнение</td></tr>
-                            <tr><td>Тип привода:</td><td class="tab">Необходимо уточнение</td></tr>
-                            <tr><td>Тип Кузова:</td><td class="tab">Необходимо уточнение</td></tr>
+                            <tr><td>Тип двигателя:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
+                            <tr><td>Объем:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
+                            <tr><td>Тип КПП:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
+                            <tr><td>Тип привода:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
+                            <tr><td>Тип Кузова:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
                         </table>
                     </section>
 
