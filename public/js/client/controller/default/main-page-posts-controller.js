@@ -16,12 +16,15 @@
             "offset" : -2,
         };
         let countFromNotPremium = 0;
+        let isAllLight = false;
 
         this.posts = [];
         //image from https://loading.io/
         let preloader = $("#preloader-posts");
 
-        function init(urlS, paramsS){
+        function init(urlS, paramsS, isAllLightS){
+            params["isAllLight"] = !!isAllLightS;
+
             url = urlS;
             Object.assign(params, angular.fromJson(paramsS));
 

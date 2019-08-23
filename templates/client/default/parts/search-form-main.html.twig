@@ -1,0 +1,75 @@
+{#<div class="filter-column" ng-controller="MainSearchFormCtrl as searchForm" ng-init="searchForm.init()">#}
+    {#<form class="filter">#}
+        {#<fieldset class="filter-block">#}
+            {#<legend class="filter-title">Автозапчасти</legend>#}
+
+            {#<select id="brand-autocomplete" placeholder="Марка" select2-autoparus method-search="searchBrands"></select>#}
+            {#<select id="model-autocomplete" placeholder="Модель" select2-autoparus method-search="searchModels" request-parameters='{"brand": "{[{searchForm.params.brand}]}"}'></select>#}
+            {#<select id="year-autocomplete" placeholder="Год" select2-autoparus method-search="searchYears" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>#}
+            {#<select id="sparePart-autocomplete" placeholder="Наименование з/ч" select2-autoparus method-search="searchSpareParts"></select>#}
+            {#<select id="engineType-autocomplete" placeholder="Тип двигателя" select2-autoparus method-search="searchEngineTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>#}
+            {#<select id="capacity-autocomplete" placeholder="Объём" select2-autoparus method-search="searchEngineCapacities" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "engineType": "{[{searchForm.params.engineType}]}"}' use-additional-data="true"></select>#}
+            {#<select id="vehicleType-autocomplete" placeholder="Тип кузова" select2-autoparus method-search="searchVehicleTypes" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}"}'></select>#}
+
+            {#<ul class="part-block">#}
+                {#<li class="part-option">#}
+                    {#<input type="checkbox" id="new" name="new" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isNew">#}
+                    {#<label for="new">Новая</label>#}
+                {#</li>#}
+                {#<li class="part-option">#}
+                    {#<input type="checkbox" id="old" name="old" class="visually-hidden filter-checkbox" ng-model="searchForm.params.isUsed">#}
+                    {#<label for="old">Б / у</label>#}
+                {#</li>#}
+            {#</ul>#}
+            {#<p class="select-option">#}
+                {#<input type="checkbox" id="select-option" name="select-option" class="visually-hidden filter-checkbox" ng-model="searchForm.params.inStock">#}
+                {#<label for="select-option">Только в наличии</label>#}
+            {#</p>#}
+            {#<button class="button" type="button" ng-click="searchForm.searchByForm()">Найти</button>#}
+        {#</fieldset>#}
+    {#</form>#}
+{#</div>#}
+
+<div class="filter-column">
+    <form class="filter">
+        <fieldset class="filter-block">
+            <legend class="filter-title">Автозапчасти</legend>
+            {% if not is_device('iphone') %}
+                <select class="select-item">
+                    <option selected>Марка</option>
+                    <option>Audi</option>
+                    <option>Acura</option>
+                    <option>BMW</option>
+                </select>
+
+                <select class="select-item">
+                    <option selected>Модель</option>
+                    <option>A4</option>
+                    <option>B4</option>
+                    <option>C4</option>
+                </select>
+
+                <select class="select-item">
+                    <option selected>Год</option>
+                    <option>2000</option>
+                    <option>2001</option>
+                    <option>2002</option>
+                    <option>2003</option>
+                </select>
+
+                <select class="select-item">
+                    <option selected>Наименование запчасти</option>
+                    <option>АКБ</option>
+                    <option>Амортизатор</option>
+                    <option>Аккумулятор</option>
+                </select>
+                <button class="button">Найти</button>
+            {% endif %}
+
+            <p class="select-option">
+                <a href="{{ path("show_brand_catalog_choice_brand") }}" class="select-link">Перейти в последовательный каталог</a>
+                <a href="{{ path("show_city_catalog_choice_city") }}" class="select-link">Перейти в форму заказ-заявки</a>
+            </p>
+        </fieldset>
+    </form>
+</div>

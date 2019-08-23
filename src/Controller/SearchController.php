@@ -12,9 +12,6 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\Engine;
 use App\Entity\EngineType;
 use App\Entity\Model;
-use App\Entity\Phone\PhoneBrand;
-use App\Entity\Phone\PhoneModel;
-use App\Entity\Phone\PhoneSparePart;
 use App\Entity\SparePart;
 use App\Entity\User;
 use App\Type\ArticleFilterType;
@@ -221,76 +218,6 @@ class SearchController extends Controller
         return new JsonResponse($model->vehicleTypesToSearchArray($text));
     }
 
-    /**
-     * @Route("/phone/work", name="search_phone_work_autocomplete")
-     */
-    public function searchPhoneWorkAction(Request $request)
-    {
-        $text = $request->query->get("text");
-
-        if(!is_string($text) || strlen($text) < 1){
-            return new JsonResponse([]);
-        }
-
-        $spareParts = $this->getDoctrine()->getRepository(PhoneSparePart::class)->searchByWorkText($text);
-
-        $parsedSpareParts = [];
-
-        /** @var PhoneSparePart $sparePart */
-        foreach ($spareParts as $sparePart){
-            $parsedSpareParts[] = $sparePart->toWorkSearchArray();
-        }
-
-        return new JsonResponse($parsedSpareParts);
-    }
-
-    /**
-     * @Route("/phone/brand", name="search_phone_brand_autocomplete")
-     */
-    public function searchPhoneBrandAction(Request $request)
-    {
-        $text = $request->query->get("text");
-
-        if(!is_string($text) || strlen($text) < 1){
-            return new JsonResponse([]);
-        }
-
-        $brands = $this->getDoctrine()->getRepository(PhoneBrand::class)->searchByText($text);
-
-        $parsedBrands= [];
-
-        /** @var PhoneBrand $brand */
-        foreach ($brands as $brand){
-            $parsedBrands[] = $brand->toSearchArray();
-        }
-
-        return new JsonResponse($parsedBrands);
-    }
-
-    /**
-     * @Route("/phone/model/{urlBrand}", name="search_phone_model_autocomplete")
-     */
-    public function searchPhoneModelAction(Request $request, $urlBrand)
-    {
-        $text = $request->query->get("text");
-
-        $brand = $this->getDoctrine()->getRepository(PhoneBrand::class)->findOneBy(["url" => $urlBrand]);
-
-        if(!is_string($text) || strlen($text) < 1 || !($brand instanceof PhoneBrand)){
-            return new JsonResponse([]);
-        }
-
-        $models = $this->getDoctrine()->getRepository(PhoneModel::class)->searchByText($text, $brand);
-
-        $parsedModels= [];
-
-        /** @var PhoneModel $model */
-        foreach ($models as $model){
-            $parsedModels[] = $model->toSearchArray();
-        }
-
-        return new JsonResponse($parsedModels);
-    }
 
     /**
      * @Route("/posts", name="search_posts")
@@ -303,6 +230,7 @@ class SearchController extends Controller
         $requestData = json_decode($request->getContent(), true);
         $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
         $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
+        $isAllLight = isset($requestData["isAllLight"]) ? $requestData["isAllLight"] : false;
 
         $user = isset($requestData["userId"]) ? $em->getRepository(Client::class)->find($requestData["userId"]) : null;
         $allUsers = isset($requestData["allUsers"]) && $requestData["allUsers"];
@@ -327,7 +255,7 @@ class SearchController extends Controller
 
         /** @var Post $post */
         foreach ($posts as $post){
-            $parsedPost= $post->toSearchArray();
+            $parsedPost= $post->toSearchArray($isAllLight);
 
             if($parsedPost["city"]){
                 $city = $em->getRepository(City::class)->findOneBy(["name" => $parsedPost["city"]]);

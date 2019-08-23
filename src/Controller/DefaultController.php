@@ -14,6 +14,7 @@ use App\Entity\SparePart;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
+use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +40,7 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 7));
 
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
@@ -66,7 +67,7 @@ class DefaultController extends Controller
         $updatedArticles = $em->getRepository(Article::class)
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
 
-        return $this->render('client/default/index.html.twig', [
+        return $this->render('client/default/interactiv.html.twig', [
             "homePage" => $homePage,
             "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
         ]);
