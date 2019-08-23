@@ -5,18 +5,19 @@
 {% block stylesheets %}
     <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
     <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
-    <link rel='stylesheet' href='/css/default/index.css'>
+    <link rel='stylesheet' href='/bower-components/select2/dist/css/select2.min.css'>
+    <link rel='stylesheet' href='/css/default/interactiv.css'>
 {% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     {% set searchParams = "_all_users" in app.request.attributes.get('_route') ? routeParams|merge({"allUsers" : "allUsers"}) : routeParams %}
-    <main class="container"  ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}', true)">
+    <main class="container"  ng-controller="MainPagePostsCtrl as posts" ng-init="posts.init('{{ path("search_posts") }}', '{{ searchParams | json_encode }}')">
       <h1 class="visually-hidden">Автопортал "Автопарус"</h1>
       <div itemscope itemtype="https://schema.org/Organization">
         <meta itemprop="name" content="Автопарус" />
         <link itemprop="url" href="https://www.autoparus.by/" />
-        <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" />
+        <link itemprop="logo" href="https://www.autoparus.by/image/catalog/logo.png" /> <!-- Логотип организации-->
 
         <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
             <meta itemprop="addressLocality" content="Минск, Беларусь" />
@@ -32,100 +33,101 @@
         <link itemprop="sameAs" href="https://vk.com/group" />
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
-        <div class="article">
-            {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
+        <div class="article owl-carousel-slider owl-carousel owl-theme" data-carousel-options='{"items" : 2, "dots" : true, "center" : true, "loop" : true, "margin" : 10, "responsive" : {"576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}}'>
+            {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
                 {% set article = articleArray.object %}
-                <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
+                <a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
                     <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
                     <div class="article-foto">
                         <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
-                        <div class="article-block">
-                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
-                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
-                        </div>
                     </div>
 
-                    <h3 class="article-subtitle add-three-dots-4-lines">{{ article.headline2 }}</h3>
+                    <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+
+                    <div class="article-block">
+                        <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                        <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                    </div>
                 </a>
             {% endfor %}
         </div>
 
         <div class="cont-inner">
           <ul class="content">
-            <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts | limitTo: 2" ng-cloak>
-              <div class="post-block">
-                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto1" src="{[{post.userPhoto}]}" alt="Фото"></a>
-                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
-                <button class="btn open-popup-button" type="button" data-popup-id="7">
-                    <span class="points"></span>
-                    <span class="points"></span>
-                    <span class="points"></span>
-                </button>
-              </div>
-
-              <div class="content-wrapper">
-                  <div class="foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
-                      <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
-                          <img ng-src="{[{image.path}]}" alt="Картинка">
-                      </a>
+              <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts | limitTo: 2" ng-cloak>
+                  <div class="post-block">
+                      <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto1" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                      <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                      <button class="btn open-popup-button" type="button" data-popup-id="7">
+                          <span class="points"></span>
+                          <span class="points"></span>
+                          <span class="points"></span>
+                      </button>
                   </div>
 
-                  <div class="user-block">
-                    <a href="{[{posts.moveToPost(post.id, post.type)}]}">
-                      <h3 class="user-title" ng-bind="post.headline">Заголовок из каталога</h3>
-                        <div id='text2' class='text1Show' show-more-lines class-less="{[{ post.headline ? 'text3Hide' : 'text5Hide' }]}" class-more="text1Show" count-lines="{[{ post.headline ? 3 : 5 }]}" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
+                  <div class="content-wrapper">
+                      <div class="foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
+                          <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
+                            <img ng-src="{[{image.path}]}" alt="Картинка">
+                          </a>
+                      </div>
+
+                      <div class="user-block">
+                        <a class="user-title" ng-bind="post.headline" href="{[{posts.moveToPost(post.id, post.type)}]}"></a>
+                          <div class="text-block text-block-w">
+                              <div id='text2' class='text1Show' show-more-lines class-less="{[{ post.headline ? 'text3Hide' : 'text5Hide' }]}" class-more="text1Show" count-lines="{[{ post.headline ? 3 : 5 }]}" trigger-open=".open-more-lines-button-{[{ post.id }]}" trigger-close=".close-more-lines-button-{[{ post.id }]}" ng-bind-html="post.description"></div>
+                              <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                              <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                          </div>
+                          <div class="date-block">
+                              <span class="date" ng-bind="post.date"></span>
+                              <span class="time" ng-bind="post.time"></span>
+                          </div>
+                        </div>
+                  </div>
+                </li >
+            </ul>
+            {% include('/client/default/parts/search-form-interactiv.html.twig') %}
+            </div>
+
+            <div class="inner">
+                <div id="textMiddle" ng-class="hideMiddleTextClass" ng-init="hideMiddleTextClass = 'textMiddleHide';">{{ homePage.text | raw }}</div>
+                {% if is_mobile() %}
+                    <span ng-click="hideMiddleTextClass = ''" ng-show="hideMiddleTextClass === 'textMiddleHide'"  id='allText dt-hidden'> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
+                    <span ng-click="hideMiddleTextClass = 'textMiddleHide'" ng-show="hideMiddleTextClass === ''" id='allText dt-hidden'> &lt;&lt;&lt;&lt;&lt;&lt;&lt; </span>
+                {% endif %}
+            </div>
+
+        <ul class="block-art">
+          <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
+              <div class="art-block">
+                  <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
+                  <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                  <button class="btn open-popup-button" type="button" data-popup-id="7">
+                      <span class="points"></span>
+                      <span class="points"></span>
+                      <span class="points"></span>
+                  </button>
+              </div>
+
+            <div class="content-wrapper">
+                <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
+                    <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
+                        <img ng-src="{[{image.path}]}" alt="Картинка">
                     </a>
-                      <button id='allText' class="open-more-lines-button-{[{ post.id }]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                      <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                </div>
+                  <a class="art-user" href="{[{posts.moveToPost(post.id, post.type)}]}">
+                    <h3 class="user-subtitle" ng-bind="post.headline"></h3>
+                      <div class="text-block text-block-w">
+                          <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
+                      </div>
                       <div class="date-block">
                           <span class="date" ng-bind="post.date"></span>
                           <span class="time" ng-bind="post.time"></span>
                       </div>
-                    </div>
-                  </div>
-                </li>
-            </ul>
-            {% include('/client/default/parts/search-form-main.html.twig') %}
+                  </a>
             </div>
-
-            <section class="news">
-              <div class="news-wrapper">
-                  {{ homePage.text | raw }}
-              </div>
-            </section>
-
-        <ul class="block-art">
-            <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
-                <div class="art-block">
-                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
-                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
-                  <button class="btn open-popup-button" type="button" data-popup-id="7">
-                    <span class="points"></span>
-                    <span class="points"></span>
-                    <span class="points"></span>
-                  </button>
-                </div>
-
-                <div class="content-wrapper">
-                    <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
-                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
-                            <img ng-src="{[{image.path}]}" alt="Картинка">
-                        </a>
-                    </div>
-                  <div class="art-user">
-
-                    <a href="{[{posts.moveToPost(post.id, post.type)}]}">
-                          <h3 class="user-subtitle" ng-bind="post.headline"></h3>
-                          <div id='text2' class='text1Show' ng-bind-html="post.description"></div>
-                    </a>
-
-                    <div class="date-block">
-                        <span class="date" ng-bind="post.date"></span>
-                        <span class="time" ng-bind="post.time"></span>
-                    </div>
-                  </div>
-                </div>
-            </li>
+          </li>
         </ul>
 
         <div class="baner-block">
@@ -135,7 +137,7 @@
         </div>
 
         <ul class="block-art">
-            <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 6):6" ng-cloak>
+            <li id="post-{[{post.id}]}" class="art-select" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 6):6" ng-cloak>
                 <div class="art-block">
                     <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
                     <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
@@ -145,6 +147,7 @@
                         <span class="points"></span>
                     </button>
                 </div>
+
                 <div class="content-wrapper">
                     <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
                         <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
@@ -154,20 +157,19 @@
                     <div class="art-user">
                         <a href="{[{posts.moveToPost(post.id, post.type)}]}">
                             <h3 class="user-subtitle" ng-bind="post.headline"></h3>
-                            <div id='text2' class='text1Show' ng-bind-html="post.description"></div>
+                            <div class="text-block text-block-w">
+                                <div id='text1' class='text5BigHide' ng-bind-html="post.description"></div>
+                            </div>
+                            <div class="date-block">
+                                <span class="date" ng-bind="post.date"></span>
+                                <span class="time" ng-bind="post.time"></span>
+                            </div>
                         </a>
-                        <button id='allText' class="open-more-lines-button-{[{ post.id }]}">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                        <button id='allText' class="close-more-lines-button-{[{ post.id }]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
-
-                        <div class="date-block">
-                            <span class="date" ng-bind="post.date"></span>
-                            <span class="time" ng-bind="post.time"></span>
-                        </div>
                     </div>
                 </div>
             </li>
         </ul>
-
+        <img id="preloader-posts" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
         <div class="sail-f">
             <img src="img/windsurfing.png" alt="Парус">
             <img src="img/windsurfing.png" alt="Парус">
@@ -245,8 +247,10 @@
 
 {% block javascripts %}
     <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
-    <script src='/js/client/directive/datalist-autocomplete.js'></script>
+    <script src='/bower-components/select2/dist/js/select2.min.js'></script>
+    <script src='/bower-components/select2/dist/js/i18n/ru.js'></script>
+    <script src='/js/client/directive/select2-autoparus.js'></script>
     <script src='/js/client/directive/user-profile/post-photos-owl-carousel.js'></script>
     <script src='/js/client/controller/default/main-page-posts-controller.js'></script>
-    <script src='/js/client/controller/default/main-search-form-controller.js'></script>
+    <script src='/js/client/controller/default/interactiv-search-form-controller.js'></script>
 {% endblock %}
