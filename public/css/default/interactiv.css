@@ -201,11 +201,18 @@ right: 5px;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.owl-carousel .owl-item img {
+    display: block;
+    width: 99%;
+    height: auto;
+}
 
 @media (max-width: 480px) {
     .container {
         width: auto; }
-
+.article {
+  margin-top: 20px;
+}
 .article-foto img {
  width: 145px !important;
   height: 105px; 

@@ -130,7 +130,28 @@ h3 {
     margin-right: 20px;
 }
 
+#allText2 {
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+    border: none;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ff0000;
+    cursor: pointer;
+    outline: none;
+}
+#allText2 span {
+    color: #000000;
+    margin: 0 7px;
+}
 
+#allText2:hover,
+#allText2:focus {
+    color: #000000;
+    cursor: pointer;
+}
 
 
 .subtext {

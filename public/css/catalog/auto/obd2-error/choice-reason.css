@@ -137,7 +137,8 @@ cursor: default;
     margin-bottom: 60px;
     padding: 20px;
     width: 70%;
-    border: 3px solid #ccc;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
 }
 .name {
     display: block;
