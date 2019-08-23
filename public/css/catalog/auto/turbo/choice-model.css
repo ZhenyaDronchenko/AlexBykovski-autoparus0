@@ -228,9 +228,17 @@ p {
     cursor: pointer;
     outline: none;
 }
-#allText2:hover {
-    color: #000;
+#allText2 span {
+    color: #000000;
+    margin: 0 7px;
 }
+
+#allText2:hover,
+#allText2:focus {
+    color: #000000;
+    cursor: pointer;
+}
+
 .text2Hide {
     max-height: 165px;
     overflow: hidden;
