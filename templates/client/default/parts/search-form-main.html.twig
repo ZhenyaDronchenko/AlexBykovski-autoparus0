@@ -30,40 +30,27 @@
     {#</form>#}
 {#</div>#}
 
-<div class="filter-column">
+<div class="filter-column" ng-controller="MainSearchFormCtrl as searchForm" ng-init="searchForm.init()">
     <form class="filter">
         <fieldset class="filter-block">
             <legend class="filter-title">Автозапчасти</legend>
             {% if not is_device('iphone') %}
-                <select class="select-item">
-                    <option selected>Марка</option>
-                    <option>Audi</option>
-                    <option>Acura</option>
-                    <option>BMW</option>
-                </select>
+                <input type="text" list="brand-list" class="select-item" placeholder="Марка" ng-model="searchForm.params.brand">
+                <datalist id="brand-list" datalist-autocomplete method-search="searchBrands">
+                </datalist>
 
-                <select class="select-item">
-                    <option selected>Модель</option>
-                    <option>A4</option>
-                    <option>B4</option>
-                    <option>C4</option>
-                </select>
+                <input type="text" list="model-list" class="select-item" placeholder="Модель" ng-model="searchForm.params.model">
+                <datalist id="model-list" datalist-autocomplete method-search="searchModels" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "by-name" : true}'>
+                </datalist>
 
-                <select class="select-item">
-                    <option selected>Год</option>
-                    <option>2000</option>
-                    <option>2001</option>
-                    <option>2002</option>
-                    <option>2003</option>
-                </select>
+                <input type="text" list="year-list" class="select-item" placeholder="Год" ng-model="searchForm.params.year">
+                <datalist id="year-list" datalist-autocomplete method-search="searchYears" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "by-name" : true}'>
+                </datalist>
 
-                <select class="select-item">
-                    <option selected>Наименование запчасти</option>
-                    <option>АКБ</option>
-                    <option>Амортизатор</option>
-                    <option>Аккумулятор</option>
-                </select>
-                <button class="button">Найти</button>
+                <input type="text" list="spare-part-list" class="select-item" placeholder="Наименование запчасти" ng-model="searchForm.params.sparePart">
+                <datalist id="spare-part-list" datalist-autocomplete method-search="searchSpareParts">
+                </datalist>
+                <button class="button" type="button" ng-click="searchForm.searchByForm()">Найти</button>
             {% endif %}
 
             <p class="select-option">

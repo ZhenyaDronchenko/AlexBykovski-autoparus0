@@ -122,22 +122,25 @@ class DefaultController extends Controller
     /**
      * @Route("/main-page-search-form", name="main_page_search_form", options={"expose"=true})
      */
-    public function mainPageSearchFormAction(Request $request)
+    public function interactivPageSearchFormAction(Request $request)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $requestData = json_decode($request->getContent(), true);
+        $byName = isset($requestData["by-name"]) && $requestData["by-name"];
 
         /** @var Brand|null $brand */
-        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["brand"]]);
+        $brand = $em->getRepository(Brand::class)->findOneBy([
+            $byName ? "name" : "url" => $requestData["brand"
+            ]]);
         /** @var Model|null $model */
         $model = $em->getRepository(Model::class)->findOneBy([
             "brand" => $brand,
-            "url" => $requestData["model"],
+            $byName ? "name" : "url" => $requestData["model"],
         ]);
-        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $requestData["sparePart"]]);
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy([$byName ? "name" : "url" => $requestData["sparePart"]]);
         $year = (int)$requestData["year"];
-        $inStock = (bool)$requestData["inStock"];
+        $inStock = isset($requestData["inStock"]) && (bool)$requestData["inStock"];
         $redirectUrl = $this->generateUrl("show_brand_catalog_choice_brand");
 
         if($brand && !$sparePart && !$model){

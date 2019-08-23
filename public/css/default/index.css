@@ -642,7 +642,7 @@ fieldset {
 }
 
 
-select {
+input.select-item {
     margin: 0 auto;
     width: 240px;
     margin-bottom: 10px;
@@ -796,7 +796,7 @@ label {
     width: 100%;
     box-sizing: border-box;
   }
-  select {
+    input.select-item {
     width: 100%;
     box-sizing: border-box;
 
@@ -815,7 +815,7 @@ input {
     width: 190px;
 }
 
-select {
+input.select-item {
     width: 200px;
 
 }

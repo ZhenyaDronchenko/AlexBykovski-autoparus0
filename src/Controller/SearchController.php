@@ -93,8 +93,11 @@ class SearchController extends Controller
     public function searchModelAction(Request $request, $urlBrand)
     {
         $text = $request->query->get("text");
+        $byName = $request->query->has("by-name");
 
-        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(
+            [$byName ? "name" : "url" => $urlBrand]
+        );
 
         if(!is_string($text) || strlen($text) < 1 || !($brand instanceof Brand)){
             return new JsonResponse([]);
@@ -127,11 +130,14 @@ class SearchController extends Controller
     public function searchYearAction(Request $request, $urlBrand, $urlModel)
     {
         $text = $request->query->get("text");
+        $byName = $request->query->has("by-name");
 
-        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $brand = $this->getDoctrine()->getRepository(Brand::class)->findOneBy(
+             [$byName ? "name" : "url" => $urlBrand]
+        );
         $model = $this->getDoctrine()->getRepository(Model::class)->findOneBy([
             "brand" => $brand,
-            "url" => $urlModel
+            $byName ? "name" : "url" => $urlModel
         ]);
 
         if(!is_string($text) || strlen($text) < 1 || !($model instanceof Model)){
