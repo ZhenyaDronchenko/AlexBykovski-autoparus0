@@ -1,12 +1,13 @@
 
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding-top: 5px;
+   display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .line {
@@ -46,6 +47,7 @@
   }
   #breadcrumbs {
     padding-top: 3px;
+    padding-bottom: 3px;
   }
   .line {
     margin-left: 3px;
@@ -108,20 +110,36 @@
 
 /*main-search*/
 
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
+}
+
+.art-list {
+     background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.block-title {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: flex-end;
+  margin: 30px 0;
+}
 .title {
+  margin: 0 auto;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
     color: #2980b9;
     text-align: center;
-    margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
-.title::before {
-    content: attr(data-text);
-    -webkit-text-stroke: .03em #ff0000;
-}
 .select-open {
       width: 30px;
     height: 30px;
@@ -155,7 +173,7 @@
   display: block;
     font-size: 18px;
     line-height: 20px;
-    color: #000000;
+    color: #666666;
     font-weight: 400;
     text-align: center;
 }
@@ -184,6 +202,16 @@
   .container {
     width: auto; 
   }
+
+   .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+    .art-list {
+         padding: 20px 10px;
+    }
+
   .select {
     width: 290px;
   margin: 0 auto;
@@ -214,6 +242,16 @@
   .container {
     width: auto; 
   }
+
+  .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+    .art-list {
+         padding: 20px 10px;
+    }
+
   .select {
     width: 450px;
   margin: 0 auto;
@@ -285,25 +323,12 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-  -o-flex-wrap: wrap;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 0;
   margin-top: 30px;
   margin-bottom: 40px;
 }
 
-.catalog-link:nth-child(5n) {
-  margin-right: 0;
-  
-}
-
-.catalog-link:last-child {
-  margin-right: 0;
-  
-}
 .catalog-link {
   display: -moz-flex;
   display: -ms-flex;
@@ -324,8 +349,7 @@
 padding: 10px 5px;
 color: #000;
 border: 1px solid #ccc;
-  margin-right: 2%;
-  width: 16%;
+  width: 18%;
   margin-bottom: 30px;
   padding-bottom: 0;
 }
@@ -333,6 +357,9 @@ border: 1px solid #ccc;
 .catalog-link:focus {
 -webkit-box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
 box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
+ -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition-duration: 0.7s;
 }
 
 
@@ -401,8 +428,7 @@ p {
 
 .foto {
   margin: 0 auto;
-   width: 185px;
-  height: 120px;
+   position: relative;
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
@@ -423,9 +449,8 @@ p {
 }
 
 .foto img {
- width: 185px;
-  height: 120px;  
-  border: 1px solid #ccc;
+ width: 100%;
+  height: auto;
 
 }
 
@@ -453,23 +478,6 @@ p {
   }
 
 
-.foto {
- width: 200px;
-  height: 130px;  
-
-}
-.foto img {
- width: 200px;
-  height: 130px;    
-
-}
-.catalog-link {
-color: #000;
-border: 1px solid #ccc;
-  margin-right: 3%;
-  width: 28%;
-  margin-bottom: 30px;
-}
 
 }
 
@@ -499,53 +507,10 @@ h3 {
   }
 
 
-.catalog .catalog-link {
-  margin-right: 3%;
-  
-}
-.catalog .catalog-link:nth-child(2n) {
-  margin-right: 0;
-}
 
 
-.foto {
- width: 180px;
-  height: 120px;  
-
-}
-.foto img {
- width: 180px;
-  height: 120px;     
-
-}
-  .catalog-link {
-     width: 43%;
-  margin-bottom: 30px;
-}
-
-}
-@media  (max-width: 480px) {
-  .container {
-    width: auto; 
-  }
 
 
-.foto {
- width: 100%;
-  height: auto;
- 
-} 
-.foto img {
- width: 100%;
-  height: auto;
-  max-height: 400px;  
-} 
-.catalog .catalog-link {
-  margin: 0;
-   width: 100%;
-  margin-bottom: 30px;
-}
-}
 
   /*  MAIN END */
 

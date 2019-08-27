@@ -233,7 +233,14 @@ right: 5px;
         margin-top: 15px;
     }
 
+}
 
+@media (max-width: 767px) {
+    .container {
+        width: auto; }
+.article {
+  margin-top: 30px;
+}
 }
 /*article END*/
 
