@@ -193,7 +193,7 @@ padding: 10px;
 color: #000;
 border: 1px solid #ccc;
   margin-right: 3%;
-  width: 29%;
+  width: 28%;
   margin-bottom: 30px;
   padding-bottom: 5px;
 }
@@ -264,8 +264,7 @@ p {
 
 .foto {
   margin: 0 auto;
-   width: 270px;
-  height: 180px;
+   width: 100%;
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
@@ -286,8 +285,8 @@ p {
 }
 
 .foto img {
- width: 270px;
-  height: 180px;  
+ width: 100%;
+  height: auto;  
   border: 1px solid #ccc;
 
 }
@@ -316,16 +315,7 @@ p {
   }
 
 
-.foto {
- width: 200px;
-  height: 130px;  
 
-}
-.foto img {
- width: 200px;
-  height: 130px;    
-
-}
 .catalog-link {
 color: #000;
 border: 1px solid #ccc;
@@ -379,16 +369,7 @@ h3 {
 }
 
 
-.foto {
- width: 180px;
-  height: 120px;  
 
-}
-.foto img {
- width: 180px;
-  height: 120px;     
-
-}
   .catalog-link {
      width: 43%;
   margin-bottom: 30px;
