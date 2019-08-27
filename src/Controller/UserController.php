@@ -37,11 +37,10 @@ class UserController extends Controller
         $parseAdverts = [];
         $adverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findMoreAdverts($seller->getSellerData()->getAdvertDetail());
 
-        /** @var AutoSparePartSpecificAdvert $advert */
         foreach ($adverts as $advert){
             $parseAdverts[] = [
-                "item" => $advert,
-                "sparePart" => $em->getRepository(SparePart::class)->findOneBy(["name" => $advert->getSparePart()]),
+                "item" => $advert[0],
+                "sparePart" => $em->getRepository(SparePart::class)->findOneBy(["name" => $advert["sparePart"]]),
             ];
         }
 

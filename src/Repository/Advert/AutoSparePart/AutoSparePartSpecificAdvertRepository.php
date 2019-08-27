@@ -174,11 +174,10 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
     public function findMoreAdverts(SellerAdvertDetail $advertDetail, $count = 2)
     {
         return $this->createQueryBuilder('spAdv')
-            ->select('spAdv')
+            ->select('DISTINCT spAdv.sparePart, spAdv')
             ->where("spAdv.sellerAdvertDetail = :advertDetail")
             ->setParameter("advertDetail", $advertDetail)
             ->setMaxResults($count)
-            ->groupBy("spAdv.sparePart")
             ->getQuery()
             ->getResult();
     }
