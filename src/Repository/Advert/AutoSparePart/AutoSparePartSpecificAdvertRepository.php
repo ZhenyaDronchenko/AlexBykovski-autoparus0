@@ -164,4 +164,22 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    /**
+     * @param SellerAdvertDetail $advertDetail
+     * @param int $count
+     *
+     * @return array
+     */
+    public function findMoreAdverts(SellerAdvertDetail $advertDetail, $count = 2)
+    {
+        return $this->createQueryBuilder('spAdv')
+            ->select('spAdv')
+            ->where("spAdv.sellerAdvertDetail = :advertDetail")
+            ->setParameter("advertDetail", $advertDetail)
+            ->setMaxResults($count)
+            ->groupBy("spAdv.sparePart")
+            ->getQuery()
+            ->getResult();
+    }
 }

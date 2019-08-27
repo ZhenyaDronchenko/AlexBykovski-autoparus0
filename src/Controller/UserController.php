@@ -35,7 +35,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["name" => $seller->getSellerData()->getSellerCompany()->getCity()]);
         $parseAdverts = [];
-        $adverts = $seller->getSellerData()->getAdvertDetail()->getSpecificAdvertsSellerPage();
+        $adverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findMoreAdverts($seller->getSellerData()->getAdvertDetail());
 
         /** @var AutoSparePartSpecificAdvert $advert */
         foreach ($adverts as $advert){
