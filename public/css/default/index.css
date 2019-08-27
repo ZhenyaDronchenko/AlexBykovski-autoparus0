@@ -620,6 +620,16 @@ margin: 0;
     margin: 20px auto;
     margin-bottom: 25px; 
   }
+  .owl-item a {
+    display: block;
+  }
+
+  .owl-carousel .owl-item img {
+    display: block;
+    width: 99%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
 
 }
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -939,6 +949,7 @@ input.select-item {
     -webkit-transform: translate(0,-35px);
         -ms-transform: translate(0,-35px);
             transform: translate(0,-35px);
+            z-index: 0;
 }
 
 .art-foto img {
