@@ -171,11 +171,7 @@ box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
           margin-top: auto;
 }
 
-.article-foto img {
- width: 175px !important;
-  height: 115px; 
 
-} 
 .article-ban {
 position: absolute;
 top: 5px;
@@ -213,11 +209,7 @@ right: 5px;
 .article {
   margin-top: 20px;
 }
-.article-foto img {
- width: 145px !important;
-  height: 105px; 
-
-} 
+ 
 .article-link {
   width: 146px !important;
   
@@ -390,8 +382,7 @@ right: 5px;
 }
 
 .user-title {
-  margin: 0;
-  margin-bottom: 10px;
+  margin: 10px 0;
     font-size: 20px;
     line-height: 22px;
     color: #2980b9;
