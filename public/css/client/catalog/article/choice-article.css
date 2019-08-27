@@ -2,11 +2,12 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .line {
@@ -46,6 +47,7 @@
   }
   #breadcrumbs {
     padding-top: 3px;
+    padding-bottom: 3px;
   }
   .line {
     margin-left: 3px;
@@ -107,6 +109,18 @@
 
 
 /*main-search*/
+
+.inner-grey {
+    background-color: #f0f0f0;
+    padding: 20px;
+    padding-top: 0;
+}
+
+.art-list {
+     background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 
 .title {
     font-size: 26px;
@@ -339,6 +353,14 @@ h3 {
   font-size: 18px;
   line-height: 22px;
 }
+  .inner-grey {
+    padding: 20px 10px;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+    .art-list {
+         padding: 20px 10px;
+    }
 }
 
 
@@ -397,4 +419,6 @@ h3 {
 }
 
   /*  MAIN END */
+
+
 

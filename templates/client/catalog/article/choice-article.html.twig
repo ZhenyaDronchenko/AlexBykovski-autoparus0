@@ -10,6 +10,7 @@
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
 	<main class="container">
+    <div class="inner-grey">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -32,7 +33,9 @@
                 <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">Выбранная категория</span><meta itemprop="position" content="3"></a>
             </li>
         </ul>
-      <h1 class="title">{{ theme.theme }}</h1>
+
+        <section class="art-list">
+        <h1 class="title">{{ theme.theme }}</h1>
 
 
         {% set countInPackage = is_mobile() ? 5 : 9 %}
@@ -53,6 +56,8 @@
 
             <img id="preloader-articles" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
         </div>
+        </section>
+      </div>
     </main>
 {% endblock %}
 

@@ -179,13 +179,17 @@
                             {% if isUserOffice %}
                                 <li>
                                     <a onclick="document.getElementById('create-new-post').click()" class="icon icon-plus us-btn" style="color: black;" href="">
-                                        <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
+                                        
                                     </a>
                                 </li>
                             {% else %}
                                 <li>
                                     <a ng-init="postsCtrl.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="postsCtrl.activePost = postsCtrl.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
-                                        <i class="fa fa-plus-square-o" aria-hidden="true" style="font-size: 33px;"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 50 50" version="1.1" fill="#000000">
+                                        <g id="surface65527">
+                                          <path style=" stroke:none;fill-rule:nonzero;fill:#000000;fill-opacity:1;" d="M 19.398438 6 C 17.019531 6 14.96875 7.679688 14.5 10.011719 L 14.09375 12 L 9 12 C 6.238281 12 4 14.238281 4 17 L 4 38 C 4 40.761719 6.238281 43 9 43 L 41 43 C 43.761719 43 46 40.761719 46 38 L 46 17 C 46 14.238281 43.761719 12 41 12 L 35.90625 12 L 35.5 10.011719 C 35.03125 7.675781 32.980469 6 30.601562 6 Z M 19.398438 8 L 30.601562 8 C 32.023438 8 33.261719 9.011719 33.542969 10.40625 L 33.941406 12.394531 C 34.132812 13.328125 34.953125 14 35.90625 14 L 41 14 C 42.652344 14 44 15.347656 44 17 L 44 38 C 44 39.652344 42.652344 41 41 41 L 9 41 C 7.347656 41 6 39.652344 6 38 L 6 17 C 6 15.347656 7.347656 14 9 14 L 14.09375 14 C 15.046875 14 15.867188 13.328125 16.058594 12.394531 L 16.457031 10.40625 C 16.738281 9.011719 17.976562 8 19.398438 8 Z M 25 17 C 19.476562 17 15 21.476562 15 27 C 15 32.523438 19.476562 37 25 37 C 30.523438 37 35 32.523438 35 27 C 35 21.476562 30.523438 17 25 17 Z M 25 19 C 29.410156 19 33 22.589844 33 27 C 33 31.410156 29.410156 35 25 35 C 20.589844 35 17 31.410156 17 27 C 17 22.589844 20.589844 19 25 19 Z M 25 19 "/>
+                                        </g>
+                                      </svg>
                                     </a>
 
                                     <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="postsCtrl.editPost">
