@@ -22,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ProductController extends Controller
 {
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_product_general_view")
+     * @Route("/general/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_product_general_view")
      */
     public function showProductGeneralPageAction(Request $request, $urlBrand, $urlModel, $urlSP, $urlCity)
     {
@@ -49,7 +49,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}", name="show_product_general_view_brand_model_spare_part")
+     * @Route("/general/{urlBrand}/{urlModel}/{urlSP}", name="show_product_general_view_brand_model_spare_part")
      */
     public function showProductGeneralPageBrandModelSparePartAction(Request $request, $urlBrand, $urlModel, $urlSP)
     {
@@ -74,22 +74,77 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="show_product_view")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}/{id}", name="show_product_city_view")
      *
-     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
      */
-    public function showProductViewAction(Request $request, AutoSparePartSpecificAdvert $advert)
+    public function showProductViewAction(Request $request, $id, $urlBrand, $urlModel, $urlSP, $urlCity)
     {
-        return $this->render('client/product/product-view.html.twig', []);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
+        $advert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($id);
+        $articles = $em->getRepository(Article::class)->findBy([], ["createdAt" => "DESC"], 2);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
+            !($model instanceof Model) || !($city instanceof  City) ||  !$id){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
+        if(!($advert instanceof AutoSparePartSpecificAdvert)){
+            return $this->redirectToRoute("show_product_general_view", [
+                "urlBrand" => $urlBrand,
+                "urlModel" => $urlModel,
+                "urlSP" => $urlSP,
+                "urlCity" => $urlCity,
+            ]);
+        }
+
+        return $this->render('client/product/product-view.html.twig', [
+            "brand" => $brand,
+            "model" => $model,
+            "sparePart" => $sparePart,
+            "city" => $city,
+            "articles" => $articles,
+            "advert" => $advert
+        ]);
     }
 
     /**
-     * @Route("/{id}/{urlCity}", name="show_product_city_view")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{id}", name="show_product_view")
      *
-     * @ParamConverter("advert", class="App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert", options={"id" = "id"})
      */
-    public function showProductCityViewAction(Request $request, AutoSparePartSpecificAdvert $advert, $urlCity)
+    public function showProductViewBrandModelSparePartAction(Request $request, $id, $urlBrand, $urlModel, $urlSP)
     {
-        return $this->render('client/product/product-city-view.html.twig', []);
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
+        $model = $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $advert = $em->getRepository(AutoSparePartSpecificAdvert::class)->find($id);
+        $articles = $em->getRepository(Article::class)->findBy([], ["createdAt" => "DESC"], 2);
+
+        if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) ||
+            !($model instanceof Model) || !$id){
+            throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
+        }
+
+        if(!($advert instanceof AutoSparePartSpecificAdvert)){
+            return $this->redirectToRoute("show_product_general_view_brand_model_spare_part", [
+                "urlBrand" => $urlBrand,
+                "urlModel" => $urlModel,
+                "urlSP" => $urlSP,
+            ]);
+        }
+
+        return $this->render('client/product/product-view-brand-model-spare-part.html.twig', [
+            "brand" => $brand,
+            "model" => $model,
+            "sparePart" => $sparePart,
+            "articles" => $articles,
+            "advert" => $advert
+        ]);
     }
 }

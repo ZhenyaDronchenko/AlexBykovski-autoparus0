@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ sparePart.alternativeName2 ~ ' ' ~ brand.brandEn ~ ' ' ~ model.modelEn ~ ' в ' ~ city.prepositional ~ ' ' ~ advert.getEngineDescription(false) ~ (advert.vehicleType ? (' ' ~ advert.vehicleType) : "") }}{% endblock %}
+{% block title %}{{ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ advert.getEngineDescription(true, false) }}{% endblock %}
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/client/product/product-view.css'>
 {% endblock %}
-{% block meta_description %}{{ sparePart.alternativeName2 ~ ' к ' ~ brand.brandEn ~ ' ' ~ model.modelEn ~ ' ' ~ advert.year ~ ' года ' ~ advert.getEngineDescription() ~ ' в городе ' ~ city.prepositional ~ ' с расширенной гарантией на проверку и установку.'}}{% endblock %}
+{% block meta_description %}{{ 'Купить ' ~ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ ' ' ~ advert.year ~ ' года ' ~ advert.getEngineDescription() ~ ' и другие надежные запчасти высокого качества для автомобилей ' ~ brand.brandRu ~ ' по максимально низким ценам.' }}{% endblock %}
 
 {% block body %}
-    {% set parameters = [brand, model, sparePart, city] %}
+    {% set parameters = [brand, model, sparePart] %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     {% set route = app.request.attributes.get('_route') %}
     {% set USDconst = constant('App\\Entity\\Advert\\CurrencyRate::USD_CODE') %}
@@ -51,19 +51,10 @@
                 </li>
 
                 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="link-b" href="{{ path("show_brand_catalog_choice_city", {urlBrand: brand.url, urlModel: model.url, urlSP: sparePart.url}) }}" itemprop="item"
-                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceCity", parameters) }}">
+                    <a class="current" nohref itemprop="item" content="{{ url(route, routeParams) }}">
                         <span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
                     </a>
                     <meta itemprop="position" content="5">
-                </li>
-
-
-                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                    <a class="current" nohref itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
-                        <span class="line">/</span><span itemprop="name">{{ city.name }}</span>
-                        <meta itemprop="position" content="6">
-                    </a>
                 </li>
             </ul>
 
@@ -84,7 +75,7 @@
                 <meta itemprop="mpn" content="925873">  <!-- глобальный идентификатор товара, например код ISBN, MPN или GTIN8 -->
                 <div class="wrapper">
                     <div class="block-discription">
-                        <h1 class="product-title hidden">{{ sparePart.alternativeName2 ~ ' ' ~ brand.brandEn ~ ' ' ~ model.modelEn ~ advert.getEngineDescription(false) ~ ' в ' ~ city.prepositional }}</h1>
+                        <h1 class="product-title hidden">{{ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ advert.getEngineDescription() }}</h1>
                         <div class="product-photos">
                             <img src="{{ image_url(advert.image ? advert.image : sparePart.thumbnailLogo) }}" width="390" height="300" alt="Фото всего набора" itemprop="image"><!-- Фото -->
                             {#<div class="product-wrapper">#}
@@ -94,7 +85,7 @@
                             {#</div>#}
                         </div>
                         <div class="product-dsc">
-                            <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName2 ~ ' ' ~ brand.brandEn ~ ' ' ~ model.modelEn ~ advert.getEngineDescription(false) ~ ' в ' ~ city.prepositional }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
+                            <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ advert.getEngineDescription() }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
                             <span class="art" itemprop="sku">№ {{ advert.id }}</span><!-- Артикул Значение 21 -->
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><!-- Описание продукта -->
                                 <p class="status">Состояние: <span>{{ constant('App\\Entity\\Advert\\AutoSparePart\\AutoSparePartSpecificAdvert::CONDITIONS_CLIENT_VIEW')[advert.condition] }}</span></p>
@@ -114,7 +105,7 @@
                     <section class="org">
                         <h2 class="org-title">Автозапчасти</h2>
                         <div class="adress">
-                            <p class="adress-text"><span>Беларусь, {{ city.name }}</span><br>
+                            <p class="adress-text"><span>Беларусь</span><br>
                                 {#г. Минск, ул. Лещинского, д. 1, а - 332#}
                             </p>
                         </div>

@@ -1,11 +1,13 @@
+{% set USDconst = constant('App\\Entity\\Advert\\CurrencyRate::USD_CODE') %}
+{% set EURconst = constant('App\\Entity\\Advert\\CurrencyRate::EUR_CODE') %}
+{% set currencyRates = {('' ~ USDconst) : currency_rate(USDconst), ('' ~ EURconst): currency_rate(EURconst)} %}
+{% set routeParams = app.request.attributes.get('_route_params') %}
+
 {% for advert in adverts %}
     {% set sellerData = advert.sellerAdvertDetail.sellerData %}
     {% set sellerCompany = sellerData.sellerCompany %}
     {% set sellerWorkflow = sellerCompany.workflow %}
     {% set sparePart = advert.sparePart ? get_object("App\\Entity\\SparePart", "findOneBy", {"name" : advert.sparePart}) : "" %}
-    {% set USDconst = constant('App\\Entity\\Advert\\CurrencyRate::USD_CODE') %}
-    {% set EURconst = constant('App\\Entity\\Advert\\CurrencyRate::EUR_CODE') %}
-    {% set currencyRates = {('' ~ USDconst) : currency_rate(USDconst), ('' ~ EURconst): currency_rate(EURconst)} %}
 
     <div class="block-product">
         <div class="block-title">
@@ -23,13 +25,17 @@
             <div class="card-img">
                 <div class="image">
                     {% set specificAdvertImage = advert.image ? image_url(advert.image) : (sparePart ? image_url(sparePart.thumbnailLogo) : "") %}
-                    <img src="{{ specificAdvertImage }}" alt="foto">
+                    {% set linkParameters = {urlBrand : routeParams.urlBrand, urlModel : routeParams.urlModel, urlSP : routeParams.urlSP, id: advert.id} %}
+                    {% set linkParameters = routeParams.urlCity is defined ? linkParameters|merge({urlCity : routeParams.urlCity}) : linkParameters %}
+                    <a href="{{ path((routeParams.urlCity is defined ? "show_product_city_view" : "show_product_view"), linkParameters) }}">
+                        <img src="{{ specificAdvertImage }}" alt="foto">
+                    </a>
                 </div>
                 {% if advert.cost and advert.cost > 0 %}
                     {% set advertCurrency = advert.currency ? advert.currency | upper : null %}
                     <div class="price">{{ (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) }} <span>Руб</span></div>
                 {% endif %}
-                <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
+                <a class="link-main" nohref>{{ advert.getConditionStockView() }}</a>
                 <div class="link-button">
                     <a class="link show-seller-address" nohref data-address="Беларусь, {{ sellerCompany.city }}, {{ sellerCompany.address }}">
                         <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">

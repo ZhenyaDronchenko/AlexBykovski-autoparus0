@@ -721,4 +721,28 @@ class AutoSparePartSpecificAdvert
     {
         return $this->getStockTypeView() . ', ' . $this->getConditionTypeView();
     }
+
+    public function getEngineDescription($full = true, $nameInBrackets = true)
+    {
+        $description = "";
+
+        if($this->engineCapacity){
+            $description .= ' ' . $this->engineCapacity;
+        }
+
+        if($this->engineType){
+            $description .= ' ' . $this->engineType;
+        }
+
+        if($this->engineName && $full){
+            if($nameInBrackets){
+                $description .= ' (' . $this->engineName . ')';
+            }
+            else{
+                $description .= ' ' . $this->engineName . '';
+            }
+        }
+
+        return $description;
+    }
 }
