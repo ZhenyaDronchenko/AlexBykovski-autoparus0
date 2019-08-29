@@ -27,7 +27,7 @@
                     {% set specificAdvertImage = advert.image ? image_url(advert.image) : (sparePart ? image_url(sparePart.thumbnailLogo) : "") %}
                     {% set linkParameters = {urlBrand : routeParams.urlBrand, urlModel : routeParams.urlModel, urlSP : routeParams.urlSP, id: advert.id} %}
                     {% set linkParameters = routeParams.urlCity is defined ? linkParameters|merge({urlCity : routeParams.urlCity}) : linkParameters %}
-                    <a href="{{ path((routeParams.urlCity is defined ? "show_product_city_view" : "show_product_view"), linkParameters) }}">
+                    <a href="{{ path((routeParams.urlCity is defined ? "show_product_city_view" : "show_product_view"), linkParameters) }}" target="_blank">
                         <img src="{{ specificAdvertImage }}" alt="foto">
                     </a>
                 </div>

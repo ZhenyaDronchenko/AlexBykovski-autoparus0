@@ -14,6 +14,9 @@
     {% set currencyRates = {('' ~ USDconst) : currency_rate(USDconst), ('' ~ EURconst): currency_rate(EURconst)} %}
     {% set advertCurrency = advert.currency ? advert.currency | upper : null %}
     {% set rubCost = (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) %}
+    {% set sellerData = advert.sellerAdvertDetail.sellerData %}
+    {% set sellerCompany = sellerData.sellerCompany %}
+    {% set workflow = sellerCompany.workflow %}
     <main class="container">
         <section class="main-page">
             <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
@@ -95,111 +98,46 @@
                                 <time itemprop="priceValidUntil" datetime="2020-11-05"></time><!-- Цена действует до Значение 15 -->
                                 <a itemprop="url" href="#"></a>
 
-                                {% set workflow = advert.sellerAdvertDetail.sellerData.sellerCompany.workflow %}
                                 <p class="delivery">Гарантия: <span>{{ workflow.delivery ? 'Есть' : 'Нет'}}</span></p>
                                 <p class="warranty">Доставка: <span>{{ workflow.guarantee ? 'Есть' : 'Нет'}}</span></p>
                             </div>
                         </div>
                     </div>
 
-                    <section class="org">
-                        <h2 class="org-title">Автозапчасти</h2>
-                        <div class="adress">
-                            <p class="adress-text"><span>Беларусь</span><br>
-                                {#г. Минск, ул. Лещинского, д. 1, а - 332#}
-                            </p>
-                        </div>
-
-                        <div class="card-time">
-                            <div class="week">
-                                <span class="day blue"></span>
-                                <span class="day blue"></span>
-                                <span class="day blue"></span>
-                                <span class="day blue"></span>
-                                <span class="day blue"></span>
-                                <span class="day-time">09:00 - 17:00</span>
-                            </div>
-                            <div class="weekend">
-                                <span class="day"></span>
-                                <span class="day"></span>
-                                <span class="day"></span>
-                                <span class="day red"></span>
-                                <span class="day red"></span>
-                                <span class="day-time">10:00 - 16:00</span>
-                            </div>
-                        </div>
-
-                        <p class="info">Информация для покупателя</p>
-                        {#<div class="card-contact">#}
-                        {#<a href="tel:+375(29)3239999" class="contact" data-text="+375  (29)  323 - 99 - 99"></a>#}
-                        {#<a href="tel:+375(33)3239999" class="contact" data-text="+375  (33)  323 - 99 - 99"></a>#}
-                        {#</div>#}
-
-                        <h3 class="rev-title">Рейтинг продавца</h3>
-                        <div class="review">
-                            <span class="star rev"></span>
-                            <span class="star rev"></span>
-                            <span class="star rev"></span>
-                            <span class="star rev"></span>
-                            <span class="star"></span>
-                            <p class="review-text">нет отзывов</p>
-                        </div>
-                    </section>
+                    {% include('/client/product/product-view-parts/seller-data.html.twig') %}
                 </div>
 
-                <ul class="product-block">
-                    <li class="product-list">
-                        <h2 class="product-subtitle">Описание товара:</h2>
-                        <p class="product-text" itemprop="description">{{ advert.comment }}</p>
-                    </li>
-
-                    {#<li class="product-list">#}
-                    {#<h2 class="product-subtitle">Доставка:</h2>#}
-                    {#<p class="product-text">Продукт Mazda 626, авто ежедневно на ходу. Есть ньюансы по кузову. Все вопросы по телефону. Торг. Авто ежедневно на ходу...</p>#}
-                    {#</li>#}
-
-                    {#<li class="product-list">#}
-                    {#<h2 class="product-subtitle">Гарантия:</h2>#}
-                    {#<p class="product-text">Продукт Mazda 626, авто ежедневно на ходу. Есть ньюансы по кузову. Все вопросы по телефону. Торг. Авто ежедневно на ходу...</p>#}
-                    {#</li>#}
-                </ul>
+                {% include('/client/product/product-view-parts/description-delivery-guarantee.html.twig') %}
 
                 <div class="feature">
                     <section class="feature-list">
                         <h2 class="feature-title">Характеристики</h2>
                         <table class="feature-block">
-                            <tr><td>Запчасть:</td><td class="tab">{{ sparePart.name }}</td></tr>
+                            <tr><td>Запчасть:</td><td class="tab">{{ sparePart.alternativeName1 }}</td></tr>
                             <tr><td>Марка:</td><td class="tab">{{ brand.name }}</td></tr>
                             <tr><td>Модель:</td><td class="tab">{{ model.name }}</td></tr>
-                            <tr><td>Год:</td><td class="tab">{{ model.technicalData.yearFrom ~ ' - ' ~ model.technicalData.yearTo }}</td></tr>
-                            <tr><td>Тип двигателя:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
-                            <tr><td>Объем:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
-                            <tr><td>Тип КПП:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
-                            <tr><td>Тип привода:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
-                            <tr><td>Тип Кузова:</td><td class="tab tab-text">Необходимо уточнение</td></tr>
+                            {% if advert.year %}
+                                <tr><td>Год:</td><td class="tab">{{ advert.year }}</td></tr>
+                            {% endif %}
+                            {% if advert.engineType %}
+                                <tr><td>Тип двигателя:</td><td class="tab tab-text">{{ advert.engineType }}</td></tr>
+                            {% endif %}
+                            {% if advert.engineCapacity %}
+                                <tr><td>Объем:</td><td class="tab tab-text">{{ advert.engineCapacity }}</td></tr>
+                            {% endif %}
+                            {% if advert.gearBoxType %}
+                                <tr><td>Тип КПП:</td><td class="tab tab-text">{{ advert.gearBoxType.type }}</td></tr>
+                            {% endif %}
+                            {% if advert.driveType %}
+                                <tr><td>Тип привода:</td><td class="tab tab-text">{{ advert.driveType.type }}</td></tr>
+                            {% endif %}
+                            {% if advert.vehicleType %}
+                                <tr><td>Тип Кузова:</td><td class="tab tab-text">{{ advert.vehicleType.type }}</td></tr>
+                            {% endif %}
                         </table>
                     </section>
 
-                    <section class="art-block">
-                        <h2 class="art-title">Новые публикации</h2>
-                        <ul class="art-list">
-                            {% for article in articles %}
-                                <li>
-                                    <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
-                                        <h3 class="article-title">{{ article.headline1 }}</h3>
-                                        <div class="article-foto">
-                                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
-                                        </div>
-                                        <h4 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h4>
-                                        <div class="article-block">
-                                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
-                                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </section>
+                    {% include('/client/product/product-view-parts/new-articles.html.twig') %}
                 </div>
 
                 {#<section class="promo">#}

@@ -326,7 +326,7 @@
     line-height: 18px;
     font-weight: 400;
 }
-.day::after {
+.check::after {
     content: "";
     background: url(/img/checkday.svg) 0 0 no-repeat;
     position: absolute;

@@ -1,0 +1,54 @@
+<section class="org">
+    <h2 class="org-title"><a href="{{ path("seller_view", {id: sellerData.client.id}) }}" target="_blank">{{ sellerCompany.companyName }}</a></h2>
+    <div class="adress">
+        <a href="{{ path("seller_view", {id: sellerData.client.id}) }}#map" target="_blank">
+            <p class="adress-text"><span>Беларусь,</span><br>
+                {{ sellerCompany.city }}, {{ sellerCompany.address }}
+            </p>
+        </a>
+    </div>
+
+    <div class="card-time">
+        <div class="week">
+            <span class="day blue {{ workflow.isMondayWork ? "check" : "" }}"></span>
+            <span class="day blue {{ workflow.isTuesdayWork ? "check" : "" }}"></span>
+            <span class="day blue {{ workflow.isWednesdayWork ? "check" : "" }}"></span>
+            <span class="day blue {{ workflow.isThursdayWork ? "check" : "" }}"></span>
+            <span class="day blue {{ workflow.isFridayWork ? "check" : "" }}"></span>
+            {% if workflow.isWorkWeekday() %}
+                <span class="day-time" itemprop="openingHours">{{ workflow.weekDaysStartAt | date("H:i") }} - {{ workflow.weekDaysEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+            {% endif %}
+        </div>
+        <div class="weekend">
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day"></span>
+            <span class="day red {{ workflow.isSaturdayWork ? "check" : "" }}"></span>
+            <span class="day red {{ workflow.isSundayWork ? "check" : "" }}"></span>
+            {% if workflow.isWorkWeekend() %}
+                <span class="day-time" itemprop="openingHours">{{ workflow.weekendStartAt | date("H:i") }} - {{ workflow.weekendEndAt | date("H:i") }}</span><!-- Время работы Значение 13 -->
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card-contact">
+        {% if sellerCompany.additionalPhone %}
+            <a href="tel:{{ sellerCompany.additionalPhone }}" class="contact" data-text="{{ sellerCompany.additionalPhone }}"></a>
+        {% endif %}
+        {% if sellerCompany.additionalPhone2 %}
+            <a href="tel:{{ sellerCompany.additionalPhone2 }}" class="contact" data-text="{{ sellerCompany.additionalPhone2 }}"></a>
+        {% endif %}
+    </div>
+
+    <p class="info"><a href="{{ path("seller_view", {id: sellerData.client.id}) }}#about" target="_blank">Информация для покупателя</a></p>
+
+    <h3 class="rev-title">Рейтинг продавца</h3>
+    <div class="review">
+        <span class="star rev"></span>
+        <span class="star rev"></span>
+        <span class="star rev"></span>
+        <span class="star rev"></span>
+        <span class="star"></span>
+        <p class="review-text">нет отзывов</p>
+    </div>
+</section>
