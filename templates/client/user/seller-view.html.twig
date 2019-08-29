@@ -92,7 +92,7 @@
             </div>
             
           </div>
-          <div class="map">
+          <div class="map" id="map">
               <h2 class="map-title">Адрес на карте</h2>
               <p class="adress-text" itemscope itemprop="address" itemtype="http://schema.org/PostalAddress"><span itemprop="addressCountry">{{ sellerCompany.sellerData.client.country }}</span>, <span itemprop="addressLocality">{{ sellerCompany.city }}</span> <span itemprop="streetAddress">{{ sellerCompany.address }}</span></p><!-- Адресс Значение 12 -->
               <div class="map-img">
@@ -148,7 +148,7 @@
           </section>
         </section>
 
-        <section class="product-block">
+        <section class="product-block" id="about">
           <h2 class="product-subtitle">О магазине / о продавце</h2>
           <p class="product-text">{{ sellerCompany.activityDescription }}</p>
         </section>
