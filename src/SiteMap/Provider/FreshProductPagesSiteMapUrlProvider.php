@@ -22,7 +22,7 @@ class FreshProductPagesSiteMapUrlProvider implements SiteMapUrlProvider
     /** @var string $publicPath */
     private $publicPath;
 
-    const COUNT = 10000;
+    const COUNT = 500;
 
     /**
      * BrandCatalogSiteMapBuilder constructor.
@@ -47,22 +47,45 @@ class FreshProductPagesSiteMapUrlProvider implements SiteMapUrlProvider
             case SiteMapFactory::SITE_MAP_INDEX:
                 return $this->provideIndex();
             default:
-                return [];
+                return $this->provideSimple($type);
         }
     }
 
     public function provideIndex(): array
     {
+        $allCount = (int)$this->em->getRepository(AutoSparePartSpecificAdvert::class)->getAllCount();
+
+        $baseUrl = $this->router->generate("homepage", [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $urls = [];
+
+        foreach (range(0, (int)($allCount / self::COUNT)) as $number){
+            $urls[] = $baseUrl . 'sitemap_' . $number . '.xml';
+        }
+
+        return $urls;
+    }
+
+    public function provideSimple(string $type): array
+    {
         //$adverts = $this->em->getRepository(AutoSparePartSpecificAdvert::class)->find([], ["createdAt" => "DESC"], self::COUNT);
-        $adverts = $this->em->getRepository(AutoSparePartSpecificAdvert::class)->findFreshForSitemap();
+        $adverts = $this->em->getRepository(AutoSparePartSpecificAdvert::class)->findFreshForSitemap((int)$type);
+
         $urls = [];
 
         foreach ($adverts as $advert){
+            $city = $this->em->getRepository(City::class)->findOneBy(["name" => $advert["cityName"]]);
+            $sparePart = $this->em->getRepository(SparePart::class)->findOneBy(["name" => $advert["spName"]]);
+
+            if(!($city instanceof City) || !($sparePart instanceof SparePart)){
+                continue;
+            }
+
             $parameters = [
                 "urlBrand" => $advert["urlBrand"],
                 "urlModel" => $advert["urlModel"],
-                "urlSP" => $advert["urlSP"],
-                "urlCity" => $advert["urlCity"],
+                "urlSP" => $sparePart->getUrl(),
+                "urlCity" => $city->getUrl(),
                 "id" => $advert["id"],
             ];
 
@@ -71,10 +94,5 @@ class FreshProductPagesSiteMapUrlProvider implements SiteMapUrlProvider
         }
 
         return $urls;
-    }
-
-    public function provideSimple(string $type): array
-    {
-        // TODO: Implement provideSimple() method.
     }
 }
