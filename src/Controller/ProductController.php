@@ -22,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ProductController extends Controller
 {
     /**
-     * @Route("/general/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_product_general_view")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}", name="show_product_general_view")
      */
     public function showProductGeneralPageAction(Request $request, $urlBrand, $urlModel, $urlSP, $urlCity)
     {
@@ -49,7 +49,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/general/{urlBrand}/{urlModel}/{urlSP}", name="show_product_general_view_brand_model_spare_part")
+     * @Route("/{urlBrand}/{urlModel}/{urlSP}", name="show_product_general_view_brand_model_spare_part")
      */
     public function showProductGeneralPageBrandModelSparePartAction(Request $request, $urlBrand, $urlModel, $urlSP)
     {
@@ -74,7 +74,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{urlCity}/{id}", name="show_product_city_view")
+     * @Route("/specific/{urlBrand}/{urlModel}/{urlSP}/{urlCity}/{id}", name="show_product_city_view")
      *
      */
     public function showProductViewAction(Request $request, $id, $urlBrand, $urlModel, $urlSP, $urlCity)
@@ -113,7 +113,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/{urlBrand}/{urlModel}/{urlSP}/{id}", name="show_product_view")
+     * @Route("/specific/{urlBrand}/{urlModel}/{urlSP}/{id}", name="show_product_view")
      *
      */
     public function showProductViewBrandModelSparePartAction(Request $request, $id, $urlBrand, $urlModel, $urlSP)
