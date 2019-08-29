@@ -4,10 +4,12 @@ namespace App\Repository\Advert\AutoSparePart;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
+use App\Entity\City;
 use App\Entity\Client\Client;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\SparePart;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
+use App\SiteMap\Provider\FreshProductPagesSiteMapUrlProvider;
 use App\Type\AutoSparePartSpecificAdvertFilterType;
 use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityRepository;
@@ -178,6 +180,23 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
             ->where("spAdv.sellerAdvertDetail = :advertDetail")
             ->setParameter("advertDetail", $advertDetail)
             ->setMaxResults($count)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findFreshForSitemap($count = FreshProductPagesSiteMapUrlProvider::COUNT)
+    {
+        return $this->createQueryBuilder('spAdv')
+            ->select('spAdv.id as id, br.url as urlBrand, m.url as urlModel, sp.url as urlSP, city.url as urlCity')
+            ->join("spAdv.model", "m")
+            ->join("spAdv.brand", "br")
+            ->join("spAdv.sellerAdvertDetail", "sad")
+            ->join("sad.sellerData", "sd")
+            ->join("sd.sellerCompany", "sc")
+            ->innerJoin(SparePart::class, "sp", Join::WITH, "sp.name = spAdv.sparePart")
+            ->innerJoin(City::class, "city", Join::WITH, "city.name = sc.city")
+            ->setMaxResults($count)
+            ->orderBy("spAdv.createdAt", "DESC")
             ->getQuery()
             ->getResult();
     }
