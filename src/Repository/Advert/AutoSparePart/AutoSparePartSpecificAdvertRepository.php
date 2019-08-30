@@ -186,10 +186,6 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
 
     public function findFreshForSitemap($step)
     {
-//        var_dump(FreshProductPagesSiteMapUrlProvider::COUNT);
-//        var_dump((int)$step * FreshProductPagesSiteMapUrlProvider::COUNT);
-//
-//        die;
         return $this->createQueryBuilder('spAdv')
             ->select('spAdv.id as id, br.url as urlBrand, m.url as urlModel, sc.city as cityName, spAdv.sparePart as spName')
             ->join("spAdv.model", "m")
@@ -197,8 +193,6 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
             ->join("spAdv.sellerAdvertDetail", "sad")
             ->join("sad.sellerData", "sd")
             ->join("sd.sellerCompany", "sc")
-//            ->innerJoin(SparePart::class, "sp", Join::WITH, "sp.name = spAdv.sparePart")
-//            ->innerJoin(City::class, "city", Join::WITH, "city.name = sc.city")
             ->setMaxResults(FreshProductPagesSiteMapUrlProvider::COUNT)
             ->setFirstResult((int)$step * FreshProductPagesSiteMapUrlProvider::COUNT)
             ->orderBy("spAdv.id", "DESC")
