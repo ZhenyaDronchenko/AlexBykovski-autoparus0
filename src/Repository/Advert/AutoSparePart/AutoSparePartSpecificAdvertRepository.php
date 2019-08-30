@@ -4,10 +4,12 @@ namespace App\Repository\Advert\AutoSparePart;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
+use App\Entity\City;
 use App\Entity\Client\Client;
 use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\SparePart;
 use App\Provider\SellerOffice\SpecificAdvertListProvider;
+use App\SiteMap\Provider\FreshProductPagesSiteMapUrlProvider;
 use App\Type\AutoSparePartSpecificAdvertFilterType;
 use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityRepository;
@@ -180,5 +182,33 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
             ->setMaxResults($count)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findFreshForSitemap($step)
+    {
+        return $this->createQueryBuilder('spAdv')
+            ->select('spAdv.id as id, br.url as urlBrand, m.url as urlModel, sc.city as cityName, spAdv.sparePart as spName')
+            ->join("spAdv.model", "m")
+            ->join("spAdv.brand", "br")
+            ->join("spAdv.sellerAdvertDetail", "sad")
+            ->join("sad.sellerData", "sd")
+            ->join("sd.sellerCompany", "sc")
+            ->setMaxResults(FreshProductPagesSiteMapUrlProvider::COUNT)
+            ->setFirstResult((int)$step * FreshProductPagesSiteMapUrlProvider::COUNT)
+            ->orderBy("spAdv.id", "DESC")
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getAllCount()
+    {
+        return $this->createQueryBuilder('spAdv')
+            ->select('COUNT(spAdv) as count')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
