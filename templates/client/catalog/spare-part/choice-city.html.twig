@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/client/catalog/spare-part/choice-city.css'>
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/show-adverts.css'>
 {% endblock %}
 
 {% block body %}
@@ -55,6 +56,12 @@
             <button class="allText-1"> >>>>>>> </button>
 
             <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
+
+            {% set templateParameters = {"brand" : brand, "sparePart" : sparePart} %}
+            {% set templateParameters = model ? templateParameters|merge({"model" : model}) : templateParameters %}
+
+            {% include('/client/catalog/show-adverts/spare-part-show-specific-adverts.html.twig') with {"adverts" : specificAdverts, "templateParameters" : templateParameters} %}
+            {% include('/client/catalog/show-adverts/spare-part-show-general-adverts.html.twig') with {"adverts" : generalAdverts, "templateParameters" : templateParameters} %}
 
             <h2 class="turbo-subtitle">{{ page.headline2 }}</h2>
             <div class="subtext">{{ page.text2 | raw }}</div>

@@ -134,6 +134,7 @@ class SparePartCatalogController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
         $isAllModels = $urlModel === CatalogSparePartChoiceModel::ALL_MODELS_URL;
         $model = $isAllModels ? $urlModel : $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $modelObject = $model instanceof Model ? $model : null;
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) || !($model instanceof Model) && !$isAllModels){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
@@ -173,12 +174,18 @@ class SparePartCatalogController extends Controller
             ];
         }
 
+        $catalogFilter = new CatalogAdvertFilterType($brand, $modelObject, $sparePart, null, null);
+        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
+        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+
         return $this->render('client/catalog/spare-part/choice-city.html.twig', [
             'capitals' => $parsedCapitals,
             'regionalCities' => $parsedRegionalCities,
             'brand' => $brand,
             'sparePart' => $sparePart,
-            'model' => $model instanceof Model ? $model : null,
+            'model' => $modelObject,
+            'specificAdverts' => $specificAdverts,
+            'generalAdverts' => $generalAdverts,
             'page' => $transformer->transformPage($page, $transformParameters),
             'allCitiesTitle' => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceInStock::class, $transformParameters),
         ]);
