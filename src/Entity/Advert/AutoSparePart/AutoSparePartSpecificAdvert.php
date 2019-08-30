@@ -745,4 +745,35 @@ class AutoSparePartSpecificAdvert
 
         return $description;
     }
+
+    public function getAdditionalDescription()
+    {
+        $description = [];
+
+        if($this->engineCapacity){
+            $description[] = $this->engineCapacity;
+        }
+
+        if($this->engineName){
+            $description[] = $this->engineName;
+        }
+
+        if($this->engineType){
+            $description[] = $this->engineType;
+        }
+
+        if($this->gearBoxType){
+            $description[] = $this->gearBoxType->getType();
+        }
+
+        if($this->vehicleType){
+            $description[] = $this->vehicleType->getType();
+        }
+
+        if($this->driveType){
+            $description[] = $this->driveType->getType() . ' привод';
+        }
+
+        return implode(', ', $description);
+    }
 }

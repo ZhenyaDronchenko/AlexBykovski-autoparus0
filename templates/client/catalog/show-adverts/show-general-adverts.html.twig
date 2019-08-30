@@ -20,7 +20,7 @@
                     {% set sparePartImg = sellerData.photo ? image_url(sellerData.photo) : image_url(default_image(10).image) %}
                     <a href="{{ path("seller_view", {"id" : sellerData.client.id}) }}"><img src="{{ sparePartImg }}" alt="foto"></a>
                 </div>
-                <a class="link-main" href="#">{{ advert.getConditionStockView() }}</a>
+                <a class="link-main" href="">{{ advert.getConditionStockView() }}</a>
                 <div class="link-button">
                     <a class="link show-seller-address" nohref data-address="Беларусь, {{ sellerCompany.city }}, {{ sellerCompany.address }}">
                         <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
