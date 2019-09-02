@@ -55,7 +55,7 @@
             <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts | limitTo: 2" ng-cloak>
               <div class="post-block">
                 <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto1" src="{[{post.userPhoto}]}" alt="Фото"></a>
-                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
+                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name name-l" ng-bind="post.userName"></b></a>
                 <button class="btn open-popup-button" type="button" data-popup-id="7">
                     <span class="points"></span>
                     <span class="points"></span>

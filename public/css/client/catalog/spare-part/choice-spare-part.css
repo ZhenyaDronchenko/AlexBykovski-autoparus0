@@ -273,7 +273,10 @@ cursor: default;
     cursor: pointer;
     outline: none;
 }
-
+#button-mod span {
+    color: #000000;
+    margin: 0 7px;
+}
 #button-mod:hover,
 #button-mod:focus {
     color: #000;
