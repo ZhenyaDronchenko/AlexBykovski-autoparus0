@@ -56,7 +56,6 @@
                 <div class="city-list">
                     <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
                     <div class='city-subtext'>{{ page.text2 | raw }}</div>
-                    <a href="{{ page.returnButtonLink }}" class="button">{{ page.returnButtonText }}</a>
                 </div>
             </div>
             <h3 class="model-title">Поиск по марке авто</h3>
@@ -65,6 +64,7 @@
                     <li><a href="{{ path("show_spare_part_catalog_choice_model", {urlSP: "dvs", urlBrand: brand.url}) }}"><img src="{{ image_url(brand.logo, "brand") }}" alt="{{ brand.brandEn }}" title="Двигатели для автомобилей {{ brand.brandEn }}"></a></li>
                 {% endfor %}
             </ul>
+            <a href="{{ page.returnButtonLink }}" class="button">{{ page.returnButtonText }}</a>
         </section>
     </main>
 {% endblock %}

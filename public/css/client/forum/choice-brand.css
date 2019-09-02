@@ -240,8 +240,8 @@ cursor: default;
 
 }
 .model-link img {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
      
 }
 .model-link img:hover {
@@ -390,14 +390,12 @@ cursor: default;
         margin: 0 auto;
     }
     #model li {
-        margin: 0 auto;
-        margin-bottom: 15px;
+        margin: 0 10px;
+    margin-bottom: 15px;
     }
 
     .model-link img {
          margin: 0 7px;
-        width: 60px;
-        height: 60px;
     }
     .city-subtitle {
         text-align: center;
@@ -509,14 +507,12 @@ cursor: default;
     }
 
     #model li {
-        margin: 0 auto;
-        margin-bottom: 15px;
+      margin: 0 10px;
+    margin-bottom: 15px;
     }
 
     .model-link img {
          margin: 0 7px;
-        width: 60px;
-        height: 60px;
     }
     .show {
         max-height: 375px;

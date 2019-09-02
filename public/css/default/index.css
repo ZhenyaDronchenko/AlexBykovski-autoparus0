@@ -850,7 +850,18 @@ label {
   width: 65%;
    margin: 0 auto;
    background-color: #f3f3f3;
+    padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    border: 1px solid #cccccc;
+     border-radius: 0;
 }
+
+.filter-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 22px;
+    }
  .filter-column {
       -webkit-box-ordinal-group: 0;
           -ms-flex-order: -1;
@@ -866,9 +877,18 @@ label {
     input.select-item {
     width: 100%;
     box-sizing: border-box;
-        background-color: #f3f3f3;
-
+        border: 1px solid #999999;
+     background-color: #fff;
 }
+.button {
+    margin: 0px auto;
+    margin-bottom: 20px;
+    }
+
+    .select-link:first-child {
+    margin-bottom: 10px;
+}
+
 }
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {

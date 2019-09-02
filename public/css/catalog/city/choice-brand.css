@@ -276,8 +276,8 @@ h2 {
 }
  
 #model li {
-   margin: 0 auto;
-        margin-bottom: 10px;
+  margin: 0 10px;
+    margin-bottom: 15px;
 }
 
 .model-link img {
@@ -325,8 +325,8 @@ h2 {
     max-height: 280px;
 }
 #model li {
-   margin: 0 auto;
-        margin-bottom: 10px;
+  margin: 0 10px;
+    margin-bottom: 20px;
 }
 
 .model-link img {
