@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.description }}{% endblock %}
+
+{% block stylesheets %}
+	<link rel='stylesheet' href='/css/catalog/city/choice-final-page.css'>
+{% endblock %}
+
+{% block body %}
+<main class="container">
+      <ul class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="user-link user-link--icon" href="/"
+                 title="Запчасти для автомобилей на &quot;Автопарус&quot;" itemprop="item">
+                  <span class="user-name" itemprop="name">Главная</span>
+                  <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                      <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                      <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                  </svg>
+                  <meta itemprop="position" content="1">
+              </a>
+          </li>
+
+          <li class="breadcrumbs-item">
+              <a class="link-b link-btn"><span class="line">/</span>. . . </a>    
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Лента публикаций Autoparus.by, Auto parus buy"><span class="line">/</span><span itemprop="name">Каталог</span>
+              </a>
+              <meta itemprop="position" content="2">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 3"><span class="line">/</span><span itemprop="name">[CITY]</span>
+              </a>
+              <meta itemprop="position" content="3">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 4"><span class="line">/</span><span itemprop="name">[ENBRAND]</span>
+              </a>
+              <meta itemprop="position" content="4">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 5"><span class="line">/</span><span itemprop="name">[ENMODEL]</span>
+              </a>
+              <meta itemprop="position" content="5">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 6"><span class="line">/</span><span itemprop="name">[YEAR]</span>
+              </a>
+              <meta itemprop="position" content="6">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 7"><span class="line">/</span><span itemprop="name">[ZAP5]</span>
+              </a>
+              <meta itemprop="position" content="7">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 8"><span class="line">/</span><span itemprop="name">[ТИП ДВС]</span>
+              </a>
+              <meta itemprop="position" content="8">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 9"><span class="line">/</span><span itemprop="name">[ОБЪЕМ]</span>
+              </a>
+              <meta itemprop="position" content="9">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 10"><span class="line">/</span><span itemprop="name">[ТИП КУЗОВА]</span>
+              </a>
+              <meta itemprop="position" content="10">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="link-b" href="/stati" itemprop="item"
+                 title="Тайтл Крошка 11"><span class="line">/</span><span itemprop="name">[Состояние]</span>
+              </a>
+              <meta itemprop="position" content="11">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[Последняя]</span>
+                  <meta itemprop="position" content="12">
+              </a>
+          </li>
+      </ul>
+
+      <section class="zap">
+          <h1 class="zap-title">Заголовок страницы Н1</h1>
+          <div class="zap-wrapper">
+                <div id="text1" class="text1Hide">Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки. Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки. Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки</div>
+                <span onclick="text1ShowHide()" id="allText"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
+            </div>
+            <form action="#" class="zap-form">
+              <div class="form-wrapper">
+                <div class="form-list">
+                  <h2 class="form-title">
+                    Генератор автомобильный <br><span>(Генератор постоянного тока)</span>
+                  </h2>
+                  <input class="input input-part" name="search" placeholder="Номер запчасти" type="search">
+                  <textarea rows="5" placeholder="Комментарий:"></textarea>
+                  <button class="btn-sel" type="button">
+                        <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+                            <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+                            <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+                        </svg> Добавить еще запчасть
+                    </button>
+
+                    <input class="input input-p" name="search" placeholder="Выберите запчасть" type="search">
+                </div>
+                <table class="feature-block">
+                  <tbody><tr><td>Город:</td><td class="tab">Минск</td></tr>
+                  <tr><td>Марка:</td><td class="tab">Mersedes Benz</td></tr>
+                  <tr><td>Модель:</td><td class="tab">E Class Coupe A327(2003-2008)</td></tr>
+                  <tr><td>Год:</td><td class="tab">(2003-2008), 2006</td></tr>
+                  <tr><td>Тип двигателя:</td><td class="tab">Бензиновый</td></tr>
+                  <tr><td>Объем:</td><td class="tab">1.7(422FTK)</td></tr>
+                  <tr><td>Кузов:</td><td class="tab">5дв-хетчбэк</td></tr>
+                  <tr><td>Состояние:</td><td class="tab">Новое или Б/У</td></tr>
+                  <tr><td>Наличие:</td><td class="tab">В наличии или на заказ</td></tr>
+                </tbody></table>
+                
+              </div>
+              <div class="form-contact">
+                <div class="form-contact-inner">
+                  <label for="tel">Ваш телефон:</label>
+                  <div class="tel-block">
+                    <input type="tel" id="tel" placeholder="+375(29)6146813" class="input input-tel">
+                    <input type="tel" placeholder="+375(29)6146813" class="input input-tel--b">
+                
+                    <span class="promt">Укажите номер телефона</span>
+                  </div>
+                </div>
+                <div class="form-contact-inner">
+                  <label for="mail">Ваш e-mail:</label>
+                  <div class="tel-block">
+                  <input type="email" id="mail" class="input input-tel">
+                  <span class="promt">Укажите e-mail</span>
+                  </div>
+                </div>
+
+                <button class="btn" type="button">Отправить заказ-заявку</button>
+
+                </div>
+                 <p class="zap-text">Вы не зарегистрированы у нас на сайте, для регистрации придумайте пароль, повторите его и подтвердите</p>
+                <div class="form-pas">
+                  <div class="pas-wrapper">
+                  <input type="password" placeholder="Пароль" class="input input-pas">
+                  <span class="promt">Придумайте пароль</span>
+                  </div>
+                  <div class="pas-wrapper">
+                  <input type="password" placeholder="Повторите пароль" class="input input-pas">
+                  <span class="promt">Повторите пароль</span>
+                  </div>
+                  <button class="btn btn-pas" type="button">Подтвердить</button>
+                  
+              </div>
+              <p class="zap-text">На Ваш номер телефона придет СМС со ссылкой, перейдя по ссылке Ваш запрос будет отправлен продавцам и аккаунт активизируется</p>
+              <button class="btn btn-part" type="button">Перейти в каталог запчастей</button>
+            
+            </form>  
+      </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/client/pages/catalog/choice-engine-capacity.js'></script>
+{% endblock %}

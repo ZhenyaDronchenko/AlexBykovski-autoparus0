@@ -106,19 +106,19 @@ class SearchController extends Controller
         $isAllVariants = $text === self::ALL_VARIANTS;
 
         $text = !$isAllVariants ? $text : "";
-        $isRussianText = preg_match('/[А-Яа-яЁё]/u', $text);
+        //$isRussianText = preg_match('/[А-Яа-яЁё]/u', $text);
 
-        $models = $this->getDoctrine()->getRepository(Model::class)->searchByText($text, $brand, $isRussianText);
+        $models = $this->getDoctrine()->getRepository(Model::class)->searchByText($text, $brand, false);
 
         $parsedModels = [];
 
         /** @var Model $model */
         foreach ($models as $model){
-            $parsedModels[] = $model->toSearchArray($isRussianText);
+            $parsedModels[] = $model->toSearchArray(false);
 
-            if($isAllVariants){
-                $parsedModels[] = $model->toSearchArray(!$isRussianText);
-            }
+//            if($isAllVariants){
+//                $parsedModels[] = $model->toSearchArray(!$isRussianText);
+//            }
         }
 
         return new JsonResponse($parsedModels);

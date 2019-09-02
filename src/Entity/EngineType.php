@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EngineType
 {
+    static $variables = [
+        "[ENGINE_NAME]" => "getType",
+    ];
+
     /**
      * @var integer
      *
@@ -65,11 +69,6 @@ class EngineType
         $this->type = $type;
     }
 
-    public function __toString()
-    {
-        return (string)$this->id;
-    }
-
     /**
      * @return string
      */
@@ -84,5 +83,19 @@ class EngineType
     public function setUrl(string $url): void
     {
         $this->url = $url;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }

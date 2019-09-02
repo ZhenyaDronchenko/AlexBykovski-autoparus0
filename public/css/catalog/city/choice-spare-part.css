@@ -262,7 +262,7 @@ display: -webkit-box;
     cursor: pointer;
 }
 
-#button-mod {
+.button-mod {
     display: block;
     margin: 0 auto;
     background-color: #fff;
@@ -276,8 +276,8 @@ display: -webkit-box;
     margin-top: 25px;
 }
 
-#button-mod:hover,
-#button-mod:focus {
+.button-mod:hover,
+.button-mod:focus {
     color: #000;
 }
 

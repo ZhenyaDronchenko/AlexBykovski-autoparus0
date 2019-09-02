@@ -209,7 +209,7 @@ p {
 
 
 
-#button-mod {
+.button-mod {
     display: block;
     margin: 0 auto;
     background-color: #fff;
@@ -222,8 +222,8 @@ p {
     outline: none;
 }
 
-#button-mod:hover,
-#button-mod:focus {
+.button-mod:hover,
+.button-mod:focus {
     color: #000;
 }
 

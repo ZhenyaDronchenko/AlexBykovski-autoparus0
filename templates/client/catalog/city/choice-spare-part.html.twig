@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'client/catalog/city/base-city-catalog.html.twig' %}
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
@@ -9,10 +9,10 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container" ng-init="showAll = false">
+    <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemprop="item" title="{{ homepageTitle }}">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemprop="item" title="Главная страница">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -25,7 +25,7 @@
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item" title="{{ choiceCityTitle }}">
                     <span class="line">/</span>
-                    <span itemprop="name">Каталог</span>
+                    <span itemprop="name">Заказ-заявка</span>
                 </a>
                 <meta itemprop="position" content="2">
             </li>
@@ -66,20 +66,17 @@
             <h1>{{ page.headline1 }}</h1>
             <div>{{ page.text1 | raw }}</div>
 
-            <form class='modform' action="#" method="get">
-                {% set autocompleteParams = {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : "__search-item__"} %}
-                <input id="spare-part-autocomplete" class="form7" type="search"
-                       auto-сomplete-autoparus add-url="{{ path("show_brand_catalog_in_stock", autocompleteParams) }}"
-                       method-search="searchSpareParts" identifier-field="spare-part-autocomplete" is-preload-data="true"
-                       name="search" placeholder="Введите наименование запчасти:"
-                       scroll-to-element scroll-by-click="true" before-top="30">
+            <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <input list="sp-list" class="form7" placeholder="Введите наименование запчасти:" type="text">
+                <datalist id="sp-list" datalist-autocomplete method-search="searchSpareParts"
+                          add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"></datalist>
             </form>
 
             
-            <div class="model-block" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+            <div class="model-block">
                 <ul class='show-m' id='model'>
                     {% for sparePart in popularSpareParts %}
-                        <li ng-hide="showAll">
+                        <li class="popular-spare-parts">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_in_stock", {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : sparePart.url}) }}">
                                 <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
@@ -87,7 +84,7 @@
                         </li>
                     {% endfor %}
                     {% for sparePart in unpopularSpareParts %}
-                        <li ng-show="showAll">
+                        <li class="others-spare-parts" style="display: none;">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_in_stock", {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : sparePart.url}) }}">
                                 <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
@@ -95,8 +92,8 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-spare-parts'); hideBySelector('.popular-spare-parts'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button style="display: none;" class="initiator-scroll button-mod" id='show-less' type="button" onclick="hideBySelector('.others-spare-parts'); showBySelector('.popular-spare-parts'); hideBySelector('#show-less'); showBySelector('#show-more');">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
             <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
 
