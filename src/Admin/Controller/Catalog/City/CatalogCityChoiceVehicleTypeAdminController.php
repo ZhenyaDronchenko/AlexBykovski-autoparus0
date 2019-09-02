@@ -2,12 +2,12 @@
 
 namespace App\Admin\Controller\Catalog\City;
 
-use App\Entity\Catalog\City\CatalogCityChoiceBodyType;
+use App\Entity\Catalog\City\CatalogCityChoiceVehicleType;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class CatalogCityChoiceBodyTypeAdminController extends CRUDController
+class CatalogCityChoiceVehicleTypeAdminController extends CRUDController
 {
     /**
      * return the Response object associated to the list action
@@ -22,7 +22,7 @@ class CatalogCityChoiceBodyTypeAdminController extends CRUDController
             throw new AccessDeniedException();
         }
 
-        $object = $this->getDoctrine()->getRepository(CatalogCityChoiceBodyType::class)->findAll()[0];
+        $object = $this->getDoctrine()->getRepository(CatalogCityChoiceVehicleType::class)->findAll()[0];
 
         return $this->redirectTo($object);
 
