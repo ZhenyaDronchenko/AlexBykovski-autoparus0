@@ -2,6 +2,7 @@
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
+/public/bower-components/
 /var/
 /vendor/
 /.idea/
