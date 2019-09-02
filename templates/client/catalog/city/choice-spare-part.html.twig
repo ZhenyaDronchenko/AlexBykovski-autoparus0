@@ -67,10 +67,9 @@
             <div>{{ page.text1 | raw }}</div>
 
             <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
-                {% set autocompleteParams = {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : "__search-item__"} %}
                 <input list="sp-list" class="form7" placeholder="Введите наименование запчасти:" type="text">
                 <datalist id="sp-list" datalist-autocomplete method-search="searchSpareParts"
-                          add-url="{{ path("show_brand_catalog_in_stock", autocompleteParams) }}"></datalist>
+                          add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"></datalist>
             </form>
 
             
