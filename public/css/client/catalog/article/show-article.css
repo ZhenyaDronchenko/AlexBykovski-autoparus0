@@ -1,27 +1,28 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      padding-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
-  
+
 .line {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
 #breadcrumbs a {
-  font-family: 'Roboto', sans-serif;
-font-size: 16px;
-line-height: 18px;
-color: #444;
-position: relative;
--webkit-transition-duration: 0.2s;
-     -o-transition-duration: 0.2s;
-        transition-duration: 0.2s;
+  font-family: 'Roboto';
+  font-size: 12px;
+  line-height: 14px;
+  color: #444;
+  position: relative;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 .user-icon {
   display: none;
@@ -29,75 +30,81 @@ position: relative;
 
 .user-link:hover,
 .link-b:hover {
-color: black;
--webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-        transform: scale(1.05);
+  color: black;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .current {
-cursor: default;
+  cursor: default;
 }
 
 @media  (max-width: 481px) {
   .container {
-    width: auto; 
+    width: auto;
   }
-#breadcrumbs {
-  padding-top: 3px;
-}
+  #breadcrumbs {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
   .line {
     margin-left: 3px;
     margin-right: 3px;
   }
-.user-name {
+  .user-name {
     display: none;
   }
 
-.user-icon {
-  display: block;
-}
+  .user-icon {
+    display: block;
+  }
 
-.close-menu {
-  font-size: 14px;
-  cursor: pointer;
-}
-.user-link {
-  width: 10px;
-  height: 10px;
-}
+  .close-menu {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .user-link {
+    width: 10px;
+    height: 10px;
+  }
 
-.user-icon {
-  display: block;
-  width: 16px;
-  height: 16px;
-}
+  .user-icon {
+    display: block;
+    width: 12px;
+    height: 18px;
+  }
 
-#breadcrumbs a {
+  #breadcrumbs a {
     line-height: 20px;
-    font-size: 11px;
+    font-size: 9px;
   }
   .model-block {
     padding-top: 5px;
   }
- 
-.user-link--icon {
-  width: 16px;
+
+  .user-link--icon {
+    width: 16px;
     height: 16px;
-}
-   
- 
- #breadcrumbs li:nth-child(2) {
+  }
+
+
+  #breadcrumbs li:nth-child(2) {
     margin-right: 3px;
-}
+  }
 
 }
-@media (min-width: 576px) and (max-width: 767px) {
+@media  (max-width: 767px) {
   .container {
-    width: auto; 
+    width: auto;
+  }
+  #breadcrumbs a {
+    line-height: 20px;
+    font-size: 11px;
   }
 }
- /*END ХЛЕБНЫЕ КРОШКИ*/
+/*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 /*content*/
@@ -250,7 +257,6 @@ figure img {
 
 p {
   margin: 0;
-  margin-bottom: 20px;
   color: #000;
   font-size: 16px;
   line-height: 18px;

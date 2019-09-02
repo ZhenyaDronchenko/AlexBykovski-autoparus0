@@ -18,8 +18,8 @@
 
 #breadcrumbs a {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 16px;
     color: #444;
     position: relative;
     -webkit-transition-duration: 0.2s;
@@ -160,7 +160,7 @@
 
 .product-photos img {
     width: 390px;
-    height: 260px;
+    height: auto;
     margin-bottom: 15px;
 }
 .product-wrapper {
@@ -264,21 +264,27 @@
     margin: 0;
     margin-bottom: 30px;
     color: #000;
-    font-size: 20px;
-    line-height: 22px;
-    font-weight: 700;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
     text-align: center;
+}
+
+.org-title a {
+    color: #666666;
 }
 .adress {
     margin-bottom: 20px;
 }
-
+.adress a {
+    color: #000000;
+}
 .adress-text {
     position: relative;
     margin: 0;
     margin-bottom: 7px;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
     padding-left: 30px;
 }
@@ -410,6 +416,11 @@
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
+        text-align: center;
+}
+
+.info a {
+    color: #000;
 }
 
 .rev-title {
@@ -465,11 +476,7 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-align-items: flex-end;
-    -ms-align-items: flex-start;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 20px;
 }
 .product-list:last-child {
@@ -481,7 +488,12 @@
     font-size: 18px;
     line-height: 22px;
     font-weight: 700;
-    width: 330px;
+    width: 195px;
+    margin-right: 15px;
+}
+.product-subtitle:nth-child(2),
+.product-subtitle:nth-child(3) {
+    width: 110px;
 }
 .product-s {
     margin: 0;

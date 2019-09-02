@@ -285,7 +285,7 @@ p {
 }
 
 .foto img {
- width: 100%;
+ width: 80%;
   height: auto;  
   border: 1px solid #ccc;
 
@@ -344,12 +344,13 @@ h3 {
   line-height: 22px;
 }
   .inner-grey {
-    padding: 20px 10px;
+    padding: 0;
     padding-top: 0;
     margin-bottom: 35px;
+    background-color: #ffffff;
 }
     .art-list {
-         padding: 20px 10px;
+         padding: 20px 0;
     }
 }
 
@@ -390,7 +391,7 @@ h3 {
 .foto img {
  width: 100%;
   height: auto;
-  max-height: 400px;  
+  max-width: 250px;  
 } 
 .catalog .catalog-link {
   margin: 0;
