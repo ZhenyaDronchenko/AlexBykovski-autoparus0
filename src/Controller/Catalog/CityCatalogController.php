@@ -52,7 +52,6 @@ class CityCatalogController extends Controller
             'othersCities' => $othersCities,
             'brands' => $brands,
             'page' => $em->getRepository(CatalogCityChoiceCity::class)->findAll()[0],
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
         ]);
     }
 
@@ -78,39 +77,18 @@ class CityCatalogController extends Controller
 
         $transformParameters = [$city];
 
-        $brands = $em->getRepository(Brand::class)->findBy(
-            [
-                "active" => true,
-            ],
-            ["name" => "ASC"]
-        );
+        $allBrands = $em->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
 
-        $popularBrandsParsed = [];
-        $allBrandsParsed = [];
-
-        /** @var Brand $brand */
-        foreach ($brands as $brand){
-            $pageParameters = $transformParameters;
-            $pageParameters[] = $brand;
-            $object = [
-                "item" => $brand,
-                "title" => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $pageParameters),
-            ];
-
-            $allBrandsParsed[] = $object;
-
-            if($brand->isPopular()){
-                $popularBrandsParsed[] = $object;
-            }
-        }
+        $popularBrands = array_filter($allBrands, function(Brand $brand){
+            return $brand->isPopular();
+        });
 
         return $this->render('client/catalog/city/choice-brand.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
             'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'popularBrands' => $popularBrandsParsed,
-            'allBrands' => $allBrandsParsed,
+            'popularBrands' => $popularBrands,
+            'allBrands' => $allBrands,
         ]);
     }
 
@@ -169,7 +147,6 @@ class CityCatalogController extends Controller
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
             'brand' => $brand,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
             'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
             'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
             'popularModels' => $popularModelsParsed,
@@ -214,28 +191,15 @@ class CityCatalogController extends Controller
             ["alternativeName1" => "ASC"]
         );
 
-        $spareParts = [];
-
-        foreach ($popularSpareParts as $sparePart){
-            $pageParameters = $transformParameters;
-            $pageParameters[] = $sparePart;
-
-            $spareParts[] = [
-                "item" => $sparePart,
-                "title" => $titleProvider->getSinglePageTitle(CatalogBrandChoiceCity::class, $pageParameters),
-            ];
-        }
-
         return $this->render('client/catalog/city/choice-year.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
             'brand' => $brand,
             'model' => $model,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
             'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
             'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
             'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'popularSpareParts' => $spareParts,
+            'popularSpareParts' => $popularSpareParts,
         ]);
     }
 
@@ -293,7 +257,6 @@ class CityCatalogController extends Controller
             'brand' => $brand,
             'model' => $model,
             'year' => $year,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
             'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
             'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
             'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),

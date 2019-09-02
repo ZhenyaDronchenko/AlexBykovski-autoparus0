@@ -28,8 +28,9 @@
         {#<link href="https://fonts.googleapis.com/icon?family=Material+Icons"#}
               {#rel="stylesheet">#}
     </head>
-    <body ng-controller="PostsCtrl as postsCtrl">
     {% set isUserOffice = app.request.attributes.get('_route') == "show_user_office" %}
+    {% set isCityCatalog = "show_city_catalog_choice" in app.request.attributes.get('_route') %}
+    <body {% if not isCityCatalog %}ng-controller="PostsCtrl as postsCtrl"{% endif %}>
         <div class="container">
       <header class="header">
         <div class="header-top">
@@ -182,6 +183,22 @@
                                         
                                     </a>
                                 </li>
+                            {% elseif isCityCatalog %}
+                                <li>
+                                    <a class="navigation-link navigation-link-p cbutton cbutton--effect-boris" nohref>
+                                        <svg width="35" height="35" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0)">
+                                                <path d="M27.5509 21.5911L27.5509 50.0001H0L27.5509 21.5911Z" fill="#D22856"/>
+                                                <path d="M28.3163 0L49.9999 49.9998H28.3163V0Z" fill="#494242"/>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0">
+                                                    <rect width="50" height="50" fill="white"/>
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                </li>
                             {% else %}
                                 <li>
                                     <a ng-init="postsCtrl.init('#dialog-cropper-container-gallery')" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="postsCtrl.activePost = postsCtrl.getNewPost()" class="icon icon-plus us-btn" style="color: black;" href="">
@@ -294,6 +311,7 @@
             </div>
         </div>
 
+        {% block base_javascripts %}
         <script src="/bundles/fosjsrouting/js/router.min.js"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         <script src='/bower-components/angular/angular.min.js'></script>
@@ -320,6 +338,8 @@
         {% if not isUserOffice %}
             <script src='/js/client/controller/user-profile/posts-controller.js'></script>
         {% endif %}
+
+        {% endblock %}
 
         {% block javascripts %}
         {% endblock %}

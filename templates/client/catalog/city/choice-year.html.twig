@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'client/catalog/city/base-city-catalog.html.twig' %}
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
@@ -12,7 +12,7 @@
     <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная страница" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -26,7 +26,7 @@
                 <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item"
                    title="{{ choiceCityTitle }}">
                     <span class="line">/</span>
-                    <span itemprop="name">Каталог</span>
+                    <span itemprop="name">Заказ-заявка</span>
                 </a>
                 <meta itemprop="position" content="2">
             </li>
@@ -63,10 +63,16 @@
             <ul class="brand-block">
                 {% set yearFrom = model.technicalData.yearFrom %}
                 {% set yearTo = model.technicalData.yearTo %}
+                {% set objectParams = [city, brand, model] %}
+                {% set yearKey = constant('App\\Entity\\Model::YEAR_VARIABLE') %}
 
                 {% if yearFrom and yearTo and yearFrom <= yearTo %}
                     {% for year in range(yearFrom, yearTo) %}
-                        <li><a class="link-c" href="{{ path("show_city_catalog_choice_spare_part", routeParams|merge({"year" : year})) }}">{{ year }}</a></li>
+                        <li><a class="link-c" href="{{ path("show_city_catalog_choice_spare_part", routeParams|merge({"year" : year})) }}"
+                               title="{{ title_provider("App\\Entity\\Catalog\\City\\CatalogCityChoiceSparePart", objectParams|merge({('' ~ yearKey): {('' ~ yearKey) : year}})) }}">
+                                {{ year }}
+                            </a>
+                        </li>
                     {% endfor %}
                 {% endif %}
             </ul>
@@ -76,13 +82,13 @@
             <div>{{ page.text2 | raw }}</div>
             <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
 
-            <h3>Частоискаемые автозапчасти</h3>
+            <h3>Поиск запчасти для {{ brand.name }} {{ model.name }}</h3>
 
             <ul class="model-block">
                 {% for sparePart in popularSpareParts %}
                     <li>
-                        <a class="model-link" href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.item.url}) }}">
-                            <img src="{{ image_url(sparePart.item.thumbnailLogo) }}" alt="{{ sparePart.item.alternativeName5 }} к {{ brand.brandEn }} {{ model.modelEn }}" title="{{ sparePart.title }}">
+                        <a class="model-link" href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.url}) }}">
+                            <img src="{{ image_url(sparePart.thumbnailLogo) }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                         </a>
                     </li>
                 {% endfor %}

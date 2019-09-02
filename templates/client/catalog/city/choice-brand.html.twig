@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'client/catalog/city/base-city-catalog.html.twig' %}
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block body %}
-    <main class="container" ng-init="showAll = false">
+    <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}" itemprop="item">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная страница" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -24,7 +24,7 @@
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item" title="{{ choiceCityTitle }}">
                     <span class="line">/</span>
-                    <span itemprop="name">Каталог</span>
+                    <span itemprop="name">Заказ-заявка</span>
                 </a>
                 <meta itemprop="position" content="2">
             </li>
@@ -41,33 +41,31 @@
             <h1>{{ page.headline1 }}</h1>
             <div>{{ page.text1 | raw }}</div>
 
-            <form class='modform' action="#" method="get">
-                <input id="brand-autocomplete" class="form7" type="search"
-                       auto-сomplete-autoparus add-url="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"
-                       method-search="searchBrands" identifier-field="brand-autocomplete" is-preload-data="true"
-                       name="search" placeholder="Марка авто:"
-                       scroll-to-element scroll-by-click="true" before-top="30">
+            <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <input list="brand-list" class="form7" placeholder="Марка" type="text">
+                <datalist id="brand-list" datalist-autocomplete method-search="searchBrands"
+                          add-url="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"></datalist>
             </form>
 
-            <div class="model-block" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+            <div class="model-block">
                 <ul class='show-m' id='model'>
                     {% for brand in popularBrands %}
-                        <li ng-hide="showAll">
-                            <a class="model-link" href="{{ path("show_city_catalog_choice_model", {"urlBrand" : brand.item.url, "urlCity" : city.url}) }}">
-                                <img src="{{ image_url(brand.item.logo, "brand") }}" alt="{{ brand.item.brandEn }}" title="{{ brand.title }}">
+                        <li class="popular-brands">
+                            <a class="model-link" href="{{ path("show_city_catalog_choice_model", {"urlBrand" : brand.url, "urlCity" : city.url}) }}">
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="Тайтл Запчасти б/у и новые для {{ brand.brandEn }}">
                             </a>
                         </li>
                     {% endfor %}
                     {% for brand in allBrands %}
-                        <li ng-show="showAll">
-                            <a class="model-link" href="{{ path("show_city_catalog_choice_model", {"urlBrand" : brand.item.url, "urlCity" : city.url}) }}">
-                                <img src="{{ image_url(brand.item.logo, "brand") }}" alt="{{ brand.item.brandEn }}" title="{{ brand.title }}">
+                        <li class="others-brands" style="display: none;">
+                            <a class="model-link" href="{{ path("show_city_catalog_choice_model", {"urlBrand" : brand.url, "urlCity" : city.url}) }}">
+                                <img src="{{ image_url(brand.thumbnailLogo64, "brand") }}" alt="{{ brand.brandEn }}" title="Тайтл Запчасти б/у и новые для {{ brand.brandEn }}">
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
-                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-brands'); hideBySelector('.popular-brands'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button style="display: none;" class="initiator-scroll button-mod" id='show-less' type="button" onclick="hideBySelector('.others-brands'); showBySelector('.popular-brands'); hideBySelector('#show-less'); showBySelector('#show-more');">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 
             <h2>{{ page.headline2 }}</h2>
