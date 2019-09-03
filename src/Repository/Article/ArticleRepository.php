@@ -38,6 +38,11 @@ class ArticleRepository extends EntityRepository
                 ->setParameter("themes", $filter->getThemes());
         }
 
+        if(is_bool($filter->getisOur())){
+            $qb->andWhere("a.isOur = :isOur")
+                ->setParameter("isOur", $filter->getisOur());
+        }
+
         switch ($filter->getTypeSort()){
             case ArticleFilterType::SORT_UPDATED:
                 $qb->orderBy("a.updatedAt", "DESC");
