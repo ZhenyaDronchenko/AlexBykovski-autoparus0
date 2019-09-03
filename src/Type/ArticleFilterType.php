@@ -27,19 +27,24 @@ class ArticleFilterType
      */
     private $offset = 0;
 
+    /** @var bool|null */
+    private $isOur;
+
     /**
      * ArticleFilterType constructor.
      * @param string $typeSort
      * @param array $themes
      * @param int $limit
      * @param int $offset
+     * @param boolean $isOur
      */
-    public function __construct(string $typeSort, array $themes = [], int $limit = 6, int $offset = 0)
+    public function __construct(string $typeSort, array $themes = [], int $limit = 6, int $offset = 0, $isOur = null)
     {
         $this->typeSort = $typeSort;
         $this->themes = $themes;
         $this->limit = $limit;
         $this->offset = $offset;
+        $this->isOur = $isOur;
     }
 
 
@@ -105,5 +110,21 @@ class ArticleFilterType
     public function setOffset(int $offset): void
     {
         $this->offset = $offset;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getisOur(): ?bool
+    {
+        return $this->isOur;
+    }
+
+    /**
+     * @param bool|null $isOur
+     */
+    public function setIsOur(?bool $isOur): void
+    {
+        $this->isOur = $isOur;
     }
 }

@@ -36,7 +36,7 @@
             {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
                 {% set article = articleArray.object %}
                 <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
-                    <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
+                    <h2 class="article-title add-three-dots-2-lines"><span>{{ article.headline1 }}</span></h2>
                     <div class="article-foto">
                         <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                         <div class="article-block">
@@ -45,43 +45,52 @@
                         </div>
                     </div>
 
-                    <h3 class="article-subtitle add-three-dots-4-lines">{{ article.headline2 }}</h3>
+                    <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
                 </a>
             {% endfor %}
         </div>
 
         <div class="cont-inner">
           <ul class="content">
-            <li id="post-{[{post.id}]}" class="content-item" ng-repeat="post in posts.posts | limitTo: 2" ng-cloak>
-              <div class="post-block">
-                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto1" src="{[{post.userPhoto}]}" alt="Фото"></a>
-                <a href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name name-l" ng-bind="post.userName"></b></a>
-                <button class="btn open-popup-button" type="button" data-popup-id="7">
-                    <span class="points"></span>
-                    <span class="points"></span>
-                    <span class="points"></span>
-                </button>
-              </div>
-
-              <div class="content-wrapper">
-                  <div class="foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
-                      <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
-                          <img ng-src="{[{image.path}]}" alt="Картинка">
-                      </a>
-                  </div>
-
-                  <div class="user-block">
-                    <a href="{[{posts.moveToPost(post.id, post.type)}]}">
-                      <h3 class="user-title" ng-bind="post.headline">Заголовок из каталога</h3>
-                        <div id='text2' class='text1Show' ng-bind-html="post.description"></div>
-                    </a>
-                      <div class="date-block">
-                          <span class="date" ng-bind="post.date"></span>
-                          <span class="time" ng-bind="post.time"></span>
-                      </div>
+              {% for articleArray in ourArticles %}
+                  {% set article = articleArray.object %}
+                  {% set articleUrl = path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) %}
+                <li class="content-item">
+                    <div class="post-block">
+                        <a href="{{ path("seller_view", {id: article.creator.id}) }}"><img class="name-foto1" src="{{ image_url(article.creator.thumbnailPhoto, 'user') }}" alt="Фото"></a>
+                        <a href="{{ path("seller_view", {id: article.creator.id}) }}"><b class="name name-l">{{ article.author }}</b></a>
+                        <button class="btn open-popup-button" type="button" data-popup-id="7">
+                            <span class="points"></span>
+                            <span class="points"></span>
+                            <span class="points"></span>
+                        </button>
                     </div>
-                  </div>
+
+                    <div class="content-wrapper">
+                        <div class="foto owl-carousel-slider owl-carousel owl-theme" data-carousel-options='{"items" : 1, "dots" : true, "center" : true, "loop" : true, "margin" : 0}'>
+                            <a href="{{ articleUrl }}">
+                                <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                            </a>
+                            {% for articleImage in article.articleImages %}
+                                <a href="{{ articleUrl }}">
+                                    <img src="{{ image_url(articleImage.imageThumbnail) }}" alt="Картинка">
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                        <div class="user-block">
+                            <a href="{{ articleUrl }}">
+                              <h3 class="user-title">{{ article.headline1 }}</h3>
+                                <div id='text2' class='text1Show add-three-dots-4-lines'>{{ article.description }}</div>
+                            </a>
+                              <div class="date-block">
+                                  <span class="date">{{ article.createdAt|date("d.m.Y") }}</span>
+                                  <span class="time">{{ article.createdAt|date("H:i") }}</span>
+                              </div>
+                        </div>
+                    </div>
                 </li>
+              {% endfor %}
             </ul>
             {% include('/client/default/parts/search-form-main.html.twig') %}
             </div>
@@ -93,7 +102,7 @@
             </section>
 
         <ul class="block-art">
-            <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:4:2" ng-cloak>
+            <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo: 4" ng-cloak>
                 <div class="art-block">
                     <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
                     <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
@@ -133,7 +142,7 @@
         </div>
 
         <ul class="block-art">
-            <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 6):6" ng-cloak>
+            <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 4):4" ng-cloak>
                 <div class="art-block">
                     <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
                     <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>

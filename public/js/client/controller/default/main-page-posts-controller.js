@@ -3,7 +3,7 @@
 
     autoparusApp.controller('MainPagePostsCtrl', ['$scope', '$http', '$sce', '$rootScope',
         function($scope, $http, $sce, $rootScope) {
-        const MAX_COUNT = 106;
+        const MAX_COUNT = 100;
         let filterUserRoute = "homepage_filter_user";
         let filterBrandRoute = "homepage_filter_brand";
         let filterBrandModelRoute = "homepage_filter_brand_model";
@@ -12,11 +12,9 @@
         let self = this;
         let url = null;
         let params = {
-            "limit" : 2,
-            "offset" : -2,
+            "limit" : 4,
+            "offset" : -4,
         };
-        let countFromNotPremium = 0;
-        let isAllLight = false;
 
         this.posts = [];
         //image from https://loading.io/
@@ -39,7 +37,7 @@
         }
 
         function updatePosts() {
-            if(params.offset + params.limit >= MAX_COUNT || params.offset + params.limit > self.posts.length - countFromNotPremium || preloader.is("visible")){
+            if(params.offset + params.limit >= MAX_COUNT || preloader.is("visible")){
                 return false;
             }
 
@@ -52,48 +50,31 @@
                 url: url,
                 data: params
             }).then(function (response) {
-                if(params.hasOwnProperty("notPremium")){
-                    countFromNotPremium = response.data.length;
-                }
-
                 $.each(response.data, function (index, post) {
                     $sce.trustAsHtml(post["description"]);
 
                     self.posts.push(waitImagesPost(post));
                 });
 
-                if(((self.posts.length - 2) % 4 === 0 || params.limit === 2 && self.posts.length === 2) && self.posts.length > 1){
+                if((self.posts.length) % 4 === 0 && self.posts.length > 1){
                     const startScrollIndex = self.posts.length > 2 ? self.posts.length - 3 : self.posts.length - 2;
 
                     updateScrollTrigger("#post-" + self.posts[startScrollIndex].id);
                 }
 
-                updateParams();
+                if(self.posts.length === 4){
+                    params = {
+                        "limit" : 4,
+                        "offset" : -4,
+                        "allUsers" : "allUsers"
+
+                    };
+                }
 
                 preloader.css("display", "none");
             }, function (response) {
                 console.log("error");
             });
-        }
-
-        function updateParams() {
-            if(params.limit === 2){
-                if(location.pathname === '/' && !params.hasOwnProperty("notPremium")){
-                    params.limit = 4;
-                    params.offset = -4;
-                    params["notPremium"] = "notPremium";
-                }
-                else{
-                    delete params["notPremium"];
-                    params.limit = 4;
-                    params.offset = -2;
-                }
-            }
-            else if(params.limit === 4 && params.hasOwnProperty("notPremium") && location.pathname === '/'){
-                delete params["notPremium"];
-                params.limit = 4;
-                params.offset = -2;
-            }
         }
 
         function updateScrollTrigger(id){
