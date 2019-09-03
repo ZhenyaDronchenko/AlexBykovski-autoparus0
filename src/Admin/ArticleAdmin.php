@@ -111,7 +111,14 @@ class ArticleAdmin extends AbstractAdmin
             'expanded' => true,
             'required' => false,
         ]);
-        $formMapper->add('isActive', CheckboxType::class, ['label' => 'Активная', 'required' => false]);
+        $formMapper->add('isActive', CheckboxType::class, [
+            'attr' => ['class' => "top-step"],
+            'label' => 'Активная',
+            'required' => false]);
+        $formMapper->add('isOur', CheckboxType::class, [
+            'attr' => ['class' => "top-step"],
+            'label' => 'Статья - это наш уникальный материал',
+            'required' => false]);
         $formMapper->add('detail.brand', EntityType::class, [
             'label' => "Марка",
             'class' => Brand::class,

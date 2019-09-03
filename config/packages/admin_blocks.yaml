@@ -34,7 +34,7 @@ services:
         class: App\Admin\ArticleAdmin
         arguments: [~, App\Entity\Article\Article, ~, "@app.file_upload", '%upload_image_directory%']
         tags:
-            - { name: sonata.admin, group: Статьи, manager_type: orm, label: Статьи, on_top: true}
+            - { name: sonata.admin, group: Новости / Статьи, manager_type: orm, label: Новости / Статьи, on_top: true}
         public: true
         calls:
             - [ setTemplate, [list, "admin/list_without_pager.html.twig"]]
