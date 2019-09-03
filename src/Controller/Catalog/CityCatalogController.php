@@ -30,6 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 //http://localhost:8001/city-catalog/minsk/bmw/x5_e70/2007/akb/petrol/3_0/suv/new
 /**
@@ -286,10 +287,11 @@ class CityCatalogController extends Controller
         $urlModel,
         $year,
         $urlSP,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -310,6 +312,14 @@ class CityCatalogController extends Controller
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart];
 
+        $engineTypes = $model->getTechnicalData()->getEngineTypes();
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_spare_part" &&
+            $engineTypes->count() === 1){
+            return $this->redirectToRoute("show_city_catalog_choice_engine_capacity",
+                array_merge($request->attributes->get('_route_params'), ["urlET" => $engineTypes->first()->getUrl()]));
+        }
+
         return $this->render('client/catalog/city/choice-engine-type.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
@@ -317,12 +327,7 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
+            'engineTypes' => $engineTypes,
         ]);
     }
 
