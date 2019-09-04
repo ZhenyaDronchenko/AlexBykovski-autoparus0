@@ -14,6 +14,7 @@
         let params = {
             "limit" : 4,
             "offset" : -4,
+            "type" : "business",
         };
 
         this.posts = [];
@@ -67,7 +68,6 @@
                         "limit" : 4,
                         "offset" : -4,
                         "allUsers" : "allUsers"
-
                     };
                 }
 

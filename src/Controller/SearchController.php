@@ -237,6 +237,8 @@ class SearchController extends Controller
         $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
         $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
         $isAllLight = isset($requestData["isAllLight"]) ? $requestData["isAllLight"] : false;
+        $isBusiness = isset($requestData["type"]) ? $requestData["type"] : false;
+
 
         $user = isset($requestData["userId"]) ? $em->getRepository(Client::class)->find($requestData["userId"]) : null;
         $allUsers = isset($requestData["allUsers"]) && $requestData["allUsers"];
