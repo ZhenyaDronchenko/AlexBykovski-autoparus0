@@ -47,6 +47,7 @@ class PostsFilterType
      * @param null|integer $limit
      * @param null|integer $offset
      * @param null|string $notRole
+     * @param null|string $type
      */
     public function __construct(
         $users,

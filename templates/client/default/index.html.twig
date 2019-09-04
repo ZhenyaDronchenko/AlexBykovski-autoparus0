@@ -57,8 +57,8 @@
                   {% set articleUrl = path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) %}
                 <li class="content-item">
                     <div class="post-block">
-                        <a href="{{ path("seller_view", {id: article.creator.id}) }}"><img class="name-foto1" src="{{ image_url(article.creator.thumbnailPhoto, 'user') }}" alt="Фото"></a>
-                        <a href="{{ path("seller_view", {id: article.creator.id}) }}"><b class="name name-l">{{ article.author }}</b></a>
+                        <a href="{{ path("homepage_filter_user", {userId: article.creator.id}) }}"><img class="name-foto1" src="{{ image_url(article.creator.thumbnailPhoto, 'user') }}" alt="Фото"></a>
+                        <a href="{{ path("homepage_filter_user", {userId: article.creator.id}) }}"><b class="name name-l">{{ article.author }}</b></a>
                         <button class="btn open-popup-button" type="button" data-popup-id="7">
                             <span class="points"></span>
                             <span class="points"></span>
@@ -81,7 +81,7 @@
                         <div class="user-block">
                             <a href="{{ articleUrl }}">
                               <h3 class="user-title">{{ article.headline1 }}</h3>
-                                <div id='text2' class='text1Show add-three-dots-4-lines'>{{ article.description }}</div>
+                                <div id='text2' class='text1Show add-three-dots-4-lines'>{{ article.mainArticleImage.text | raw }}</div>
                             </a>
                               <div class="date-block">
                                   <span class="date">{{ article.createdAt|date("d.m.Y") }}</span>
