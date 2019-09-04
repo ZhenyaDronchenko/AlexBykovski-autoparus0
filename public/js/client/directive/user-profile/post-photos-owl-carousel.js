@@ -51,12 +51,12 @@
                                 loop : isMultiple,
                             });
 
-                            carousel.on('drag.owl.carousel', function(e) {
+                            carousel.on('changed.owl.carousel', function(e) {
                                 $rootScope.$broadcast("start-slide-post-images", {
                                     id: attrs.postId
                                 });
 
-                                 $(this).off("drag.owl.carousel");
+                                 $(this).off("changed.owl.carousel");
                                  $(this).trigger('refresh.owl.carousel');
                             });
                         }
