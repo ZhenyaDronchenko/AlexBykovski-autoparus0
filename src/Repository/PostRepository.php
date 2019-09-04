@@ -38,6 +38,11 @@ class PostRepository extends EntityRepository
                 ->setParameter('notRole', '%' . $filter->getNotRole() . '%');
         }
 
+        if($filter->getType()){
+            $qb->andWhere('p.type = :type')
+                ->setParameter('type', $filter->getType());
+        }
+
         if($filter->getBrand() || $filter->getModel()){
             $qb->join("p.cars", "car");
 

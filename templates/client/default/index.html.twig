@@ -67,13 +67,13 @@
                     </div>
 
                     <div class="content-wrapper">
-                        <div class="foto owl-carousel-slider owl-carousel owl-theme" data-carousel-options='{"items" : 1, "dots" : true, "center" : true, "loop" : true, "margin" : 0}'>
+                        <div class="foto owl-carousel-slider owl-carousel owl-theme" data-carousel-options='{"items" : 1, "dots" : true, "loop" : true}'>
                             <a href="{{ articleUrl }}">
-                                <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                                <img src="{{ image_url(article.mainArticleImage.image) }}" alt="Картинка">
                             </a>
                             {% for articleImage in article.articleImages %}
                                 <a href="{{ articleUrl }}">
-                                    <img src="{{ image_url(articleImage.imageThumbnail) }}" alt="Картинка">
+                                    <img src="{{ image_url(articleImage.image) }}" alt="Картинка">
                                 </a>
                             {% endfor %}
                         </div>
