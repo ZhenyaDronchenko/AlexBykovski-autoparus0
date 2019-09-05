@@ -39,7 +39,7 @@
 
 
         {% set countInPackage = is_mobile() ? 5 : 9 %}
-        {% set pathArticle = path("article_catalog_show_article", {"id" : "__id__", "urlTheme" : routeParams['urlTheme']}) %}
+        {% set pathArticle = path("article_catalog_show_article", {"id" : "__id__"}) %}
         <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ pathArticle }}', {{ countInPackage }})" ng-cloak>
             <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
                 <h2 ng-bind="article.headline1"></h2>

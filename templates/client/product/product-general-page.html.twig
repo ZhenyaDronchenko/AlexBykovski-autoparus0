@@ -188,7 +188,7 @@
                         <ul class="art-list">
                             {% for article in articles %}
                                 <li>
-                                    <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
+                                    <a href="{{ path("article_catalog_show_article", {, "id" : article.id}) }}" class="article-link">
                                         <h3 class="article-title">{{ article.headline1 }}</h3>
                                         <div class="article-foto">
                                             <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
