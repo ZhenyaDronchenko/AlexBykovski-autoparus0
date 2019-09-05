@@ -375,6 +375,7 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
+            'engineType' => $engineType,
             'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
             'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
             'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
