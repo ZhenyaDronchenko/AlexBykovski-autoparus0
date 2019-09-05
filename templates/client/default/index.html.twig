@@ -35,7 +35,7 @@
         <div class="article">
             {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
                 {% set article = articleArray.object %}
-                <a href="{{ path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) }}" class="article-link">
+                <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="article-link">
                     <h2 class="article-title add-three-dots-2-lines"><span>{{ article.headline1 }}</span></h2>
                     <div class="article-foto">
                         <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
@@ -54,7 +54,7 @@
           <ul class="content">
               {% for articleArray in ourArticles %}
                   {% set article = articleArray.object %}
-                  {% set articleUrl = path("article_catalog_show_article", {"urlTheme" : article.detail.themes.first.url, "id" : article.id}) %}
+                  {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
                 <li class="content-item">
                     <div class="post-block">
                         <a href="{{ path("homepage_filter_user", {userId: article.creator.id}) }}"><img class="name-foto1" src="{{ image_url(article.creator.thumbnailPhoto, 'user') }}" alt="Фото"></a>

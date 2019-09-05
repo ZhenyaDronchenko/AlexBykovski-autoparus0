@@ -12,17 +12,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-/**
- * @Route("/stati")
- */
 class ArticleCatalogController extends Controller
 {
     /**
-     * @Route("", name="article_catalog_choice_theme")
+     * @Route("/stati", name="article_catalog_choice_theme")
      */
     public function showChoiceThemePageAction(Request $request)
     {
-        $themes = $this->getDoctrine()->getRepository(ArticleTheme::class)->findBy([], ["theme" => "DESC"]);
+        $themes = $this->getDoctrine()->getRepository(ArticleTheme::class)->findBy(
+            [
+                "isEnable" => true,
+            ],
+            ["orderIndex" => "ASC"]);
 
         return $this->render('client/catalog/article/choice-theme.html.twig', [
             "themes" => $themes
@@ -30,7 +31,7 @@ class ArticleCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlTheme}", name="article_catalog_choice_article")
+     * @Route("/stati/{urlTheme}", name="article_catalog_choice_article")
      */
     public function showChoiceArticlePageAction(Request $request, $urlTheme)
     {
@@ -42,13 +43,23 @@ class ArticleCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlTheme}/{id}", name="article_catalog_show_article", options={"expose"=true})
+     * @Route("/stati/{urlTheme}/{id}", name="old_article_catalog_show_article", options={"expose"=true})
      *
      * @ParamConverter("article", class="App\Entity\Article\Article", options={"id" = "id"})
      */
-    public function showArticlePageAction(Request $request, $urlTheme, Article $article)
+    public function showArticleOldPageAction(Request $request, $urlTheme, Article $article)
     {
-        $theme = $this->getDoctrine()->getRepository(ArticleTheme::class)->findOneBy(["url" => $urlTheme]);
+        return $this->redirectToRoute("article_catalog_show_article", ["id" => $article->getId()]);
+    }
+
+    /**
+     * @Route("/publication/{id}", name="article_catalog_show_article", options={"expose"=true})
+     *
+     * @ParamConverter("article", class="App\Entity\Article\Article", options={"id" = "id"})
+     */
+    public function showArticlePageAction(Request $request, Article $article)
+    {
+        $theme = $article->getDetail()->getThemes()->first();
 
         $brands = $this->getDoctrine()->getRepository(Brand::class)->findBy(["active" => true], ["name" => "ASC"]);
         $spareParts = $this->getDoctrine()->getRepository(SparePart::class)->findBy(["active" => true], ["name" => "ASC"]);

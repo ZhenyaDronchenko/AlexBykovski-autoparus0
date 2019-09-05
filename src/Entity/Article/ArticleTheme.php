@@ -35,6 +35,21 @@ class ArticleTheme
     private $url;
 
     /**
+     * @var integer
+     *
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $orderIndex;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isEnable;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -80,5 +95,37 @@ class ArticleTheme
     public function setUrl(string $url): void
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderIndex(): int
+    {
+        return $this->orderIndex;
+    }
+
+    /**
+     * @param int $orderIndex
+     */
+    public function setOrderIndex(int $orderIndex): void
+    {
+        $this->orderIndex = $orderIndex;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnable(): bool
+    {
+        return $this->isEnable;
+    }
+
+    /**
+     * @param bool $isEnable
+     */
+    public function setIsEnable(bool $isEnable): void
+    {
+        $this->isEnable = $isEnable;
     }
 }

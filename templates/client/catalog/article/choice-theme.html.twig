@@ -46,7 +46,7 @@
       </ul>
 
      {% set countInPackage = is_mobile() ? 5 : 9 %}
-      <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__", "urlTheme" : "__theme__"}) }}', {{ countInPackage }})" ng-cloak>
+      <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__"}) }}', {{ countInPackage }})" ng-cloak>
         <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
             <h2 ng-bind="article.headline1"></h2>
             <h3 class="add-three-dots-3-lines" ng-bind="article.headline2"></h3>

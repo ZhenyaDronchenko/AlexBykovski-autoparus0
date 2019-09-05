@@ -36,8 +36,8 @@
             </li>
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}"
-                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}">
+                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : theme.url}) }}"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : theme.url})}) }}">
                     <span class="line">/</span>
                     <span itemprop="name">{{ theme.theme }}</span>
                 </a>
