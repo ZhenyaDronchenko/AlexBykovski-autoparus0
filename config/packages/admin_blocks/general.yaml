@@ -10,6 +10,13 @@ services:
         class: App\Admin\General\AboutGeneralPageAdmin
         arguments: [~, App\Entity\General\AboutGeneralPage, 'App\Admin\Controller\General\AboutGeneralPageAdminController']
         tags:
+            - { name: sonata.admin, group: Общее, manager_type: orm, label: О нас }
+        public: true
+
+    admin.general.contact_us:
+        class: App\Admin\General\ContactUsGeneralPageAdmin
+        arguments: [~, App\Entity\General\ContactUsGeneralPage, 'App\Admin\Controller\General\ContactUsGeneralPageAdminController']
+        tags:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: Обратная связь }
         public: true
 

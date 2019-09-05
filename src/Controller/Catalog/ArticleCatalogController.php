@@ -22,7 +22,11 @@ class ArticleCatalogController extends Controller
      */
     public function showChoiceThemePageAction(Request $request)
     {
-        $themes = $this->getDoctrine()->getRepository(ArticleTheme::class)->findBy([], ["theme" => "DESC"]);
+        $themes = $this->getDoctrine()->getRepository(ArticleTheme::class)->findBy(
+            [
+                "isEnable" => true,
+            ],
+            ["orderIndex" => "ASC"]);
 
         return $this->render('client/catalog/article/choice-theme.html.twig', [
             "themes" => $themes
