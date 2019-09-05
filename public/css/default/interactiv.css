@@ -197,6 +197,14 @@ right: 5px;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.add-three-dots-2-lines{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .owl-carousel .owl-item img {
     display: block;
     width: 99%;

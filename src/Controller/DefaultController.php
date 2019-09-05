@@ -6,6 +6,7 @@ use App\Entity\Article\Article;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Client\Client;
+use App\Entity\Client\Post;
 use App\Entity\Client\SellerCompany;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
@@ -40,11 +41,18 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 7));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 7, 0, false));
+
+        $ourArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 2, 0, true));
+
+        $businessPosts = $em->getRepository(Post::class)->findAllByFilter(new PostsFilterType(PostsFilterType::USERS_ACCESS_POST_HOMEPAGE, null, null, null, null, 4, 0));
 
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
             "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
+            "ourArticles" => $ourArticles,
+            "businessPosts" => $businessPosts,
         ]);
     }
 
@@ -65,11 +73,11 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
 
         return $this->render('client/default/interactiv.html.twig', [
             "homePage" => $homePage,
-            "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
+            "articles" => $route === "homepage_interactiv_all_users" ? [] : $updatedArticles
         ]);
     }
 

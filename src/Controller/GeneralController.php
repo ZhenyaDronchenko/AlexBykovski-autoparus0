@@ -26,7 +26,6 @@ class GeneralController extends Controller
             "pageName" => "Пользователям",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 
@@ -42,7 +41,6 @@ class GeneralController extends Controller
             "pageName" => "Продавцам",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 
@@ -58,7 +56,6 @@ class GeneralController extends Controller
             "pageName" => "Новости",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 
@@ -74,7 +71,6 @@ class GeneralController extends Controller
             "pageName" => "Обратная связь",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 

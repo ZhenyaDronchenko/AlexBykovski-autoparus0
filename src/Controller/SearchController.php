@@ -237,6 +237,7 @@ class SearchController extends Controller
         $offset = isset($requestData["offset"]) ? $requestData["offset"] : null;
         $limit = isset($requestData["limit"]) ? $requestData["limit"] : null;
         $isAllLight = isset($requestData["isAllLight"]) ? $requestData["isAllLight"] : false;
+        $type = isset($requestData["type"]) ? $requestData["type"] : null;
 
         $user = isset($requestData["userId"]) ? $em->getRepository(Client::class)->find($requestData["userId"]) : null;
         $allUsers = isset($requestData["allUsers"]) && $requestData["allUsers"];
@@ -249,7 +250,7 @@ class SearchController extends Controller
         $users = $user ?: ($allUsers ? '' : PostsFilterType::USERS_ACCESS_POST_HOMEPAGE);
         $users = $notPremium ? null : $users;
         $notUserRoles = $notPremium ? User::ROLE_SHOW_POSTS_HOMEPAGE : null;
-        $filter = new PostsFilterType($users, $brand, $model, $city, $activity, $limit, $offset, $notUserRoles);
+        $filter = new PostsFilterType($users, $brand, $model, $city, $activity, $limit, $offset, $notUserRoles, $type);
 
         if(!is_numeric($offset) || !is_numeric($limit)){
             return new JsonResponse([]);

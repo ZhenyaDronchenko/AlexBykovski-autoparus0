@@ -39,4 +39,6 @@ $(document).ready(function (ev) {
             modelEl.append(newOption);
         }
     }
+
+    $(".top-step").parents(".sonata-ba-field.sonata-ba-field-standard-natural").css({"padding-top" : "20px"});
 });

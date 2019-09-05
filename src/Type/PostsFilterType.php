@@ -47,6 +47,7 @@ class PostsFilterType
      * @param null|integer $limit
      * @param null|integer $offset
      * @param null|string $notRole
+     * @param null|string $type
      */
     public function __construct(
         $users,
@@ -56,7 +57,8 @@ class PostsFilterType
         ?string $activity,
         ?int $limit = null,
         ?int $offset = null,
-        ?string $notRole = null
+        ?string $notRole = null,
+        ?string $type = null
     )
     {
         $this->users = $users;
@@ -67,6 +69,7 @@ class PostsFilterType
         $this->limit = $limit;
         $this->offset = $offset;
         $this->notRole = $notRole;
+        $this->type = $type;
     }
 
     /**
@@ -195,5 +198,21 @@ class PostsFilterType
     public function setNotRole(?string $notRole): void
     {
         $this->notRole = $notRole;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param null|string $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
     }
 }

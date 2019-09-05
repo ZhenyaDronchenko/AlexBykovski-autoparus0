@@ -82,7 +82,7 @@ class InfoPageProvider
                 "enBrand" => $brand->getBrandEn(),
                 "name" => $brand->getName(),
                 "url" => $brand->getUrl(),
-                "logo" => $brand->getLogo(),
+                "logo" => $brand->getThumbnailLogo64(),
             ];
         }
 

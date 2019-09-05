@@ -145,6 +145,11 @@ class Article
     private $creator;
 
     /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isOur;
+
+    /**
      * Article constructor.
      */
     public function __construct()
@@ -165,6 +170,7 @@ class Article
         $this->headline2 = "";
 
         $this->isActive = false;
+        $this->isOur = false;
         $this->views = 0;
         $this->directViews = 0;
     }
@@ -423,6 +429,22 @@ class Article
     public function setCreator(?User $creator): void
     {
         $this->creator = $creator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisOur()
+    {
+        return $this->isOur;
+    }
+
+    /**
+     * @param mixed $isOur
+     */
+    public function setIsOur($isOur): void
+    {
+        $this->isOur = $isOur;
     }
 
     public function toSearchArray()
