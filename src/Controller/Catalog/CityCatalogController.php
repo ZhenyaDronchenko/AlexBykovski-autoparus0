@@ -342,7 +342,6 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
@@ -402,7 +401,6 @@ class CityCatalogController extends Controller
         $urlSP,
         $urlET,
         $engineId,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
@@ -465,10 +463,11 @@ class CityCatalogController extends Controller
         $urlET,
         $engineId,
         $urlVT,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -492,6 +491,16 @@ class CityCatalogController extends Controller
         }
 
         $page = $em->getRepository(CatalogCityChoiceSparePartStatus::class)->findAll()[0];
+        $conditions = array_values($sparePart->getActiveConditions());
+        $urlConditions = array_flip(SparePartCondition::$conditions);
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_vehicle_type" &&
+            count($conditions) === 1){
+            $url = $urlConditions[$conditions[0]->getDescription()];
+
+            return $this->redirectToRoute("show_city_catalog_choice_tender",
+                array_merge($request->attributes->get('_route_params'), ["statusSP" => $url]));
+        }
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
             $vehicleType];
@@ -503,14 +512,11 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
-            'choiceVehicleTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceVehicleType::class, $transformParameters),
+            'engineType' => $engineType,
+            'engine' => $engine,
+            'vehicleType' => $vehicleType,
+            'conditions' => $conditions,
+            'urlConditions' => $urlConditions
         ]);
     }
 
@@ -532,6 +538,7 @@ class CityCatalogController extends Controller
         VariableTransformer $transformer
     )
     {
+        $urlConditions = SparePartCondition::$conditions;
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -545,10 +552,10 @@ class CityCatalogController extends Controller
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
         $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
-        $condition = $sparePart && array_key_exists($statusSP, SparePartCondition::$conditions)
+        $condition = $sparePart && array_key_exists($statusSP, $urlConditions)
             ? $em->getRepository(SparePartCondition::class)->findOneBy([
             "sparePart" => $sparePart,
-            "description" => SparePartCondition::$conditions[$statusSP],
+            "description" => $urlConditions[$statusSP],
             "isActive" => true,
         ]) : null;
 

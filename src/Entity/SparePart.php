@@ -456,6 +456,13 @@ class SparePart implements VariableInterface
         $this->conditions = $conditions;
     }
 
+    public function getActiveConditions()
+    {
+        return array_filter($this->conditions->getValues(), function(SparePartCondition $condition){
+                return $condition->isActive();
+            });
+    }
+
     public function createDefaultConditions()
     {
         $condition1 = new SparePartCondition();

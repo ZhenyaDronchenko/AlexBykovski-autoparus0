@@ -96,7 +96,7 @@
 
             <ul class="zap-list">
                 {% for vehicleType in vehicleTypes %}
-                    <li><a href="{{ path("show_city_catalog_choice_spare_part_status", routeParams|merge({"urlVT" : vehicleType.url})) }}) }}" class="zap-item">{{ vehicleType.type }}</a></li>
+                    <li><a href="{{ path("show_city_catalog_choice_spare_part_status", routeParams|merge({"urlVT" : vehicleType.url})) }}" class="zap-item">{{ vehicleType.type }}</a></li>
                 {% endfor %}
             </ul>
 
