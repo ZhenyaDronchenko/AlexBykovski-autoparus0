@@ -32,11 +32,19 @@ class SparePartCondition
         "rebuilt" => "Восстановленная",
     ];
 
+    const CONDITIONS_TEMPLATES = [
+        "used" => "б/у",
+        "new" => "новая",
+        "rebuilt" => "восстановленная",
+    ];
+
     static $variables = [
-        "[ZAP_CONDITION]" => "getSpCondition",
+        //"[ZAP_CONDITION]" => "getSpCondition",
         "[SINGLE_ZAP_CONDITION]" => "getSingleAdjective",
         "[PLURAL_ZAP_CONDITION]" => "getPluralAdjective",
     ];
+
+    const ZAP_CONDITION = "[ZAP_CONDITION]";
 
     /**
      * @var integer|null

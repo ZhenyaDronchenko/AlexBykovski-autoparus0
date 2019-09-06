@@ -521,9 +521,9 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}", name="show_city_catalog_choice_tender")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}", name="show_city_catalog_choice_in_stock")
      */
-    public function showChoiceTenderPageAction(
+    public function showChoiceInStockPageAction(
         Request $request,
         $urlCity,
         $urlBrand,
@@ -534,7 +534,6 @@ class CityCatalogController extends Controller
         $engineId,
         $urlVT,
         $statusSP,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
@@ -571,29 +570,24 @@ class CityCatalogController extends Controller
         $page = $em->getRepository(CatalogCityChoiceInStock::class)->findAll()[0];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
-            $vehicleType, $condition];
+            $vehicleType, $condition, [SparePartCondition::ZAP_CONDITION => $condition->getSingleAdjective()]];
 
-        return $this->render('client/catalog/city/choice-tender.html.twig', [
+        return $this->render('client/catalog/city/choice-in-stock.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
             'brand' => $brand,
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
-            'choiceVehicleTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceVehicleType::class, $transformParameters),
-            'choiceSparePartStatusTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePartStatus::class, $transformParameters),
+            'engineType' => $engineType,
+            'engine' => $engine,
+            'vehicleType' => $vehicleType,
+            'condition' => $condition,
         ]);
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/tender", name="show_city_catalog_choice_final_page")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/in_stock", name="show_city_catalog_choice_final_page")
      */
     public function showChoiceFinalPagePageAction(
         Request $request,
@@ -606,7 +600,6 @@ class CityCatalogController extends Controller
         $engineId,
         $urlVT,
         $statusSP,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
@@ -651,15 +644,10 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
-            'choiceVehicleTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceVehicleType::class, $transformParameters),
-            'choiceSparePartStatusTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePartStatus::class, $transformParameters),
+            'engineType' => $engineType,
+            'engine' => $engine,
+            'vehicleType' => $vehicleType,
+            'condition' => $condition,
         ]);
     }
 }

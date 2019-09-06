@@ -4,12 +4,13 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-   <link rel='stylesheet' href='/css/catalog/city/choice-spare-part-status.css'>
+   <link rel='stylesheet' href='/css/catalog/city/choice-in-stock.css'>
 {% endblock %}
+
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-	<main class="container">
+  <main class="container">
       <ul class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
               <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная страница" itemprop="item">
@@ -24,7 +25,7 @@
           </li>
 
           <li class="breadcrumbs-item">
-              <a class="link-b link-btn"><span class="line">/</span>. . . </a>    
+              <a class="link-b link-btn"><span class="line">/</span>. . . </a>
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -84,8 +85,15 @@
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ vehicleType.type }}</span>
-                  <meta itemprop="position" content="10">
+              <a class="link-b" href="{{ path("show_city_catalog_choice_spare_part_status", {"urlCity" : city.url, "urlBrand" : brand.url, "urlModel" : model.url, "year" : year, "urlSP" : sparePart.url, "urlET" : engineType.url, "engineId" : engine.id, "urlVT" : vehicleType.url}) }}" itemprop="item"
+                 title="Выбор состояния"><span class="line">/</span><span itemprop="name">{{ vehicleType.type }}</span>
+              </a>
+              <meta itemprop="position" content="10">
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ condition.singleAdjective }}</span>
+                  <meta itemprop="position" content="11">
               </a>
           </li>
       </ul>
@@ -93,18 +101,18 @@
       <section class="zap">
           <h1 class="zap-title">{{ page.headline1 }}</h1>
           <div class="zap-wrapper">
-                <div id="text1" class="text1Hide">{{ page.text1 | raw }}</div>
-                <span onclick="text1ShowHide()" id="allText"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
-            </div>
+            <div id="text1" class="text1Hide">{{ page.text1 | raw }}</div>
+            <span onclick="text1ShowHide()" id="allText"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
+          </div>
 
+          <div class="zap-block">
             <ul class="zap-list">
-                {% for condition in conditions %}
-                    <li><a href="{{ path("show_city_catalog_choice_in_stock", routeParams|merge({"statusSP" : urlConditions[condition.description]})) }}" class="zap-item">{{ condition.singleAdjective }}</a></li>
-                {% endfor %}
+                <li><a href="{{ path("show_city_catalog_choice_final_page", routeParams) }}" class="zap-item">Только в наличии</a></li>
             </ul>
+          </div>
 
           <h2 class="zap-subtitle">{{ page.headline2 }}</h2>
-          <div class="zap-text">{{ page.text2 | raw }}</div>
+          <p class="zap-text">{{ page.text2 | raw }}</p>
       </section>
     </main>
 {% endblock %}
