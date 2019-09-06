@@ -364,6 +364,7 @@ class CityCatalogController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
+        $engines = $model->getTechnicalData()->getEnginesByType($engineType->getType());
         $page = $em->getRepository(CatalogCityChoiceEngineCapacity::class)->findAll()[0];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engineType];
@@ -376,6 +377,7 @@ class CityCatalogController extends Controller
             'year' => $year,
             'sparePart' => $sparePart,
             'engineType' => $engineType,
+            'engines' => $engines,
             'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
             'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
             'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
@@ -387,7 +389,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}", name="show_city_catalog_choice_vehicle_type")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}", name="show_city_catalog_choice_vehicle_type")
      */
     public function showChoiceVehicleTypePageAction(
         Request $request,
@@ -397,7 +399,7 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
@@ -413,14 +415,12 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => str_replace("_", ".", $capacity),
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
-            !($engineType instanceof EngineType) || !($engine instanceof Engine)){
+            !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            !($engine->getType() !== $engineType->getType())){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
@@ -446,7 +446,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}", name="show_city_catalog_choice_spare_part_status")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}", name="show_city_catalog_choice_spare_part_status")
      */
     public function showChoiceSparePartStatusPageAction(
         Request $request,
@@ -456,7 +456,7 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         $urlVT,
         TitleProvider $titleProvider,
         VariableTransformer $transformer
@@ -473,15 +473,13 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => str_replace("_", ".", $capacity),
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            !($engine->getType() !== $engineType->getType()) ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType())){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
@@ -510,7 +508,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}", name="show_city_catalog_choice_tender")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}", name="show_city_catalog_choice_tender")
      */
     public function showChoiceTenderPageAction(
         Request $request,
@@ -520,7 +518,7 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         $urlVT,
         $statusSP,
         TitleProvider $titleProvider,
@@ -538,10 +536,7 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => str_replace("_", ".", $capacity),
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
         $condition = $sparePart && array_key_exists($statusSP, SparePartCondition::$conditions)
             ? $em->getRepository(SparePartCondition::class)->findOneBy([
@@ -553,6 +548,7 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            !($engine->getType() !== $engineType->getType()) ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
             !($condition instanceof SparePartCondition)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
@@ -583,7 +579,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}/tender", name="show_city_catalog_choice_final_page")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/tender", name="show_city_catalog_choice_final_page")
      */
     public function showChoiceFinalPagePageAction(
         Request $request,
@@ -593,7 +589,7 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         $urlVT,
         $statusSP,
         TitleProvider $titleProvider,
@@ -611,10 +607,7 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => $capacity,
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
         $condition = $sparePart && array_key_exists($statusSP, SparePartCondition::$conditions)
             ? $em->getRepository(SparePartCondition::class)->findOneBy([
@@ -626,6 +619,7 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            !($engine->getType() !== $engineType->getType()) ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
             !($condition instanceof SparePartCondition)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);

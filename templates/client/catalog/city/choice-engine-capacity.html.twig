@@ -9,6 +9,7 @@
 
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
   <main class="container">
       <ul class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -84,10 +85,9 @@
             </div>
 
             <ul class="zap-list">
-              <li><a href="#" class="zap-item">Седан</a></li>
-              <li><a href="#" class="zap-item">Универсал</a></li>
-              <li><a href="#" class="zap-item">5дв хетчбэк</a></li>
-              <li><a href="#" class="zap-item">Микроавтобус</a></li>
+                {% for engine in engines %}
+                    <li><a href="{{ path("show_city_catalog_choice_vehicle_type", routeParams|merge({"engineId" : engine.id})) }}" class="zap-item">{{ engine.capacity }} ({{ engine.name }})</a></li>
+                {% endfor %}
             </ul>
 
           <h2 class="zap-subtitle">{{ page.headline2 }}</h2>
