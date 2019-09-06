@@ -11,6 +11,19 @@ use Doctrine\ORM\EntityRepository;
 
 class ArticleRepository extends EntityRepository
 {
+    public function findAllOnlyId($isSort = false)
+    {
+        $qb = $this->createQueryBuilder('art')
+            ->select('art.id');
+
+        if($isSort){
+            $qb->orderBy("art.id", "DESC");
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
     public function findAllByFilter(ArticleFilterType $filter, $notIds = [])
     {
         $qb = $this->createQueryBuilder('a')

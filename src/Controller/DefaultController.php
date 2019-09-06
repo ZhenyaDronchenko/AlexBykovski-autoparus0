@@ -44,7 +44,7 @@ class DefaultController extends Controller
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 7, 0, false));
 
         $ourArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 2, 0, true));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 3, 0, true));
 
         $businessPosts = $em->getRepository(Post::class)->findAllByFilter(new PostsFilterType(PostsFilterType::USERS_ACCESS_POST_HOMEPAGE, null, null, null, null, 4, 0));
 

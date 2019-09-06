@@ -3,6 +3,7 @@
 namespace App\SiteMap;
 
 use App\Entity\SEO\SiteMap;
+use App\SiteMap\Provider\AllArticlesSiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogPopularOBD2TurboCitySiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogPopularSiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogSiteMapUrlProvider;
@@ -65,6 +66,8 @@ final class SiteMapFactory
                 return new UniversalProductGeneralPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             case SiteMap::TYPE_FRESH_PRODUCT_PAGES:
                 return new FreshProductPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
+            case SiteMap::TYPE_ALL_ARTICLES:
+                return new AllArticlesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             default:
                 throw new \InvalidArgumentException('Unknown builder given');
         }

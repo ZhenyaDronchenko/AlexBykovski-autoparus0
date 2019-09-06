@@ -13,7 +13,7 @@ services:
             - { name: sonata.admin, group: Общее, manager_type: orm, label: О нас }
         public: true
 
-    admin.general.contact_us:
+    admin.general.contact_us_page:
         class: App\Admin\General\ContactUsGeneralPageAdmin
         arguments: [~, App\Entity\General\ContactUsGeneralPage, 'App\Admin\Controller\General\ContactUsGeneralPageAdminController']
         tags:

@@ -56,20 +56,10 @@
                   {% set article = articleArray.object %}
                   {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
                 <li class="content-item">
-                    <div class="post-block">
-                        <a href="{{ path("homepage_filter_user", {userId: article.creator.id}) }}"><img class="name-foto1" src="{{ image_url(article.creator.thumbnailPhoto, 'user') }}" alt="Фото"></a>
-                        <a href="{{ path("homepage_filter_user", {userId: article.creator.id}) }}"><b class="name name-l">{{ article.author }}</b></a>
-                        <button class="btn open-popup-button" type="button" data-popup-id="7">
-                            <span class="points"></span>
-                            <span class="points"></span>
-                            <span class="points"></span>
-                        </button>
-                    </div>
-
                     <div class="content-wrapper">
                         <div class="foto">
                             <a href="{{ articleUrl }}">
-                                <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                                <img style="margin-top: 80px;" src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                             </a>
                         </div>
 
