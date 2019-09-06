@@ -16,7 +16,8 @@ class Engine
     const ELECTRIC_TYPE = "электро";
 
     static $variables = [
-        "[ENGINE_NAME]" => "getType",
+        "[ENGINE_TYPE]" => "getType",
+        "[ENGINE_NAME]" => "getName",
         "[ENGINE_CAPACITY]" => "getCapacity",
     ];
 

@@ -8,11 +8,12 @@
 {% endblock %}
 
 {% block body %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
 	<main class="container">
       <ul class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="user-link user-link--icon" href="/"
-                 title="Запчасти для автомобилей на &quot;Автопарус&quot;" itemprop="item">
+              <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная страница"
+                 itemprop="item">
                   <span class="user-name" itemprop="name">Главная</span>
                   <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                       <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
@@ -28,89 +29,79 @@
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Лента публикаций Autoparus.by, Auto parus buy"><span class="line">/</span><span itemprop="name">Каталог</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item"
+                 title="Заказ-заявка на запчасти, Выбор города">
+                  <span class="line">/</span><span itemprop="name">Заказ-заявка</span>
               </a>
               <meta itemprop="position" content="2">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 3"><span class="line">/</span><span itemprop="name">[CITY]</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}" itemprop="item"
+                 title="Выбор марки"><span class="line">/</span><span itemprop="name">{{ city.name }}</span>
               </a>
               <meta itemprop="position" content="3">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 4"><span class="line">/</span><span itemprop="name">[ENBRAND]</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_model", {"urlCity" : city.url, "urlBrand" : brand.url}) }}" itemprop="item"
+                 title="Выбор модели"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span>
               </a>
               <meta itemprop="position" content="4">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 5"><span class="line">/</span><span itemprop="name">[ENMODEL]</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_year", {"urlCity" : city.url, "urlBrand" : brand.url, "urlModel" : model.url}) }}" itemprop="item"
+                 title="Выбор года"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span>
               </a>
               <meta itemprop="position" content="5">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 6"><span class="line">/</span><span itemprop="name">[YEAR]</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_spare_part", {"urlCity" : city.url, "urlBrand" : brand.url, "urlModel" : model.url, "year" : year}) }}" itemprop="item"
+                 title="Выбор запчасти"><span class="line">/</span><span itemprop="name">{{ year }}</span>
               </a>
               <meta itemprop="position" content="6">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 7"><span class="line">/</span><span itemprop="name">[ZAP5]</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_engine_type", {"urlCity" : city.url, "urlBrand" : brand.url, "urlModel" : model.url, "year" : year, "urlSP" : sparePart.url}) }}" itemprop="item"
+                 title="Выбор типа двигателя"><span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
               </a>
               <meta itemprop="position" content="7">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 8"><span class="line">/</span><span itemprop="name">[ТИП ДВС]</span>
+              <a class="link-b" href="{{ path("show_city_catalog_choice_engine_capacity", {"urlCity" : city.url, "urlBrand" : brand.url, "urlModel" : model.url, "year" : year, "urlSP" : sparePart.url, "urlET" : engineType.url}) }}" itemprop="item"
+                 title="Выбор объёма и марки двигателя"><span class="line">/</span><span itemprop="name">{{ engineType.type }}</span>
               </a>
               <meta itemprop="position" content="8">
           </li>
 
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="link-b" href="/stati" itemprop="item"
-                 title="Тайтл Крошка 9"><span class="line">/</span><span itemprop="name">[ОБЪЕМ]</span>
-              </a>
-              <meta itemprop="position" content="9">
-          </li>
-
-          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-              <a class="current" href="#" itemprop="item"><span class="line">/</span><span itemprop="name">[ТИП КУЗОВА]</span>
-                  <meta itemprop="position" content="10">
+              <a class="current" nohref itemprop="item">
+                  <span class="line">/</span>
+                  <span itemprop="name">{{ engine.capacity }} ({{ engine.name }})</span>
+                  <meta itemprop="position" content="9">
               </a>
           </li>
       </ul>
 
       <section class="zap">
-          <h1 class="zap-title">Заголовок страницы Н1</h1>
+          <h1 class="zap-title">{{ page.headline1 }}</h1>
           <div class="zap-wrapper">
-                <div id="text1" class="text1Hide">Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки. Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки. Текст 1 страницы из СК эдитора, на телефоне три строчки - раскрытие через стрелочки</div>
+                <div id="text1" class="text1Hide">{{ page.text1 | raw }}</div>
                 <span onclick="text1ShowHide()" id="allText"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; </span>
             </div>
 
             <ul class="zap-list">
-              <li><a href="#" class="zap-item">Только Б/У запчасть</a></li>
-              <li><a href="#" class="zap-item">Только новая запчасть</a></li>
-              <li><a href="#" class="zap-item">Новая или Б/У запчасть</a></li>
+                {% for vehicleType in vehicleTypes %}
+                    <li><a href="{{ path("show_city_catalog_choice_spare_part_status", routeParams|merge({"urlVT" : vehicleType.url})) }}) }}" class="zap-item">{{ vehicleType.type }}</a></li>
+                {% endfor %}
             </ul>
 
-          <h2 class="zap-subtitle">Заголовок страницы Н2</h2>
-          <p class="zap-text">Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора, Текст 2 страницы из СК эдитора</p>
-
-         
+          <h2 class="zap-subtitle">{{ page.headline2 }}</h2>
+          <div class="zap-text">{{ page.text2 | raw }}</div>
       </section>
     </main>
-{% endblock %}
-
-{% block javascripts %}
-    <script src='/js/client/pages/catalog/choice-engine-capacity.js'></script>
 {% endblock %}

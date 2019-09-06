@@ -346,6 +346,8 @@ class CityCatalogController extends Controller
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -365,6 +367,13 @@ class CityCatalogController extends Controller
         }
 
         $engines = $model->getTechnicalData()->getEnginesByType($engineType->getType());
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_engine_type" &&
+            count($engines) === 1){
+            return $this->redirectToRoute("show_city_catalog_choice_vehicle_type",
+                array_merge($request->attributes->get('_route_params'), ["engineId" => array_values($engines)[0]->getId()]));
+        }
+
         $page = $em->getRepository(CatalogCityChoiceEngineCapacity::class)->findAll()[0];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engineType];
@@ -378,13 +387,6 @@ class CityCatalogController extends Controller
             'sparePart' => $sparePart,
             'engineType' => $engineType,
             'engines' => $engines,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineType::class, $transformParameters),
         ]);
     }
 
@@ -404,6 +406,8 @@ class CityCatalogController extends Controller
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -420,11 +424,18 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
-            !($engine->getType() !== $engineType->getType())){
+            $engine->getType() !== $engineType->getType()){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceVehicleType::class)->findAll()[0];
+        $vehicleTypes = $model->getTechnicalData()->getVehicleTypes();
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_engine_capacity" &&
+            $vehicleTypes->count() === 1){
+            return $this->redirectToRoute("show_city_catalog_choice_spare_part_status",
+                array_merge($request->attributes->get('_route_params'), ["urlVT" => $vehicleTypes->first()->getUrl()]));
+        }
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine];
 
@@ -434,14 +445,10 @@ class CityCatalogController extends Controller
             'brand' => $brand,
             'model' => $model,
             'year' => $year,
+            'engineType' => $engineType,
+            'engine' => $engine,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
+            'vehicleTypes' => $vehicleTypes,
         ]);
     }
 
@@ -479,7 +486,7 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
-            !($engine->getType() !== $engineType->getType()) ||
+            $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType())){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
@@ -548,7 +555,7 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
-            !($engine->getType() !== $engineType->getType()) ||
+            $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
             !($condition instanceof SparePartCondition)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
@@ -619,7 +626,7 @@ class CityCatalogController extends Controller
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
-            !($engine->getType() !== $engineType->getType()) ||
+            $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
             !($condition instanceof SparePartCondition)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
