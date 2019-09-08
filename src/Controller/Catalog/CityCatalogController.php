@@ -2,12 +2,14 @@
 
 namespace App\Controller\Catalog;
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
 use App\Entity\Catalog\City\CatalogCityChoiceBrand;
 use App\Entity\Catalog\City\CatalogCityChoiceCity;
 use App\Entity\Catalog\City\CatalogCityChoiceEngineCapacity;
 use App\Entity\Catalog\City\CatalogCityChoiceEngineType;
+use App\Entity\Catalog\City\CatalogCityChoiceFinalPage;
 use App\Entity\Catalog\City\CatalogCityChoiceInStock;
 use App\Entity\Catalog\City\CatalogCityChoiceModel;
 use App\Entity\Catalog\City\CatalogCityChoiceSparePart;
@@ -587,7 +589,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/in_stock", name="show_city_catalog_choice_final_page")
+     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/{inStockType}", name="show_city_catalog_choice_final_page")
      */
     public function showChoiceFinalPagePageAction(
         Request $request,
@@ -600,9 +602,11 @@ class CityCatalogController extends Controller
         $engineId,
         $urlVT,
         $statusSP,
+        $inStockType,
         VariableTransformer $transformer
     )
     {
+        $urlConditions = SparePartCondition::$conditions;
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -616,10 +620,10 @@ class CityCatalogController extends Controller
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
         $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
-        $condition = $sparePart && array_key_exists($statusSP, SparePartCondition::$conditions)
+        $condition = $sparePart && array_key_exists($statusSP, $urlConditions)
             ? $em->getRepository(SparePartCondition::class)->findOneBy([
                 "sparePart" => $sparePart,
-                "description" => $sparePart,
+                "description" => $urlConditions[$statusSP],
                 "isActive" => true,
             ]) : null;
 
@@ -628,14 +632,17 @@ class CityCatalogController extends Controller
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
             $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
-            !($condition instanceof SparePartCondition)){
+            !($condition instanceof SparePartCondition) ||
+            !(array_key_exists($inStockType, AutoSparePartSpecificAdvert::STOCK_TYPES_CLIENT_VIEW))){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-        $page = $em->getRepository(CatalogCityChoiceInStock::class)->findAll()[0];
+        $page = $em->getRepository(CatalogCityChoiceFinalPage::class)->findAll()[0];
+        $stockValue = AutoSparePartSpecificAdvert::STOCK_TYPES_CLIENT_VIEW[$inStockType];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
-            $vehicleType, $condition];
+            $vehicleType, $condition, [SparePartCondition::ZAP_CONDITION => $condition->getSingleAdjective()],
+            [AutoSparePartSpecificAdvert::STOCK_VAR => mb_strtolower($stockValue)]];
 
         return $this->render('client/catalog/city/choice-final-page.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
@@ -648,6 +655,7 @@ class CityCatalogController extends Controller
             'engine' => $engine,
             'vehicleType' => $vehicleType,
             'condition' => $condition,
+            'inStockType' => $inStockType,
         ]);
     }
 }
