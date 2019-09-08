@@ -5,6 +5,7 @@ namespace App\Type;
 class ArticleFilterType
 {
     const SORT_UPDATED = "SORT_UPDATED";
+    const SORT_CREATED = "SORT_CREATED";
     const SORT_VIEWS = "SORT_VIEWS";
 
     /**
