@@ -41,7 +41,7 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 7, 0, false));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 7, 0, false));
 
         $ourArticles = $em->getRepository(Article::class)
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 3, 0, true));

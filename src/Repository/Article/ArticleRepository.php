@@ -61,6 +61,10 @@ class ArticleRepository extends EntityRepository
                 $qb->orderBy("a.updatedAt", "DESC");
 
                 break;
+            case ArticleFilterType::SORT_CREATED:
+                $qb->orderBy("a.createdAt", "DESC");
+
+                break;
             case ArticleFilterType::SORT_VIEWS:
                 $qb->orderBy("all_views", "DESC");
 

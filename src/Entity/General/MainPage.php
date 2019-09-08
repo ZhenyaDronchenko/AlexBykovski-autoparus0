@@ -153,6 +153,13 @@ class MainPage
     private $banners;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $showVoiceSearch;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -294,6 +301,22 @@ class MainPage
     public function setBanners(Collection $banners): void
     {
         $this->banners = $banners;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowVoiceSearch(): bool
+    {
+        return $this->showVoiceSearch;
+    }
+
+    /**
+     * @param bool $showVoiceSearch
+     */
+    public function setShowVoiceSearch(bool $showVoiceSearch): void
+    {
+        $this->showVoiceSearch = $showVoiceSearch;
     }
 
     public function setFilteredTitle($route, PostsFilterType $filter)

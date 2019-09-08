@@ -4,12 +4,15 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/catalog/auto/obd2-error/choice-code.css'>
 {% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
+        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
     <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -53,6 +56,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src="/js/client/directive/input-by-pattern.js"></script>
     <script src="/js/client/directive/search-field.js"></script>
     <script src="/js/client/controller/catalog/obd2-error/obd2-code-controller.js"></script>
