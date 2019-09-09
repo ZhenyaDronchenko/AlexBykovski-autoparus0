@@ -172,7 +172,7 @@ padding-top: 5px;
   color: #444444;
   font-size: 22px;
   line-height: 26px;
-      font-family: 'Roboto';
+  font-family: 'Roboto';
     font-weight: 300;
 }
 
@@ -394,7 +394,9 @@ padding-top: 5px;
   margin: 0;
 }
     .nav-list li {
-  margin-bottom: 7px
+     margin: 0 auto;
+    margin-bottom: 7px;
+    width: 80%;
 }
 
   .menu-link {
