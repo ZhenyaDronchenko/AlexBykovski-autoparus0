@@ -32,6 +32,7 @@
         <link itemprop="sameAs" href="https://vk.com/group" />
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
+      <div class="article-wrapper">
         <div class="article">
             {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
                 {% set article = articleArray.object %}
@@ -48,6 +49,8 @@
                     <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
                 </a>
             {% endfor %}
+        </div>
+        <a href="https://www.autoparus.by/stati" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
         </div>
 
         <div class="cont-inner">
