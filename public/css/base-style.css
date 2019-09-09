@@ -402,9 +402,10 @@ padding-top: 5px;
     .nav-list li {
      margin: 0 auto;
     margin-bottom: 7px;
-    width: 85%;
 }
-
+    .nav-list li.item-m {
+    margin-bottom: 25px;
+}
   .menu-link {
     font-size: 20px;
     line-height: 24px;
