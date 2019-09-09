@@ -433,7 +433,7 @@ height: 40px;
     height: 22px;
     overflow: hidden;
 }
-#text1 {
+.text1 {
     margin: 0;
     font-size: 16px;
     line-height: 20px;
