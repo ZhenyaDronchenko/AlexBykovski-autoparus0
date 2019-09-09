@@ -20,6 +20,9 @@
 /*article-slider*/
 
 /*article */
+.article-wrapper {
+margin-bottom: 40px;
+}
 .article {
 display: -moz-flex;
   display: -ms-flex;
@@ -29,9 +32,23 @@ display: -moz-flex;
   display: flex;
   justify-content: space-between;
   z-index: 0;
-margin-bottom: 40px;
 }
-
+.art-link {
+  display: block;
+    text-align: right;
+    margin-top: 7px;
+    color: #d22856;
+    cursor: pointer;
+    font-size: 14px;
+}
+.art-link span {
+    color: #000000;
+    margin: 0 7px;
+}
+.art-link:hover,
+ .art-link:focus {
+    color: #000000;
+}
 .article-link {
   display: -moz-flex;
   display: -ms-flex;
