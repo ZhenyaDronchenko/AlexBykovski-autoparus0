@@ -54,6 +54,20 @@
                         <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Поиск з/ч по марке</a></li>
                         <li class='item item-m'><a href="{{ path("show_city_catalog_choice_city") }}">Поиск з/ч по городу</a></li>
                     </ul>
+                    <ul class='nav-list'>
+                        <li class='item-text'><a href="{{ path("general_to_users_page") }}">Пользователям</a></li>
+                        <li class='item-m item-text'><a href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
+                        <li class='item'><a href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
+                    </ul>
+                    
+                </div>
+                <div class='nav-block'>
+                    
+                    <ul class='nav-list nav-list-m'>
+                        <li class='band'><a href="{{ path("article_catalog_choice_theme") }}">Лента публикаций</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
+                        <li><a href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
+                    </ul>
                     <ul class='nav-list nav-list-m'>
                         {% if app.user %}
                             {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
@@ -72,18 +86,6 @@
                             <li class='item-m item-text'><a href="{{ path("registration") }}">Регистрация</a></li>
                         {% endif %}
                         <li><a href="{{ path("general_contact_us_page") }}">Обратная связь</a></li>
-                    </ul>
-                </div>
-                <div class='nav-block'>
-                    <ul class='nav-list'>
-                        <li><a href="{{ path("general_to_users_page") }}">Пользователям</a></li>
-                        <li class='item'><a href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
-                        <li class='item'><a href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
-                    </ul>
-                    <ul class='nav-list nav-list-m'>
-                        <li class='band'><a href="{{ path("article_catalog_choice_theme") }}">Лента публикаций</a></li>
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
-                        <li><a href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
                     </ul>
                 </div>
             </div>
