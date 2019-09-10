@@ -55,7 +55,7 @@
 
         <div class="cont-inner">
           <ul class="content">
-              {% for articleArray in ourArticles %}
+              {% for articleArray in ourArticles[:3] %}
                   {% set article = articleArray.object %}
                   {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
                 <li class="content-item">
@@ -84,33 +84,15 @@
             </div>
 
             <div class="art">
-                <a href="#" class="art-i">      
-                  <div class="art-f">
-                    <img src="img/mz1.jpg" alt="Картинка">  
-                  </div>
-                  <h3 class="art-t">Заголовок отредактированный по левому краю</h3>
-                </a>
-
-                <a href="#" class="art-i">      
-                  <div class="art-f">
-                    <img src="img/mz1.jpg" alt="Картинка">  
-                  </div>
-                  <h3 class="art-t">Заголовок отредактированный по левому краю Заголовок отредактированный по левому краю </h3>
-                </a>
-
-                <a href="#" class="art-i">      
-                  <div class="art-f">
-                    <img src="img/mz1.jpg" alt="Картинка">  
-                  </div>
-                  <h3 class="art-t">Заголовок отредактированный по левому краю</h3>
-                </a>
-
-                <a href="#" class="art-i">      
-                  <div class="art-f">
-                    <img src="img/mz1.jpg" alt="Картинка">  
-                  </div>
-                  <h3 class="art-t">Заголовок отредактированный по левому краю</h3>
-                </a>
+                {% for articleArray in ourArticles[3:] %}
+                    {% set article = articleArray.object %}
+                    <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
+                      <div class="art-f">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                      </div>
+                      <h3 class="art-t">{{ article.headline1 }}</h3>
+                    </a>
+                {% endfor %}
             </div>
 
 
@@ -155,33 +137,15 @@
         </ul>
 
         <div class="art">
-            <a href="#" class="art-i">      
-              <div class="art-f">
-                <img src="img/mz1.jpg" alt="Картинка">  
-              </div>
-              <h3 class="art-t">Заголовок отредактированный по левому краю</h3>
-            </a>
-
-            <a href="#" class="art-i">      
-              <div class="art-f">
-                <img src="img/mz1.jpg" alt="Картинка">  
-              </div>
-              <h3 class="art-t">Заголовок отредактированный по левому краю Заголовок отредактированный по левому краю </h3>
-            </a>
-
-            <a href="#" class="art-i">      
-              <div class="art-f">
-                <img src="img/mz1.jpg" alt="Картинка">  
-              </div>
-              <h3 class="art-t">Заголовок отредактированный по левому краю</h3>
-            </a>
-
-            <a href="#" class="art-i">      
-              <div class="art-f">
-                <img src="img/mz1.jpg" alt="Картинка">  
-              </div>
-              <h3 class="art-t">Заголовок отредактированный по левому краю</h3>
-            </a>
+            {% for articleArray in notOurNotNews %}
+                {% set article = articleArray.object %}
+                <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
+                    <div class="art-f">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                    </div>
+                    <h3 class="art-t">{{ article.headline1 }}</h3>
+                </a>
+            {% endfor %}
         </div>
 
         <div class="baner-block">

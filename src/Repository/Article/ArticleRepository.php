@@ -51,6 +51,15 @@ class ArticleRepository extends EntityRepository
                 ->setParameter("themes", $filter->getThemes());
         }
 
+        if(count($filter->getNotThemes())){
+            if(!count($filter->getThemes())){
+                $qb->join("d.themes", "theme");
+            }
+            $qb
+                ->andWhere("theme NOT EXISTS (:notThemes)")
+                ->setParameter("notThemes", $filter->getNotThemes());
+        }
+
         if(is_bool($filter->getisOur())){
             $qb->andWhere("a.isOur = :isOur")
                 ->setParameter("isOur", $filter->getisOur());

@@ -5,7 +5,7 @@ namespace App\Entity\Article;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Article\ArticleThemeRepository")
  * @ORM\Table(name="article_theme")
  */
 class ArticleTheme
@@ -25,6 +25,8 @@ class ArticleTheme
         "people" => "Люди",
         "stories" => "Истории"
     ];
+
+    const NEWS_THEME = "news";
 
     /**
      * @var integer
