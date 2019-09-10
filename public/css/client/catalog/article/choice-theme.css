@@ -110,17 +110,8 @@
 
 /*main-search*/
 
-.inner-grey {
-    background-color: #f0f0f0;
-    padding: 20px;
-    padding-top: 0;
-}
 
-.art-list {
-     background-color: #ffffff;
-    padding: 20px;
-    margin-bottom: 20px;
-}
+
 .block-title {
   display: -webkit-flex;
   display: -moz-flex;
@@ -199,20 +190,43 @@
 .modal--hidden {
   display: none;
 }
-
+.art-nav {
+  display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.art-nav-item {
+  margin-right: 2%;
+}
+.art-nav-link {
+  font-size: 16px;
+    line-height: 18px;
+    color: #444444;
+    font-weight: 400;
+}
+.art-nav-link:hover,
+.art-nav-link:focus {
+    color: red;
+    transition-duration: 0.5s;
+}
 @media (max-width: 480px) {
   .container {
     width: auto; 
   }
 
    .inner-grey {
+    background-color: #f0f0f0;
     padding: 0;
     padding-top: 0;
     margin-bottom: 35px;
-    background-color: #ffffff;
 }
     .art-list {
-         padding: 0;
+        background-color: #ffffff;
+    padding: 0;
+    margin-bottom: 20px;
     }
 
   .select {
@@ -241,6 +255,16 @@ h3 {
   width: 24px;
   height: 24px;
 }
+.art-nav-link {
+  font-size: 14px;
+    line-height: 16px;
+}
+.select-open {
+    padding: 2px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    }
 }
 @media (min-width: 481px) and  (max-width: 767px) {
   .container {
@@ -483,20 +507,44 @@ p {
     width: auto; 
   }
 
+.catalog { 
+    border-top: 1px solid #ccc;
+  }
+
 .title {
   font-size: 22px;
   line-height: 26px;
 }
 h2 {
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 18px;
 }
 h3 {
   font-size: 14px;
   line-height: 16px;
 }
 .catalog-link {
-  width: 44%;
+  width: 100%;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  margin-bottom: 0;
+}
+.cat-inner {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.title-inner {
+  order: 2;
+}
+.foto{
+  margin: 0;
+  margin-right: 10px;
 }
 }
 
