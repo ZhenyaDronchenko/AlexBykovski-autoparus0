@@ -56,7 +56,7 @@
                 <ul class="art-nav">
                     {% for url,theme in topThemes if url != themeCurrent.url %}
                         <li class="art-nav-item">
-                            <a class="art-nav-link" title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : url})}) }}" href="{{ path("article_catalog_choice_article", {"urlTheme" : url}) }}">{{ theme }}</a>
+                            <a class="art-nav-link" title="Лента публикаций по теме {{ theme }} на Autoparus.by, Auto parts buy" href="{{ path("article_catalog_choice_article", {"urlTheme" : url}) }}">{{ theme }}</a>
                         </li>
                     {% endfor %}
                 </ul>
