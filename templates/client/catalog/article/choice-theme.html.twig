@@ -23,19 +23,12 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="#" itemtype="https://schema.org/Thing" itemprop="item" 
+                <a class="link-b" nohref itemtype="https://schema.org/Thing" itemprop="item"
                    title="Вторая крошка">
                     <span class="line">/</span>
                     <span itemprop="name">Статьи</span>
                 </a>
                 <meta itemprop="position" content="2">
-            </li>
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemprop="item">
-                    <span class="line">/</span>
-                    <span itemprop="name">Выбранная категория</span>
-                    <meta itemprop="position" content="3">
-                </a>
             </li>
         </ul>
         <section class="art-list">
@@ -52,19 +45,16 @@
               </li>
           {% endfor %}
       </ul>
+        {% set topThemes = constant('App\\Entity\\Article\\ArticleTheme::TOP_THEMES_CHOICE_THEME') %}
       <ul class="art-nav">
-        <li class="art-nav-item">
-        <a class="art-nav-link" href="#">Новости</a>
-        </li>
-        <li class="art-nav-item">
-        <a class="art-nav-link" href="#">События</a>
-        </li>
-        <li class="art-nav-item">
-        <a class="art-nav-link" href="#">Проишествия</a>
-        </li>
+          {% for url,theme in topThemes %}
+            <li class="art-nav-item">
+                <a class="art-nav-link" title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : url})}) }}" href="{{ path("article_catalog_choice_article", {"urlTheme" : url}) }}">{{ theme }}</a>
+            </li>
+          {% endfor %}
       </ul>
 
-     {% set countInPackage = is_mobile() ? 5 : 9 %}
+     {% set countInPackage = is_mobile() ? 5 : 10 %}
       <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__"}) }}', {{ countInPackage }})" ng-cloak>
         <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
         <div class="cat-inner">
