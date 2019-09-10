@@ -59,8 +59,8 @@
                   {% set article = articleArray.object %}
                   {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
                 <li class="content-item">
-                    <div class="content-wrapper">
-                        <div class="foto">
+                    <div class="content-inner">
+                        <div class="foto-inner">
                             <a href="{{ articleUrl }}">
                                 <img style="margin-top: 80px;" src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                             </a>
