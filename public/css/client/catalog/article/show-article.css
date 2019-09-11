@@ -16,8 +16,8 @@
 
 #breadcrumbs a {
   font-family: 'Roboto';
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 14px;
+  line-height: 16px;
   color: #444;
   position: relative;
   -webkit-transition-duration: 0.2s;
@@ -75,10 +75,6 @@
     height: 18px;
   }
 
-  #breadcrumbs a {
-    line-height: 20px;
-    font-size: 9px;
-  }
   .model-block {
     padding-top: 5px;
   }
@@ -99,8 +95,8 @@
     width: auto;
   }
   #breadcrumbs a {
-    line-height: 20px;
-    font-size: 11px;
+    line-height: 16px;
+    font-size: 10px;
   }
 }
 /*END ХЛЕБНЫЕ КРОШКИ*/
@@ -114,10 +110,7 @@
   padding: 5px 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
-}
-
-.news {
-  padding-top: 10px;
+  margin-top: 0;
 }
 
 .wrapper {
@@ -155,7 +148,7 @@
 h1 {
   margin: 0;
   margin-bottom: 20px;
-  color: #2980b9;
+  color: #000000;
   font-size: 26px;
   line-height: 30px;
   font-weight: 400;
@@ -327,7 +320,7 @@ p {
 .foto-item img {
   width: 540px;
   height: auto;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .foto-text {
