@@ -11,9 +11,7 @@
 
 {% block body %}
     <main class="container">
-        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
-        <div class="inner-grey">
-        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+    <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
@@ -28,6 +26,7 @@
                 <a class="current" itemprop="item" itemprop="item"><span class="line">/</span><span itemprop="name">Ошибки работы электронных систем автомобиля</span>
                     <meta itemprop="position" content="2"></a></li>
         </ul>
+        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
 
         <section class="engine">
             <h1 class="title">{{ page.headline1 }}</h1>
@@ -55,7 +54,6 @@
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
         </section>
-        </div>
     </main>
 {% endblock %}
 

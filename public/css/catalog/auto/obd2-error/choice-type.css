@@ -95,21 +95,14 @@ cursor: default;
 
 
 /*city*/
-.inner-grey {
-    background-color: #f0f0f0;
-    padding: 20px;
-    padding-top: 0;
-}
+
 
 .engine {
-    background-color: #ffffff;
-    padding: 20px;
     margin-bottom: 20px;
 }
 
 .engine-b {
     background-color: #ffffff;
-    padding: 20px;
 }
 
 .title {
@@ -175,7 +168,7 @@ cursor: default;
     line-height: 22px;
     font-weight: 400;
     text-align: center;
-    background-color: #dbc0c7;
+    background-color: #cccccc;
 }
 
 
@@ -226,7 +219,7 @@ cursor: default;
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
-    background-color: #9aedfb;
+    background-color: #cccccc;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -257,18 +250,9 @@ cursor: default;
         width: auto;
         padding: 0 10px;
     }
-    .inner-grey {
-    padding: 20px 10px;
-    padding-top: 0;
-    margin-bottom: 35px;
-}
+  
 
-    .engine {
-    padding: 20px 10px;
-}
-.engine-b {
-    padding: 20px 10px;
-}
+  
 
     .title {
         font-size: 22px;
@@ -311,15 +295,7 @@ cursor: default;
 @media (min-width: 481px) and (max-width: 767px) {
     .container {
         width: auto; }
-        .inner-grey {
-    padding: 20px 10px;
-    padding-top: 0;
-    margin-bottom: 35px;
-}
 
-     .engine {
-    padding: 20px 10px;
-}
 
 
     .title {
@@ -396,6 +372,7 @@ cursor: default;
     flex-wrap: wrap;
     z-index: 0;
     margin-bottom: 15px;
+    margin-top: 15px;
 
 }
 
