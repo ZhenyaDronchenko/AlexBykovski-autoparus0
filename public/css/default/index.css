@@ -78,7 +78,7 @@ box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
   padding: 0 5px;
  margin-top: 10px;
  margin-bottom: 5px;
-  height: 30px;
+  height: 41px;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -112,6 +112,7 @@ height: 40px;
     color: #d22856;
     cursor: pointer;
     font-size: 14px;
+    margin-right: 20px;
 }
 .art-link span {
     color: #000000;
@@ -212,7 +213,7 @@ height: 40px;
     font-size: 12px;
     line-height: 14px;
     padding: 0 3px;
-    height: 25px;
+    height: 41px;
     margin-top: 5px;
     }
 
@@ -237,7 +238,7 @@ height: 40px;
 }
 
 .news-wrapper {
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
 }
 
@@ -441,7 +442,7 @@ p {
     line-height: 20px;
     color: #666666;
     font-weight: 700;
-    text-align: center;
+    text-align: left;
     height: 22px;
     overflow: hidden;
 }
@@ -456,12 +457,12 @@ p {
 }
 #text2 {
 margin: 0;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 16px;
     color: #000000;
     font-weight: 400;
     text-align: justify;
-    height: 72px;
+    height: 65px;
     overflow: hidden;
 }
 
@@ -504,8 +505,8 @@ margin: 0;
 
 .time {
     display: inline-block;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 10px;
+    line-height: 14px;
 }
 
 .adress  {
@@ -524,8 +525,8 @@ margin: 0;
 .date {
     display: inline-block;
     margin-right: 15px;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 14px;
 }
 .date-block {
     display: -moz-flex;
@@ -543,6 +544,11 @@ margin: 0;
     display: block;
     width: 99%;
 }
+
+.owl-theme .owl-nav.disabled+.owl-dots {
+    margin-top: 5px;
+}
+
 @media (max-width: 767px) {
     .container {
         width: auto;
@@ -583,7 +589,7 @@ margin: 0;
 #text2 {
     font-size: 14px;
     line-height: 16px;
-    max-height: 65px;
+    max-height: 63px;
     }
 
 
@@ -621,7 +627,6 @@ margin: 0;
 .content-inner {
         padding-right: 0;
         padding-left: 0;
-        margin-bottom: 5px;
     }
   .article-date {
     font-size: 8px;
@@ -904,13 +909,7 @@ label {
         border: 1px solid #999999;
      background-color: #fff;
 }
-.button {
-    margin: 0px auto;
-    margin-bottom: 20px;
-    border: none;
-    background-color: transparent;
-    color: #000000;
-}
+
     .select-link:first-child {
     margin-bottom: 10px;
 }
@@ -1004,7 +1003,6 @@ input.select-item {
 .art-foto img {
     width: 180px;
     height: 120px;
-    border: 1px solid #ccc;
 }
 
 .art-user {
@@ -1162,7 +1160,7 @@ input.select-item {
 }
 .art-i {
   width: 32%;
-  margin-right: 3%;
+  margin-right: 2%;
   margin-bottom: 20px;  
   display: -moz-flex;
     display: -ms-flex;
@@ -1186,9 +1184,9 @@ input.select-item {
 }
 .art-t {
   margin: 0;
-  font-size: 16px;
-    line-height: 18px;
-    color: #737373;
+  font-size: 18px;
+    line-height: 20px;
+    color: #000000;
     font-weight: 400;
     text-align: left;
     width: 70%;
@@ -1213,7 +1211,10 @@ input.select-item {
   margin-right: 0;
   margin-bottom: 20px;  
 }
-
+.art-t {
+  font-size: 16px;
+    line-height: 18px;
+  }
 }
 /*content end*
 
