@@ -83,16 +83,19 @@
             {% include('/client/default/parts/search-form-main.html.twig') %}
             </div>
 
-            <div class="art">
-                {% for articleArray in ourArticles[3:] %}
-                    {% set article = articleArray.object %}
-                    <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
-                      <div class="art-f">
-                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
-                      </div>
-                      <h3 class="art-t">{{ article.headline1 }}</h3>
-                    </a>
-                {% endfor %}
+            <div class="art-inner">
+                <div class="art">
+                    {% for articleArray in ourArticles[3:] %}
+                        {% set article = articleArray.object %}
+                        <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
+                          <div class="art-f">
+                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                          </div>
+                          <h3 class="art-t">{{ article.headline1 }}</h3>
+                        </a>
+                    {% endfor %}
+                </div>
+                <a href="/stati/news" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
             </div>
 
 

@@ -385,12 +385,6 @@ padding-top: 5px;
   .container {
     width: auto; 
   }
-#menu {
-    -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  }
 
 .menu-link-b {
     font-weight: 700;
