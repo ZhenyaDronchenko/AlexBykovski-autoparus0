@@ -52,12 +52,6 @@ class DefaultController extends Controller
         $notOurNotNews = $em->getRepository(Article::class)
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, false, [$newsTheme]));
 
-        var_dump(count($updatedArticles));
-        var_dump(count($ourArticles));
-        var_dump(count($notOurNotNews));
-        var_dump($notOurNotNews[0]["object"]->getId());
-        die;
-
         $businessPosts = $em->getRepository(Post::class)->findAllByFilter(new PostsFilterType(PostsFilterType::USERS_ACCESS_POST_HOMEPAGE, null, null, null, null, 4, 0));
 
         return $this->render('client/default/index.html.twig', [
