@@ -154,7 +154,7 @@
 .seller-title{
     margin: 0;
     margin-bottom: 20px;
-    color: #2980b9;
+    color: #000000;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
@@ -599,7 +599,8 @@ a {
         padding: 0 10px;
     }
     .main-page {
-        padding: 20px 10px;
+            background: #ffffff;
+        padding: 0;
         margin-bottom: 40px;
         padding-top: 0;
     }
@@ -708,7 +709,7 @@ a {
     }
 
     .seller-block {
-        padding: 20px 10px;
+        padding: 20px 0;
         width: 100%;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;

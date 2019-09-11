@@ -187,7 +187,9 @@ height: 40px;
         width: auto;
         padding: 0 10px;
     }
-
+.article-wrapper {
+    margin-bottom: 15px;
+}
 
     .article-link:nth-child(4) {
       display: none;
@@ -917,7 +919,10 @@ label {
     .select-link:first-child {
     margin-bottom: 10px;
 }
-
+.button {
+    margin: 10px auto;
+    margin-bottom: 15px;
+  }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
     .container {
