@@ -45,7 +45,7 @@
               </li>
           {% endfor %}
       </ul>
-        {% set topThemes = constant('App\\Entity\\Article\\ArticleTheme::TOP_THEMES_CHOICE_THEME') %}
+        {% set topThemes = constant('App\\Entity\\Article\\ArticleTheme::TOP_THEMES') %}
       <ul class="art-nav">
           {% for url,theme in topThemes %}
             <li class="art-nav-item">

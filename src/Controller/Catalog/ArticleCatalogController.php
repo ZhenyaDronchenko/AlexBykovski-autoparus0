@@ -37,15 +37,8 @@ class ArticleCatalogController extends Controller
     {
         $theme = $this->getDoctrine()->getRepository(ArticleTheme::class)->findOneBy(["url" => $urlTheme]);
 
-        $themes = $this->getDoctrine()->getRepository(ArticleTheme::class)->findBy(
-            [
-                "isEnable" => true,
-            ],
-            ["orderIndex" => "ASC"]);
-
         return $this->render('client/catalog/article/choice-article.html.twig', [
             "themeCurrent" => $theme ?: new ArticleTheme(),
-            "themes" => $themes
         ]);
     }
 

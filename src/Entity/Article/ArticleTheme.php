@@ -10,15 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ArticleTheme
 {
-    const TOP_THEMES_CHOICE_THEME = [
-        "news" => "Новости",
-        "events" => "События",
-        "accidents" => "Проишествия",
-        "people" => "Люди",
-        "stories" => "Истории"
-    ];
-
-    const TOP_THEMES_CHOICE_ARTICLE = [
+    const TOP_THEMES = [
         "news" => "Новости",
         "events" => "События",
         "poster" => "Афиша",
