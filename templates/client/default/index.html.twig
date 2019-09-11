@@ -55,7 +55,7 @@
 
         <div class="cont-inner">
           <ul class="content">
-              {% for articleArray in ourArticles %}
+              {% for articleArray in ourArticles[:3] %}
                   {% set article = articleArray.object %}
                   {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
                 <li class="content-item">
@@ -82,6 +82,19 @@
             </ul>
             {% include('/client/default/parts/search-form-main.html.twig') %}
             </div>
+
+            <div class="art">
+                {% for articleArray in ourArticles[3:] %}
+                    {% set article = articleArray.object %}
+                    <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
+                      <div class="art-f">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                      </div>
+                      <h3 class="art-t">{{ article.headline1 }}</h3>
+                    </a>
+                {% endfor %}
+            </div>
+
 
             <section class="news">
               <div class="news-wrapper">
@@ -122,6 +135,18 @@
                 </div>
             </li>
         </ul>
+
+        <div class="art">
+            {% for articleArray in notOurNotNews %}
+                {% set article = articleArray.object %}
+                <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
+                    <div class="art-f">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                    </div>
+                    <h3 class="art-t">{{ article.headline1 }}</h3>
+                </a>
+            {% endfor %}
+        </div>
 
         <div class="baner-block">
             {% for banner in homePage.banners %}

@@ -19,6 +19,11 @@ class ArticleFilterType
     private $themes;
 
     /**
+     * @var array
+     */
+    private $notThemes;
+
+    /**
      * @var integer
      */
     private $limit = 0;
@@ -38,16 +43,17 @@ class ArticleFilterType
      * @param int $limit
      * @param int $offset
      * @param boolean $isOur
+     * @param array $notThemes
      */
-    public function __construct(string $typeSort, array $themes = [], int $limit = 6, int $offset = 0, $isOur = null)
+    public function __construct(string $typeSort, array $themes = [], int $limit = 6, int $offset = 0, $isOur = null, $notThemes = [])
     {
         $this->typeSort = $typeSort;
         $this->themes = $themes;
         $this->limit = $limit;
         $this->offset = $offset;
         $this->isOur = $isOur;
+        $this->notThemes = $notThemes;
     }
-
 
     /**
      * @return string
@@ -127,5 +133,21 @@ class ArticleFilterType
     public function setIsOur(?bool $isOur): void
     {
         $this->isOur = $isOur;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNotThemes(): array
+    {
+        return $this->notThemes;
+    }
+
+    /**
+     * @param array $notThemes
+     */
+    public function setNotThemes(array $notThemes): void
+    {
+        $this->notThemes = $notThemes;
     }
 }

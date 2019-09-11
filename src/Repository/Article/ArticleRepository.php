@@ -51,6 +51,11 @@ class ArticleRepository extends EntityRepository
                 ->setParameter("themes", $filter->getThemes());
         }
 
+        if(count($filter->getNotThemes())){
+            $qb->andWhere("a.id NOT IN(:notIds)")
+                ->setParameter("notIds", $this->findAllWithThemesIds($filter->getNotThemes()));
+        }
+
         if(is_bool($filter->getisOur())){
             $qb->andWhere("a.isOur = :isOur")
                 ->setParameter("isOur", $filter->getisOur());
@@ -73,5 +78,25 @@ class ArticleRepository extends EntityRepository
 
         return $qb->getQuery()
             ->getResult();
+    }
+
+    private function findAllWithThemesIds($themes)
+    {
+        $res = $this->createQueryBuilder('a')
+            ->select('a.id')
+            ->join("a.detail", "d")
+            ->join("d.themes", "theme")
+            ->andWhere("theme IN (:themes)")
+            ->setParameter("themes", $themes)
+            ->getQuery()
+            ->getResult();
+
+        $ids = [];
+
+        foreach ($res as $item){
+            $ids[] =  $item["id"];
+        }
+
+        return $ids;
     }
 }
