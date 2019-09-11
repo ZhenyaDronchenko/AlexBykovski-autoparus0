@@ -23,11 +23,12 @@
                 </a>
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemprop="item">
+                <a class="link-b" nohref itemtype="https://schema.org/Thing" itemprop="item"
+                   title="Вторая крошка">
                     <span class="line">/</span>
                     <span itemprop="name">Статьи</span>
-                    <meta itemprop="position" content="2">
                 </a>
+                <meta itemprop="position" content="2">
             </li>
         </ul>
         <section class="art-list">
@@ -44,14 +45,26 @@
               </li>
           {% endfor %}
       </ul>
+        {% set topThemes = constant('App\\Entity\\Article\\ArticleTheme::TOP_THEMES') %}
+      <ul class="art-nav">
+          {% for url,theme in topThemes %}
+            <li class="art-nav-item">
+                <a class="art-nav-link" title="Лента публикаций по теме {{ theme }} на Autoparus.by, Auto parts buy" href="{{ path("article_catalog_choice_article", {"urlTheme" : url}) }}">{{ theme }}</a>
+            </li>
+          {% endfor %}
+      </ul>
 
-     {% set countInPackage = is_mobile() ? 5 : 9 %}
-      <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__", "urlTheme" : "__theme__"}) }}', {{ countInPackage }})" ng-cloak>
+     {% set countInPackage = is_mobile() ? 5 : 10 %}
+      <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__"}) }}', {{ countInPackage }})" ng-cloak>
         <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
+        <div class="cat-inner">
+        <div class="title-inner">
             <h2 ng-bind="article.headline1"></h2>
             <h3 class="add-three-dots-3-lines" ng-bind="article.headline2"></h3>
+            </div>
             <div class="foto">
                <img ng-src="{[{article.mainImage['thumbImage']}]}" alt="Изображение">
+            </div>
             </div>
             <div class="comment add-three-dots-3-lines" ng-bind-html="article.mainImage['text']"></div>
             <div class="date-block">

@@ -11,11 +11,15 @@
 
         let self = this;
         let url = null;
+
         let params = {
             "limit" : 4,
             "offset" : -4,
-            "type" : "business",
         };
+
+        if(window.location.pathname === '/'){
+            params["type"] = "business";
+        }
 
         this.posts = [];
         //image from https://loading.io/

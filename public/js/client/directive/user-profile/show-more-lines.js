@@ -13,7 +13,7 @@
                 let classMore = attrs.classMore;
                 let lines = 0;
                 getCountLines();
-
+                console.log(triggerOpen);
                 $(triggerOpen).ready(function () {
                    if(lines > countLines){
                         $(element).removeClass(classMore).addClass(classLess);
@@ -21,14 +21,22 @@
                     }
 
                     $(triggerOpen)[0].onclick = function() { // перезапишет существующий обработчик
+                        console.log("click");
+                        console.log(classLess);
+                        console.log(classMore);
+                        console.log($(element).attr("class"));
                         $(element).removeClass(classLess).addClass(classMore);
+                        $(element).addClass(classMore);
                         $(triggerClose).show();
                         $(this).hide();
+
+                        console.log($(element).attr("class"));
                     };
                 });
 
-                $(triggerOpen).ready(function () {
+                $(triggerClose).ready(function () {
                     $(triggerClose)[0].onclick = function() { // перезапишет существующий обработчик
+                        console.log($(element).attr("class"));
                         $(element).removeClass(classMore).addClass(classLess);
                         $(triggerOpen).show();
                         $(this).hide();

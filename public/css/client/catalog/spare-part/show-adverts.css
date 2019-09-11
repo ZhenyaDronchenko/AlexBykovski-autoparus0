@@ -32,10 +32,18 @@
 .prod-link {
     width: 75%;
 }
-
-.prod-img {
+.img-inner {
+overflow: hidden;
     width: 255px;
     height: 170px;
+    background-color: #b1abab;
+    margin-right: 20px;
+}
+.prod-img {
+       display: block;
+    margin: auto;
+    height: auto;
+    width: 100%;
     margin-right: 20px;
 }
 
@@ -93,12 +101,12 @@
     font-size: 20px;
     line-height: 22px;
     font-weight: 700;
-    color: red;
+    color: #000000;
     text-align: center;
 }
 
 .prod-price span {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
     font-weight: 700;
     color: #000000;
@@ -119,7 +127,6 @@
     line-height: 18px;
     padding: 5px 10px;
     padding-bottom: 4px;
-    background-color: #dbc0c7;
     border: 1px solid #757373;
     border-radius: 5px;
     cursor: pointer;
@@ -135,7 +142,7 @@
     display: block;
     margin: 0 20px;
     color: #7c82c5;
-    font-size: 18px;
+    font-size: 17px;
     line-height: 20px;
     font-weight: 400;
     margin-bottom: 15px;

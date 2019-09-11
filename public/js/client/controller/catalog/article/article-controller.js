@@ -75,7 +75,7 @@
         }
 
         function getArticleUrl(article) {
-            return urlToArticle.replace("__theme__", article.themes[0].url).replace("__id__", article.id);
+            return urlToArticle.replace("__id__", article.id);
         }
 
         this.init = init;

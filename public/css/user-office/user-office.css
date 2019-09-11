@@ -207,7 +207,6 @@
     line-height: 15px;
     padding: 4px 10px;
     padding-bottom: 3px;
-    background-color: #bbebf8;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -226,7 +225,6 @@
     line-height: 15px;
     padding: 4px 10px;
     padding-bottom: 3px;
-    background-color: #bbebf8;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -1152,7 +1150,7 @@ textarea {
    margin: 0;
    margin-bottom: 20px;
    text-align: center;
-        color: #2980b9;
+        color: #000000;
     font-size: 20px;
     line-height: 22px;
     font-weight: 400;

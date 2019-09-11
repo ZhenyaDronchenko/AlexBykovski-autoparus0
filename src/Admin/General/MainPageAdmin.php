@@ -16,6 +16,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -58,6 +59,10 @@ class MainPageAdmin extends AbstractAdmin
         $page = $this->getSubject();
         $helpLogo = $isEditAction && $page->getLogo() ? $this->helper->getImagesHelp($this->helper->getMainPageImage($page)) : "";
 
+        $formMapper->add('showVoiceSearch', CheckboxType::class, [
+            'label' => 'Скрыть (не отображать) поле поиска в хедере',
+            "required" => false
+        ]);
         $formMapper->add('title', TextType::class, ['label' => 'Title']);
         $formMapper->add('description', TextType::class, ['label' => 'Description']);
         $formMapper->add('text', CKEditorType::class, ['label' => 'Описание']);

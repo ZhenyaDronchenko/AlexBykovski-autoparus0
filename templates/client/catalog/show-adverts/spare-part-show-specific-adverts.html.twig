@@ -16,7 +16,9 @@
             <a href="{{ path((routeParams.urlCity is defined ? "show_product_city_view" : "show_product_view"), linkParameters) }}" class="prod-link" target="_blank">
                 <div class="prod-item">
                     {% set specificAdvertImage = advert.image ? image_url(advert.image) : (sparePart ? image_url(sparePart.thumbnailLogo) : "") %}
+                    <div class="img-inner">
                     <img class="prod-img" src="{{ specificAdvertImage }}">
+                    </div>
                     <div class="description">
                         <h3 class="description-title">{{ sparePart.alternativeName1 }} для {{ brand.name }} {{ model ? model.name ~ '; ' ~ advert.year ~ ' года' : "" }}</h3>
                         <p class="description-text">{{ advert.getAdditionalDescription() }}</p>
@@ -32,7 +34,7 @@
             </a>
             <div class="prod-cont">
                 {% set advertCurrency = advert.currency ? advert.currency | upper : null %}
-                <p class="prod-price">{{ (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) }} <span>Руб</span></p>
+                <p class="prod-price">{{ (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) }} <span>Бел. руб.</span></p>
                 <a href="{{ path("seller_view", {"id" : sellerData.client.id}) }}" class="prod-name" target="_blank">{{ sellerCompany.companyName }}</a>
                 <div class="prod-block">
                     {% if sellerCompany.additionalPhone or sellerCompany.additionalPhone2 or sellerCompany.additionalPhone3%}

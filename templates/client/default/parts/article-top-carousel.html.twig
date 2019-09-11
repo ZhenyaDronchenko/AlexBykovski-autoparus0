@@ -1,0 +1,18 @@
+<div class="article owl-carousel-slider owl-carousel owl-theme" data-carousel-options='{"items" : 2, "dots" : true, "center" : true, "loop" : true, "margin" : 10, "responsive" : {"576" : {"items" : 3}, "768" : {"items" : 4}, "951" : {"items" : 5}, "1200" : {"items" : 6}}}'>
+    {% for articleArray in articles if articleArray.object.detail.themes | length > 0 %}
+        {% set article = articleArray.object %}
+        <a style="margin-right: 10px; margin-left: 10px;" href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="article-link">
+            <h2 class="article-title"><span>{{ article.headline1 }}</span></h2>
+            <div class="article-foto">
+                <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+            </div>
+
+            <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+
+            <div class="article-block">
+                <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+            </div>
+        </a>
+    {% endfor %}
+</div>

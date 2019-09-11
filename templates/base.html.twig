@@ -50,43 +50,45 @@
             <div id='menu' class="nav">
                 <div class='nav-block'>
                     <ul class='nav-list nav-list-m'>
-                        <li class='item-o'><a href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Поиск по наименованию</a></li>
-                        <li class='item'><a href="{{ path("show_brand_catalog_choice_brand") }}">Поиск з/ч по марке</a></li>
-                        <li class='item item-m'><a href="{{ path("show_city_catalog_choice_city") }}">Поиск з/ч по городу</a></li>
+                        <li class='item-o'><a class='menu-link' href="{{ path("show_spare_part_catalog_choice_spare_part") }}">Поиск по наименованию</a></li>
+                        <li class='item'><a class='menu-link' href="{{ path("show_brand_catalog_choice_brand") }}">Поиск з/ч по марке</a></li>
+                        <li class='item item-m'><a class='menu-link' href="{{ path("show_city_catalog_choice_city") }}">Поиск з/ч по городу</a></li>
+                    </ul>
+                    <ul class='nav-list nav-list-m'>
+                        <li class='item-text'><a class='menu-link menu-link-b' href="{{ path("general_to_users_page") }}">Пользователям</a></li>
+                        <li class='item-m item-text'><a class='menu-link menu-link-b' href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
+                        <li class='item'><a class='menu-link' href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
+                    </ul>
+                    
+                </div>
+                <div class='nav-block'>
+                    
+                    <ul class='nav-list nav-list-m'>
+                        <li class='band'><a class='menu-link' href="{{ path("article_catalog_choice_theme") }}">Лента публикаций</a></li>
+                        <li><a class='menu-link' href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
+                        <li class='item-m'><a class='menu-link' href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
                     </ul>
                     <ul class='nav-list nav-list-m'>
                         {% if app.user %}
                             {% set userName = (app.user.name | length) < 14 ? app.user.name : app.user.name[:13] ~ '...'%}
                             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                <li class='item-text'><a href="{{ path(app.user.isSeller() ? 'admin_app_seller_list' : 'admin_app_buyer_list', {'_switch_user': '_exit'}) }}">Выйти из пользователя</a></li>
+                                <li class='item-text'><a class='menu-link' href="{{ path(app.user.isSeller() ? 'admin_app_seller_list' : 'admin_app_buyer_list', {'_switch_user': '_exit'}) }}">Выйти из пользователя</a></li>
                             {% else %}
-                                <li class='item-text'><a href="{{ logout_path("main") }}">Выход</a></li>
+                                <li class='item-text'><a class='menu-link' href="{{ logout_path("main") }}">Выход</a></li>
                             {% endif %}
                             {% if app.user.hasRole(constant('App\\Entity\\User::ROLE_ADMIN')) %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Main Admin</a></li>
+                                <li class='item-m item-text'><a class="menu-link inverse-color" href="{{ path("sonata_admin_dashboard") }}" style="color: #ff0000;">Main Admin</a></li>
                             {% else %}
-                                <li class='item-m item-text'><a class="inverse-color" href="{{ path("show_user_office") }}" style="color: #ff0000;">{{ userName }}</a></li>
+                                <li class='item-m item-text'><a class="menu-link inverse-color" href="{{ path("show_user_office") }}" style="color: #ff0000;">{{ userName }}</a></li>
                             {% endif %}
                         {% else %}
-                            <li class='item-text'><a href="{{ path("login") }}">Вход</a></li>
-                            <li class='item-m item-text'><a href="{{ path("registration") }}">Регистрация</a></li>
+                            <li class='item-text'><a class='menu-link menu-link-b' href="{{ path("login") }}">Вход</a></li>
+                            <li class='item-m item-text'><a class='menu-link menu-link-b' href="{{ path("registration") }}">Регистрация</a></li>
                         {% endif %}
-                        <li><a href="{{ path("general_about_page") }}">Обратная связь</a></li>
+                        <li><a class='menu-link' href="{{ path("general_contact_us_page") }}">Обратная связь</a></li>
                     </ul>
                 </div>
-                <div class='nav-block'>
-                    <ul class='nav-list'>
-                        <li><a href="{{ path("general_to_users_page") }}">Пользователям</a></li>
-                        <li class='item'><a href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
-                        <li class='item'><a href="{{ path("turbo_catalog_choice_brand") }}">Быстрый поиск з/ч</a></li>
-                    </ul>
-                    <ul class='nav-list nav-list-m'>
-                        <li class='band'><a href="{{ path("article_catalog_choice_theme") }}">Лента публикаций</a></li>
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_type") }}">Коды OBD2 ошибок</a></li>
-                        <li><a href="{{ path("obd2_forum_choice_brand") }}">Форум Ошибок ОBD2</a></li>
-                    </ul>
-                </div>
-            </div>
+          </div>
         </div>
         <div class="header-nav">
           <nav>
@@ -100,7 +102,7 @@
                 <li><a class="nav-link" href="{{ path("article_catalog_choice_theme") }}">Новости</a></li>
                 <li><a class="nav-link" href="{{ path("general_to_users_page") }}">Пользователям</a></li>
                 <li><a class="nav-link" href="{{ path("general_to_seller_page") }}">Продавцам</a></li>
-                <li><a class="nav-link" href="{{ path("general_to_users_page") }}">О нас</a></li>
+                <li><a class="nav-link" href="{{ path("general_about_page") }}">О нас</a></li>
             </ul>
           </nav>
           <ul class="registration">
@@ -125,16 +127,19 @@
           </ul>
         </div>
 
+          {% set mainPage = get_object("App\\Entity\\General\\MainPage", "findAll", {})[0] %}
           {% if app.request.attributes.get('_route') in constant('App\\Entity\\General\\MainPage::PAGES_WITH_VOICE_SEARCH') %}
             <div class="main-search">
               <form class="form" action="#" method="get" >
-                <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
-                  <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
-                      <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
-                          <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
-                          <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
-                      </svg>
-                  </button>
+                  {% if mainPage.showVoiceSearch %}
+                      <input id="target-voice-input" class="form-input" name="search" placeholder="Поиск..." type="search">
+                      <button id="trigger-voice-input" voice-input trigger-input="#trigger-voice-input" target-input="#target-voice-input" modal-selector="#popup1" class="form-button cbutton cbutton--effect-boris mike-show" type="button">
+                          <svg class="cbutton__icon" fill="#737373" viewBox="0 0 40 59.5" width="18" height="22">
+                              <path d="M50,18.7v6.59A20.16122,20.16122,0,0,1,32.5,45.34V54.5h7a2.5,2.5,0,0,1,0,5h-19a2.5,2.5,0,1,1,0-5h7V45.34A20.16122,20.16122,0,0,1,10,25.29V18.7a2.705,2.705,0,0,1,5.41,0v6.59a14.5909,14.5909,0,1,0,29.18006,0V18.7a2.705,2.705,0,0,1,5.41,0Z" transform="translate(-10 0)"/>
+                              <rect x="9.5" width="21" height="36" rx="10.49999" ry="10.49999"/>
+                          </svg>
+                      </button>
+                  {% endif %}
                   <div class="main-btn">
                     <a class="form-link" href="/brand-catalog">Автозапчасти</a>
                   </div>

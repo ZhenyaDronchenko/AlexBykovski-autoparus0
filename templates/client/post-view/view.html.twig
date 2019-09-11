@@ -50,7 +50,7 @@
                 <div class="seller-block">
                     <h1 class="seller-title">{{ post.headline }}</h1>
                     <div class="post-block">
-                        <a href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}"><img class="name-foto" alt="Фото" src="{{ image_url(post.client.thumbnailPhoto ? image_url(post.client.thumbnailPhoto) : "") }}"></a>
+                        <a href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}"><img class="name-foto" alt="Фото" src="{{ post.client.thumbnailPhoto ? image_url(post.client.thumbnailPhoto) : "" }}"></a>
                         <a href="{{ path("homepage_filter_user", {"userId" : post.client.id}) }}"><b class="name">{{ post.client.name }}</b></a>
                         <button class="btn" type="button">
                             <span class="points"></span>
@@ -62,7 +62,7 @@
                         <li class="foto-item">
                             <img src="{{ image_url(post.postPhotos.first.image.image) }}" alt="Изображение статьи">
                             <span class="foto-city">{{ post.getAddress() }}</span>
-                            <p class="foto-text">{{ post.description }}</p>
+                            <p class="foto-text">{{ post.description | nl2br | raw }}</p>
                         </li>
                         {% for postPhoto in post.postPhotos %}
                             {% if not loop.first %}
