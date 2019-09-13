@@ -124,8 +124,8 @@ cursor: default;
     margin-bottom: 60px;
     padding: 20px;
     width: 70%;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    border: 1px solid #f1f1f1;
+    background-color: #f7f7f7;
 }
 .name {
     display: block;
@@ -153,17 +153,19 @@ a {
     padding: 5px 15px;
     padding-bottom: 4px;
     text-align: center;
-    border: 1px solid #737373;
+    border: 1px solid #999999;
     border-radius: 3px;
     color: #444444;
     cursor: pointer;
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
-    background-color: #bfedfb;
+    background-color: #f2f2f2;
 }
-.button:hover {
-    background-color: #d2a2af;
+.button:hover,
+.button:focus {
+    background-color: #999999;
+        transition-duration: 0.5s;
 }
 .subtitle {
     margin: 0;
@@ -236,7 +238,8 @@ a {
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
     z-index: 0;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: 15px;
 
 }
 
@@ -380,17 +383,11 @@ a {
 
 @media (max-width: 480px) {
     .article {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .article-link {
         width: 146px !important;
 
-    }
-}
-
-@media (max-width: 767px) {
-    .article {
-        margin-top: 30px;
     }
 }
