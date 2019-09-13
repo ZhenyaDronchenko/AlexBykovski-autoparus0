@@ -4,7 +4,9 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
-      <link rel='stylesheet' href='/css/client/forum/final-page.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
+    <link rel='stylesheet' href='/css/client/forum/final-page.css'>
 {% endblock %}
 
 {% block body %}
@@ -70,6 +72,7 @@
 {% endblock %}
 
 {% block javascripts %}
+  <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
   <script src='/js/client/filter/order-object-by.js'></script>
   <script src='/js/client/controller/forum/obd2/forum-obd2-controller.js'></script>
 {% endblock %}

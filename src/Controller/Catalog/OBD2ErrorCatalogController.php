@@ -69,7 +69,7 @@ class OBD2ErrorCatalogController extends Controller
         });
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 7, 0, false));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
 
         return $this->render('client/catalog/obd2-error/choice-type.html.twig', [
             'page' => $em->getRepository(CatalogOBD2ErrorChoiceType::class)->findAll()[0],
@@ -140,7 +140,7 @@ class OBD2ErrorCatalogController extends Controller
         $page = $em->getRepository(CatalogOBD2ErrorChoiceCode::class)->findAll()[0];
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 7, 0, false));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
 
         return $this->render('client/catalog/obd2-error/choice-code.html.twig', [
             'page' => $transformer->transformPage($page, [$type]),
@@ -177,7 +177,7 @@ class OBD2ErrorCatalogController extends Controller
         $pageTransformed->setText3($transformer->transformPage($page->getText3(), $transformParameters));
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 7, 0, false));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
 
         return $this->render('client/catalog/obd2-error/choice-transcript.html.twig', [
             'page' => $pageTransformed,
@@ -219,7 +219,7 @@ class OBD2ErrorCatalogController extends Controller
         $pageTransformed->setReturnButtonText($transformer->transformPage($page->getReturnButtonText(), $transformParameters));
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 7, 0, false));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
 
         return $this->render('client/catalog/obd2-error/choice-reason.html.twig', [
             'page' => $pageTransformed,

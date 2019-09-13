@@ -4,6 +4,8 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/client/forum/choice-brand.css'>
 {% endblock %}
 
@@ -71,4 +73,8 @@
             </div>
         </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
 {% endblock %}

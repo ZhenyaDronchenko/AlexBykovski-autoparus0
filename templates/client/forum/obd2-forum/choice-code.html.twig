@@ -4,6 +4,8 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/client/forum/choice-code.css'>
 {% endblock %}
 
@@ -64,6 +66,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src="/js/client/directive/input-by-pattern.js"></script>
     <script src="/js/client/directive/search-field.js"></script>
     <script src="/js/client/controller/catalog/obd2-error/obd2-code-controller.js"></script>
