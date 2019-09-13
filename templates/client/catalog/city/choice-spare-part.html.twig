@@ -77,7 +77,7 @@
                 <ul class='show-m' id='model'>
                     {% for sparePart in popularSpareParts %}
                         <li class="popular-spare-parts">
-                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_in_stock", {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : sparePart.url}) }}">
+                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_city_catalog_choice_engine_type", routeParams|merge({"urlSP" : sparePart.url})) }}">
                                 <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
                             </a>
@@ -85,7 +85,7 @@
                     {% endfor %}
                     {% for sparePart in unpopularSpareParts %}
                         <li class="others-spare-parts" style="display: none;">
-                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_brand_catalog_in_stock", {"urlBrand" : routeParams.urlBrand, "urlModel" : routeParams.urlModel, "urlCity" : routeParams.urlCity, "urlSP" : sparePart.url}) }}">
+                            <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_city_catalog_choice_engine_type", routeParams|merge({"urlSP" : sparePart.url})) }}">
                                 <span>{{ sparePart.name|replace({"(" : "<br />("})|raw }}</span>
                                 <img src="{{ image_url(sparePart.thumbnailLogo, "spare_part") }}" alt="{{ sparePart.alternativeName1 }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }} в {{ city.prepositional }}">
                             </a>

@@ -11,7 +11,21 @@ use Doctrine\ORM\Mapping as ORM;
 class EngineType
 {
     static $variables = [
-        "[ENGINE_NAME]" => "getType",
+        "[ENGINE_ TYPE]" => "getType",
+    ];
+
+    const PETROL_NAME = "Бензиновый";
+    const DIESEL_NAME = "Дизельный";
+    const HYBRID_NAME = "Гибридный";
+    const ELECTRIC_NAME = "Электродвигатель";
+
+    const ELECTRIC_URL = "electric";
+
+    const TYPE_NAMES = [
+        "petrol" => self::PETROL_NAME,
+        "diesel" => self::DIESEL_NAME,
+        "hybrid" => self::HYBRID_NAME,
+        "electric" => self::ELECTRIC_NAME,
     ];
 
     /**

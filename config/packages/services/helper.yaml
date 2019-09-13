@@ -1,0 +1,5 @@
+services:
+    app.helper.city_catalog_helper:
+        class:  App\Helper\CityCatalogHelper
+        arguments: ['@doctrine.orm.entity_manager', '@security.encoder_factory', '@app.sender.registration', '@app.generator.password_generator']
+        public: true

@@ -11,6 +11,7 @@ imports:
     - { resource: ./packages/services/provider.yaml }
     - { resource: ./packages/services/sender.yaml }
     - { resource: ./packages/services/sms.yaml }
+    - { resource: ./packages/services/helper.yaml }
 
 parameters:
     locale: 'ru'

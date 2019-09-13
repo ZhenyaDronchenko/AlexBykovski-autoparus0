@@ -2,12 +2,14 @@
 
 namespace App\Controller\Catalog;
 
+use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
 use App\Entity\Catalog\City\CatalogCityChoiceBrand;
 use App\Entity\Catalog\City\CatalogCityChoiceCity;
 use App\Entity\Catalog\City\CatalogCityChoiceEngineCapacity;
 use App\Entity\Catalog\City\CatalogCityChoiceEngineType;
+use App\Entity\Catalog\City\CatalogCityChoiceFinalPage;
 use App\Entity\Catalog\City\CatalogCityChoiceInStock;
 use App\Entity\Catalog\City\CatalogCityChoiceModel;
 use App\Entity\Catalog\City\CatalogCityChoiceSparePart;
@@ -15,30 +17,36 @@ use App\Entity\Catalog\City\CatalogCityChoiceSparePartStatus;
 use App\Entity\Catalog\City\CatalogCityChoiceVehicleType;
 use App\Entity\Catalog\City\CatalogCityChoiceYear;
 use App\Entity\City;
+use App\Entity\Client\Client;
 use App\Entity\Engine;
 use App\Entity\EngineType;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
+use App\Entity\Request\CityCatalogRequest;
+use App\Entity\Request\SparePartRequest;
 use App\Entity\SparePart;
 use App\Entity\SparePartCondition;
 use App\Entity\VehicleType;
+use App\Form\Type\Request\CityCatalogRequestFormType;
+use App\Helper\CityCatalogHelper;
 use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 //http://localhost:8001/city-catalog/minsk/bmw/x5_e70/2007/akb/petrol/3_0/suv/new
-/**
- * @Route("/city-catalog")
- */
 class CityCatalogController extends Controller
 {
     /**
-     * @Route("/", name="show_city_catalog_choice_city")
+     * @Route("/city-catalog/", name="show_city_catalog_choice_city")
      */
     public function showChoiceCityPageAction(Request $request, TitleProvider $titleProvider)
     {
@@ -66,7 +74,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}", name="show_city_catalog_choice_brand")
+     * @Route("/city-catalog/{urlCity}", name="show_city_catalog_choice_brand")
      */
     public function showChoiceBrandPageAction(
         Request $request,
@@ -103,7 +111,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}", name="show_city_catalog_choice_model")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}", name="show_city_catalog_choice_model")
      */
     public function showChoiceModelPageAction(
         Request $request,
@@ -165,7 +173,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}", name="show_city_catalog_choice_year")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}", name="show_city_catalog_choice_year")
      */
     public function showChoiceYearPageAction(
         Request $request,
@@ -214,7 +222,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}", name="show_city_catalog_choice_spare_part")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}", name="show_city_catalog_choice_spare_part")
      */
     public function showChoiceSparePartPageAction(
         Request $request,
@@ -277,7 +285,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}", name="show_city_catalog_choice_engine_type")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}", name="show_city_catalog_choice_engine_type")
      */
     public function showChoiceEngineTypePageAction(
         Request $request,
@@ -286,10 +294,11 @@ class CityCatalogController extends Controller
         $urlModel,
         $year,
         $urlSP,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -310,6 +319,14 @@ class CityCatalogController extends Controller
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart];
 
+        $engineTypes = $model->getTechnicalData()->getEngineTypes();
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_spare_part" &&
+            $engineTypes->count() === 1){
+            return $this->redirectToRoute("show_city_catalog_choice_engine_capacity",
+                array_merge($request->attributes->get('_route_params'), ["urlET" => $engineTypes->first()->getUrl()]));
+        }
+
         return $this->render('client/catalog/city/choice-engine-type.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
@@ -317,17 +334,12 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
+            'engineTypes' => $engineTypes,
         ]);
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}", name="show_city_catalog_choice_engine_capacity")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}", name="show_city_catalog_choice_engine_capacity")
      */
     public function showChoiceEngineCapacityPageAction(
         Request $request,
@@ -337,10 +349,11 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -359,6 +372,14 @@ class CityCatalogController extends Controller
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
+        $engines = $model->getTechnicalData()->getEnginesByType($engineType->getType());
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_engine_type" &&
+            count($engines) === 1){
+            return $this->redirectToRoute("show_city_catalog_choice_vehicle_type",
+                array_merge($request->attributes->get('_route_params'), ["engineId" => array_values($engines)[0]->getId()]));
+        }
+
         $page = $em->getRepository(CatalogCityChoiceEngineCapacity::class)->findAll()[0];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engineType];
@@ -370,18 +391,13 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineType::class, $transformParameters),
+            'engineType' => $engineType,
+            'engines' => $engines,
         ]);
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}", name="show_city_catalog_choice_vehicle_type")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}", name="show_city_catalog_choice_vehicle_type")
      */
     public function showChoiceVehicleTypePageAction(
         Request $request,
@@ -391,11 +407,12 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
-        TitleProvider $titleProvider,
+        $engineId,
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -407,18 +424,23 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => str_replace("_", ".", $capacity),
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
-            !($engineType instanceof EngineType) || !($engine instanceof Engine)){
+            !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            $engine->getType() !== $engineType->getType()){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceVehicleType::class)->findAll()[0];
+        $vehicleTypes = $model->getTechnicalData()->getVehicleTypes();
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_engine_capacity" &&
+            $vehicleTypes->count() === 1){
+            return $this->redirectToRoute("show_city_catalog_choice_spare_part_status",
+                array_merge($request->attributes->get('_route_params'), ["urlVT" => $vehicleTypes->first()->getUrl()]));
+        }
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine];
 
@@ -428,19 +450,15 @@ class CityCatalogController extends Controller
             'brand' => $brand,
             'model' => $model,
             'year' => $year,
+            'engineType' => $engineType,
+            'engine' => $engine,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
+            'vehicleTypes' => $vehicleTypes,
         ]);
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}", name="show_city_catalog_choice_spare_part_status")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}", name="show_city_catalog_choice_spare_part_status")
      */
     public function showChoiceSparePartStatusPageAction(
         Request $request,
@@ -450,12 +468,13 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         $urlVT,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -467,20 +486,28 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => str_replace("_", ".", $capacity),
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType())){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
         $page = $em->getRepository(CatalogCityChoiceSparePartStatus::class)->findAll()[0];
+        $conditions = array_values($sparePart->getActiveConditions());
+        $urlConditions = array_flip(SparePartCondition::$conditions);
+
+        if($router->match(parse_url($request->headers->get('referer'))["path"])['_route'] === "show_city_catalog_choice_vehicle_type" &&
+            count($conditions) === 1){
+            $url = $urlConditions[$conditions[0]->getDescription()];
+
+            return $this->redirectToRoute("show_city_catalog_choice_tender",
+                array_merge($request->attributes->get('_route_params'), ["statusSP" => $url]));
+        }
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
             $vehicleType];
@@ -492,21 +519,18 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
-            'choiceVehicleTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceVehicleType::class, $transformParameters),
+            'engineType' => $engineType,
+            'engine' => $engine,
+            'vehicleType' => $vehicleType,
+            'conditions' => $conditions,
+            'urlConditions' => $urlConditions
         ]);
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}", name="show_city_catalog_choice_tender")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}", name="show_city_catalog_choice_in_stock")
      */
-    public function showChoiceTenderPageAction(
+    public function showChoiceInStockPageAction(
         Request $request,
         $urlCity,
         $urlBrand,
@@ -514,13 +538,13 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         $urlVT,
         $statusSP,
-        TitleProvider $titleProvider,
         VariableTransformer $transformer
     )
     {
+        $urlConditions = SparePartCondition::$conditions;
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -532,21 +556,19 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => str_replace("_", ".", $capacity),
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
-        $condition = $sparePart && array_key_exists($statusSP, SparePartCondition::$conditions)
+        $condition = $sparePart && array_key_exists($statusSP, $urlConditions)
             ? $em->getRepository(SparePartCondition::class)->findOneBy([
             "sparePart" => $sparePart,
-            "description" => SparePartCondition::$conditions[$statusSP],
+            "description" => $urlConditions[$statusSP],
             "isActive" => true,
         ]) : null;
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
             !($condition instanceof SparePartCondition)){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
@@ -555,29 +577,24 @@ class CityCatalogController extends Controller
         $page = $em->getRepository(CatalogCityChoiceInStock::class)->findAll()[0];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
-            $vehicleType, $condition];
+            $vehicleType, $condition, [SparePartCondition::ZAP_CONDITION => $condition->getSingleAdjective()]];
 
-        return $this->render('client/catalog/city/choice-tender.html.twig', [
+        return $this->render('client/catalog/city/choice-in-stock.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
             'city' => $city,
             'brand' => $brand,
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
-            'choiceVehicleTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceVehicleType::class, $transformParameters),
-            'choiceSparePartStatusTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePartStatus::class, $transformParameters),
+            'engineType' => $engineType,
+            'engine' => $engine,
+            'vehicleType' => $vehicleType,
+            'condition' => $condition,
         ]);
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{capacity}/{urlVT}/{statusSP}/tender", name="show_city_catalog_choice_final_page")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/{inStockType}", name="show_city_catalog_choice_final_page")
      */
     public function showChoiceFinalPagePageAction(
         Request $request,
@@ -587,13 +604,14 @@ class CityCatalogController extends Controller
         $year,
         $urlSP,
         $urlET,
-        $capacity,
+        $engineId,
         $urlVT,
         $statusSP,
-        TitleProvider $titleProvider,
+        $inStockType,
         VariableTransformer $transformer
     )
     {
+        $urlConditions = SparePartCondition::$conditions;
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $city = $em->getRepository(City::class)->findOneBy(["url" => $urlCity]);
@@ -605,30 +623,31 @@ class CityCatalogController extends Controller
         $year = is_numeric($year) ? (int)$year : null;
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
         $engineType = $em->getRepository(EngineType::class)->findOneBy(["url" => $urlET]);
-        $engine = $engineType ? $em->getRepository(Engine::class)->findOneBy([
-            "type" => $engineType->getType(),
-            "capacity" => $capacity,
-        ]) : null;
+        $engine = $engineType ? $em->getRepository(Engine::class)->find($engineId) : null;
         $vehicleType = $em->getRepository(VehicleType::class)->findOneBy(["url" => $urlVT]);
-        $condition = $sparePart && array_key_exists($statusSP, SparePartCondition::$conditions)
+        $condition = $sparePart && array_key_exists($statusSP, $urlConditions)
             ? $em->getRepository(SparePartCondition::class)->findOneBy([
                 "sparePart" => $sparePart,
-                "description" => $sparePart,
+                "description" => $urlConditions[$statusSP],
                 "isActive" => true,
             ]) : null;
 
         if(!($brand instanceof Brand) || !($model instanceof Model) || !($city instanceof City) ||
             !$year || !$model->isHasYear($year) || !($sparePart instanceof SparePart) ||
             !($engineType instanceof EngineType) || !($engine instanceof Engine) ||
+            $engine->getType() !== $engineType->getType() ||
             !($vehicleType instanceof VehicleType) || !$model->hasVehicleType($vehicleType->getType()) ||
-            !($condition instanceof SparePartCondition)){
+            !($condition instanceof SparePartCondition) ||
+            !(array_key_exists($inStockType, AutoSparePartSpecificAdvert::STOCK_TYPES_CLIENT_VIEW))){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
         }
 
-        $page = $em->getRepository(CatalogCityChoiceInStock::class)->findAll()[0];
+        $page = $em->getRepository(CatalogCityChoiceFinalPage::class)->findAll()[0];
+        $stockValue = AutoSparePartSpecificAdvert::STOCK_TYPES_CLIENT_VIEW[$inStockType];
 
         $transformParameters = [$city, $brand, $model, [Model::YEAR_VARIABLE => $year], $sparePart, $engine,
-            $vehicleType, $condition];
+            $vehicleType, $condition, [SparePartCondition::ZAP_CONDITION => $condition->getSingleAdjective()],
+            [AutoSparePartSpecificAdvert::STOCK_VAR => mb_strtolower($stockValue)]];
 
         return $this->render('client/catalog/city/choice-final-page.html.twig', [
             "page" => $transformer->transformPage($page, $transformParameters),
@@ -637,15 +656,100 @@ class CityCatalogController extends Controller
             'model' => $model,
             'year' => $year,
             'sparePart' => $sparePart,
-            'homepageTitle' => $titleProvider->getSinglePageTitle(MainPage::class),
-            'choiceCityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceCity::class, $transformParameters),
-            'choiceBrandTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceBrand::class, $transformParameters),
-            'choiceModelTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceModel::class, $transformParameters),
-            'choiceYearTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceYear::class, $transformParameters),
-            'choiceSparePartTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePart::class, $transformParameters),
-            'choiceEngineCapacityTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceEngineCapacity::class, $transformParameters),
-            'choiceVehicleTypeTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceVehicleType::class, $transformParameters),
-            'choiceSparePartStatusTitle' => $titleProvider->getSinglePageTitle(CatalogCityChoiceSparePartStatus::class, $transformParameters),
+            'engineType' => $engineType,
+            'engine' => $engine,
+            'vehicleType' => $vehicleType,
+            'condition' => $condition,
+            'inStockType' => $inStockType,
+        ]);
+    }
+
+    /**
+     * @Route("/city-catalog-ajax/handle-request", name="ajax_city_catalog_handle_request", options={"expose"=true})
+     */
+    public function ajaxCityCatalogHandleRequestAction(Request $request, CityCatalogHelper $helper)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
+        /** @var Client $client */
+        $client = $this->getUser();
+        $isValid = false;
+        $userSave = "";
+        $isNewUser = false;
+        $isBYPhone = true;
+        $routeReferrer = $router->match(parse_url($request->headers->get('referer'))["path"])['_route'];
+
+        $referrer = $request->headers->get('referer');
+        $urlSP = $router->match(parse_url($referrer)["path"])['urlSP'];
+        $sparePartDefault = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+
+        $cityCatalogRequest = new CityCatalogRequest();
+        $cityCatalogRequest->setClient($client);
+
+        $form = $this->createForm(CityCatalogRequestFormType::class, $cityCatalogRequest);
+
+        if($routeReferrer !== "show_city_catalog_choice_final_page"){
+            return $this->renderAjaxCityCatalogHandleRequestAction($form, $isValid, $sparePartDefault);
+        }
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $phoneBY = $cityCatalogRequest->getPhoneBY();
+            $phoneRU = $cityCatalogRequest->getPhoneRU();
+            $cityCatalogRequest->setUrl($referrer);
+
+            if($client){
+                $cityCatalogRequest->setPhoneBY($client->getPhone());
+                $cityCatalogRequest->setEmail($client->getEmail());
+            }
+
+            if(!$phoneBY && !$phoneRU && !$client) {
+                $form->get("phoneBY")->addError(new FormError("Введите телефон"));
+
+                return $this->renderAjaxCityCatalogHandleRequestAction($form, $isValid, $sparePartDefault);
+            }
+
+            if(!$client){
+                $user = $helper->getExistUser($cityCatalogRequest);
+                $cityCatalogRequest->setClient($user["user"]);
+                $userSave = $user["from"];
+
+                if(!$user){
+                    $user = $helper->getNewUser($cityCatalogRequest);
+                    $cityCatalogRequest->setClient($user["user"]);
+                    $userSave = $user["from"];
+                    $isNewUser = true;
+                    $isBYPhone = strpos($user["user"]->getPhone(), "+375") === 0;
+                }
+            }
+
+            $helper->addSparePartRequests($cityCatalogRequest, $form->get("sparePartRequests"), $sparePartDefault);
+
+            $em->persist($cityCatalogRequest);
+            $em->flush();
+
+            $isValid = true;
+        }
+
+        return $this->render('client/catalog/city/parts/final-page-form.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => $isValid,
+            "sparePart" => $sparePartDefault,
+            "userSave" => $userSave,
+            "isNewUser" => $isNewUser,
+            "isBYPhone" => $isBYPhone
+        ]);
+    }
+
+    private function renderAjaxCityCatalogHandleRequestAction(FormInterface $form, $isValid, $sparePartDefault)
+    {
+        return $this->render('client/catalog/city/parts/final-page-form.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => $isValid,
+            "sparePart" => $sparePartDefault
         ]);
     }
 }

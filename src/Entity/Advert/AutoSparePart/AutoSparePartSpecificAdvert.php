@@ -19,6 +19,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class AutoSparePartSpecificAdvert
 {
+    const STOCK_VAR = "[STOCK]";
+
     const IN_STOCK_TYPE = "in_stock";
     const UNDER_ORDER_TYPE = "under_order";
 
