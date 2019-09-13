@@ -221,11 +221,14 @@ cursor: default;
   display: -ms-flex;
   display: -o-flex;
   display: flex;
-  justify-content: space-around;
+      justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
   margin-bottom: 40px;
 }
 
 .zap-list li {
+  margin: 0 10px;
   margin-bottom: 20px;
 }
 
