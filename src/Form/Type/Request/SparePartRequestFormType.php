@@ -9,6 +9,7 @@ use App\Form\DataTransformer\IdToDriveTypeTransformer;
 use App\Form\DataTransformer\IdToGearBoxTypeTransformer;
 use App\Form\DataTransformer\IdToModelTransformer;
 use App\Form\DataTransformer\IdToVehicleTypeTransformer;
+use App\Form\DataTransformer\NameToSparePartTransformer;
 use App\Provider\Form\SparePartAdvertDataProvider;
 use App\Type\AutoSetType;
 use Symfony\Component\Form\AbstractType;
@@ -34,13 +35,14 @@ class SparePartRequestFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('sparePartRequests', CollectionType::class, [
-                'label' => false,
-                'entry_type' => SparePartRequestFormType::class,
-                //'data' => $spareParts,
-                'allow_add' => true,
-                'allow_delete' => true,
+            ->add('sparePartNumber', TextType::class, [])
+            ->add('comment', TextareaType::class, [
+                "attr" => [
+                    "rows" => 5
+                ]
+            ])
+            ->add('sparePartText', TextType::class, [
+                "mapped" => false,
             ]);
     }
 

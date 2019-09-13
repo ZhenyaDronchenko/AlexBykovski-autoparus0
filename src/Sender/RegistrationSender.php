@@ -50,6 +50,22 @@ class RegistrationSender
         $this->smsNotifier = $smsNotifier;
     }
 
+    public function sendActivationDataForCityCatalog(User $user, $plainPassword, $isSendSms = true)
+    {
+        $link = $this->router->generate(
+            'activate_user',
+            ['code' => $user->getActivateCode()],
+            UrlGeneratorInterface::ABSOLUTE_URL // This guy right here
+        );
+
+        $textEmail = "Для активации аккаунта перейдите по ссылке: " . $link . '. Ваш пароль: ' . $plainPassword;
+
+        $this->sendEmail($user, $textEmail);
+
+        if($isSendSms) {
+            $this->sendSms($user, $link);
+        }
+    }
 
     public function createAndSendActivateCode(User $user)
     {
@@ -76,20 +92,18 @@ class RegistrationSender
         return $user;
     }
 
-    protected function sendEmail(User $user, $link)
+    protected function sendEmail(User $user, $text)
     {
         $message = (new \Swift_Message('Активация'))
             ->setFrom('mr2@tut.by')
             ->setTo($user->getEmail())
-            ->setBody(
-                "Для активации аккаунта перейдите по ссылке: " . $link
-            );
+            ->setBody($text);
 
         $this->mailer->send($message);
     }
 
-    protected function sendSms(User $user, $link)
+    protected function sendSms(User $user, $text)
     {
-        $this->smsNotifier->sendSmsRegistration($user->getPhone(), $link);
+        $this->smsNotifier->sendSmsRegistration($user->getPhone(), $text);
     }
 }

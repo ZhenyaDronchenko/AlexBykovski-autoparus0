@@ -35,7 +35,7 @@ class CityCatalogRequest
     /**
      * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Request\SparePartRequest", mappedBy="catalogRequest")
+     * @ORM\OneToMany(targetEntity="App\Entity\Request\SparePartRequest", mappedBy="catalogRequest", cascade={"persist", "remove"})
      */
     private $sparePartRequests;
 
@@ -61,7 +61,7 @@ class CityCatalogRequest
     private $phoneRU;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string")
      */
@@ -131,6 +131,11 @@ class CityCatalogRequest
         $this->sparePartRequests = $sparePartRequests;
     }
 
+    public function addSparePartRequest(SparePartRequest $sparePartRequest)
+    {
+        $this->sparePartRequests->add($sparePartRequest);
+    }
+
     /**
      * @return string
      */
@@ -180,17 +185,17 @@ class CityCatalogRequest
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
+     * @param null|string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }

@@ -1,0 +1,107 @@
+<form id="form-request" action="#" method="post" class="zap-form" novalidate enctype="multipart/form-data">
+    {{ form_widget(form._token) }}
+    <div class="form-wrapper">
+        <div class="form-list">
+            <h2 class="form-title">
+                {% set spWithBr = sparePart.name|replace({"(" : "<br />("}) %}
+                {{ ('(' in spWithBr and ')' in spWithBr ? spWithBr|replace({"(" : "<span>(", ")" : ")</span>"}) : spWithBr) |raw }}
+                {#Генератор автомобильный <br><span>(Генератор постоянного тока)</span>#}
+            </h2>
+            <div id="spare-part-collection">
+                {% for sparePartRequest in form.sparePartRequests %}
+                    <div class="spare-part-container">
+                        {{ form_widget(sparePartRequest.sparePartNumber, {attr: {"placeholder": "Номер запчасти", class: "input input-part spare-part-number"}}) }}
+                        {{ form_widget(sparePartRequest.comment, {attr: {"placeholder": "Комментарий:", class: "spare-part-comment"}}) }}
+                        {{ form_widget(sparePartRequest.sparePartText, {attr: {"placeholder": "Выберите запчасть", class: "input input-p", "list" : "sp-list"}}) }}
+                        {% if not isValid %}
+                            <button class="btn remove-spare-part-button" type="button">
+                                <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
+                                    <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
+                                    <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
+                                </svg>
+                                Удалить запчасть
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if not isValid %}
+                <button id="add-new-spare-part-button" class="btn-sel" type="button">
+                    <svg x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+                        <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"></line>
+                        <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="25" y1="13" x2="25" y2="37"></line>
+                        <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"></circle>
+                    </svg> Добавить еще запчасть
+                </button>
+            {% endif %}
+        </div>
+
+        <table id="table-data" class="feature-block">
+
+        </table>
+
+    </div>
+    <div class="form-contact">
+        <div class="form-contact-inner" style="display: {{ not app.user ? "block" : "none" }}">
+            <label for="{{ form.phoneBY.vars.id }}">Ваш телефон:</label>
+            <div class="tel-block">
+                {{ form_widget(form.phoneBY, {attr: {"placeholder": "Телефон BY", class: "input input-tel phone-mask-by"}}) }}
+                {{ form_widget(form.phoneRU, {attr: {"placeholder": "Телефон RU", class: "input input-tel--b phone-mask-ru"}}) }}
+
+                {% for key, error in form.phoneBY.vars.errors.form.getErrors(true)%}
+                    <span class="promt">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-contact-inner" style="display: {{ not app.user ? "block" : "none" }}">
+            <label for="{{ form.email.vars.id }}">Ваш e-mail:</label>
+            <div class="tel-block">
+                {{ form_widget(form.email, {attr: {class: "input input-tel"}}) }}
+
+                {% for key, error in form.email.vars.errors.form.getErrors(true)%}
+                    <span class="promt">{{ error.message }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if not isValid %}
+            {{ form_widget(form.submit, {attr: {"label": "Отправить заказ-заявку", class: "btn"}}) }}
+        {% endif %}
+
+    </div>
+    {% if isValid %}
+        <p class="zap-text">Ваша заявка была сохранена
+            {% if not app.user %}
+                под пользователем: {{ userSave }}
+            {% endif %}
+        </p>
+        {% if isNewUser %}
+        <p class="zap-text">Теперь Вы зарегистрированы на сайт под введёнными данными.</p>
+            {% if isBYPhone %}
+                Мы отправили на Ваш номер телефона СМС сообщение с сылкой для подтверждения заказа и вторую ссылку на электронную почту. Воспользуйтесь любым удобным для вас вариантом подтверждения.
+            {% else %}
+                На Ваш электронный адрес направлено письмо со ссылкой для подтверждение заказа. Для подтверждения Вам необходимо всего лишь перейти по ссылке.
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {#<p class="zap-text">Вы не зарегистрированы у нас на сайте, для регистрации придумайте пароль, повторите его и подтвердите</p>#}
+    {#<p class="zap-text">На Ваш номер телефона придет СМС со ссылкой, перейдя по ссылке Ваш запрос будет отправлен продавцам и аккаунт активизируется</p>#}
+    <div id="below-button">
+    </div>
+</form>
+
+<div id="spare-part-prototype-container" style="display: none;">
+    {% set prototype = form.sparePartRequests.vars.prototype %}
+    <div class="spare-part-container">
+        {{ form_widget(prototype.sparePartNumber, {attr: {"placeholder": "Номер запчасти", class: "input input-part spare-part-number", "style" : "display:none"}}) }}
+        {{ form_widget(prototype.comment, {attr: {"placeholder": "Комментарий:", class: "spare-part-comment", "style" : "display:none"}}) }}
+        {{ form_widget(prototype.sparePartText, {attr: {"placeholder": "Выберите запчасть", class: "input input-p", "list" : "sp-list"}}) }}
+        <button class="btn remove-spare-part-button" type="button">
+            <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
+                <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
+                <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
+            </svg>
+            Удалить запчасть
+        </button>
+    </div>
+</div>

@@ -29,9 +29,9 @@ class SparePartRequest
     private $catalogRequest;
 
     /**
-     * @var SparePart
+     * @var SparePart|
      *
-     * @ORM\ManyToOne(targetEntity="SparePart")
+     * @ORM\ManyToOne(targetEntity="App\Entity\SparePart")
      * @ORM\JoinColumn(name="spare_part_id", referencedColumnName="id")
      */
     private $sparePart;
@@ -46,7 +46,7 @@ class SparePartRequest
     /**
      * @var string|null
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
 

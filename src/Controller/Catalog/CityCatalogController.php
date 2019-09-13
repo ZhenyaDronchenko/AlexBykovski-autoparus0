@@ -17,31 +17,36 @@ use App\Entity\Catalog\City\CatalogCityChoiceSparePartStatus;
 use App\Entity\Catalog\City\CatalogCityChoiceVehicleType;
 use App\Entity\Catalog\City\CatalogCityChoiceYear;
 use App\Entity\City;
+use App\Entity\Client\Client;
 use App\Entity\Engine;
 use App\Entity\EngineType;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
+use App\Entity\Request\CityCatalogRequest;
+use App\Entity\Request\SparePartRequest;
 use App\Entity\SparePart;
 use App\Entity\SparePartCondition;
 use App\Entity\VehicleType;
+use App\Form\Type\Request\CityCatalogRequestFormType;
+use App\Helper\CityCatalogHelper;
 use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 //http://localhost:8001/city-catalog/minsk/bmw/x5_e70/2007/akb/petrol/3_0/suv/new
-/**
- * @Route("/city-catalog")
- */
 class CityCatalogController extends Controller
 {
     /**
-     * @Route("/", name="show_city_catalog_choice_city")
+     * @Route("/city-catalog/", name="show_city_catalog_choice_city")
      */
     public function showChoiceCityPageAction(Request $request, TitleProvider $titleProvider)
     {
@@ -69,7 +74,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}", name="show_city_catalog_choice_brand")
+     * @Route("/city-catalog/{urlCity}", name="show_city_catalog_choice_brand")
      */
     public function showChoiceBrandPageAction(
         Request $request,
@@ -106,7 +111,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}", name="show_city_catalog_choice_model")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}", name="show_city_catalog_choice_model")
      */
     public function showChoiceModelPageAction(
         Request $request,
@@ -168,7 +173,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}", name="show_city_catalog_choice_year")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}", name="show_city_catalog_choice_year")
      */
     public function showChoiceYearPageAction(
         Request $request,
@@ -217,7 +222,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}", name="show_city_catalog_choice_spare_part")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}", name="show_city_catalog_choice_spare_part")
      */
     public function showChoiceSparePartPageAction(
         Request $request,
@@ -280,7 +285,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}", name="show_city_catalog_choice_engine_type")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}", name="show_city_catalog_choice_engine_type")
      */
     public function showChoiceEngineTypePageAction(
         Request $request,
@@ -334,7 +339,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}", name="show_city_catalog_choice_engine_capacity")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}", name="show_city_catalog_choice_engine_capacity")
      */
     public function showChoiceEngineCapacityPageAction(
         Request $request,
@@ -392,7 +397,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}", name="show_city_catalog_choice_vehicle_type")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}", name="show_city_catalog_choice_vehicle_type")
      */
     public function showChoiceVehicleTypePageAction(
         Request $request,
@@ -453,7 +458,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}", name="show_city_catalog_choice_spare_part_status")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}", name="show_city_catalog_choice_spare_part_status")
      */
     public function showChoiceSparePartStatusPageAction(
         Request $request,
@@ -523,7 +528,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}", name="show_city_catalog_choice_in_stock")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}", name="show_city_catalog_choice_in_stock")
      */
     public function showChoiceInStockPageAction(
         Request $request,
@@ -589,7 +594,7 @@ class CityCatalogController extends Controller
     }
 
     /**
-     * @Route("/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/{inStockType}", name="show_city_catalog_choice_final_page")
+     * @Route("/city-catalog/{urlCity}/{urlBrand}/{urlModel}/{year}/{urlSP}/{urlET}/{engineId}/{urlVT}/{statusSP}/{inStockType}", name="show_city_catalog_choice_final_page")
      */
     public function showChoiceFinalPagePageAction(
         Request $request,
@@ -656,6 +661,95 @@ class CityCatalogController extends Controller
             'vehicleType' => $vehicleType,
             'condition' => $condition,
             'inStockType' => $inStockType,
+        ]);
+    }
+
+    /**
+     * @Route("/city-catalog-ajax/handle-request", name="ajax_city_catalog_handle_request", options={"expose"=true})
+     */
+    public function ajaxCityCatalogHandleRequestAction(Request $request, CityCatalogHelper $helper)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
+        /** @var Client $client */
+        $client = $this->getUser();
+        $isValid = false;
+        $userSave = "";
+        $isNewUser = false;
+        $isBYPhone = true;
+        $routeReferrer = $router->match(parse_url($request->headers->get('referer'))["path"])['_route'];
+
+        $referrer = $request->headers->get('referer');
+        $urlSP = $router->match(parse_url($referrer)["path"])['urlSP'];
+        $sparePartDefault = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
+
+        $cityCatalogRequest = new CityCatalogRequest();
+        $cityCatalogRequest->setClient($client);
+
+        $form = $this->createForm(CityCatalogRequestFormType::class, $cityCatalogRequest);
+
+        if($routeReferrer !== "show_city_catalog_choice_final_page"){
+            return $this->renderAjaxCityCatalogHandleRequestAction($form, $isValid, $sparePartDefault);
+        }
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $phoneBY = $cityCatalogRequest->getPhoneBY();
+            $phoneRU = $cityCatalogRequest->getPhoneRU();
+            $cityCatalogRequest->setUrl($referrer);
+
+            if($client){
+                $cityCatalogRequest->setPhoneBY($client->getPhone());
+                $cityCatalogRequest->setEmail($client->getEmail());
+            }
+
+            if(!$phoneBY && !$phoneRU && !$client) {
+                $form->get("phoneBY")->addError(new FormError("Введите телефон"));
+
+                return $this->renderAjaxCityCatalogHandleRequestAction($form, $isValid, $sparePartDefault);
+            }
+
+            if(!$client){
+                $user = $helper->getExistUser($cityCatalogRequest);
+                $cityCatalogRequest->setClient($user["user"]);
+                $userSave = $user["from"];
+
+                if(!$user){
+                    $user = $helper->getNewUser($cityCatalogRequest);
+                    $cityCatalogRequest->setClient($user["user"]);
+                    $userSave = $user["from"];
+                    $isNewUser = true;
+                    $isBYPhone = strpos($user["user"]->getPhone(), "+375") === 0;
+                }
+            }
+
+            $helper->addSparePartRequests($cityCatalogRequest, $form->get("sparePartRequests"), $sparePartDefault);
+
+            $em->persist($cityCatalogRequest);
+            $em->flush();
+
+            $isValid = true;
+        }
+
+        return $this->render('client/catalog/city/parts/final-page-form.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => $isValid,
+            "sparePart" => $sparePartDefault,
+            "userSave" => $userSave,
+            "isNewUser" => $isNewUser,
+            "isBYPhone" => $isBYPhone
+        ]);
+    }
+
+    private function renderAjaxCityCatalogHandleRequestAction(FormInterface $form, $isValid, $sparePartDefault)
+    {
+        return $this->render('client/catalog/city/parts/final-page-form.html.twig', [
+            "form" => $form->createView(),
+            "isValid" => $isValid,
+            "sparePart" => $sparePartDefault
         ]);
     }
 }
