@@ -55,10 +55,17 @@
                 {% endfor %}
             </ul>
             <ul class="error-list">
-                <li><a href="/obd2/elm327_p" title="Ошибка работы двигателя или АКПП" class="error-item">Ошибки "Р"</a></li>
-                <li><a href="/obd2/elm327_b" title="Ошибки работы кузовных систем" class="error-item">Ошибки "B"</a></li>
-                <li><a href="/obd2/elm327_c" title="Ошибки работы ходовой части авто" class="error-item">Ошибки "C"</a></li>
-                <li><a href="/obd2/elm327_u" title="Ошибки коннекта между электроными блоками" class="error-item">Ошибки "U"</a></li>
+                {% for key, type in types %}
+                    {% if key == 'P' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "Р"</a></li>
+                    {% elseif key == 'B' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "B"</a></li>
+                    {% elseif key == 'C' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "C"</a></li>
+                    {% elseif key == 'U' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "U"</a></li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </section>
         <section class="engine-b">
