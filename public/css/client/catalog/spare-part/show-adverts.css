@@ -327,10 +327,12 @@ overflow: hidden;
     padding-bottom: 15px;
     border-bottom: 1px solid #999999;
     margin-bottom: 15px;
+        width: 100%;
+    box-sizing: border-box;
 }
 .card-img {
-    width: 200px;
-    height: 140px;
+    width: 180px;
+    height: 120px;
     margin-right: 20px;
 }
 
@@ -466,7 +468,12 @@ overflow: hidden;
         flex-wrap: wrap;
     }
     .card-title {
-        margin-bottom: 7px; }
+        margin-bottom: 7px; 
+    }
+    .card-time {
+   margin: 0 auto;
+   margin-bottom: 20px;
+}
 }
 
 /*block END*/

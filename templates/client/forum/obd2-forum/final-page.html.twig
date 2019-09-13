@@ -14,7 +14,6 @@
   {% set addMessageLink = path('ajax_obd2_forum_add_message', routeParams) %}
     <div ng-controller="ForumOBD2Ctrl as forum" ng-init="forum.init('{{ getMessagesLink }}', '{{ addMessageLink }}')">
     <main class="container">
-      <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
           <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
             <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -42,6 +41,8 @@
           </li>
         </ul>
 
+        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
+
         <section class="model">
           <h1>{{ page.headline1 }}</h1>
           <p>{{ page.text1 | raw }}</p>
@@ -62,7 +63,6 @@
               <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
             </div>
         </section>
-        </div>
      </main>
 
     {% include('/client/forum/obd2-forum/parts/modals.html.twig') %}
