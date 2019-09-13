@@ -9,7 +9,6 @@
 
 {% block body %}
     <main class="container">
-        <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -36,6 +35,8 @@
             </li>
         </ul>
 
+        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
+
         <section class="engine">
             <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
@@ -61,6 +62,5 @@
             </div>
 
         </section>
-        </div>
     </main>
 {% endblock %}

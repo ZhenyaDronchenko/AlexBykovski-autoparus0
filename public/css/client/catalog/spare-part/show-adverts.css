@@ -1,7 +1,7 @@
 /*blocks*/
 
 .prod {
-    margin-top: 30px;
+    margin-top: 5px;
     border-top: 1px solid #999999;
     padding-top: 15px;
 }
@@ -197,10 +197,15 @@ overflow: hidden;
     border: 1px solid #999999;
     border-radius: 3px;
 }
+.red {
+    background-color: red;
+    border: 1px solid #999999;
+    border-radius: 3px;
+}
 .day {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     margin-right: 3px;
     border: 1px solid transparent;
     font-size: 16px;
@@ -210,9 +215,10 @@ overflow: hidden;
 .day-time {
     display: block;
     margin-left: 15px;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
+    color: #000000;
 }
 .weekend {
     display: -webkit-box;
@@ -404,6 +410,7 @@ overflow: hidden;
     font-size: 12px;
     line-height: 14px;
     color: #444;
+    text-align: right;
 }
 .adress-tel {
     font-size: 16px;

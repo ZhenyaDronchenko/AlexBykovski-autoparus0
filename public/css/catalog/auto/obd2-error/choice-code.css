@@ -231,7 +231,8 @@ input {
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
     z-index: 0;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: 15px;
 
 }
 
@@ -375,17 +376,11 @@ input {
 
 @media (max-width: 480px) {
     .article {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .article-link {
         width: 146px !important;
 
-    }
-}
-
-@media (max-width: 767px) {
-    .article {
-        margin-top: 30px;
     }
 }

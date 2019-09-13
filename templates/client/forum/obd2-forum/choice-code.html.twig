@@ -11,7 +11,6 @@
     {% set routeParams = app.request.attributes.get('_route_params') %}
     {% set templateParameters = {"brand" : brand, "type": type} %}
     <main class="container">
-        <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -42,6 +41,8 @@
                 </a>
             </li>
         </ul>
+        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
+
 
         <section class="code">
             <h1 class="title">{{ page.headline1 }}</h1>
@@ -59,7 +60,6 @@
                 <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
             </div>
         </section>
-        </div>
     </main>
 {% endblock %}
 

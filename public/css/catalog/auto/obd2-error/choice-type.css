@@ -209,14 +209,13 @@ cursor: default;
     padding: 5px;
     padding-bottom: 4px;
     text-align: center;
-    border: 1px solid #737373;
-    border-radius: 3px;
+    border: 1px solid #cccccc;
     color: #444444;
     cursor: pointer;
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
-    background-color: #cccccc;
+    background-color: #f2f2f2;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -235,7 +234,7 @@ cursor: default;
 }
 
 .error-list li {
- width: 80%;
+ width: 60%;
  margin: 0 auto;
  margin-bottom: 15px;
 }
@@ -365,7 +364,7 @@ cursor: default;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
     z-index: 0;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     margin-top: 15px;
 
 }
@@ -510,7 +509,7 @@ cursor: default;
 
 @media (max-width: 480px) {
     .article {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .article-link {
@@ -519,8 +518,3 @@ cursor: default;
     }
 }
 
-@media (max-width: 767px) {
-    .article {
-        margin-top: 30px;
-    }
-}

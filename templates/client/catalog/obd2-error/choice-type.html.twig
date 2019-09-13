@@ -31,21 +31,16 @@
         <section class="engine">
             <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
-            <ul class="engine-block">
-                {% for key, type in types if not (key in ['P', 'B', 'C', 'U']) %}
-                    <li><a class="engine-link" title="{{ type["type"] }}" href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}">{{ key }}</a></li>
-                {% endfor %}
-            </ul>
             <ul class="error-list">
                 {% for key, type in types %}
                     {% if key == 'P' %}
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибка "Р"</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "Р"</a></li>
                     {% elseif key == 'B' %}
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибка "B"</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "B"</a></li>
                     {% elseif key == 'C' %}
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибка "C"</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "C"</a></li>
                     {% elseif key == 'U' %}
-                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибка "U"</a></li>
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "U"</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
