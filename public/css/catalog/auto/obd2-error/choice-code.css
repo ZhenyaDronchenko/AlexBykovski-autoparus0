@@ -39,7 +39,7 @@ color: black;
 cursor: default;
 }
 
-@media  (max-width: 480px) {
+@media  (max-width: 767px) {
   .container {
     width: auto; 
   }
@@ -72,7 +72,7 @@ cursor: default;
 }
 
 #breadcrumbs a {
-    line-height: 18px;
+    line-height: 16px;
     font-size: 10px;
   }
   .model-block {
@@ -96,24 +96,9 @@ cursor: default;
 
 /*code*/
 
-.inner-grey {
-    background-color: #f0f0f0;
-    padding: 20px;
-    padding-top: 0;
-}
-
-
 .code {
-     background-color: #ffffff;
-    padding: 20px;
     margin-bottom: 20px;
 }
-
-.code-b {
-     background-color: #ffffff;
-    padding: 20px;
-}
-
 
 .title {
     margin: 0 auto;
@@ -212,19 +197,6 @@ input {
         width: auto;
         padding: 0 10px;
     }
- .inner-grey {
-    padding: 20px 10px;
-    padding-top: 0;
-    margin-bottom: 35px;
-}
-    .code {
-         padding: 20px 10px;
-    }
-
-    .code-b {
-         padding: 20px 10px;
-    }
-
     
     .code-block {
         margin: 40px auto;

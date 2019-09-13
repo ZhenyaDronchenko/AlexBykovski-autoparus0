@@ -12,8 +12,6 @@
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
     <main class="container">
-        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
-    <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
@@ -38,6 +36,7 @@
                 </a>
             </li>
         </ul>
+        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
 
         <section class="code">
             <h1 class="title">{{ page.headline1 }}</h1>
@@ -51,7 +50,6 @@
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
         </section>
-        </div>
     </main>
 {% endblock %}
 

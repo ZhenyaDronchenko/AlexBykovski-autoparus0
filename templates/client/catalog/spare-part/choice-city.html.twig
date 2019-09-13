@@ -34,6 +34,12 @@
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">{{ model ? model.modelEn : "Все модели" }}</span><meta itemprop="position" content="5"></a>
             </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">КР-6</span><meta itemprop="position" content="6"></a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">КР-7</span><meta itemprop="position" content="7"></a>
+            </li>
         </ul>
 
         <section class="brand">
@@ -56,6 +62,18 @@
             <button class="allText-1"> >>>>>>> </button>
 
             <a class="button" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
+
+            <div class="cities-inner">
+              <ul class="cities" ng-cloak>
+                {% for city in capitals %}
+                    <li><a class="cities-link cities-link--c" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.object.url}|merge(routeParams)) }}' title="{{ city.title }}">{{ city.object.name }}</a></li>
+                {% endfor %}
+                {% for city in regionalCities %}
+                    <li><a class="cities-link cities-link--c" href='{{ path("show_spare_part_catalog_in_stock", {"urlCity" : city.object.url}|merge(routeParams)) }}' title="{{ city.title }}">{{ city.object.name }}</a></li>
+                {% endfor %}
+              </ul>
+              <a class="cities-link cities-link--all" href="{{ path("show_spare_part_catalog_in_stock", {"urlCity" : constant('App\\Entity\\City::ALL_CITIES')}|merge(routeParams)) }}" title="{{ allCitiesTitle }}">Все Города</a>
+              </div>
 
             {% set templateParameters = {"brand" : brand, "sparePart" : sparePart} %}
             {% set templateParameters = model ? templateParameters|merge({"model" : model}) : templateParameters %}

@@ -67,8 +67,9 @@
                     {% endfor %}
                 </ul>
 
-                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все модели</button>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt; <span> Показать все модели </span> &gt;&gt;&gt;</button>
                 <button id='button-mod' class="initiator-scroll" type="button" ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+
             </div>
 
             <a href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : constant('App\\Entity\\Catalog\\SparePart\\CatalogSparePartChoiceModel::ALL_MODELS_URL')}|merge(routeParams)) }}"><button class="button" type="button">Все модели {{ brand.name }}</button></a>
