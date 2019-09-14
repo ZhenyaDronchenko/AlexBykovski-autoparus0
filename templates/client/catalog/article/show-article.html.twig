@@ -60,6 +60,7 @@
               <div class="block-left">
                 <meta itemprop="datePublished" content="{{ article.createdAt | date("Y-m-d") }}">
                 <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
+                <meta itemprop="image" content="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}">
                 <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
                   <meta itemprop="name" content="Автопарус">
                   <meta itemprop="telephone" content="+375 (25) 640 - 22 - 40">
