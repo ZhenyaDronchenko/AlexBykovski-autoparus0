@@ -65,7 +65,7 @@
                   <meta itemprop="telephone" content="+375 (25) 640 - 22 - 40">
                   <meta itemprop="address" content="Минск">
                   <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                    <meta itemprop="url image" content="{{ article.creator.photo ? image_url(article.creator.photo.image) : "" }}" style="display:none;">
+                    {#<meta itemprop="url image" content="{{ article.creator.photo ? image_url(article.creator.photo.image) : "" }}" style="display:none;">#}
                     <meta itemprop="width" content="60">
                     <meta itemprop="height" content="60">
                   </span>
@@ -86,7 +86,7 @@
                   <ul class="foto" itemprop="articleBody">
                         {% for articleImage in article.articleImages %}
                             <li class="foto-item">
-                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи" itemprop="image">
+                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
                                 <p class="foto-text">{{ articleImage.text | raw }}</p>
                             </li>
                         {% endfor %}
