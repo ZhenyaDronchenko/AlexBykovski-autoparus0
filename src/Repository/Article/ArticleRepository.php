@@ -7,6 +7,7 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\User;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 
 class ArticleRepository extends EntityRepository
@@ -77,6 +78,18 @@ class ArticleRepository extends EntityRepository
         }
 
         return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function findAllForSitemap()
+    {
+        $todayMinus2Days = new DateTime("-2 days");
+
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where("a.createdAt >= :firstDate")
+            ->setParameter("firstDate", $todayMinus2Days)
+            ->getQuery()
             ->getResult();
     }
 

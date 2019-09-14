@@ -4,54 +4,13 @@ namespace App\SiteMap\Provider;
 
 use App\Entity\Brand;
 use App\Entity\City;
-use App\Entity\Error\CodeOBD2Error;
-use App\Entity\Error\TypeOBD2Error;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\SiteMap\SiteMapUrlProvider;
-use App\SiteMap\SiteMapFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
 
-class UniversalProductGeneralPagesSiteMapUrlProvider implements SiteMapUrlProvider
+class UniversalProductGeneralPagesSiteMapUrlProvider extends BaseSitemapProvider implements SiteMapUrlProvider
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var RouterInterface */
-    private $router;
-
-    /** @var string $publicPath */
-    private $publicPath;
-
-    /**
-     * BrandCatalogSiteMapBuilder constructor.
-     *
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
-     * @param string $publicPath
-     */
-    public function __construct(EntityManagerInterface $em, RouterInterface $router, string $publicPath)
-    {
-        $this->em = $em;
-        $this->router = $router;
-        $this->publicPath = $publicPath;
-    }
-
-
-    public function provide(string $requestFile): array
-    {
-        $type = strlen($requestFile) && $requestFile[0] === '_' ? substr($requestFile, 1) : $requestFile;
-
-        switch ($type){
-            case SiteMapFactory::SITE_MAP_INDEX:
-                return $this->provideIndex();
-            default:
-                return $this->provideSimple($type);
-        }
-    }
-
     public function provideIndex(): array
     {
         $brandUrls = $this->em->getRepository(Brand::class)->findAllUrlsForSiteMap(false);
