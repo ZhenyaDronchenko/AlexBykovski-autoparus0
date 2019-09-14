@@ -77,7 +77,7 @@
                         <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
                         <figcaption>
                             {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
-                            <span itemprop="name" content="{{ article.mainArticleImage.author }}">Автор: {{ article.author }}</span>
+                            <span itemprop="name" content="{{ article.author }}">Автор: {{ article.author }}</span>
                         </figcaption>
                     </figure>
 
