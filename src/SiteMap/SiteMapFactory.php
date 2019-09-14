@@ -19,6 +19,7 @@ final class SiteMapFactory
 {
     const SITE_MAP_NAME = "sitemap";
     const SITE_MAP_INDEX = "index";
+    const SITE_MAP_NEWS= "news";
 
     /** @var EntityManagerInterface */
     private $em;
