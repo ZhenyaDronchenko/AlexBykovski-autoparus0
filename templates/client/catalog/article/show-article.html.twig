@@ -15,7 +15,7 @@
       <section class="main-page">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}"  itemtype="https://schema.org/Thing"
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemtype="https://schema.org/Thing"
                    title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item" content="{{ url("homepage") }}">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
@@ -27,7 +27,7 @@
                 <meta itemprop="position" content="1">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemscope itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_theme") }}"
+                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_theme") }}"
                    title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
                     <span class="line">/</span>
                     <span itemprop="name">Публикации</span>
@@ -36,7 +36,7 @@
             </li>
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemscope itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : theme.url}) }}"
+                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : theme.url}) }}"
                    title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : theme.url})}) }}">
                     <span class="line">/</span>
                     <span itemprop="name">{{ theme.theme }}</span>
@@ -46,7 +46,7 @@
 
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemtype="https://schema.org/Thing" itemscope itemprop="item" content="{{ url(route, routeParams) }}">
+                <a class="current" href="" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
                     <span class="line">/</span>
                     <span itemprop="name">{{ article.headline1 }}</span>
                 </a>
