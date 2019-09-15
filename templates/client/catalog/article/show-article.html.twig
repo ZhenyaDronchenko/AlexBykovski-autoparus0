@@ -58,6 +58,7 @@
             <link itemprop="mainEntityOfPage" href="https://www.autoparus.by/">
             <div class="wrapper">
               <div class="block-left">
+                <meta itemprop="articleBody" content="{{ article.description }}">
                 <meta itemprop="datePublished" content="{{ article.createdAt | date("Y-m-d") }}">
                 <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
                 <meta itemprop="image" content="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}">
