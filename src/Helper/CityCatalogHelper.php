@@ -10,6 +10,7 @@ use App\Generator\PasswordGenerator;
 use App\Sender\RegistrationSender;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -42,16 +43,21 @@ class CityCatalogHelper
         $this->passwordGenerator = $passwordGenerator;
     }
 
-
-    public function addSparePartRequests(CityCatalogRequest $cityCatalogRequest, $sparePartRequestForms, $sparePartDefault)
+    public function addSparePartRequests(CityCatalogRequest $cityCatalogRequest, FormInterface $form)
     {
         $cityCatalogRequest->setSparePartRequests(new ArrayCollection());
 
         /** @var FormInterface $sparePartRequestForm */
-        foreach ($sparePartRequestForms as $sparePartRequestForm){
-            $sparePart = $this->em->getRepository(SparePart::class)->findOneBy(["name" => $sparePartRequestForm->get("sparePartText")->getData()]);
+        foreach ($form->get("sparePartRequests") as $key => $sparePartRequestForm){
+            $nameData = $sparePartRequestForm->get("sparePartText")->getData();
+            $sparePart = $this->em->getRepository(SparePart::class)->findOneBy(["name" => $nameData]);
 
-            if(!($sparePart instanceof SparePart)){
+            if(!($sparePart instanceof SparePart) && !$nameData){
+                continue;
+            }
+            elseif (!($sparePart instanceof SparePart) && $nameData){
+                $form->get("sparePartRequests")[$key]->get("sparePartText")->addError(new FormError("Данная запчасть не найдена"));
+
                 continue;
             }
 
@@ -63,7 +69,10 @@ class CityCatalogHelper
 
             $cityCatalogRequest->addSparePartRequest($sparePartRequest);
         }
+    }
 
+    public function addDefaultSparePart(CityCatalogRequest $cityCatalogRequest, $sparePartDefault)
+    {
         $sparePartRequest = new SparePartRequest();
         $sparePartRequest->setSparePart($sparePartDefault);
         $sparePartRequest->setCatalogRequest($cityCatalogRequest);

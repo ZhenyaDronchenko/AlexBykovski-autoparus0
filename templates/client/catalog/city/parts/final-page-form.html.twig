@@ -1,20 +1,29 @@
 <form id="form-request" action="#" method="post" class="zap-form" novalidate enctype="multipart/form-data">
     {{ form_widget(form._token) }}
+    {% set isSetScroll = false %}
     <div class="form-wrapper">
         <div class="form-list">
-            <h2 class="form-title">
-                {% set spWithBr = sparePart.name|replace({"(" : "<br />("}) %}
-                {{ ('(' in spWithBr and ')' in spWithBr ? spWithBr|replace({"(" : "<span>(", ")" : ")</span>"}) : spWithBr) |raw }}
-                {#Генератор автомобильный <br><span>(Генератор постоянного тока)</span>#}
-            </h2>
             <div id="spare-part-collection">
                 {% for sparePartRequest in form.sparePartRequests %}
                     <div class="spare-part-container">
-                        {{ form_widget(sparePartRequest.sparePartNumber, {attr: {"placeholder": "Номер запчасти", class: "input input-part spare-part-number"}}) }}
-                        {{ form_widget(sparePartRequest.comment, {attr: {"placeholder": "Комментарий:", class: "spare-part-comment"}}) }}
-                        {{ form_widget(sparePartRequest.sparePartText, {attr: {"placeholder": "Выберите запчасть", class: "input input-p", "list" : "sp-list"}}) }}
+                        <h2 class="form-title spare-part-view"></h2>
+                        {% set errors = sparePartRequest.sparePartText.vars.errors.form.getErrors(true) %}
+
+                        {% if errors | length and not isSetScroll %}
+                            {% set scrollToElementAttr = {"scroll-to-element" : ""} %}
+                            {% set isSetScroll = true %}
+                        {% else %}
+                            {% set scrollToElementAttr = {} %}
+                        {% endif %}
+
+                        {{ form_widget(sparePartRequest.sparePartNumber, {attr: {"placeholder": "Номер запчасти", class: "input input-part spare-part-number", "style" : "display:" ~ (errors | length ? "none" : "block")}}) }}
+                        {{ form_widget(sparePartRequest.comment, {attr: {"placeholder": "Комментарий:", class: "spare-part-comment", "style" : "display:" ~ (errors | length ? "none" : "block")}}) }}
+                        {{ form_widget(sparePartRequest.sparePartText, {attr: {"placeholder": "Выберите запчасть", class: "input input-p spare-part-text", "list" : "sp-list"}|merge(scrollToElementAttr)}) }}
+                        {% for key, error in errors %}
+                            <span class="promt">{{ error.message }}</span>
+                        {% endfor %}
                         {% if not isValid %}
-                            <button class="btn remove-spare-part-button" type="button">
+                            <button class="btn remove-spare-part-button" type="button" style="display: {{ form.sparePartRequests | length > 1 ? "block" : "none" }}">
                                 <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
                                     <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
                                     <circle fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" cx="25" cy="25" r="22"/>
@@ -93,9 +102,14 @@
 <div id="spare-part-prototype-container" style="display: none;">
     {% set prototype = form.sparePartRequests.vars.prototype %}
     <div class="spare-part-container">
+        <h2 class="form-title spare-part-view">
+        </h2>
         {{ form_widget(prototype.sparePartNumber, {attr: {"placeholder": "Номер запчасти", class: "input input-part spare-part-number", "style" : "display:none"}}) }}
         {{ form_widget(prototype.comment, {attr: {"placeholder": "Комментарий:", class: "spare-part-comment", "style" : "display:none"}}) }}
-        {{ form_widget(prototype.sparePartText, {attr: {"placeholder": "Выберите запчасть", class: "input input-p", "list" : "sp-list"}}) }}
+        {{ form_widget(prototype.sparePartText, {attr: {"placeholder": "Выберите запчасть", class: "input input-p spare-part-text", "list" : "sp-list"}}) }}
+        {% for key, error in prototype.sparePartText.vars.errors.form.getErrors(true)%}
+            <span class="promt">{{ error.message }}</span>
+        {% endfor %}
         <button class="btn remove-spare-part-button" type="button">
             <svg x="0px" y="0px" viewBox="0 0 50 50"  width="22px" height="22px">
                 <line fill="none" stroke="#444444" stroke-width="2" stroke-miterlimit="10" x1="13" y1="25" x2="37" y2="25"/>
