@@ -367,6 +367,8 @@ cursor: default;
 .image img {
     width: 255px;
     height: 170px;
+        position: relative;
+    z-index: -1;
 
 }
 
@@ -596,6 +598,7 @@ tr {
     .card-img {
         margin: 0 auto;
         margin-bottom: 40px;
+        border: 1px solid #999999;
     }
 
     .subtext1 {
@@ -668,6 +671,12 @@ tr {
     .card-img {
         margin: 0 auto;
         margin-bottom: 40px;
+    }
+    .card-list .card-img {
+        margin: 0;
+       width: 180px;
+    height: 120px;
+    margin-right: 10px; 
     }
 
     .subtext1 {

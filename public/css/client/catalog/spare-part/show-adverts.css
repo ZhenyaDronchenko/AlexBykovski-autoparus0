@@ -36,7 +36,6 @@
 overflow: hidden;
     width: 255px;
     height: 170px;
-    background-color: #b1abab;
     margin-right: 20px;
 }
 .prod-img {
@@ -91,6 +90,7 @@ overflow: hidden;
     line-height: 18px;
     font-weight: 400;
     color: #000000;
+    margin-bottom: 7px;
 }
 
 .prod-cont {
@@ -193,19 +193,19 @@ overflow: hidden;
     margin-bottom: 10px;
 }
 .blue {
-    background-color: #7c82c5;
+    background-color: #f2f2f2;
     border: 1px solid #999999;
     border-radius: 3px;
 }
 .red {
-    background-color: red;
+    background-color: #f2f2f2;
     border: 1px solid #999999;
     border-radius: 3px;
 }
 .day {
     display: block;
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     margin-right: 3px;
     border: 1px solid transparent;
     font-size: 16px;
@@ -337,7 +337,7 @@ overflow: hidden;
 }
 
 .card-item {
-    flex-grow: 1;
+   
 }
 
 .card-name {
@@ -403,6 +403,11 @@ overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 .adress-text-img {
     margin-right: 5px;
@@ -413,11 +418,13 @@ overflow: hidden;
     line-height: 14px;
     color: #444;
     text-align: right;
+    margin-bottom: 7px;
 }
 .adress-tel {
     font-size: 16px;
     line-height: 18px;
     color: #000000;
+    margin-bottom: 7px;
 }
 
 
@@ -428,23 +435,22 @@ overflow: hidden;
         padding: 0;
         padding-bottom: 15px;}
     .card-img {
-        width: 100%;
+        width: 80%;
         height: auto;
         max-width: 450px;
         margin: 0 auto;
         margin-bottom: 20px;
+        box-sizing: border-box;
     }
-    .card-wrapper {
-        -webkit-flex-wrap: wrap;
-        -moz-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        -o-flex-wrap: wrap;
-        flex-wrap: wrap;
-        padding: 0;
-    }
+   
 
     .card-list {
         margin-bottom: 40px;
+    }
+    .card-list .card-img {
+       width: 180px;
+    height: 120px;
+    margin-right: 10px; 
     }
     .adress {
         -webkit-flex-direction: column;
@@ -473,6 +479,9 @@ overflow: hidden;
     .card-time {
    margin: 0 auto;
    margin-bottom: 20px;
+}
+.card-item {
+    width: 60%;
 }
 }
 

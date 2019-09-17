@@ -29,7 +29,7 @@
             <h1 class="city-title">{{ page.headline1 }}</h1>
             <div class='city-desc'>
                 <p id='text1' class='text1Hide'>{{ page.text1 | raw }}</p>
-                <span onclick='text1ShowHide()' id='allText'> >>>>>>> </span>
+                <span onclick='text1ShowHide()' id='allText'> >>>>>> </span>
             </div>
             <div class="city-block">
                 <div class="city-wrapper">
@@ -39,7 +39,7 @@
                             <li><a class="city-link" href="{{ path("show_city_catalog_choice_brand", {"urlCity" : city.url}) }}"><img src="{{ image_url(city.logo) }}" alt="{{ city.name }}" title="Автозапчасти в {{ city.prepositional }}"><span>{{ city.name }}</span></a></li>
                         {% endfor %}
                     </ul>
-                    <div id='showAll5' onclick="document.getElementById('show-others-cities').style.display = 'flex'; document.getElementById('showAll5').style.display = 'none'">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div>
+                    <div id='showAll5' onclick="document.getElementById('show-others-cities').style.display = 'flex'; document.getElementById('showAll5').style.display = 'none'">&gt;&gt;&gt;<span> Показать все города </span>&gt;&gt;&gt;</div>
                 </div>
                 <ul id="show-others-cities" class="place-block" style="display: none;">
                     {% for city in othersCities%}

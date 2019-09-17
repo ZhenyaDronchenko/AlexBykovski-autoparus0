@@ -92,10 +92,10 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-spare-parts'); hideBySelector('.popular-spare-parts'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
+                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-spare-parts'); hideBySelector('.popular-spare-parts'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt;<span> Показать все запчасти </span>&gt;&gt;&gt;</button>
                 <button style="display: none;" class="initiator-scroll button-mod" id='show-less' type="button" onclick="hideBySelector('.others-spare-parts'); showBySelector('.popular-spare-parts'); hideBySelector('#show-less'); showBySelector('#show-more');">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
-            <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
+            <a class="btn" href="{{ page.returnButtonLink }}">{{ page.returnButtonText }}</a>
 
             <h2>{{ page.headline2 }}</h2>
 
