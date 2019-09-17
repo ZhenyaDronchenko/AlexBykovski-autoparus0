@@ -87,13 +87,60 @@
                   <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
 
                   <ul class="foto" itemprop="articleBody">
-                        {% for articleImage in article.articleImages %}
-                            <li class="foto-item">
-                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
-                                <p class="foto-text">{{ articleImage.text | raw }}</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% for articleImage in article.articleImages %}
+                      <li class="foto-item">
+                          <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
+                          <p class="foto-text">{{ articleImage.text | raw }}</p>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  <section class="comment">
+                    <h4 class="comment-tittle">Комментарии <span>75</span></h4>
+                    <div class="comment-new">
+                      <div class="comment-user">
+                        <img class="comment-foto" alt="Фото" src="img/maz1.jpg">
+                        <textarea rows="1" placeholder="Новый комментарий:"></textarea>
+                      </div>
+                      <button type="submit" class="comment-btn comment-btn--c">Отправить</button>
+                    </div>
+
+                    <div class="comment-block">
+                      <div class="comment-inner">
+                      <div class="comment-user">
+                        <img class="comment-foto" alt="Фото" src="img/maz1.jpg">
+                        <p class="comment-name">Сергей Иванович</p>
+                        <p class="comment-time">10.03.2019</p>
+                      </div>
+                        <p class="comment-text">Это очень интересная статья, автор просто молодец понял мысль человека</p>
+                        <div class="comment-rev">
+                          <button type="submit" class="comment-btn comment-btn--r">Ответить на комментарий</button>
+                          <p class="comment-item">19 Ответов</p>
+                        </div>
+                        </div>
+                        <div class="comment-list">
+                        <div class="comment-user">
+                          <img class="comment-foto" alt="Фото" src="img/maz1.jpg">
+                          <p class="comment-name">Сергей Иванович</p>
+                          <p class="comment-time">10.03.2019</p>
+                        </div>
+                        <p class="comment-text">Мнение Петра Сергеевича на мой взгляд не верное</p>
+                        </div>
+                        <div class="comment-list">
+                        <div class="comment-new">
+                          <div class="comment-user">
+                            <img class="comment-foto" alt="Фото" src="img/maz1.jpg">
+                            <textarea name="comment" rows="1" placeholder="Новый комментарий:"></textarea>
+                          </div>
+                          <button type="submit" class="comment-btn comment-btn--c">Отправить</button>
+                        </div>
+                        </div>
+                    </div>
+                    <p class="comment-dsc">В соответствии с законодательством Республики Беларусь оставлять комменьарии могут только зарегистрированные пользователи</p>
+                      <div class="comment-reg">
+                        <a class="comment-btn comment-btn-" href="#">Вход</a>
+                        <a class="comment-btn" href="#">Регистрация</a>
+                      </div>
+                  </section>
                 </div>
 
                 <div class="block-right">
