@@ -41,7 +41,7 @@
             </li>
         </ul>
 
-        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
+        {{ render(path('show_article_header_slider')) }}
 
         <section class="code">
             <h1 class="title">{{ page.headline1 }}</h1>

@@ -188,4 +188,17 @@ class DefaultController extends Controller
 
         return new JsonResponse(["redirectUrl" => $redirectUrl]);
     }
+
+    /**
+     * @Route("/article-header-slider", name="show_article_header_slider")
+     */
+    public function showArticleHeaderSliderAction(Request $request)
+    {
+        $updatedArticles = $this->getDoctrine()->getManager()->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
+
+        return $this->render('client/default/parts/article-top-carousel.html.twig', [
+            "articles" => $request->get('_route') === "homepage_interactiv_all_users" ? [] : $updatedArticles
+        ]);
+    }
 }

@@ -11,9 +11,6 @@ use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceCode;
 use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceModel;
 use App\Entity\Forum\OBD2Forum\OBD2ForumChoiceType;
 use App\Entity\Forum\OBD2Forum\OBD2ForumFinalPage;
-use App\Entity\Forum\OBD2ForumComment;
-use App\Entity\Forum\OBD2ForumMessage;
-use App\Entity\Forum\OBD2ForumMessageTechnicalData;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\UserData\UserOBD2ErrorCode;
@@ -23,7 +20,6 @@ use App\Type\ArticleFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,14 +44,10 @@ class OBD2ForumPagesController extends Controller
             return $brand->isPopular();
         });
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
-
         return $this->render('client/forum/obd2-forum/choice-brand.html.twig', [
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
             'page' => $em->getRepository(OBD2ForumChoiceBrand::class)->findAll()[0],
-            "articles" => $updatedArticles
         ]);
     }
 
@@ -97,14 +89,10 @@ class OBD2ForumPagesController extends Controller
 
         $page = $em->getRepository(OBD2ForumChoiceType::class)->findAll()[0];
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
-
         return $this->render('client/forum/obd2-forum/choice-type.html.twig', [
             'types' => $parsedTypes,
             'page' => $transformer->transformPage($page, [$brand]),
             'brand' => $brand,
-            "articles" => $updatedArticles
         ]);
     }
 
@@ -169,15 +157,11 @@ class OBD2ForumPagesController extends Controller
 
         $page = $em->getRepository(OBD2ForumChoiceCode::class)->findAll()[0];
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
-
         return $this->render('client/forum/obd2-forum/choice-code.html.twig', [
             'page' => $transformer->transformPage($page, [$brand, $type]),
             "type" => $type,
             "brand" => $brand,
             "form" => $form->createView(),
-            "articles" => $updatedArticles
         ]);
     }
 
@@ -207,16 +191,12 @@ class OBD2ForumPagesController extends Controller
             $parsedModels[$model->getUrl()] = $model->getName();
         }
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
-
         return $this->render('client/forum/obd2-forum/choice-model.html.twig', [
             'page' => $transformer->transformPage($page, [$brand, $type, $code]),
             'brand' => $brand,
             'type' => $type,
             'code' => $code,
             'models' => $parsedModels,
-            "articles" => $updatedArticles
         ]);
     }
 
@@ -242,16 +222,12 @@ class OBD2ForumPagesController extends Controller
 
         $page = $em->getRepository(OBD2ForumFinalPage::class)->findAll()[0];
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
-
         return $this->render('client/forum/obd2-forum/final-page.html.twig', [
             'page' => $transformer->transformPage($page, [$brand, $type, $code, $model]),
             'brand' => $brand,
             'type' => $type,
             'code' => $code,
             'model' => $model,
-            "articles" => $updatedArticles
         ]);
     }
 }
