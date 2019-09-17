@@ -68,14 +68,10 @@ class OBD2ErrorCatalogController extends Controller
             return array_search($key1, TypeOBD2Error::TYPE_CATALOG_ORDER) > array_search($key2, TypeOBD2Error::TYPE_CATALOG_ORDER);
         });
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
-
         return $this->render('client/catalog/obd2-error/choice-type.html.twig', [
             'page' => $em->getRepository(CatalogOBD2ErrorChoiceType::class)->findAll()[0],
             'titleHomepage' => $titleHomepage,
             'types' => $parsedTypes,
-            "articles" => $updatedArticles,
         ]);
     }
 
@@ -139,16 +135,12 @@ class OBD2ErrorCatalogController extends Controller
 
         $page = $em->getRepository(CatalogOBD2ErrorChoiceCode::class)->findAll()[0];
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
-
         return $this->render('client/catalog/obd2-error/choice-code.html.twig', [
             'page' => $transformer->transformPage($page, [$type]),
             "titleHomepage" => $em->getRepository(MainPage::class)->findAll()[0]->getTitle(),
             "titleChoiceType" => $em->getRepository(CatalogOBD2ErrorChoiceType::class)->findAll()[0]->getTitle(),
             "type" => $type,
             "form" => $form->createView(),
-            "articles" => $updatedArticles,
         ]);
     }
 
@@ -176,9 +168,6 @@ class OBD2ErrorCatalogController extends Controller
         $pageTransformed = $transformer->transformPage($page, $transformParameters);
         $pageTransformed->setText3($transformer->transformPage($page->getText3(), $transformParameters));
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
-
         return $this->render('client/catalog/obd2-error/choice-transcript.html.twig', [
             'page' => $pageTransformed,
             "titleHomepage" => $em->getRepository(MainPage::class)->findAll()[0]->getTitle(),
@@ -186,7 +175,6 @@ class OBD2ErrorCatalogController extends Controller
             "titleChoiceCode" => $transformer->transformPage($em->getRepository(CatalogOBD2ErrorChoiceCode::class)->findAll()[0]->getTitle(), $transformParameters),
             "type" => $type,
             "code" => $code,
-            "articles" => $updatedArticles,
         ]);
     }
 
@@ -218,9 +206,6 @@ class OBD2ErrorCatalogController extends Controller
         $pageTransformed->setReturnButtonLink($transformer->transformPage($page->getReturnButtonLink(), $transformParameters));
         $pageTransformed->setReturnButtonText($transformer->transformPage($page->getReturnButtonText(), $transformParameters));
 
-        $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [], 12, 0, false));
-
         return $this->render('client/catalog/obd2-error/choice-reason.html.twig', [
             'page' => $pageTransformed,
             "titleHomepage" => $em->getRepository(MainPage::class)->findAll()[0]->getTitle(),
@@ -230,7 +215,6 @@ class OBD2ErrorCatalogController extends Controller
             "type" => $type,
             "code" => $code,
             "brands" => $provider->getBrands(),
-            "articles" => $updatedArticles,
         ]);
     }
 

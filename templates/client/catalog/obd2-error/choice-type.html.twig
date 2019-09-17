@@ -26,7 +26,7 @@
                 <a class="current" itemprop="item" itemprop="item"><span class="line">/</span><span itemprop="name">Ошибки работы электронных систем автомобиля</span>
                     <meta itemprop="position" content="2"></a></li>
         </ul>
-        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
+        {{ render(path('show_article_header_slider')) }}
 
         <section class="engine">
             <h1 class="title">{{ page.headline1 }}</h1>

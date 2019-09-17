@@ -1,9 +1,13 @@
 // start scroll-to-element
 $(document).ready(function(ev){
-   $.each($("[scroll-to-element]"), function (index, element) {
-       scrollToElement(element);
-   })
+    handleScrollToElement()
 });
+
+function handleScrollToElement() {
+    $.each($("[scroll-to-element]"), function (index, element) {
+        scrollToElement(element);
+    })
+}
 
 function scrollToElement(element) {
     let elObj = $(element);

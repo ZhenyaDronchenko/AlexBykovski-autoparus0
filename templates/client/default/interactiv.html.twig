@@ -33,7 +33,7 @@
         <link itemprop="sameAs" href="https://vk.com/group" />
         <link itemprop="sameAs" href="https://twitter.com/group" />
       </div>
-        {% include('/client/default/parts/article-top-carousel.html.twig') with {"articles" : articles} %}
+        {{ render(path('show_article_header_slider')) }}
 
         <div class="cont-inner">
           <ul class="content">

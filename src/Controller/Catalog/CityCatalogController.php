@@ -701,37 +701,46 @@ class CityCatalogController extends Controller
             $phoneRU = $cityCatalogRequest->getPhoneRU();
             $cityCatalogRequest->setUrl($referrer);
 
-            if($client){
-                $cityCatalogRequest->setPhoneBY($client->getPhone());
-                $cityCatalogRequest->setEmail($client->getEmail());
-            }
+            $helper->addSparePartRequests($cityCatalogRequest, $form);
 
-            if(!$phoneBY && !$phoneRU && !$client) {
-                $form->get("phoneBY")->addError(new FormError("Введите телефон"));
+            if($form->getErrors(true, false)->count() < 1) {
+                if ($client) {
+                    $cityCatalogRequest->setPhoneBY($client->getPhone());
+                    $cityCatalogRequest->setEmail($client->getEmail());
+                }
 
-                return $this->renderAjaxCityCatalogHandleRequestAction($form, $isValid, $sparePartDefault);
-            }
+                if (!$phoneBY && !$phoneRU && !$client) {
+                    $form->get("phoneBY")->addError(new FormError("Введите телефон"));
 
-            if(!$client){
-                $user = $helper->getExistUser($cityCatalogRequest);
-                $cityCatalogRequest->setClient($user["user"]);
-                $userSave = $user["from"];
+                    return $this->renderAjaxCityCatalogHandleRequestAction($form, $isValid, $sparePartDefault);
+                }
 
-                if(!$user){
-                    $user = $helper->getNewUser($cityCatalogRequest);
+                if (!$client) {
+                    $user = $helper->getExistUser($cityCatalogRequest);
                     $cityCatalogRequest->setClient($user["user"]);
                     $userSave = $user["from"];
-                    $isNewUser = true;
-                    $isBYPhone = strpos($user["user"]->getPhone(), "+375") === 0;
+
+                    if (!$user) {
+                        $user = $helper->getNewUser($cityCatalogRequest);
+                        $cityCatalogRequest->setClient($user["user"]);
+                        $userSave = $user["from"];
+                        $isNewUser = true;
+                        $isBYPhone = strpos($user["user"]->getPhone(), "+375") === 0;
+                    }
                 }
+
+                $em->persist($cityCatalogRequest);
+                $em->flush();
+
+                $isValid = true;
             }
+        }
+        elseif (!$form->isSubmitted()){
+            $helper->addDefaultSparePart($cityCatalogRequest, $sparePartDefault);
 
-            $helper->addSparePartRequests($cityCatalogRequest, $form->get("sparePartRequests"), $sparePartDefault);
+            $form = $this->createForm(CityCatalogRequestFormType::class, $cityCatalogRequest);
 
-            $em->persist($cityCatalogRequest);
-            $em->flush();
-
-            $isValid = true;
+            $form->get("sparePartRequests")[0]->get("sparePartText")->setData($sparePartDefault->getName());
         }
 
         return $this->render('client/catalog/city/parts/final-page-form.html.twig', [

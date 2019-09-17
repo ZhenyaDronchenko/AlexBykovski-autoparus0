@@ -38,15 +38,15 @@ $(function(){
     });
 
     $.each($(".owl-carousel-slider"), function (index, item) {
-        $(item).owlCarousel(getCarouselAttrs(item));
+        let carousel = $(item);
 
-        // let carousel = $(item);
-        //
-        // carousel
-        //     .on({
-        //         'initialized.owl.carousel': function () {carousel.show();}
-        //     })
-        //     .owlCarousel(getCarouselAttrs(item));
+        carousel
+            .on({
+                'initialized.owl.carousel': function () {
+                    carousel.find(".owl-carousel-item").show();
+                }
+            })
+            .owlCarousel(getCarouselAttrs(item));
     });
 
     function getCarouselAttrs(item) {
