@@ -87,13 +87,14 @@
                   <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
 
                   <ul class="foto" itemprop="articleBody">
-                        {% for articleImage in article.articleImages %}
-                            <li class="foto-item">
-                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
-                                <p class="foto-text">{{ articleImage.text | raw }}</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% for articleImage in article.articleImages %}
+                      <li class="foto-item">
+                          <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
+                          <p class="foto-text">{{ articleImage.text | raw }}</p>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  {% include('/client/catalog/article/part/comments.html.twig') %}
                 </div>
 
                 <div class="block-right">
@@ -124,4 +125,8 @@
         </div>
     </section>
 </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/controller/catalog/article/article-comment-controller.js"></script>
 {% endblock %}

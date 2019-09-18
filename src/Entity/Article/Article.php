@@ -150,12 +150,21 @@ class Article
     private $isOur;
 
     /**
+     * @var Collection
+     *
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="ArticleComment", mappedBy="article")
+     */
+    private $comments;
+
+    /**
      * Article constructor.
      */
     public function __construct()
     {
         $this->articleImages = new ArrayCollection();
         $this->banners = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->detail = new ArticleDetail();
         $this->mainArticleImage = new ArticleImage();
 
@@ -445,6 +454,22 @@ class Article
     public function setIsOur($isOur): void
     {
         $this->isOur = $isOur;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Collection $comments
+     */
+    public function setComments(Collection $comments): void
+    {
+        $this->comments = $comments;
     }
 
     public function toSearchArray()
