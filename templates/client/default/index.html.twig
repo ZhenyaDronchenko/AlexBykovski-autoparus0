@@ -119,7 +119,7 @@
 
                 <div class="content-wrapper">
                     <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
-                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
+                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images | limitTo: 3" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
                             <img ng-src="{[{image.path}]}" alt="Картинка">
                         </a>
                     </div>
@@ -160,17 +160,17 @@
         <ul class="block-art">
             <li id="post-{[{post.id}]}" class="art-item" ng-repeat="post in posts.posts | limitTo:(posts.posts.length - 4):4" ng-cloak>
                 <div class="art-block">
-                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>
-                    <a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>
-                    <button class="btn open-popup-button" type="button" data-popup-id="7">
-                        <span class="points"></span>
-                        <span class="points"></span>
-                        <span class="points"></span>
-                    </button>
+                    {#<a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><img class="name-foto" ng-src="{[{post.userPhoto}]}" alt="Фото"></a>#}
+                    {#<a ng-href="{[{posts.getUserFilterUrl(post.userId)}]}"><b class="name" ng-bind="post.userName"></b></a>#}
+                    {#<button class="btn open-popup-button" type="button" data-popup-id="7">#}
+                        {#<span class="points"></span>#}
+                        {#<span class="points"></span>#}
+                        {#<span class="points"></span>#}
+                    {#</button>#}
                 </div>
                 <div class="content-wrapper">
                     <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
-                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
+                        <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images | limitTo: 3" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
                             <img ng-src="{[{image.path}]}" alt="Картинка">
                         </a>
                     </div>
