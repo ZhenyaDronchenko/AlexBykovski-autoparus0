@@ -64,7 +64,6 @@
 //                data: params
             }).then(function (response) {
                 self.comments = Array.isArray(response.data) ? {} : response.data;
-                console.log(self.comments);
 
                 calculateCount();
             }, function (response) {
