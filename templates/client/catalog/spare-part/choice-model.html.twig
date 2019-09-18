@@ -50,7 +50,13 @@
                     {% for model in allModels %}
                         <li>
                             <a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
-                                <span>{{ model.name|replace({"(" : "<br />("})|raw }}</span>
+                                <span>
+                                    {% if '(' in model.name %}
+                                        <b>{{ model.name|replace({"(" : "</b><br />("})|raw }}
+                                    {% else %}
+                                        {{ model.name|replace({"(" : "<br />("})|raw }}
+                                    {% endif %}
+                                </span>
                                 <img src="{{ image_url(model.thumbnailLogo, "model") }}" alt="{{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                             </a>
                         </li>
@@ -60,7 +66,13 @@
                     {% for model in popularModels %}
                         <li>
                             <a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
-                                <span>{{ model.name|replace({"(" : "<br />("})|raw }}</span>
+                                <span>
+                                    {% if '(' in model.name %}
+                                        <b>{{ model.name|replace({"(" : "</b><br />("})|raw }}
+                                    {% else %}
+                                        {{ model.name|replace({"(" : "<br />("})|raw }}
+                                    {% endif %}
+                                </span>
                                 <img src="{{ image_url(model.thumbnailLogo, "model") }}" alt="{{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                             </a>
                         </li>
