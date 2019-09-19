@@ -752,16 +752,26 @@ class AutoSparePartSpecificAdvert
     {
         $description = [];
 
+        //[Состояние] [Наличие], [Тип двигателя] [оъем] [марка если есть] [тип кпп] [тип кузова] [тип привода].
+
+        if($this->condition){
+            $description[] = self::CONDITIONS_CLIENT_VIEW[$this->condition];
+        }
+
+        if($this->stockType){
+            $description[] = self::STOCK_TYPES_CLIENT_VIEW[$this->stockType] . ',';
+        }
+
+        if($this->engineType){
+            $description[] = $this->engineType;
+        }
+
         if($this->engineCapacity){
             $description[] = $this->engineCapacity;
         }
 
         if($this->engineName){
             $description[] = $this->engineName;
-        }
-
-        if($this->engineType){
-            $description[] = $this->engineType;
         }
 
         if($this->gearBoxType){
@@ -776,6 +786,6 @@ class AutoSparePartSpecificAdvert
             $description[] = $this->driveType->getType() . ' привод';
         }
 
-        return implode(', ', $description);
+        return trim(implode(' ', $description), ',');
     }
 }

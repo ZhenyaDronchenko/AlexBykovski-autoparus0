@@ -11,6 +11,7 @@ use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class AutoSparePartGeneralAdvertRepository extends EntityRepository
 {
@@ -20,17 +21,26 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
      * @param Model $model
      * @param City|null $city
      * @param string|null $stockTypes
+     * @param int|null $limit
+     * @param bool|null $byBrand
      *
      * @return array
      */
-    public function findByParameters(SparePart $sparePart, Brand $brand, Model $model = null , City $city = null, $stockTypes = null)
+    public function findByParameters(
+        SparePart $sparePart,
+        Brand $brand,
+        Model $model = null,
+        City $city = null,
+        $stockTypes = null,
+        $limit = null,
+        $byBrand = null
+    )
     {
         $q = $this->createQueryBuilder('adv')
             ->select('adv')
             ->join("adv.spareParts", "sp")
             ->where("sp = :sparePart")
-            ->setParameter("sparePart", $sparePart)
-            ->setParameter("brand", $brand);
+            ->setParameter("sparePart", $sparePart);
 
         if($stockTypes){
             $q->andWhere("adv.stockType IN(:stockTypes)")
@@ -38,12 +48,10 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
         }
 
         if($model instanceof Model){
-            $q->leftJoin("adv.models", "model")
-                ->andWhere("adv.brand = :brand AND model = :model OR adv.brand IS NULL")
-                ->setParameter("model", $model);
+            $this->getSearchByBrandWithModel($q, $byBrand, $brand, $model);
         }
         else{
-            $q->andWhere("adv.brand = :brand OR adv.brand IS NULL");
+            $this->getSearchByBrand($q, $byBrand, $brand);
         }
 
         if($city instanceof City){
@@ -54,7 +62,12 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
                 ->setParameter("city", $city->getName());
         }
 
-        return $q->getQuery()
+        if($limit){
+            $q->setMaxResults($limit);
+        }
+
+        return $q->orderBy("adv.updatedAt", "DESC")
+            ->getQuery()
             ->getResult();
     }
 
@@ -75,19 +88,65 @@ class AutoSparePartGeneralAdvertRepository extends EntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findAllForCatalog(CatalogAdvertFilterType $filterType)
+    //$byBrand - null: brand = brand && brand = null
+    //           true: brand = brand
+    //           false: brand = null
+    public function findAllForCatalog(CatalogAdvertFilterType $filterType, $byBrand = null)
     {
         $sparePart = $filterType->getSparePart();
         $brand = $filterType->getBrand();
         $model = $filterType->getModel();
         $city = $filterType->getCity();
+        $limit = $filterType->getLimit();
         $stockTypes = $filterType->getInStock() ?
             [AutoSparePartSpecificAdvert::IN_STOCK_TYPE] :
             [AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE, AutoSparePartSpecificAdvert::IN_STOCK_TYPE,
                 AutoSparePartGeneralAdvert::STOCK_TYPE_CHECK_AVAILABILITY];
 
-        return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes);
+        return $this->findByParameters($sparePart, $brand, $model, $city, $stockTypes, $limit, $byBrand);
     }
 
+    private function getSearchByBrandWithModel(QueryBuilder $q, $byBrand, $brand, $model)
+    {
+        switch ($byBrand){
+            case true:
+                $q->leftJoin("adv.models", "model")
+                    ->andWhere("adv.brand = :brand AND model = :model")
+                    ->setParameter("model", $model)
+                    ->setParameter("brand", $brand);
 
+                break;
+            case false:
+                $q->andWhere("adv.brand IS NULL");
+
+                break;
+            default:
+                $q->leftJoin("adv.models", "model")
+                    ->andWhere("adv.brand = :brand AND model = :model OR adv.brand IS NULL")
+                    ->setParameter("model", $model)
+                    ->setParameter("brand", $brand);
+
+                break;
+        }
+    }
+
+    private function getSearchByBrand(QueryBuilder $q, $byBrand, $brand)
+    {
+        switch ($byBrand){
+            case true:
+                $q->andWhere("adv.brand = :brand")
+                    ->setParameter("brand", $brand);
+
+                break;
+            case false:
+                $q->andWhere("adv.brand IS NULL");
+
+                break;
+            default:
+                $q->andWhere("adv.brand = :brand OR adv.brand IS NULL")
+                    ->setParameter("brand", $brand);
+
+                break;
+        }
+    }
 }

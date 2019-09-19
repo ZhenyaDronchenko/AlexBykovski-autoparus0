@@ -22,8 +22,10 @@
                     <div class="description">
                         <h3 class="description-title">{{ sparePart.alternativeName1 }} для {{ brand.name }} {{ model ? model.name ~ '; ' ~ advert.year ~ ' года' : "" }}</h3>
                         <p class="description-text">{{ advert.getAdditionalDescription() }}</p>
-                        <p class="description-number">№ {{ advert.sparePartNumber }}</p>
-                        <p class="description-dsc">{{ advert.comment }}</p>
+                        {% if advert.sparePartNumber %}
+                            <p class="description-number">№ {{ advert.sparePartNumber }}</p>
+                        {% endif %}
+                        <p class="description-dsc add-three-dots-{{ is_mobile() ? 7 : 2 }}-lines">{{ advert.comment }}</p>
                     </div>
                 </div>
                 <div class="adress-inner">
@@ -82,7 +84,11 @@
             </a>
             <div class="prod-cont">
                 {% set advertCurrency = advert.currency ? advert.currency | upper : null %}
-                <p class="prod-price">{{ (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) }} <span>Бел. руб.</span></p>
+
+                {% if advert.cost %}
+                    <p class="prod-price">{{ (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) }} <span>Бел. руб.</span></p>
+                {% endif %}
+
                 <a href="{{ path("seller_view", {"id" : sellerData.client.id}) }}" class="prod-name" target="_blank">{{ sellerCompany.companyName }}</a>
                 <div class="unp">
                     <span class="unp-number">УНП: 391242935</span>
