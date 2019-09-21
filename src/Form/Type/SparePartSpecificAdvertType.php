@@ -87,8 +87,6 @@ class SparePartSpecificAdvertType extends AbstractType
         $wordForButtons = $isExistObject ? "Редактировать" : "Добавить";
 
         $isFormSubmitted = $options["isFormSubmitted"];
-//        var_dump($this->provider->getYears($object->getModel(), true));
-//        die;
 
         $builder
             ->add('brand', ChoiceType::class, [

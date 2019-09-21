@@ -172,7 +172,7 @@ class SellerAdvertDetail
         return count(array_filter($this->autoSparePartSpecificAdverts->getValues(), function(AutoSparePartSpecificAdvert $advert) use ($advertToCompare){
             return $advert->getBrand()->getId() === $advertToCompare->getBrand()->getId() &&
                 $advert->getModel()->getId() === $advertToCompare->getModel()->getId() &&
-                $advert->getSparePart() === $advertToCompare->getSparePart() &&
+                $advert->getSparePart()->getId() === $advertToCompare->getSparePart()->getId() &&
                 $advert->getYear() === $advertToCompare->getYear() &&
                 $advert->getStockType() === $advertToCompare->getStockType() &&
                 $advert->getCondition() === $advertToCompare->getCondition();
