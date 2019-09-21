@@ -3,6 +3,7 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 {% block stylesheets %}
     <link rel='stylesheet' href='/css/client/catalog/spare-part/final-page.css'>
+    <link rel='stylesheet' href='/css/client/catalog/spare-part/show-adverts.css'>
 {% endblock %}
 
 {% block body %}
@@ -53,8 +54,8 @@
             {% set templateParameters = city ? templateParameters|merge({"city" : city}) : templateParameters %}
             {% set templateParameters = model ? templateParameters|merge({"model" : model}) : templateParameters %}
 
-            {% include('/client/catalog/show-adverts/show-specific-adverts.html.twig') with {"adverts" : specificAdverts, "titleTemplate" : "[ZAP3] для [BRAND] [MODEL]", "templateParameters" : templateParameters} %}
-            {% include('/client/catalog/show-adverts/show-general-adverts.html.twig') with {"adverts" : generalAdverts, "titleTemplate" : "[ZAP3] для [BRAND] [MODEL]", "templateParameters" : templateParameters} %}
+            {% include('/client/catalog/show-adverts/spare-part-show-specific-adverts.html.twig') with {"adverts" : specificAdverts, "templateParameters" : templateParameters} %}
+            {% include('/client/catalog/show-adverts/spare-part-show-general-adverts.html.twig') with {"adverts" : generalAdverts, "templateParameters" : templateParameters} %}
 
             {% set hasOurAdverts = specificAdverts | length > 0 or generalAdverts | length > 0 %}
             {% set hasBamberAdverts = bamberSuggestions | length > 0 %}

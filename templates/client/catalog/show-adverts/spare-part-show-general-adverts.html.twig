@@ -7,7 +7,7 @@
     {% for advert in adverts %}
         {% set sellerData = advert.sellerAdvertDetail.sellerData %}
         {% set sellerCompany = sellerData.sellerCompany %}
-        <a href="{{ path("seller_view", {"id" : sellerData.client.id}) }}" class="card" target="_blank">
+        <a href="{{ path("seller_view", {"id" : sellerData.client.id}) }}" class="card" target="_blank" {{ advert.id }}>
             <div class="card-wrapper">
                 <img class="card-img" src="{{ image_url(sellerData.photo) }}" alt="Картинка">
                 <div class="card-item">
@@ -22,7 +22,7 @@
                             <p class="review-text">нет отзывов</p>
                         </div>
                     </div>
-                    <p class="card-text">{{ advert.comment }}</p>
+                    <p class="card-text add-three-dots-{{ is_mobile() ? 5 : 3 }}-lines">{{ advert.comment }}</p>
                 </div>
             </div>
             <div class="adress">
