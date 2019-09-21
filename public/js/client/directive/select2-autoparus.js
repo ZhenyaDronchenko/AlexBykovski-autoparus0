@@ -106,11 +106,9 @@
                     }
 
                     if(notPreload){
-                        console.log("here11");
                         return createAutocomplete([]);
                     }
 
-                    console.log("here");
                     AutoCompleteResource[method]("all_preload_variants", requestParams).then(function(items){
                         createAutocomplete(items);
                     });

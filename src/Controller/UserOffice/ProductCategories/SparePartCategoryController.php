@@ -202,8 +202,8 @@ class SparePartCategoryController extends Controller
         $uploader = $this->get("app.file_upload");
         $uploader->setFolder(FileUpload::AUTO_SPARE_PART_SPECIFIC_ADVERT);
 
-//        var_dump($_POST);
-//        die;
+        //var_dump($_POST);
+        //die;
 
         if(!($advert instanceof AutoSparePartSpecificAdvert)){
             $parentAutoAdvertId = $request->query->get("parent_auto", 0);
@@ -232,7 +232,7 @@ class SparePartCategoryController extends Controller
         $isAddRouter = $routeReferrer === "user_profile_product_categories_spare_part_add_specific_advert";
 
         if($form->isSubmitted() && $form->isValid()){
-            var_dump($advert->getSparePart()->getId());
+            //var_dump($advert->getSparePart()->getId());
             $fileData = $form->get("image")->getData();
             $newEmptyName = $request->request->get("engineNameEmpty");
 

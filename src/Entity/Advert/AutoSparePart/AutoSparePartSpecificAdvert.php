@@ -89,7 +89,7 @@ class AutoSparePartSpecificAdvert
     private $year;
 
     /**
-     * @var SparePart|null
+     * @var SparePart|null|string
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\SparePart")
      * @ORM\JoinColumn(name="spare_part_id", referencedColumnName="id")
@@ -337,17 +337,17 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @return SparePart|null
+     * @return SparePart|null|string
      */
-    public function getSparePart(): ?SparePart
+    public function getSparePart()
     {
         return $this->sparePart;
     }
 
     /**
-     * @param SparePart|null $sparePart
+     * @param SparePart|null|string $sparePart
      */
-    public function setSparePart(?SparePart $sparePart): void
+    public function setSparePart($sparePart): void
     {
         $this->sparePart = $sparePart;
     }

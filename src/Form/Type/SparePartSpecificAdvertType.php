@@ -23,6 +23,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Positive;
 
 class SparePartSpecificAdvertType extends AbstractType
 {
@@ -86,6 +87,8 @@ class SparePartSpecificAdvertType extends AbstractType
         $wordForButtons = $isExistObject ? "Редактировать" : "Добавить";
 
         $isFormSubmitted = $options["isFormSubmitted"];
+//        var_dump($this->provider->getYears($object->getModel(), true));
+//        die;
 
         $builder
             ->add('brand', ChoiceType::class, [
@@ -100,13 +103,14 @@ class SparePartSpecificAdvertType extends AbstractType
                 'choices' => $this->provider->getModels($object->getBrand(), true),
                 'constraints' => [
                     new NotNull(['message' => 'Выберите модель']),
+                    new NotBlank(['message' => 'Выберите модель']),
                 ],
             ])
             ->add('year', ChoiceType::class, [
                 'label' => "Год",
                 'choices' => $this->provider->getYears($object->getModel(), true),
                 'constraints' => [
-                    new NotNull(['message' => 'Выберите год']),
+                    new Positive(['message' => 'Выберите год']),
                 ],
             ])
             ->add('sparePart', ChoiceType::class, [
@@ -195,15 +199,11 @@ class SparePartSpecificAdvertType extends AbstractType
                 $object = $event->getData() ?: new AutoSparePartSpecificAdvert(new SellerAdvertDetail());
                 $form = $event->getForm();
                 $sparePart = $object->getSparePart();
-//                var_dump(get_class($sparePart));
-//                var_dump($sparePart->getId());
-//                var_dump($sparePart->getName());
 
                 $form
                     ->add('sparePart', ChoiceType::class, [
                         'label' => false,
                         'choices' => $sparePart ? [$sparePart->getName() => $sparePart->getId()] : [],
-                        'choices' => [],
                         'constraints' => [
                             new NotNull(['message' => 'Выберите запчасть']),
                         ],
@@ -213,13 +213,14 @@ class SparePartSpecificAdvertType extends AbstractType
                         'choices' => $this->provider->getModels($object->getBrand()),
                         'constraints' => [
                             new NotNull(['message' => 'Выберите модель']),
+                            new NotBlank(['message' => 'Выберите модель']),
                         ],
                     ])
                     ->add('year', ChoiceType::class, [
                         'label' => "Год",
                         'choices' => $this->provider->getYears($object->getModel()),
                         'constraints' => [
-                            new NotNull(['message' => 'Выберите год']),
+                            new Positive(['message' => 'Выберите год']),
                         ],
                     ])
                     ->add('engineType', ChoiceType::class, [
