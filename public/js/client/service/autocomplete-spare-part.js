@@ -28,11 +28,23 @@
         };
 
         this.searchModels = function(term, parameters) {
-            return search(API_URL_MODEL + parameters.brand + "?text=" + term);
+            let url = API_URL_MODEL + parameters.brand + "?text=" + term;
+
+            if(parameters.hasOwnProperty("by-name")){
+                url += "&by-name";
+            }
+
+            return search(url);
         };
 
         this.searchYears = function(term, parameters) {
-            return search(API_URL_YEAR.replace("__brand__", parameters.brand).replace("__model__", parameters.model) + "?text=" + term);
+            let url = API_URL_YEAR.replace("__brand__", parameters.brand).replace("__model__", parameters.model) + "?text=" + term;
+
+            if(parameters.hasOwnProperty("by-name")){
+                url += "&by-name";
+            }
+
+            return search(url);
         };
 
         this.searchEngineTypes = function(term, parameters) {

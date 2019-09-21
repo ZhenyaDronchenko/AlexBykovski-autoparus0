@@ -106,7 +106,7 @@ h1 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #2980b9;
+    color: #000000;
     letter-spacing: 1px;
 
 }
@@ -152,19 +152,20 @@ margin: 0;
   padding: 5px;
   padding-bottom: 4px;
   text-align: center;
-  border: 1px solid #727272;
+  border: 1px solid #999999;
   border-radius: 3px;
   color: #444444;
   cursor: pointer;
   font-size: 20px;
   line-height: 22px;
   font-weight: 400;
-  background-color: #faeeee;
+  background-color: #f2f2f2;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.link-c:hover {
-   background-color: #d2a2af;
+.link-c:hover,
+.link-c:focus {
+   background-color: #999999;
 }
 
 .btn {
@@ -172,16 +173,17 @@ margin: 0;
   font-size: 16px;
   line-height: 18px;
     padding: 5px 15px;
-    background-color: #dbc0c7;
-    border: 1px solid #757373;
+    background-color: #f2f2f2;
+    border: 1px solid #999999;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 400; 
     margin: 50px 0;
     margin-left: auto;
 }
-.btn:hover {
-  background-color: #d2a2af;
+.btn:hover,
+.btn:focus {
+  background-color: #999999;
 }
 h2 {
   margin: 0;
@@ -191,7 +193,7 @@ h2 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #2980b9;
+    color: #000000;
 }
 
 h3 {
@@ -202,7 +204,7 @@ h3 {
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #2980b9;
+    color: #000000;
 }
 
 .model-block {
@@ -248,10 +250,13 @@ h3 {
   width: 96px;
   height: 64px;
 }
-.model-link img:hover {
- -webkit-filter: grayscale(100%);
-         filter: grayscale(100%);  
+.model-link img:hover,
+.model-link img:focus {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+        transition-duration: 0.5s;
 }
+
 
 @media (max-width: 480px) {
   .container {

@@ -15,19 +15,19 @@
       <section class="main-page">
       <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemtype="https://schema.org/Thing"
-                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item" content="{{ url("homepage") }}">
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemprop="item" content="{{ url("homepage") }}" itemtype="https://schema.org/Thing"
+                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
                         <polyline fill="none" stroke="#444" stroke-miterlimit="10"
                                   points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
                     </svg>
-                    <meta itemprop="position" content="1">
                 </a>
+                <meta itemprop="position" content="1">
             </li>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_theme") }}"
+                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item" content="{{ url("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing"
                    title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
                     <span class="line">/</span>
                     <span itemprop="name">Публикации</span>
@@ -36,8 +36,8 @@
             </li>
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]}) }}"
-                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : routeParams["urlTheme"]})}) }}">
+                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemtype="https://schema.org/Thing"
+                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : theme.url})}) }}">
                     <span class="line">/</span>
                     <span itemprop="name">{{ theme.theme }}</span>
                 </a>
@@ -46,11 +46,11 @@
 
 
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemtype="https://schema.org/Thing" itemprop="item" content="{{ url(route, routeParams) }}">
+                <a class="current" href="" itemprop="item" content="{{ url(route, routeParams) }}" itemtype="https://schema.org/Thing">
                     <span class="line">/</span>
                     <span itemprop="name">{{ article.headline1 }}</span>
-                    <meta itemprop="position" content="4">
                 </a>
+                <meta itemprop="position" content="4">
             </li>
         </ul>
 
@@ -58,14 +58,17 @@
             <link itemprop="mainEntityOfPage" href="https://www.autoparus.by/">
             <div class="wrapper">
               <div class="block-left">
+                <meta itemprop="articleBody" content="{{ article.description }}">
                 <meta itemprop="datePublished" content="{{ article.createdAt | date("Y-m-d") }}">
                 <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
+                <meta itemprop="image" content="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}">
                 <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
                   <meta itemprop="name" content="Автопарус">
                   <meta itemprop="telephone" content="+375 (25) 640 - 22 - 40">
                   <meta itemprop="address" content="Минск">
                   <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                    <meta itemprop="url image" content="{{ article.creator.photo ? image_url(article.creator.photo.image) : "" }}" style="display:none;">
+                      <span itemprop="url" content="{{ url("homepage") }}"></span>
+                      <span itemprop="image" content="{{ url("homepage")|trim('/') }}{{ attribute(article.creator, 'photo') is defined ? image_url(article.creator.photo.image, "user") : image_url(null, "user") }}" style="display:none;"></span>
                     <meta itemprop="width" content="60">
                     <meta itemprop="height" content="60">
                   </span>
@@ -77,20 +80,21 @@
                         <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
                         <figcaption>
                             {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
-                            <span itemprop="name" content="{{ article.mainArticleImage.author }}">Автор: {{ article.author }}</span>
+                            <span itemprop="name" content="{{ article.author }}">Автор: {{ article.author }}</span>
                         </figcaption>
                     </figure>
 
                   <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
 
                   <ul class="foto" itemprop="articleBody">
-                        {% for articleImage in article.articleImages %}
-                            <li class="foto-item">
-                                <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи" itemprop="image">
-                                <p class="foto-text">{{ articleImage.text | raw }}</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% for articleImage in article.articleImages %}
+                      <li class="foto-item">
+                          <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
+                          <p class="foto-text">{{ articleImage.text | raw }}</p>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  {% include('/client/catalog/article/part/comments.html.twig') %}
                 </div>
 
                 <div class="block-right">
@@ -121,4 +125,8 @@
         </div>
     </section>
 </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/client/controller/catalog/article/article-comment-controller.js"></script>
 {% endblock %}

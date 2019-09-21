@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Admin\Controller\Catalog\City;
+namespace App\Admin\Controller\General;
 
-use App\Entity\Catalog\City\CatalogCityChoiceBodyType;
+use App\Entity\General\ContactUsGeneralPage;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class CatalogCityChoiceBodyTypeAdminController extends CRUDController
+class ContactUsGeneralPageAdminController extends CRUDController
 {
     /**
      * return the Response object associated to the list action
@@ -22,7 +22,7 @@ class CatalogCityChoiceBodyTypeAdminController extends CRUDController
             throw new AccessDeniedException();
         }
 
-        $object = $this->getDoctrine()->getRepository(CatalogCityChoiceBodyType::class)->findAll()[0];
+        $object = $this->getDoctrine()->getRepository(ContactUsGeneralPage::class)->findAll()[0];
 
         return $this->redirectTo($object);
 

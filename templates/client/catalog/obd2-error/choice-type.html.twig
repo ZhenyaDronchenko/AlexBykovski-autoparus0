@@ -4,13 +4,14 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/catalog/auto/obd2-error/choice-type.css'>
 {% endblock %}
 
 {% block body %}
     <main class="container">
-        <div class="inner-grey">
-        <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+    <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ titleHomepage }}" itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
@@ -25,13 +26,22 @@
                 <a class="current" itemprop="item" itemprop="item"><span class="line">/</span><span itemprop="name">Ошибки работы электронных систем автомобиля</span>
                     <meta itemprop="position" content="2"></a></li>
         </ul>
+        {{ render(path('show_article_header_slider')) }}
 
         <section class="engine">
             <h1 class="title">{{ page.headline1 }}</h1>
             <div class="text">{{ page.text1 | raw }}</div>
-            <ul class="engine-block">
+            <ul class="error-list">
                 {% for key, type in types %}
-                    <li><a class="engine-link" title="{{ type["type"] }}" href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}">{{ key }}</a></li>
+                    {% if key == 'P' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "Р"</a></li>
+                    {% elseif key == 'B' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "B"</a></li>
+                    {% elseif key == 'C' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "C"</a></li>
+                    {% elseif key == 'U' %}
+                        <li><a href="{{ path("show_obd2_error_catalog_choice_code", {urlType: type["url"]}) }}" title="{{ type["type"] }}" class="error-item">Ошибки "U"</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             </section>
@@ -39,6 +49,9 @@
             <h2 class="subtitle">{{ page.headline2 }}</h2>
             <div class="text text-m">{{ page.text2 | raw }}</div>
         </section>
-        </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
 {% endblock %}

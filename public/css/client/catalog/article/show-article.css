@@ -1,27 +1,28 @@
 /*ХЛЕБНЫЕ КРОШКИ*/
 #breadcrumbs {
   display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      padding-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
-  
+
 .line {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
 #breadcrumbs a {
-  font-family: 'Roboto', sans-serif;
-font-size: 16px;
-line-height: 18px;
-color: #444;
-position: relative;
--webkit-transition-duration: 0.2s;
-     -o-transition-duration: 0.2s;
-        transition-duration: 0.2s;
+  font-family: 'Roboto';
+  font-size: 14px;
+  line-height: 16px;
+  color: #444;
+  position: relative;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 .user-icon {
   display: none;
@@ -29,75 +30,77 @@ position: relative;
 
 .user-link:hover,
 .link-b:hover {
-color: black;
--webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-        transform: scale(1.05);
+  color: black;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .current {
-cursor: default;
+  cursor: default;
 }
 
 @media  (max-width: 481px) {
   .container {
-    width: auto; 
+    width: auto;
   }
-#breadcrumbs {
-  padding-top: 3px;
-}
+  #breadcrumbs {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
   .line {
     margin-left: 3px;
     margin-right: 3px;
   }
-.user-name {
+  .user-name {
     display: none;
   }
 
-.user-icon {
-  display: block;
-}
-
-.close-menu {
-  font-size: 14px;
-  cursor: pointer;
-}
-.user-link {
-  width: 10px;
-  height: 10px;
-}
-
-.user-icon {
-  display: block;
-  width: 16px;
-  height: 16px;
-}
-
-#breadcrumbs a {
-    line-height: 20px;
-    font-size: 11px;
+  .user-icon {
+    display: block;
   }
+
+  .close-menu {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .user-link {
+    width: 10px;
+    height: 10px;
+  }
+
+  .user-icon {
+    display: block;
+    width: 12px;
+    height: 18px;
+  }
+
   .model-block {
     padding-top: 5px;
   }
- 
-.user-link--icon {
-  width: 16px;
+
+  .user-link--icon {
+    width: 16px;
     height: 16px;
-}
-   
- 
- #breadcrumbs li:nth-child(2) {
+  }
+
+
+  #breadcrumbs li:nth-child(2) {
     margin-right: 3px;
-}
+  }
 
 }
-@media (min-width: 576px) and (max-width: 767px) {
+@media  (max-width: 767px) {
   .container {
-    width: auto; 
+    width: auto;
+  }
+  #breadcrumbs a {
+    line-height: 16px;
+    font-size: 10px;
   }
 }
- /*END ХЛЕБНЫЕ КРОШКИ*/
+/*END ХЛЕБНЫЕ КРОШКИ*/
+
 
 
 /*content*/
@@ -107,10 +110,7 @@ cursor: default;
   padding: 5px 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
-}
-
-.news {
-  padding-top: 10px;
+  margin-top: 0;
 }
 
 .wrapper {
@@ -148,7 +148,7 @@ cursor: default;
 h1 {
   margin: 0;
   margin-bottom: 20px;
-  color: #2980b9;
+  color: #000000;
   font-size: 26px;
   line-height: 30px;
   font-weight: 400;
@@ -250,7 +250,6 @@ figure img {
 
 p {
   margin: 0;
-  margin-bottom: 20px;
   color: #000;
   font-size: 16px;
   line-height: 18px;
@@ -321,7 +320,7 @@ p {
 .foto-item img {
   width: 540px;
   height: auto;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .foto-text {
@@ -597,6 +596,162 @@ margin-bottom: 30px;
 }
 }
 
+
+
+/*  comment */
+.comment {
+  margin-top: 30px;
+}
+
+.comment-tittle {
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 700;
+}
+.comment-new {
+  width: 85%;
+  margin-bottom: 15px;
+}
+.comment-foto {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  border-radius: 20px;
+}
+textarea {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 92%;
+    padding: 3px;
+    padding-top: 5px;
+    border: 1px solid #999999;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000000;
+    resize: none;
+}
+.comment-user {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+margin-bottom: 7px;
+-webkit-box-align: end;
+    -ms-flex-align: end;
+        align-items: flex-end;
+
+}
+.comment-btn {
+  display: block;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 3px;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #999999;
+    background-color: transparent;
+}
+
+.comment-btn:hover,
+ .comment-btn:focus {
+  color: #000000;
+ }
+.comment-btn--c {
+  margin-right: 5%;
+   margin-left: auto;
+}
+
+.comment-name {
+  margin: 0;
+  font-size: 18px;
+    line-height: 20px;
+    font-weight: 700;
+}
+
+.comment-time {
+  margin: 0;
+  margin-left: 5%;
+  font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+}
+
+.comment-text {
+  margin: 0;
+  margin-bottom: 7px;
+  font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-left: 45px;
+}
+.comment-rev {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 15px;
+  margin-left: 45px;
+-ms-flex-wrap: wrap;
+-o-flex-wrap: wrap;
+flex-wrap: wrap;
+}
+.comment-btn--r {
+  margin: 0;
+}
+.comment-item {
+   margin: 0;
+  margin-right: 3%;
+  font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.comment-list {
+  margin-left: 40px;
+  margin-bottom: 25px;
+}
+
+.comment-block {
+  margin-bottom: 25px;
+}
+
+.comment-inner {
+  margin-bottom: 30px;
+}
+.comment-dsc {
+   margin: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.comment-reg {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+-ms-flex-wrap: wrap;
+-o-flex-wrap: wrap;
+flex-wrap: wrap;
+}
+/*  comment END */
 
 
 /*  MAIN END */

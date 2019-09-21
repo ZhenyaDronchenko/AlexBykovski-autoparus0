@@ -106,12 +106,25 @@ class ArticleAdmin extends AbstractAdmin
         $formMapper->add('detail.themes', EntityType::class, [
             'label' => false,
             'class' => ArticleTheme::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('th')
+                    ->where("th.isEnable = :trueValue")
+                    ->setParameter("trueValue", true)
+                    ->orderBy('th.orderIndex', 'ASC');
+            },
             'choice_label' => 'theme',
             'multiple' => true,
             'expanded' => true,
             'required' => false,
         ]);
-        $formMapper->add('isActive', CheckboxType::class, ['label' => 'Активная', 'required' => false]);
+        $formMapper->add('isActive', CheckboxType::class, [
+            'attr' => ['class' => "top-step"],
+            'label' => 'Активная',
+            'required' => false]);
+        $formMapper->add('isOur', CheckboxType::class, [
+            'attr' => ['class' => "top-step"],
+            'label' => 'Статья - это наш уникальный материал',
+            'required' => false]);
         $formMapper->add('detail.brand', EntityType::class, [
             'label' => "Марка",
             'class' => Brand::class,

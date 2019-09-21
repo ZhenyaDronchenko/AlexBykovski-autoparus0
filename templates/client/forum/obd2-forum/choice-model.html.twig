@@ -4,6 +4,8 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+<link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/client/forum/choice-model.css'>
 {% endblock %}
 
@@ -14,7 +16,6 @@
 {% set addMessageLink = path('ajax_obd2_forum_add_message', routeParams|merge({'urlModel' : '__model__'})) %}
     <div ng-controller="ForumOBD2Ctrl as forum" ng-init="forum.init('{{ getMessagesLink }}', '{{ addMessageLink }}')">
       <main class="container">
-        <div class="inner-grey">
           <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
               <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -38,6 +39,9 @@
               <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">{{ type.designation }} {{ code.code }}</span><meta itemprop="position" content="5"></a>
             </li>
           </ul>
+          
+          {{ render(path('show_article_header_slider')) }}
+
 
           <section class="model">
             <h1>{{ page.headline1 }}</h1>
@@ -68,13 +72,13 @@
               <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
             </div>
           </section>
-          </div>
          </main>
 
     {% include('/client/forum/obd2-forum/parts/modals.html.twig') %}
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src='/js/client/filter/order-object-by.js'></script>
     <script src='/js/client/controller/forum/obd2/forum-obd2-controller.js'></script>
 {% endblock %}

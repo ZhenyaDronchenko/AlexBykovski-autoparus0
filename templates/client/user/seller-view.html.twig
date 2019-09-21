@@ -92,7 +92,7 @@
             </div>
             
           </div>
-          <div class="map">
+          <div class="map" id="map">
               <h2 class="map-title">Адрес на карте</h2>
               <p class="adress-text" itemscope itemprop="address" itemtype="http://schema.org/PostalAddress"><span itemprop="addressCountry">{{ sellerCompany.sellerData.client.country }}</span>, <span itemprop="addressLocality">{{ sellerCompany.city }}</span> <span itemprop="streetAddress">{{ sellerCompany.address }}</span></p><!-- Адресс Значение 12 -->
               <div class="map-img">
@@ -131,7 +131,8 @@
             </ul>
               
             <section class="promo">
-              <p class="promo-title">Все объявления:<br><br><span>Общие: {{ adverts_count(seller, "general") }} </span><br><span>Товарные: {{ adverts_count(seller, "specific") }}</span></p>
+            <h2 class="org-title">Все объявления:</h2>
+              <p class="promo-title"><span>Общие:</span> {{ adverts_count(seller, "general") }} <br><span>Товарные:</span> {{ adverts_count(seller, "specific") }}</p>
               <ul class="promo-block">
                   {% for advert in adverts if advert.sparePart %}
                     <li>
@@ -147,7 +148,7 @@
           </section>
         </section>
 
-        <section class="product-block">
+        <section class="product-block" id="about">
           <h2 class="product-subtitle">О магазине / о продавце</h2>
           <p class="product-text">{{ sellerCompany.activityDescription }}</p>
         </section>

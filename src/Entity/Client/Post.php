@@ -289,19 +289,19 @@ class Post
         ];
     }
 
-    public function photosToArray()
+    public function photosToArray($isAllLight = false)
     {
         $images = [];
 
         /** @var PostPhoto $postPhoto */
         foreach ($this->postPhotos->toArray() as $key => $postPhoto){
-            $images[] = $postPhoto->toArray($key === 0);
+            $images[] = $postPhoto->toArray($isAllLight || $key === 0);
         }
 
         return $images;
     }
 
-    public function toSearchArray()
+    public function toSearchArray($isAllLight = false)
     {
         $user = $this->getClient();
         $userPhoto = $user->getThumbnailPhoto() ?: null;
@@ -310,7 +310,7 @@ class Post
             "id" => $this->getId(),
             "userPhoto" => $userPhoto ? "/images/" . $userPhoto->getImage() : "",
             "userName" => $user->getName(),
-            "images" => $this->photosToArray(),
+            "images" => $this->photosToArray($isAllLight),
             "headline" => $this->getHeadline(),
             "description" => str_replace("\n", "<br>", $this->getDescription()),
             "address" => $this->getAddress(),

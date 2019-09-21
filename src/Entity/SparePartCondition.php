@@ -26,6 +26,26 @@ class SparePartCondition
     const PLURAL_NEW_ADJECTIVE = "Новые";
     const PLURAL_REBUILT_ADJECTIVE = "Восстановленные";
 
+    static $conditions = [
+        "used" => "БУ",
+        "new" => "Новая",
+        "rebuilt" => "Восстановленная",
+    ];
+
+    const CONDITIONS_TEMPLATES = [
+        "used" => "б/у",
+        "new" => "новая",
+        "rebuilt" => "восстановленная",
+    ];
+
+    static $variables = [
+        //"[ZAP_CONDITION]" => "getSpCondition",
+        "[SINGLE_ZAP_CONDITION]" => "getSingleAdjective",
+        "[PLURAL_ZAP_CONDITION]" => "getPluralAdjective",
+    ];
+
+    const ZAP_CONDITION = "[ZAP_CONDITION]";
+
     /**
      * @var integer|null
      *
@@ -198,5 +218,14 @@ class SparePartCondition
         $this->pluralAdjective = $pluralAdjective;
         $this->sparePart = $sparePart;
         $this->isActive = $isActive;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }

@@ -56,9 +56,9 @@ services:
         public: true
 
 # 8rd from City
-    admin.catalog.catalog_city.body_type:
-        class: App\Admin\Catalog\City\CatalogCityChoiceBodyTypeAdmin
-        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceBodyType, 'App\Admin\Controller\Catalog\City\CatalogCityChoiceBodyTypeAdminController']
+    admin.catalog.catalog_city.vehicle_type:
+        class: App\Admin\Catalog\City\CatalogCityChoiceVehicleTypeAdmin
+        arguments: [~, App\Entity\Catalog\City\CatalogCityChoiceVehicleType, 'App\Admin\Controller\Catalog\City\CatalogCityChoiceVehicleTypeAdminController']
         tags:
             - { name: sonata.admin, group: Каталог от города, manager_type: orm, label: Выбор типа кузова }
         public: true

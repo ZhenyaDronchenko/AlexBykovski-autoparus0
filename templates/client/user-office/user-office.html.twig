@@ -165,20 +165,20 @@
                         </a>
                     {% endif %}
                 </li>
-                <!-- <li>
+                <li style="display: none">
                     <a class="icon" href="" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="posts.activePost = posts.getNewPost()">
                         <i class="fa fa-camera"></i>
                         <span>Фотогалерея</span>
                     </a>
                 </li>
-                <li>
+                <li style="display: none">
                     <a id="create-new-post" onclick="document.getElementById('trigger-edit-gallery-photo').click()" ng-click="posts.activePost = posts.getNewPost()" class="icon icon-plus us-btn" href="">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                     </a>
 
                     <input id="trigger-edit-gallery-photo" type="file" style="display: none" custom-on-change="posts.editPost" accept="image/*">
                     <input id="trigger-edit-post-photo" type="file" style="display: none" custom-on-change="posts.addPostPhoto" accept="image/*">
-                </li> -->
+                </li>
             </ul>
         </div>
 
@@ -233,7 +233,7 @@
                     <input class="input-title" type="text" ng-model="post.headline" ng-show="posts.openChangeHeadline[post.id]" placeholder="Заголовок">
                     <button class="input-btn" ng-show="posts.openChangeHeadline[post.id]" ng-click="posts.savePostHeadline(post)" >Сохранить</button>
                         <div class="text-block">
-                            <pre id='text' class='text' show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
+                            <pre id='text' class='text' style="white-space: pre-line;" show-more-lines class-less="texthide" class-more="textshow" count-lines="3" trigger-open=".open-more-lines-button-{[{post.id}]}" trigger-close=".close-more-lines-button-{[{post.id}]}" ng-bind="post.description"></pre>
                             <button id='button-t' class="open-more-lines-button-{[{post.id}]}" style="display: none;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
                             <button id='button-t' class="close-more-lines-button-{[{post.id}]}" style="display: none;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
                         </div>

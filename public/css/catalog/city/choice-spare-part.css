@@ -105,7 +105,7 @@ h1 {
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #2980b9;
+    color: #000000;
     letter-spacing: 1px;
 }
 
@@ -161,13 +161,14 @@ display: -webkit-box;
   padding:5px 25px;
   padding-bottom: 4px;
   color: #444;
-  border: 1px solid #737373;
+  border: 1px solid #999999;
   cursor: pointer;
-  background-color: #faeeee;
+  background-color: #f2f2f2;
   border-radius: 3px;
 }
-.btn-form:hover {
-    background-color: #d2a2af;
+.btn-form:hover,
+.btn-form:focus {
+    background-color: #999999;
     
 }
 .btn {
@@ -175,8 +176,8 @@ display: -webkit-box;
   font-size: 16px;
   line-height: 18px;
     padding: 5px 15px;
-    background-color: #dbc0c7;
-    border: 1px solid #757373;
+    background-color: #f2f2f2;
+    border: 1px solid #999999;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 400; 
@@ -184,8 +185,9 @@ display: -webkit-box;
     margin-bottom: 50px;
     margin-left: auto;
 }
-.btn:hover {
-  background-color: #d2a2af;
+.btn:hover,
+.btn:focus {
+  background-color: #999999;
 }
 .model-block {
   margin-bottom: 40px;
@@ -216,7 +218,7 @@ display: -webkit-box;
 
 #model li {
   margin: 0 auto;
-    width: 500px;
+    width: 30%;
 }
 .mod-link {
    display: -webkit-box;
@@ -245,9 +247,9 @@ display: -webkit-box;
 }
 .mod-link span {
     display: block;
-  width: 350px;
-    font-size: 18px;
-  line-height: 22px;
+  width: 62%;
+    font-size: 16px;
+  line-height: 20px;
   color: #444444;
   letter-spacing: 1px;
   font-weight: 400;
@@ -255,14 +257,14 @@ display: -webkit-box;
 }
 
 
-.mod-link:hover,
-.mod-link:focus {
-    border-bottom: 1px solid #d22856;
-    color: #d22856;
-    cursor: pointer;
+.model-link img:hover,
+.model-link img:focus {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+        transition-duration: 0.5s;
 }
 
-#button-mod {
+.button-mod {
     display: block;
     margin: 0 auto;
     background-color: #fff;
@@ -275,9 +277,12 @@ display: -webkit-box;
     outline: none;
     margin-top: 25px;
 }
-
-#button-mod:hover,
-#button-mod:focus {
+.button-mod span {
+    margin: 0 3px;
+    color: #000000;
+}
+.button-mod:hover,
+.button-mod:focus {
     color: #000;
 }
 
@@ -289,7 +294,7 @@ h2 {
     line-height: 28px;
     font-weight: 400;
     letter-spacing: 1px;
-    color: #2980b9;
+    color: #000000;
 }
 
 
@@ -419,7 +424,14 @@ font-size: 20px;
     max-height: 305px;
 }
 }
-
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        width: auto; }
+        #model li {
+    margin: 0 auto;
+    width: 45%;
+}
+}
 @media (min-width: 1024px) and (max-width: 1199px) {
     .container {
         width: auto; }

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'client/catalog/city/base-city-catalog.html.twig' %}
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
@@ -9,10 +9,10 @@
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-    <main class="container" ng-init="showAll = false">
+    <main class="container">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ homepageTitle }}"
+                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="Главная страница"
                    itemprop="item">
                     <span class="user-name" itemprop="name">Главная</span>
                     <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
@@ -27,7 +27,7 @@
                 <a class="link-b" href="{{ path("show_city_catalog_choice_city") }}" itemprop="item"
                    title="{{ choiceCityTitle }}">
                     <span class="line">/</span>
-                    <span itemprop="name">Каталог</span>
+                    <span itemprop="name">Заказ-заявка</span>
                 </a>
                 <meta itemprop="position" content="2">
             </li>
@@ -52,19 +52,17 @@
             <h1>{{ page.headline1 }}</h1>
             <div>{{ page.text1 | raw }}</div>
 
-            <form class='modform' action="#" method="get">
-                <input id="model-autocomplete" class="form7" type="search"
-                       auto-сomplete-autoparus add-url="{{ path("show_city_catalog_choice_model", routeParams) }}"
-                       method-search="searchModels" identifier-field="model-autocomplete" is-preload-data="true"
-                       request-parameters='{"brand": "{{ brand.url }}"}'
-                       name="search" placeholder="Модель авто:"
-                       scroll-to-element scroll-by-click="true" before-top="30">
+            <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+                <input list="model-list" class="form7" placeholder="Модель авто:" type="text">
+                <datalist id="model-list" datalist-autocomplete method-search="searchModels"
+                          request-parameters='{"brand": "{{ brand.url }}"}' is-preload-data="true"
+                          add-url="{{ path("show_city_catalog_choice_model", routeParams) }}"></datalist>
             </form>
 
-            <div class="model-block" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
+            <div class="model-block">
                 <ul class='show-m' id='model'>
                     {% for model in popularModels %}
-                        <li ng-hide="showAll">
+                        <li class="popular-models">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_city_catalog_choice_year", {"urlModel" : model.item.url}|merge(routeParams)) }}">
                                 <span>{{ model.item.name }}<br>{{ model.item.modelRu }}</span>
                                 <img src="{{ image_url(model.item.thumbnailLogo, "model") }}" alt="{{ brand.brandEn }} {{ model.item.modelEn }}" title="{{ model.title }}">
@@ -72,7 +70,7 @@
                         </li>
                     {% endfor %}
                     {% for model in allModels %}
-                        <li ng-show="showAll">
+                        <li class="others-models" style="display: none;">
                             <a class="mod-link {{ loop.first ? "mod-link-line" : "" }}" href="{{ path("show_city_catalog_choice_year", {"urlModel" : model.item.url}|merge(routeParams)) }}">
                                 <span>{{ model.item.name }}<br>{{ model.item.modelRu }}</span>
                                 <img src="{{ image_url(model.item.thumbnailLogo, "model") }}" alt="{{ brand.brandEn }} {{ model.item.modelEn }}" title="{{ model.title }}">
@@ -80,14 +78,14 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button ng-click="showAll = true" ng-hide="showAll" class="initiator-scroll" id='button-mod' type="button">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</button>
-                <button ng-click="showAll = false" ng-show="showAll" class="initiator-scroll" id='button-mod' type="button">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-models'); hideBySelector('.popular-models'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt;<span> Показать все модели </span>&gt;&gt;&gt;</button>
+                <button style="display: none;" class="initiator-scroll button-mod" id='show-less' type="button" onclick="hideBySelector('.others-models'); showBySelector('.popular-models'); hideBySelector('#show-less'); showBySelector('#show-more');">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 
             <h2>{{ page.headline2 }}</h2>
 
             <div>{{ page.text2 | raw }}</div>
-            <a href="{{ page.returnButtonLink }}"><button class="btn">{{ page.returnButtonText }}</button></a>
+            <a class="btn" href="{{ page.returnButtonLink }}">{{ page.returnButtonText }}</a>
         </section>
     </main>
 

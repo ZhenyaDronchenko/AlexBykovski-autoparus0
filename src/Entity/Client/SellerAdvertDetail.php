@@ -178,26 +178,4 @@ class SellerAdvertDetail
                 $advert->getCondition() === $advertToCompare->getCondition();
         })) > 0;
     }
-
-    public function getSpecificAdvertsSellerPage($count = 2)
-    {
-        $adverts = [];
-        $spareParts = [];
-
-        /** @var AutoSparePartSpecificAdvert $advert */
-        foreach ($this->autoSparePartSpecificAdverts as $advert){
-            $sparePart = $advert->getSparePart();
-
-            if($sparePart && !in_array($sparePart, $spareParts)){
-                $adverts[] = $advert;
-                $spareParts[] = $sparePart;
-            }
-
-            if(count($adverts) === 2){
-                break;
-            }
-        }
-
-        return $adverts;
-    }
 }

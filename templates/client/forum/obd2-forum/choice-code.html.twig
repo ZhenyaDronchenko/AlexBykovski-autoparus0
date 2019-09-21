@@ -4,6 +4,8 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/client/forum/choice-code.css'>
 {% endblock %}
 
@@ -11,7 +13,6 @@
     {% set routeParams = app.request.attributes.get('_route_params') %}
     {% set templateParameters = {"brand" : brand, "type": type} %}
     <main class="container">
-        <div class="inner-grey">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -42,6 +43,7 @@
                 </a>
             </li>
         </ul>
+        {{ render(path('show_article_header_slider')) }}
 
         <section class="code">
             <h1 class="title">{{ page.headline1 }}</h1>
@@ -59,11 +61,11 @@
                 <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
             </div>
         </section>
-        </div>
     </main>
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src="/js/client/directive/input-by-pattern.js"></script>
     <script src="/js/client/directive/search-field.js"></script>
     <script src="/js/client/controller/catalog/obd2-error/obd2-code-controller.js"></script>

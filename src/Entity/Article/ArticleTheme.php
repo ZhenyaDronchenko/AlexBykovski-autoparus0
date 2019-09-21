@@ -5,11 +5,21 @@ namespace App\Entity\Article;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\Article\ArticleThemeRepository")
  * @ORM\Table(name="article_theme")
  */
 class ArticleTheme
 {
+    const TOP_THEMES = [
+        "news" => "Новости",
+        "events" => "События",
+        "poster" => "Афиша",
+        "people" => "Люди",
+        "stories" => "Истории"
+    ];
+
+    const NEWS_THEME = "news";
+
     /**
      * @var integer
      *
@@ -26,13 +36,27 @@ class ArticleTheme
      */
     private $theme;
 
-
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
     private $url;
+
+    /**
+     * @var integer
+     *
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $orderIndex;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isEnable;
 
     /**
      * @return int
@@ -80,5 +104,37 @@ class ArticleTheme
     public function setUrl(string $url): void
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderIndex(): int
+    {
+        return $this->orderIndex;
+    }
+
+    /**
+     * @param int $orderIndex
+     */
+    public function setOrderIndex(int $orderIndex): void
+    {
+        $this->orderIndex = $orderIndex;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnable(): bool
+    {
+        return $this->isEnable;
+    }
+
+    /**
+     * @param bool $isEnable
+     */
+    public function setIsEnable(bool $isEnable): void
+    {
+        $this->isEnable = $isEnable;
     }
 }

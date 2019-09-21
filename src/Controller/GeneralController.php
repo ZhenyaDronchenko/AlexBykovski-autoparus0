@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\General\AboutGeneralPage;
+use App\Entity\General\ContactUsGeneralPage;
 use App\Entity\General\NewsGeneralPage;
 use App\Entity\General\ToSellersGeneralPage;
 use App\Entity\General\ToUsersGeneralPage;
@@ -26,7 +27,6 @@ class GeneralController extends Controller
             "pageName" => "Пользователям",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 
@@ -42,7 +42,6 @@ class GeneralController extends Controller
             "pageName" => "Продавцам",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 
@@ -58,7 +57,6 @@ class GeneralController extends Controller
             "pageName" => "Новости",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
         ]);
     }
 
@@ -74,7 +72,21 @@ class GeneralController extends Controller
             "pageName" => "Обратная связь",
             "cities" => $provider->getCities($page),
             "brands" => $provider->getBrands(),
-            "spareParts" => $provider->getSpareParts($request->get('_route')),
+        ]);
+    }
+
+    /**
+     * @Route("/contact-us", name="general_contact_us_page", options={"expose"=true})
+     */
+    public function showContactUsPageAction(Request $request, InfoPageProvider $provider)
+    {
+        $page = $this->getDoctrine()->getRepository(ContactUsGeneralPage::class)->findAll()[0];
+
+        return $this->render('client/general/info-base.html.twig', [
+            "page" => $page,
+            "pageName" => "О нас",
+            "cities" => $provider->getCities($page),
+            "brands" => $provider->getBrands(),
         ]);
     }
 

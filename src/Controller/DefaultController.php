@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article\Article;
+use App\Entity\Article\ArticleTheme;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Client\Client;
+use App\Entity\Client\Post;
 use App\Entity\Client\SellerCompany;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
@@ -14,6 +16,7 @@ use App\Entity\SparePart;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
 use Doctrine\ORM\EntityManagerInterface;
+use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,12 +41,25 @@ class DefaultController extends Controller
         $homePage->setFilteredTitle($route, $filter);
         $homePage->setFilteredDescription($route, $filter);
 
+        $newsTheme = $em->getRepository(ArticleTheme::class)->findOneBy(["url" => ArticleTheme::NEWS_THEME]);
+
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, false));
+
+        $ourArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 9, 0, true));
+
+        $notOurNotNews = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, false, [$newsTheme]));
+
+        $businessPosts = $em->getRepository(Post::class)->findAllByFilter(new PostsFilterType(PostsFilterType::USERS_ACCESS_POST_HOMEPAGE, null, null, null, null, 4, 0));
 
         return $this->render('client/default/index.html.twig', [
             "homePage" => $homePage,
             "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
+            "ourArticles" => $ourArticles,
+            "notOurNotNews" => $notOurNotNews,
+            "businessPosts" => $businessPosts,
         ]);
     }
 
@@ -64,11 +80,11 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
 
-        return $this->render('client/default/index.html.twig', [
+        return $this->render('client/default/interactiv.html.twig', [
             "homePage" => $homePage,
-            "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
+            "articles" => $route === "homepage_interactiv_all_users" ? [] : $updatedArticles
         ]);
     }
 
@@ -121,22 +137,25 @@ class DefaultController extends Controller
     /**
      * @Route("/main-page-search-form", name="main_page_search_form", options={"expose"=true})
      */
-    public function mainPageSearchFormAction(Request $request)
+    public function interactivPageSearchFormAction(Request $request)
     {
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         $requestData = json_decode($request->getContent(), true);
+        $byName = isset($requestData["by-name"]) && $requestData["by-name"];
 
         /** @var Brand|null $brand */
-        $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $requestData["brand"]]);
+        $brand = $em->getRepository(Brand::class)->findOneBy([
+            $byName ? "name" : "url" => $requestData["brand"
+            ]]);
         /** @var Model|null $model */
         $model = $em->getRepository(Model::class)->findOneBy([
             "brand" => $brand,
-            "url" => $requestData["model"],
+            $byName ? "name" : "url" => $requestData["model"],
         ]);
-        $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $requestData["sparePart"]]);
+        $sparePart = $em->getRepository(SparePart::class)->findOneBy([$byName ? "name" : "url" => $requestData["sparePart"]]);
         $year = (int)$requestData["year"];
-        $inStock = (bool)$requestData["inStock"];
+        $inStock = isset($requestData["inStock"]) && (bool)$requestData["inStock"];
         $redirectUrl = $this->generateUrl("show_brand_catalog_choice_brand");
 
         if($brand && !$sparePart && !$model){
@@ -168,5 +187,18 @@ class DefaultController extends Controller
         }
 
         return new JsonResponse(["redirectUrl" => $redirectUrl]);
+    }
+
+    /**
+     * @Route("/article-header-slider", name="show_article_header_slider")
+     */
+    public function showArticleHeaderSliderAction(Request $request)
+    {
+        $updatedArticles = $this->getDoctrine()->getManager()->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0));
+
+        return $this->render('client/default/parts/article-top-carousel.html.twig', [
+            "articles" => $request->get('_route') === "homepage_interactiv_all_users" ? [] : $updatedArticles
+        ]);
     }
 }

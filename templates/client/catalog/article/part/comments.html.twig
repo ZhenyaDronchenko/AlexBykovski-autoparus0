@@ -1,0 +1,53 @@
+{% set userPhoto = app.user and app.user.photo ? image_url(app.user.photo) : image_url(null, "user") %}
+
+<section class="comment" ng-controller="ArticleCommentCtrl as artComm" ng-init="artComm.init('{{ article.id }}')" ng-cloak>
+    <h4 class="comment-tittle">Комментарии <span ng-bind="artComm.count"></span></h4>
+
+    <div class="comment-block" ng-repeat="(id, comment) in artComm.comments" ng-init="artComm.showReply[id] = false">
+        <div class="comment-inner">
+            <div class="comment-user">
+                <img class="comment-foto" alt="Фото" ng-src="{[{comment.author.photo}]}">
+                <p class="comment-name" ng-bind="comment.author.name"></p>
+                <p class="comment-time" ng-bind="comment.author.createdAt"></p>
+            </div>
+            <p class="comment-text" ng-bind="comment.text"></p>
+            <div class="comment-rev">
+                <button type="submit" class="comment-btn comment-btn--r" ng-hide="artComm.showReply[id]" ng-click="artComm.showReply[id] = true;">Ответить на комментарий</button>
+                <p class="comment-item" ng-bind="comment.children.length + ' Ответов'"></p>
+            </div>
+        </div>
+        <div class="comment-list" ng-repeat="childComment in comment.children">
+            <div class="comment-user">
+                <img class="comment-foto" alt="Фото" ng-src="{[{childComment.author.photo}]}">
+                <p class="comment-name" ng-bind="childComment.author.name"></p>
+                <p class="comment-time" ng-bind="childComment.author.createdAt"></p>
+            </div>
+            <p class="comment-text" ng-bind="childComment.text"></p>
+        </div>
+        <div class="comment-list" ng-show="artComm.showReply[id]">
+            <div class="comment-new">
+                <div class="comment-user">
+                    <img class="comment-foto" alt="Фото" src="{{ userPhoto }}">
+                    <textarea name="comment" rows="1" placeholder="Новый комментарий:" ng-model="artComm.commentText[id]"></textarea>
+                </div>
+                <button type="submit" class="comment-btn comment-btn--c" ng-click="artComm.sendComment(id);">Отправить</button>
+            </div>
+        </div>
+    </div>
+    <div class="comment-new">
+        <div class="comment-user">
+            <img class="comment-foto" alt="Фото" src="{{ userPhoto }}">
+            <textarea rows="1" placeholder="Новый комментарий:" ng-model="artComm.commentText['new']"></textarea>
+        </div>
+        <button type="button" class="comment-btn comment-btn--c" ng-click="artComm.sendComment('new')">Отправить</button>
+    </div>
+    {% if not app.user %}
+        <div id="show-buttons-auth" style="display: none">
+            <p class="comment-dsc">В соответствии с законодательством Республики Беларусь оставлять комментарии могут только зарегистрированные пользователи</p>
+            <div class="comment-reg">
+                <a class="comment-btn comment-btn-" target="_blank" href="{{ path("login") }}">Вход</a>
+                <a class="comment-btn" target="_blank" href="{{ path("registration") }}">Регистрация</a>
+            </div>
+        </div>
+    {% endif %}
+</section>

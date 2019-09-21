@@ -50,7 +50,13 @@
                     {% for model in allModels %}
                         <li>
                             <a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
-                                <span>{{ model.name|replace({"(" : "<br />("})|raw }}</span>
+                                <span>
+                                    {% if '(' in model.name %}
+                                        <b>{{ model.name|replace({"(" : "</b><br />("})|raw }}
+                                    {% else %}
+                                        {{ model.name|replace({"(" : "<br />("})|raw }}
+                                    {% endif %}
+                                </span>
                                 <img src="{{ image_url(model.thumbnailLogo, "model") }}" alt="{{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                             </a>
                         </li>
@@ -60,15 +66,22 @@
                     {% for model in popularModels %}
                         <li>
                             <a class="mod-link {{ loop.first ? "mod-link--line" : "" }}" href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : model.url}|merge(routeParams)) }}">
-                                <span>{{ model.name|replace({"(" : "<br />("})|raw }}</span>
+                                <span>
+                                    {% if '(' in model.name %}
+                                        <b>{{ model.name|replace({"(" : "</b><br />("})|raw }}
+                                    {% else %}
+                                        {{ model.name|replace({"(" : "<br />("})|raw }}
+                                    {% endif %}
+                                </span>
                                 <img src="{{ image_url(model.thumbnailLogo, "model") }}" alt="{{ model.modelEn }}" title="{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model.modelEn }}">
                             </a>
                         </li>
                     {% endfor %}
                 </ul>
 
-                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все модели</button>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt; <span> Показать все модели </span> &gt;&gt;&gt;</button>
                 <button id='button-mod' class="initiator-scroll" type="button" ng-show="showAll" ng-click="showAll = false">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
+
             </div>
 
             <a href="{{ path("show_spare_part_catalog_choice_city", {"urlModel" : constant('App\\Entity\\Catalog\\SparePart\\CatalogSparePartChoiceModel::ALL_MODELS_URL')}|merge(routeParams)) }}"><button class="button" type="button">Все модели {{ brand.name }}</button></a>

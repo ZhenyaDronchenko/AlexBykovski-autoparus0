@@ -4,12 +4,13 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/client/forum/choice-brand.css'>
 {% endblock %}
 
 {% block body %}
- <main class="container" ng-init="showAll = false;">
-    <div class="inner-grey">
+    <main class="container" ng-init="showAll = false;">
         <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                 <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
@@ -26,6 +27,8 @@
                 <a class="current" nohref itemprop="item"><span class="line">/</span> <span itemprop="name">OBD2 ошибки</span><meta itemprop="position" content="2"></a>
             </li>
         </ul>
+
+        {{ render(path('show_article_header_slider')) }}
 
         <section class="city">
             <h1 class="city-title">{{ page.headline1 }}</h1>
@@ -58,7 +61,7 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">Показать все марки</button>
+                <button id='button-mod' class="initiator-scroll" type="button" ng-hide="showAll" ng-click="showAll = true">&gt;&gt;&gt; <span> Показать все марки </span> &gt;&gt;&gt;</button>
             </div>
         </section>
         <section class="city-b">
@@ -69,6 +72,9 @@
               <a class="btn-l ui-button ui-widget ui-corner-all" href="{{ page.returnButtonLink }}" title="{{ title_provider({"link" : page.returnButtonLink}) }}">{{ page.returnButtonText }}</a>
             </div>
         </section>
-        </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
 {% endblock %}

@@ -3,9 +3,11 @@
 namespace App\SiteMap;
 
 use App\Entity\SEO\SiteMap;
+use App\SiteMap\Provider\AllArticlesSiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogPopularOBD2TurboCitySiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogPopularSiteMapUrlProvider;
 use App\SiteMap\Provider\BrandCatalogSiteMapUrlProvider;
+use App\SiteMap\Provider\FreshProductPagesSiteMapUrlProvider;
 use App\SiteMap\Provider\SparePartCatalogOBD2AllCititesSiteMapUrlProvider;
 use App\SiteMap\Provider\SparePartCatalogOBD2MinskSiteMapUrlProvider;
 use App\SiteMap\Provider\ForumObd2ErrorsObd2UniversalPagesSiteMapUrlProvider;
@@ -17,6 +19,7 @@ final class SiteMapFactory
 {
     const SITE_MAP_NAME = "sitemap";
     const SITE_MAP_INDEX = "index";
+    const SITE_MAP_NEWS= "news";
 
     /** @var EntityManagerInterface */
     private $em;
@@ -62,6 +65,10 @@ final class SiteMapFactory
                 return new ForumObd2ErrorsObd2UniversalPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             case SiteMap::TYPE_UNIVERSAL_PRODUCT_GENERAL_PAGES:
                 return new UniversalProductGeneralPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
+            case SiteMap::TYPE_FRESH_PRODUCT_PAGES:
+                return new FreshProductPagesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
+            case SiteMap::TYPE_ALL_ARTICLES:
+                return new AllArticlesSiteMapUrlProvider($this->em, $this->router, $this->publicPath);
             default:
                 throw new \InvalidArgumentException('Unknown builder given');
         }

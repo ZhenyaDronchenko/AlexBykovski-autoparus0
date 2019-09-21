@@ -104,7 +104,7 @@ cursor: default;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
-    color: #2980b9;
+    color: #000000;
     letter-spacing: 1px;
 }
 
@@ -113,24 +113,24 @@ cursor: default;
 }
 
 .button {
+    width: 215px;
     display: block;
-    width: 150px;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
     padding: 4px 15px;
     padding-bottom: 3px;
     color: #444;
-    border: 1px solid #737373;
+    border: 1px solid #999999;
     cursor: pointer;
-    background-color: #dbc0c7;
+    background-color: #f2f2f2;
     border-radius: 5px;
     text-align: center;
     margin-left: auto;
     margin-bottom: 20px;
 }
 .button:hover {
-    background-color: #d2a2af;
+    background-color: #999999;
 }
 #text1 {
       margin: 0;
@@ -163,7 +163,10 @@ cursor: default;
     cursor: pointer;
     font-size: 14px;
 }
-
+#showAll5 span {
+    margin: 0 3px;
+    color: #000000;
+}
 #allText:hover,
 #showAll5:hover {
     color: #000000;
@@ -190,7 +193,6 @@ cursor: default;
 
 #brandImg5 li {
     margin-right: 20px;
-    margin-bottom: 30px;
     width: 110px;
 }
 
@@ -242,7 +244,7 @@ cursor: default;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-    color: #2980b9;
+    color: #000000;
     letter-spacing: 1px;
     margin-bottom: 20px;
 }
@@ -260,7 +262,7 @@ cursor: default;
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
-   color: #2980b9;
+   color: #000000;
     letter-spacing: 1px;
     margin-bottom: 30px;
 }
@@ -298,9 +300,7 @@ cursor: default;
 .city-icon li a:hover {
      -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-    -webkit-transition: 1s;
-    -o-transition: 1s;
-    transition: 1s;
+        transition-duration: 0.5s;
 }
 @media (max-width: 480px) {
     .container {
@@ -657,19 +657,19 @@ cursor: default;
     padding: 5px;
     padding-bottom: 4px;
     text-align: center;
-    border: 1px solid #737373;
+    border: 1px solid #999999;
     border-radius: 3px;
     color: #444444;
     cursor: pointer;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    background-color: #faeeee;
+    background-color: #f2f2f2;
 }
 
 .place-link:hover,
 .place-link:active {
-    background-color: #d2a2af;
+    background-color: #999999;
 }
 
 

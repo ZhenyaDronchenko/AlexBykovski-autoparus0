@@ -7,10 +7,24 @@ use App\Entity\Client\SellerCompany;
 use App\Entity\User;
 use App\Type\ArticleFilterType;
 use App\Type\PostsFilterType;
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 
 class ArticleRepository extends EntityRepository
 {
+    public function findAllOnlyId($isSort = false)
+    {
+        $qb = $this->createQueryBuilder('art')
+            ->select('art.id');
+
+        if($isSort){
+            $qb->orderBy("art.id", "DESC");
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
     public function findAllByFilter(ArticleFilterType $filter, $notIds = [])
     {
         $qb = $this->createQueryBuilder('a')
@@ -38,9 +52,23 @@ class ArticleRepository extends EntityRepository
                 ->setParameter("themes", $filter->getThemes());
         }
 
+        if(count($filter->getNotThemes())){
+            $qb->andWhere("a.id NOT IN(:notIds)")
+                ->setParameter("notIds", $this->findAllWithThemesIds($filter->getNotThemes()));
+        }
+
+        if(is_bool($filter->getisOur())){
+            $qb->andWhere("a.isOur = :isOur")
+                ->setParameter("isOur", $filter->getisOur());
+        }
+
         switch ($filter->getTypeSort()){
             case ArticleFilterType::SORT_UPDATED:
                 $qb->orderBy("a.updatedAt", "DESC");
+
+                break;
+            case ArticleFilterType::SORT_CREATED:
+                $qb->orderBy("a.createdAt", "DESC");
 
                 break;
             case ArticleFilterType::SORT_VIEWS:
@@ -51,5 +79,37 @@ class ArticleRepository extends EntityRepository
 
         return $qb->getQuery()
             ->getResult();
+    }
+
+    public function findAllForSitemap()
+    {
+        $todayMinus2Days = new DateTime("-2 days");
+
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where("a.createdAt >= :firstDate")
+            ->setParameter("firstDate", $todayMinus2Days)
+            ->getQuery()
+            ->getResult();
+    }
+
+    private function findAllWithThemesIds($themes)
+    {
+        $res = $this->createQueryBuilder('a')
+            ->select('a.id')
+            ->join("a.detail", "d")
+            ->join("d.themes", "theme")
+            ->andWhere("theme IN (:themes)")
+            ->setParameter("themes", $themes)
+            ->getQuery()
+            ->getResult();
+
+        $ids = [];
+
+        foreach ($res as $item){
+            $ids[] =  $item["id"];
+        }
+
+        return $ids;
     }
 }

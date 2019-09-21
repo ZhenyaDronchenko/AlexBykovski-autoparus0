@@ -10,6 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EngineType
 {
+    static $variables = [
+        "[ENGINE_ TYPE]" => "getType",
+    ];
+
+    const PETROL_NAME = "Бензиновый";
+    const DIESEL_NAME = "Дизельный";
+    const HYBRID_NAME = "Гибридный";
+    const ELECTRIC_NAME = "Электродвигатель";
+
+    const ELECTRIC_URL = "electric";
+
+    const TYPE_NAMES = [
+        "petrol" => self::PETROL_NAME,
+        "diesel" => self::DIESEL_NAME,
+        "hybrid" => self::HYBRID_NAME,
+        "electric" => self::ELECTRIC_NAME,
+    ];
+
     /**
      * @var integer
      *
@@ -65,11 +83,6 @@ class EngineType
         $this->type = $type;
     }
 
-    public function __toString()
-    {
-        return (string)$this->id;
-    }
-
     /**
      * @return string
      */
@@ -84,5 +97,19 @@ class EngineType
     public function setUrl(string $url): void
     {
         $this->url = $url;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }

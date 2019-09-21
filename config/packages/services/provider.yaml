@@ -43,3 +43,18 @@ services:
         class:  App\Provider\CheckFine\CheckFineTrafficPoliceProvider
         arguments: []
         public: true
+
+    app.provider.specific_advert:
+        class:  App\Provider\SpecificAdvertProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.general_advert:
+        class:  App\Provider\GeneralAdvertProvider
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    app.provider.advert:
+        class:  App\Provider\GeneralAdvertProvider
+        arguments: ['@app.provider.specific_advert', '@app.provider.general_advert']
+        public: true

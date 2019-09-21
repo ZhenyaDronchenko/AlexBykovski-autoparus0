@@ -1,57 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Лента публикаций по теме {{ theme.theme }} на Autoparus.by, Auto parts buy{% endblock %}
-{% block meta_description %}Лента публикаций (статей) по теме {{ theme.theme }} на Autoparus.by, Сайт посвященный авто-мото транспорту и всему, что с ним связано{% endblock %}
+{% block title %}Лента публикаций по теме {{ themeCurrent.theme }} на Autoparus.by, Auto parts buy{% endblock %}
+{% block meta_description %}Лента публикаций (статей) по теме {{ themeCurrent.theme }} на Autoparus.by, Сайт посвященный авто-мото транспорту и всему, что с ним связано{% endblock %}
 
 {% block stylesheets %}
-	<link rel='stylesheet' href='/css/client/catalog/article/choice-article.css'>
+    <link rel='stylesheet' href='/css/client/catalog/article/choice-theme.css'>
 {% endblock %}
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}
-	<main class="container">
-      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
-                    <span class="user-name" itemprop="name">Главная</span>
-                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
-                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-                    </svg>
-                    <meta itemprop="position" content="1">
-                </a>
-            </li>
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item" title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
-                    <span class="line">/</span>
-                    <span itemprop="name">Статьи</span>
-                </a>
-                <meta itemprop="position" content="2">
-            </li>
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemprop="item"><span class="line">/</span><span itemprop="name">Выбранная категория</span><meta itemprop="position" content="3"></a>
-            </li>
-        </ul>
-      <h1 class="title">{{ theme.theme }}</h1>
-
-
-        {% set countInPackage = is_mobile() ? 5 : 9 %}
-        {% set pathArticle = path("article_catalog_show_article", {"id" : "__id__", "urlTheme" : routeParams['urlTheme']}) %}
-        <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ pathArticle }}', {{ countInPackage }})" ng-cloak>
-            <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
-                <h2 ng-bind="article.headline1"></h2>
-                <h3 class="add-three-dots-3-lines" ng-bind="article.headline2"></h3>
-                <div class="foto">
-                    <img ng-src="{[{article.mainImage['thumbImage']}]}" alt="Изображение">
+    <main class="container">
+        <div class="inner-grey">
+            <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="user-link user-link--icon" href="{{ path("homepage") }}" title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                        <span class="user-name" itemprop="name">Главная</span>
+                        <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                        </svg>
+                        <meta itemprop="position" content="1">
+                    </a>
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing" itemprop="item"
+                       title="Лента публикаций Autoparus.by, Auto parus buy">
+                        <span class="line">/</span>
+                        <span itemprop="name">Статьи</span>
+                    </a>
+                    <meta itemprop="position" content="2">
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" nohref itemprop="item">
+                        <span class="line">/</span>
+                        <span itemprop="name">{{ themeCurrent.theme }}</span>
+                        <meta itemprop="position" content="3">
+                    </a>
+                </li>
+            </ul>
+            <section class="art-list">
+                <div class="block-title">
+                    <h1 class="title">{{ themeCurrent.theme }}</h1>
                 </div>
-                <div class="comment add-three-dots-3-lines" ng-bind-html="article.mainImage['text']"></div>
-                <div class="date-block">
-                    <span class="date" ng-bind="article.updatedAt['date']"></span>
-                    <span class="time" ng-bind="article.updatedAt['time']"></span>
-                </div>
-            </a>
+                {% set topThemes = constant('App\\Entity\\Article\\ArticleTheme::TOP_THEMES') %}
+                <ul class="art-nav">
+                    {% for url,theme in topThemes if url != themeCurrent.url %}
+                        <li class="art-nav-item">
+                            <a class="art-nav-link" title="Лента публикаций по теме {{ theme }} на Autoparus.by, Auto parts buy" href="{{ path("article_catalog_choice_article", {"urlTheme" : url}) }}">{{ theme }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
 
-            <img id="preloader-articles" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
+                {% set countInPackage = is_mobile() ? 5 : 10 %}
+                <div class="catalog" ng-controller="ArticleCtrl as articleCtrl" ng-init="articleCtrl.init('{{ path("search_articles") }}', '{{ routeParams | json_encode }}', '{{ path("article_catalog_show_article", {"id" : "__id__"}) }}', {{ countInPackage }})" ng-cloak>
+                    <a id="article-{[{article.id}]}" ng-href="{[{articleCtrl.getArticleUrl(article)}]}" class="catalog-link" ng-repeat="article in articleCtrl.articles">
+                        <div class="cat-inner">
+                            <div class="title-inner">
+                                <h2 ng-bind="article.headline1"></h2>
+                                <h3 class="add-three-dots-3-lines" ng-bind="article.headline2"></h3>
+                            </div>
+                            <div class="foto">
+                                <img ng-src="{[{article.mainImage['thumbImage']}]}" alt="Изображение">
+                            </div>
+                        </div>
+                        <div class="comment add-three-dots-3-lines" ng-bind-html="article.mainImage['text']"></div>
+                        <div class="date-block">
+                            <span class="date" ng-bind="article.updatedAt['date']"></span>
+                            <span class="time" ng-bind="article.updatedAt['time']"></span>
+                        </div>
+                    </a>
+
+                    <img id="preloader-articles" style="margin-left: auto; margin-right: auto; padding-top: 33px; display: none;" src="/img/preload-gear.svg"/>
+                </div>
+            </section>
         </div>
     </main>
 {% endblock %}

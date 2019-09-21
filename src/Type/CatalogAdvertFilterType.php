@@ -34,6 +34,9 @@ class CatalogAdvertFilterType
      */
     private $inStock;
 
+    /** @var integer|null */
+    private $limit;
+
     /**
      * CatalogAdvertFilterType constructor.
      * @param Brand|null $brand
@@ -41,8 +44,9 @@ class CatalogAdvertFilterType
      * @param SparePart|null $sparePart
      * @param City|null $city
      * @param bool|null $inStock
+     * @param int|null $limit
      */
-    public function __construct(?Brand $brand, ?Model $model, ?SparePart $sparePart, ?City $city, ?bool $inStock)
+    public function __construct(?Brand $brand, ?Model $model, ?SparePart $sparePart, ?City $city, ?bool $inStock, ?int $limit = null)
     {
         $this->brand = $brand;
         $this->model = $model;
@@ -129,5 +133,21 @@ class CatalogAdvertFilterType
     public function setInStock(?bool $inStock): void
     {
         $this->inStock = $inStock;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLimit(): ?int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int|null $limit
+     */
+    public function setLimit(?int $limit): void
+    {
+        $this->limit = $limit;
     }
 }

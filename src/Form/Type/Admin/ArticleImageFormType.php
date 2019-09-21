@@ -44,8 +44,8 @@ class ArticleImageFormType extends AbstractType
 
         if($options["useAllFields"]){
             $builder->add('comment', TextType::class, ['label' => 'Комментарий к изображению', 'required' => false]);
-            $builder->add('author', TextType::class, ['label' => 'Автор', 'required' => false]);
-            $builder->add('imageText', TextType::class, ['label' => 'Текст на изображению', 'required' => false]);
+            $builder->add('author', TextType::class, ['label' => 'Источник', 'required' => false]);
+            $builder->add('imageText', TextType::class, ['label' => 'ALT изображения', 'required' => false]);
         }
 
         $builder->add('text', CKEditorType::class, [

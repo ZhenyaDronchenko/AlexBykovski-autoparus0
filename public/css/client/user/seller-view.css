@@ -359,18 +359,17 @@ cursor: default;
 }
 .org-title {
     margin: 0 auto;
-    color: #999999;
-    font-size: 22px;
-    line-height: 24px;
+    color: #000000;
+    font-size: 15px;
+    line-height: 18px;
     font-weight: 400;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .org-img {
     width: auto;
-    max-width: 90px;
-    height: 60px;
+    height: 45px;
     display: block;
     margin-left: 15px;
     border-radius: 10px;
@@ -379,23 +378,23 @@ cursor: default;
 
 .org-text {
     margin: 0;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 14px;
     font-weight: 400;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     text-align: right;
 }
 
 
 .org-list {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 .org-list li {
   margin-bottom: 10px;
 }
 .org-item {
-  font-size: 18px;
-    line-height: 20px;
+  font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
     color: #000000;
 }
@@ -405,9 +404,13 @@ cursor: default;
   margin: 0;
   margin-bottom: 20px;
   color: #000;
-  font-size: 20px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
   font-weight: 700;
+}
+
+.promo-title span {
+  font-weight: 400;
 }
 
 .promo-block li {

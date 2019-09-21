@@ -15,6 +15,12 @@ class Engine
     const HYBRID_TYPE = "гибрид";
     const ELECTRIC_TYPE = "электро";
 
+    static $variables = [
+        "[ENGINE_TYPE]" => "getType",
+        "[ENGINE_NAME]" => "getName",
+        "[ENGINE_CAPACITY]" => "getCapacity",
+    ];
+
     /**
      * @var integer
      *
@@ -106,5 +112,14 @@ class Engine
     public function setCapacity(?string $capacity): void
     {
         $this->capacity = $capacity;
+    }
+
+    public function replaceVariables($string)
+    {
+        foreach (self::$variables as $variable => $method){
+            $string = str_replace($variable, $this->$method(), $string);
+        }
+
+        return $string;
     }
 }

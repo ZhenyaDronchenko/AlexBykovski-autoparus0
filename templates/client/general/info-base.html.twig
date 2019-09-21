@@ -42,15 +42,6 @@
                     {% endfor %}
                 </ul>
             </section>
-
-            <section class="part">
-                <h3 class="part-title">Популярные запчасти для авто</h3>
-                <ul class="part-list">
-                    {% for sparePart in spareParts %}
-                        <li><a class="part-link" href="{{ path("show_spare_part_catalog_choice_brand", {"urlSP" : sparePart.url}) }}"><img src="{{ image_url(sparePart.logo, 'sparePart') }}" alt="{{ sparePart.name }}" title="{{ sparePart.multiple }} бу и новые"></a></li>
-                    {% endfor %}
-                </ul>
-            </section>
         </section>
     </main>
 {% endblock %}

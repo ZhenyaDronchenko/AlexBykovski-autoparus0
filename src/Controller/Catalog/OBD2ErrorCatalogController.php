@@ -3,6 +3,7 @@
 namespace App\Controller\Catalog;
 use App\Entity\Admin;
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
+use App\Entity\Article\Article;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
@@ -25,6 +26,7 @@ use App\Entity\UserData\UserOBD2ErrorCode;
 use App\Form\Type\ErrorCodeSearchType;
 use App\Provider\InfoPageProvider;
 use App\Transformer\VariableTransformer;
+use App\Type\ArticleFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
@@ -69,7 +71,7 @@ class OBD2ErrorCatalogController extends Controller
         return $this->render('client/catalog/obd2-error/choice-type.html.twig', [
             'page' => $em->getRepository(CatalogOBD2ErrorChoiceType::class)->findAll()[0],
             'titleHomepage' => $titleHomepage,
-            'types' => $parsedTypes
+            'types' => $parsedTypes,
         ]);
     }
 

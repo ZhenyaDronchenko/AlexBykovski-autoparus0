@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ advert.getEngineDescription(true, false) }}{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='/css/client/product/product-view.css'>
+{% endblock %}
+{% block meta_description %}{{ 'Купить ' ~ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ ' ' ~ advert.year ~ ' года ' ~ advert.getEngineDescription() ~ ' и другие надежные запчасти высокого качества для автомобилей ' ~ brand.brandRu ~ ' по максимально низким ценам.' }}{% endblock %}
+
+{% block body %}
+    {% set parameters = [brand, model, sparePart] %}
+    {% set routeParams = app.request.attributes.get('_route_params') %}
+    {% set route = app.request.attributes.get('_route') %}
+    {% set USDconst = constant('App\\Entity\\Advert\\CurrencyRate::USD_CODE') %}
+    {% set EURconst = constant('App\\Entity\\Advert\\CurrencyRate::EUR_CODE') %}
+    {% set currencyRates = {('' ~ USDconst) : currency_rate(USDconst), ('' ~ EURconst): currency_rate(EURconst)} %}
+    {% set advertCurrency = advert.currency ? advert.currency | upper : null %}
+    {% set rubCost = (advertCurrency and advertCurrency in currencyRates | keys ? (advert.cost * currencyRates[advertCurrency]) : advert.cost) | number_format(2) %}
+    {% set sellerData = advert.sellerAdvertDetail.sellerData %}
+    {% set sellerCompany = sellerData.sellerCompany %}
+    {% set workflow = sellerCompany.workflow %}
+    <main class="container">
+        <section class="main-page">
+            <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="user-link user-link--icon" href="{{ path("homepage") }}"
+                       title="{{ title_provider("App\\Entity\\General\\MainPage") }}" itemprop="item">
+                        <span class="user-name" itemprop="name">Главная</span>
+                        <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10"
+                                      points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
+                        </svg>
+                        <meta itemprop="position" content="1">
+                    </a>
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_brand") }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceBrand", parameters) }}"><span class="line">/</span><span itemprop="name">Запчасти</span>
+                    </a>
+                    <meta itemprop="position" content="2">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_model", {urlBrand: brand.url}) }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceModel", parameters) }}"><span class="line">/</span><span itemprop="name">{{ brand.brandEn }}</span>
+                    </a>
+                    <meta itemprop="position" content="3">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("show_brand_catalog_choice_spare_part", {urlBrand: brand.url, urlModel: model.url}) }}" itemprop="item"
+                       title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceSparePart", parameters) }}"><span class="line">/</span><span itemprop="name">{{ model.modelEn }}</span>
+                    </a>
+                    <meta itemprop="position" content="4">
+                </li>
+
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" nohref itemprop="item" content="{{ url(route, routeParams) }}">
+                        <span class="line">/</span><span itemprop="name">{{ sparePart.alternativeName5 }}</span>
+                    </a>
+                    <meta itemprop="position" content="5">
+                </li>
+            </ul>
+
+            <div itemscope itemtype="http://schema.org/Product"><!-- Описание продукта -->
+                <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"><!-- Рейтинг -->
+                    <meta itemprop="ratingValue" content="4.5"><!-- Значение 1 -->
+                    <meta itemprop="bestRating" content="5"><!-- Значение 2 -->
+                    <meta itemprop="reviewCount" content="2"><!-- Значение 3 -->
+                </span>
+                <span itemprop="brand" content="{{ brand.name }}"></span><!-- имя бренда Значение 16 -->
+                <span itemprop="review" itemscope itemtype="http://schema.org/Review"><!-- Отзывы Значение 17 -->
+                    <span itemprop="name"></span><!-- имя Значение 18 -->
+                    <span itemprop="author" content="ABC"></span><!-- автор Значение 19 -->
+                    <meta itemprop="datePublished" content="2011-03-25"><!-- дата отзыва Значение 20 -->
+                    <meta itemprop="itemReviewed" content="авс"><!-- Просмотр товара Значение 21 -->
+                </span>
+                <meta itemprop="gtin14" content="12345678901234">
+                <meta itemprop="mpn" content="925873">  <!-- глобальный идентификатор товара, например код ISBN, MPN или GTIN8 -->
+                <div class="wrapper">
+                    <div class="block-discription">
+                        <h1 class="product-title hidden">{{ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ advert.getEngineDescription() }}</h1>
+                        <div class="product-photos">
+                            <img src="{{ image_url(advert.image ? advert.image : sparePart.thumbnailLogo) }}" width="390" height="300" alt="Фото всего набора" itemprop="image"><!-- Фото -->
+                            {#<div class="product-wrapper">#}
+                            {#<img src="/img/maz1.jpg" width="120" height="80" alt="Фото всего набора">#}
+                            {#<img src="/img/maz1.jpg" width="120" height="80" alt="Фото всего набора">#}
+                            {#<img src="/img/maz1.jpg" width="120" height="80" alt="Фото всего набора">#}
+                            {#</div>#}
+                        </div>
+                        <div class="product-dsc">
+                            <h1 class="product-title mobile-hidden">{{ sparePart.alternativeName1 ~ ' для ' ~ brand.name ~ ' ' ~ model.name ~ advert.getEngineDescription() }}</h1><meta itemprop="name" content="АКБ"><!-- Название продукта Значение 4 -->
+                            <span class="art" itemprop="sku">№ {{ advert.id }}</span><!-- Артикул Значение 21 -->
+                            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><!-- Описание продукта -->
+                                <p class="status">Состояние: <span>{{ constant('App\\Entity\\Advert\\AutoSparePart\\AutoSparePartSpecificAdvert::CONDITIONS_CLIENT_VIEW')[advert.condition] }}</span></p>
+                                <span class="stock"><link itemprop="availability" href="http://schema.org/InStock">{{ constant('App\\Entity\\Advert\\AutoSparePart\\AutoSparePartSpecificAdvert::STOCK_TYPES_CLIENT_VIEW')[advert.stockType] }}</span>
+                                <b class="price" itemprop="price" content="{{ advert.cost ? rubCost : 'от 4 BYN' }}">{{ advert.cost ? rubCost ~ ' руб.' : "" }}</b>
+                                <span itemprop="priceCurrency" content="BYN"></span><!-- Цена Значение 7 -->
+                                <time itemprop="priceValidUntil" datetime="2020-11-05"></time><!-- Цена действует до Значение 15 -->
+                                <a itemprop="url" href="#"></a>
+
+                                <p class="delivery">Гарантия: <span>{{ workflow.delivery ? 'Есть' : 'Нет'}}</span></p>
+                                <p class="warranty">Доставка: <span>{{ workflow.guarantee ? 'Есть' : 'Нет'}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% include('/client/product/product-view-parts/seller-data.html.twig') %}
+                </div>
+
+                {% include('/client/product/product-view-parts/description-delivery-guarantee.html.twig') %}
+
+                <div class="feature">
+                    <section class="feature-list">
+                        <h2 class="feature-title">Характеристики</h2>
+                        <table class="feature-block">
+                            <tr><td>Запчасть:</td><td class="tab">{{ sparePart.alternativeName1 }}</td></tr>
+                            <tr><td>Марка:</td><td class="tab">{{ brand.name }}</td></tr>
+                            <tr><td>Модель:</td><td class="tab">{{ model.name }}</td></tr>
+                            {% if advert.year %}
+                                <tr><td>Год:</td><td class="tab">{{ advert.year }}</td></tr>
+                            {% endif %}
+                            {% if advert.engineType %}
+                                <tr><td>Тип двигателя:</td><td class="tab tab-text">{{ advert.engineType }}</td></tr>
+                            {% endif %}
+                            {% if advert.engineCapacity %}
+                                <tr><td>Объем:</td><td class="tab tab-text">{{ advert.engineCapacity }}</td></tr>
+                            {% endif %}
+                            {% if advert.gearBoxType %}
+                                <tr><td>Тип КПП:</td><td class="tab tab-text">{{ advert.gearBoxType.type }}</td></tr>
+                            {% endif %}
+                            {% if advert.driveType %}
+                                <tr><td>Тип привода:</td><td class="tab tab-text">{{ advert.driveType.type }}</td></tr>
+                            {% endif %}
+                            {% if advert.vehicleType %}
+                                <tr><td>Тип Кузова:</td><td class="tab tab-text">{{ advert.vehicleType.type }}</td></tr>
+                            {% endif %}
+                        </table>
+                    </section>
+
+                    {% include('/client/product/product-view-parts/new-articles.html.twig') %}
+                </div>
+
+                {#<section class="promo">#}
+                {#<h2 class="promo-title">Похожие объявления</h2>#}
+                {#<ul class="promo-block">#}
+                {#<li>#}
+                {#<a href="#" class="promo-link">#}
+                {#<img src="/img/maz1.jpg" alt="">#}
+                {#<p class="promo-text">Задняя правая</p>#}
+                {#</a>#}
+                {#</li>#}
+
+                {#<li>#}
+                {#<a href="#" class="promo-link">#}
+                {#<img src="/img/maz1.jpg" alt="">#}
+                {#<p class="promo-text">Задняя правая</p>#}
+                {#</a>#}
+                {#</li>#}
+
+                {#<li>#}
+                {#<a href="#" class="promo-link">#}
+                {#<img src="/img/maz1.jpg" alt="">#}
+                {#<p class="promo-text">Задняя правая</p>#}
+                {#</a>#}
+                {#</li>#}
+
+                {#<li>#}
+                {#<a href="#" class="promo-link">#}
+                {#<img src="/img/maz1.jpg" alt="">#}
+                {#<p class="promo-text">Задняя правая</p>#}
+                {#</a>#}
+                {#</li>#}
+
+                {#<li>#}
+                {#<a href="#" class="promo-link">#}
+                {#<img src="/img/maz1.jpg" alt="">#}
+                {#<p class="promo-text">Задняя правая</p>#}
+                {#</a>#}
+                {#</li>#}
+
+                {#<li>#}
+                {#<a href="#" class="promo-link">#}
+                {#<img src="/img/maz1.jpg" alt="">#}
+                {#<p class="promo-text">Задняя правая</p>#}
+                {#</a>#}
+                {#</li>#}
+                {#</ul>#}
+                {#</section>#}
+            </div>
+
+        </section>
+
+    </main>
+{% endblock %}

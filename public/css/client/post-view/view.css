@@ -138,7 +138,7 @@
 }
 
 .seller-block {
-    width: 60%;
+    width: 71%;
     background-color: #fff;
     padding: 20px;
     padding-top: 40px;
@@ -154,7 +154,7 @@
 .seller-title{
     margin: 0;
     margin-bottom: 20px;
-    color: #2980b9;
+    color: #000000;
     font-size: 26px;
     line-height: 30px;
     font-weight: 400;
@@ -188,7 +188,7 @@
 
 
 .org {
-    width: 30%;
+    width: 20%;
     padding: 20px;
     background-color: #fff;
 }
@@ -387,6 +387,7 @@
     text-align: center;
 }
 
+
 .art-list {
     display: -moz-flex;
     display: -ms-flex;
@@ -397,8 +398,14 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
+.art-list li {
+    width: 90%
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
 .article-link {
     position: relative;
     display: -moz-flex;
@@ -419,7 +426,6 @@
     align-items: center;
     color: #000;
     border: 1px solid #ccc;
-    width: 150px;
     padding-bottom: 5px;
 }
 
@@ -470,8 +476,8 @@
 }
 
 .article-foto img {
-    width: 150px;
-    height: 100px;
+    width: 99%;
+    height: auto;
 }
 .article-subtitle {
     margin: 0;
@@ -593,7 +599,8 @@ a {
         padding: 0 10px;
     }
     .main-page {
-        padding: 20px 10px;
+            background: #ffffff;
+        padding: 0;
         margin-bottom: 40px;
         padding-top: 0;
     }
@@ -702,7 +709,7 @@ a {
     }
 
     .seller-block {
-        padding: 20px 10px;
+        padding: 20px 0;
         width: 100%;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;

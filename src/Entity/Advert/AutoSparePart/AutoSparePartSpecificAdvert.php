@@ -20,6 +20,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class AutoSparePartSpecificAdvert
 {
+    const STOCK_VAR = "[STOCK]";
+
     const IN_STOCK_TYPE = "in_stock";
     const UNDER_ORDER_TYPE = "under_order";
 
@@ -722,5 +724,70 @@ class AutoSparePartSpecificAdvert
     public function getConditionStockView()
     {
         return $this->getStockTypeView() . ', ' . $this->getConditionTypeView();
+    }
+
+    public function getEngineDescription($full = true, $nameInBrackets = true)
+    {
+        $description = "";
+
+        if($this->engineCapacity){
+            $description .= ' ' . $this->engineCapacity;
+        }
+
+        if($this->engineType){
+            $description .= ' ' . $this->engineType;
+        }
+
+        if($this->engineName && $full){
+            if($nameInBrackets){
+                $description .= ' (' . $this->engineName . ')';
+            }
+            else{
+                $description .= ' ' . $this->engineName . '';
+            }
+        }
+
+        return $description;
+    }
+
+    public function getAdditionalDescription()
+    {
+        $description = [];
+
+        //[Состояние] [Наличие], [Тип двигателя] [оъем] [марка если есть] [тип кпп] [тип кузова] [тип привода].
+
+        if($this->condition){
+            $description[] = self::CONDITIONS_CLIENT_VIEW[$this->condition];
+        }
+
+        if($this->stockType){
+            $description[] = self::STOCK_TYPES_CLIENT_VIEW[$this->stockType] . ',';
+        }
+
+        if($this->engineType){
+            $description[] = $this->engineType;
+        }
+
+        if($this->engineCapacity){
+            $description[] = $this->engineCapacity;
+        }
+
+        if($this->engineName){
+            $description[] = $this->engineName;
+        }
+
+        if($this->gearBoxType){
+            $description[] = $this->gearBoxType->getType();
+        }
+
+        if($this->vehicleType){
+            $description[] = $this->vehicleType->getType();
+        }
+
+        if($this->driveType){
+            $description[] = $this->driveType->getType() . ' привод';
+        }
+
+        return trim(implode(' ', $description), ',');
     }
 }

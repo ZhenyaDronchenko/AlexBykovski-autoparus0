@@ -1,0 +1,30 @@
+<div class="filter-column" ng-controller="MainSearchFormCtrl as searchForm" ng-init="searchForm.init()">
+    <form class="filter">
+        <fieldset class="filter-block">
+            <legend class="filter-title">Автозапчасти</legend>
+            {% if not is_device('iphone') %}
+                <input type="text" list="brand-list" class="select-item" placeholder="Марка" ng-model="searchForm.params.brand">
+                <datalist id="brand-list" datalist-autocomplete method-search="searchBrands">
+                </datalist>
+
+                <input type="text" list="model-list" class="select-item" placeholder="Модель" ng-model="searchForm.params.model">
+                <datalist id="model-list" datalist-autocomplete method-search="searchModels" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "by-name" : true}'>
+                </datalist>
+
+                <input type="text" list="year-list" class="select-item" placeholder="Год" ng-model="searchForm.params.year">
+                <datalist id="year-list" datalist-autocomplete method-search="searchYears" request-parameters='{"brand": "{[{searchForm.params.brand}]}", "model": "{[{searchForm.params.model}]}", "by-name" : true}'>
+                </datalist>
+
+                <input type="text" list="spare-part-list" class="select-item" placeholder="Наименование запчасти" ng-model="searchForm.params.sparePart">
+                <datalist id="spare-part-list" datalist-autocomplete method-search="searchSpareParts">
+                </datalist>
+            {% endif %}
+            <button class="button" type="button" ng-click="searchForm.searchByForm()">Найти</button>
+
+            <p class="select-option">
+                <a href="{{ path("show_brand_catalog_choice_brand") }}" class="select-link">Перейти в последовательный каталог</a>
+                <a href="{{ path("show_city_catalog_choice_city") }}" class="select-link">Перейти в форму заказ-заявки</a>
+            </p>
+        </fieldset>
+    </form>
+</div>

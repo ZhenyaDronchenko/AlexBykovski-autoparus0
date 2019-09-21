@@ -7,11 +7,7 @@
             "model": "",
             "year": "",
             "sparePart": "",
-            "engineType": "",
-            "capacity": "",
-            "isNew": false,
-            "isUsed": false,
-            "inStock": false,
+            "by-name" : true,
         };
 
         let self = this;

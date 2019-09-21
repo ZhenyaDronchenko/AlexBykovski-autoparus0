@@ -6,6 +6,8 @@ $(function(){
         $(".phone-registration").mask("+375  (99)  999 - 99 - 99");
         $(".phone-profile").mask("+375  (99)  999 - 99 - 99");
         $(".phone-mask").mask("+375  (99)  999 - 99 - 99");
+        $(".phone-mask-by").mask("+375  (99)  999 - 99 - 99");
+        $(".phone-mask-ru").mask("+7  (999)  999 - 99 - 99");
     }
 
     $(document).on("click", ".open-popup-button", function (ev) {
@@ -36,7 +38,15 @@ $(function(){
     });
 
     $.each($(".owl-carousel-slider"), function (index, item) {
-        $(item).owlCarousel(getCarouselAttrs(item));
+        let carousel = $(item);
+
+        carousel
+            .on({
+                'initialized.owl.carousel': function () {
+                    carousel.find(".owl-carousel-item").show();
+                }
+            })
+            .owlCarousel(getCarouselAttrs(item));
     });
 
     function getCarouselAttrs(item) {

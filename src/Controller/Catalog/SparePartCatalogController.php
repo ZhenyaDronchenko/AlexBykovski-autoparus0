@@ -15,6 +15,9 @@ use App\Entity\City;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
 use App\Entity\SparePart;
+use App\Provider\Advert\AdvertProvider;
+use App\Provider\Advert\GeneralAdvertProvider;
+use App\Provider\Advert\SpecificAdvertProvider;
 use App\Provider\Integration\BamperSuggestionProvider;
 use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
@@ -126,7 +129,8 @@ class SparePartCatalogController extends Controller
         $urlBrand,
         $urlModel,
         VariableTransformer $transformer,
-        TitleProvider $titleProvider
+        TitleProvider $titleProvider,
+        AdvertProvider $advertProvider
     )
     {
         $em = $this->getDoctrine()->getManager();
@@ -134,6 +138,7 @@ class SparePartCatalogController extends Controller
         $brand = $em->getRepository(Brand::class)->findOneBy(["url" => $urlBrand]);
         $isAllModels = $urlModel === CatalogSparePartChoiceModel::ALL_MODELS_URL;
         $model = $isAllModels ? $urlModel : $em->getRepository(Model::class)->findOneBy(["url" => $urlModel]);
+        $modelObject = $model instanceof Model ? $model : null;
 
         if(!($sparePart instanceof SparePart) || !($brand instanceof Brand) || !($model instanceof Model) && !$isAllModels){
             throw new NotFoundHttpException(NotFoundPage::DEFAULT_MESSAGE);
@@ -173,12 +178,16 @@ class SparePartCatalogController extends Controller
             ];
         }
 
+        $catalogFilter = new CatalogAdvertFilterType($brand, $modelObject, $sparePart, null, null);
+
         return $this->render('client/catalog/spare-part/choice-city.html.twig', [
             'capitals' => $parsedCapitals,
             'regionalCities' => $parsedRegionalCities,
             'brand' => $brand,
             'sparePart' => $sparePart,
-            'model' => $model instanceof Model ? $model : null,
+            'model' => $modelObject,
+            'specificAdverts' => $advertProvider->provideSortedSpecificAdverts($catalogFilter),
+            'generalAdverts' => $advertProvider->provideSortedGeneralAdverts($catalogFilter),
             'page' => $transformer->transformPage($page, $transformParameters),
             'allCitiesTitle' => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceInStock::class, $transformParameters),
         ]);
@@ -195,7 +204,9 @@ class SparePartCatalogController extends Controller
         $urlCity,
         VariableTransformer $transformer,
         BamperSuggestionProvider $suggestionProvider,
-        TitleProvider $titleProvider)
+        TitleProvider $titleProvider,
+        AdvertProvider $advertProvider
+    )
     {
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
@@ -228,8 +239,8 @@ class SparePartCatalogController extends Controller
         }
 
         $catalogFilter = new CatalogAdvertFilterType($brand, $modelObject, $sparePart, $cityObject, null);
-        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
-        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $specificAdverts = $advertProvider->provideSortedSpecificAdverts($catalogFilter);
+        $generalAdverts = $advertProvider->provideSortedGeneralAdverts($catalogFilter);
         $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject, false);
 
         $pageTransformed = $transformer->transformPage($page, $transformParameters);
@@ -252,7 +263,16 @@ class SparePartCatalogController extends Controller
     /**
      * @Route("/{urlSP}/{urlBrand}/{urlModel}/{urlCity}/in_stock", name="show_spare_part_catalog_final_page")
      */
-    public function showCatalogFinalPageAction(Request $request, $urlSP, $urlBrand, $urlModel, $urlCity, VariableTransformer $transformer, BamperSuggestionProvider $suggestionProvider)
+    public function showCatalogFinalPageAction(
+        Request $request,
+        $urlSP,
+        $urlBrand,
+        $urlModel,
+        $urlCity,
+        VariableTransformer $transformer,
+        BamperSuggestionProvider $suggestionProvider,
+        AdvertProvider $advertProvider
+    )
     {
         $em = $this->getDoctrine()->getManager();
         $sparePart = $em->getRepository(SparePart::class)->findOneBy(["url" => $urlSP]);
@@ -285,8 +305,8 @@ class SparePartCatalogController extends Controller
         }
 
         $catalogFilter = new CatalogAdvertFilterType($brand, $modelObject, $sparePart, $cityObject, true);
-        $specificAdverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findAllForCatalog($catalogFilter);
-        $generalAdverts = $em->getRepository(AutoSparePartGeneralAdvert::class)->findAllForCatalog($catalogFilter);
+        $specificAdverts = $advertProvider->provideSortedSpecificAdverts($catalogFilter);
+        $generalAdverts = $advertProvider->provideSortedGeneralAdverts($catalogFilter);
         $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $modelObject, $sparePart, $cityObject);
 
         $pageTransformed = $transformer->transformPage($page, $transformParameters);
