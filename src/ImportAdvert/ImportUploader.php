@@ -222,7 +222,7 @@ class ImportUploader
         /** @var SparePart $item */
         foreach ($spareParts as $item){
             $newAdvert = $advert->copyForImport();
-            $newAdvert->setSparePart($item->getName());
+            $newAdvert->setSparePart($item);
 
             $adverts[] = $newAdvert;
         }

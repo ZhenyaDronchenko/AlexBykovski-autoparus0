@@ -76,7 +76,7 @@ class FileUpload
         }
 
         if (!($file instanceof UploadedFile) || !in_array($file->getClientMimeType(), $this->allowedMimeTypes)) {
-            throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed.', $file->getClientMimeType()));
+            throw new \InvalidArgumentException(sprintf('Files of type %s are not allowed...', $file->getClientMimeType()));
         }
 
         $filename = !is_null($path) ? $path : $this->getFilePath($file);
