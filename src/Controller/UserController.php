@@ -38,10 +38,7 @@ class UserController extends Controller
         $adverts = $em->getRepository(AutoSparePartSpecificAdvert::class)->findMoreAdverts($seller->getSellerData()->getAdvertDetail());
 
         foreach ($adverts as $advert){
-            $parseAdverts[] = [
-                "item" => $advert[0],
-                "sparePart" => $em->getRepository(SparePart::class)->findOneBy(["name" => $advert["sparePart"]]),
-            ];
+            $parseAdverts[] = $advert[0];
         }
 
         return $this->render('client/user/seller-view.html.twig', [

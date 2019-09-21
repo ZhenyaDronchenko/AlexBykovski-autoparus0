@@ -136,7 +136,7 @@
               <ul class="promo-block">
                   {% for advert in adverts if advert.sparePart %}
                     <li>
-                      <a href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : advert.item.brand.url, "urlModel" : advert.item.model.url, "urlSP" : advert.sparePart.url}) }}" class="promo-link">
+                      <a href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : advert.brand.url, "urlModel" : advert.model.url, "urlSP" : advert.sparePart.url}) }}" class="promo-link">
                         <img src="{{ image_url(advert.sparePart.thumbnailLogo) }}" alt="">
                         <p class="promo-text">{{ advert.sparePart.alternativeName1 }}</p>
                       </a>

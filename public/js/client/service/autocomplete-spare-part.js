@@ -3,6 +3,7 @@
 
     autoparusApp.service('AutoCompleteResource', function($q, $http){
         let API_URL_SPARE_PARTS = '/search/spare-part?text=';
+        let API_URL_SPARE_PARTS_IDS = '/search/spare-part/ids?text=';
         let API_URL_BRAND = '/search/brand?text=';
         let API_URL_MODEL = '/search/model/';
         let API_URL_YEAR = '/search/year/__brand__/__model__/';
@@ -16,6 +17,10 @@
 
         this.searchSpareParts = function(term) {
             return search(API_URL_SPARE_PARTS + term);
+        };
+
+        this.searchSparePartsIds = function(term) {
+            return search(API_URL_SPARE_PARTS_IDS + term);
         };
 
         this.searchBrands = function(term) {

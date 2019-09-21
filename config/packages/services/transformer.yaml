@@ -48,3 +48,8 @@ services:
         class:  App\Form\DataTransformer\NameToSparePartTransformer
         arguments: []
         public: true
+
+    app.form.transformer.id_to_spare_part:
+        class:  App\Form\DataTransformer\IdToSparePartTransformer
+        arguments: []
+        public: true

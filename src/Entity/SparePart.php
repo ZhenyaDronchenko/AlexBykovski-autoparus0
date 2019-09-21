@@ -627,4 +627,9 @@ class SparePart implements VariableInterface
 
         return true;
     }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
 }

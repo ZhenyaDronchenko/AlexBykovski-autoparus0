@@ -20,6 +20,7 @@ services:
             $vehicleTypeTransformer: "@app.form.transformer.id_to_vehicle_type"
             $driveTypeTransformer: "@app.form.transformer.id_to_drive_type"
             $gearBoxTypeTransformer: "@app.form.transformer.id_to_gear_box_type"
+            $sparePartTransformer : "@app.form.transformer.id_to_spare_part"
         tags:
             - { name: form.type }
 

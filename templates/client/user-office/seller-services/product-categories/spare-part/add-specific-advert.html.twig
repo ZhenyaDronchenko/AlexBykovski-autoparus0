@@ -3,6 +3,7 @@
 {% set isEditAction = app.request.attributes.get('_route') == "user_profile_product_categories_spare_part_edit_specific_advert" %}
 
 {% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/select2/dist/css/select2.min.css'>
     <link rel='stylesheet' href='/css/user-office/product-categories/spare-part/add-specific-product.css'>
 {% endblock %}
 
@@ -88,6 +89,9 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/select2/dist/js/select2.min.js'></script>
+    <script src='/bower-components/select2/dist/js/i18n/ru.js'></script>
+    <script src='/js/client/directive/select2-autoparus.js'></script>
     <script src='/js/client/pages/user-profile/product-categories/spare-part/add-specific-product.js'></script>
     <script src='/js/client/controller/user-profile/product-categories/spare-part/edit-specific-advert-controller.js'></script>
     <script src='/js/client/controller/user-profile/provider-cars-data.js'></script>

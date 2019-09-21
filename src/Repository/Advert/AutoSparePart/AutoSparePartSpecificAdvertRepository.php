@@ -43,7 +43,7 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
     {
         return $this->createQueryBuilder('spAdv')
             ->select('spp.id, spp.name')
-            ->join(SparePart::class, 'spp', Join::WITH, 'spp.name = spAdv.sparePart')
+            ->join("spAdv.sparePart", "spp")
             ->where("spAdv.sellerAdvertDetail = :advertDetail")
             ->setParameter("advertDetail", $client->getSellerData()->getAdvertDetail())
             ->distinct()
@@ -108,7 +108,7 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
 
         if($filterType->getSparePart()){
             $qb->andWhere("spAdv.sparePart = :sparePart")
-                ->setParameter("sparePart", $filterType->getSparePart()->getName());
+                ->setParameter("sparePart", $filterType->getSparePart());
         }
 
         if($filterType->getCity()){
@@ -144,7 +144,7 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
 
         if($filterType->getSparePart()){
             $qb->andWhere("spAdv.sparePart = :sparePart")
-                ->setParameter("sparePart", $filterType->getSparePart()->getName());
+                ->setParameter("sparePart", $filterType->getSparePart());
         }
 
         return $qb;
@@ -176,7 +176,7 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
     public function findMoreAdverts(SellerAdvertDetail $advertDetail, $count = 2)
     {
         return $this->createQueryBuilder('spAdv')
-            ->select('DISTINCT spAdv.sparePart, spAdv')
+            ->select('IDENTITY(spAdv.sparePart), spAdv')
             ->where("spAdv.sellerAdvertDetail = :advertDetail")
             ->setParameter("advertDetail", $advertDetail)
             ->setMaxResults($count)
@@ -187,12 +187,13 @@ class AutoSparePartSpecificAdvertRepository extends EntityRepository
     public function findFreshForSitemap($step)
     {
         return $this->createQueryBuilder('spAdv')
-            ->select('spAdv.id as id, br.url as urlBrand, m.url as urlModel, sc.city as cityName, spAdv.sparePart as spName')
+            ->select('spAdv.id as id, br.url as urlBrand, m.url as urlModel, sc.city as cityName, spp.name as spName')
             ->join("spAdv.model", "m")
             ->join("spAdv.brand", "br")
             ->join("spAdv.sellerAdvertDetail", "sad")
             ->join("sad.sellerData", "sd")
             ->join("sd.sellerCompany", "sc")
+            ->join("spAdv.sparePart", "spp")
             ->setMaxResults(FreshProductPagesSiteMapUrlProvider::COUNT)
             ->setFirstResult((int)$step * FreshProductPagesSiteMapUrlProvider::COUNT)
             ->orderBy("spAdv.id", "DESC")

@@ -222,7 +222,7 @@ class ImportUploader
         /** @var SparePart $item */
         foreach ($spareParts as $item){
             $newAdvert = $advert->copyForImport();
-            $newAdvert->setSparePart($item->getName());
+            $newAdvert->setSparePart($item);
 
             $adverts[] = $newAdvert;
         }
@@ -584,7 +584,7 @@ class ImportUploader
         $data = [
             ImportChecker::BRAND_KEY => $this->currentAdvert->getBrand() ? $this->currentAdvert->getBrand()->getId() : "",
             ImportChecker::MODEL_KEY => $this->currentAdvert->getModel() ? $this->currentAdvert->getModel()->getId() : "",
-            ImportChecker::SPARE_PART_KEY => $this->currentAdvert->getSparePart() ?: "",
+            ImportChecker::SPARE_PART_KEY => $this->currentAdvert->getSparePart() ? $this->currentAdvert->getSparePart()->getId() : "",
             ImportChecker::YEAR_KEY => $this->currentAdvert->getYear() ?: "",
         ];
 

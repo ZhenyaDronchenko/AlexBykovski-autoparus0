@@ -7,6 +7,7 @@ use App\Entity\Client\SellerAdvertDetail;
 use App\Entity\DriveType;
 use App\Entity\GearBoxType;
 use App\Entity\Model;
+use App\Entity\SparePart;
 use App\Entity\VehicleType;
 use App\Type\AutoSetType;
 use DateTime;
@@ -88,9 +89,10 @@ class AutoSparePartSpecificAdvert
     private $year;
 
     /**
-     * @var string|null
+     * @var SparePart|null|string
      *
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="App\Entity\SparePart")
+     * @ORM\JoinColumn(name="spare_part_id", referencedColumnName="id")
      */
     private $sparePart;
 
@@ -335,17 +337,17 @@ class AutoSparePartSpecificAdvert
     }
 
     /**
-     * @return null|string
+     * @return SparePart|null|string
      */
-    public function getSparePart(): ?string
+    public function getSparePart()
     {
         return $this->sparePart;
     }
 
     /**
-     * @param null|string $sparePart
+     * @param SparePart|null|string $sparePart
      */
-    public function setSparePart(?string $sparePart): void
+    public function setSparePart($sparePart): void
     {
         $this->sparePart = $sparePart;
     }
@@ -686,7 +688,7 @@ class AutoSparePartSpecificAdvert
             "id" => $this->id,
             "brand" => $this->brand->getName(),
             "model" => $this->model->getName(),
-            "sparePart" => $this->sparePart,
+            "sparePart" => $this->sparePart->getName(),
             "brandUrl" => $this->brand->getUrl(),
             "modelUrl" => $this->model->getUrl(),
             "city" => $this->sellerAdvertDetail->getSellerData()->getSellerCompany()->getCity(),

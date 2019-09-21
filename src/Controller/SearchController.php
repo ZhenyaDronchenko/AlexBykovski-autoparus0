@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @Route("/search")
@@ -31,9 +32,12 @@ class SearchController extends Controller
 
     /**
      * @Route("/spare-part", name="search_spare_part_autocomplete")
+     * @Route("/spare-part/ids", name="search_spare_part_ids_autocomplete")
      */
     public function searchSparePartAction(Request $request)
     {
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
         $text = $request->query->get("text");
 
         if(!is_string($text) || strlen($text) < 1){
@@ -45,10 +49,17 @@ class SearchController extends Controller
         $spareParts = $this->getDoctrine()->getRepository(SparePart::class)->searchByText($text);
 
         $parsedSpareParts = [];
+        $routeReferrer = $request->get('_route');
 
         /** @var SparePart $sparePart */
         foreach ($spareParts as $sparePart){
-            $parsedSpareParts[] = $sparePart->toSearchArray();
+            $sparePart = $sparePart->toSearchArray();
+
+            if($routeReferrer === "search_spare_part_ids_autocomplete"){
+                $sparePart["url"] = $sparePart["id"];
+            }
+
+            $parsedSpareParts[] = $sparePart;
         }
 
         return new JsonResponse($parsedSpareParts);
