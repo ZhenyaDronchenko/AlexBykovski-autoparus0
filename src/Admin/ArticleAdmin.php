@@ -5,6 +5,7 @@ namespace App\Admin;
 use App\Entity\Article\Article;
 use App\Entity\Article\ArticleImage;
 use App\Entity\Article\ArticleTheme;
+use App\Entity\Article\ArticleType;
 use App\Entity\Brand;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Model;
@@ -121,10 +122,14 @@ class ArticleAdmin extends AbstractAdmin
             'attr' => ['class' => "top-step"],
             'label' => 'Активная',
             'required' => false]);
-        $formMapper->add('isOur', CheckboxType::class, [
-            'attr' => ['class' => "top-step"],
-            'label' => 'Статья - это наш уникальный материал',
-            'required' => false]);
+        $formMapper->add('detail.types', EntityType::class, [
+            'label' => false,
+            'class' => ArticleType::class,
+            'choice_label' => 'name',
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false,
+        ]);
         $formMapper->add('detail.brand', EntityType::class, [
             'label' => "Марка",
             'class' => Brand::class,

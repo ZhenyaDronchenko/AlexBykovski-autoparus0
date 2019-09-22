@@ -145,17 +145,26 @@ class Article
     private $creator;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
-     */
-    private $isOur;
-
-    /**
      * @var Collection
      *
      * One product has many features. This is the inverse side.
      * @ORM\OneToMany(targetEntity="ArticleComment", mappedBy="article")
      */
     private $comments;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="ArticleType", mappedBy="article")
+     */
+    private $types;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $activateAt;
 
     /**
      * Article constructor.
@@ -165,6 +174,7 @@ class Article
         $this->articleImages = new ArrayCollection();
         $this->banners = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->types = new ArrayCollection();
         $this->detail = new ArticleDetail();
         $this->mainArticleImage = new ArticleImage();
 
@@ -172,6 +182,7 @@ class Article
 
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
+        $this->activateAt = new DateTime();
 
         $this->title = "";
         $this->description = "";
@@ -179,7 +190,6 @@ class Article
         $this->headline2 = "";
 
         $this->isActive = false;
-        $this->isOur = false;
         $this->views = 0;
         $this->directViews = 0;
     }
@@ -441,22 +451,6 @@ class Article
     }
 
     /**
-     * @return mixed
-     */
-    public function getisOur()
-    {
-        return $this->isOur;
-    }
-
-    /**
-     * @param mixed $isOur
-     */
-    public function setIsOur($isOur): void
-    {
-        $this->isOur = $isOur;
-    }
-
-    /**
      * @return Collection
      */
     public function getComments(): Collection
@@ -470,6 +464,22 @@ class Article
     public function setComments(Collection $comments): void
     {
         $this->comments = $comments;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    /**
+     * @param Collection $types
+     */
+    public function setTypes(Collection $types): void
+    {
+        $this->types = $types;
     }
 
     public function toSearchArray()
