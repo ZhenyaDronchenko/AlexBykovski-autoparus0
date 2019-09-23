@@ -1,7 +1,7 @@
 {% set brand = templateParameters.brand %}
 {% set sparePart = templateParameters.sparePart %}
 {% set model = templateParameters.model is defined ? templateParameters.model : null %}
-<h3 class="seller-title">Продавцы автозапчастей: {{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model ? model.modelEn : "" }}</h3>
+<h3 class="seller-title">{{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model ? model.modelEn : "" }}</h3>
 
 <div class="card-list">
     {% for advert in adverts %}
