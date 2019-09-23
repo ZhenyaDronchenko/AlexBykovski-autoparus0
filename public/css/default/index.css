@@ -404,6 +404,10 @@ height: 40px;
     justify-content: space-between;
 
 }
+
+.content-wrapper--m {
+  margin-bottom: 20px;
+}
 .text-block {
     width: 74%;
     margin-bottom: 10px;
@@ -450,7 +454,7 @@ p {
 .user-subtitle {
   margin: 0;
   margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 18px;
     color: #000000;
     font-weight: 700;
@@ -780,11 +784,13 @@ input.select-item--type {
   display: block;
     margin: 0 auto;
     width: 100px;
+    margin-bottom: 15px;
 }
 
 input.select-item--n {
   display: block;
     margin: 0 auto;
+    margin-bottom: 15px;
     width: 150px;
 }
 
@@ -983,6 +989,7 @@ input.select-item {
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .art-item {
@@ -1007,8 +1014,9 @@ input.select-item {
     display: -ms-flexbox;
     display: flex;
     margin-left: auto;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     width: 62%;
+        align-items: flex-end;
 }
 
 .art-foto {
@@ -1035,7 +1043,11 @@ input.select-item {
             transform: translate(0,-35px);
             z-index: 0;
 }
-
+.art-foto--m {
+    -webkit-transform: translate(0,0);
+        -ms-transform: translate(0,0);
+            transform: translate(0,0);
+}
 .art-foto img {
     width: 180px;
     height: 120px;
@@ -1229,8 +1241,8 @@ input.select-item {
 }
 .art-t {
   margin: 0;
-  margin-bottom: 10px;
-  font-size: 16px;
+  margin-bottom: 7px;
+  font-size: 15px;
     line-height: 18px;
     color: #000000;
     font-weight: 700;
@@ -1238,7 +1250,7 @@ input.select-item {
     width: 70%;
  }
 
-.art-inner {
+.art-inner--m {
 width: 70%;
 }
 
@@ -1254,9 +1266,9 @@ width: 70%;
 .art-data {
   margin: 0;
   margin-top: 10px;
-  font-size: 12px;
-    line-height: 14px;
-    color: #cccccc;
+  font-size: 10px;
+    line-height: 12px;
+    color: #000000;
     font-weight: 400;
     text-align: right;
  }
