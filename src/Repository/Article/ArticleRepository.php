@@ -104,6 +104,19 @@ class ArticleRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findToActivate()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where("a.isActive = :falseValue")
+            ->andWhere("a.activateAt IS NOT NULL")
+            ->andWhere("a.activateAt < :now")
+            ->setParameter("falseValue", false)
+            ->setParameter("now", new DateTime())
+            ->getQuery()
+            ->getResult();
+    }
+
     private function findAllWithThemesIds($themes)
     {
         $res = $this->createQueryBuilder('a')

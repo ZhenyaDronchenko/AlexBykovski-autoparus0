@@ -42,8 +42,7 @@ final class Version20190922193702 extends AbstractMigration
             "trueValue" => true,
         ]);
 
-        $this->addSql('ALTER TABLE article ADD activate_at DATETIME NOT NULL, DROP is_our');
-        $this->addSql('UPDATE article SET activate_at = NOW()');
+        $this->addSql('ALTER TABLE article ADD activate_at DATETIME DEFAULT NULL, DROP is_our');
     }
 
     public function down(Schema $schema) : void

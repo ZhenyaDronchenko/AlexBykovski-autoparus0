@@ -24,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
@@ -119,10 +120,18 @@ class ArticleAdmin extends AbstractAdmin
             'required' => false,
         ]);
         $formMapper->add('isActive', CheckboxType::class, [
-            'attr' => ['class' => "top-step"],
+            'attr' => ['class' => "top-step is-active-checkbox"],
             'label' => 'Активная',
             'required' => false]);
+        $formMapper->add('activateAt', DateTimeType::class, [
+            'attr' => ['class' => "activate-choice"],
+            'label' => 'Активировать в',
+            'with_minutes' => false,
+            'hours' => range(0, 21, 3),
+            'date_widget' => 'single_text',
+            'required' => false]);
         $formMapper->add('detail.types', EntityType::class, [
+            'attr' => ['class' => "detailt-types"],
             'label' => false,
             'class' => ArticleType::class,
             'choice_label' => 'name',

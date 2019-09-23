@@ -153,16 +153,9 @@ class Article
     private $comments;
 
     /**
-     * @var Collection
+     * @var DateTime|null
      *
-     * @ORM\OneToMany(targetEntity="ArticleType", mappedBy="article")
-     */
-    private $types;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $activateAt;
 
@@ -174,7 +167,6 @@ class Article
         $this->articleImages = new ArrayCollection();
         $this->banners = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->types = new ArrayCollection();
         $this->detail = new ArticleDetail();
         $this->mainArticleImage = new ArticleImage();
 
@@ -459,19 +451,19 @@ class Article
     }
 
     /**
-     * @param Collection $comments
+     * @return DateTime|null
      */
-    public function setComments(Collection $comments): void
+    public function getActivateAt(): ?DateTime
     {
-        $this->comments = $comments;
+        return $this->activateAt;
     }
 
     /**
-     * @return Collection
+     * @param DateTime|null $activateAt
      */
-    public function getTypes(): Collection
+    public function setActivateAt(?DateTime $activateAt): void
     {
-        return $this->types;
+        $this->activateAt = $activateAt;
     }
 
     /**
