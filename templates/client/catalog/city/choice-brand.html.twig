@@ -36,6 +36,7 @@
                 </a>
             </li>
         </ul>
+        {{ render(path('show_article_header_slider')) }}
 
         <section class="model">
             <h1>{{ page.headline1 }}</h1>
@@ -64,7 +65,7 @@
                         </li>
                     {% endfor %}
                 </ul>
-                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-brands'); hideBySelector('.popular-brands'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt<span> Показать все марки </span>;&gt;&gt;&gt;</button>
+                <button class="initiator-scroll button-mod" id='show-more' type="button" onclick="showBySelector('.others-brands'); hideBySelector('.popular-brands'); showBySelector('#show-less'); hideBySelector('#show-more');">&gt;&gt;&gt<span> Показать все марки </span>&gt;&gt;&gt;</button>
                 <button style="display: none;" class="initiator-scroll button-mod" id='show-less' type="button" onclick="hideBySelector('.others-brands'); showBySelector('.popular-brands'); hideBySelector('#show-less'); showBySelector('#show-more');">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</button>
             </div>
 

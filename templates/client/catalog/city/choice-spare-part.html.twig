@@ -62,12 +62,14 @@
             </li>
         </ul>
 
+        {{ render(path('show_article_header_slider')) }}
+
         <section class="model">
             <h1>{{ page.headline1 }}</h1>
             <div>{{ page.text1 | raw }}</div>
 
             <form class='modform' action="#" method="get" scroll-to-element scroll-by-click="true" initiator=".initiator-scroll">
-                <input list="sp-list" class="form7" placeholder="Введите наименование запчасти:" type="text">
+                <input list="sp-list" class="form7" placeholder="Наименование запчасти:" type="text">
                 <datalist id="sp-list" datalist-autocomplete method-search="searchSpareParts"
                           add-url="{{ path(app.request.attributes.get('_route'), routeParams) }}"></datalist>
             </form>

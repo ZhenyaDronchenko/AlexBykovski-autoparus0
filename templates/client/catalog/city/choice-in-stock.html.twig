@@ -98,6 +98,8 @@
           </li>
       </ul>
 
+      {{ render(path('show_article_header_slider')) }}
+
       <section class="zap">
           <h1 class="zap-title">{{ page.headline1 }}</h1>
           <div class="zap-wrapper">
@@ -108,7 +110,7 @@
           <div class="zap-block">
             <ul class="zap-list">
                 <li><a href="{{ path("show_city_catalog_choice_final_page", routeParams|merge({"inStockType" : constant('App\\Entity\\Advert\\AutoSparePart\\AutoSparePartSpecificAdvert::IN_STOCK_TYPE')})) }}" class="zap-item">Только в наличии</a></li>
-                <li><a href="{{ path("show_city_catalog_choice_final_page", routeParams|merge({"inStockType" : constant('App\\Entity\\Advert\\AutoSparePart\\AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE')})) }}" class="zap-item">На заказ</a></li>
+                <li><a href="{{ path("show_city_catalog_choice_final_page", routeParams|merge({"inStockType" : constant('App\\Entity\\Advert\\AutoSparePart\\AutoSparePartSpecificAdvert::UNDER_ORDER_TYPE')})) }}" class="zap-item">В наличии или на заказ</a></li>
             </ul>
           </div>
 

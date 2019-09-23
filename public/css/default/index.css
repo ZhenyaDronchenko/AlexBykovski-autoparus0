@@ -781,17 +781,13 @@ input.select-item {
 }
 
 input.select-item--type {
-  display: block;
-    margin: 0 auto;
     width: 100px;
     margin-bottom: 15px;
 }
 
 input.select-item--n {
-  display: block;
-    margin: 0 auto;
     margin-bottom: 15px;
-    width: 150px;
+    width: 100px;
 }
 
 .part-block {
@@ -1209,7 +1205,7 @@ input.select-item {
 .art-i {
   width: 32%;
   margin-right: 2%;
-  margin-bottom: 20px;  
+  margin-bottom: 10px;  
   display: -moz-flex;
     display: -ms-flex;
     display: -o-flex;
@@ -1242,12 +1238,13 @@ input.select-item {
 .art-t {
   margin: 0;
   margin-bottom: 7px;
-  font-size: 15px;
-    line-height: 18px;
+  font-size: 14px;
+    line-height: 16px;
     color: #000000;
     font-weight: 700;
     text-align: left;
-    width: 70%;
+    height: 31px;
+    overflow: hidden;
  }
 
 .art-inner--m {
@@ -1257,11 +1254,13 @@ width: 70%;
 .art-text {
   margin: 0;
   margin-bottom: 5px;
-  font-size: 14px;
-    line-height: 16px;
+  font-size: 12px;
+    line-height: 14px;
     color: #000000;
     font-weight: 400;
     text-align: left;
+    height: 42px;
+    overflow: hidden;
  }
 .art-data {
   margin: 0;
