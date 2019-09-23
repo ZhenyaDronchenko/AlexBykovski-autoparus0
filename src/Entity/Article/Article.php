@@ -175,6 +175,7 @@ class Article
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
         $this->activateAt = new DateTime();
+        $this->activateAt->setTime(0,0,0,0);
 
         $this->title = "";
         $this->description = "";
