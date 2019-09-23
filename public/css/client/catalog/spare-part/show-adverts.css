@@ -138,11 +138,12 @@ overflow: hidden;
     cursor: pointer;
     font-weight: 400;
     margin-bottom: 10px;
+     background-color: #f2f2f2;
 }
 
 .block-btn:hover,
 .block-btn:focus {
-    background-color: #d2a2af;
+    background-color: #999999;
 }
 .contact {
     display: block;
@@ -332,7 +333,6 @@ overflow: hidden;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    margin-bottom: 10px;
 
 }
 .card {
@@ -347,10 +347,11 @@ overflow: hidden;
     width: 180px;
     height: 120px;
     margin-right: 20px;
+    border: none;
 }
 
 .card-item {
-   
+   width: 81%;
 }
 
 .card-name {
@@ -365,14 +366,14 @@ overflow: hidden;
 
 .card-title {
     margin: 0;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 16px;
     font-weight: 400;
     color: #000000;
 }
 
 .review {
-    width: 180px;
+    width: 160px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -382,14 +383,14 @@ overflow: hidden;
     margin-left: auto;
 }
 .star {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     background: url("/img/Stars.svg") 0 0 no-repeat;
     margin-right: 3px;
 }
 .rev {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     background: url("/img/Stars.svg") -15px 0 no-repeat;
     margin-right: 3px;
 }
@@ -403,12 +404,14 @@ overflow: hidden;
 
 .card-text {
     margin: 0;
+    margin-bottom: 7px;
     font-size: 12px;
     line-height: 14px;
     color: #000000;
 }
 
 .adress {
+    margin: 0;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -437,7 +440,6 @@ overflow: hidden;
     font-size: 16px;
     line-height: 18px;
     color: #000000;
-    margin-bottom: 7px;
 }
 
 
@@ -461,8 +463,8 @@ overflow: hidden;
         margin-bottom: 40px;
     }
     .card-list .card-img {
-          width: 96px;
-    height: 64px;
+          width: 75px;
+    height: 50px;
     margin: 0;
     margin-right: 10px;
     }
@@ -476,10 +478,9 @@ overflow: hidden;
     }
     .adress-text {
         width: 100%;
-        margin-bottom: 20px;
     }
     .unp-number {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .card-name {
         -webkit-flex-wrap: wrap;
@@ -496,7 +497,7 @@ overflow: hidden;
    margin-bottom: 20px;
 }
 .card-item {
-    width: 60%;
+    width: 80%;
 }
 }
 
