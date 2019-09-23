@@ -91,7 +91,12 @@
                           <div class="art-f">
                             <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                           </div>
-                          <h3 class="art-t">{{ article.headline1 }}</h3>
+                          <div class="art-inner--m">
+                            <h3 class="art-t">{{ article.headline1 }}</h3>
+                            <p class="art-text">Autoparus.by<p>
+                            <p class="art-data">00.00.0000<p>
+                        </div>
+
                         </a>
                     {% endfor %}
                 </div>
@@ -150,13 +155,13 @@
                     </li>
                     <li class="content-item">
                         <div class="content-inner">
-                            <div class="foto-inner">
+                            <div class="foto-inner foto-inner--m">
                                 <a href="/publication/575">
                                     <img src="/images/article/2019/09/5d83e08210407_thumb.png" alt="Картинка">
                                 </a>
                             </div>
 
-                            <div class="user-block">
+                            <div class="user-block user-block--m">
                                 <a href="/publication/575">
                                   <h3 class="user-title">Как правильно подобрать линзы очков для вождения</h3>
                                     <div id='text3' class='text1Show add-three-dots-4-lines'><p>В современном технологичном и интенсивном мире зрение может испортиться не только от монитора компьютера или яркого смартфона, но и постоянного вождения. В этом нет ничего удивительного: взгляд автомобилиста всегда сосредоточен и напряжен. За рулем важно уловить каждый попутный и встречный автомобили, предугадать их действия, обратить внимание на дорожные знаки, свои и чужие маневры, а также другие события дорожного движения. &laquo;Автопарус&raquo; совместно с магазином оптики &laquo;Магия Взгляда&raquo; решил рассказать, как правильно подобрать линзы очков для вождения и просто повседневной жизни.</p></div>
@@ -170,13 +175,13 @@
                     </li>
                     <li class="content-item">
                         <div class="content-inner">
-                            <div class="foto-inner">
+                            <div class="foto-inner foto-inner--m">
                                 <a href="/publication/571">
                                     <img src="/images/article/2019/09/5d835b08bbc86_thumb.png" alt="Картинка">
                                 </a>
                             </div>
 
-                            <div class="user-block">
+                            <div class="user-block user-block--m">
                                 <a href="/publication/571">
                                   <h3 class="user-title">Нужен ли гараж в городе: плюсы и минусы</h3>
                                     <div id='text3' class='text1Show add-three-dots-4-lines'><p>25-30 лет назад необходимости объяснять автовладельцам преимущества хранения автомобиля в гараже просто не было. Загнать авто под крышу означало сохранить кузов и другие элементы подверженные погодным условиям более длительное время из-за не самого высокого качества. Да и играло чисто человеческое: гараж считался престижем среди автовладельцев, потому что стояли они, как и сами авто &ndash; немало. Сегодня, если гаражный кооператив находиться не под самым домом, а автомобиль необходим ежедневно, вряд ли владелец будет жертвовать несколькими часами в день, чтобы загнать или взять автомобиль из гаража. &laquo;Автопарус&raquo; решил поговорить с автоэкспертом Евгением Лебедевым и прямо спросить, нужен ли сегодня гараж городскому жителю.</p></div>
@@ -238,7 +243,7 @@
                     <div class="art-f">
                         <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
                     </div>
-                    <div class="art-inner">
+                    <div class="art-inner--m">
                     <h3 class="art-t">{{ article.headline1 }}</h3>
                     <p class="art-text">Autoparus.by<p>
                     <p class="art-data">00.00.0000<p>
@@ -264,8 +269,8 @@
                         {#<span class="points"></span>#}
                     {#</button>#}
                 </div>
-                <div class="content-wrapper">
-                    <div class="art-foto post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
+                <div class="content-wrapper content-wrapper--m">
+                    <div class="art-foto art-foto--m post-images-{[{post.id}]} owl-carousel owl-theme owl-type" carousel-element data-post-id="{[{post.id}]}">
                         <a carousel-item data-photo-id="{[{image.id}]}" ng-repeat="image in post.images | limitTo: 3" ng-cloak ng-href="{[{posts.moveToPost(post.id, post.type)}]}">
                             <img ng-src="{[{image.path}]}" alt="Картинка">
                         </a>
