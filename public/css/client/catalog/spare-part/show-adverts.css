@@ -25,7 +25,6 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    margin-bottom: 10px;
 
 }
 
@@ -78,23 +77,23 @@ overflow: hidden;
 
 .description-dsc {
     margin: 0;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 14px;
     line-height: 16px;
     font-weight: 400;
     color: #000000;
-    height: 50px;
+    height: 34px;
     overflow: hidden;
 }
 
 .adress-text {
     margin: 0;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 14px;
     font-weight: 400;
     color: #000000;
     margin-bottom: 7px;
-    width: 60%;
+    width: 45%;
 }
 
 .prod-cont {
@@ -155,6 +154,10 @@ overflow: hidden;
     margin-bottom: 15px;
     text-align: center;
 }
+
+.contact:last-child {
+    margin-bottom: 0;
+}
 .contact::before {
     content: attr(data-text);
     -webkit-text-stroke: .04em #000000;
@@ -165,7 +168,7 @@ overflow: hidden;
     font-size: 20px;
     line-height: 22px;
     font-weight: 400;
-    color: #2980b9;
+    color: #000000;
     text-align: center;
 }
 .adress-inner {
@@ -379,29 +382,29 @@ overflow: hidden;
     margin-left: auto;
 }
 .star {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: url("/img/Stars.svg") 0 0 no-repeat;
     margin-right: 3px;
 }
 .rev {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: url("/img/Stars.svg") -15px 0 no-repeat;
     margin-right: 3px;
 }
 .review-text {
     margin: 0;
     margin-left: auto;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 10px;
+    line-height: 12px;
     color: #444;
 }
 
 .card-text {
     margin: 0;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 14px;
     color: #000000;
 }
 
@@ -458,9 +461,10 @@ overflow: hidden;
         margin-bottom: 40px;
     }
     .card-list .card-img {
-       width: 180px;
-    height: 120px;
-    margin-right: 10px; 
+          width: 96px;
+    height: 64px;
+    margin: 0;
+    margin-right: 10px;
     }
     .adress {
         -webkit-flex-direction: column;
@@ -471,7 +475,8 @@ overflow: hidden;
         justify-content: center;
     }
     .adress-text {
-        margin-bottom: 10px;
+        width: 100%;
+        margin-bottom: 20px;
     }
     .unp-number {
         margin-bottom: 20px;

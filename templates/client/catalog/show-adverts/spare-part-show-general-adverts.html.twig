@@ -1,7 +1,7 @@
 {% set brand = templateParameters.brand %}
 {% set sparePart = templateParameters.sparePart %}
 {% set model = templateParameters.model is defined ? templateParameters.model : null %}
-<h3 class="seller-title">Продавцы у которых Вы также сможете найти {{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model ? model.modelEn : "" }}</h3>
+<h3 class="seller-title">Продавцы автозапчастей: {{ sparePart.alternativeName1 }} для {{ brand.brandEn }} {{ model ? model.modelEn : "" }}</h3>
 
 <div class="card-list">
     {% for advert in adverts %}
@@ -23,9 +23,7 @@
                         </div>
                     </div>
                     <p class="card-text add-three-dots-{{ is_mobile() ? 5 : 3 }}-lines">{{ advert.comment }}</p>
-                </div>
-            </div>
-            <div class="adress">
+                    <div class="adress">
                 <p class="adress-text">
                     <svg class="adress-text-img" width="18" height="18" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                         <path fill="red" d="M25 47.7741L24.2284 46.6575C23.6481 45.8166 10 25.9678 10 18C10 9.72938 16.7294 3 25 3C33.2706 3 40 9.72938 40 18C40 25.9678 26.3519 45.8166 25.7716 46.6575L25 47.7741ZM25 4.875C17.7625 4.875 11.875 10.7625 11.875 18C11.875 24.3628 22.0797 40.0828 25 44.4506C27.9203 40.0828 38.125 24.3628 38.125 18C38.125 10.7625 32.2375 4.875 25 4.875Z"></path>
@@ -34,6 +32,9 @@
                 <span class="unp-number">УНП: {{ sellerCompany.unp }}</span>
                 <span class="adress-tel">{{ sellerCompany.additionalPhone }}</span>
             </div>
+                </div>
+            </div>
+            
         </a>
     {% endfor %}
 </div>
