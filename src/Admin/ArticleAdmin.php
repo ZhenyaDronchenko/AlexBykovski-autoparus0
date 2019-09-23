@@ -61,7 +61,7 @@ class ArticleAdmin extends AbstractAdmin
         /** @var User */
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
 
-        if(!$user->hasRole(User::ROLE_ADMIN) && $article->getId() && $article->getCreator() !== $user){
+        if(!($user->hasRole(User::ROLE_ADMIN) || $user->hasRole(User::ROLE_SHOW_POSTS_HOMEPAGE)) && $article->getId() && $article->getCreator() !== $user){
             throw new AccessDeniedException('У вас нет доступа к этим данным!');
         }
 
@@ -240,7 +240,7 @@ class ArticleAdmin extends AbstractAdmin
         /** @var User */
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
 
-        if(!$user->hasRole(User::ROLE_ADMIN)) {
+        if(!($user->hasRole(User::ROLE_ADMIN) || $user->hasRole(User::ROLE_SHOW_POSTS_HOMEPAGE))) {
             $query->where($rootAlias . '.creator = :user')
                 ->setParameter('user', $user);
         }
