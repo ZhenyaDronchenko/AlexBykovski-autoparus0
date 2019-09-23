@@ -41,4 +41,19 @@ $(document).ready(function (ev) {
     }
 
     $(".top-step").parents(".sonata-ba-field.sonata-ba-field-standard-natural").css({"padding-top" : "20px"});
+    $(".detailt-types").css({"padding-top" : "20px"});
+
+    handleActivateAt();
 });
+
+function handleActivateAt() {
+    let activateAt = $(".activate-choice").parents(".sonata-ba-field.sonata-ba-field-standard-natural").parent();
+    let isActiveCheckbox = $($(".is-active-checkbox")[0]);
+    console.log(isActiveCheckbox.is(":checked"));
+
+    isActiveCheckbox.is(":checked") ? activateAt.hide() : activateAt.show();
+
+    isActiveCheckbox.parent().find(".iCheck-helper").click(function (ev) {
+        isActiveCheckbox.is(":checked") ? activateAt.hide() : activateAt.show();
+    });
+}

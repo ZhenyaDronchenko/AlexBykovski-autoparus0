@@ -33,8 +33,15 @@ class ArticleFilterType
      */
     private $offset = 0;
 
-    /** @var bool|null */
-    private $isOur;
+    /**
+     * @var array
+     */
+    private $types;
+
+    /**
+     * @var array
+     */
+    private $notTypes;
 
     /**
      * ArticleFilterType constructor.
@@ -42,17 +49,27 @@ class ArticleFilterType
      * @param array $themes
      * @param int $limit
      * @param int $offset
-     * @param boolean $isOur
+     * @param array $types
      * @param array $notThemes
+     * @param array $notTypes
      */
-    public function __construct(string $typeSort, array $themes = [], int $limit = 6, int $offset = 0, $isOur = null, $notThemes = [])
+    public function __construct(
+        string $typeSort,
+        array $themes = [],
+        int $limit = 6,
+        int $offset = 0,
+        array $types = [],
+        array $notThemes = [],
+        array $notTypes = []
+    )
     {
         $this->typeSort = $typeSort;
         $this->themes = $themes;
         $this->limit = $limit;
         $this->offset = $offset;
-        $this->isOur = $isOur;
+        $this->types = $types;
         $this->notThemes = $notThemes;
+        $this->notTypes = $notTypes;
     }
 
     /**
@@ -120,19 +137,19 @@ class ArticleFilterType
     }
 
     /**
-     * @return bool|null
+     * @return array
      */
-    public function getisOur(): ?bool
+    public function getTypes(): array
     {
-        return $this->isOur;
+        return $this->types;
     }
 
     /**
-     * @param bool|null $isOur
+     * @param array $types
      */
-    public function setIsOur(?bool $isOur): void
+    public function setTypes(array $types): void
     {
-        $this->isOur = $isOur;
+        $this->types = $types;
     }
 
     /**
@@ -149,5 +166,21 @@ class ArticleFilterType
     public function setNotThemes(array $notThemes): void
     {
         $this->notThemes = $notThemes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNotTypes(): array
+    {
+        return $this->notTypes;
+    }
+
+    /**
+     * @param array $notTypes
+     */
+    public function setNotTypes(array $notTypes): void
+    {
+        $this->notTypes = $notTypes;
     }
 }

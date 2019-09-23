@@ -36,6 +36,19 @@ class ArticleDetail
     private $themes;
 
     /**
+     * @var Collection
+     *
+     * Many ArticleDetails have Many ArticleTypes.
+     *
+     * @ORM\ManyToMany(targetEntity="ArticleType")
+     * @ORM\JoinTable(name="article_details_types",
+     *      joinColumns={@ORM\JoinColumn(name="detail_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="type_id", referencedColumnName="id")}
+     *      )
+     */
+    private $types;
+
+    /**
      * @var Brand|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Brand")
@@ -73,6 +86,7 @@ class ArticleDetail
     public function __construct()
     {
         $this->themes = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     /**
@@ -169,5 +183,21 @@ class ArticleDetail
     public function setArticle(Article $article): void
     {
         $this->article = $article;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    /**
+     * @param Collection $types
+     */
+    public function setTypes(Collection $types): void
+    {
+        $this->types = $types;
     }
 }

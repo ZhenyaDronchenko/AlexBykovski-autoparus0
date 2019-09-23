@@ -27,6 +27,8 @@ class ArticleRepository extends EntityRepository
 
     public function findAllByFilter(ArticleFilterType $filter, $notIds = [])
     {
+        $notIds = [];
+
         $qb = $this->createQueryBuilder('a')
             ->select('a as object, (a.views + a.directViews) as all_views')
             ->join("a.detail", "d")
@@ -53,13 +55,22 @@ class ArticleRepository extends EntityRepository
         }
 
         if(count($filter->getNotThemes())){
-            $qb->andWhere("a.id NOT IN(:notIds)")
-                ->setParameter("notIds", $this->findAllWithThemesIds($filter->getNotThemes()));
+            $notIds = array_merge($notIds, $this->findAllWithThemesIds($filter->getNotThemes()));
         }
 
-        if(is_bool($filter->getisOur())){
-            $qb->andWhere("a.isOur = :isOur")
-                ->setParameter("isOur", $filter->getisOur());
+        if(count($filter->getNotTypes())){
+            $notIds = array_merge($notIds, $this->findAllWithTypesIds($filter->getNotTypes()));
+        }
+
+        if(count($notIds)){
+            $qb->andWhere("a.id NOT IN(:notIds)")
+                ->setParameter("notIds", $notIds);
+        }
+
+        if(count($filter->getTypes())){
+            $qb->join("d.types", "type")
+                ->andWhere("type IN (:types)")
+                ->setParameter("types", $filter->getTypes());
         }
 
         switch ($filter->getTypeSort()){
@@ -93,6 +104,19 @@ class ArticleRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findToActivate()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where("a.isActive = :falseValue")
+            ->andWhere("a.activateAt IS NOT NULL")
+            ->andWhere("a.activateAt < :now")
+            ->setParameter("falseValue", false)
+            ->setParameter("now", new DateTime())
+            ->getQuery()
+            ->getResult();
+    }
+
     private function findAllWithThemesIds($themes)
     {
         $res = $this->createQueryBuilder('a')
@@ -101,6 +125,26 @@ class ArticleRepository extends EntityRepository
             ->join("d.themes", "theme")
             ->andWhere("theme IN (:themes)")
             ->setParameter("themes", $themes)
+            ->getQuery()
+            ->getResult();
+
+        $ids = [];
+
+        foreach ($res as $item){
+            $ids[] =  $item["id"];
+        }
+
+        return $ids;
+    }
+
+    private function findAllWithTypesIds($types)
+    {
+        $res = $this->createQueryBuilder('a')
+            ->select('a.id')
+            ->join("a.detail", "d")
+            ->join("d.types", "type")
+            ->andWhere("type IN (:types)")
+            ->setParameter("types", $types)
             ->getQuery()
             ->getResult();
 

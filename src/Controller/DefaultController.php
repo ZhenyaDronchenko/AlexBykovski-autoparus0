@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article\Article;
 use App\Entity\Article\ArticleTheme;
+use App\Entity\Article\ArticleType;
 use App\Entity\Brand;
 use App\Entity\City;
 use App\Entity\Client\Client;
@@ -42,15 +43,16 @@ class DefaultController extends Controller
         $homePage->setFilteredDescription($route, $filter);
 
         $newsTheme = $em->getRepository(ArticleTheme::class)->findOneBy(["url" => ArticleTheme::NEWS_THEME]);
+        $ourType = $em->getRepository(ArticleType::class)->findOneBy(["type" => ArticleType::OUR_UNIQUE_MATERIAL]);
 
         $updatedArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, false));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, [], [], [$ourType]));
 
         $ourArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 9, 0, true));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 9, 0, [$ourType]));
 
         $notOurNotNews = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, false, [$newsTheme]));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, [], [$newsTheme], [$ourType]));
 
         $businessPosts = $em->getRepository(Post::class)->findAllByFilter(new PostsFilterType(PostsFilterType::USERS_ACCESS_POST_HOMEPAGE, null, null, null, null, 4, 0));
 
