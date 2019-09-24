@@ -49,7 +49,7 @@ class DefaultController extends Controller
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, [], [], [$ourType]));
 
         $ourArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 9, 0, [$ourType]));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0, [$ourType]));
 
         $notOurNotNews = $em->getRepository(Article::class)
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, [], [$newsTheme], [$ourType]));

@@ -85,18 +85,17 @@
 
             <div class="art-inner">
                 <div class="art">
-                    {% for articleArray in ourArticles[3:] %}
+                    {% for articleArray in ourArticles[3:6] %}
                         {% set article = articleArray.object %}
                         <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="art-i">
-                          <div class="art-f">
-                            <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
-                          </div>
-                          <div class="art-inner--m">
-                            <h3 class="art-t">{{ article.headline1 }}</h3>
-                            <p class="art-text">Autoparus.by<p>
-                            <p class="art-data">00.00.0000<p>
-                        </div>
-
+                            <div class="art-f">
+                                <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                            </div>
+                            <div class="art-inner--m">
+                                <h3 class="art-t">{{ article.headline1 }}</h3>
+                                <p class="art-text">{{ article.headline2 }}<p>
+                                <p class="art-data">{{ article.createdAt | date("d.m.Y") }}<p>
+                            </div>
                         </a>
                     {% endfor %}
                 </div>
@@ -129,70 +128,30 @@
                 </div>
 
                 <ul class="content">
-                    <li class="content-item">
-                        <div class="content-inner">
-                            <div class="foto-inner foto-inner--m">
-                                <a href="/publication/579">
-                                    <img src="/images/article/2019/09/5d84a9732ca1b_thumb.png" alt="Картинка">
-                                </a>
-                            </div>
+                    {% for articleArray in ourArticles[9:] %}
+                        {% set article = articleArray.object %}
+                        {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
+                        <li class="content-item">
+                            <div class="content-inner">
+                                <div class="foto-inner foto-inner--m">
+                                    <a href="{{ articleUrl }}">
+                                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                                    </a>
+                                </div>
 
-                            <div class="user-block user-block--m">
-                                <a href="/publication/579">
-                                    <h3 class="user-title">5 лучших авто для девушек</h3>
-                                    <div id='text3' class='text1Show add-three-dots-4-lines'><p>Сдать на права &ndash; это еще полдела. Самое сложное ждет впереди. Автомобилей много, вы одна. Где же он &ndash; &laquo;тот самый&raquo;? &laquo;Автопарус&raquo; решил найти ответ на этот вопрос.Четкого понятия &laquo;женский автомобиль&raquo; пока еще никто не сформулировал.</p>
-
-                                    <p>Обычно девушки &nbsp;выбирают себе небольшое транспортное средство (из классов А, В или С) яркого цвета с автоматической коробкой передач. Это обязательно должен быть юркий, компактный, но удобный автомобиль, который можно будет припарковать в любом месте.</p>
-
-                                    <p>На рынке таких моделей появляется настолько много, что глаза разбегаются. Начинаешь искать &ndash; и каждые несколько минут вылавливаешь подходящую под описание машинку. Но у каждого автомобиля своя специфика, разобраться в которой по картинке невозможно. Поэтому мы подобрали 5 лучших (и проверенных) авто для леди за рулем: красивые, дерзкие и очень изящные.</p></div>
-                                </a>
-                                <div class="date-block">
-                                  <span class="date">20.09.2019</span>
-                                  <span class="time">13:18</span>
+                                <div class="user-block user-block--m">
+                                    <a href="{{ articleUrl }}">
+                                        <h3 class="user-title">{{ article.headline1 }}</h3>
+                                        <div id='text2' class='text1Show add-three-dots-4-lines'>{{ article.mainArticleImage.text | raw }}</div>
+                                    </a>
+                                    <div class="date-block">
+                                        <span class="date">{{ article.createdAt|date("d.m.Y") }}</span>
+                                        <span class="time">{{ article.createdAt|date("H:i") }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="content-item">
-                        <div class="content-inner">
-                            <div class="foto-inner foto-inner--m">
-                                <a href="/publication/575">
-                                    <img src="/images/article/2019/09/5d83e08210407_thumb.png" alt="Картинка">
-                                </a>
-                            </div>
-
-                            <div class="user-block user-block--m">
-                                <a href="/publication/575">
-                                  <h3 class="user-title">Как правильно подобрать линзы очков для вождения</h3>
-                                    <div id='text3' class='text1Show add-three-dots-4-lines'><p>В современном технологичном и интенсивном мире зрение может испортиться не только от монитора компьютера или яркого смартфона, но и постоянного вождения. В этом нет ничего удивительного: взгляд автомобилиста всегда сосредоточен и напряжен. За рулем важно уловить каждый попутный и встречный автомобили, предугадать их действия, обратить внимание на дорожные знаки, свои и чужие маневры, а также другие события дорожного движения. &laquo;Автопарус&raquo; совместно с магазином оптики &laquo;Магия Взгляда&raquo; решил рассказать, как правильно подобрать линзы очков для вождения и просто повседневной жизни.</p></div>
-                                </a>
-                                  <div class="date-block">
-                                      <span class="date">19.09.2019</span>
-                                      <span class="time">16:52</span>
-                                  </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="content-item">
-                        <div class="content-inner">
-                            <div class="foto-inner foto-inner--m">
-                                <a href="/publication/571">
-                                    <img src="/images/article/2019/09/5d835b08bbc86_thumb.png" alt="Картинка">
-                                </a>
-                            </div>
-
-                            <div class="user-block user-block--m">
-                                <a href="/publication/571">
-                                  <h3 class="user-title">Нужен ли гараж в городе: плюсы и минусы</h3>
-                                    <div id='text3' class='text1Show add-three-dots-4-lines'><p>25-30 лет назад необходимости объяснять автовладельцам преимущества хранения автомобиля в гараже просто не было. Загнать авто под крышу означало сохранить кузов и другие элементы подверженные погодным условиям более длительное время из-за не самого высокого качества. Да и играло чисто человеческое: гараж считался престижем среди автовладельцев, потому что стояли они, как и сами авто &ndash; немало. Сегодня, если гаражный кооператив находиться не под самым домом, а автомобиль необходим ежедневно, вряд ли владелец будет жертвовать несколькими часами в день, чтобы загнать или взять автомобиль из гаража. &laquo;Автопарус&raquo; решил поговорить с автоэкспертом Евгением Лебедевым и прямо спросить, нужен ли сегодня гараж городскому жителю.</p></div>
-                                </a>
-                                  <div class="date-block">
-                                      <span class="date">19.09.2019</span>
-                                      <span class="time">13:26</span>
-                                  </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    {% endfor %}
                 </ul>   
             </div>
 
