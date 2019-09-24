@@ -10,6 +10,8 @@ use App\Entity\City;
 use App\Entity\Client\Client;
 use App\Entity\Client\Post;
 use App\Entity\Client\SellerCompany;
+use App\Entity\Error\CodeOBD2Error;
+use App\Entity\Error\TypeOBD2Error;
 use App\Entity\General\MainPage;
 use App\Entity\General\NotFoundPage;
 use App\Entity\Model;
@@ -49,7 +51,7 @@ class DefaultController extends Controller
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, [], [], [$ourType]));
 
         $ourArticles = $em->getRepository(Article::class)
-            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 9, 0, [$ourType]));
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0, [$ourType]));
 
         $notOurNotNews = $em->getRepository(Article::class)
             ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, [], [$newsTheme], [$ourType]));
@@ -186,6 +188,84 @@ class DefaultController extends Controller
                 "urlSP" => $sparePart->getUrl(),
                 "urlCity" => City::ALL_CITIES,
             ]);
+        }
+
+        return new JsonResponse(["redirectUrl" => $redirectUrl]);
+    }
+
+    /**
+     * @Route("/main-page-search-obd2-form", name="main_page_search_obd2_form", options={"expose"=true})
+     */
+    public function mainPageOBD2SearchFormAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        $requestData = json_decode($request->getContent(), true);
+        $byName = isset($requestData["by-name"]) && $requestData["by-name"];
+        $byDesignation = isset($requestData["by-designation"]) && $requestData["by-designation"];
+
+        /** @var Brand|null $brand */
+        $brand = $em->getRepository(Brand::class)->findOneBy([
+            $byName ? "name" : "url" => $requestData["brand"]
+        ]);
+        /** @var Model|null $model */
+        $model = $em->getRepository(Model::class)->findOneBy([
+            "brand" => $brand,
+            $byName ? "name" : "url" => $requestData["model"],
+        ]);
+        /** @var TypeOBD2Error|null $type */
+        $type = $em->getRepository(TypeOBD2Error::class)->findOneBy([
+            $byDesignation ? "designation" : "url" => $requestData["type"]
+        ]);
+        /** @var CodeOBD2Error|null $code */
+        $code = $em->getRepository(CodeOBD2Error::class)->findOneBy([
+            "type" => $type,
+            "code" => $requestData["code"],
+        ]);
+
+        if($brand && !$type){
+            $redirectUrl = $this->generateUrl("obd2_forum_choice_type", ["urlBrand" => $brand->getUrl()]);
+        }
+        elseif(!$brand && $type && !$code){
+            $redirectUrl = $this->generateUrl("show_obd2_error_catalog_choice_code", ["urlType" => $type->getUrl()]);
+        }
+        elseif (!$brand && $type && $code){
+            $redirectUrl = $this->generateUrl("show_obd2_error_catalog_choice_transcript",
+                [
+                    "urlType" => $type->getUrl(),
+                    "urlCode" => $code->getUrl()
+                ]
+            );
+        }
+        elseif ($brand && $type && !$code && $model){
+            $redirectUrl = $this->generateUrl("obd2_forum_choice_code",
+                [
+                    "urlType" => $type->getUrl(),
+                    "urlBrand" => $brand->getUrl()
+                ]
+            );
+        }
+        elseif ($brand && $type && $code && !$model){
+            $redirectUrl = $this->generateUrl("obd2_forum_choice_model",
+                [
+                    "urlType" => $type->getUrl(),
+                    "urlBrand" => $brand->getUrl(),
+                    "urlCode" => $code->getUrl(),
+                ]
+            );
+        }
+        elseif ($brand && $type && $code && $model){
+            $redirectUrl = $this->generateUrl("obd2_forum_final_page",
+                [
+                    "urlType" => $type->getUrl(),
+                    "urlBrand" => $brand->getUrl(),
+                    "urlCode" => $code->getUrl(),
+                    "urlModel" => $model->getUrl(),
+                ]
+            );
+        }
+        else{
+            $redirectUrl = $this->generateUrl("show_obd2_error_catalog_choice_type");
         }
 
         return new JsonResponse(["redirectUrl" => $redirectUrl]);

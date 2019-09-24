@@ -11,6 +11,9 @@
         let API_URL_ENGINE_CAPACITY = '/search/engine-capacity/__brand__/__model__/__engine_type__';
         let API_URL_VEHICLE_TYPE = '/search/vehicle-type/__brand__/__model__/';
 
+        let API_URL_OBD2_TYPE = '/search/obd2-type?text=';
+        let API_URL_OBD2_CODE = '/search/obd2-code/';
+
         let API_URL_PHONE_WORK = '/search/phone/work?text=';
         let API_URL_PHONE_BRAND = '/search/phone/brand?text=';
         let API_URL_PHONE_MODEL = '/search/phone/model/';
@@ -69,6 +72,20 @@
 
         this.searchPhoneModels = function(term, parameters) {
             return search(API_URL_PHONE_MODEL + parameters.brand + "?text=" + term);
+        };
+
+        this.searchOBD2Types = function(term) {
+            return search(API_URL_OBD2_TYPE + term);
+        };
+
+        this.searchOBD2Code = function(term, parameters) {
+            let url = API_URL_OBD2_CODE + parameters.type + "?text=" + term;
+
+            if(parameters.hasOwnProperty("by-designation")){
+                url += "&by-designation";
+            }
+
+            return search(url);
         };
 
         function search(url) {
