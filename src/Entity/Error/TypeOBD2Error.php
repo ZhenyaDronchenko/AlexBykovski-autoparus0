@@ -185,6 +185,16 @@ class TypeOBD2Error
         return $string;
     }
 
+    public function toSearchArray()
+    {
+        return [
+            "label" => $this->designation,
+            "value" => $this->designation,
+            "url" => $this->url,
+            "id" => $this->id,
+        ];
+    }
+
     public function toArray()
     {
         return [

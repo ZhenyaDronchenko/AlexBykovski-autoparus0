@@ -1,0 +1,23 @@
+<div class="filter-column" ng-controller="OBD2SearchFormCtrl as obdSearch" ng-init="obdSearch.init()">
+    <form class="filter">
+        <fieldset class="filter-block">
+            <legend class="filter-title">OBD2 ошибки</legend>
+            <input type="text" list="brand-obd2-list" class="select-item" placeholder="Марка" ng-model="obdSearch.params.brand">
+            <datalist id="brand-obd2-list" datalist-autocomplete method-search="searchBrands">
+            </datalist>
+
+            <input type="text" list="model-obd2-list" class="select-item" placeholder="Модель" ng-model="obdSearch.params.model">
+            <datalist id="model-obd2-list" datalist-autocomplete method-search="searchModels" request-parameters='{"brand": "{[{obdSearch.params.brand}]}", "by-name" : true}'>
+            </datalist>
+
+            <input type="text" list="type-obd2-list" class="select-item" placeholder="Тип" ng-model="obdSearch.params.type">
+            <datalist id="type-obd2-list" datalist-autocomplete method-search="searchOBD2Types">
+            </datalist>
+
+            <input type="text" list="code-obd2-list" class="select-item" placeholder="Номер" ng-model="obdSearch.params.code">
+            <datalist id="code-obd2-list" datalist-autocomplete method-search="searchOBD2Code" request-parameters='{"type": "{[{obdSearch.params.type}]}", "by-designation" : true}'>
+            </datalist>
+            <button class="button" type="button" ng-click="obdSearch.searchByForm()">Найти</button>
+        </fieldset>
+    </form>
+</div>

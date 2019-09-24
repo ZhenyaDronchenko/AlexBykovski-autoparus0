@@ -334,6 +334,16 @@ class CodeOBD2Error
         ++$this->counter;
     }
 
+    public function toSearchArray()
+    {
+        return [
+            "label" => $this->code,
+            "value" => $this->code,
+            "url" => $this->url,
+            "id" => $this->id,
+        ];
+    }
+
     static function getAbsentCode($type = null, $url = null)
     {
         $code = new CodeOBD2Error();
