@@ -21,4 +21,30 @@ class CodeOBD2ErrorRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param string $text
+     * @param TypeOBD2Error $type
+     *
+     * @return array
+     */
+    public function searchByText($text, TypeOBD2Error $type = null)
+    {
+        $query = $this->createQueryBuilder('cobd2')
+            ->select('cobd2')
+            ->where( "cobd2.code LIKE :text")
+            ->andWhere("cobd2.active = :trueValue")
+            ->setParameter("trueValue", true)
+            ->setParameter("text", '%' . $text . '%');
+
+        if($type){
+            $query = $query
+                ->andWhere("cobd2.type = :type")
+                ->setParameter("type", $type);
+        }
+
+        return $query->orderBy("cobd2.code", "ASC")
+            ->getQuery()
+            ->getResult();
+    }
 }

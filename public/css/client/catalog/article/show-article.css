@@ -754,5 +754,14 @@ flex-wrap: wrap;
 }
 /*  comment END */
 
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  textarea {
+    font-size: 16px;
+  }
 
+  textarea:focus {
+    font-size: 16px;
+    background: #eee;
+  }
+}
 /*  MAIN END */

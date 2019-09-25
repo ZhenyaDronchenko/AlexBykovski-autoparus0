@@ -11,6 +11,8 @@ use App\Entity\Client\Post;
 use App\Entity\Client\SellerCompany;
 use App\Entity\Engine;
 use App\Entity\EngineType;
+use App\Entity\Error\CodeOBD2Error;
+use App\Entity\Error\TypeOBD2Error;
 use App\Entity\Model;
 use App\Entity\SparePart;
 use App\Entity\User;
@@ -126,10 +128,6 @@ class SearchController extends Controller
         /** @var Model $model */
         foreach ($models as $model){
             $parsedModels[] = $model->toSearchArray(false);
-
-//            if($isAllVariants){
-//                $parsedModels[] = $model->toSearchArray(!$isRussianText);
-//            }
         }
 
         return new JsonResponse($parsedModels);
@@ -332,5 +330,70 @@ class SearchController extends Controller
         }
 
         return new JsonResponse($parsedArticles);
+    }
+
+    /**
+     * @Route("/obd2-type", name="search_obd2_type_autocomplete")
+     */
+    public function searchOBD2TypeAction(Request $request)
+    {
+        $text = $request->query->get("text");
+
+        if(!is_string($text) || strlen($text) !== 1 && $text !== self::ALL_VARIANTS){
+            return new JsonResponse([]);
+        }
+
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
+        if(strlen($text) === 1){
+            $types = $this->getDoctrine()->getRepository(TypeOBD2Error::class)->findBy(["designation" => $text]);
+        }
+        else{
+            $types = $this->getDoctrine()->getRepository(TypeOBD2Error::class)->findAll();
+        }
+
+        $parsedTypes = [];
+
+        /** @var TypeOBD2Error $type */
+        foreach ($types as $type){
+            $parsedTypes[] = $type->toSearchArray();
+        }
+
+        return new JsonResponse($parsedTypes);
+    }
+
+    /**
+     * @Route("/obd2-code/{urlType}", name="search_obd2_code_autocomplete")
+     */
+    public function searchOBD2CodeAction(Request $request, $urlType)
+    {
+        $text = $request->query->get("text");
+        $byDesignation = $request->query->has("by-designation");
+
+        $type = $this->getDoctrine()->getRepository(TypeOBD2Error::class)->findOneBy(
+            [$byDesignation ? "designation" : "url" => $urlType]
+        );
+
+        if(!is_string($text) || !(strlen($text) >= 1 && strlen($text) <= 4 || $text === self::ALL_VARIANTS) ||
+            !($type instanceof TypeOBD2Error)){
+            return new JsonResponse([]);
+        }
+
+        $isAllVariants = $text === self::ALL_VARIANTS;
+
+        $text = !$isAllVariants ? $text : "";
+
+        $codes = $this->getDoctrine()->getRepository(CodeOBD2Error::class)->searchByText($text, $type, false);
+
+        $parsedCodes = [];
+
+        /** @var CodeOBD2Error $code */
+        foreach ($codes as $code){
+            $parsedCodes[] = $code->toSearchArray();
+        }
+
+        return new JsonResponse($parsedCodes);
     }
 }

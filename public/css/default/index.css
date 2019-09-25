@@ -781,6 +781,7 @@ input.select-item {
 }
 
 input.select-item--type {
+  margin: 0;
   display: block;
     width: 100px;
     margin-bottom: 15px;
