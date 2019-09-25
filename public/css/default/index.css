@@ -891,7 +891,7 @@ label {
 }
 
 .button:hover, .button:focus {
-    background-color: #d2a2af;
+    background-color: #cccccc;
 }
 
 .select-link {
@@ -1204,6 +1204,7 @@ input.select-item {
     -ms-flex-wrap: wrap;
     -o-flex-wrap: wrap;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 .art-i {
   width: 32%;

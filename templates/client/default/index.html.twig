@@ -189,6 +189,36 @@
             {% endfor %}
         </div>
 
+        <div class="cont-inner">
+          <ul class="content">
+              {% for articleArray in ourArticles[:3] %}
+                  {% set article = articleArray.object %}
+                  {% set articleUrl = path("article_catalog_show_article", {"id" : article.id}) %}
+                <li class="content-item">
+                    <div class="content-inner">
+                        <div class="foto-inner">
+                            <a href="{{ articleUrl }}">
+                                <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                            </a>
+                        </div>
+
+                        <div class="user-block">
+                            <a href="{{ articleUrl }}">
+                              <h3 class="user-title">{{ article.headline1 }}</h3>
+                                <div id='text2' class='text1Show add-three-dots-4-lines'>{{ article.mainArticleImage.text | raw }}</div>
+                            </a>
+                              <div class="date-block">
+                                  <span class="date">{{ article.createdAt|date("d.m.Y") }}</span>
+                                  <span class="time">{{ article.createdAt|date("H:i") }}</span>
+                              </div>
+                        </div>
+                    </div>
+                </li>
+              {% endfor %}
+            </ul>
+            {% include('/client/default/parts/search-form-main.html.twig') %}
+            </div>
+
         <div class="baner-block">
             {% for banner in homePage.banners %}
                 <a href="{{ banner.link }}"><img src="{{ image_url(banner.image) }}" alt="{{ banner.alt }}"></a>

@@ -107,7 +107,7 @@
 
 .main-page {
   background: #f0f0f0;
-  padding: 5px 20px;
+  padding: 0 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
   margin-top: 0;
@@ -126,6 +126,7 @@
 }
 .block-left {
   padding: 20px 10px;
+  padding-top: 30px;
   width: 68%;
   background-color: #fff;
 }
@@ -356,12 +357,12 @@ p {
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    color: #444;
-    background-color: #dbc0c7;
+    color: #000000;
+    background-color: #f2f2f2;
 }
 .btn:hover,
 .btn:focus {
-    background-color: #d2a2af;
+    background-color: #cccccc;
 }
 
  .form7 {

@@ -21,6 +21,8 @@
             <li><a class="current"><span class="line">/</span>{{ pageName }}</a></li>
         </ul>
 
+        {{ render(path('show_article_header_slider')) }}
+
         <section class="select-block">
             <h1 class="select-title">{{ page.headline1 }}</h1>
             <div class="select-text">{{ page.text1 | raw }}</div>
