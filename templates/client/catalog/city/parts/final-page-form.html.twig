@@ -51,8 +51,8 @@
 
     </div>
     <div class="form-contact">
-        <div class="form-contact-inner" style="display: {{ not app.user ? "block" : "none" }}">
-            <label for="{{ form.phoneBY.vars.id }}">Ваш телефон:</label>
+        <div class="form-contact-inner" style="display: {{ not app.user ? "flex" : "none" }}">
+            <label for="{{ form.phoneBY.vars.id }}">Телефон:</label>
             <div class="tel-block">
                 {{ form_widget(form.phoneBY, {attr: {"placeholder": "Телефон BY", class: "input input-tel phone-mask-by"}}) }}
                 {{ form_widget(form.phoneRU, {attr: {"placeholder": "Телефон RU", class: "input input-tel--b phone-mask-ru"}}) }}
@@ -62,10 +62,10 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="form-contact-inner" style="display: {{ not app.user ? "block" : "none" }}">
-            <label for="{{ form.email.vars.id }}">Ваш e-mail:</label>
+        <div class="form-contact-inner" style="display: {{ not app.user ? "flex" : "none" }}">
+            <label for="{{ form.email.vars.id }}">e-mail:</label>
             <div class="tel-block">
-                {{ form_widget(form.email, {attr: {class: "input input-tel"}}) }}
+                {{ form_widget(form.email, {attr: {"placeholder": "Ваш e-mail:", class: "input input-tel"}}) }}
 
                 {% for key, error in form.email.vars.errors.form.getErrors(true)%}
                     <span class="promt">{{ error.message }}</span>
@@ -79,13 +79,13 @@
 
     </div>
     {% if isValid %}
-        <p class="zap-text">Ваша заявка была сохранена
+        <p class="zap-text">Ваша заявка сохранена
             {% if not app.user %}
-                под пользователем: {{ userSave }}
+                под логином: {{ userSave }}
             {% endif %}
         </p>
         {% if isNewUser %}
-        <p class="zap-text">Теперь Вы зарегистрированы на сайт под введёнными данными.</p>
+        <p class="zap-text zap-text--b">Вы зарегистрированы на сайте под введёнными данными.</p>
             {% if isBYPhone %}
                 Мы отправили на Ваш номер телефона СМС сообщение с сылкой для подтверждения заказа и вторую ссылку на электронную почту. Воспользуйтесь любым удобным для вас вариантом подтверждения.
             {% else %}

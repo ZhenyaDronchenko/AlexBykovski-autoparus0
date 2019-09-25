@@ -233,6 +233,8 @@ p {
 .btn {
   width: 230px;
   display: block;
+  text-align: center;
+    color: #000000;
   font-size: 16px;
   line-height: 18px;
     padding: 5px 15px;

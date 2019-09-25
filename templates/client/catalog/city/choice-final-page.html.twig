@@ -114,7 +114,6 @@
           <div id="form-container">
           </div>
       </section>
-    </main>
 
     <table id="table-data-hide" class="feature-block" style="display:none;">
         <tbody>
@@ -122,7 +121,7 @@
             <tr><td>Марка:</td><td class="tab">{{ brand.brandEn }}</td></tr>
             <tr><td>Модель:</td><td class="tab">{{ model.modelEn }}</td></tr>
             <tr><td>Год:</td><td class="tab">{{ year }}</td></tr>
-            <tr><td>Тип двигателя:</td><td class="tab">{{ engine.type }}</td></tr>
+            <tr><td>Двигатель:</td><td class="tab">{{ engine.type }}</td></tr>
             <tr><td>Объем:</td><td class="tab">{{ engine.capacity }} ({{ engine.name }})</td></tr>
             <tr><td>Кузов:</td><td class="tab">{{ vehicleType.type }}</td></tr>
             <tr><td>Состояние:</td><td class="tab">{{ condition.singleAdjective }}</td></tr>
@@ -134,6 +133,7 @@
     </div>
 
     <datalist id="sp-list" datalist-autocomplete method-search="searchSpareParts"></datalist>
+     </main>
 {% endblock %}
 
 {% block javascripts %}
