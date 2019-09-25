@@ -16,7 +16,7 @@
     {% set countSparePartSprecificAdverts = adverts_count(app.user, "specific") %}
     {% set activeTab = app.request.query.get("tab") in ["general", "specific"] ? app.request.query.get("tab") : "" %}
     {% if not activeTab %}
-        {% set activeTab = countSparePartGeneralAdverts == 0 and  countSparePartSprecificAdverts > 0 ? "specific" : "general" %}
+        {% set activeTab = "specific" %}
     {% endif %}
     <main class="container">
         <ul id="breadcrumbs">
@@ -36,13 +36,13 @@
         <section class="prod">
             <h1 class="title">{{ default_text(6).headline }}</h1>
             <ul class="block-product">
-                <li class="product product--l product-1 {{ activeTab == 'general' ? "active" : ""  }}">Общие <span>({{ countSparePartGeneralAdverts }})</span></li>
                 <li class="product product--r product-2 {{ activeTab == 'specific' ? "active" : ""  }}">Товарные <span>({{ countSparePartSprecificAdverts }})</span></li>
+                <li class="product product--l product-1 {{ activeTab == 'general' ? "active" : ""  }}">Общие <span>({{ countSparePartGeneralAdverts }})</span></li>
             </ul>
 
             <div class="main-block">
-                {% include('/client/user-office/seller-services/product-categories/spare-part/list-adverts-tabs/group-adverts.html.twig') with {"generalAdverts" : generalAdverts} %}
                 {% include('/client/user-office/seller-services/product-categories/spare-part/list-adverts-tabs/specific-adverts.html.twig') with {} %}
+                {% include('/client/user-office/seller-services/product-categories/spare-part/list-adverts-tabs/group-adverts.html.twig') with {"generalAdverts" : generalAdverts} %}
             </div>
 
             <p class="mod-text">{{ default_text(6).text | raw }}</p>

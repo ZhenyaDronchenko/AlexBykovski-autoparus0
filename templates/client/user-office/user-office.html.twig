@@ -160,7 +160,8 @@
                             <span>Business</span>
                         </a>
                     {% else %}
-                        <a class="icon us-btn5 open-popup-button" nohref data-popup-id="{{ not isSeller ? 13 : 6 }}">
+                        <a class="icon us-btn5 open-popup-button"
+                        {% if isSeller %} href="{{ path("user_profile_product_categories_spare_part_list_adverts") }}" {% else %} nohref data-popup-id="13" {% endif %}>
                             <span>{{ isHasAdverts ? "Мои объявления" : "Business" }}</span>
                         </a>
                     {% endif %}
