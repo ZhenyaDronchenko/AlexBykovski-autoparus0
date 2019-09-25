@@ -467,6 +467,7 @@ figure img {
  .block-left {
     width: 100%;
    padding: 0;
+   margin-bottom: 40px;
 }
 
  .block-right {
@@ -613,7 +614,7 @@ margin-bottom: 30px;
 }
 .comment-new {
   width: 95%;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 .comment-foto {
   width: 30px;
@@ -656,7 +657,7 @@ margin-bottom: 7px;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    color: #999999;
+    color: #000000;
     background-color: transparent;
 }
 
@@ -732,11 +733,13 @@ flex-wrap: wrap;
   margin-bottom: 30px;
 }
 .comment-dsc {
-   margin: 0;
-  margin-bottom: 10px;
-  font-size: 16px;
+  margin: 0;
+    margin-bottom: 30px;
+    font-size: 16px;
     line-height: 18px;
     font-weight: 400;
+    text-align: center;
+    color: green;
 }
 
 .comment-reg {

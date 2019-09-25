@@ -111,7 +111,6 @@
                   <div class="block-part">
                       {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти по марке", "nullOption" : "Марка авто:", "options" : brands, "link" : path("show_brand_catalog_choice_model", {"urlBrand" : "__link__"}), "bannerIndex" : 0} %}
                       {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "OBD2 форум", "nullOption" : "Марка авто:", "options" : brands, "link" : path("obd2_forum_choice_type", {"urlBrand" : "__link__"}), "bannerIndex" : 1} %}
-                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Короткие публикации", "nullOption" : "Марка авто:", "options" : brands, "link" : path("homepage_filter_brand", {"urlBrand" : "__link__"}), "bannerIndex" : 2} %}
                       {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Поиск по наименованию", "nullOption" : "Запчасть:", "options" : spareParts, "link" : path("show_spare_part_catalog_choice_brand", {"urlSP" : "__link__"}), "bannerIndex" : 3} %}
 
                       {% set bannerIndex = 4 %}

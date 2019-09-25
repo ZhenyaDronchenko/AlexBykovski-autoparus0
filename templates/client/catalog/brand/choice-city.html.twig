@@ -60,6 +60,18 @@
                 <a class="button" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : allCitiesPath}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters) }}">Все Города</a>
             </div>
 
+            <div class="cities-inner">
+              <ul class="cities" ng-cloak>
+                {% for city in capitals %}
+                    <li><a class="cities-link cities-link--c" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                {% endfor %}
+                {% for city in regionalCities %}
+                    <li><a class="cities-link cities-link--c" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : city.url}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters|merge({"city" : city})) }}">{{ city.name }}</a></li>
+                {% endfor %}
+              </ul>
+              <a class="cities-link cities-link--all" href="{{ path("show_brand_catalog_in_stock", {"urlCity" : allCitiesPath}|merge(routeParams)) }}" title="{{ title_provider("App\\Entity\\Catalog\\Brand\\CatalogBrandChoiceInStock", parameters) }}">Все Города</a>
+              </div>
+
             {% include('/client/catalog/show-adverts/show-specific-adverts.html.twig') with {"adverts" : specificAdverts, "titleTemplate" : "[ZAP3] для [BRAND] [MODEL]", "templateParameters" : parameters} %}
             {% include('/client/catalog/show-adverts/show-general-adverts.html.twig') with {"adverts" : generalAdverts, "titleTemplate" : "[ZAP3] для [BRAND] [MODEL]", "templateParameters" : parameters} %}
 
