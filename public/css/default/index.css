@@ -781,11 +781,13 @@ input.select-item {
 }
 
 input.select-item--type {
+  display: block;
     width: 100px;
     margin-bottom: 15px;
 }
 
 input.select-item--n {
+  display: block;
     margin-bottom: 15px;
     width: 100px;
 }
