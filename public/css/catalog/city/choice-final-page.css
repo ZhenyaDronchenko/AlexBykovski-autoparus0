@@ -196,12 +196,17 @@ cursor: default;
 
 
 .zap-text {
-  margin: 0;
-  margin-bottom: 10px;
+      margin: 0;
+    margin-bottom: 15px;
     font-size: 16px;
     line-height: 18px;
-    color: #000000;
+    color: green;
     font-weight: 400;
+    text-align: center;
+}
+
+.zap-text--b {
+  margin-bottom: 30px;
 }
 
 .zap-wrapper {
@@ -250,8 +255,7 @@ cursor: default;
     margin-right: 10px;
 }
 .form-list {
-  width: 60%;
-  margin-right: 5px;
+  width: 65%;
 }
 
 .form-title {
@@ -259,7 +263,7 @@ cursor: default;
   margin-bottom: 20px;
     font-size: 22px;
     line-height: 24px;
-    color: #999999;
+    color: #000000;
     font-weight: 700;
     text-align: center;
 }
@@ -283,7 +287,7 @@ textarea {
 }
 
 .feature-block {
-  width: 35%;
+  width: 27%;
 }
 
 .input {
@@ -366,7 +370,7 @@ td {
     line-height: 20px;
     font-weight: 400;
     color: #444;
-    background-color: #dbc0c7;
+    background-color: #f2f2f2;
 }
 
 .form-contact {
@@ -382,9 +386,9 @@ label {
     color: #444;
     margin-bottom: 20px;
 }
-.tel-block {
-  width: 200px;
-}
+/*.tel-block {
+  width: 230px;
+}*/
 .input-tel {
   width: 100%;
   margin: 0;

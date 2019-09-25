@@ -321,7 +321,11 @@ h2 {
         margin-bottom: 20px;
   }
   
-
+.btn {
+        font-size: 12px;
+    line-height: 14px;
+    width: 70%
+  }
 
 .show {
     max-height: 460px;
