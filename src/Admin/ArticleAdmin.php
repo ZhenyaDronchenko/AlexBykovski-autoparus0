@@ -14,6 +14,7 @@ use App\Form\Type\Admin\ArticleBannerFormType;
 use App\Form\Type\Admin\ArticleImageFormType;
 use App\Helper\AdminHelper;
 use App\Upload\FileUpload;
+use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -58,6 +59,7 @@ class ArticleAdmin extends AbstractAdmin
     {
         /** @var Article $article */
         $article = $this->getSubject();
+        $activateAt = $article->getActivateAt();
         /** @var User */
         $user = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
 
@@ -123,13 +125,33 @@ class ArticleAdmin extends AbstractAdmin
             'attr' => ['class' => "top-step is-active-checkbox"],
             'label' => 'Активная',
             'required' => false]);
-        $formMapper->add('activateAt', DateTimeType::class, [
-            'attr' => ['class' => "activate-choice"],
+        $formMapper->add('activateAtDate', ChoiceType::class, [
+            'attr' => [
+                'style' => "width: 10%; float: left; margin-right: 20px;",
+                'class' => "activate-at-date activate-at-block",
+                'data-sonata-select2' => 'false',
+            ],
             'label' => 'Активировать в',
-            'with_minutes' => false,
-            'hours' => range(0, 21, 3),
-            'date_widget' => 'single_text',
-            'required' => false]);
+            'choices' => $this->getActivateDates($activateAt),
+            'data' => $activateAt ? $activateAt->format("d.m.Y") : null,
+            'mapped' => false,
+            'required' => false
+        ]);
+        $formMapper->add('activateAtTime', ChoiceType::class, [
+            'attr' => [
+                'style' => "width: 7%;",
+                'data-sonata-select2' => 'false',
+                'class' => "activate-at-time activate-at-block",
+            ],
+            'label' => "в",
+            'label_attr' => [
+                "style" => "float: left; margin-right: 16px; ",
+            ],
+            'choices' => $this->getActivateTimes(),
+            'data' => $activateAt ? (int)$activateAt->format("H") : null,
+            'mapped' => false,
+            'required' => false
+        ]);
         $formMapper->add('detail.types', EntityType::class, [
             'attr' => ['class' => "detailt-types"],
             'label' => false,
@@ -223,12 +245,14 @@ class ArticleAdmin extends AbstractAdmin
 
         $this->uploadFiles($this->getForm(), $article);
         $this->saveModel($this->getForm()->get("model")->getData(), $article);
+        $this->addActivateAt($this->getForm(), $article);
     }
 
     public function preUpdate($article)
     {
         $this->uploadFiles($this->getForm(), $article);
         $this->saveModel($this->getForm()->get("model")->getData(), $article);
+        $this->addActivateAt($this->getForm(), $article);
 
         $article->setUpdatedAt(new DateTime());
     }
@@ -313,6 +337,66 @@ class ArticleAdmin extends AbstractAdmin
         $array = array_values(SellerCompany::$activities);
 
         return array_combine($array, $array);
+    }
+
+    private function getActivateDates($activatedAt)
+    {
+        $now = new DateTime("now");
+
+        $choices = [];
+
+        $days = 8;
+
+        while($days){
+            $choices[$now->format("d.m.Y")] = $now->format("d.m.Y");
+
+            $now->add(new DateInterval("P1D"));
+
+            --$days;
+        }
+
+        if($activatedAt instanceof DateTime && ($activatedAt < new DateTime("now") || $activatedAt >= $now)){
+            $choices = array_merge([
+                $activatedAt->format("d.m.Y") => $activatedAt->format("d.m.Y")
+            ], $choices);
+        }
+
+        return $choices;
+    }
+
+    private function getActivateTimes()
+    {
+        return [
+            "00:00" => 0,
+            "03:00" => 3,
+            "06:00" => 6,
+            "09:00" => 9,
+            "12:00" => 12,
+            "15:00" => 15,
+            "18:00" => 18,
+            "21:00" => 21,
+        ];
+    }
+
+    private function addActivateAt(Form $form, Article $article)
+    {
+        $activateAt = $article->getActivateAt();
+        $date = $form->get("activateAtDate")->getData();
+        $time = $form->get("activateAtTime")->getData();
+
+        if(!$date || $time === null){
+            $article->setActivateAt(null);
+
+            return false;
+        }
+
+        $newDate = new DateTime($date);
+
+        $newDate->setTime($time, 0);
+
+        $article->setActivateAt($newDate);
+
+        return true;
     }
 
     public function getBatchActions()

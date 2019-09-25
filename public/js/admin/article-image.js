@@ -41,13 +41,14 @@ $(document).ready(function (ev) {
     }
 
     $(".top-step").parents(".sonata-ba-field.sonata-ba-field-standard-natural").css({"padding-top" : "20px"});
-    $(".detailt-types").css({"padding-top" : "20px"});
+    $(".detailt-types").css({"padding-top" : "20px", "padding-bottom" : "20px"});
+    $(".activate-at-date").parents(".sonata-ba-field.sonata-ba-field-standard-natural").parent().css("margin-bottom", 0);
 
     handleActivateAt();
 });
 
 function handleActivateAt() {
-    let activateAt = $(".activate-choice").parents(".sonata-ba-field.sonata-ba-field-standard-natural").parent();
+    let activateAt = $(".activate-at-block").parents(".sonata-ba-field.sonata-ba-field-standard-natural").parent();
     let isActiveCheckbox = $($(".is-active-checkbox")[0]);
     console.log(isActiveCheckbox.is(":checked"));
 

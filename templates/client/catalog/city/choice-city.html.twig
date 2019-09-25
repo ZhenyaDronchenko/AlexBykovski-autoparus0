@@ -4,6 +4,7 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel='stylesheet' href='/css/catalog/auto/city/choose-city.css'>
 {% endblock %}
 
@@ -24,6 +25,7 @@
                 <a class="current" nohref itemprop="item"><span class="line">/</span><span itemprop="name">Заказ-заявка</span><meta itemprop="position" content="2"></a>
             </li>
         </ul>
+
         {{ render(path('show_article_header_slider')) }}
 
         <section class="city">

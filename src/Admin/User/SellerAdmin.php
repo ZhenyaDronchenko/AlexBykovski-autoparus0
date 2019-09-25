@@ -28,7 +28,7 @@ class SellerAdmin extends AbstractAdmin
             ->addIdentifier('name', TextType::class, ['label' => 'Имя/Nick', 'sortable' => false])
             ->addIdentifier('email', TextType::class, ['label' => 'e-mail', 'sortable' => false])
             ->addIdentifier('phone', TextType::class, ['label' => 'Телефон', 'sortable' => false])
-            ->addIdentifier('city', TextType::class, ['label' => 'Город', 'sortable' => false])
+            ->addIdentifier('city', TextType::class, ['label' => 'Город', 'template' => 'admin/user/city-show.html.twig', 'sortable' => false, 'mapped' => false])
             ->addIdentifier('isEnabled', 'boolean', ['label' => 'Актив', 'sortable' => false])
             ->addIdentifier('sellerData.sellerCompany.isService', 'boolean', ['label' => "СТО", 'template' => 'admin/user/is_service_seller.html.twig', 'sortable' => false])
             ->addIdentifier('sellerData.sellerCompany.isSparePartSeller', 'boolean', ['label' => "Товары", 'template' => 'admin/user/is_product_seller.html.twig', 'sortable' => false])

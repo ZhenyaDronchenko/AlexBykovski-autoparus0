@@ -4,9 +4,9 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
    <link rel='stylesheet' href='/css/catalog/city/choice-engine-capacity.css'>
 {% endblock %}
-
 
 {% block body %}
     {% set routeParams = app.request.attributes.get('_route_params') %}

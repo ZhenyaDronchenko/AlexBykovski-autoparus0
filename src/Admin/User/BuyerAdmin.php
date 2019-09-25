@@ -27,7 +27,7 @@ class BuyerAdmin extends AbstractAdmin
             ->addIdentifier('name', TextType::class, ['label' => 'Имя/Nick', 'sortable' => false])
             ->addIdentifier('email', TextType::class, ['label' => 'e-mail', 'sortable' => false])
             ->addIdentifier('phone', TextType::class, ['label' => 'Телефон', 'sortable' => false])
-            ->addIdentifier('city', TextType::class, ['label' => 'Город', 'sortable' => false])
+            ->addIdentifier('city', TextType::class, ['label' => 'Город', 'template' => 'admin/user/city-show.html.twig', 'sortable' => false, 'mapped' => false])
             ->addIdentifier('brands', null, ['label' => "Марка", 'template' => 'admin/user/user_cars_brand.html.twig', 'sortable' => false, 'mapped' => false])
             ->addIdentifier('models', null, ['label' => "Модель", 'template' => 'admin/user/user_cars_model.html.twig', 'sortable' => false, 'mapped' => false])
             ->addIdentifier('isEnabled', 'boolean', ['label' => 'Актив', 'sortable' => false])

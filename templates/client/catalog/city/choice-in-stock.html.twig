@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'client/catalog/city/base-city-catalog.html.twig' %}
 
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
    <link rel='stylesheet' href='/css/catalog/city/choice-in-stock.css'>
 {% endblock %}
 

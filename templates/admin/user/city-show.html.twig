@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {{ object.city ? object.city : (object.sellerData ? '(' ~ object.sellerData.sellerCompany.city ~ ')' : "") }}
+{% endblock %}

@@ -4,6 +4,7 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel='stylesheet' href='/css/catalog/city/choice-brand.css'>
 {% endblock %}
 
@@ -36,6 +37,7 @@
                 </a>
             </li>
         </ul>
+
         {{ render(path('show_article_header_slider')) }}
 
         <section class="model">
