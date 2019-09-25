@@ -2068,6 +2068,7 @@ padding-bottom: 4px;
   -ms-flex-wrap: wrap;
   -o-flex-wrap: wrap;
   flex-wrap: wrap;
+  margin-bottom: 5px;
 }
 .cities {
   display: -webkit-flex;

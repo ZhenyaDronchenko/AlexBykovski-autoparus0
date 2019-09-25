@@ -196,7 +196,6 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    border-bottom: 1px solid #ccc;
 }
 .art-nav-item {
   margin-right: 2%;
@@ -204,8 +203,8 @@
 .art-nav-link {
   font-size: 16px;
     line-height: 18px;
-    color: #444444;
-    font-weight: 400;
+    color: #000000;
+    font-weight: 700;
 }
 .art-nav-link:hover,
 .art-nav-link:focus {
