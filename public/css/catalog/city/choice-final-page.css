@@ -325,6 +325,7 @@ textarea {
     cursor: pointer;
     background-color: #fff;
     border: none;
+    margin-top: 50px;
     margin-bottom: 20px;
     margin-left: auto;
 }
@@ -339,7 +340,6 @@ tr {
     display: flex;
     width: 100%;
     margin-bottom: 15px;
-    border-bottom: 1px dashed #999999; 
 }
 
 td {
