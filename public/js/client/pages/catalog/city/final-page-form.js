@@ -128,6 +128,7 @@ $(document).ready(function(ev){
                 }
 
                 el.parents(".spare-part-container").find(".spare-part-view").append("<br />" + appendVal);
+                el.parents(".spare-part-container").find(".spare-part-view").click();
             }
         });
     }

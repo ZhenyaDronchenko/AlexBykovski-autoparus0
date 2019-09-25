@@ -1,8 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
+{% endblock %}
+
 {% block base_javascripts %}
     <script src='/bower-components/jquery/dist/jquery.min.js'></script>
     <script src='/js/script-new.js'></script>
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
+    <script src='/js/general-settings.js'></script>
     <script src='/js/client/pages/services/autocomplete-provider.js'></script>
     <script src='/js/client/pages/catalog/city/city-catalog.js'></script>
 {% endblock %}
