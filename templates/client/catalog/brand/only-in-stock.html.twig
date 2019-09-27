@@ -43,6 +43,9 @@
         </ul>
 
         <section class="delivery">
+
+            {{ render(path('show_article_header_slider')) }}
+
             <h1 class="delivery-title">{{ page.headline1 }}</h1>
             <div class="delivery-dsc">
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
@@ -108,5 +111,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
     <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
 {% endblock %}
