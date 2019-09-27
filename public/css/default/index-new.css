@@ -86,7 +86,9 @@ border: 1px solid #e6e6e6;
 
 
 .article-link:hover,
-.article-link:focus {
+.article-link:focus,
+.article-link--n:hover,
+.article-link--n:focus {
 -webkit-box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
 box-shadow: 0px 5px 10px 1px rgba(68,68,68,0.6);
  -webkit-filter: grayscale(100%);
