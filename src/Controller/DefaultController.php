@@ -29,6 +29,45 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
+     * @Route("/new-main", name="new_homepage")
+     * @Route("/new-people", name="new_homepage_all_users")
+     */
+    public function showNewHomePageAction(Request $request)
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var MainPage $homePage */
+        $homePage = $this->getDoctrine()->getManager()->getRepository(MainPage::class)->findAll()[0];
+        $filter = new PostsFilterType([], null, null, null, null);
+        $route = $request->get('_route');
+
+        $homePage->setFilteredTitle($route, $filter);
+        $homePage->setFilteredDescription($route, $filter);
+
+        $newsTheme = $em->getRepository(ArticleTheme::class)->findOneBy(["url" => ArticleTheme::NEWS_THEME]);
+        $ourType = $em->getRepository(ArticleType::class)->findOneBy(["type" => ArticleType::OUR_UNIQUE_MATERIAL]);
+
+        $updatedArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, [], [], [$ourType]));
+
+        $ourArticles = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 12, 0, [$ourType]));
+
+        $notOurNotNews = $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_UPDATED, [], 6, 0, [], [$newsTheme], [$ourType]));
+
+        $businessPosts = $em->getRepository(Post::class)->findAllByFilter(new PostsFilterType(PostsFilterType::USERS_ACCESS_POST_HOMEPAGE, null, null, null, null, 4, 0));
+
+        return $this->render('client/default/index-new.html.twig', [
+            "homePage" => $homePage,
+            "articles" => $route === "homepage_all_users" ? [] : $updatedArticles,
+            "ourArticles" => $ourArticles,
+            "notOurNotNews" => $notOurNotNews,
+            "businessPosts" => $businessPosts,
+        ]);
+    }
+
+    /**
      * @Route("/", name="homepage")
      * @Route("/people", name="homepage_all_users")
      */
