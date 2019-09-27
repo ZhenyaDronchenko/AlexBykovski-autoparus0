@@ -114,6 +114,21 @@ $(document).ready(function(ev){
     });
 
     function handleSparePartView() {
+        if(!($("#sp-list").html().trim())){
+            let observer = new MutationObserver(function(mutations) {
+                handleView();
+            });
+// configuration of the observer:
+            let config = { attributes: false, childList: true, characterData: false };
+// pass in the target node, as well as the observer options
+            observer.observe(document.getElementById("sp-list"), config);
+        }
+        else{
+            handleView();
+        }
+    }
+
+    function handleView() {
         $.each($(".spare-part-text:visible"), function (index, item) {
             let el = $(item);
             let val = el.val();
