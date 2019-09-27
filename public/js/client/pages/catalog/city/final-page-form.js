@@ -118,6 +118,8 @@ $(document).ready(function(ev){
             let el = $(item);
             let val = el.val();
 
+            console.log(val);
+            console.log($("#sp-list option[value='" + val + "']"));
             if($("#sp-list option[value='" + val + "']").length){
                 el.hide();
 
