@@ -114,24 +114,26 @@ $(document).ready(function(ev){
     });
 
     function handleSparePartView() {
-        $.each($(".spare-part-text:visible"), function (index, item) {
-            let el = $(item);
-            let val = el.val();
+        $("#sp-list").ready(function () {
+            $.each($(".spare-part-text:visible"), function (index, item) {
+                let el = $(item);
+                let val = el.val();
 
-            console.log(val);
-            console.log($("#sp-list option[value='" + val + "']"));
-            if($("#sp-list option[value='" + val + "']").length){
-                el.hide();
+                console.log(val);
+                console.log($("#sp-list option[value='" + val + "']"));
+                if($("#sp-list option[value='" + val + "']").length){
+                    el.hide();
 
-                let appendVal = val.replace("(", "<br />(");
+                    let appendVal = val.replace("(", "<br />(");
 
-                if(appendVal.indexOf("(") > 0 && appendVal.indexOf(")") > 0){
-                    appendVal = appendVal.replace('(', "<span>(").replace(')', ")</span>")
+                    if(appendVal.indexOf("(") > 0 && appendVal.indexOf(")") > 0){
+                        appendVal = appendVal.replace('(', "<span>(").replace(')', ")</span>")
+                    }
+
+                    el.parents(".spare-part-container").find(".spare-part-view").append("<br />" + appendVal);
+                    console.log("1");
                 }
-
-                el.parents(".spare-part-container").find(".spare-part-view").append("<br />" + appendVal);
-                console.log("1");
-            }
+            });
         });
     }
 
