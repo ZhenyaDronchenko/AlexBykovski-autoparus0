@@ -4,6 +4,8 @@
 {% block meta_description %}{{ page.description }}{% endblock %}
 
 {% block stylesheets %}
+<link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/catalog/auto/brand/only-in-stock.css'>
     <link rel='stylesheet' href='/css/catalog/auto/brand/integration.css'>
 {% endblock %}
@@ -47,6 +49,9 @@
 
 
         <section class="delivery">
+
+        {{ render(path('show_article_header_slider')) }}
+
             <h1 class="delivery-title">{{ page.headline1 }}</h1>
             <div class="delivery-dsc">
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
@@ -80,6 +85,28 @@
                 <li><a href="{{ path("show_brand_catalog_choice_city", {"urlBrand" : brand.url, "urlModel" : model.url, "urlSP" : sparePart.url}) }}"><img class="img-big" src="{{ image_url(sparePart.logo, "spare_part") }}" alt="{{ sparePart.alternativeName2 }}" title="{{ sparePart.alternativeName2 }} к {{ brand.brandEn }} {{ model.modelEn }}"></a></li>
                 <li><a href="{{ path("show_brand_catalog_in_stock", routeParams) }}"><img class="img-small" src="{{ city ? image_url(city.logo) : image_url(default_image(27).image) }}" alt="{{ city ? city.name : "Город" }}" title="{{ sparePart.alternativeName3 }} к {{ brand.brandEn }} {{ model.modelEn }} {{ city ? "в " ~ city.prepositional : "во всех городах" }}"></a></li>
             </ul>
+
+             <div class="article-wrapper">
+        <div class="article">
+            {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
+                {% set article = articleArray.object %}
+                <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="article-link--n">
+                    <h2 class="article-title add-three-dots-2-lines"><span>{{ article.headline1 }}</span></h2>
+                    <div class="article-foto">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                        <div class="article-block--n">
+                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                        </div>
+                    </div>
+
+                    <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+        <a href="/stati/news" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
+        </div>
+        
             <h2 class="delivery-subtitle">{{ page.headline2 }}</h2>
             <div class="delivery-text">{{ page.text2 | raw }}</div>
         </section>

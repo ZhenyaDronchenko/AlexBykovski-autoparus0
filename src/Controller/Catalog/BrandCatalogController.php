@@ -5,6 +5,9 @@ namespace App\Controller\Catalog;
 use App\Entity\Admin;
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
+use App\Entity\Article\Article;
+use App\Entity\Article\ArticleTheme;
+use App\Entity\Article\ArticleType;
 use App\Entity\Brand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceBrand;
 use App\Entity\Catalog\Brand\CatalogBrandChoiceCity;
@@ -20,6 +23,7 @@ use App\Entity\SparePart;
 use App\Provider\Integration\BamperSuggestionProvider;
 use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
+use App\Type\ArticleFilterType;
 use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -49,6 +53,7 @@ class BrandCatalogController extends Controller
             'allBrands' => $allBrands,
             'popularBrands' => $popularBrands,
             'page' => $em->getRepository(CatalogBrandChoiceBrand::class)->findAll()[0],
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -87,6 +92,7 @@ class BrandCatalogController extends Controller
             'page' => $transformer->transformPage($page, $transformParameters),
             'brand' => $brand,
             'parameters' => $transformParameters,
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -130,6 +136,7 @@ class BrandCatalogController extends Controller
             'brand' => $brand,
             'model' => $model,
             'parameters' => $transformParameters,
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -183,6 +190,7 @@ class BrandCatalogController extends Controller
         $bamberSuggestions = (count($specificAdverts) + count($generalAdverts)) ? [] : $suggestionProvider->provide($brand, $model, $sparePart, null, false);
 
         return $this->render('client/catalog/brand/choice-city.html.twig', [
+            'capitals' => [$capital],
             'regionalCities' => array_merge([$capital], $regionalCities),
             'otherCities' => $othersCities,
             'page' => $transformer->transformPage($page, $transformParameters),
@@ -193,6 +201,7 @@ class BrandCatalogController extends Controller
             'generalAdverts' => $generalAdverts,
             'bamberSuggestions' => $bamberSuggestions,
             'parameters' => $transformParameters,
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -241,6 +250,7 @@ class BrandCatalogController extends Controller
             'specificAdverts' => $specificAdverts,
             'generalAdverts' => $generalAdverts,
             'bamberSuggestions' => $bamberSuggestions,
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -290,6 +300,19 @@ class BrandCatalogController extends Controller
             'specificAdverts' => $specificAdverts,
             'generalAdverts' => $generalAdverts,
             'bamberSuggestions' => $bamberSuggestions,
+            'articles' => $this->getUpdatedArticles(),
         ]);
+    }
+
+    private function getUpdatedArticles()
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $newsTheme = $em->getRepository(ArticleTheme::class)->findOneBy(["url" => ArticleTheme::NEWS_THEME]);
+        $ourType = $em->getRepository(ArticleType::class)->findOneBy(["type" => ArticleType::OUR_UNIQUE_MATERIAL]);
+
+        return $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, [], [], [$ourType]));
     }
 }
