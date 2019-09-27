@@ -107,7 +107,7 @@
 
 .main-page {
   background: #f0f0f0;
-  padding: 0 20px;
+  padding: 5px 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
   margin-top: 0;
@@ -126,12 +126,13 @@
 }
 .block-left {
   padding: 20px 10px;
-  padding-top: 30px;
   width: 68%;
   background-color: #fff;
 }
 .block-right {
   width: 28%;
+  position: relative;
+  z-index: 100;
 }
 
 .block-cons {
@@ -357,12 +358,12 @@ p {
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    color: #000000;
-    background-color: #f2f2f2;
+    color: #444;
+    background-color: #dbc0c7;
 }
 .btn:hover,
 .btn:focus {
-    background-color: #cccccc;
+    background-color: #d2a2af;
 }
 
  .form7 {
@@ -468,7 +469,6 @@ figure img {
  .block-left {
     width: 100%;
    padding: 0;
-   margin-bottom: 40px;
 }
 
  .block-right {
@@ -527,7 +527,6 @@ figure {
  .block-left {
     width: 100%;
    padding: 0;
-   margin-bottom: 20px;
 }
  .block-right {
     width: 100%;
@@ -615,18 +614,20 @@ margin-bottom: 30px;
 }
 .comment-new {
   width: 95%;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 .comment-foto {
   width: 30px;
   height: 30px;
   margin-right: 15px;
   border-radius: 20px;
+  margin-bottom: 70px;
 }
 textarea {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 92%;
+    height: 100px;
     padding: 3px;
     padding-top: 5px;
     border: 1px solid #999999;
@@ -658,7 +659,7 @@ margin-bottom: 7px;
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    color: #000000;
+    color: #999999;
     background-color: transparent;
 }
 
@@ -734,13 +735,14 @@ flex-wrap: wrap;
   margin-bottom: 30px;
 }
 .comment-dsc {
-  margin: 0;
-    margin-bottom: 30px;
-    font-size: 16px;
+   margin: 0;
+  margin-bottom: 15px;
+  font-size: 16px;
     line-height: 18px;
     font-weight: 400;
     text-align: center;
     color: green;
+    padding: 20px 20px;
 }
 
 .comment-reg {
