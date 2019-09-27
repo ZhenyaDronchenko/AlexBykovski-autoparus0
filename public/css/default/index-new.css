@@ -34,8 +34,7 @@ display: -moz-flex;
   justify-content: space-between;
   z-index: 0;
 }
-
-.article-link {
+ .article-link {
   display: -moz-flex;
   display: -ms-flex;
   display: -o-flex;
@@ -54,9 +53,17 @@ display: -moz-flex;
           align-items: center;
 color: #000;
 border: 1px solid #e6e6e6;
-     width: 13.1%;
     padding-bottom: 3px;
     background-color: #f5f4f4;
+}
+
+
+.article-wrapper .article-link {
+     width: 13.1%;
+}
+
+.article .article-link {
+      width: 176px !important;
 }
 
 .article-link:hover,
@@ -145,6 +152,11 @@ height: 40px;
     bottom: 0;
 }
 
+.article .article-block {
+    right: 10px;
+    bottom: 50px;
+}
+
 
 .article-date {
   display: inline-block;
@@ -207,8 +219,14 @@ height: 40px;
       display: none;
     }
     
-.article-link {
-    width: 32%;
+
+
+.article-wrapper .article-link {
+     width: 32%;
+}
+
+.article .article-link {
+      width: 146px !important;
 }
 
 .article-title {
