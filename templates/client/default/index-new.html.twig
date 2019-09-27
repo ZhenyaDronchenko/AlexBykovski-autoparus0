@@ -5,7 +5,7 @@
 {% block stylesheets %}
     <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
     <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
-    <link rel='stylesheet' href='/css/default/index.css'>
+    <link rel='stylesheet' href='/css/default/index-new.css'>
 {% endblock %}
 
 {% block body %}
@@ -52,6 +52,8 @@
         </div>
         <a href="/stati/news" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
         </div>
+
+        {{ render(path('show_article_header_slider')) }}
 
         <div class="cont-inner">
           <ul class="content">
