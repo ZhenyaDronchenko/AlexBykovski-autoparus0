@@ -53,6 +53,8 @@
         <a href="/stati/news" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
         </div>
 
+        {{ render(path('show_article_header_slider')) }}
+
         <div class="cont-inner">
           <ul class="content">
               {% for articleArray in ourArticles[:3] %}
@@ -187,6 +189,26 @@
                     </div>
                 </a>
             {% endfor %}
+        </div>
+
+        <div class="article">
+            {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
+                {% set article = articleArray.object %}
+                <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="article-link">
+                    <h2 class="article-title add-three-dots-2-lines"><span>{{ article.headline1 }}</span></h2>
+                    <div class="article-foto">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                        <div class="article-block">
+                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                        </div>
+                    </div>
+
+                    <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+        <a href="/stati/news" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
         </div>
 
         <div class="cont-inner">
