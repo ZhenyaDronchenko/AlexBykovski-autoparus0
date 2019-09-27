@@ -114,7 +114,7 @@ $(document).ready(function(ev){
     });
 
     function handleSparePartView() {
-        $("#sp-list").ready(function () {
+        document.addEventListener('added-data-autocomplete-sp-list', function (e) {
             $.each($(".spare-part-text:visible"), function (index, item) {
                 let el = $(item);
                 let val = el.val();
@@ -134,7 +134,7 @@ $(document).ready(function(ev){
                     console.log("1");
                 }
             });
-        });
+        }, false);
     }
 
     function handleRemoveButtons() {

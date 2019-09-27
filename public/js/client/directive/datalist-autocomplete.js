@@ -28,7 +28,9 @@
                         if(!value.isRussian && !value.text){
                             el.append($(OPTION.replace("__value__", value.value)));
                         }
-                    })
+                    });
+
+                    document.dispatchEvent(new Event('added-data-autocomplete-' + el.attr("id")));
                 }
 
                 function loadData() {
