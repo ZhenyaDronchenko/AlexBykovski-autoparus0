@@ -114,27 +114,24 @@ $(document).ready(function(ev){
     });
 
     function handleSparePartView() {
-        document.addEventListener('added-data-autocomplete-sp-list', function (e) {
-            $.each($(".spare-part-text:visible"), function (index, item) {
-                let el = $(item);
-                let val = el.val();
+        $.each($(".spare-part-text:visible"), function (index, item) {
+            let el = $(item);
+            let val = el.val();
 
-                console.log(val);
-                console.log($("#sp-list option[value='" + val + "']"));
-                if($("#sp-list option[value='" + val + "']").length){
-                    el.hide();
+            console.log($("#sp-list").html());
+            if($("#sp-list option[value='" + val + "']").length){
+                el.hide();
 
-                    let appendVal = val.replace("(", "<br />(");
+                let appendVal = val.replace("(", "<br />(");
 
-                    if(appendVal.indexOf("(") > 0 && appendVal.indexOf(")") > 0){
-                        appendVal = appendVal.replace('(', "<span>(").replace(')', ")</span>")
-                    }
-
-                    el.parents(".spare-part-container").find(".spare-part-view").append("<br />" + appendVal);
-                    console.log("1");
+                if(appendVal.indexOf("(") > 0 && appendVal.indexOf(")") > 0){
+                    appendVal = appendVal.replace('(', "<span>(").replace(')', ")</span>")
                 }
-            });
-        }, false);
+
+                el.parents(".spare-part-container").find(".spare-part-view").append("<br />" + appendVal);
+                console.log("1");
+            }
+        });
     }
 
     function handleRemoveButtons() {
