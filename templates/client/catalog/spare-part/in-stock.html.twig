@@ -2,6 +2,10 @@
 {% block title %}{{ page.title }}{% endblock %}
 {% block meta_description %}{{ page.description }}{% endblock %}
 {% block stylesheets %}
+<link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+<link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.carousel.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
+    <link rel='stylesheet' href='/bower-components/owl.carousel/dist/assets/owl.theme.default.min.css'>
     <link rel='stylesheet' href='/css/client/catalog/spare-part/in-stock.css'>
     <link rel='stylesheet' href='/css/client/catalog/spare-part/show-adverts.css'>
 {% endblock %}
@@ -39,6 +43,9 @@
         </ul>
 
         <section class="year">
+
+         {{ render(path('show_article_header_slider')) }}
+
             <h1 class="year-title">{{ page.headline1 }}</h1>
             <div class='year-desc'>
                 <div id='text1' class='text1Hide'>{{ page.text1 | raw }}</div>
@@ -65,6 +72,33 @@
             {% if not hasOurAdverts and not hasBamberAdverts %}
                 <div class="text-item">{{ page.text3 | raw }}</div>
             {% endif %}
+
+            <div class="article-wrapper">
+        <div class="article">
+            {% for articleArray in articles|slice(0, (is_mobile() ? 3 : 7)) if articleArray.object.detail.themes | length > 0 %}
+                {% set article = articleArray.object %}
+                <a href="{{ path("article_catalog_show_article", {"id" : article.id}) }}" class="article-link--n">
+                    <h2 class="article-title add-three-dots-2-lines"><span>{{ article.headline1 }}</span></h2>
+                    <div class="article-foto">
+                        <img src="{{ image_url(article.mainArticleImage.imageThumbnail) }}" alt="Картинка">
+                        <div class="article-block--n">
+                            <span class="article-date">{{ article.updatedAt | date("d.m.Y") }}</span>
+                            <span class="article-time">{{ article.updatedAt | date("H:i") }}</span>
+                        </div>
+                    </div>
+
+                    <h3 class="article-subtitle add-three-dots-3-lines">{{ article.headline2 }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+        <a href="/stati/news" class="art-link">&gt;&gt;&gt;<span> Показать все новости </span>&gt;&gt;&gt;</a>
+        </div>
+
+            <h2 class='city-subtitle'>{{ page.headline2 }}</h2>
+            <div class='city-subtext'>{{ page.text2 | raw }}</div>
+        </section>
+    </main>
+
             <h2 class='year-subtitle'>{{ page.headline2 }}</h2>
             <div class='year-subtext'>{{ page.text2 | raw }}</div>
             <a href="{{ page.returnButtonLink }}"><button class="un-btn">{{ page.returnButtonText | raw }}</button></a>
@@ -77,6 +111,10 @@
 {% block javascripts %}
     <script src="/js/client/controller/catalog/integration-ads-controller.js"></script>
     <script src="/js/client/pages/catalog/seller-advert-actions.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/bower-components/owl.carousel/dist/owl.carousel.min.js'></script>
 {% endblock %}
 
 
