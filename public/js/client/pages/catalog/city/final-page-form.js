@@ -116,6 +116,7 @@ $(document).ready(function(ev){
     function handleSparePartView() {
         if(!($("#sp-list").html().trim())){
             let observer = new MutationObserver(function(mutations) {
+                observer.disconnect();
                 handleView();
             });
 // configuration of the observer:
@@ -133,7 +134,6 @@ $(document).ready(function(ev){
             let el = $(item);
             let val = el.val();
 
-            console.log($("#sp-list").html());
             if($("#sp-list option[value='" + val + "']").length){
                 el.hide();
 
@@ -144,7 +144,6 @@ $(document).ready(function(ev){
                 }
 
                 el.parents(".spare-part-container").find(".spare-part-view").append("<br />" + appendVal);
-                console.log("1");
             }
         });
     }
