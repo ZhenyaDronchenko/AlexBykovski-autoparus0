@@ -4,6 +4,9 @@ namespace App\Controller\Catalog;
 
 use App\Entity\Advert\AutoSparePart\AutoSparePartGeneralAdvert;
 use App\Entity\Advert\AutoSparePart\AutoSparePartSpecificAdvert;
+use App\Entity\Article\Article;
+use App\Entity\Article\ArticleTheme;
+use App\Entity\Article\ArticleType;
 use App\Entity\Brand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceBrand;
 use App\Entity\Catalog\SparePart\CatalogSparePartChoiceCity;
@@ -21,6 +24,7 @@ use App\Provider\Advert\SpecificAdvertProvider;
 use App\Provider\Integration\BamperSuggestionProvider;
 use App\Provider\TitleProvider;
 use App\Transformer\VariableTransformer;
+use App\Type\ArticleFilterType;
 use App\Type\CatalogAdvertFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -50,7 +54,8 @@ class SparePartCatalogController extends Controller
         return $this->render('client/catalog/spare-part/choice-spare-part.html.twig', [
             'allSpareParts' => $allSpareParts,
             'popularSpareParts' => $popularSpareParts,
-            'page' => $em->getRepository(CatalogSparePartChoiceSparePart::class)->findAll()[0]
+            'page' => $em->getRepository(CatalogSparePartChoiceSparePart::class)->findAll()[0],
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -81,6 +86,7 @@ class SparePartCatalogController extends Controller
             'popularBrands' => $popularBrands,
             'page' => $transformer->transformPage($page, [$sparePart]),
             'sparePart' => $sparePart,
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -117,6 +123,7 @@ class SparePartCatalogController extends Controller
             'page' => $transformer->transformPage($page, [$sparePart, $brand]),
             'brand' => $brand,
             'sparePart' => $sparePart,
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -190,6 +197,7 @@ class SparePartCatalogController extends Controller
             'generalAdverts' => $advertProvider->provideSortedGeneralAdverts($catalogFilter),
             'page' => $transformer->transformPage($page, $transformParameters),
             'allCitiesTitle' => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceInStock::class, $transformParameters),
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -257,6 +265,7 @@ class SparePartCatalogController extends Controller
             'generalAdverts' => $generalAdverts,
             'bamberSuggestions' => $bamberSuggestions,
             'choiceInStockTitle' => $titleProvider->getSinglePageTitle(CatalogSparePartChoiceFinalPage::class, $transformParameters),
+            'articles' => $this->getUpdatedArticles(),
         ]);
     }
 
@@ -322,6 +331,19 @@ class SparePartCatalogController extends Controller
             'specificAdverts' => $specificAdverts,
             'generalAdverts' => $generalAdverts,
             'bamberSuggestions' => $bamberSuggestions,
+            'articles' => $this->getUpdatedArticles(),
         ]);
+    }
+
+    private function getUpdatedArticles()
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $newsTheme = $em->getRepository(ArticleTheme::class)->findOneBy(["url" => ArticleTheme::NEWS_THEME]);
+        $ourType = $em->getRepository(ArticleType::class)->findOneBy(["type" => ArticleType::OUR_UNIQUE_MATERIAL]);
+
+        return $em->getRepository(Article::class)
+            ->findAllByFilter(new ArticleFilterType(ArticleFilterType::SORT_CREATED, [$newsTheme], 7, 0, [], [], [$ourType]));
     }
 }
