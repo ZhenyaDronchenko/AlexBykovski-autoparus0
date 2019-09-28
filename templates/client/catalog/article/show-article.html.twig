@@ -11,248 +11,106 @@
     {% set routeParams = app.request.attributes.get('_route_params') %}
     {% set route = app.request.attributes.get('_route') %}
 
-    <!-- <main class="container">
-      <section class="main-page">
-      <ul id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemprop="item" content="{{ url("homepage") }}" itemtype="https://schema.org/Thing"
-                   title="{{ title_provider("App\\Entity\\General\\MainPage") }}">
-                    <span class="user-name" itemprop="name">Главная</span>
-                    <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-                        <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "/>
-                        <polyline fill="none" stroke="#444" stroke-miterlimit="10"
-                                  points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "/>
-                    </svg>
-                </a>
-                <meta itemprop="position" content="1">
-            </li>
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item" content="{{ url("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing"
-                   title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
-                    <span class="line">/</span>
-                    <span itemprop="name">Публикации</span>
-                </a>
-                <meta itemprop="position" content="2">
-            </li>
-
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemprop="item" content="{{ url("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemtype="https://schema.org/Thing"
-                   title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : theme.url})}) }}">
-                    <span class="line">/</span>
-                    <span itemprop="name">{{ theme.theme }}</span>
-                </a>
-                <meta itemprop="position" content="3">
-            </li>
-
-
-            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                <a class="current" href="" itemprop="item" content="{{ url(route, routeParams) }}" itemtype="https://schema.org/Thing">
-                    <span class="line">/</span>
-                    <span itemprop="name">{{ article.headline1 }}</span>
-                </a>
-                <meta itemprop="position" content="4">
-            </li>
-        </ul>
-
-        <div class="news" itemscope itemtype="http://schema.org/Article">
-            <link itemprop="mainEntityOfPage" href="https://www.autoparus.by/">
-            <div class="wrapper">
-              <div class="block-left">
-                <meta itemprop="articleBody" content="{{ article.description }}">
-                <meta itemprop="datePublished" content="{{ article.createdAt | date("Y-m-d") }}">
-                <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
-                <meta itemprop="image" content="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}">
-                <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                  <meta itemprop="name" content="Автопарус">
-                  <meta itemprop="telephone" content="+375 (25) 640 - 22 - 40">
-                  <meta itemprop="address" content="Минск">
-                  <span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
-                      <span itemprop="url" content="{{ url("homepage") }}"></span>
-                      <span itemprop="image" content="{{ url("homepage")|trim('/') }}{{ attribute(article.creator, 'photo') is defined ? image_url(article.creator.photo.image, "user") : image_url(null, "user") }}" style="display:none;"></span>
-                    <meta itemprop="width" content="60">
-                    <meta itemprop="height" content="60">
-                  </span>
-                </span>
-                <h1 itemprop="headline name">{{ article.headline1 }}</h1>
-                <h2 class="news-title" itemprop="alternativeHeadline">{{ article.headline2 }}</h2>
-
-                  <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-                        <p><img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image"></p>
-                        <figcaption>
-                            {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
-                            <span itemprop="name" content="{{ article.author }}">Автор: {{ article.author }}</span>
-                        </figcaption>
-                    </figure>
-
-                  <p itemprop="description">{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
-
-                  <ul class="foto" itemprop="articleBody">
-                    {% for articleImage in article.articleImages %}
-                      <li class="foto-item">
-                          <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
-                          <p class="foto-text">{{ articleImage.text | raw }}</p>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                  {% include('/client/catalog/article/part/comments.html.twig') %}
-                </div>
-
-                <div class="block-right">
-                  <div class="block-cons">
-                    <h2 class="block-ttl">Заказать Консультацию о покупке авто из США</h2>
-                    <input type="text"  placeholder="Ваше имя" class="input" pattern="[a-zA-Zа-яА-Я\s]">
-                    <input type="tel"  required="required" placeholder="Ваш телефон" class="input">
-                    <input type="email" placeholder="Ваш e-mail" class="input">
-                    <button type="submit" class="btn">Отправить заявку</button>
-                   
-                    <h3>{{ default_text(48).headline }}</h3>
-                    <div>{{ default_text(48).text | raw }}</div>
-                  </div>
-                  <div class="block-part">
-                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти по марке", "nullOption" : "Марка авто:", "options" : brands, "link" : path("show_brand_catalog_choice_model", {"urlBrand" : "__link__"}), "bannerIndex" : 0} %}
-                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "OBD2 форум", "nullOption" : "Марка авто:", "options" : brands, "link" : path("obd2_forum_choice_type", {"urlBrand" : "__link__"}), "bannerIndex" : 1} %}
-                      {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Поиск по наименованию", "nullOption" : "Запчасть:", "options" : spareParts, "link" : path("show_spare_part_catalog_choice_brand", {"urlSP" : "__link__"}), "bannerIndex" : 3} %}
-
-                      {% set bannerIndex = 4 %}
-                      {% for banner in article.banners[4:] %}
-                          {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "", "nullOption" : "", "options" : [], "link" : '', "bannerIndex" : bannerIndex} %}
-                          {% set bannerIndex = bannerIndex + 1 %}
-                      {% endfor %}
-                  </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main> -->
-
-<main class="container">
-            <section class="main-page">
-                <ul id="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a class="user-link user-link--icon" href="https://www.autoparus.by/" itemprop="item" content="https://www.autoparus.by/" itemtype="https://schema.org/Thing" title="Автопарус - портал для водителей">
-                            <span class="user-name" itemprop="name">Главная</span>
-                            <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
-                                <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "></polyline>
-                                <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "></polyline>
-                            </svg>
-                        </a>
-                        <meta itemprop="position" content="1">
-                    </li>
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a class="link-b" href="https://www.autoparus.by/stati" itemprop="item" content="https://www.autoparus.by/stati" itemtype="https://schema.org/Thing" title="Лента публикаций Autoparus.by, Auto parus buy">
-                            <span class="line">/</span>
-                            <span itemprop="name">Публикации</span>
-                        </a>
-                        <meta itemprop="position" content="2">
-                    </li>
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a class="link-b" href="https://www.autoparus.by/stati/auto" itemprop="item" content="https://www.autoparus.by/stati/auto" itemtype="https://schema.org/Thing" title="Лента публикаций по теме Автомобили на Autoparus.by, Auto parts buy">
-                            <span class="line">/</span>
-                            <span itemprop="name">Автомобили</span>
-                        </a>
-                        <meta itemprop="position" content="3">
-                    </li>
-                    <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <a class="current" href="https://www.autoparus.by/publication/571" itemprop="item" content="https://www.autoparus.by/publication/571" itemtype="https://schema.org/Thing">
-                            <span class="line">/</span>
-                            <span itemprop="name">Нужен ли гараж в городе: плюсы и минусы</span>
-                        </a>
-                        <meta itemprop="position" content="4">
-                    </li>
-                </ul>
+    <main class="container">
+        <section class="main-page">
+            <ul id="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a class="user-link user-link--icon" href="{{ path("homepage") }}" itemprop="item" content="{{ url("homepage") }}" itemtype="https://schema.org/Thing" title="{{ title_provider("App\\Entity\\General\\MainPage") }}">
+                        <span class="user-name" itemprop="name">Главная</span>
+                        <svg class="user-icon" x="0px" y="0px" viewBox="0 0 16 16" width="20px" height="20px">
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="1,8.5 8,2 15,8.5 "></polyline>
+                            <polyline fill="none" stroke="#444" stroke-miterlimit="10" points="2.5,7 2.5,13.5 6.5,13.5 6.5,8.5 9.5,8.5 9.5,13.5   13.5,13.5 13.5,7 "></polyline>
+                        </svg>
+                    </a>
+                    <meta itemprop="position" content="1">
+                </li>
+                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("article_catalog_choice_theme") }}" itemprop="item" content="{{ path("article_catalog_choice_theme") }}" itemtype="https://schema.org/Thing" title="{{ title_provider({"link" : path("article_catalog_choice_theme")}) }}">
+                        <span class="line">/</span>
+                        <span itemprop="name">Публикации</span>
+                    </a>
+                    <meta itemprop="position" content="2">
+                </li>
+                <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                    <a class="link-b" href="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemprop="item" content="{{ path("article_catalog_choice_article", {"urlTheme" : theme.url}) }}" itemtype="https://schema.org/Thing" title="{{ title_provider({"link" : path("article_catalog_choice_article", {"urlTheme" : theme.url})}) }}">
+                        <span class="line">/</span>
+                        <span itemprop="name">{{ theme.theme }}</span>
+                    </a>
+                    <meta itemprop="position" content="3">
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                    <a class="current" href="" itemprop="item" content="{{ url(route, routeParams) }}" itemtype="https://schema.org/Thing">
+                        <span class="line">/</span>
+                        <span itemprop="name">{{ article.headline1 }}</span>
+                    </a>
+                    <meta itemprop="position" content="4">
+                </li>
+            </ul>
 
         
         <div class="news" itemscope="" itemtype="http://schema.org/Article">
             <link itemprop="mainEntityOfPage" href="https://www.autoparus.by/">
                 <div class="wrapper">
                     <div class="block-left">
-                        <meta itemprop="articleBody" content="Сегодня, если гаражный кооператив находиться не под самым домом, а автомобиль необходим ежедневно, вряд ли владелец будет жертвовать несколькими часами в день, чтобы загнать или взять автомобиль из гаража.">
-                        <meta itemprop="datePublished" content="2019-09-19">
-                        <meta itemprop="dateModified" content="2019-09-19">
-                        <meta itemprop="image" content="/images/article/2019/09/5d835b08bbc86.png">
+                        <meta itemprop="articleBody" content="{{ article.description }}">
+                        <meta itemprop="datePublished" content="{{ article.createdAt | date("Y-m-d") }}">
+                        <meta itemprop="dateModified" content="{{ article.updatedAt | date("Y-m-d") }}">
+                        <meta itemprop="image" content="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}">
                         <span itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
                             <meta itemprop="name" content="Автопарус">
                             <meta itemprop="telephone" content="+375 (25) 640 - 22 - 40">
                             <meta itemprop="address" content="Минск">
                             <span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
-                                <span itemprop="url" content="https://www.autoparus.by/"></span>
-                                <span itemprop="image" content="https://www.autoparus.by/images/default/2018/10/5bc5f99e2584d.jpg?2" style="display:none;"></span>
+                                <span itemprop="url" content="{{ url("homepage") }}"></span>
+                                <span itemprop="image" content="{{ url("homepage")|trim('/') }}{{ attribute(article.creator, 'photo') is defined ? image_url(article.creator.photo.image, "user") : image_url(null, "user") }}" style="display:none;"></span>
                                 <meta itemprop="width" content="60">
                                 <meta itemprop="height" content="60">
                             </span>
                         </span>
-                        <h1 itemprop="headline name">Нужен ли гараж в городе: плюсы и минусы</h1>
-                        <h2 class="news-title" itemprop="alternativeHeadline">А может правильнее оставлять автомобиль во дворе?</h2>
+                        <h1 itemprop="headline name">{{ article.headline1 }}</h1>
+                        <h2 class="news-title" itemprop="alternativeHeadline">{{ article.headline2 }}</h2>
                         <figure itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-                            <p><img src="img/5d835b08bbc86.png" alt="Фото статьи" itemprop="image"></p>
+                            <p>
+                                <img src="{{ article.mainArticleImage and article.mainArticleImage.image ? image_url(article.mainArticleImage.image) : "" }}" alt="Фото статьи" itemprop="image">
+                            </p>
                             <figcaption class="awd1">
-                                Фото: abw.by
-                                <span itemprop="name" content="Дмитрий Летов">Автор: Дмитрий Летов</span>
+                                {{ article.mainArticleImage ? article.mainArticleImage.comment : "" }}
+                                <span itemprop="name" content="{{ article.author }}">Автор: {{ article.author }}</span>
                             </figcaption>
                         </figure>
-                        <p itemprop="description"></p><p>25-30 лет назад необходимости объяснять автовладельцам преимущества хранения автомобиля в гараже просто не было. Загнать авто под крышу означало сохранить кузов и другие элементы подверженные погодным условиям более длительное время из-за не самого высокого качества. Да и играло чисто человеческое: гараж считался престижем среди автовладельцев, потому что стояли они, как и сами авто – немало. Сегодня, если гаражный кооператив находиться не под самым домом, а автомобиль необходим ежедневно, вряд ли владелец будет жертвовать несколькими часами в день, чтобы загнать или взять автомобиль из гаража. «Автопарус» решил поговорить с автоэкспертом Евгением Лебедевым и прямо спросить, нужен ли сегодня гараж городскому жителю.</p><p></p>
+                        <p itemprop="description"></p>
+                        <p>{{ article.mainArticleImage ? article.mainArticleImage.text | raw : "" }}</p>
                         <ul class="foto" itemprop="articleBody">
-                            <li class="foto-item">
-                            <img src="img/5d835c4c729ba.png" alt="Изображение статьи">
-                            <p class="foto-text"></p><p><strong>– Может быть стремление оставить автомобиль под крышей и замком – мышечная память и защитная реакция из 90-х? Насколько знаю, в то время хулиганы очень часто повреждали, разбивали и угоняли автомобили, оставленные во дворе, но ведь сегодня ситуация изменилась.</strong></p>
-                            <p>&nbsp;</p>
-                            <p>– Да, ситуация изменилась кардинально. Во-первых, появились разного рода страховки от повреждений и угона автомобиля, в том числе и КАСКО, которая покрывает полную стоимость нанесенного ущерба. Во-вторых, сами люди стали осознаннее и в большинстве своем им неинтересно портить чужое имущество. Конечно, остались и те, кто до сих пор хочет напакостить таким образом, но они прекрасно понимают, что скорее всего их найдут за считанные минуты. Сегодня ситуации с повреждением автомобилей крайне редко остаются безнаказанными. В конце концов практически у каждого есть видеорегистратор, во многих дворах установлены камеры видеонаблюдения и другие средства пассивной защиты, которые помогают правоохранительным органам быстро найти злоумышленника.</p>
-                            <p>&nbsp;</p>
-                            <p><strong>– Дефицит парковочных мест только растет и логичнее оставлять автомобиль в собственном гараже, а не часами выискивать место во дворе. Почему сегодня гараж перестал пользоваться такой популярностью, как раньше?</strong></p>
-                            <p>&nbsp;</p>
-                            <p>– Как правило, гаражные кооперативы находятся не в шаговой доступности, а современный мир так устроен, что если уж у человека есть автомобиль, то он ездит регулярно: на работу и с работы, на встречу, в гипермаркет, за город на выходных. И тут возникает вопрос, что лучше: потратить 20-30 минут на поиск парковочного места в близости дома или столько же, а то и больше времени на проезд к гаражу? Причем от гаража потом еще придется добираться до дома на своих двоих. Дефицит парковочных мест может решить только тот гараж, который находится в непосредственной близости. Ну и, если взять совсем старые времена, то автомобиль был некой роскошью, его старались не эксплуатировать как сейчас (ежедневно и в любой ситуации), а брали в случаях реальной необходимости. То есть, престиж гаража раньше состоял не только в том, что он есть, но и также в необходимости сберечь автомобиль, который не каждому по карману.</p><p></p>
+                            {% for articleImage in article.articleImages %}
+                                <li class="foto-item">
+                                    <img src="{{ articleImage.image ? image_url(articleImage.image) : "" }}" alt="Изображение статьи">
+                                    <p class="foto-text">{{ articleImage.text | raw }}</p>
+                                </li>
+                            {% endfor %}
                         </ul>
-                        <section class="comment ng-scope" ng-controller="ArticleCommentCtrl as artComm" ng-init="artComm.init(&#39;571&#39;)">
-                            <h4 class="comment-tittle">Комментарии <span ng-bind="artComm.count" class="ng-binding">0</span></h4>
-
-                            <!-- ngRepeat: (id, comment) in artComm.comments -->
-                                <div class="comment-new">
-                                    <div class="comment-user">
-                                        <img class="comment-foto" alt="Фото" src="img/5bc5f99e2584d.jpg">
-                                        <textarea rows="1" placeholder="Новый комментарий:" ng-model="artComm.commentText[&#39;new&#39;]" class="ng-pristine ng-untouched ng-valid ng-empty"></textarea>
-                                    </div>
-                                    <button type="button" class="comment-btn comment-btn--c" ng-click="artComm.sendComment(&#39;new&#39;)">Отправить</button>
-                                </div>
-                                <div id="show-buttons-auth" style="display: none">
-                                    <p class="comment-dsc">В соответствии с законодательством Республики Беларусь оставлять комментарии могут только зарегистрированные пользователи</p>
-                                    <div class="comment-reg">
-                                        <a class="comment-btn comment-btn-" target="_blank" href="https://www.autoparus.by/login">Вход</a>
-                                        <a class="comment-btn" target="_blank" href="https://www.autoparus.by/registration">Регистрация</a>
-                                    </div>
-                                </div>
-                        </section>
+                        {% include('/client/catalog/article/part/comments.html.twig') %}
                     </div>
                     <div class="block-right">
-                    <div class="block-cons">
-                        <h2 class="block-ttl">Заказать Консультацию о покупке авто из США</h2>
-                        <input type="text" placeholder="Ваше имя" class="input" pattern="[a-zA-Zа-яА-Я\s]">
-                        <input type="tel" required="required" placeholder="Ваш телефон" class="input">
-                        <input type="email" placeholder="Ваш e-mail" class="input">
-                        <button type="submit" class="btn">Отправить заявку</button>
-                        <h3>Консультация о покупке автомобиля из США</h3>
-                        <div><p style="text-align:center">&nbsp;</p>
-                            <p style="text-align:center">Сегодня консультацию можно получить по телефону:</p>
-                            <p style="text-align:center">&nbsp;</p>
-                            <p style="text-align:center"><span style="color:#3498db"><span style="font-size:20px">+375 (29) 170-70-01</span></span></p>
-                            <p style="text-align:center">&nbsp;</p>
-                            <p style="text-align:center">Консультация абсолютно бесплатная и не к чему не обязывает.&nbsp;Даже если Вы не уверены в том,&nbsp;нужно Вам это или нет, не стесняйтесь и обращайтесь к нам. Мы все&nbsp;подробно объясним, расскажем о подводных камнях и тонкостях, дадим консультацию по ремонту, а итоговое решение будет за Вами.</p></div>
-                    </div>
-                    <div class="block-part">
-                        <h2>Автозапчасти по марке</h2>
-                        <form class="modform ng-pristine ng-valid">
-                            <select class="form7" onchange="window.location.replace(this.options[this.selectedIndex].value)">
-                                <option selected="" value="Марка авто:">Марка авто:</option>
-                                <option value="/brand-catalog/acura">ACURA</option>
-                               
-                            </select>
-                        </form>                      
-                        <h2>Поиск по наименованию</h2>
-                            <form class="modform ng-pristine ng-valid">
-                                <select class="form7" onchange="window.location.replace(this.options[this.selectedIndex].value)">
-                                    <option selected="" value="Запчасть:">Запчасть:</option>
-                                    <option value="/zapchasti/android_multimedia">Android автомагнитола (TV мультимедиа, навигация)</option>
-                                </select>
-                            </form>
+                        <div class="block-cons">
+                            <h2 class="block-ttl">Заказать Консультацию о покупке авто из США</h2>
+                            <input type="text"  placeholder="Ваше имя" class="input" pattern="[a-zA-Zа-яА-Я\s]">
+                            <input type="tel"  required="required" placeholder="Ваш телефон" class="input">
+                            <input type="email" placeholder="Ваш e-mail" class="input">
+                            <button type="submit" class="btn">Отправить заявку</button>
+
+                            <h3>{{ default_text(48).headline }}</h3>
+                            <div>{{ default_text(48).text | raw }}</div>
+                        </div>
+                        <div class="block-part">
+                            {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Автозапчасти по марке", "nullOption" : "Марка авто:", "options" : brands, "link" : path("show_brand_catalog_choice_model", {"urlBrand" : "__link__"}), "bannerIndex" : 0} %}
+                            {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "OBD2 форум", "nullOption" : "Марка авто:", "options" : brands, "link" : path("obd2_forum_choice_type", {"urlBrand" : "__link__"}), "bannerIndex" : 1} %}
+                            {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "Поиск по наименованию", "nullOption" : "Запчасть:", "options" : spareParts, "link" : path("show_spare_part_catalog_choice_brand", {"urlSP" : "__link__"}), "bannerIndex" : 3} %}
+
+                            {% set bannerIndex = 4 %}
+                            {% for banner in article.banners[4:] %}
+                                {% include('/client/catalog/article/part/select-banner.html.twig') with {"selectHeadline" : "", "nullOption" : "", "options" : [], "link" : '', "bannerIndex" : bannerIndex} %}
+                                {% set bannerIndex = bannerIndex + 1 %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
