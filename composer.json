@@ -40,7 +40,7 @@
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/twig-bridge": "4.2.8",
         "symfony/yaml": "*",
-        "twig/twig": "2.10"
+        "twig/twig": "2.14.11"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.6",
